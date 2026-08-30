@@ -221,6 +221,22 @@ verifyOtp.addEventListener("click", async () => {
   }
 });
 </script>
+<!-- Member Login -->
+<div id="login-box" style="max-width:400px;margin:30px auto;padding:20px;text-align:center;background:white;border-radius:15px;">
+  <h2>Member Login</h2>
+  <p>Enter your phone number</p>
+
+  <input id="phone" type="tel" placeholder="+91XXXXXXXXXX"
+    style="width:100%;padding:12px;margin:10px 0;">
+
+  <div id="recaptcha-container"></div>
+
+  <button id="sendOtp" style="padding:12px 20px;">
+    Send OTP
+  </button>
+
+  <p id="message"></p>
+</div>
 
 </body>
 </html>
