@@ -6,181 +6,39 @@
 <title>JSP TAYSU | Tai Ahom Youth & Students Union</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background: #f7f3ea;
-  color: #202020;
-  line-height: 1.6;
-}
-
-header {
-  background: #151515;
-  color: white;
-  padding: 18px 20px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.nav {
-  max-width: 1100px;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-  margin-left: 15px;
-  font-size: 14px;
-}
-
-.hero {
-  min-height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 40px 20px;
-  background: linear-gradient(135deg, #f7f3ea, #ded6c5);
-}
-
-.hero-content {
-  max-width: 750px;
-}
-
-.badge {
-  display: inline-block;
-  background: #151515;
-  color: white;
-  padding: 7px 14px;
-  border-radius: 30px;
-  font-size: 13px;
-  margin-bottom: 18px;
-}
-
-h1 {
-  font-size: clamp(40px, 10vw, 72px);
-  margin-bottom: 10px;
-}
-
-.hero h2 {
-  font-size: clamp(20px, 5vw, 32px);
-  margin-bottom: 18px;
-}
-
-.hero p {
-  max-width: 600px;
-  margin: auto;
-  color: #555;
-}
-
-.buttons {
-  margin-top: 28px;
-}
-
-.btn {
-  display: inline-block;
-  padding: 12px 20px;
-  margin: 5px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: bold;
-  background: #151515;
-  color: white;
-}
-
-.btn.secondary {
-  background: transparent;
-  color: #151515;
-  border: 2px solid #151515;
-}
-
-section {
-  max-width: 1100px;
-  margin: auto;
-  padding: 70px 20px;
-}
-
-.section-title {
-  text-align: center;
-  margin-bottom: 35px;
-}
-
-.section-title h2 {
-  font-size: 34px;
-  margin-bottom: 8px;
-}
-
-.section-title p {
-  color: #666;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 18px;
-}
-
-.card {
-  background: white;
-  padding: 25px;
-  border-radius: 18px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-}
-
-.card h3 {
-  margin-bottom: 10px;
-}
-
-.card p {
-  color: #666;
-  font-size: 15px;
-}
-
-.join {
-  background: #151515;
-  color: white;
-  text-align: center;
-  max-width: none;
-}
-
-.join p {
-  max-width: 600px;
-  margin: 10px auto 20px;
-  color: #ccc;
-}
-
-footer {
-  background: #0d0d0d;
-  color: #aaa;
-  text-align: center;
-  padding: 25px 15px;
-  font-size: 13px;
-}
-
-@media (max-width: 650px) {
-  nav a {
-    margin-left: 7px;
-    font-size: 12px;
-  }
-
-  .logo {
-    font-size: 16px;
-  }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f7f3ea;color:#202020;line-height:1.6}
+header{background:#151515;color:white;padding:18px 20px;position:sticky;top:0;z-index:10}
+.nav{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:20px;font-weight:bold}
+nav a{color:white;text-decoration:none;margin-left:15px;font-size:14px}
+.hero{min-height:78vh;display:flex;justify-content:center;align-items:center;text-align:center;padding:40px 20px;background:linear-gradient(135deg,#f7f3ea,#ded6c5)}
+.hero-content{max-width:750px}
+.badge{display:inline-block;background:#151515;color:white;padding:7px 14px;border-radius:30px;font-size:13px;margin-bottom:18px}
+h1{font-size:clamp(40px,10vw,72px);margin-bottom:10px}
+.hero h2{font-size:clamp(20px,5vw,32px);margin-bottom:18px}
+.hero p{max-width:600px;margin:auto;color:#555}
+.buttons{margin-top:28px}
+.btn{display:inline-block;padding:12px 20px;margin:5px;border:0;border-radius:30px;text-decoration:none;font-weight:bold;background:#151515;color:white;cursor:pointer}
+.btn.secondary{background:transparent;color:#151515;border:2px solid #151515}
+section{max-width:1100px;margin:auto;padding:70px 20px}
+.section-title{text-align:center;margin-bottom:35px}
+.section-title h2{font-size:34px}
+.section-title p{color:#666}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:white;padding:25px;border-radius:18px;box-shadow:0 8px 25px rgba(0,0,0,.08)}
+.card h3{margin-bottom:10px}
+.card p{color:#666;font-size:15px}
+.login{background:white;max-width:500px;margin:50px auto;padding:30px 20px;border-radius:20px;box-shadow:0 8px 25px rgba(0,0,0,.08);text-align:center}
+.login input{width:100%;padding:13px;margin:8px 0;border:1px solid #ccc;border-radius:10px;font-size:16px}
+#otpArea{display:none}
+#loginMessage{margin-top:12px;font-size:14px}
+.join{background:#151515;color:white;text-align:center;max-width:none}
+.join p{max-width:600px;margin:10px auto 20px;color:#ccc}
+footer{background:#0d0d0d;color:#aaa;text-align:center;padding:25px 15px;font-size:13px}
+@media(max-width:650px){
+nav a{margin-left:7px;font-size:12px}
+.logo{font-size:16px}
 }
 </style>
 </head>
@@ -188,97 +46,181 @@ footer {
 <body>
 
 <header>
-  <div class="nav">
-    <div class="logo">🐉 JSP TAYSU</div>
-
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#culture">Culture</a>
-      <a href="#join">Join</a>
-    </nav>
-  </div>
+<div class="nav">
+<div class="logo">🐉 JSP TAYSU</div>
+<nav>
+<a href="#home">Home</a>
+<a href="#culture">Culture</a>
+<a href="#login">Login</a>
+</nav>
+</div>
 </header>
 
-<main>
-
 <section class="hero" id="home">
-  <div class="hero-content">
-
-    <span class="badge">TAI AHOM YOUTH & STUDENTS UNION</span>
-
-    <h1>Jaa Sing Pha</h1>
-
-    <h2>Our Roots. Our Heritage. Our Future.</h2>
-
-    <p>
-      A youth-driven community working together to preserve,
-      learn and celebrate Tai Ahom culture, language and heritage.
-    </p>
-
-    <div class="buttons">
-      <a class="btn" href="#join">Join Our Community</a>
-      <a class="btn secondary" href="#culture">Explore Culture</a>
-    </div>
-
-  </div>
+<div class="hero-content">
+<span class="badge">TAI AHOM YOUTH & STUDENTS UNION</span>
+<h1>Jaa Sing Pha</h1>
+<h2>Our Roots. Our Heritage. Our Future.</h2>
+<p>
+A youth-driven community working together to preserve,
+learn and celebrate Tai Ahom culture, language and heritage.
+</p>
+<div class="buttons">
+<a class="btn" href="#login">Join Our Community</a>
+<a class="btn secondary" href="#culture">Explore Culture</a>
+</div>
+</div>
 </section>
 
 <section id="culture">
+<div class="section-title">
+<h2>Our Heritage</h2>
+<p>Learn. Preserve. Pass it on.</p>
+</div>
 
-  <div class="section-title">
-    <h2>Our Heritage</h2>
-    <p>Learn. Preserve. Pass it on.</p>
-  </div>
+<div class="cards">
+<div class="card">
+<h3>🐉 Tai Ahom Heritage</h3>
+<p>Discover the history, traditions and heritage of the Tai Ahom community.</p>
+</div>
 
-  <div class="cards">
+<div class="card">
+<h3>📖 Language & Knowledge</h3>
+<p>Encourage younger generations to learn about Tai Ahom language, literature and traditional knowledge.</p>
+</div>
 
-    <div class="card">
-      <h3>🐉 Tai Ahom Heritage</h3>
-      <p>
-        Discover the history, traditions and heritage of the Tai Ahom community.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>📖 Language & Knowledge</h3>
-      <p>
-        Encourage younger generations to learn about Tai Ahom language,
-        literature and traditional knowledge.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>🤝 Youth Together</h3>
-      <p>
-        Bringing students and young people together to protect and promote
-        our cultural heritage.
-      </p>
-    </div>
-
-  </div>
-
+<div class="card">
+<h3>🤝 Youth Together</h3>
+<p>Bringing students and young people together to protect and promote our cultural heritage.</p>
+</div>
+</div>
 </section>
 
-<section class="join" id="join">
+<section id="login">
+<div class="login">
+<h2>Member Login</h2>
+<p>Login using your phone number.</p>
 
-  <h2>Be Part of the Movement</h2>
+<input id="phone" type="tel" placeholder="+91XXXXXXXXXX">
 
-  <p>
-    Our heritage survives when the next generation chooses to learn,
-    remember and carry it forward.
-  </p>
+<div id="recaptcha-container"></div>
 
-  <a class="btn" href="javascript:void(0)">
-    Member Login
-  </a>
+<button class="btn" id="sendOtp">Send OTP</button>
 
+<div id="otpArea">
+<input id="otp" type="text" placeholder="Enter OTP">
+<button class="btn" id="verifyOtp">Verify OTP</button>
+</div>
+
+<p id="loginMessage"></p>
+</div>
 </section>
 
-</main>
+<section class="join">
+<h2>Be Part of the Movement</h2>
+<p>
+Our heritage survives when the next generation chooses to learn,
+remember and carry it forward.
+</p>
+</section>
 
 <footer>
-  © 2026 Jaa Sing Pha — Tai Ahom Youth & Students Union
+© 2026 Jaa Sing Pha — Tai Ahom Youth & Students Union
 </footer>
+
+<!-- Firebase -->
+<script type="module">
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getAuth,
+  RecaptchaVerifier,
+  signInWithPhoneNumber
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+/*
+====================================================
+PASTE YOUR FIREBASE CONFIG HERE
+====================================================
+Replace ONLY the values inside the quotes.
+Get them from:
+Firebase Console → Project Settings → Your apps → Web app → Config
+====================================================
+*/
+
+const firebaseConfig = {
+  apiKey: "PASTE_YOUR_API_KEY_HERE",
+  authDomain: "PASTE_YOUR_AUTH_DOMAIN_HERE",
+  projectId: "PASTE_YOUR_PROJECT_ID_HERE",
+  storageBucket: "PASTE_YOUR_STORAGE_BUCKET_HERE",
+  messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID_HERE",
+  appId: "PASTE_YOUR_APP_ID_HERE"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const phoneInput = document.getElementById("phone");
+const sendOtp = document.getElementById("sendOtp");
+const otpArea = document.getElementById("otpArea");
+const otpInput = document.getElementById("otp");
+const verifyOtp = document.getElementById("verifyOtp");
+const message = document.getElementById("loginMessage");
+
+window.recaptchaVerifier = new RecaptchaVerifier(
+  auth,
+  "recaptcha-container",
+  {
+    size: "normal"
+  }
+);
+
+let confirmationResult;
+
+sendOtp.addEventListener("click", async () => {
+  const phoneNumber = phoneInput.value.trim();
+
+  if (!phoneNumber) {
+    message.textContent = "Please enter your phone number.";
+    return;
+  }
+
+  try {
+    message.textContent = "Sending OTP...";
+
+    confirmationResult = await signInWithPhoneNumber(
+      auth,
+      phoneNumber,
+      window.recaptchaVerifier
+    );
+
+    otpArea.style.display = "block";
+    message.textContent = "OTP sent successfully.";
+  } catch (error) {
+    console.error(error);
+    message.textContent = "Could not send OTP. Please check your number.";
+  }
+});
+
+verifyOtp.addEventListener("click", async () => {
+  const code = otpInput.value.trim();
+
+  if (!code) {
+    message.textContent = "Please enter the OTP.";
+    return;
+  }
+
+  try {
+    await confirmationResult.confirm(code);
+    message.textContent = "Login successful! Welcome to JSP TAYSU.";
+  } catch (error) {
+    console.error(error);
+    message.textContent = "Invalid OTP. Please try again.";
+  }
+});
+</script>
 
 </body>
 </html>
