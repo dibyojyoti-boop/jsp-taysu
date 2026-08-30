@@ -151,12 +151,12 @@ Firebase Console → Project Settings → Your apps → Web app → Config
 */
 
 const firebaseConfig = {
-  apiKey: "PASTE_YOUR_API_KEY_HERE",
-  authDomain: "PASTE_YOUR_AUTH_DOMAIN_HERE",
-  projectId: "PASTE_YOUR_PROJECT_ID_HERE",
-  storageBucket: "PASTE_YOUR_STORAGE_BUCKET_HERE",
-  messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID_HERE",
-  appId: "PASTE_YOUR_APP_ID_HERE"
+  apiKey: "AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
+  authDomain: "jsp-taysu.firebaseapp.com",
+  projectId: "jsp-taysu",
+  storageBucket: "jsp-taysu.firebasestorage.app",
+  messagingSenderId: "280992025632",
+  appId: "1:280992025632:web:48efa21208a78be9a78045"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -170,73 +170,3 @@ const verifyOtp = document.getElementById("verifyOtp");
 const message = document.getElementById("loginMessage");
 
 window.recaptchaVerifier = new RecaptchaVerifier(
-  auth,
-  "recaptcha-container",
-  {
-    size: "normal"
-  }
-);
-
-let confirmationResult;
-
-sendOtp.addEventListener("click", async () => {
-  const phoneNumber = phoneInput.value.trim();
-
-  if (!phoneNumber) {
-    message.textContent = "Please enter your phone number.";
-    return;
-  }
-
-  try {
-    message.textContent = "Sending OTP...";
-
-    confirmationResult = await signInWithPhoneNumber(
-      auth,
-      phoneNumber,
-      window.recaptchaVerifier
-    );
-
-    otpArea.style.display = "block";
-    message.textContent = "OTP sent successfully.";
-  } catch (error) {
-    console.error(error);
-    message.textContent = "Could not send OTP. Please check your number.";
-  }
-});
-
-verifyOtp.addEventListener("click", async () => {
-  const code = otpInput.value.trim();
-
-  if (!code) {
-    message.textContent = "Please enter the OTP.";
-    return;
-  }
-
-  try {
-    await confirmationResult.confirm(code);
-    message.textContent = "Login successful! Welcome to JSP TAYSU.";
-  } catch (error) {
-    console.error(error);
-    message.textContent = "Invalid OTP. Please try again.";
-  }
-});
-</script>
-<!-- Member Login -->
-<div id="login-box" style="max-width:400px;margin:30px auto;padding:20px;text-align:center;background:white;border-radius:15px;">
-  <h2>Member Login</h2>
-  <p>Enter your phone number</p>
-
-  <input id="phone" type="tel" placeholder="+91XXXXXXXXXX"
-    style="width:100%;padding:12px;margin:10px 0;">
-
-  <div id="recaptcha-container"></div>
-
-  <button id="sendOtp" style="padding:12px 20px;">
-    Send OTP
-  </button>
-
-  <p id="message"></p>
-</div>
-
-</body>
-</html>
