@@ -486,7 +486,7 @@ initializeApp(firebaseConfig);
 
 const auth =
 getAuth(app);
-
+console.log("Community currentUser:", auth.currentUser);
 
 
 const db = getFirestore(app);
