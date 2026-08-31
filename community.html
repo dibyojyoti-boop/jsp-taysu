@@ -318,8 +318,7 @@ const db = getFirestore(app);
 let currentUser = null;
 onAuthStateChanged(auth,(user)=>{
 currentUser = user;
-  alert(user ? "🟢 Logged in as: " + (user.displayName || "Member") : "🔴 Not logged in");
-if(!user){
+  
   document.getElementById("profileName").textContent = "Please sign in";
   return;
 }
