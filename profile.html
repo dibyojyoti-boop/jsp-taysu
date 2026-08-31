@@ -267,6 +267,7 @@
       getAuth,
 onAuthStateChanged,
 signOut,
+getRedirectResult,
 setPersistence,
 browserLocalPersistence
     }
@@ -297,11 +298,15 @@ browserLocalPersistence
     const app = initializeApp(firebaseConfig);
 
     const auth = getAuth(app);
+
 await setPersistence(
   auth,
   browserLocalPersistence
 );
-    const db = getFirestore(app);
+
+
+
+const db = getFirestore(app);
 
     let currentUser = null;
 
