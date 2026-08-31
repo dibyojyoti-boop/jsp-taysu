@@ -316,12 +316,14 @@ const auth =
 getAuth(app);
 const db = getFirestore(app);
 let currentUser = null;
-onAuthStateChanged(auth,(user)=>{
-currentUser = user;
-  
-  document.getElementById("profileName").textContent = "Please sign in";
-  return;
-}
+onAuthStateChanged(auth, (user) => {
+
+  if (!user) {
+    document.getElementById("profileName").textContent = "Please sign in";
+    return;
+  }
+
+  currentUser = user;
 
 const name =
 user.displayName || "Member";
