@@ -350,8 +350,7 @@ Together, we carry our heritage forward.
 
 </section>
 
-<section id="community" style="padding:60px 20px;background:#f7f3ea;">
-
+<section id="community" style="display:none;padding:60px 20px;background:#f7f3ea;">
   <div style="max-width:700px;margin:auto;text-align:center;">
 
     <h2 style="font-size:32px;margin-bottom:10px;">
@@ -475,7 +474,7 @@ googleLogin.addEventListener("click", async () => {
     googleLogin.style.display = "none";
 
     membershipForm.style.display = "block";
-
+document.getElementById("community").style.display = "block";
   } catch(error) {
 
     console.error(error);
