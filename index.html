@@ -518,6 +518,7 @@ document
   message.textContent =
   "Thank you, " + name +
   "! Your application has been received.";
+  alert("Index auth: " + (auth.currentUser ? auth.currentUser.displayName : "NULL"));
 window.location.href = "community.html";
 });
 
