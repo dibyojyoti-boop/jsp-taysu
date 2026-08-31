@@ -340,6 +340,58 @@ body{
     gap:2px;
   }
 }
+  .profile-card{
+  background:white;
+  border-radius:18px;
+  padding:22px;
+  margin-top:20px;
+  text-align:center;
+  box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+.profile-avatar{
+  width:70px;
+  height:70px;
+  margin:0 auto 12px;
+  border-radius:50%;
+  background:#151515;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+  font-weight:bold;
+}
+
+.profile-card h2{
+  margin-bottom:14px;
+  font-size:20px;
+}
+
+#editProfileButton,
+#saveUsernameButton{
+  border:0;
+  border-radius:22px;
+  padding:10px 18px;
+  background:#151515;
+  color:white;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+#profileEditor{
+  margin-top:15px;
+}
+
+#usernameInput{
+  width:100%;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  margin-bottom:10px;
+  font-size:15px;
+  outline:none;
+}
 </style>
 </head>
 
@@ -413,7 +465,34 @@ body{
     </div>
 
   </section>
+<div class="profile-card">
 
+  <div class="profile-avatar" id="profileAvatar">
+    M
+  </div>
+
+  <h2 id="profileUsername">Member</h2>
+
+  <button id="editProfileButton">
+    Edit Profile
+  </button>
+
+  <div id="profileEditor" style="display:none;">
+
+    <input
+      type="text"
+      id="usernameInput"
+      placeholder="Choose a username"
+      maxlength="20"
+    >
+
+    <button id="saveUsernameButton">
+      Save Username
+    </button>
+
+  </div>
+
+</div>
   <button
     class="logout"
     id="logoutButton">
@@ -472,6 +551,9 @@ collection,
 addDoc,
   getDocs,
 serverTimestamp
+  doc
+setDoc
+getDoc
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -745,6 +827,98 @@ async function loadPosts() {
 }
 
 loadPosts();
+  // PROFILE SYSTEM
+
+const profileUsername =
+  document.getElementById("profileUsername");
+
+const profileAvatar =
+  document.getElementById("profileAvatar");
+
+const editProfileButton =
+  document.getElementById("editProfileButton");
+
+const profileEditor =
+  document.getElementById("profileEditor");
+
+const usernameInput =
+  document.getElementById("usernameInput");
+
+const saveUsernameButton =
+  document.getElementById("saveUsernameButton");
+
+
+editProfileButton.addEventListener("click", () => {
+
+  profileEditor.style.display = "block";
+
+  usernameInput.value =
+    profileUsername.textContent === "Member"
+      ? ""
+      : profileUsername.textContent;
+
+  usernameInput.focus();
+
+});
+
+
+saveUsernameButton.addEventListener("click", async () => {
+
+  if (!currentUser) {
+    alert("Please sign in again.");
+    return;
+  }
+
+  const username =
+    usernameInput.value.trim();
+
+  if (!username) {
+    alert("Enter a username.");
+    return;
+  }
+
+  if (username.length < 3) {
+    alert("Username must be at least 3 characters.");
+    return;
+  }
+
+  try {
+
+    await setDoc(
+      doc(db, "users", currentUser.uid),
+      {
+        username: username,
+        displayName:
+          currentUser.displayName || "Member",
+        updatedAt: serverTimestamp()
+      },
+      { merge: true }
+    );
+
+    profileUsername.textContent =
+      username;
+
+    profileAvatar.textContent =
+      username.charAt(0).toUpperCase();
+
+    profileEditor.style.display =
+      "none";
+
+    alert("Username updated! 🐉");
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      error.code +
+      ": " +
+      error.message
+    );
+
+  }
+
+});
 </script>
 
 </body>
