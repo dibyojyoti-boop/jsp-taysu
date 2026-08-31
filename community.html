@@ -735,7 +735,9 @@ onAuthStateChanged,
 signOut,
 GoogleAuthProvider,
 signInWithRedirect,
-getRedirectResult
+getRedirectResult,
+setPersistence,
+browserLocalPersistence
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 import {
@@ -772,6 +774,10 @@ initializeApp(firebaseConfig);
 alert("Community JavaScript is running");
 const auth =
 getAuth(app);
+  await setPersistence(
+  auth,
+  browserLocalPersistence
+);
 console.log("Community currentUser:", auth.currentUser);
 
 
