@@ -1,81 +1,471 @@
-class="card">
-<h3>🤝 Youth Together</h3>
-<p>Bringing students and young people together to protect and promote our cultural heritage.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JSP TAYSU | Tai Ahom Youth & Students Union</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f7f3ea;
+  color:#202020;
+  line-height:1.6;
+}
+
+header{
+  background:#151515;
+  color:white;
+  padding:18px 20px;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.nav{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:20px;
+  font-weight:bold;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:15px;
+  font-size:14px;
+}
+
+.hero{
+  min-height:78vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:40px 20px;
+  background:linear-gradient(135deg,#f7f3ea,#ded6c5);
+}
+
+.hero-content{
+  max-width:750px;
+}
+
+.badge{
+  display:inline-block;
+  background:#151515;
+  color:white;
+  padding:7px 14px;
+  border-radius:30px;
+  font-size:13px;
+  margin-bottom:18px;
+}
+
+h1{
+  font-size:clamp(40px,10vw,72px);
+  margin-bottom:10px;
+}
+
+.hero h2{
+  font-size:clamp(20px,5vw,32px);
+  margin-bottom:18px;
+}
+
+.hero p{
+  max-width:600px;
+  margin:auto;
+  color:#555;
+}
+
+.buttons{
+  margin-top:28px;
+}
+
+.btn{
+  display:inline-block;
+  padding:12px 20px;
+  margin:5px;
+  border:0;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:bold;
+  background:#151515;
+  color:white;
+  cursor:pointer;
+}
+
+.btn.secondary{
+  background:transparent;
+  color:#151515;
+  border:2px solid #151515;
+}
+
+section{
+  max-width:1100px;
+  margin:auto;
+  padding:70px 20px;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:35px;
+}
+
+.section-title h2{
+  font-size:34px;
+}
+
+.section-title p{
+  color:#666;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+}
+
+.card{
+  background:white;
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.card h3{
+  margin-bottom:10px;
+}
+
+.card p{
+  color:#666;
+  font-size:15px;
+}
+
+.login{
+  background:white;
+  max-width:500px;
+  margin:auto;
+  padding:30px 20px;
+  border-radius:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
+  text-align:center;
+}
+
+.login input{
+  width:100%;
+  padding:13px;
+  margin:8px 0;
+  border:1px solid #ccc;
+  border-radius:10px;
+  font-size:16px;
+}
+
+#membershipForm{
+  display:none;
+  margin-top:20px;
+}
+
+#loginMessage,
+#applicationMessage{
+  margin-top:12px;
+  font-size:14px;
+}
+
+.join{
+  background:#151515;
+  color:white;
+  text-align:center;
+  max-width:none;
+}
+
+.join p{
+  max-width:600px;
+  margin:10px auto 20px;
+  color:#ccc;
+}
+
+footer{
+  background:#0d0d0d;
+  color:#aaa;
+  text-align:center;
+  padding:25px 15px;
+  font-size:13px;
+}
+
+@media(max-width:650px){
+  nav a{
+    margin-left:7px;
+    font-size:12px;
+  }
+
+  .logo{
+    font-size:16px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="nav">
+<div class="logo">🐉 JSP TAYSU</div>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#culture">Culture</a>
+<a href="#login">Join</a>
+</nav>
 </div>
+</header>
+
+
+<section class="hero" id="home">
+<div class="hero-content">
+
+<span class="badge">
+TAI AHOM YOUTH & STUDENTS UNION
+</span>
+
+<h1>Jaa Sing Pha</h1>
+
+<h2>Our Roots. Our Heritage. Our Future.</h2>
+
+<p>
+A youth-driven community working together to preserve,
+learn and celebrate Tai Ahom culture, language and heritage.
+</p>
+
+<div class="buttons">
+<a class="btn" href="#login">Join Our Community</a>
+<a class="btn secondary" href="#culture">Explore Culture</a>
+</div>
+
 </div>
 </section>
+
+
+<section id="culture">
+
+<div class="section-title">
+<h2>Our Heritage</h2>
+<p>Learn. Preserve. Pass it on.</p>
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>🐉 Tai Ahom Heritage</h3>
+<p>
+Discover the history, traditions and heritage
+of the Tai Ahom community.
+</p>
+</div>
+
+<div class="card">
+<h3>📖 Language & Knowledge</h3>
+<p>
+Encourage younger generations to learn about
+Tai Ahom language, literature and traditional knowledge.
+</p>
+</div>
+
+<div class="card">
+<h3>🤝 Youth Together</h3>
+<p>
+Bringing students and young people together
+to protect and promote our cultural heritage.
+</p>
+</div>
+
+</div>
+</section>
+
 
 <section id="login">
+
 <div class="login">
-<h2>Member Login</h2>
-<p>Login using your phone number.</p>
 
-<input id="phone" type="tel" placeholder="+91XXXXXXXXXX">
+<h2>Join Our Community</h2>
 
-<div id="recaptcha-container"></div>
+<p>Sign in with Google to continue.</p>
 
-<button class="btn" id="sendOtp">Send OTP</button>
-
-<div id="otpArea">
-<input id="otp" type="text" placeholder="Enter OTP">
-<button class="btn" id="verifyOtp">Verify OTP</button>
-</div>
+<button
+class="btn"
+id="googleLogin"
+type="button">
+Continue with Google
+</button>
 
 <p id="loginMessage"></p>
+
+
+<div id="membershipForm">
+
+<h3>Complete Your Membership</h3>
+
+<input
+type="text"
+id="fullName"
+placeholder="Full Name">
+
+<input
+type="text"
+id="district"
+placeholder="District">
+
+<button
+class="btn"
+id="submitApplication"
+type="button">
+Submit Application
+</button>
+
+<p id="applicationMessage"></p>
+
+</div>
+
 </div>
 </section>
 
+
 <section class="join">
+
 <h2>Be Part of the Movement</h2>
+
 <p>
-Our heritage survives when the next generation chooses to learn,
-remember and carry it forward.
+Together, we learn. Together, we preserve.
+Together, we carry our heritage forward.
 </p>
+
 </section>
+
 
 <footer>
 © 2026 Jaa Sing Pha — Tai Ahom Youth & Students Union
 </footer>
 
-<!-- Firebase -->
+
 <script type="module">
+
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
   getAuth,
-  RecaptchaVerifier,
-  signInWithPhoneNumber
+  GoogleAuthProvider,
+  signInWithPopup
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-/*
-====================================================
-PASTE YOUR FIREBASE CONFIG HERE
-====================================================
-Replace ONLY the values inside the quotes.
-Get them from:
-Firebase Console → Project Settings → Your apps → Web app → Config
-====================================================
-*/
+
+/* =========================================
+   YOUR FIREBASE CONFIG
+   KEEP YOUR EXISTING 6 VALUES HERE
+   ========================================= */
 
 const firebaseConfig = {
+
   apiKey: "AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
+
   authDomain: "jsp-taysu.firebaseapp.com",
+
   projectId: "jsp-taysu",
+
   storageBucket: "jsp-taysu.firebasestorage.app",
+
   messagingSenderId: "280992025632",
+
   appId: "1:280992025632:web:48efa21208a78be9a78045"
+
 };
+
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
-const phoneInput = document.getElementById("phone");
-const sendOtp = document.getElementById("sendOtp");
-const otpArea = document.getElementById("otpArea");
-const otpInput = document.getElementById("otp");
-const verifyOtp = document.getElementById("verifyOtp");
-const message = document.getElementById("loginMessage");
 
-window.recaptchaVerifier = new RecaptchaVerifier(
+const googleLogin =
+document.getElementById("googleLogin");
+
+const loginMessage =
+document.getElementById("loginMessage");
+
+const membershipForm =
+document.getElementById("membershipForm");
+
+
+googleLogin.addEventListener("click", async () => {
+
+  try {
+
+    loginMessage.textContent =
+    "Opening Google sign-in...";
+
+    const result =
+    await signInWithPopup(auth, provider);
+
+    loginMessage.textContent =
+    "Welcome, " + result.user.displayName + "!";
+
+    googleLogin.style.display = "none";
+
+    membershipForm.style.display = "block";
+
+  } catch(error) {
+
+    console.error(error);
+
+    loginMessage.textContent =
+    "Google sign-in could not be completed.";
+
+  }
+
+});
+
+
+document
+.getElementById("submitApplication")
+.addEventListener("click", () => {
+
+  const name =
+  document.getElementById("fullName").value.trim();
+
+  const district =
+  document.getElementById("district").value.trim();
+
+  const message =
+  document.getElementById("applicationMessage");
+
+
+  if(!name || !district){
+
+    message.textContent =
+    "Please enter your full name and district.";
+
+    return;
+
+  }
+
+
+  message.textContent =
+  "Thank you, " + name +
+  "! Your application has been received.";
+
+});
+
+</script>
+
+</body>
+</html>
