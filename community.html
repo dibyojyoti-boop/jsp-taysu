@@ -1075,13 +1075,56 @@ userSearchButton.addEventListener("click", async () => {
           "search-result";
 
         result.innerHTML = `
-          <div class="search-result-user">
-            ${user.username}
-          </div>
-          <button>
-            Follow
-          </button>
-        `;
+  <div class="search-result-user">
+    ${user.username}
+  </div>
+
+  <button class="follow-button">
+    Follow
+  </button>
+`;
+
+const followButton =
+  result.querySelector(".follow-button");
+
+followButton.addEventListener("click", async () => {
+
+  if (!currentUser) {
+    alert("Please sign in again.");
+    return;
+  }
+
+  try {
+
+    const followId =
+      currentUser.uid + "_" + userDoc.id;
+
+    await setDoc(
+      doc(db, "follows", followId),
+      {
+        followerId: currentUser.uid,
+        followingId: userDoc.id,
+        createdAt: serverTimestamp()
+      }
+    );
+
+    followButton.textContent = "Following";
+    followButton.disabled = true;
+
+    alert("Following " + user.username + "! 👥");
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      error.code + ": " +
+      error.message
+    );
+
+  }
+
+});
 
         searchResults.appendChild(result);
       }
