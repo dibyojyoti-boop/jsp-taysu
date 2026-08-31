@@ -462,7 +462,8 @@ getAuth,
 onAuthStateChanged,
 signOut,
 GoogleAuthProvider,
-signInWithPopup
+signInWithRedirect,
+getRedirectResult
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 import {
@@ -533,15 +534,49 @@ const communityGoogleLogin =
 
 const provider =
   new GoogleAuthProvider();
+getRedirectResult(auth)
+  .then((result) => {
 
+    if (result && result.user) {
+
+      currentUser = result.user;
+
+      document.getElementById(
+        "communityLogin"
+      ).style.display = "none";
+
+      document.getElementById(
+        "profileName"
+      ).textContent =
+        result.user.displayName || "Member";
+
+      document.getElementById(
+        "welcomeText"
+      ).textContent =
+        "Welcome, " +
+        (result.user.displayName || "Member") +
+        " 👋";
+    }
+
+  })
+  .catch((error) => {
+
+    console.error(error);
+
+    alert(
+      error.code +
+      ": " +
+      error.message
+    );
+
+  });
 communityGoogleLogin.addEventListener(
   "click",
   async () => {
 
     try {
 alert("Google popup starting...");
-      const result =
-        await signInWithPopup(auth, provider);
+      await signInWithRedirect(auth, provider);
 
       currentUser = result.user;
 
