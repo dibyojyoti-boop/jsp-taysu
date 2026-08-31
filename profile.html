@@ -265,8 +265,10 @@
 
     import {
       getAuth,
-      onAuthStateChanged,
-      signOut
+onAuthStateChanged,
+signOut,
+setPersistence,
+browserLocalPersistence
     }
       from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
@@ -295,7 +297,10 @@
     const app = initializeApp(firebaseConfig);
 
     const auth = getAuth(app);
-
+await setPersistence(
+  auth,
+  browserLocalPersistence
+);
     const db = getFirestore(app);
 
     let currentUser = null;
