@@ -584,29 +584,80 @@ console.log("Community currentUser:", auth.currentUser);
 
 const db = getFirestore(app);
 let currentUser = null;
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
 
-   if (!user) {
-  document.getElementById("profileName").textContent = "Please sign in";
+  if (!user) {
 
-  document.getElementById("communityLogin").style.display = "block";
+    document.getElementById(
+      "profileName"
+    ).textContent = "Please sign in";
 
-  return;
-}
+    document.getElementById(
+      "communityLogin"
+    ).style.display = "block";
+
+    return;
+  }
 
   currentUser = user;
 
-const name =
-user.displayName || "Member";
+  document.getElementById(
+    "communityLogin"
+  ).style.display = "none";
 
-document.getElementById(
-"profileName"
-).textContent = name;
 
-document.getElementById(
-"welcomeText"
-).textContent =
-"Welcome, " + name + " 👋";
+  // Get saved profile
+  try {
+
+    const profileRef =
+      doc(db, "users", user.uid);
+
+    const profileSnap =
+      await getDoc(profileRef);
+
+    let username =
+      user.displayName || "Member";
+
+    if (profileSnap.exists()) {
+
+      const profileData =
+        profileSnap.data();
+
+      if (profileData.username) {
+        username =
+          profileData.username;
+      }
+
+    }
+
+
+    document.getElementById(
+      "profileName"
+    ).textContent = username;
+
+    document.getElementById(
+      "profileUsername"
+    ).textContent = username;
+
+    document.getElementById(
+      "profileAvatar"
+    ).textContent =
+      username.charAt(0).toUpperCase();
+
+    document.getElementById(
+      "welcomeText"
+    ).textContent =
+      "Welcome, " + username + " 👋";
+
+
+  } catch (error) {
+
+    console.error(
+      "Profile loading error:",
+      error
+    );
+
+  }
 
 });
 const communityLogin =
