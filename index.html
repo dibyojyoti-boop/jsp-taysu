@@ -471,7 +471,7 @@ googleLogin.addEventListener("click", async () => {
     "Opening Google sign-in...";
 
     const result =
-    await signInWithPopup(auth, provider);
+    const result = await signInWithPopup(auth, provider);
 
     loginMessage.textContent =
     "Welcome, " + result.user.displayName + "!";
