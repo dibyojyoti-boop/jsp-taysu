@@ -827,71 +827,92 @@ async function loadPosts() {
 }
 
 loadPosts();
-  // PROFILE SYSTEM
 
-document.getElementById("editProfileButton").onclick = function () {
+const editProfileButton =
+  document.getElementById("editProfileButton");
 
-  document.getElementById("profileEditor").style.display = "block";
+const profileEditor =
+  document.getElementById("profileEditor");
 
-  document.getElementById("usernameInput").focus();
+const usernameInput =
+  document.getElementById("usernameInput");
 
-};
+const saveUsernameButton =
+  document.getElementById("saveUsernameButton");
+
+const profileUsername =
+  document.getElementById("profileUsername");
+
+const profileAvatar =
+  document.getElementById("profileAvatar");
 
 
-document.getElementById("saveUsernameButton").onclick = async function () {
+if (editProfileButton) {
 
-  if (!currentUser) {
-    alert("Please sign in again.");
-    return;
-  }
+  editProfileButton.addEventListener("click", function () {
 
-  const username =
-    document.getElementById("usernameInput").value.trim();
+    profileEditor.style.display = "block";
 
-  if (username.length < 3) {
-    alert("Username must be at least 3 characters.");
-    return;
-  }
+    usernameInput.focus();
 
-  try {
+  });
 
-    await setDoc(
-      doc(db, "users", currentUser.uid),
-      {
-        username: username,
-        updatedAt: serverTimestamp()
-      },
-      { merge: true }
-    );
+}
 
-    document.getElementById(
-      "profileUsername"
-    ).textContent = username;
 
-    document.getElementById(
-      "profileAvatar"
-    ).textContent =
-      username.charAt(0).toUpperCase();
+if (saveUsernameButton) {
 
-    document.getElementById(
-      "profileEditor"
-    ).style.display = "none";
+  saveUsernameButton.addEventListener("click", async function () {
 
-    alert("Username updated! 🐉");
+    if (!currentUser) {
+      alert("Please sign in again.");
+      return;
+    }
 
-  } catch (error) {
+    const username =
+      usernameInput.value.trim();
 
-    console.error(error);
+    if (username.length < 3) {
+      alert("Username must be at least 3 characters.");
+      return;
+    }
 
-    alert(
-      error.code +
-      ": " +
-      error.message
-    );
+    try {
 
-  }
+      await setDoc(
+        doc(db, "users", currentUser.uid),
+        {
+          username: username,
+          updatedAt: serverTimestamp()
+        },
+        { merge: true }
+      );
 
-};
+      profileUsername.textContent =
+        username;
+
+      profileAvatar.textContent =
+        username.charAt(0).toUpperCase();
+
+      profileEditor.style.display =
+        "none";
+
+      alert("Username updated! 🐉");
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(
+        error.code + ": " +
+        error.message
+      );
+
+    }
+
+  });
+
+}
 </script>
 
 </body>
