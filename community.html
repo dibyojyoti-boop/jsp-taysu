@@ -353,7 +353,15 @@ body{
 </header>
 
 <main class="container">
+<div id="communityLogin" style="display:none; text-align:center; padding:20px;">
+  <p style="margin-bottom:12px;">
+    Sign in to join the community 🐉
+  </p>
 
+  <button id="communityGoogleLogin" class="post-btn">
+    Continue with Google
+  </button>
+</div>
   <section class="welcome">
     <h1 id="welcomeText">Welcome 👋</h1>
     <p>Connect. Share. Preserve our heritage.</p>
@@ -453,7 +461,8 @@ import {
 getAuth,
 onAuthStateChanged,
 signOut,
-
+GoogleAuthProvider,
+signInWithPopup
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 import {
@@ -514,7 +523,55 @@ document.getElementById(
 "Welcome, " + name + " 👋";
 
 });
+const communityLogin =
+  document.getElementById("communityLogin");
 
+const communityGoogleLogin =
+  document.getElementById("communityGoogleLogin");
+
+const provider =
+  new GoogleAuthProvider();
+
+communityGoogleLogin.addEventListener(
+  "click",
+  async () => {
+
+    try {
+
+      const result =
+        await signInWithPopup(auth, provider);
+
+      currentUser = result.user;
+
+      communityLogin.style.display =
+        "none";
+
+      document.getElementById(
+        "profileName"
+      ).textContent =
+        currentUser.displayName || "Member";
+
+      document.getElementById(
+        "welcomeText"
+      ).textContent =
+        "Welcome, " +
+        (currentUser.displayName || "Member") +
+        " 👋";
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(
+        error.code +
+        ": " +
+        error.message
+      );
+
+    }
+
+  }
+);
 
 document.getElementById(
 "logoutButton"
