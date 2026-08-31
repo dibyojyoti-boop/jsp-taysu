@@ -490,6 +490,7 @@ let currentUser = null;
 onAuthStateChanged(auth, (user) => {
 
   if (!user) {
+    alert("Community auth: user is NULL");
     document.getElementById("profileName").textContent = "Please sign in";
     return;
   }
