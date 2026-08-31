@@ -459,6 +459,7 @@ import {
 getFirestore,
 collection,
 addDoc,
+  getDocs,
 serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
@@ -568,7 +569,82 @@ alert(error.code + ": " + error.message);
 
 });
 
+async function loadPosts() {
 
+  const postsContainer =
+    document.getElementById("posts");
+
+  try {
+
+    const snapshot =
+      await getDocs(collection(db, "posts"));
+
+    postsContainer.innerHTML = "";
+
+    if (snapshot.empty) {
+
+      postsContainer.innerHTML = `
+        <div class="empty">
+          <div class="empty-icon">🐉</div>
+          <h3>No posts yet</h3>
+          <p>Be the first to share something with the community.</p>
+        </div>
+      `;
+
+      return;
+    }
+
+    snapshot.forEach((doc) => {
+
+      const post = doc.data();
+
+      const postElement =
+        document.createElement("article");
+
+      postElement.className = "post";
+
+      postElement.innerHTML = `
+        <div class="post-header">
+
+          <div class="avatar">
+            ${(post.authorName || "M").charAt(0).toUpperCase()}
+          </div>
+
+          <div>
+            <div class="post-author">
+              ${post.authorName || "Member"}
+            </div>
+
+            <div class="post-time">
+              Community member
+            </div>
+          </div>
+
+        </div>
+
+        <div class="post-text">
+          ${post.text || ""}
+        </div>
+
+        <div class="actions">
+          <button class="action">❤️ Like</button>
+          <button class="action">💬 Comment</button>
+          <button class="action">↗️ Share</button>
+        </div>
+      `;
+
+      postsContainer.appendChild(postElement);
+
+    });
+
+  } catch (error) {
+
+    console.error("Error loading posts:", error);
+
+  }
+}
+
+loadPosts();
 </script>
 
 </body>
