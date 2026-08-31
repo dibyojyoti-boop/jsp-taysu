@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JSP TAYSU Community</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f5f5f5;
+  color:#222;
+}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:#151515;
+  color:white;
+  padding:15px 18px;
+}
+
+.topbar-inner{
+  max-width:700px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-weight:bold;
+  font-size:18px;
+}
+
+.profile{
+  font-size:13px;
+  color:#ddd;
+}
+
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:20px 12px 50px;
+}
+
+.welcome{
+  padding:20px 5px;
+}
+
+.welcome h1{
+  font-size:28px;
+  margin-bottom:5px;
+}
+
+.welcome p{
+  color:#666;
+}
+
+.create-post{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 3px 15px rgba(0,0,0,.08);
+  margin-bottom:20px;
+}
+
+.create-post textarea{
+  width:100%;
+  min-height:100px;
+  resize:none;
+  border:1px solid #ddd;
+  border-radius:12px;
+  padding:14px;
+  font-size:15px;
+  outline:none;
+}
+
+.post-options{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:12px;
+}
+
+.media-buttons{
+  color:#555;
+  font-size:14px;
+}
+
+.post-btn{
+  background:#151515;
+  color:white;
+  border:0;
+  border-radius:25px;
+  padding:10px 20px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.post{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:15px;
+  box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+.post-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#ddd;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-weight:bold;
+}
+
+.post-author{
+  font-weight:bold;
+}
+
+.post-time{
+  color:#888;
+  font-size:12px;
+}
+
+.post-text{
+  margin-bottom:15px;
+  white-space:pre-wrap;
+}
+
+.actions{
+  border-top:1px solid #eee;
+  padding-top:12px;
+  display:flex;
+  gap:25px;
+}
+
+.action{
+  border:0;
+  background:none;
+  cursor:pointer;
+  color:#555;
+  font-size:14px;
+}
+
+.comment-box{
+  margin-top:15px;
+  display:none;
+}
+
+.comment-box input{
+  width:100%;
+  padding:11px;
+  border:1px solid #ddd;
+  border-radius:20px;
+}
+
+.empty{
+  text-align:center;
+  padding:40px 10px;
+  color:#888;
+}
+
+.logout{
+  margin-top:25px;
+  width:100%;
+  padding:12px;
+  border:1px solid #ddd;
+  background:white;
+  border-radius:25px;
+  cursor:pointer;
+}
+
+@media(max-width:500px){
+  .welcome h1{
+    font-size:24px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+<div class="topbar-inner">
+
+<div class="logo">
+🐉 JSP TAYSU
+</div>
+
+<div class="profile" id="profileName">
+Member
+</div>
+
+</div>
+
+</header>
+
+
+<main class="container">
+
+<div class="welcome">
+
+<h1 id="welcomeText">
+Welcome 👋
+</h1>
+
+<p>
+This is our community space. Share your thoughts and connect with fellow members.
+</p>
+
+</div>
+
+
+<div class="create-post">
+
+<textarea
+id="postText"
+placeholder="What's on your mind?">
+</textarea>
+
+<div class="post-options">
+
+<div class="media-buttons">
+📷 Photo &nbsp;&nbsp; 🎥 Video
+</div>
+
+<button
+class="post-btn"
+id="postButton">
+Post
+</button>
+
+</div>
+
+</div>
+
+
+<div id="posts">
+
+<div class="empty">
+No posts yet.<br>
+Be the first to share something! 🐉
+</div>
+
+</div>
+
+
+<button
+class="logout"
+id="logoutButton">
+Sign out
+</button>
+
+</main>
+
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+getAuth,
+onAuthStateChanged,
+signOut
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+const firebaseConfig = {
+
+apiKey: "AlzaSyDpv2vqAZbCFgT_X J4u-KB0AeZWVB2GIUs",
+
+authDomain: "https://jsp-taysu.firebaseapp.com",
+
+projectId: "jsp-taysu",
+
+storageBucket: "https://jsp-taysu.firebasestorage.app",
+
+messagingSenderId: "280992025632",
+
+appId: "1:280992025632:web:48ef a21208a78be9a78045"
+
+};
+
+
+const app =
+initializeApp(firebaseConfig);
+
+const auth =
+getAuth(app);
+
+
+onAuthStateChanged(auth,(user)=>{
+
+if(!user){
+
+window.location.href =
+"index.html";
+
+return;
+
+}
+
+const name =
+user.displayName || "Member";
+
+document.getElementById(
+"profileName"
+).textContent = name;
+
+document.getElementById(
+"welcomeText"
+).textContent =
+"Welcome, " + name + " 👋";
+
+});
+
+
+document.getElementById(
+"logoutButton"
+).addEventListener(
+"click",
+async ()=>{
+
+await signOut(auth);
+
+window.location.href =
+"index.html";
+
+});
+
+
+document.getElementById(
+"postButton"
+).addEventListener(
+"click",
+()=>{
+
+const text =
+document.getElementById(
+"postText"
+).value.trim();
+
+if(!text){
+
+alert("Write something first!");
+
+return;
+
+}
+
+alert(
+"Post system will be connected to Firebase next."
+);
+
+});
+
+
+</script>
+
+</body>
+</html>
