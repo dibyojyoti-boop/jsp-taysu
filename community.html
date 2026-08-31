@@ -351,7 +351,7 @@ document.getElementById(
 "postButton"
 ).addEventListener(
 "click",
-()=>{
+async ()=>{
 
 const text =
 document.getElementById(
@@ -366,9 +366,25 @@ return;
 
 }
 
-alert(
-"Post system will be connected to Firebase next."
-);
+try {
+  await addDoc(collection(db, "posts"), {
+    text: text,
+    authorId: auth.currentUser.uid,
+    authorName: auth.currentUser.displayName || "Member",
+    createdAt: serverTimestamp()
+  });
+
+  document.getElementById("postText").value = "";
+
+  alert("Post published! 🐉");
+
+} catch (error) {
+
+  console.error(error);
+
+  alert("Post could not be published.");
+
+}
 
 });
 
