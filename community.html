@@ -658,7 +658,7 @@ onAuthStateChanged(auth, async (user) => {
   }
 
   currentUser = user;
-
+await loadFollowCounts();
   document.getElementById(
     "communityLogin"
   ).style.display = "none";
