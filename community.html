@@ -1148,6 +1148,55 @@ followButton.addEventListener("click", async () => {
   }
 
 });
+  // FOLLOWERS & FOLLOWING COUNTS
+
+async function loadFollowCounts() {
+
+  if (!currentUser) return;
+
+  try {
+
+    const followsSnapshot =
+      await getDocs(collection(db, "follows"));
+
+    let followers = 0;
+    let following = 0;
+
+    followsSnapshot.forEach((followDoc) => {
+
+      const follow =
+        followDoc.data();
+
+      if (follow.followingId === currentUser.uid) {
+        followers++;
+      }
+
+      if (follow.followerId === currentUser.uid) {
+        following++;
+      }
+
+    });
+
+    document.getElementById(
+      "followersCount"
+    ).textContent = followers;
+
+    document.getElementById(
+      "followingCount"
+    ).textContent = following;
+
+  } catch (error) {
+
+    console.error(
+      "Follow count error:",
+      error
+    );
+
+  }
+
+}
+
+loadFollowCounts();
 </script>
 
 </body>
