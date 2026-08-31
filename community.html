@@ -827,43 +827,18 @@ async function loadPosts() {
 }
 
 loadPosts();
-  console.log("PROFILE SYSTEM LOADED");
   // PROFILE SYSTEM
 
-const profileUsername =
-  document.getElementById("profileUsername");
+document.getElementById("editProfileButton").onclick = function () {
 
-const profileAvatar =
-  document.getElementById("profileAvatar");
+  document.getElementById("profileEditor").style.display = "block";
 
-const editProfileButton =
-  document.getElementById("editProfileButton");
+  document.getElementById("usernameInput").focus();
 
-const profileEditor =
-  document.getElementById("profileEditor");
-
-const usernameInput =
-  document.getElementById("usernameInput");
-
-const saveUsernameButton =
-  document.getElementById("saveUsernameButton");
+};
 
 
-editProfileButton.addEventListener("click", () => {
-
-  profileEditor.style.display = "block";
-
-  usernameInput.value =
-    profileUsername.textContent === "Member"
-      ? ""
-      : profileUsername.textContent;
-
-  usernameInput.focus();
-
-});
-
-
-saveUsernameButton.addEventListener("click", async () => {
+document.getElementById("saveUsernameButton").onclick = async function () {
 
   if (!currentUser) {
     alert("Please sign in again.");
@@ -871,12 +846,7 @@ saveUsernameButton.addEventListener("click", async () => {
   }
 
   const username =
-    usernameInput.value.trim();
-
-  if (!username) {
-    alert("Enter a username.");
-    return;
-  }
+    document.getElementById("usernameInput").value.trim();
 
   if (username.length < 3) {
     alert("Username must be at least 3 characters.");
@@ -889,21 +859,23 @@ saveUsernameButton.addEventListener("click", async () => {
       doc(db, "users", currentUser.uid),
       {
         username: username,
-        displayName:
-          currentUser.displayName || "Member",
         updatedAt: serverTimestamp()
       },
       { merge: true }
     );
 
-    profileUsername.textContent =
-      username;
+    document.getElementById(
+      "profileUsername"
+    ).textContent = username;
 
-    profileAvatar.textContent =
+    document.getElementById(
+      "profileAvatar"
+    ).textContent =
       username.charAt(0).toUpperCase();
 
-    profileEditor.style.display =
-      "none";
+    document.getElementById(
+      "profileEditor"
+    ).style.display = "none";
 
     alert("Username updated! 🐉");
 
@@ -919,7 +891,7 @@ saveUsernameButton.addEventListener("click", async () => {
 
   }
 
-});
+};
 </script>
 
 </body>
