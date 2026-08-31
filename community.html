@@ -315,9 +315,9 @@ initializeApp(firebaseConfig);
 const auth =
 getAuth(app);
 const db = getFirestore(app);
-
+let currentUser = null;
 onAuthStateChanged(auth,(user)=>{
-
+currentUser = user;
 if(!user){
   document.getElementById("profileName").textContent = "Please sign in";
   return;
@@ -370,12 +370,15 @@ alert("Write something first!");
 return;
 
 }
-
+if (!currentUser) {
+  alert("Please sign in again.");
+  return;
+}
 try {
   await addDoc(collection(db, "posts"), {
     text: text,
-    authorId: auth.currentUser.uid,
-    authorName: auth.currentUser.displayName || "Member",
+    authorId: currentUser.uid,
+authorName: currentUser.displayName || "Member",
     createdAt: serverTimestamp()
   });
 
