@@ -453,8 +453,7 @@ import {
 getAuth,
 onAuthStateChanged,
 signOut,
-setPersistence,
-browserLocalPersistence
+
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 import {
@@ -488,17 +487,14 @@ initializeApp(firebaseConfig);
 const auth =
 getAuth(app);
 
-await setPersistence(
-  auth,
-  browserLocalPersistence
-);
+
 
 const db = getFirestore(app);
 let currentUser = null;
 onAuthStateChanged(auth, (user) => {
 
   if (!user) {
-    alert("Community auth: user is NULL");
+    
     document.getElementById("profileName").textContent = "Please sign in";
     return;
   }
