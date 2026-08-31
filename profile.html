@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Profile • JSP TAYSU</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, #563d2d 0%, transparent 35%),
+        radial-gradient(circle at bottom right, #3d1f27 0%, transparent 35%),
+        #111827;
+      color: #f8f3e7;
+      padding: 20px;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 520px;
+      margin: 0 auto 20px;
+    }
+
+    .back-button {
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.08);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 14px;
+      cursor: pointer;
+    }
+
+    .brand {
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .profile-card {
+      max-width: 520px;
+      margin: auto;
+      padding: 30px 20px;
+      border-radius: 30px;
+      text-align: center;
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 20px 50px rgba(0,0,0,.25);
+    }
+
+    .avatar {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 15px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #c79a45, #8e3b35);
+      color: white;
+      font-size: 42px;
+      font-weight: 800;
+      border: 4px solid rgba(255,255,255,.15);
+    }
+
+    .username {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .email {
+      color: #cfc8bb;
+      font-size: 13px;
+      margin-bottom: 22px;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 55px;
+      padding: 20px 0;
+      margin-bottom: 20px;
+      border-top: 1px solid rgba(255,255,255,.12);
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .stat strong {
+      font-size: 22px;
+    }
+
+    .stat span {
+      color: #cfc8bb;
+      font-size: 13px;
+    }
+
+    .edit-button {
+      border: none;
+      padding: 11px 20px;
+      border-radius: 15px;
+      background: #c79a45;
+      color: #17120d;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .editor {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .editor input {
+      width: 100%;
+      max-width: 300px;
+      padding: 13px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 13px;
+      background: rgba(0,0,0,.2);
+      color: white;
+      outline: none;
+    }
+
+    .save-button {
+      margin-top: 10px;
+      border: none;
+      padding: 11px 18px;
+      border-radius: 13px;
+      background: #f1e5c8;
+      color: #211812;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .posts-section {
+      max-width: 520px;
+      margin: 25px auto 0;
+    }
+
+    .posts-section h3 {
+      margin-bottom: 12px;
+    }
+
+    .empty-posts {
+      padding: 25px;
+      border-radius: 20px;
+      text-align: center;
+      background: rgba(255,255,255,.07);
+      color: #cfc8bb;
+    }
+
+    .logout {
+      margin-top: 30px;
+      padding: 11px 22px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 14px;
+      background: rgba(255,255,255,.07);
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-bar">
+    <button class="back-button" id="backButton">
+      ← Back
+    </button>
+
+    <div class="brand">
+      🐉 JSP TAYSU
+    </div>
+  </div>
+
+  <main class="profile-card">
+
+    <div class="avatar" id="profileAvatar">
+      M
+    </div>
+
+    <h1 class="username" id="profileUsername">
+      Member
+    </h1>
+
+    <p class="email" id="profileEmail">
+      Loading profile...
+    </p>
+
+    <div class="stats">
+
+      <div class="stat">
+        <strong id="followersCount">0</strong>
+        <span>Followers</span>
+      </div>
+
+      <div class="stat">
+        <strong id="followingCount">0</strong>
+        <span>Following</span>
+      </div>
+
+    </div>
+
+    <button class="edit-button" id="editProfileButton">
+      ✏️ Edit Profile
+    </button>
+
+    <div class="editor" id="profileEditor">
+
+      <input
+        type="text"
+        id="usernameInput"
+        placeholder="Choose username"
+        maxlength="20"
+      >
+
+      <br>
+
+      <button
+        class="save-button"
+        id="saveUsernameButton">
+        Save Username
+      </button>
+
+    </div>
+
+  </main>
+
+  <section class="posts-section">
+
+    <h3>My Posts</h3>
+
+    <div class="empty-posts" id="myPosts">
+      No posts yet.
+    </div>
+
+  </section>
+
+  <div style="text-align:center;">
+    <button class="logout" id="logoutButton">
+      Sign out
+    </button>
+  </div>
+
+
+  <script type="module">
+
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    }
+      from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      setDoc,
+      collection,
+      getDocs,
+      serverTimestamp
+    }
+      from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+    const firebaseConfig = {
+      apiKey: "AlzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
+      authDomain: "jsp-taysu.firebaseapp.com",
+      projectId: "jsp-taysu",
+      storageBucket: "jsp-taysu.firebasestorage.app",
+      messagingSenderId: "280992025632",
+      appId: "1:280992025632:web:48efa21208a78be9a78045"
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+
+    const db = getFirestore(app);
+
+    let currentUser = null;
+
+
+    onAuthStateChanged(auth, async (user) => {
+
+      if (!user) {
+        window.location.href = "index.html";
+        return;
+      }
+
+      currentUser = user;
+
+      document.getElementById("profileEmail").textContent =
+        user.email || "";
+
+
+      try {
+
+        const profileRef =
+          doc(db, "users", user.uid);
+
+        const profileSnap =
+          await getDoc(profileRef);
+
+        let username =
+          user.displayName || "Member";
+
+        if (profileSnap.exists()) {
+
+          const data =
+            profileSnap.data();
+
+          if (data.username) {
+            username = data.username;
+          }
+
+        }
+
+        document.getElementById(
+          "profileUsername"
+        ).textContent = username;
+
+        document.getElementById(
+          "usernameInput"
+        ).value = username;
+
+        document.getElementById(
+          "profileAvatar"
+        ).textContent =
+          username.charAt(0).toUpperCase();
+
+        await loadFollowCounts();
+
+      } catch (error) {
+
+        console.error(
+          "Profile loading error:",
+          error
+        );
+
+      }
+
+    });
+
+
+    async function loadFollowCounts() {
+
+      if (!currentUser) return;
+
+      const snapshot =
+        await getDocs(
+          collection(db, "follows")
+        );
+
+      let followers = 0;
+      let following = 0;
+
+      snapshot.forEach((followDoc) => {
+
+        const data =
+          followDoc.data();
+
+        if (
+          data.followingId ===
+          currentUser.uid
+        ) {
+          followers++;
+        }
+
+        if (
+          data.followerId ===
+          currentUser.uid
+        ) {
+          following++;
+        }
+
+      });
+
+      document.getElementById(
+        "followersCount"
+      ).textContent = followers;
+
+      document.getElementById(
+        "followingCount"
+      ).textContent = following;
+
+    }
+
+
+    document.getElementById(
+      "editProfileButton"
+    ).addEventListener("click", () => {
+
+      const editor =
+        document.getElementById(
+          "profileEditor"
+        );
+
+      editor.style.display =
+        editor.style.display === "block"
+          ? "none"
+          : "block";
+
+    });
+
+
+    document.getElementById(
+      "saveUsernameButton"
+    ).addEventListener("click", async () => {
+
+      const username =
+        document.getElementById(
+          "usernameInput"
+        ).value.trim();
+
+      if (username.length < 3) {
+        alert("Username must be at least 3 characters.");
+        return;
+      }
+
+      try {
+
+        await setDoc(
+          doc(
+            db,
+            "users",
+            currentUser.uid
+          ),
+          {
+            username: username,
+            updatedAt: serverTimestamp()
+          },
+          {
+            merge: true
+          }
+        );
+
+        document.getElementById(
+          "profileUsername"
+        ).textContent = username;
+
+        document.getElementById(
+          "profileAvatar"
+        ).textContent =
+          username.charAt(0).toUpperCase();
+
+        document.getElementById(
+          "profileEditor"
+        ).style.display = "none";
+
+        alert("Username updated! 🐉");
+
+      } catch (error) {
+
+        console.error(error);
+
+        alert(
+          error.code + ": " +
+          error.message
+        );
+
+      }
+
+    });
+
+
+    document.getElementById(
+      "logoutButton"
+    ).addEventListener("click", async () => {
+
+      await signOut(auth);
+
+      window.location.href =
+        "index.html";
+
+    });
+
+
+    document.getElementById(
+      "backButton"
+    ).addEventListener("click", () => {
+
+      window.location.href =
+        "community.html";
+
+    });
+
+  </script>
+
+</body>
+</html>
