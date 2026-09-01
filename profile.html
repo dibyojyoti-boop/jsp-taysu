@@ -298,24 +298,7 @@
     const auth = getAuth(app);
 
 await setPersistence(auth, browserLocalPersistence);
-await auth.authStateReady();
 
-console.log("PROFILE AUTH READY:", auth.currentUser);
-const db = getFirestore(app);
-let currentUser = null;
-
-// Restore login after Google redirect
-
-try {
-  const result = await getRedirectResult(auth);
-
-  if (result && result.user) {
-    currentUser = result.user;
-    console.log("REDIRECT USER:", currentUser);
-  }
-} catch (error) {
-  console.error("REDIRECT ERROR:", error);
-}
 onAuthStateChanged(auth, async (user) => {
 
   console.log("PROFILE USER:", user);
