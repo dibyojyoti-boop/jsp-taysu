@@ -268,7 +268,8 @@
   onAuthStateChanged,
   signOut,
   setPersistence,
-  browserLocalPersistence
+  browserLocalPersistence,
+  getRedirectResult
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
     import {
       getFirestore,
@@ -304,7 +305,16 @@ let currentUser = null;
 
 // Restore login after Google redirect
 
+try {
+  const result = await getRedirectResult(auth);
 
+  if (result && result.user) {
+    currentUser = result.user;
+    console.log("REDIRECT USER:", currentUser);
+  }
+} catch (error) {
+  console.error("REDIRECT ERROR:", error);
+}
 onAuthStateChanged(auth, async (user) => {
 
   console.log("PROFILE USER:", user);
