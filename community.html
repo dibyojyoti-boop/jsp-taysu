@@ -774,6 +774,7 @@ initializeApp(firebaseConfig);
 alert("Community JavaScript is running");
 const auth =
 getAuth(app);
+  console.log("PROFILE AUTH CHECK:", auth.currentUser);
   await setPersistence(
   auth,
   browserLocalPersistence
