@@ -309,74 +309,56 @@ const db = getFirestore(app);
 let currentUser = null;
 
 // Restore login after Google redirect
-const redirectResult = await getRedirectResult(auth);
 
-if (redirectResult && redirectResult.user) {
-  currentUser = redirectResult.user;
-}
 
 onAuthStateChanged(auth, async (user) => {
 
-      if (!user) {
-  document.getElementById("profileUsername").textContent =
-    "Please sign in";
-  return;
-}
+  console.log("PROFILE USER:", user);
 
-      currentUser = user;
+  if (!user) {
+    document.getElementById("profileUsername").textContent =
+      "Loading profile...";
+    return;
+  }
 
-      document.getElementById("profileEmail").textContent =
-        user.email || "";
+  currentUser = user;
 
+  document.getElementById("profileEmail").textContent =
+    user.email || "";
 
-      try {
+  try {
 
-        const profileRef =
-          doc(db, "users", user.uid);
+    const profileRef = doc(db, "users", user.uid);
+    const profileSnap = await getDoc(profileRef);
 
-        const profileSnap =
-          await getDoc(profileRef);
+    let username = user.displayName || "Member";
 
-        let username =
-          user.displayName || "Member";
+    if (profileSnap.exists()) {
+      const data = profileSnap.data();
 
-        if (profileSnap.exists()) {
-
-          const data =
-            profileSnap.data();
-
-          if (data.username) {
-            username = data.username;
-          }
-
-        }
-
-        document.getElementById(
-          "profileUsername"
-        ).textContent = username;
-
-        document.getElementById(
-          "usernameInput"
-        ).value = username;
-
-        document.getElementById(
-          "profileAvatar"
-        ).textContent =
-          username.charAt(0).toUpperCase();
-
-        await loadFollowCounts();
-
-      } catch (error) {
-
-        console.error(
-          "Profile loading error:",
-          error
-        );
-
+      if (data.username) {
+        username = data.username;
       }
+    }
 
-    });
+    document.getElementById("profileUsername").textContent =
+      username;
 
+    document.getElementById("usernameInput").value =
+      username;
+
+    document.getElementById("profileAvatar").textContent =
+      username.charAt(0).toUpperCase();
+
+    await loadFollowCounts();
+
+  } catch (error) {
+
+    console.error("Profile loading error:", error);
+
+  }
+
+});
 
     async function loadFollowCounts() {
 
