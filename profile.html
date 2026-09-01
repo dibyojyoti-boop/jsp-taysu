@@ -307,10 +307,17 @@ onAuthStateChanged(auth, async (user) => {
   console.log("PROFILE USER:", user);
 
   if (!user) {
-    document.getElementById("profileUsername").textContent =
-      "Loading profile...";
-    return;
-  }
+
+  document.getElementById("profileUsername").textContent =
+    "Please sign in";
+
+  document.getElementById("profileEmail").textContent =
+    "No active login found";
+
+  console.log("PROFILE: No authenticated user");
+
+  return;
+}
 
   currentUser = user;
 
