@@ -320,7 +320,7 @@ onAuthStateChanged(auth, async (user) => {
   console.log("PROFILE USER:", user);
 
   if (!user) {
-
+console.log("PROFILE AUTH:", auth.currentUser);
   document.getElementById("profileUsername").textContent =
     "Please sign in";
 
