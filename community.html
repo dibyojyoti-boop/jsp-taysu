@@ -903,38 +903,21 @@ getRedirectResult(auth)
     );
 
   });
+
 communityGoogleLogin.addEventListener(
   "click",
   async () => {
 
     try {
-alert("Google popup starting...");
+
       await signInWithRedirect(auth, provider);
-
-      currentUser = result.user;
-
-      communityLogin.style.display =
-        "none";
-
-      document.getElementById(
-        "profileName"
-      ).textContent =
-        currentUser.displayName || "Member";
-
-      document.getElementById(
-        "welcomeText"
-      ).textContent =
-        "Welcome, " +
-        (currentUser.displayName || "Member") +
-        " 👋";
 
     } catch (error) {
 
       console.error(error);
 
       alert(
-        error.code +
-        ": " +
+        error.code + ": " +
         error.message
       );
 
@@ -943,19 +926,24 @@ alert("Google popup starting...");
   }
 );
 
+
+
+
+
+// Logout
 document.getElementById(
-"logoutButton"
+  "logoutButton"
 ).addEventListener(
-"click",
-async ()=>{
+  "click",
+  async () => {
 
-await signOut(auth);
+    await signOut(auth);
 
-window.location.href =
-"index.html";
+    window.location.href =
+      "index.html";
 
-});
-
+  }
+);
 
 document.getElementById(
 "postButton"
