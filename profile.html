@@ -320,18 +320,17 @@ onAuthStateChanged(auth, async (user) => {
   console.log("PROFILE USER:", user);
 
   if (!user) {
-console.log("PROFILE AUTH:", auth.currentUser);
   document.getElementById("profileUsername").textContent =
-    "Please sign in";
+    "Checking login...";
 
-  document.getElementById("profileEmail").textContent =
-    "No active login found";
-
-  console.log("PROFILE: No authenticated user");
+  setTimeout(() => {
+    if (!auth.currentUser) {
+      window.location.href = "community.html";
+    }
+  }, 2000);
 
   return;
 }
-
   currentUser = user;
 
   document.getElementById("profileEmail").textContent =
