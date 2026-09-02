@@ -426,15 +426,12 @@ from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 import {
   getFirestore,
   doc,
+  getDoc,
   setDoc,
   serverTimestamp
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-
-/* ================================
-   FIREBASE CONFIG
-================================ */
 
 const firebaseConfig = {
 
@@ -453,10 +450,6 @@ const firebaseConfig = {
 };
 
 
-/* ================================
-   INITIALIZE FIREBASE
-================================ */
-
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
@@ -465,10 +458,6 @@ const db = getFirestore(app);
 
 const provider = new GoogleAuthProvider();
 
-
-/* ================================
-   ELEMENTS
-================================ */
 
 const googleLogin =
   document.getElementById("googleLogin");
@@ -481,101 +470,167 @@ const membershipForm =
 
 
 /* ================================
-   GOOGLE LOGIN
+   LOAD SAVED USERNAME
 ================================ */
 
-googleLogin.addEventListener("click", async () => {
+async function loadSavedUsername(user) {
 
   try {
 
-    googleLogin.disabled = true;
+    const profileRef =
+      doc(db, "users", user.uid);
 
-    loginMessage.textContent =
-      "Opening Google sign-in...";
-
-    await setPersistence(
-      auth,
-      browserLocalPersistence
-    );
-
-    const result =
-      await signInWithPopup(
-        auth,
-        provider
-      );
-
-    const user = result.user;
-
-    const username =
-      user.displayName || "Member";
+    const profileSnap =
+      await getDoc(profileRef);
 
 
-    /* SAVE USER PROFILE */
+    if (
+      profileSnap.exists() &&
+      profileSnap.data().username
+    ) {
 
-    await setDoc(
-      doc(db, "users", user.uid),
-      {
-        username: username,
-        email: user.email || "",
-        updatedAt: serverTimestamp()
-      },
-      {
-        merge: true
-      }
-    );
+      return profileSnap.data().username;
+
+    }
 
 
-    /* SUCCESS */
-
-    loginMessage.textContent =
-      "Welcome, " + username + "! 🐉";
-
-    googleLogin.style.display =
-      "none";
-
-    membershipForm.style.display =
-      "block";
+    return user.displayName || "Member";
 
 
   } catch (error) {
 
     console.error(
-      "Google Login Error:",
+      "Username loading error:",
       error
     );
 
-    googleLogin.disabled =
-      false;
-
-    loginMessage.textContent =
-      "Google sign-in failed: " +
-      error.code;
+    return user.displayName || "Member";
 
   }
 
-});
+}
 
 
 /* ================================
-   CHECK EXISTING LOGIN
+   GOOGLE LOGIN
+================================ */
+
+googleLogin.addEventListener(
+  "click",
+  async () => {
+
+    try {
+
+      googleLogin.disabled = true;
+
+      loginMessage.textContent =
+        "Opening Google sign-in...";
+
+
+      await setPersistence(
+        auth,
+        browserLocalPersistence
+      );
+
+
+      const result =
+        await signInWithPopup(
+          auth,
+          provider
+        );
+
+
+      const user =
+        result.user;
+
+
+      /* GET EXISTING USERNAME */
+
+      const username =
+        await loadSavedUsername(user);
+
+
+      /* CREATE PROFILE ONLY IF NEEDED */
+
+      await setDoc(
+        doc(db, "users", user.uid),
+        {
+
+          username: username,
+
+          email:
+            user.email || "",
+
+          updatedAt:
+            serverTimestamp()
+
+        },
+        {
+          merge: true
+        }
+      );
+
+
+      loginMessage.textContent =
+        "Welcome, " +
+        username +
+        "! 🐉";
+
+
+      googleLogin.style.display =
+        "none";
+
+
+      membershipForm.style.display =
+        "block";
+
+
+    } catch (error) {
+
+      console.error(
+        "Google Login Error:",
+        error
+      );
+
+
+      googleLogin.disabled =
+        false;
+
+
+      loginMessage.textContent =
+        "Google sign-in failed: " +
+        error.code;
+
+    }
+
+  }
+);
+
+
+/* ================================
+   EXISTING LOGIN
 ================================ */
 
 onAuthStateChanged(
   auth,
-  (user) => {
+  async (user) => {
 
     if (!user) return;
 
+
     const username =
-      user.displayName || "Member";
+      await loadSavedUsername(user);
+
 
     loginMessage.textContent =
       "Welcome back, " +
       username +
       "! 🐉";
 
+
     googleLogin.style.display =
       "none";
+
 
     membershipForm.style.display =
       "block";
@@ -600,11 +655,13 @@ document
           .value
           .trim();
 
+
       const district =
         document
           .getElementById("district")
           .value
           .trim();
+
 
       const message =
         document.getElementById(
@@ -638,12 +695,18 @@ document
 
       try {
 
+        /* KEEP SAVED USERNAME */
+
+        const username =
+          await loadSavedUsername(user);
+
+
         await setDoc(
           doc(db, "users", user.uid),
           {
 
             username:
-              user.displayName || "Member",
+              username,
 
             fullName:
               name,
@@ -670,8 +733,6 @@ document
           "! Your application has been received. 🐉";
 
 
-        /* OPEN COMMUNITY */
-
         setTimeout(() => {
 
           window.location.href =
@@ -687,6 +748,7 @@ document
           error
         );
 
+
         message.textContent =
           "Application could not be saved.";
 
@@ -696,5 +758,7 @@ document
   );
 
 </script>
+
+
 </body>
 </html>
