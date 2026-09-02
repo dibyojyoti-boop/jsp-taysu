@@ -820,14 +820,16 @@ await loadFollowCounts();
 
     if (profileSnap.exists()) {
 
-      const profileData =
-        profileSnap.data();
+  const profileData =
+    profileSnap.data();
 
-      if (profileData.username) {
-        username =
-          profileData.username;
-      }
-      document.getElementById(
+  if (profileData.username) {
+    username = profileData.username;
+  }
+
+}
+
+document.getElementById(
   "composerName"
 ).textContent = username;
 
@@ -835,8 +837,6 @@ document.getElementById(
   "composerAvatar"
 ).textContent =
   username.charAt(0).toUpperCase();
-
-    }
 
 
     document.getElementById(
