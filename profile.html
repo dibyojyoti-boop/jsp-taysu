@@ -302,6 +302,12 @@ const db = getFirestore(app);
 let currentUser = null;
 
 await auth.authStateReady();
+    alert(
+  "AUTH CHECK:\n" +
+  (auth.currentUser
+    ? "USER: " + auth.currentUser.email
+    : "USER: NULL")
+);
 onAuthStateChanged(auth, async (user) => {
 
   console.log("PROFILE USER:", user);
