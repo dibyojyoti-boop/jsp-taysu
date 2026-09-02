@@ -827,6 +827,14 @@ await loadFollowCounts();
         username =
           profileData.username;
       }
+      document.getElementById(
+  "composerName"
+).textContent = username;
+
+document.getElementById(
+  "composerAvatar"
+).textContent =
+  username.charAt(0).toUpperCase();
 
     }
 
@@ -972,7 +980,8 @@ try {
   await addDoc(collection(db, "posts"), {
     text: text,
     authorId: currentUser.uid,
-authorName: currentUser.displayName || "Member",
+authorName:
+  document.getElementById("composerName").textContent || "Member",
     createdAt: serverTimestamp()
   });
 
