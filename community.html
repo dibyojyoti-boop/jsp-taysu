@@ -690,9 +690,25 @@ onAuthStateChanged(
     communityLogin.style.display =
       "none";
 
-    let username =
-      user.displayName ||
-      "Member";
+    let username = "Member";
+
+try {
+  const profileRef = doc(db, "users", user.uid);
+  const profileSnap = await getDoc(profileRef);
+
+  if (profileSnap.exists() && profileSnap.data().username) {
+    username = profileSnap.data().username;
+  } else if (user.displayName) {
+    username = user.displayName;
+  }
+
+} catch (error) {
+  console.error("Username loading error:", error);
+
+  if (user.displayName) {
+    username = user.displayName;
+  }
+}
 
 
     try{
