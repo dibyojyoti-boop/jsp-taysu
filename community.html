@@ -1057,7 +1057,57 @@ const postId = doc.id;
       `;
 
       postsContainer.appendChild(postElement);
+const likeButton =
+  postElement.querySelector(".like-button");
 
+likeButton.addEventListener("click", async () => {
+
+  if (!currentUser) {
+    alert("Please sign in again.");
+    return;
+  }
+
+  try {
+
+    const likeRef = doc(
+      db,
+      "posts",
+      postId,
+      "likes",
+      currentUser.uid
+    );
+
+    const likeSnap = await getDoc(likeRef);
+
+    if (likeSnap.exists()) {
+
+      alert("Already liked ❤️");
+      return;
+
+    }
+
+    await setDoc(likeRef, {
+      userId: currentUser.uid,
+      createdAt: serverTimestamp()
+    });
+
+    likeButton.querySelector("span").textContent =
+      "Liked";
+
+    likeButton.disabled = true;
+
+  } catch (error) {
+
+    console.error("Like error:", error);
+
+    alert(
+      error.code + ": " +
+      error.message
+    );
+
+  }
+
+});
     });
 
   } catch (error) {
