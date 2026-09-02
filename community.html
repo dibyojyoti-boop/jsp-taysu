@@ -7,6 +7,7 @@
 <title>JSP TAYSU Community</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -15,19 +16,23 @@
 
 body{
   font-family:Arial,sans-serif;
-  background:#f3f4f6;
-  color:#171717;
-  padding-bottom:80px;
+  background:#f7f4ed;
+  color:#211c17;
+  padding-bottom:82px;
 }
+
+/* ================================
+   TOP BAR
+================================ */
 
 .topbar{
   position:sticky;
   top:0;
   z-index:100;
-  background:#111;
-  color:white;
-  padding:14px 18px;
-  box-shadow:0 2px 12px rgba(0,0,0,.15);
+  background:#4a392b;
+  color:#fffdf9;
+  padding:14px 16px;
+  box-shadow:0 3px 15px rgba(64,48,32,.16);
 }
 
 .topbar-inner{
@@ -39,102 +44,135 @@ body{
 }
 
 .logo{
-  font-size:18px;
+  font-size:17px;
   font-weight:800;
+  letter-spacing:.4px;
 }
 
 .profile{
-  max-width:160px;
+  max-width:170px;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
   font-size:13px;
-  color:#ddd;
+  color:#eadfc9;
 }
+
+/* ================================
+   CONTAINER
+================================ */
 
 .container{
   max-width:720px;
   margin:auto;
-  padding:14px 14px 30px;
+  padding:18px 14px 30px;
 }
 
+/* ================================
+   WELCOME
+================================ */
+
 .welcome{
-  padding:8px 4px 12px;
+  padding:4px 4px 17px;
 }
 
 .welcome h1{
-  font-size:25px;
-  margin-bottom:5px;
+  font-size:26px;
+  margin-bottom:6px;
+  color:#211c17;
 }
 
 .welcome p{
-  color:#777;
+  color:#81776b;
   font-size:13px;
 }
 
-/* SEARCH */
+/* ================================
+   SEARCH
+================================ */
 
 .search-box{
   display:flex;
   gap:8px;
-  margin:0 0 16px;
+  margin-bottom:10px;
 }
 
 #userSearchInput{
   flex:1;
   padding:12px 14px;
-  border:1px solid #ddd;
+  border:1px solid #ddd3c5;
   border-radius:14px;
-  background:white;
+  background:#fffdf9;
+  color:#211c17;
   font-size:14px;
   outline:none;
+}
+
+#userSearchInput:focus{
+  border-color:#ad8d5c;
 }
 
 #userSearchButton{
   border:0;
   border-radius:14px;
-  padding:12px 16px;
-  background:#151515;
-  color:white;
+  padding:12px 15px;
+  background:#4a392b;
+  color:#fff;
   font-weight:bold;
   cursor:pointer;
 }
 
+#userSearchButton:hover{
+  background:#382b20;
+}
+
 #searchResults{
-  margin-bottom:16px;
+  margin-bottom:17px;
 }
 
 .search-result{
-  background:white;
-  padding:13px;
+  background:#fffdf9;
+  border:1px solid #e8e0d3;
+  padding:12px 13px;
   border-radius:14px;
   margin-bottom:8px;
   display:flex;
   align-items:center;
   justify-content:space-between;
+  box-shadow:0 3px 12px rgba(64,48,32,.04);
 }
 
 .search-result-user{
   font-weight:bold;
+  color:#30251d;
 }
 
 .follow-button{
   border:0;
   border-radius:18px;
   padding:8px 14px;
-  background:#111;
+  background:#4a392b;
   color:white;
   cursor:pointer;
+  font-weight:700;
 }
 
-/* CREATE POST */
+.follow-button:disabled{
+  opacity:.6;
+  cursor:default;
+}
+
+/* ================================
+   CREATE POST
+================================ */
 
 .create-post{
-  background:white;
-  border-radius:18px;
-  padding:16px;
-  margin-bottom:20px;
-  box-shadow:0 3px 15px rgba(0,0,0,.06);
+  background:#fffdf9;
+  border:1px solid #e8e0d3;
+  border-radius:21px;
+  padding:17px;
+  margin-bottom:24px;
+  box-shadow:0 7px 24px rgba(64,48,32,.06);
 }
 
 .composer-header{
@@ -149,41 +187,44 @@ body{
   height:44px;
   flex-shrink:0;
   border-radius:50%;
-  background:#171717;
-  color:white;
+  background:#4a392b;
+  color:#f7e9c8;
   display:flex;
   align-items:center;
   justify-content:center;
   font-weight:800;
+  border:2px solid #eadfc9;
 }
 
 .composer-header strong{
   font-size:15px;
+  color:#30251d;
 }
 
 .composer-header small{
   display:block;
-  color:#888;
+  color:#8a8177;
   margin-top:3px;
   font-size:12px;
 }
 
 #postText{
   width:100%;
-  min-height:90px;
+  min-height:95px;
   resize:vertical;
-  border:1px solid #ddd;
-  border-radius:14px;
+  border:1px solid #ddd3c5;
+  border-radius:15px;
   padding:13px;
   font-family:inherit;
   font-size:15px;
   outline:none;
-  background:#fafafa;
+  background:#faf7f1;
+  color:#211c17;
 }
 
 #postText:focus{
-  background:white;
-  border-color:#999;
+  background:#fff;
+  border-color:#ad8d5c;
 }
 
 .post-options{
@@ -195,21 +236,26 @@ body{
 
 .media-buttons{
   display:flex;
-  gap:5px;
+  gap:6px;
 }
 
 .media-buttons button{
-  border:0;
-  background:#f1f1f1;
+  border:1px solid #e3dbcf;
+  background:#f5eee4;
+  color:#66594c;
   padding:8px 10px;
   border-radius:18px;
   cursor:pointer;
   font-size:12px;
 }
 
+.media-buttons button:hover{
+  background:#eee4d4;
+}
+
 .post-btn{
   border:0;
-  background:#111;
+  background:#4a392b;
   color:white;
   padding:10px 19px;
   border-radius:20px;
@@ -217,47 +263,74 @@ body{
   cursor:pointer;
 }
 
-/* FEED */
+.post-btn:hover{
+  background:#382b20;
+}
+
+/* ================================
+   FEED TITLE
+================================ */
 
 .section-title{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin:0 3px 10px;
+  margin:0 3px 11px;
 }
 
 .section-title h2{
   font-size:19px;
+  color:#493a2d;
 }
 
 .section-title span{
-  font-size:18px;
+  font-size:19px;
 }
 
+/* ================================
+   POSTS
+================================ */
+
 .post{
-  background:white;
-  border-radius:16px;
-  padding:14px 15px;
-  margin-bottom:10px;
-  box-shadow:0 2px 12px rgba(0,0,0,.05);
+  background:#fffdf9;
+  border:1px solid #e8e0d3;
+  border-radius:18px;
+  padding:15px 16px;
+  margin-bottom:12px;
+  box-shadow:0 5px 18px rgba(64,48,32,.05);
 }
 
 .post-header{
   display:flex;
   align-items:center;
-  gap:9px;
-  margin-bottom:8px;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.post-author{
+  font-size:14px;
+  font-weight:800;
+  color:#30251d;
+}
+
+.post-time{
+  color:#8a8177;
+  font-size:11px;
+  margin-top:2px;
 }
 
 .post-text{
-  line-height:1.45;
-  margin-bottom:8px;
+  line-height:1.55;
+  margin-bottom:10px;
   white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  color:#302820;
+  font-size:15px;
 }
 
 .actions{
-  border-top:1px solid #eee;
-  padding-top:6px;
+  border-top:1px solid #eee6da;
+  padding-top:7px;
   display:flex;
   gap:4px;
 }
@@ -265,7 +338,7 @@ body{
 .action{
   border:0;
   background:none;
-  color:#555;
+  color:#766b60;
   padding:7px 10px;
   border-radius:17px;
   cursor:pointer;
@@ -273,67 +346,92 @@ body{
 }
 
 .action:hover{
-  background:#f2f2f2;
+  background:#f3ede4;
+  color:#493a2d;
 }
 
+.action:disabled{
+  cursor:default;
+  opacity:.65;
+}
+
+/* ================================
+   EMPTY
+================================ */
+
 .empty{
-  background:white;
-  border-radius:17px;
+  background:#fffdf9;
+  border:1px solid #e8e0d3;
+  border-radius:19px;
   text-align:center;
-  padding:40px 20px;
-  color:#777;
+  padding:42px 20px;
+  color:#81776b;
+  box-shadow:0 5px 18px rgba(64,48,32,.04);
 }
 
 .empty-icon{
   font-size:34px;
-  margin-bottom:7px;
+  margin-bottom:8px;
 }
 
 .empty h3{
-  color:#333;
-  margin-bottom:5px;
+  color:#493a2d;
+  margin-bottom:6px;
+  font-size:17px;
 }
 
 .empty p{
   font-size:13px;
 }
 
-/* LOGIN */
+/* ================================
+   LOGIN
+================================ */
 
 #communityLogin{
-  background:white;
-  border-radius:17px;
+  background:#fffdf9;
+  border:1px solid #e8e0d3;
+  border-radius:18px;
   text-align:center;
   padding:20px;
   margin-bottom:15px;
+  box-shadow:0 5px 18px rgba(64,48,32,.05);
 }
 
-/* BOTTOM NAV */
+/* ================================
+   BOTTOM NAV
+================================ */
 
 .bottom-nav{
   position:fixed;
   left:0;
   right:0;
   bottom:0;
-  height:65px;
+  height:68px;
   z-index:200;
-  background:rgba(255,255,255,.97);
-  border-top:1px solid #e5e5e5;
+
+  background:rgba(255,253,249,.97);
+  backdrop-filter:blur(10px);
+
+  border-top:1px solid #e3dbcf;
+
   display:flex;
   justify-content:center;
-  gap:5px;
+  gap:4px;
   padding:7px 10px;
+  box-shadow:0 -4px 18px rgba(64,48,32,.06);
 }
 
 .nav-item{
   flex:1;
-  max-width:100px;
+  max-width:110px;
   border:0;
   background:none;
-  color:#777;
+  color:#8a8177;
   cursor:pointer;
-  border-radius:12px;
+  border-radius:13px;
   font-size:18px;
+  transition:.2s;
 }
 
 .nav-item span{
@@ -342,15 +440,36 @@ body{
   margin-top:3px;
 }
 
+.nav-item:hover{
+  background:#f3ede4;
+  color:#493a2d;
+}
+
 .nav-item.active{
-  color:#111;
+  color:#4a392b;
   font-weight:bold;
 }
+
+/* ================================
+   MOBILE
+================================ */
 
 @media(max-width:500px){
 
   .container{
-    padding:12px 10px 25px;
+    padding:15px 10px 25px;
+  }
+
+  .topbar{
+    padding:13px 14px;
+  }
+
+  .logo{
+    font-size:15px;
+  }
+
+  .profile{
+    max-width:130px;
   }
 
   .welcome h1{
@@ -359,6 +478,7 @@ body{
 
   .create-post{
     padding:14px;
+    border-radius:19px;
   }
 
   .media-buttons button{
@@ -369,37 +489,76 @@ body{
   .post-btn{
     padding:9px 16px;
   }
+
+  .post{
+    padding:14px;
+  }
+
+  .bottom-nav{
+    height:65px;
+  }
 }
+
 </style>
 </head>
 
 <body>
 
 <header class="topbar">
+
   <div class="topbar-inner">
-    <div class="logo">🐉 JSP TAYSU</div>
-    <div class="profile" id="profileName">Member</div>
+
+    <div class="logo">
+      🐉 JSP TAYSU
+    </div>
+
+    <div class="profile" id="profileName">
+      Member
+    </div>
+
   </div>
+
 </header>
+
 
 <main class="container">
 
+
+  <!-- LOGIN -->
+
   <div id="communityLogin" style="display:none;">
+
     <p style="margin-bottom:12px;">
       Sign in to join the community 🐉
     </p>
 
-    <button id="communityGoogleLogin" class="post-btn">
+    <button
+      id="communityGoogleLogin"
+      class="post-btn">
+
       Continue with Google
+
     </button>
+
   </div>
 
+
+  <!-- WELCOME -->
+
   <section class="welcome">
-    <h1 id="welcomeText">Welcome 👋</h1>
-    <p>Connect. Share. Preserve our heritage.</p>
+
+    <h1 id="welcomeText">
+      Welcome 👋
+    </h1>
+
+    <p>
+      Connect. Share. Preserve our heritage.
+    </p>
+
   </section>
 
-  <!-- SEARCH AT TOP -->
+
+  <!-- SEARCH -->
 
   <div class="search-box">
 
@@ -416,7 +575,9 @@ body{
 
   </div>
 
+
   <div id="searchResults"></div>
+
 
   <!-- CREATE POST -->
 
@@ -424,11 +585,16 @@ body{
 
     <div class="composer-header">
 
-      <div class="avatar" id="composerAvatar">
+      <div
+        class="avatar"
+        id="composerAvatar">
+
         M
+
       </div>
 
       <div>
+
         <strong id="composerName">
           Member
         </strong>
@@ -436,18 +602,22 @@ body{
         <small>
           Share with the community
         </small>
+
       </div>
 
     </div>
+
 
     <textarea
       id="postText"
       placeholder="What's on your mind?"
     ></textarea>
 
+
     <div class="post-options">
 
       <div class="media-buttons">
+
         <button type="button">
           📷 Photo
         </button>
@@ -455,17 +625,22 @@ body{
         <button type="button">
           🎥 Video
         </button>
+
       </div>
+
 
       <button
         class="post-btn"
         id="postButton">
+
         Post
+
       </button>
 
     </div>
 
   </section>
+
 
   <!-- COMMUNITY FEED -->
 
@@ -480,6 +655,7 @@ body{
     </span>
 
   </div>
+
 
   <section id="posts">
 
@@ -502,6 +678,7 @@ body{
   </section>
 
 </main>
+
 
 <!-- BOTTOM NAV -->
 
@@ -538,6 +715,7 @@ body{
 
 </nav>
 
+
 <script type="module">
 
 import { initializeApp }
@@ -546,7 +724,6 @@ from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 import {
   getAuth,
   onAuthStateChanged,
-  signOut,
   GoogleAuthProvider,
   signInWithRedirect,
   setPersistence,
@@ -567,7 +744,9 @@ import {
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-/* FIREBASE */
+/* ================================
+   FIREBASE
+================================ */
 
 const firebaseConfig = {
 
@@ -591,16 +770,12 @@ const firebaseConfig = {
 
 };
 
+
 const app =
   initializeApp(firebaseConfig);
 
 const auth =
   getAuth(app);
-
-await setPersistence(
-  auth,
-  browserLocalPersistence
-);
 
 const db =
   getFirestore(app);
@@ -608,7 +783,19 @@ const db =
 let currentUser = null;
 
 
-/* LOGIN */
+/* ================================
+   KEEP LOGIN
+================================ */
+
+await setPersistence(
+  auth,
+  browserLocalPersistence
+);
+
+
+/* ================================
+   GOOGLE LOGIN
+================================ */
 
 const provider =
   new GoogleAuthProvider();
@@ -623,18 +810,19 @@ const communityGoogleLogin =
     "communityGoogleLogin"
   );
 
+
 communityGoogleLogin.addEventListener(
   "click",
   async () => {
 
-    try {
+    try{
 
       await signInWithRedirect(
         auth,
         provider
       );
 
-    } catch(error) {
+    }catch(error){
 
       console.error(error);
 
@@ -650,7 +838,9 @@ communityGoogleLogin.addEventListener(
 );
 
 
-/* LOAD USER */
+/* ================================
+   AUTH STATE
+================================ */
 
 onAuthStateChanged(
   auth,
@@ -672,31 +862,19 @@ onAuthStateChanged(
 
     }
 
-    currentUser = user;
+
+    currentUser =
+      user;
 
     communityLogin.style.display =
       "none";
 
-    let username = "Member";
 
-try {
-  const profileRef = doc(db, "users", user.uid);
-  const profileSnap = await getDoc(profileRef);
+    let username =
+      "Member";
 
-  if (profileSnap.exists() && profileSnap.data().username) {
-    username = profileSnap.data().username;
-  } else if (user.displayName) {
-    username = user.displayName;
-  }
 
-} catch (error) {
-  console.error("Username loading error:", error);
-
-  if (user.displayName) {
-    username = user.displayName;
-  }
-}
-
+    /* LOAD USERNAME */
 
     try{
 
@@ -707,46 +885,59 @@ try {
           user.uid
         );
 
+
       const profileSnap =
-        await getDoc(profileRef);
+        await getDoc(
+          profileRef
+        );
 
 
-      if(profileSnap.exists()){
+      if(
+        profileSnap.exists() &&
+        profileSnap.data().username
+      ){
 
-        const profileData =
-          profileSnap.data();
+        username =
+          profileSnap.data().username;
 
-        if(profileData.username){
+      }else if(user.displayName){
 
-          username =
-            profileData.username;
-
-        }
+        username =
+          user.displayName;
 
       }
-
 
     }catch(error){
 
       console.error(
-        "Profile loading error:",
+        "Username loading error:",
         error
       );
+
+
+      if(user.displayName){
+
+        username =
+          user.displayName;
+
+      }
 
     }
 
 
-    /* SHOW USERNAME EVERYWHERE */
+    /* DISPLAY USER */
 
     document.getElementById(
       "profileName"
     ).textContent =
       username;
 
+
     document.getElementById(
       "composerName"
     ).textContent =
       username;
+
 
     document.getElementById(
       "composerAvatar"
@@ -754,6 +945,7 @@ try {
       username
         .charAt(0)
         .toUpperCase();
+
 
     document.getElementById(
       "welcomeText"
@@ -763,15 +955,15 @@ try {
       " 👋";
 
 
-    /* LOAD POSTS AFTER AUTH */
-
     await loadPosts();
 
   }
 );
 
 
-/* CREATE POST */
+/* ================================
+   CREATE POST
+================================ */
 
 document.getElementById(
   "postButton"
@@ -860,6 +1052,7 @@ document.getElementById(
         error
       );
 
+
       alert(
         error.code +
         ": " +
@@ -872,7 +1065,9 @@ document.getElementById(
 );
 
 
-/* LOAD POSTS */
+/* ================================
+   LOAD POSTS
+================================ */
 
 async function loadPosts(){
 
@@ -924,15 +1119,44 @@ async function loadPosts(){
     }
 
 
+    const posts = [];
+
+
     snapshot.forEach(
       (postDoc) => {
 
-        const post =
-          postDoc.data();
+        posts.push({
 
-        const postId =
-          postDoc.id;
+          id:
+            postDoc.id,
 
+          ...postDoc.data()
+
+        });
+
+      }
+    );
+
+
+    /* NEWEST FIRST */
+
+    posts.sort(
+      (a,b) => {
+
+        const timeA =
+          a.createdAt?.seconds || 0;
+
+        const timeB =
+          b.createdAt?.seconds || 0;
+
+        return timeB - timeA;
+
+      }
+    );
+
+
+    posts.forEach(
+      (post) => {
 
         const postElement =
           document.createElement(
@@ -944,22 +1168,33 @@ async function loadPosts(){
           "post";
 
 
+        const username =
+          post.authorName ||
+          "Member";
+
+
         postElement.innerHTML = `
 
           <div class="post-header">
 
             <div class="avatar">
 
-              ${(post.authorName || "M")
-                .charAt(0)
-                .toUpperCase()}
+              ${escapeHTML(
+                username
+                  .charAt(0)
+                  .toUpperCase()
+              )}
 
             </div>
 
             <div>
 
               <div class="post-author">
-                ${post.authorName || "Member"}
+
+                ${escapeHTML(
+                  username
+                )}
+
               </div>
 
               <div class="post-time">
@@ -972,7 +1207,11 @@ async function loadPosts(){
 
 
           <div class="post-text">
-            ${post.text || ""}
+
+            ${escapeHTML(
+              post.text || ""
+            )}
+
           </div>
 
 
@@ -986,11 +1225,15 @@ async function loadPosts(){
             </button>
 
             <button class="action">
+
               💬 Comment
+
             </button>
 
             <button class="action">
+
               ↗️ Share
+
             </button>
 
           </div>
@@ -1032,7 +1275,7 @@ async function loadPosts(){
                 doc(
                   db,
                   "posts",
-                  postId,
+                  post.id,
                   "likes",
                   currentUser.uid
                 );
@@ -1090,6 +1333,7 @@ async function loadPosts(){
                 error
               );
 
+
               alert(
                 error.code +
                 ": " +
@@ -1138,7 +1382,28 @@ async function loadPosts(){
 }
 
 
-/* SEARCH MEMBERS */
+/* ================================
+   SAFE HTML
+================================ */
+
+function escapeHTML(text){
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+  div.textContent =
+    text;
+
+  return div.innerHTML;
+
+}
+
+
+/* ================================
+   SEARCH MEMBERS
+================================ */
 
 const userSearchButton =
   document.getElementById(
@@ -1169,7 +1434,7 @@ userSearchButton.addEventListener(
     if(!searchText){
 
       searchResults.innerHTML =
-        "<p>Enter a username to search.</p>";
+        "<p style='color:#81776b;font-size:13px;'>Enter a username to search.</p>";
 
       return;
 
@@ -1233,11 +1498,18 @@ userSearchButton.addEventListener(
             result.innerHTML = `
 
               <div class="search-result-user">
-                ${user.username}
+
+                ${escapeHTML(
+                  user.username ||
+                  "Member"
+                )}
+
               </div>
 
               <button class="follow-button">
+
                 Follow
+
               </button>
 
             `;
@@ -1303,8 +1575,10 @@ userSearchButton.addEventListener(
                 }catch(error){
 
                   console.error(
+                    "Follow error:",
                     error
                   );
+
 
                   alert(
                     error.code +
@@ -1331,7 +1605,7 @@ userSearchButton.addEventListener(
       if(!found){
 
         searchResults.innerHTML =
-          "<p>No members found.</p>";
+          "<p style='color:#81776b;font-size:13px;'>No members found.</p>";
 
       }
 
@@ -1342,6 +1616,7 @@ userSearchButton.addEventListener(
         "Search error:",
         error
       );
+
 
       alert(
         error.code +
@@ -1355,7 +1630,9 @@ userSearchButton.addEventListener(
 );
 
 
-/* PROFILE BUTTON */
+/* ================================
+   PROFILE BUTTON
+================================ */
 
 const profileNavButton =
   document.getElementById(
@@ -1378,7 +1655,9 @@ if(profileNavButton){
 }
 
 
-/* INITIAL LOAD */
+/* ================================
+   INITIAL LOAD
+================================ */
 
 loadPosts();
 
