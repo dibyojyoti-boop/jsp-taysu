@@ -219,18 +219,23 @@ footer{
 
 <header>
 <div class="nav">
-<div class="logo">🐉 JSP TAYSU</div>
+
+<div class="logo">
+🐉 JSP TAYSU
+</div>
 
 <nav>
 <a href="#home">Home</a>
 <a href="#culture">Culture</a>
 <a href="#login">Join</a>
 </nav>
+
 </div>
 </header>
 
 
 <section class="hero" id="home">
+
 <div class="hero-content">
 
 <span class="badge">
@@ -239,7 +244,9 @@ TAI AHOM YOUTH & STUDENTS UNION
 
 <h1>Jaa Sing Pha</h1>
 
-<h2>Our Roots. Our Heritage. Our Future.</h2>
+<h2>
+Our Roots. Our Heritage. Our Future.
+</h2>
 
 <p>
 A youth-driven community working together to preserve,
@@ -247,48 +254,74 @@ learn and celebrate Tai Ahom culture, language and heritage.
 </p>
 
 <div class="buttons">
-<a class="btn" href="#login">Join Our Community</a>
-<a class="btn secondary" href="#culture">Explore Culture</a>
+
+<a class="btn" href="#login">
+Join Our Community
+</a>
+
+<a class="btn secondary" href="#culture">
+Explore Culture
+</a>
+
 </div>
 
 </div>
+
 </section>
 
 
 <section id="culture">
 
 <div class="section-title">
+
 <h2>Our Heritage</h2>
-<p>Learn. Preserve. Pass it on.</p>
+
+<p>
+Learn. Preserve. Pass it on.
+</p>
+
 </div>
+
 
 <div class="cards">
 
 <div class="card">
+
 <h3>🐉 Tai Ahom Heritage</h3>
+
 <p>
 Discover the history, traditions and heritage
 of the Tai Ahom community.
 </p>
+
 </div>
 
+
 <div class="card">
+
 <h3>📖 Language & Knowledge</h3>
+
 <p>
 Encourage younger generations to learn about
 Tai Ahom language, literature and traditional knowledge.
 </p>
+
 </div>
 
+
 <div class="card">
+
 <h3>🤝 Youth Together</h3>
+
 <p>
 Bringing students and young people together
 to protect and promote our cultural heritage.
 </p>
+
 </div>
 
 </div>
+
 </section>
 
 
@@ -296,52 +329,74 @@ to protect and promote our cultural heritage.
 
 <div class="login">
 
-<h2>Join Our Community</h2>
+<h2>
+Join Our Community
+</h2>
 
-<p>Sign in with Google to continue.</p>
+<p>
+Sign in with Google to continue.
+</p>
+
 
 <button
 class="btn"
 id="googleLogin"
 type="button">
+
 Continue with Google
+
 </button>
+
 
 <p id="loginMessage"></p>
 
 
 <div id="membershipForm">
 
-<h3>Complete Your Membership</h3>
+<h3>
+Complete Your Membership
+</h3>
+
 
 <input
 type="text"
 id="fullName"
-placeholder="Full Name">
+placeholder="Full Name"
+autocomplete="name"
+>
+
 
 <input
 type="text"
 id="district"
-placeholder="District">
+placeholder="District"
+>
+
 
 <button
 class="btn"
 id="submitApplication"
 type="button">
+
 Submit Application
+
 </button>
+
 
 <p id="applicationMessage"></p>
 
 </div>
 
 </div>
+
 </section>
 
 
 <section class="join">
 
-<h2>Be Part of the Movement</h2>
+<h2>
+Be Part of the Movement
+</h2>
 
 <p>
 Together, we learn. Together, we preserve.
@@ -350,61 +405,11 @@ Together, we carry our heritage forward.
 
 </section>
 
-<section id="community" style="display:none;padding:60px 20px;background:#f7f3ea;">
-  <div style="max-width:700px;margin:auto;text-align:center;">
 
-    <h2 style="font-size:32px;margin-bottom:10px;">
-      🐉 Community Feed
-    </h2>
-
-    <p style="color:#666;margin-bottom:25px;">
-      Share your thoughts and connect with the community.
-    </p>
-
-    <div style="
-      background:white;
-      padding:20px;
-      border-radius:18px;
-      box-shadow:0 8px 25px rgba(0,0,0,.08);
-      text-align:left;
-    ">
-
-      <textarea
-        id="postText"
-        placeholder="What's on your mind?"
-        style="
-          width:100%;
-          min-height:110px;
-          padding:14px;
-          border:1px solid #ddd;
-          border-radius:12px;
-          resize:vertical;
-          font-size:16px;
-        "
-      ></textarea>
-
-      <div style="margin-top:12px;text-align:right;">
-
-        <button
-          id="createPost"
-          class="btn"
-          type="button">
-          Post
-        </button>
-
-      </div>
-
-      <p id="postMessage" style="margin-top:10px;"></p>
-
-    </div>
-
-    <div id="postsContainer" style="margin-top:25px;"></div>
-
-  </div>
-
-</section>
 <footer>
+
 © 2026 Jaa Sing Pha — Tai Ahom Youth & Students Union
+
 </footer>
 
 
@@ -433,31 +438,49 @@ import {
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
+/* ================================
+   FIREBASE
+================================ */
+
 const firebaseConfig = {
 
-  apiKey: "AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
+  apiKey:
+    "AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
 
-  authDomain: "jsp-taysu.firebaseapp.com",
+  authDomain:
+    "jsp-taysu.firebaseapp.com",
 
-  projectId: "jsp-taysu",
+  projectId:
+    "jsp-taysu",
 
-  storageBucket: "jsp-taysu.firebasestorage.app",
+  storageBucket:
+    "jsp-taysu.firebasestorage.app",
 
-  messagingSenderId: "280992025632",
+  messagingSenderId:
+    "280992025632",
 
-  appId: "1:280992025632:web:48efa21208a78be9a78045"
+  appId:
+    "1:280992025632:web:48efa21208a78be9a78045"
 
 };
 
 
-const app = initializeApp(firebaseConfig);
+const app =
+  initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+const auth =
+  getAuth(app);
 
-const db = getFirestore(app);
+const db =
+  getFirestore(app);
 
-const provider = new GoogleAuthProvider();
+const provider =
+  new GoogleAuthProvider();
 
+
+/* ================================
+   ELEMENTS
+================================ */
 
 const googleLogin =
   document.getElementById("googleLogin");
@@ -468,45 +491,53 @@ const loginMessage =
 const membershipForm =
   document.getElementById("membershipForm");
 
+const fullName =
+  document.getElementById("fullName");
+
+const district =
+  document.getElementById("district");
+
+const applicationMessage =
+  document.getElementById(
+    "applicationMessage"
+  );
+
 
 /* ================================
-   LOAD SAVED USERNAME
+   PERSISTENCE
 ================================ */
 
-async function loadSavedUsername(user) {
-
-  try {
-
-    const profileRef =
-      doc(db, "users", user.uid);
-
-    const profileSnap =
-      await getDoc(profileRef);
+await setPersistence(
+  auth,
+  browserLocalPersistence
+);
 
 
-    if (
-      profileSnap.exists() &&
-      profileSnap.data().username
-    ) {
+/* ================================
+   GET USER PROFILE
+================================ */
 
-      return profileSnap.data().username;
+async function getUserProfile(user){
 
-    }
-
-
-    return user.displayName || "Member";
-
-
-  } catch (error) {
-
-    console.error(
-      "Username loading error:",
-      error
+  const profileRef =
+    doc(
+      db,
+      "users",
+      user.uid
     );
 
-    return user.displayName || "Member";
+  const profileSnap =
+    await getDoc(
+      profileRef
+    );
+
+  if(profileSnap.exists()){
+
+    return profileSnap.data();
 
   }
+
+  return null;
 
 }
 
@@ -519,18 +550,13 @@ googleLogin.addEventListener(
   "click",
   async () => {
 
-    try {
+    try{
 
-      googleLogin.disabled = true;
+      googleLogin.disabled =
+        true;
 
       loginMessage.textContent =
         "Opening Google sign-in...";
-
-
-      await setPersistence(
-        auth,
-        browserLocalPersistence
-      );
 
 
       const result =
@@ -544,19 +570,26 @@ googleLogin.addEventListener(
         result.user;
 
 
-      /* GET EXISTING USERNAME */
+      const profile =
+        await getUserProfile(user);
+
 
       const username =
-        await loadSavedUsername(user);
+        profile?.username ||
+        user.displayName ||
+        "Member";
 
-
-      /* CREATE PROFILE ONLY IF NEEDED */
 
       await setDoc(
-        doc(db, "users", user.uid),
+        doc(
+          db,
+          "users",
+          user.uid
+        ),
         {
 
-          username: username,
+          username:
+            username,
 
           email:
             user.email || "",
@@ -566,7 +599,7 @@ googleLogin.addEventListener(
 
         },
         {
-          merge: true
+          merge:true
         }
       );
 
@@ -585,17 +618,32 @@ googleLogin.addEventListener(
         "block";
 
 
-    } catch (error) {
+      /* FILL SAVED INFORMATION */
+
+      if(profile?.fullName){
+
+        fullName.value =
+          profile.fullName;
+
+      }
+
+      if(profile?.district){
+
+        district.value =
+          profile.district;
+
+      }
+
+
+    }catch(error){
 
       console.error(
         "Google Login Error:",
         error
       );
 
-
       googleLogin.disabled =
         false;
-
 
       loginMessage.textContent =
         "Google sign-in failed: " +
@@ -608,157 +656,200 @@ googleLogin.addEventListener(
 
 
 /* ================================
-   EXISTING LOGIN
+   AUTH STATE
 ================================ */
 
 onAuthStateChanged(
   auth,
   async (user) => {
 
-    if (!user) return;
+    if(!user){
+
+      googleLogin.style.display =
+        "inline-block";
+
+      membershipForm.style.display =
+        "none";
+
+      return;
+
+    }
 
 
-    const username =
-      await loadSavedUsername(user);
+    try{
+
+      const profile =
+        await getUserProfile(user);
 
 
-    loginMessage.textContent =
-      "Welcome back, " +
-      username +
-      "! 🐉";
+      const username =
+        profile?.username ||
+        user.displayName ||
+        "Member";
 
 
-    googleLogin.style.display =
-      "none";
+      loginMessage.textContent =
+        "Welcome back, " +
+        username +
+        "! 🐉";
 
 
-    membershipForm.style.display =
-      "block";
+      googleLogin.style.display =
+        "none";
+
+
+      membershipForm.style.display =
+        "block";
+
+
+      if(profile?.fullName){
+
+        fullName.value =
+          profile.fullName;
+
+      }
+
+
+      if(profile?.district){
+
+        district.value =
+          profile.district;
+
+      }
+
+    }catch(error){
+
+      console.error(
+        "Auth state error:",
+        error
+      );
+
+    }
 
   }
 );
 
 
 /* ================================
-   MEMBERSHIP APPLICATION
+   MEMBERSHIP
 ================================ */
 
 document
-  .getElementById("submitApplication")
-  .addEventListener(
-    "click",
-    async () => {
+.getElementById("submitApplication")
+.addEventListener(
+  "click",
+  async () => {
 
-      const name =
-        document
-          .getElementById("fullName")
-          .value
-          .trim();
+    const name =
+      fullName.value.trim();
 
-
-      const district =
-        document
-          .getElementById("district")
-          .value
-          .trim();
+    const userDistrict =
+      district.value.trim();
 
 
-      const message =
-        document.getElementById(
-          "applicationMessage"
-        );
+    if(!name || !userDistrict){
+
+      applicationMessage.textContent =
+        "Please enter your full name and district.";
+
+      return;
+
+    }
 
 
-      if (!name || !district) {
-
-        message.textContent =
-          "Please enter your full name and district.";
-
-        return;
-
-      }
+    const user =
+      auth.currentUser;
 
 
-      const user =
-        auth.currentUser;
+    if(!user){
+
+      applicationMessage.textContent =
+        "Please sign in with Google first.";
+
+      return;
+
+    }
 
 
-      if (!user) {
+    try{
 
-        message.textContent =
-          "Please sign in with Google first.";
-
-        return;
-
-      }
+      applicationMessage.textContent =
+        "Saving your membership...";
 
 
-      try {
-
-        /* KEEP SAVED USERNAME */
-
-        const username =
-          await loadSavedUsername(user);
+      const profile =
+        await getUserProfile(user);
 
 
-        await setDoc(
-          doc(db, "users", user.uid),
-          {
-
-            username:
-              username,
-
-            fullName:
-              name,
-
-            district:
-              district,
-
-            email:
-              user.email || "",
-
-            updatedAt:
-              serverTimestamp()
-
-          },
-          {
-            merge: true
-          }
-        );
+      const username =
+        profile?.username ||
+        user.displayName ||
+        "Member";
 
 
-        message.textContent =
-          "Thank you, " +
-          name +
-          "! Your application has been received. 🐉";
+      await setDoc(
+        doc(
+          db,
+          "users",
+          user.uid
+        ),
+        {
+
+          username:
+            username,
+
+          fullName:
+            name,
+
+          district:
+            userDistrict,
+
+          email:
+            user.email || "",
+
+          updatedAt:
+            serverTimestamp()
+
+        },
+        {
+          merge:true
+        }
+      );
 
 
-        setTimeout(() => {
+      applicationMessage.textContent =
+        "Application saved! Opening community... 🐉";
+
+
+      setTimeout(
+        () => {
 
           window.location.href =
             "community.html";
 
-        }, 1000);
+        },
+        800
+      );
 
 
-      } catch (error) {
+    }catch(error){
 
-        console.error(
-          "Application Error:",
-          error
-        );
+      console.error(
+        "Application Error:",
+        error
+      );
 
-
-        message.textContent =
-          "Application could not be saved.";
-
-      }
+      applicationMessage.textContent =
+        error.code +
+        ": " +
+        error.message;
 
     }
-  );
+
+  }
+);
 
 </script>
-
 
 </body>
 </html>
