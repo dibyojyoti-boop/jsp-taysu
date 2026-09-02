@@ -2153,54 +2153,110 @@ userSearchButton.addEventListener(
 
 
             const followButton =
-              result.querySelector(
-                ".follow-button"
-              );
+  result.querySelector(
+    ".follow-button"
+  );
+
+const followId =
+  currentUser.uid +
+  "_" +
+  userDoc.id;
 
 
-            followButton.addEventListener(
-              "click",
-              async () => {
+/* CHECK FOLLOW STATUS */
 
-                if(!currentUser){
+try{
 
-                  alert(
-                    "Please sign in again."
-                  );
+  const followSnap =
+    await getDoc(
+      doc(
+        db,
+        "follows",
+        followId
+      )
+    );
 
-                  return;
+  if(followSnap.exists()){
 
-                }
+    followButton.textContent =
+      "Following";
+
+    followButton.disabled =
+      true;
+
+  }
+
+}catch(error){
+
+  console.error(
+    "Follow status error:",
+    error
+  );
+
+}
 
 
-                try{
+/* FOLLOW */
 
-                  const followId =
-                    currentUser.uid +
-                    "_" +
-                    userDoc.id;
+followButton.addEventListener(
+  "click",
+  async () => {
 
+    if(!currentUser){
 
-                  await setDoc(
-                    doc(
-                      db,
-                      "follows",
-                      followId
-                    ),
-                    {
+      alert(
+        "Please sign in again."
+      );
 
-                      followerId:
-                        currentUser.uid,
+      return;
 
-                      followingId:
-                        userDoc.id,
+    }
 
-                      createdAt:
-                        serverTimestamp()
+    try{
 
-                    }
-                  );
+      await setDoc(
+        doc(
+          db,
+          "follows",
+          followId
+        ),
+        {
 
+          followerId:
+            currentUser.uid,
+
+          followingId:
+            userDoc.id,
+
+          createdAt:
+            serverTimestamp()
+
+        }
+      );
+
+      followButton.textContent =
+        "Following";
+
+      followButton.disabled =
+        true;
+
+    }catch(error){
+
+      console.error(
+        "Follow error:",
+        error
+      );
+
+      alert(
+        error.code +
+        ": " +
+        error.message
+      );
+
+    }
+
+  }
+);
 
                   followButton.textContent =
                     "Following";
