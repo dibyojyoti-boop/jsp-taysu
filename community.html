@@ -1310,9 +1310,11 @@ const profileNavButton =
 const myProfile =
   document.getElementById("myProfile");
 
-profileNavButton.addEventListener("click", () => {
-  window.location.href = "profile.html";
-});
+if (profileNavButton) {
+  profileNavButton.addEventListener("click", () => {
+    window.location.href = "profile.html";
+  });
+}
 </script>
 
 </body>
