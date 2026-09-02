@@ -2043,19 +2043,13 @@ function escapeHTML(text){
 ================================ */
 
 const userSearchButton =
-  document.getElementById(
-    "userSearchButton"
-  );
+  document.getElementById("userSearchButton");
 
 const userSearchInput =
-  document.getElementById(
-    "userSearchInput"
-  );
+  document.getElementById("userSearchInput");
 
 const searchResults =
-  document.getElementById(
-    "searchResults"
-  );
+  document.getElementById("searchResults");
 
 
 userSearchButton.addEventListener(
@@ -2078,22 +2072,26 @@ userSearchButton.addEventListener(
     }
 
 
+    if(!currentUser){
+
+      alert("Please sign in first.");
+
+      return;
+
+    }
+
+
     try{
 
       const usersSnapshot =
         await getDocs(
-          collection(
-            db,
-            "users"
-          )
+          collection(db, "users")
         );
 
 
-      searchResults.innerHTML =
-        "";
+      searchResults.innerHTML = "";
 
-      let found =
-        false;
+      let found = false;
 
 
       usersSnapshot.forEach(
@@ -2104,28 +2102,20 @@ userSearchButton.addEventListener(
 
 
           const username =
-            (
-              user.username ||
-              ""
-            ).toLowerCase();
+            (user.username || "")
+              .toLowerCase();
 
 
           if(
-            username.includes(
-              searchText
-            ) &&
-            userDoc.id !==
-            currentUser?.uid
+            username.includes(searchText) &&
+            userDoc.id !== currentUser.uid
           ){
 
-            found =
-              true;
+            found = true;
 
 
             const result =
-              document.createElement(
-                "div"
-              );
+              document.createElement("div");
 
 
             result.className =
@@ -2135,15 +2125,14 @@ userSearchButton.addEventListener(
             result.innerHTML = `
 
               <div class="search-result-user">
-
                 ${escapeHTML(
-                  user.username ||
-                  "Member"
+                  user.username || "Member"
                 )}
-
               </div>
 
-              <button class="follow-button">
+              <button
+                class="follow-button"
+                type="button">
 
                 Follow
 
@@ -2153,110 +2142,90 @@ userSearchButton.addEventListener(
 
 
             const followButton =
-  result.querySelector(
-    ".follow-button"
-  );
-
-const followId =
-  currentUser.uid +
-  "_" +
-  userDoc.id;
+              result.querySelector(
+                ".follow-button"
+              );
 
 
-/* CHECK FOLLOW STATUS */
-
-try{
-
-  const followSnap =
-    await getDoc(
-      doc(
-        db,
-        "follows",
-        followId
-      )
-    );
-
-  if(followSnap.exists()){
-
-    followButton.textContent =
-      "Following";
-
-    followButton.disabled =
-      true;
-
-  }
-
-}catch(error){
-
-  console.error(
-    "Follow status error:",
-    error
-  );
-
-}
+            const followId =
+              currentUser.uid +
+              "_" +
+              userDoc.id;
 
 
-/* FOLLOW */
+            /* CHECK FOLLOW STATUS */
 
-followButton.addEventListener(
-  "click",
-  async () => {
+            try{
 
-    if(!currentUser){
+              const followSnap =
+                await getDoc(
+                  doc(
+                    db,
+                    "follows",
+                    followId
+                  )
+                );
 
-      alert(
-        "Please sign in again."
-      );
 
-      return;
+              if(followSnap.exists()){
 
-    }
+                followButton.textContent =
+                  "Following";
 
-    try{
+                followButton.disabled =
+                  true;
 
-      await setDoc(
-        doc(
-          db,
-          "follows",
-          followId
-        ),
-        {
+              }
 
-          followerId:
-            currentUser.uid,
+            }catch(error){
 
-          followingId:
-            userDoc.id,
+              console.error(
+                "Follow status error:",
+                error
+              );
 
-          createdAt:
-            serverTimestamp()
+            }
 
-        }
-      );
 
-      followButton.textContent =
-        "Following";
+            /* FOLLOW */
 
-      followButton.disabled =
-        true;
+            followButton.addEventListener(
+              "click",
+              async () => {
 
-    }catch(error){
+                if(!currentUser){
 
-      console.error(
-        "Follow error:",
-        error
-      );
+                  alert(
+                    "Please sign in again."
+                  );
 
-      alert(
-        error.code +
-        ": " +
-        error.message
-      );
+                  return;
 
-    }
+                }
 
-  }
-);
+
+                try{
+
+                  await setDoc(
+                    doc(
+                      db,
+                      "follows",
+                      followId
+                    ),
+                    {
+
+                      followerId:
+                        currentUser.uid,
+
+                      followingId:
+                        userDoc.id,
+
+                      createdAt:
+                        serverTimestamp()
+
+                    }
+                  );
+
 
                   followButton.textContent =
                     "Following";
@@ -2271,7 +2240,6 @@ followButton.addEventListener(
                     "Follow error:",
                     error
                   );
-
 
                   alert(
                     error.code +
