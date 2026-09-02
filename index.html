@@ -460,8 +460,9 @@ const provider = new GoogleAuthProvider();
 const googleLogin = document.getElementById("googleLogin");
 const loginMessage = document.getElementById("loginMessage");
 const membershipForm = document.getElementById("membershipForm");
-
+console.log("GOOGLE BUTTON SCRIPT LOADED");
 googleLogin.addEventListener("click", async () => {
+  alert("BUTTON WORKING");
   loginMessage.textContent = "Opening Google sign-in...";
 
   try {
