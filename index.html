@@ -457,28 +457,33 @@ const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
 
-const googleLogin =
-document.getElementById("googleLogin");
-
-const loginMessage =
-document.getElementById("loginMessage");
-
-const membershipForm =
-document.getElementById("membershipForm");
-
-
-/* KEEP LOGIN ACTIVE */
-
-await setPersistence(
-  auth,
-  browserLocalPersistence
-);
-
-
-/* GOOGLE LOGIN */
+const googleLogin = document.getElementById("googleLogin");
+const loginMessage = document.getElementById("loginMessage");
+const membershipForm = document.getElementById("membershipForm");
 
 googleLogin.addEventListener("click", async () => {
+  loginMessage.textContent = "Opening Google sign-in...";
 
+  try {
+    await setPersistence(auth, browserLocalPersistence);
+
+    const result = await signInWithPopup(auth, provider);
+
+    loginMessage.textContent =
+      "Welcome, " + (result.user.displayName || "Member") + "!";
+
+    googleLogin.style.display = "none";
+    membershipForm.style.display = "block";
+
+    document.getElementById("community").style.display = "block";
+
+  } catch (error) {
+    console.error("Google Login Error:", error);
+
+    loginMessage.textContent =
+      "Google sign-in failed: " + error.code;
+  }
+});
   try {
 
     googleLogin.disabled = true;
