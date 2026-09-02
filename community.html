@@ -61,24 +61,23 @@ body{
 .container{
   max-width:720px;
   margin:auto;
-  padding:18px 14px 30px;
+  padding:14px 14px 30px;
 }
 
 .welcome{
-  padding:14px 4px 20px;
+  padding:8px 4px 14px;
 }
 
 .welcome h1{
-  margin:0 0 7px;
-  font-size:28px;
+  margin:0 0 5px;
+  font-size:26px;
 }
 
 .welcome p{
   margin:0;
   color:#737373;
-  font-size:14px;
+  font-size:13px;
 }
-
 .create-post{
   background:white;
   border-radius:18px;
@@ -177,16 +176,18 @@ body{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  margin:0 3px 12px;
+  margin:4px 3px 10px;
+  padding-bottom:4px;
 }
 
 .section-title h2{
   margin:0;
   font-size:19px;
+  font-weight:800;
 }
 
 .section-title span{
-  font-size:20px;
+  font-size:18px;
 }
 
 .post{
@@ -394,8 +395,28 @@ body{
 }
   .search-box{
   display:flex;
-  gap:10px;
-  margin:20px 0;
+  gap:8px;
+  margin:4px 0 16px;
+}
+
+#userSearchInput{
+  flex:1;
+  padding:11px 14px;
+  border:1px solid #dedede;
+  border-radius:14px;
+  font-size:14px;
+  outline:none;
+  background:white;
+}
+
+#userSearchButton{
+  padding:11px 15px;
+  border:none;
+  border-radius:14px;
+  background:#151515;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 #userSearchInput{
@@ -559,6 +580,7 @@ body{
   </button>
 </div>
   <section class="welcome">
+    <div class="search-box">
     <h1 id="welcomeText">Welcome 👋</h1>
     <p>Connect. Share. Preserve our heritage.</p>
   </section>
@@ -609,7 +631,7 @@ body{
     </div>
 
   </section>
-  <div class="search-box">
+  
 
   <input
     type="text"
@@ -625,68 +647,7 @@ body{
 </div>
 
 <div id="searchResults"></div>
-<div class="profile-card" id="myProfile">
 
-  <div class="profile-avatar" id="profileAvatar">
-    M
-  </div>
-
-  <button id="editDpButton">
-    🖼️ Edit DP
-  </button>
-
-  <h2 id="profileUsername">Member</h2>
-
-  <button id="editProfileButton">
-    ✏️ Edit Username
-  </button>
-
-  <div class="profile-stats">
-
-    <div>
-      <strong id="followersCount">0</strong>
-      <span>Followers</span>
-    </div>
-
-    <div>
-      <strong id="followingCount">0</strong>
-      <span>Following</span>
-    </div>
-
-  </div>
-
-  <div id="profileEditor" style="display:none;">
-
-    <input
-      type="text"
-      id="usernameInput"
-      placeholder="Choose a username"
-      maxlength="20"
-    >
-
-    <button id="saveUsernameButton">
-      Save Username
-    </button>
-
-  </div>
-
-  <div class="my-posts">
-
-    <h3>My Posts</h3>
-
-    <div id="myPosts">
-      <p>No posts yet.</p>
-    </div>
-
-  </div>
-
-  <button
-    class="logout"
-    id="logoutButton">
-    Sign out
-  </button>
-
-</div>
 
 </main>
 
