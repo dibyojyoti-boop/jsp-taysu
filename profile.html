@@ -337,174 +337,594 @@ body {
 
   <script type="module">
 
-    import { initializeApp }
-      from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-    import {
+import {
   getAuth,
   onAuthStateChanged,
   signOut,
   setPersistence,
-  browserLocalPersistence,
-  
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-    import {
-      getFirestore,
-      doc,
-      getDoc,
-      setDoc,
-      collection,
-      getDocs,
-      serverTimestamp
-    }
-      from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+  browserLocalPersistence
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
-      authDomain: "jsp-taysu.firebaseapp.com",
-      projectId: "jsp-taysu",
-      storageBucket: "jsp-taysu.firebasestorage.app",
-      messagingSenderId: "280992025632",
-      appId: "1:280992025632:web:48efa21208a78be9a78045"
-    };
+/* ================================
+   FIREBASE
+================================ */
+
+const firebaseConfig = {
+
+  apiKey: "AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
+
+  authDomain: "jsp-taysu.firebaseapp.com",
+
+  projectId: "jsp-taysu",
+
+  storageBucket: "jsp-taysu.firebasestorage.app",
+
+  messagingSenderId: "280992025632",
+
+  appId: "1:280992025632:web:48efa21208a78be9a78045"
+
+};
 
 
-    const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-    const auth = getAuth(app);
+const auth = getAuth(app);
 
-await setPersistence(auth, browserLocalPersistence);
 const db = getFirestore(app);
+
 let currentUser = null;
 
-await auth.authStateReady();
-    
+
+/* ================================
+   KEEP LOGIN
+================================ */
+
+await setPersistence(
+  auth,
+  browserLocalPersistence
+);
+
+
+/* ================================
+   AUTH STATE
+================================ */
+
 onAuthStateChanged(auth, async (user) => {
 
   console.log("PROFILE USER:", user);
 
   if (!user) {
-  document.getElementById("profileUsername").textContent =
-    "Please sign in"
 
-  
+    currentUser = null;
 
-  return;
-}
+    document.getElementById(
+      "profileUsername"
+    ).textContent = "Please sign in";
+
+    document.getElementById(
+      "profileEmail"
+    ).textContent = "";
+
+    document.getElementById(
+      "myPosts"
+    ).textContent = "Please sign in to view your posts.";
+
+    return;
+  }
+
+
   currentUser = user;
 
-  document.getElementById("profileEmail").textContent =
+
+  document.getElementById(
+    "profileEmail"
+  ).textContent =
     user.email || "";
+
 
   try {
 
-    const profileRef = doc(db, "users", user.uid);
-    const profileSnap = await getDoc(profileRef);
+    /* ================================
+       LOAD PROFILE
+    ================================= */
 
-    let username = user.displayName || "Member";
+    const profileRef =
+      doc(db, "users", user.uid);
+
+    const profileSnap =
+      await getDoc(profileRef);
+
+    let username =
+      user.displayName || "Member";
+
 
     if (profileSnap.exists()) {
-      const data = profileSnap.data();
+
+      const data =
+        profileSnap.data();
 
       if (data.username) {
-        username = data.username;
+
+        username =
+          data.username;
+
       }
-    }
-
-    document.getElementById("profileUsername").textContent =
-      username;
-
-    document.getElementById("usernameInput").value =
-      username;
-
-    document.getElementById("profileAvatar").textContent =
-      username.charAt(0).toUpperCase();
-
-    await loadFollowCounts();
-
-  } catch (error) {
-
-    console.error("Profile loading error:", error);
-
-  }
-
-});
-
-    async function loadFollowCounts() {
-
-      if (!currentUser) return;
-
-      const snapshot =
-        await getDocs(
-          collection(db, "follows")
-        );
-
-      let followers = 0;
-      let following = 0;
-
-      snapshot.forEach((followDoc) => {
-
-        const data =
-          followDoc.data();
-
-        if (
-          data.followingId ===
-          currentUser.uid
-        ) {
-          followers++;
-        }
-
-        if (
-          data.followerId ===
-          currentUser.uid
-        ) {
-          following++;
-        }
-
-      });
-
-      document.getElementById(
-        "followersCount"
-      ).textContent = followers;
-
-      document.getElementById(
-        "followingCount"
-      ).textContent = following;
 
     }
 
 
     document.getElementById(
-      "editProfileButton"
-    ).addEventListener("click", () => {
+      "profileUsername"
+    ).textContent =
+      username;
+
+
+    document.getElementById(
+      "usernameInput"
+    ).value =
+      username;
+
+
+    document.getElementById(
+      "profileAvatar"
+    ).textContent =
+      username
+        .charAt(0)
+        .toUpperCase();
+
+
+    /* ================================
+       FOLLOW COUNTS
+    ================================= */
+
+    await loadFollowCounts();
+
+
+    /* ================================
+       LOAD MY POSTS
+    ================================= */
+
+    await loadMyPosts();
+
+
+  } catch (error) {
+
+    console.error(
+      "Profile loading error:",
+      error
+    );
+
+  }
+
+});
+
+
+/* ================================
+   FOLLOWERS / FOLLOWING
+================================ */
+
+async function loadFollowCounts() {
+
+  if (!currentUser) return;
+
+
+  try {
+
+    const snapshot =
+      await getDocs(
+        collection(db, "follows")
+      );
+
+
+    let followers = 0;
+
+    let following = 0;
+
+
+    snapshot.forEach((followDoc) => {
+
+      const data =
+        followDoc.data();
+
+
+      if (
+        data.followingId ===
+        currentUser.uid
+      ) {
+
+        followers++;
+
+      }
+
+
+      if (
+        data.followerId ===
+        currentUser.uid
+      ) {
+
+        following++;
+
+      }
+
+    });
+
+
+    document.getElementById(
+      "followersCount"
+    ).textContent =
+      followers;
+
+
+    document.getElementById(
+      "followingCount"
+    ).textContent =
+      following;
+
+
+  } catch (error) {
+
+    console.error(
+      "Follow count error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* ================================
+   LOAD MY POSTS
+================================ */
+
+async function loadMyPosts() {
+
+  const postsContainer =
+    document.getElementById(
+      "myPosts"
+    );
+
+
+  if (!currentUser) {
+
+    postsContainer.textContent =
+      "Please sign in to view your posts.";
+
+    return;
+
+  }
+
+
+  try {
+
+    const postsQuery =
+      query(
+        collection(db, "posts"),
+        where(
+          "authorId",
+          "==",
+          currentUser.uid
+        )
+      );
+
+
+    const snapshot =
+      await getDocs(postsQuery);
+
+
+    postsContainer.innerHTML = "";
+
+
+    if (snapshot.empty) {
+
+      postsContainer.innerHTML = `
+        <div class="empty-posts">
+          No posts yet. Share something with the community! 🐉
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    const posts = [];
+
+
+    snapshot.forEach((postDoc) => {
+
+      posts.push({
+        id: postDoc.id,
+        ...postDoc.data()
+      });
+
+    });
+
+
+    /* NEWEST POSTS FIRST */
+
+    posts.sort((a, b) => {
+
+      const timeA =
+        a.createdAt?.seconds || 0;
+
+      const timeB =
+        b.createdAt?.seconds || 0;
+
+      return timeB - timeA;
+
+    });
+
+
+    posts.forEach((post) => {
+
+      const postElement =
+        document.createElement(
+          "article"
+        );
+
+
+      postElement.style.background =
+        "#fffdf9";
+
+      postElement.style.border =
+        "1px solid #e8e0d3";
+
+      postElement.style.borderRadius =
+        "17px";
+
+      postElement.style.padding =
+        "17px";
+
+      postElement.style.marginBottom =
+        "12px";
+
+      postElement.style.boxShadow =
+        "0 5px 18px rgba(64,48,32,.06)";
+
+
+      const username =
+        post.authorName ||
+        document.getElementById(
+          "profileUsername"
+        ).textContent ||
+        "Member";
+
+
+      let postTime =
+        "Community post";
+
+
+      if (post.createdAt) {
+
+        try {
+
+          const date =
+            post.createdAt.toDate();
+
+          postTime =
+            date.toLocaleDateString(
+              "en-IN",
+              {
+                day: "numeric",
+                month: "short",
+                year: "numeric"
+              }
+            );
+
+        } catch (error) {
+
+          postTime =
+            "Community post";
+
+        }
+
+      }
+
+
+      postElement.innerHTML = `
+
+        <div style="
+          display:flex;
+          align-items:center;
+          gap:10px;
+          margin-bottom:12px;
+        ">
+
+          <div style="
+            width:42px;
+            height:42px;
+            border-radius:50%;
+            background:#4a392b;
+            color:#f7e9c8;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-weight:800;
+          ">
+
+            ${username
+              .charAt(0)
+              .toUpperCase()}
+
+          </div>
+
+
+          <div>
+
+            <div style="
+              font-weight:800;
+              font-size:14px;
+            ">
+
+              ${username}
+
+            </div>
+
+
+            <div style="
+              color:#8a8177;
+              font-size:11px;
+              margin-top:2px;
+            ">
+
+              ${postTime}
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div style="
+          line-height:1.55;
+          font-size:15px;
+          white-space:pre-wrap;
+          color:#302820;
+        ">
+
+          ${escapeHTML(
+            post.text || ""
+          )}
+
+        </div>
+
+      `;
+
+
+      postsContainer.appendChild(
+        postElement
+      );
+
+    });
+
+
+  } catch (error) {
+
+    console.error(
+      "My posts error:",
+      error
+    );
+
+
+    postsContainer.innerHTML = `
+      <div class="empty-posts">
+        Could not load your posts.
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* ================================
+   SAFE TEXT
+================================ */
+
+function escapeHTML(text) {
+
+  const div =
+    document.createElement("div");
+
+  div.textContent =
+    text;
+
+  return div.innerHTML;
+
+}
+
+
+/* ================================
+   EDIT PROFILE
+================================ */
+
+document
+  .getElementById(
+    "editProfileButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
 
       const editor =
         document.getElementById(
           "profileEditor"
         );
 
+
       editor.style.display =
         editor.style.display === "block"
           ? "none"
           : "block";
 
-    });
+    }
+  );
 
 
-    document.getElementById(
-      "saveUsernameButton"
-    ).addEventListener("click", async () => {
+/* ================================
+   SAVE USERNAME
+================================ */
 
-      const username =
+document
+  .getElementById(
+    "saveUsernameButton"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+      if (!currentUser) {
+
+        alert(
+          "Please sign in first."
+        );
+
+        return;
+
+      }
+
+
+      const input =
         document.getElementById(
           "usernameInput"
-        ).value.trim();
+        );
+
+
+      const username =
+        input.value.trim();
+
 
       if (username.length < 3) {
-        alert("Username must be at least 3 characters.");
+
+        alert(
+          "Username must be at least 3 characters."
+        );
+
         return;
+
       }
+
 
       try {
 
@@ -515,65 +935,116 @@ onAuthStateChanged(auth, async (user) => {
             currentUser.uid
           ),
           {
-            username: username,
-            updatedAt: serverTimestamp()
+            username:
+              username,
+
+            updatedAt:
+              serverTimestamp()
           },
           {
             merge: true
           }
         );
 
+
         document.getElementById(
           "profileUsername"
-        ).textContent = username;
+        ).textContent =
+          username;
+
 
         document.getElementById(
           "profileAvatar"
         ).textContent =
-          username.charAt(0).toUpperCase();
+          username
+            .charAt(0)
+            .toUpperCase();
+
 
         document.getElementById(
           "profileEditor"
-        ).style.display = "none";
+        ).style.display =
+          "none";
 
-        alert("Username updated! 🐉");
+
+        alert(
+          "Username updated! 🐉"
+        );
+
+
+        await loadMyPosts();
+
 
       } catch (error) {
 
-        console.error(error);
+        console.error(
+          "Username update error:",
+          error
+        );
+
 
         alert(
-          error.code + ": " +
+          error.code +
+          ": " +
           error.message
         );
 
       }
 
-    });
+    }
+  );
 
 
-    document.getElementById(
-      "logoutButton"
-    ).addEventListener("click", async () => {
+/* ================================
+   LOGOUT
+================================ */
 
-      await signOut(auth);
+document
+  .getElementById(
+    "logoutButton"
+  )
+  .addEventListener(
+    "click",
+    async () => {
 
-      window.location.href =
-        "index.html";
+      try {
 
-    });
+        await signOut(auth);
+
+        window.location.href =
+          "index.html";
+
+      } catch (error) {
+
+        console.error(
+          "Logout error:",
+          error
+        );
+
+      }
+
+    }
+  );
 
 
-    document.getElementById(
-      "backButton"
-    ).addEventListener("click", () => {
+/* ================================
+   BACK BUTTON
+================================ */
+
+document
+  .getElementById(
+    "backButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
 
       window.location.href =
         "community.html";
 
-    });
+    }
+  );
 
-  </script>
-
+</script>
 </body>
 </html>
