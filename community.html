@@ -1885,42 +1885,109 @@ async function loadComments(
 
         commentElement.innerHTML = `
 
-          <div style="
-            font-size:12px;
-            font-weight:800;
-            color:#493a2d;
-            margin-bottom:3px;
-          ">
+  <div style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:3px;
+  ">
 
-            ${escapeHTML(
-              comment.username ||
-              "Member"
-            )}
+    <div style="
+      font-size:12px;
+      font-weight:800;
+      color:#493a2d;
+    ">
+      ${escapeHTML(
+        comment.username || "Member"
+      )}
+    </div>
 
-          </div>
+    ${
+      currentUser &&
+      comment.userId === currentUser.uid
+        ? `
+          <button
+            class="delete-comment"
+            type="button"
+            style="
+              border:0;
+              background:none;
+              color:#9a5d4b;
+              font-size:11px;
+              cursor:pointer;
+            "
+          >
+            Delete
+          </button>
+        `
+        : ""
+    }
 
+  </div>
 
-          <div style="
-            font-size:13px;
-            line-height:1.4;
-            color:#302820;
-            overflow-wrap:anywhere;
-          ">
+  <div style="
+    font-size:13px;
+    line-height:1.4;
+    color:#302820;
+    overflow-wrap:anywhere;
+  ">
+    ${escapeHTML(comment.text || "")}
+  </div>
 
-            ${escapeHTML(
-              comment.text ||
-              ""
-            )}
-
-          </div>
-
-        `;
-
+`;
 
         commentsList.appendChild(
           commentElement
         );
+const deleteButton =
+  commentElement.querySelector(
+    ".delete-comment"
+  );
 
+if(deleteButton){
+
+  deleteButton.addEventListener(
+    "click",
+    async () => {
+
+      if(!currentUser) return;
+
+      try{
+
+        await deleteDoc(
+          doc(
+            db,
+            "posts",
+            postId,
+            "comments",
+            comment.id
+          )
+        );
+
+        await loadComments(
+          postId,
+          commentsList
+        );
+
+      }catch(error){
+
+        console.error(
+          "Delete comment error:",
+          error
+        );
+
+        alert(
+          error.code +
+          ": " +
+          error.message
+        );
+
+      }
+
+    }
+  );
+
+}
       }
     );
 
