@@ -418,7 +418,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   setPersistence,
-  browserLocalPersistence
+  browserLocalPersistence,
+  onAuthStateChanged
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
@@ -430,6 +431,10 @@ import {
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
+
+/* ================================
+   FIREBASE CONFIG
+================================ */
 
 const firebaseConfig = {
 
@@ -448,6 +453,10 @@ const firebaseConfig = {
 };
 
 
+/* ================================
+   INITIALIZE FIREBASE
+================================ */
+
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
@@ -457,34 +466,26 @@ const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
 
-const googleLogin = document.getElementById("googleLogin");
-const loginMessage = document.getElementById("loginMessage");
-const membershipForm = document.getElementById("membershipForm");
-console.log("GOOGLE BUTTON SCRIPT LOADED");
+/* ================================
+   ELEMENTS
+================================ */
+
+const googleLogin =
+  document.getElementById("googleLogin");
+
+const loginMessage =
+  document.getElementById("loginMessage");
+
+const membershipForm =
+  document.getElementById("membershipForm");
+
+
+/* ================================
+   GOOGLE LOGIN
+================================ */
+
 googleLogin.addEventListener("click", async () => {
-  alert("BUTTON WORKING");
-  loginMessage.textContent = "Opening Google sign-in...";
 
-  try {
-    await setPersistence(auth, browserLocalPersistence);
-
-    const result = await signInWithPopup(auth, provider);
-
-    loginMessage.textContent =
-      "Welcome, " + (result.user.displayName || "Member") + "!";
-
-    googleLogin.style.display = "none";
-    membershipForm.style.display = "block";
-
-    document.getElementById("community").style.display = "block";
-
-  } catch (error) {
-    console.error("Google Login Error:", error);
-
-    loginMessage.textContent =
-      "Google sign-in failed: " + error.code;
-  }
-});
   try {
 
     googleLogin.disabled = true;
@@ -492,147 +493,208 @@ googleLogin.addEventListener("click", async () => {
     loginMessage.textContent =
       "Opening Google sign-in...";
 
+    await setPersistence(
+      auth,
+      browserLocalPersistence
+    );
+
     const result =
-      await signInWithPopup(auth, provider);
+      await signInWithPopup(
+        auth,
+        provider
+      );
 
     const user = result.user;
 
+    const username =
+      user.displayName || "Member";
 
-    /* CREATE / UPDATE USER PROFILE */
+
+    /* SAVE USER PROFILE */
 
     await setDoc(
       doc(db, "users", user.uid),
       {
-        username: user.displayName || "Member",
+        username: username,
         email: user.email || "",
         updatedAt: serverTimestamp()
       },
-      { merge: true }
+      {
+        merge: true
+      }
     );
 
 
+    /* SUCCESS */
+
     loginMessage.textContent =
-      "Welcome, " +
-      (user.displayName || "Member") +
-      "! 🐉";
+      "Welcome, " + username + "! 🐉";
+
+    googleLogin.style.display =
+      "none";
+
+    membershipForm.style.display =
+      "block";
 
 
-    googleLogin.style.display = "none";
-
-    membershipForm.style.display = "block";
-
-
-  } catch(error) {
+  } catch (error) {
 
     console.error(
       "Google Login Error:",
       error
     );
 
-    googleLogin.disabled = false;
+    googleLogin.disabled =
+      false;
 
     loginMessage.textContent =
-      error.code +
-      ": Google sign-in failed.";
+      "Google sign-in failed: " +
+      error.code;
 
   }
 
 });
 
 
-/* MEMBERSHIP APPLICATION */
+/* ================================
+   CHECK EXISTING LOGIN
+================================ */
+
+onAuthStateChanged(
+  auth,
+  (user) => {
+
+    if (!user) return;
+
+    const username =
+      user.displayName || "Member";
+
+    loginMessage.textContent =
+      "Welcome back, " +
+      username +
+      "! 🐉";
+
+    googleLogin.style.display =
+      "none";
+
+    membershipForm.style.display =
+      "block";
+
+  }
+);
+
+
+/* ================================
+   MEMBERSHIP APPLICATION
+================================ */
 
 document
-.getElementById("submitApplication")
-.addEventListener("click", async () => {
+  .getElementById("submitApplication")
+  .addEventListener(
+    "click",
+    async () => {
 
-  const name =
-    document.getElementById("fullName")
-    .value.trim();
+      const name =
+        document
+          .getElementById("fullName")
+          .value
+          .trim();
 
-  const district =
-    document.getElementById("district")
-    .value.trim();
+      const district =
+        document
+          .getElementById("district")
+          .value
+          .trim();
 
-  const message =
-    document.getElementById("applicationMessage");
-
-
-  if(!name || !district){
-
-    message.textContent =
-      "Please enter your full name and district.";
-
-    return;
-
-  }
+      const message =
+        document.getElementById(
+          "applicationMessage"
+        );
 
 
-  const user = auth.currentUser;
+      if (!name || !district) {
 
-  if(!user){
+        message.textContent =
+          "Please enter your full name and district.";
 
-    message.textContent =
-      "Please sign in with Google first.";
+        return;
 
-    return;
-
-  }
+      }
 
 
-  try {
-
-    await setDoc(
-      doc(db, "users", user.uid),
-      {
-        username:
-          user.displayName || "Member",
-
-        fullName: name,
-
-        district: district,
-
-        email:
-          user.email || "",
-
-        updatedAt:
-          serverTimestamp()
-      },
-      { merge: true }
-    );
+      const user =
+        auth.currentUser;
 
 
-    message.textContent =
-      "Thank you, " +
-      name +
-      "! Your application has been received. 🐉";
+      if (!user) {
+
+        message.textContent =
+          "Please sign in with Google first.";
+
+        return;
+
+      }
 
 
-    /*
-      WAIT A MOMENT THEN
-      OPEN COMMUNITY
-    */
+      try {
 
-    setTimeout(() => {
+        await setDoc(
+          doc(db, "users", user.uid),
+          {
 
-      window.location.href =
-        "community.html";
+            username:
+              user.displayName || "Member",
 
-    }, 800);
+            fullName:
+              name,
+
+            district:
+              district,
+
+            email:
+              user.email || "",
+
+            updatedAt:
+              serverTimestamp()
+
+          },
+          {
+            merge: true
+          }
+        );
 
 
-  } catch(error) {
+        message.textContent =
+          "Thank you, " +
+          name +
+          "! Your application has been received. 🐉";
 
-    console.error(error);
 
-    message.textContent =
-      "Application could not be saved.";
+        /* OPEN COMMUNITY */
 
-  }
+        setTimeout(() => {
 
-});
+          window.location.href =
+            "community.html";
+
+        }, 1000);
+
+
+      } catch (error) {
+
+        console.error(
+          "Application Error:",
+          error
+        );
+
+        message.textContent =
+          "Application could not be saved.";
+
+      }
+
+    }
+  );
 
 </script>
-
 </body>
 </html>
