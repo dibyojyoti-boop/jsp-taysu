@@ -739,7 +739,8 @@ import {
   serverTimestamp,
   doc,
   setDoc,
-  getDoc
+  getDoc,
+    deleteDoc
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
@@ -1072,233 +1073,372 @@ document.getElementById(
 async function loadPosts(){
 
   const postsContainer =
-    document.getElementById(
-      "posts"
-    );
-
+    document.getElementById("posts");
 
   try{
 
     const snapshot =
       await getDocs(
-        collection(
-          db,
-          "posts"
-        )
+        collection(db, "posts")
       );
 
-
-    postsContainer.innerHTML =
-      "";
-
+    postsContainer.innerHTML = "";
 
     if(snapshot.empty){
 
       postsContainer.innerHTML = `
-
         <div class="empty">
+          <div class="empty-icon">🐉</div>
+          <h3>No posts yet</h3>
+          <p>Be the first to share something with the community.</p>
+        </div>
+      `;
 
-          <div class="empty-icon">
-            🐉
+      return;
+    }
+
+    const posts = [];
+
+    snapshot.forEach((postDoc) => {
+
+      posts.push({
+        id: postDoc.id,
+        ...postDoc.data()
+      });
+
+    });
+
+    /* NEWEST FIRST */
+
+    posts.sort((a,b) => {
+
+      const timeA =
+        a.createdAt?.seconds || 0;
+
+      const timeB =
+        b.createdAt?.seconds || 0;
+
+      return timeB - timeA;
+
+    });
+
+
+    for(const post of posts){
+
+      const postElement =
+        document.createElement("article");
+
+      postElement.className = "post";
+
+      const username =
+        post.authorName || "Member";
+
+
+      /* ================================
+         GET LIKE COUNT
+      ================================= */
+
+      let likeCount = 0;
+      let alreadyLiked = false;
+
+      try{
+
+        const likesSnapshot =
+          await getDocs(
+            collection(
+              db,
+              "posts",
+              post.id,
+              "likes"
+            )
+          );
+
+        likeCount =
+          likesSnapshot.size;
+
+        if(currentUser){
+
+          alreadyLiked =
+            likesSnapshot.docs.some(
+              likeDoc =>
+                likeDoc.id === currentUser.uid
+            );
+
+        }
+
+      }catch(error){
+
+        console.error(
+          "Like loading error:",
+          error
+        );
+
+      }
+
+
+      /* ================================
+         GET COMMENT COUNT
+      ================================= */
+
+      let commentCount = 0;
+
+      try{
+
+        const commentsSnapshot =
+          await getDocs(
+            collection(
+              db,
+              "posts",
+              post.id,
+              "comments"
+            )
+          );
+
+        commentCount =
+          commentsSnapshot.size;
+
+      }catch(error){
+
+        console.error(
+          "Comment count error:",
+          error
+        );
+
+      }
+
+
+      /* ================================
+         POST HTML
+      ================================= */
+
+      postElement.innerHTML = `
+
+        <div class="post-header">
+
+          <div class="avatar">
+
+            ${escapeHTML(
+              username
+                .charAt(0)
+                .toUpperCase()
+            )}
+
           </div>
 
-          <h3>
-            No posts yet
-          </h3>
+          <div>
 
-          <p>
-            Be the first to share something with the community.
-          </p>
+            <div class="post-author">
+
+              ${escapeHTML(username)}
+
+            </div>
+
+            <div class="post-time">
+
+              Community member
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="post-text">
+
+          ${escapeHTML(
+            post.text || ""
+          )}
+
+        </div>
+
+
+        <div class="actions">
+
+          <button
+            class="action like-button"
+            type="button">
+
+            ❤️
+            <span>
+              ${alreadyLiked ? "Unlike" : "Like"}
+            </span>
+
+            <b class="like-count">
+              ${likeCount}
+            </b>
+
+          </button>
+
+
+          <button
+            class="action comment-button"
+            type="button">
+
+            💬
+            <span>Comment</span>
+
+            <b class="comment-count">
+              ${commentCount}
+            </b>
+
+          </button>
+
+
+          <button
+            class="action share-button"
+            type="button">
+
+            ↗️
+            <span>Share</span>
+
+          </button>
+
+        </div>
+
+
+        <!-- COMMENTS -->
+
+        <div
+          class="comments-area"
+          style="display:none; margin-top:10px;">
+
+          <div
+            class="comments-list"
+            style="margin-bottom:8px;">
+          </div>
+
+
+          <div
+            style="
+              display:flex;
+              gap:7px;
+            ">
+
+            <input
+              class="comment-input"
+              type="text"
+              placeholder="Write a comment..."
+              maxlength="300"
+              style="
+                flex:1;
+                padding:9px 11px;
+                border:1px solid #ddd3c5;
+                border-radius:12px;
+                outline:none;
+                background:#faf7f1;
+                color:#211c17;
+              "
+            >
+
+            <button
+              class="comment-send"
+              type="button"
+              style="
+                border:0;
+                border-radius:12px;
+                padding:9px 13px;
+                background:#4a392b;
+                color:white;
+                font-weight:700;
+                cursor:pointer;
+              ">
+
+              Send
+
+            </button>
+
+          </div>
 
         </div>
 
       `;
 
-      return;
 
-    }
-
-
-    const posts = [];
+      postsContainer.appendChild(
+        postElement
+      );
 
 
-    snapshot.forEach(
-      (postDoc) => {
+      /* ================================
+         LIKE / UNLIKE
+      ================================= */
 
-        posts.push({
+      const likeButton =
+        postElement.querySelector(
+          ".like-button"
+        );
 
-          id:
-            postDoc.id,
+      const likeCountElement =
+        postElement.querySelector(
+          ".like-count"
+        );
 
-          ...postDoc.data()
-
-        });
-
-      }
-    );
-
-
-    /* NEWEST FIRST */
-
-    posts.sort(
-      (a,b) => {
-
-        const timeA =
-          a.createdAt?.seconds || 0;
-
-        const timeB =
-          b.createdAt?.seconds || 0;
-
-        return timeB - timeA;
-
-      }
-    );
-
-
-    posts.forEach(
-      (post) => {
-
-        const postElement =
-          document.createElement(
-            "article"
-          );
-
-
-        postElement.className =
-          "post";
-
-
-        const username =
-          post.authorName ||
-          "Member";
-
-
-        postElement.innerHTML = `
-
-          <div class="post-header">
-
-            <div class="avatar">
-
-              ${escapeHTML(
-                username
-                  .charAt(0)
-                  .toUpperCase()
-              )}
-
-            </div>
-
-            <div>
-
-              <div class="post-author">
-
-                ${escapeHTML(
-                  username
-                )}
-
-              </div>
-
-              <div class="post-time">
-                Community member
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="post-text">
-
-            ${escapeHTML(
-              post.text || ""
-            )}
-
-          </div>
-
-
-          <div class="actions">
-
-            <button
-              class="action like-button">
-
-              ❤️ <span>Like</span>
-
-            </button>
-
-            <button class="action">
-
-              💬 Comment
-
-            </button>
-
-            <button class="action">
-
-              ↗️ Share
-
-            </button>
-
-          </div>
-
-        `;
-
-
-        postsContainer.appendChild(
-          postElement
+      const likeText =
+        likeButton.querySelector(
+          "span"
         );
 
 
-        /* LIKE */
+      likeButton.addEventListener(
+        "click",
+        async () => {
 
-        const likeButton =
-          postElement.querySelector(
-            ".like-button"
-          );
+          if(!currentUser){
+
+            alert(
+              "Please sign in first."
+            );
+
+            return;
+
+          }
 
 
-        likeButton.addEventListener(
-          "click",
-          async () => {
+          try{
 
-            if(!currentUser){
-
-              alert(
-                "Please sign in again."
+            const likeRef =
+              doc(
+                db,
+                "posts",
+                post.id,
+                "likes",
+                currentUser.uid
               );
 
-              return;
 
-            }
+            const likeSnap =
+              await getDoc(likeRef);
 
 
-            try{
+            if(likeSnap.exists()){
 
-              const likeRef =
-                doc(
-                  db,
-                  "posts",
-                  post.id,
-                  "likes",
-                  currentUser.uid
+              /* UNLIKE */
+
+              await deleteDoc(
+                likeRef
+              );
+
+              likeText.textContent =
+                "Like";
+
+              let count =
+                Number(
+                  likeCountElement.textContent
+                ) || 0;
+
+              count =
+                Math.max(
+                  0,
+                  count - 1
                 );
 
+              likeCountElement.textContent =
+                count;
 
-              const likeSnap =
-                await getDoc(
-                  likeRef
-                );
+            }else{
 
-
-              if(
-                likeSnap.exists()
-              ){
-
-                alert(
-                  "Already liked ❤️"
-                );
-
-                return;
-
-              }
-
+              /* LIKE */
 
               await setDoc(
                 likeRef,
@@ -1314,40 +1454,302 @@ async function loadPosts(){
               );
 
 
-              likeButton
-                .querySelector(
-                  "span"
-                )
-                .textContent =
-                "Liked";
+              likeText.textContent =
+                "Unlike";
 
 
-              likeButton.disabled =
-                true;
+              let count =
+                Number(
+                  likeCountElement.textContent
+                ) || 0;
 
 
-            }catch(error){
+              count++;
 
-              console.error(
-                "Like error:",
-                error
+
+              likeCountElement.textContent =
+                count;
+
+            }
+
+          }catch(error){
+
+            console.error(
+              "Like error:",
+              error
+            );
+
+            alert(
+              error.code +
+              ": " +
+              error.message
+            );
+
+          }
+
+        }
+      );
+
+
+      /* ================================
+         COMMENTS
+      ================================= */
+
+      const commentButton =
+        postElement.querySelector(
+          ".comment-button"
+        );
+
+      const commentsArea =
+        postElement.querySelector(
+          ".comments-area"
+        );
+
+      const commentsList =
+        postElement.querySelector(
+          ".comments-list"
+        );
+
+      const commentInput =
+        postElement.querySelector(
+          ".comment-input"
+        );
+
+      const commentSend =
+        postElement.querySelector(
+          ".comment-send"
+        );
+
+      const commentCountElement =
+        postElement.querySelector(
+          ".comment-count"
+        );
+
+
+      commentButton.addEventListener(
+        "click",
+        async () => {
+
+          if(!currentUser){
+
+            alert(
+              "Please sign in first."
+            );
+
+            return;
+
+          }
+
+
+          if(
+            commentsArea.style.display ===
+            "none"
+          ){
+
+            commentsArea.style.display =
+              "block";
+
+            await loadComments(
+              post.id,
+              commentsList
+            );
+
+          }else{
+
+            commentsArea.style.display =
+              "none";
+
+          }
+
+        }
+      );
+
+
+      /* SEND COMMENT */
+
+      commentSend.addEventListener(
+        "click",
+        async () => {
+
+          if(!currentUser){
+
+            alert(
+              "Please sign in first."
+            );
+
+            return;
+
+          }
+
+
+          const text =
+            commentInput.value.trim();
+
+
+          if(!text){
+
+            return;
+
+          }
+
+
+          const commenterName =
+            document.getElementById(
+              "composerName"
+            ).textContent ||
+            "Member";
+
+
+          try{
+
+            await addDoc(
+              collection(
+                db,
+                "posts",
+                post.id,
+                "comments"
+              ),
+              {
+
+                text:
+                  text,
+
+                userId:
+                  currentUser.uid,
+
+                username:
+                  commenterName,
+
+                createdAt:
+                  serverTimestamp()
+
+              }
+            );
+
+
+            commentInput.value =
+              "";
+
+
+            let count =
+              Number(
+                commentCountElement.textContent
+              ) || 0;
+
+
+            count++;
+
+
+            commentCountElement.textContent =
+              count;
+
+
+            await loadComments(
+              post.id,
+              commentsList
+            );
+
+
+          }catch(error){
+
+            console.error(
+              "Comment error:",
+              error
+            );
+
+            alert(
+              error.code +
+              ": " +
+              error.message
+            );
+
+          }
+
+        }
+      );
+
+
+      /* ENTER TO COMMENT */
+
+      commentInput.addEventListener(
+        "keydown",
+        (event) => {
+
+          if(
+            event.key === "Enter"
+          ){
+
+            event.preventDefault();
+
+            commentSend.click();
+
+          }
+
+        }
+      );
+
+
+      /* ================================
+         SHARE
+      ================================= */
+
+      const shareButton =
+        postElement.querySelector(
+          ".share-button"
+        );
+
+
+      shareButton.addEventListener(
+        "click",
+        async () => {
+
+          const shareText =
+            `${username} shared a post on JSP TAYSU Community 🐉`;
+
+
+          try{
+
+            if(
+              navigator.share
+            ){
+
+              await navigator.share({
+
+                title:
+                  "JSP TAYSU Community",
+
+                text:
+                  shareText,
+
+                url:
+                  window.location.href
+
+              });
+
+            }else{
+
+              await navigator.clipboard.writeText(
+                window.location.href
               );
 
-
               alert(
-                error.code +
-                ": " +
-                error.message
+                "Community link copied! 🔗"
               );
 
             }
 
+          }catch(error){
+
+            console.log(
+              "Share cancelled."
+            );
+
           }
-        );
 
-      }
-    );
+        }
+      );
 
+    }
 
   }catch(error){
 
@@ -1380,6 +1782,174 @@ async function loadPosts(){
   }
 
 }
+
+
+/* ================================
+   LOAD COMMENTS
+================================ */
+
+async function loadComments(
+  postId,
+  commentsList
+){
+
+  commentsList.innerHTML =
+    "";
+
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "posts",
+          postId,
+          "comments"
+        )
+      );
+
+
+    if(snapshot.empty){
+
+      commentsList.innerHTML = `
+
+        <div style="
+          color:#8a8177;
+          font-size:12px;
+          padding:5px 2px;
+        ">
+
+          No comments yet.
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    const comments = [];
+
+
+    snapshot.forEach(
+      (commentDoc) => {
+
+        comments.push({
+
+          id:
+            commentDoc.id,
+
+          ...commentDoc.data()
+
+        });
+
+      }
+    );
+
+
+    comments.sort(
+      (a,b) => {
+
+        const timeA =
+          a.createdAt?.seconds || 0;
+
+        const timeB =
+          b.createdAt?.seconds || 0;
+
+        return timeA - timeB;
+
+      }
+    );
+
+
+    comments.forEach(
+      (comment) => {
+
+        const commentElement =
+          document.createElement(
+            "div"
+          );
+
+
+        commentElement.style.cssText = `
+          background:#f7f1e8;
+          border:1px solid #eee4d5;
+          border-radius:12px;
+          padding:9px 11px;
+          margin-bottom:6px;
+        `;
+
+
+        commentElement.innerHTML = `
+
+          <div style="
+            font-size:12px;
+            font-weight:800;
+            color:#493a2d;
+            margin-bottom:3px;
+          ">
+
+            ${escapeHTML(
+              comment.username ||
+              "Member"
+            )}
+
+          </div>
+
+
+          <div style="
+            font-size:13px;
+            line-height:1.4;
+            color:#302820;
+            overflow-wrap:anywhere;
+          ">
+
+            ${escapeHTML(
+              comment.text ||
+              ""
+            )}
+
+          </div>
+
+        `;
+
+
+        commentsList.appendChild(
+          commentElement
+        );
+
+      }
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "Comments loading error:",
+      error
+    );
+
+
+    commentsList.innerHTML = `
+
+      <div style="
+        color:#9a5d4b;
+        font-size:12px;
+      ">
+
+        Couldn't load comments.
+
+      </div>
+
+    `;
+
+  }
+
+}
+
 
 
 /* ================================
