@@ -979,7 +979,7 @@ authorName: currentUser.displayName || "Member",
   document.getElementById("postText").value = "";
 
   alert("Post published! 🐉");
-
+await loadPosts();
 } catch (error) {
 
   console.error(error);
