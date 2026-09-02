@@ -129,7 +129,68 @@ body{
   border:1px solid #eee5d7;
   border-radius:15px;
 }
+.stat-button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0 12px;
+  border-radius: 12px;
+  transition: background .2s ease;
+}
 
+.stat-button:hover {
+  background: #f5eee2;
+}
+
+.stat-button:active {
+  transform: scale(.98);
+}
+
+.follow-list {
+  display: none;
+  margin-top: 18px;
+  text-align: left;
+}
+
+.follow-list.active {
+  display: block;
+}
+
+.follow-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 12px;
+  margin-bottom: 8px;
+  border: 1px solid #e8e0d3;
+  border-radius: 14px;
+  background: #fffdf9;
+}
+
+.follow-user-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #4a392b;
+  color: #f7e9c8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+.follow-user-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #30251d;
+}
+
+.follow-empty {
+  padding: 16px;
+  text-align: center;
+  color: #8a8177;
+  font-size: 13px;
+}
 .stat strong{
   font-size:21px;
   color:#30251d;
@@ -394,18 +455,19 @@ body{
 
   <div class="stats">
 
-    <div class="stat">
-      <strong id="followersCount">0</strong>
-      <span>Followers</span>
-    </div>
+  <button class="stat stat-button" id="followersButton">
+    <strong id="followersCount">0</strong>
+    <span>Followers</span>
+  </button>
 
-    <div class="stat">
-      <strong id="followingCount">0</strong>
-      <span>Following</span>
-    </div>
+  <button class="stat stat-button" id="followingButton">
+    <strong id="followingCount">0</strong>
+    <span>Following</span>
+  </button>
 
-  </div>
+</div>
 
+<div id="followList" class="follow-list"></div>
 
   <button class="edit-button" id="editProfileButton">
     ✏️ Edit Profile
@@ -1196,7 +1258,131 @@ document
 
     }
   );
+/* ================================
+   FOLLOWERS / FOLLOWING LIST
+================================ */
 
+const followersButton =
+  document.getElementById("followersButton");
+
+const followingButton =
+  document.getElementById("followingButton");
+
+const followList =
+  document.getElementById("followList");
+
+
+followersButton.addEventListener("click", async () => {
+  await loadFollowList("followers");
+});
+
+
+followingButton.addEventListener("click", async () => {
+  await loadFollowList("following");
+});
+
+
+async function loadFollowList(type) {
+
+  if (!currentUser) return;
+
+  followList.classList.add("active");
+
+  followList.innerHTML = `
+    <div class="follow-empty">
+      Loading...
+    </div>
+  `;
+
+  try {
+
+    const snapshot =
+      await getDocs(collection(db, "follows"));
+
+    const userIds = [];
+
+    snapshot.forEach((followDoc) => {
+
+      const data = followDoc.data();
+
+      if (
+        type === "followers" &&
+        data.followingId === currentUser.uid
+      ) {
+        userIds.push(data.followerId);
+      }
+
+      if (
+        type === "following" &&
+        data.followerId === currentUser.uid
+      ) {
+        userIds.push(data.followingId);
+      }
+
+    });
+
+    followList.innerHTML = "";
+
+    if (userIds.length === 0) {
+
+      followList.innerHTML = `
+        <div class="follow-empty">
+          No ${type} yet.
+        </div>
+      `;
+
+      return;
+    }
+
+    for (const uid of userIds) {
+
+      const userSnap =
+        await getDoc(doc(db, "users", uid));
+
+      if (!userSnap.exists()) continue;
+
+      const userData =
+        userSnap.data();
+
+      const username =
+        userData.username || "Member";
+
+      const userElement =
+        document.createElement("div");
+
+      userElement.className =
+        "follow-user";
+
+      userElement.innerHTML = `
+
+        <div class="follow-user-avatar">
+          ${username.charAt(0).toUpperCase()}
+        </div>
+
+        <div class="follow-user-name">
+          ${escapeHTML(username)}
+        </div>
+
+      `;
+
+      followList.appendChild(userElement);
+    }
+
+  } catch (error) {
+
+    console.error(
+      "Follow list error:",
+      error
+    );
+
+    followList.innerHTML = `
+      <div class="follow-empty">
+        Could not load list.
+      </div>
+    `;
+
+  }
+}
 </script>
 
 </body>
