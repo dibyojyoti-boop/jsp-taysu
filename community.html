@@ -13,12 +13,7 @@
   padding:0;
 }
 
-*{
-  box-sizing:border-box;
-}
-
 body{
-  margin:0;
   font-family:Arial,sans-serif;
   background:#f3f4f6;
   color:#171717;
@@ -46,11 +41,10 @@ body{
 .logo{
   font-size:18px;
   font-weight:800;
-  letter-spacing:.3px;
 }
 
 .profile{
-  max-width:150px;
+  max-width:160px;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
@@ -65,32 +59,89 @@ body{
 }
 
 .welcome{
-  padding:8px 4px 14px;
+  padding:8px 4px 12px;
 }
 
 .welcome h1{
-  margin:0 0 5px;
-  font-size:26px;
+  font-size:25px;
+  margin-bottom:5px;
 }
 
 .welcome p{
-  margin:0;
-  color:#737373;
+  color:#777;
   font-size:13px;
 }
+
+/* SEARCH */
+
+.search-box{
+  display:flex;
+  gap:8px;
+  margin:0 0 16px;
+}
+
+#userSearchInput{
+  flex:1;
+  padding:12px 14px;
+  border:1px solid #ddd;
+  border-radius:14px;
+  background:white;
+  font-size:14px;
+  outline:none;
+}
+
+#userSearchButton{
+  border:0;
+  border-radius:14px;
+  padding:12px 16px;
+  background:#151515;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+#searchResults{
+  margin-bottom:16px;
+}
+
+.search-result{
+  background:white;
+  padding:13px;
+  border-radius:14px;
+  margin-bottom:8px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.search-result-user{
+  font-weight:bold;
+}
+
+.follow-button{
+  border:0;
+  border-radius:18px;
+  padding:8px 14px;
+  background:#111;
+  color:white;
+  cursor:pointer;
+}
+
+/* CREATE POST */
+
 .create-post{
   background:white;
   border-radius:18px;
-  padding:18px;
-  box-shadow:0 4px 20px rgba(0,0,0,.06);
-  margin-bottom:24px;
+  padding:16px;
+  margin-bottom:20px;
+  box-shadow:0 3px 15px rgba(0,0,0,.06);
 }
 
 .composer-header{
   display:flex;
   align-items:center;
-  gap:11px;
-  margin-bottom:15px;
+  gap:10px;
+  margin-bottom:13px;
 }
 
 .avatar{
@@ -98,7 +149,7 @@ body{
   height:44px;
   flex-shrink:0;
   border-radius:50%;
-  background:#181818;
+  background:#171717;
   color:white;
   display:flex;
   align-items:center;
@@ -107,7 +158,6 @@ body{
 }
 
 .composer-header strong{
-  display:block;
   font-size:15px;
 }
 
@@ -118,30 +168,29 @@ body{
   font-size:12px;
 }
 
-.create-post textarea{
+#postText{
   width:100%;
-  min-height:95px;
+  min-height:90px;
   resize:vertical;
-  border:1px solid #e2e2e2;
+  border:1px solid #ddd;
   border-radius:14px;
-  padding:14px;
+  padding:13px;
   font-family:inherit;
   font-size:15px;
   outline:none;
   background:#fafafa;
 }
 
-.create-post textarea:focus{
-  border-color:#999;
+#postText:focus{
   background:white;
+  border-color:#999;
 }
 
 .post-options{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  gap:10px;
-  margin-top:13px;
+  align-items:center;
+  margin-top:12px;
 }
 
 .media-buttons{
@@ -151,39 +200,34 @@ body{
 
 .media-buttons button{
   border:0;
-  background:#f2f2f2;
-  padding:9px 11px;
-  border-radius:20px;
+  background:#f1f1f1;
+  padding:8px 10px;
+  border-radius:18px;
   cursor:pointer;
-  font-size:13px;
+  font-size:12px;
 }
 
 .post-btn{
   border:0;
   background:#111;
   color:white;
-  padding:10px 20px;
-  border-radius:22px;
-  font-weight:700;
+  padding:10px 19px;
+  border-radius:20px;
+  font-weight:bold;
   cursor:pointer;
 }
 
-.post-btn:active{
-  transform:scale(.97);
-}
+/* FEED */
 
 .section-title{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  margin:4px 3px 10px;
-  padding-bottom:4px;
+  align-items:center;
+  margin:0 3px 10px;
 }
 
 .section-title h2{
-  margin:0;
   font-size:19px;
-  font-weight:800;
 }
 
 .section-title span{
@@ -192,51 +236,53 @@ body{
 
 .post{
   background:white;
-  border-radius:18px;
-  padding:17px;
-  margin-bottom:14px;
-  box-shadow:0 3px 16px rgba(0,0,0,.06);
+  border-radius:17px;
+  padding:16px;
+  margin-bottom:11px;
+  box-shadow:0 3px 14px rgba(0,0,0,.05);
 }
 
 .post-header{
   display:flex;
   align-items:center;
   gap:10px;
-  margin-bottom:13px;
+  margin-bottom:11px;
 }
 
 .post-author{
-  font-weight:700;
   font-size:14px;
+  font-weight:700;
 }
 
 .post-time{
-  color:#8a8a8a;
+  color:#888;
   font-size:11px;
   margin-top:3px;
 }
 
 .post-text{
   line-height:1.55;
-  margin-bottom:14px;
+  font-size:14px;
+  margin-bottom:12px;
   white-space:pre-wrap;
+  overflow-wrap:anywhere;
 }
 
 .actions{
   border-top:1px solid #eee;
-  padding-top:11px;
+  padding-top:9px;
   display:flex;
-  gap:8px;
+  gap:5px;
 }
 
 .action{
   border:0;
   background:none;
-  padding:8px 12px;
-  border-radius:18px;
-  cursor:pointer;
   color:#555;
-  font-size:13px;
+  padding:7px 10px;
+  border-radius:17px;
+  cursor:pointer;
+  font-size:12px;
 }
 
 .action:hover{
@@ -245,50 +291,50 @@ body{
 
 .empty{
   background:white;
-  border-radius:18px;
+  border-radius:17px;
   text-align:center;
-  padding:45px 20px;
+  padding:40px 20px;
   color:#777;
-  box-shadow:0 3px 16px rgba(0,0,0,.05);
 }
 
 .empty-icon{
-  font-size:38px;
-  margin-bottom:8px;
+  font-size:34px;
+  margin-bottom:7px;
 }
 
 .empty h3{
-  margin:5px 0;
   color:#333;
+  margin-bottom:5px;
 }
 
 .empty p{
-  margin:7px 0 0;
   font-size:13px;
 }
 
-.logout{
-  display:block;
-  margin:25px auto 10px;
-  padding:11px 24px;
-  border:1px solid #ddd;
+/* LOGIN */
+
+#communityLogin{
   background:white;
-  border-radius:25px;
-  cursor:pointer;
+  border-radius:17px;
+  text-align:center;
+  padding:20px;
+  margin-bottom:15px;
 }
+
+/* BOTTOM NAV */
 
 .bottom-nav{
   position:fixed;
   left:0;
   right:0;
   bottom:0;
-  z-index:200;
   height:65px;
+  z-index:200;
   background:rgba(255,255,255,.97);
   border-top:1px solid #e5e5e5;
   display:flex;
   justify-content:center;
-  gap:8px;
+  gap:5px;
   padding:7px 10px;
 }
 
@@ -311,7 +357,7 @@ body{
 
 .nav-item.active{
   color:#111;
-  font-weight:700;
+  font-weight:bold;
 }
 
 @media(max-width:500px){
@@ -321,7 +367,7 @@ body{
   }
 
   .welcome h1{
-    font-size:24px;
+    font-size:23px;
   }
 
   .create-post{
@@ -329,233 +375,13 @@ body{
   }
 
   .media-buttons button{
-    padding:8px 9px;
-    font-size:12px;
+    padding:7px 8px;
+    font-size:11px;
   }
 
   .post-btn{
-    padding:9px 17px;
+    padding:9px 16px;
   }
-
-  .bottom-nav{
-    gap:2px;
-  }
-}
-  .profile-card{
-  background:white;
-  border-radius:18px;
-  padding:22px;
-  margin-top:20px;
-  text-align:center;
-  box-shadow:0 3px 15px rgba(0,0,0,.07);
-}
-
-.profile-avatar{
-  width:70px;
-  height:70px;
-  margin:0 auto 12px;
-  border-radius:50%;
-  background:#151515;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:25px;
-  font-weight:bold;
-}
-
-.profile-card h2{
-  margin-bottom:14px;
-  font-size:20px;
-}
-
-#editProfileButton,
-#saveUsernameButton{
-  border:0;
-  border-radius:22px;
-  padding:10px 18px;
-  background:#151515;
-  color:white;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-#profileEditor{
-  margin-top:15px;
-}
-
-#usernameInput{
-  width:100%;
-  padding:12px;
-  border:1px solid #ddd;
-  border-radius:12px;
-  margin-bottom:10px;
-  font-size:15px;
-  outline:none;
-}
-  .search-box{
-  display:flex;
-  gap:8px;
-  margin:4px 0 16px;
-}
-
-#userSearchInput{
-  flex:1;
-  padding:11px 14px;
-  border:1px solid #dedede;
-  border-radius:14px;
-  font-size:14px;
-  outline:none;
-  background:white;
-}
-
-#userSearchButton{
-  padding:11px 15px;
-  border:none;
-  border-radius:14px;
-  background:#151515;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-#userSearchInput{
-  flex:1;
-  padding:12px 15px;
-  border:1px solid #ddd;
-  border-radius:12px;
-  font-size:15px;
-  outline:none;
-}
-
-#userSearchButton{
-  padding:12px 16px;
-  border:none;
-  border-radius:12px;
-  background:#151515;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-#searchResults{
-  margin-bottom:20px;
-}
-
-.search-result{
-  background:white;
-  padding:14px;
-  border-radius:14px;
-  margin-bottom:10px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.search-result-user{
-  font-weight:bold;
-}
-  /* PROFILE UI */
-
-.profile-card {
-  text-align: center;
-  padding: 30px 20px;
-  margin: 20px 0;
-  border-radius: 24px;
-  background: #ffffff;
-}
-
-.profile-avatar {
-  width: 110px;
-  height: 110px;
-  margin: 0 auto 12px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #111111;
-  color: #ffffff;
-  font-size: 42px;
-  font-weight: 700;
-}
-
-#profileUsername {
-  margin: 8px 0 15px;
-  font-size: 26px;
-}
-
-#editDpButton,
-#editProfileButton {
-  border: none;
-  border-radius: 20px;
-  padding: 10px 18px;
-  margin: 5px;
-  background: #f1f1f1;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.profile-stats {
-  display: flex;
-  justify-content: center;
-  gap: 55px;
-  margin: 25px 0;
-}
-
-.profile-stats div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.profile-stats strong {
-  font-size: 22px;
-}
-
-.profile-stats span {
-  font-size: 14px;
-  color: #777;
-  margin-top: 4px;
-}
-
-#profileEditor {
-  margin: 20px 0;
-}
-
-#profileEditor input {
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  width: 80%;
-  max-width: 280px;
-}
-
-#saveUsernameButton {
-  padding: 12px 18px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 14px;
-  background: #111111;
-  color: white;
-  font-weight: 600;
-}
-
-.my-posts {
-  margin-top: 30px;
-  text-align: left;
-}
-
-.my-posts h3 {
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-#myPosts {
-  min-height: 80px;
-}
-
-.logout {
-  margin-top: 30px;
 }
 </style>
 </head>
@@ -570,38 +396,127 @@ body{
 </header>
 
 <main class="container">
-<div id="communityLogin" style="display:none; text-align:center; padding:20px;">
-  <p style="margin-bottom:12px;">
-    Sign in to join the community 🐉
-  </p>
 
-  <button id="communityGoogleLogin" class="post-btn">
-    Continue with Google
-  </button>
-</div>
+  <div id="communityLogin" style="display:none;">
+    <p style="margin-bottom:12px;">
+      Sign in to join the community 🐉
+    </p>
+
+    <button id="communityGoogleLogin" class="post-btn">
+      Continue with Google
+    </button>
+  </div>
+
   <section class="welcome">
-  <h1 id="welcomeText">Welcome 👋</h1>
-  <p>Connect. Share. Preserve our heritage.</p>
-</section>
+    <h1 id="welcomeText">Welcome 👋</h1>
+    <p>Connect. Share. Preserve our heritage.</p>
+  </section>
 
-<div class="search-box">
-  <input
-    type="text"
-    id="userSearchInput"
-    placeholder="Search members..."
-    maxlength="30"
-  >
+  <!-- SEARCH AT TOP -->
 
-  <button id="userSearchButton">
-    🔎 Search
-  </button>
-</div>
+  <div class="search-box">
 
-<div id="searchResults"></div>
+    <input
+      type="text"
+      id="userSearchInput"
+      placeholder="Search members..."
+      maxlength="30"
+    >
 
+    <button id="userSearchButton">
+      🔎 Search
+    </button>
 
+  </div>
+
+  <div id="searchResults"></div>
+
+  <!-- CREATE POST -->
+
+  <section class="create-post">
+
+    <div class="composer-header">
+
+      <div class="avatar" id="composerAvatar">
+        M
+      </div>
+
+      <div>
+        <strong id="composerName">
+          Member
+        </strong>
+
+        <small>
+          Share with the community
+        </small>
+      </div>
+
+    </div>
+
+    <textarea
+      id="postText"
+      placeholder="What's on your mind?"
+    ></textarea>
+
+    <div class="post-options">
+
+      <div class="media-buttons">
+        <button type="button">
+          📷 Photo
+        </button>
+
+        <button type="button">
+          🎥 Video
+        </button>
+      </div>
+
+      <button
+        class="post-btn"
+        id="postButton">
+        Post
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- COMMUNITY FEED -->
+
+  <div class="section-title">
+
+    <h2>
+      Community Feed
+    </h2>
+
+    <span>
+      🐉
+    </span>
+
+  </div>
+
+  <section id="posts">
+
+    <div class="empty">
+
+      <div class="empty-icon">
+        🐉
+      </div>
+
+      <h3>
+        Loading community...
+      </h3>
+
+      <p>
+        Please wait a moment.
+      </p>
+
+    </div>
+
+  </section>
 
 </main>
+
+<!-- BOTTOM NAV -->
 
 <nav class="bottom-nav">
 
@@ -626,16 +541,15 @@ body{
   </button>
 
   <button
-  class="nav-item"
-  id="profileNavButton">
+    class="nav-item"
+    id="profileNavButton">
 
-  👤
-  <span>Profile</span>
+    👤
+    <span>Profile</span>
 
-</button>
+  </button>
 
 </nav>
-
 
 <script type="module">
 
@@ -643,188 +557,84 @@ import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
-getAuth,
-onAuthStateChanged,
-signOut,
-GoogleAuthProvider,
-signInWithRedirect,
-getRedirectResult,
-setPersistence,
-browserLocalPersistence
+  getAuth,
+  onAuthStateChanged,
+  signOut,
+  GoogleAuthProvider,
+  signInWithRedirect,
+  setPersistence,
+  browserLocalPersistence
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
 import {
-getFirestore,
-collection,
-addDoc,
-getDocs,
-serverTimestamp,
-doc,
-setDoc,
-getDoc
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  serverTimestamp,
+  doc,
+  setDoc,
+  getDoc
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* FIREBASE */
 
 const firebaseConfig = {
 
-apiKey: "AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
+  apiKey:
+    "AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
 
-  authDomain: "jsp-taysu.firebaseapp.com",
+  authDomain:
+    "jsp-taysu.firebaseapp.com",
 
-  projectId: "jsp-taysu",
+  projectId:
+    "jsp-taysu",
 
-  storageBucket: "jsp-taysu.firebasestorage.app",
+  storageBucket:
+    "jsp-taysu.firebasestorage.app",
 
-  messagingSenderId: "280992025632",
+  messagingSenderId:
+    "280992025632",
 
-  appId: "1:280992025632:web:48efa21208a78be9a78045"
-
+  appId:
+    "1:280992025632:web:48efa21208a78be9a78045"
 
 };
 
-
 const app =
-initializeApp(firebaseConfig);
-alert("Community JavaScript is running");
+  initializeApp(firebaseConfig);
+
 const auth =
-getAuth(app);
-  console.log("PROFILE AUTH CHECK:", auth.currentUser);
-  await setPersistence(
+  getAuth(app);
+
+await setPersistence(
   auth,
   browserLocalPersistence
 );
-console.log("Community currentUser:", auth.currentUser);
 
+const db =
+  getFirestore(app);
 
-const db = getFirestore(app);
 let currentUser = null;
-onAuthStateChanged(auth, async (user) => {
-
-  if (!user) {
-
-    document.getElementById(
-      "profileName"
-    ).textContent = "Please sign in";
-
-    document.getElementById(
-      "communityLogin"
-    ).style.display = "block";
-
-    return;
-  }
-
-  currentUser = user;
-await loadFollowCounts();
-  document.getElementById(
-    "communityLogin"
-  ).style.display = "none";
 
 
-  // Get saved profile
-  try {
-
-    const profileRef =
-      doc(db, "users", user.uid);
-
-    const profileSnap =
-      await getDoc(profileRef);
-
-    let username =
-      user.displayName || "Member";
-
-    if (profileSnap.exists()) {
-
-  const profileData =
-    profileSnap.data();
-
-  if (profileData.username) {
-    username = profileData.username;
-  }
-
-}
-
-document.getElementById(
-  "composerName"
-).textContent = username;
-
-document.getElementById(
-  "composerAvatar"
-).textContent =
-  username.charAt(0).toUpperCase();
-
-
-    document.getElementById(
-      "profileName"
-    ).textContent = username;
-
-    document.getElementById(
-      "profileUsername"
-    ).textContent = username;
-
-    document.getElementById(
-      "profileAvatar"
-    ).textContent =
-      username.charAt(0).toUpperCase();
-
-    document.getElementById(
-      "welcomeText"
-    ).textContent =
-      "Welcome, " + username + " 👋";
-
-
-  } catch (error) {
-
-    console.error(
-      "Profile loading error:",
-      error
-    );
-
-  }
-
-});
-const communityLogin =
-  document.getElementById("communityLogin");
-
-const communityGoogleLogin =
-  document.getElementById("communityGoogleLogin");
+/* LOGIN */
 
 const provider =
   new GoogleAuthProvider();
-getRedirectResult(auth)
-  .then((result) => {
 
-    if (result && result.user) {
+const communityLogin =
+  document.getElementById(
+    "communityLogin"
+  );
 
-      currentUser = result.user;
-
-      document.getElementById(
-        "communityLogin"
-      ).style.display = "none";
-
-      document.getElementById(
-        "profileName"
-      ).textContent =
-        result.user.displayName || "Member";
-
-      document.getElementById(
-        "welcomeText"
-      ).textContent =
-        "Welcome, " +
-        (result.user.displayName || "Member") +
-        " 👋";
-    }
-
-  })
-  .catch((error) => {
-
-    console.error(error);
-
-    alert(
-      error.code +
-      ": " +
-      error.message
-    );
-
-  });
+const communityGoogleLogin =
+  document.getElementById(
+    "communityGoogleLogin"
+  );
 
 communityGoogleLogin.addEventListener(
   "click",
@@ -832,14 +642,18 @@ communityGoogleLogin.addEventListener(
 
     try {
 
-      await signInWithRedirect(auth, provider);
+      await signInWithRedirect(
+        auth,
+        provider
+      );
 
-    } catch (error) {
+    } catch(error) {
 
       console.error(error);
 
       alert(
-        error.code + ": " +
+        error.code +
+        ": " +
         error.message
       );
 
@@ -849,472 +663,722 @@ communityGoogleLogin.addEventListener(
 );
 
 
+/* LOAD USER */
+
+onAuthStateChanged(
+  auth,
+  async (user) => {
+
+    if(!user){
+
+      currentUser = null;
+
+      document.getElementById(
+        "profileName"
+      ).textContent =
+        "Please sign in";
+
+      communityLogin.style.display =
+        "block";
+
+      return;
+
+    }
+
+    currentUser = user;
+
+    communityLogin.style.display =
+      "none";
+
+    let username =
+      user.displayName ||
+      "Member";
 
 
+    try{
 
-// Logout
+      const profileRef =
+        doc(
+          db,
+          "users",
+          user.uid
+        );
+
+      const profileSnap =
+        await getDoc(profileRef);
+
+
+      if(profileSnap.exists()){
+
+        const profileData =
+          profileSnap.data();
+
+        if(profileData.username){
+
+          username =
+            profileData.username;
+
+        }
+
+      }
+
+
+    }catch(error){
+
+      console.error(
+        "Profile loading error:",
+        error
+      );
+
+    }
+
+
+    /* SHOW USERNAME EVERYWHERE */
+
+    document.getElementById(
+      "profileName"
+    ).textContent =
+      username;
+
+    document.getElementById(
+      "composerName"
+    ).textContent =
+      username;
+
+    document.getElementById(
+      "composerAvatar"
+    ).textContent =
+      username
+        .charAt(0)
+        .toUpperCase();
+
+    document.getElementById(
+      "welcomeText"
+    ).textContent =
+      "Welcome, " +
+      username +
+      " 👋";
+
+
+    /* LOAD POSTS AFTER AUTH */
+
+    await loadPosts();
+
+  }
+);
+
+
+/* CREATE POST */
+
 document.getElementById(
-  "logoutButton"
+  "postButton"
 ).addEventListener(
   "click",
   async () => {
 
-    await signOut(auth);
-
-    window.location.href =
-      "index.html";
-
-  }
-);
-
-document.getElementById(
-"postButton"
-).addEventListener(
-"click",
-async ()=>{
-
-const text =
-document.getElementById(
-"postText"
-).value.trim();
-
-if(!text){
-
-alert("Write something first!");
-
-return;
-
-}
-if (!currentUser) {
-  alert("Please sign in again.");
-  return;
-}
-try {
-  await addDoc(collection(db, "posts"), {
-    text: text,
-    authorId: currentUser.uid,
-authorName:
-  document.getElementById("composerName").textContent || "Member",
-    createdAt: serverTimestamp()
-  });
-
-  document.getElementById("postText").value = "";
-
-  alert("Post published! 🐉");
-await loadPosts();
-} catch (error) {
-
-  console.error(error);
-alert(error.code + ": " + error.message);
-  alert("Post could not be published.");
-
-}
-
-});
-
-async function loadPosts() {
-
-  const postsContainer =
-    document.getElementById("posts");
-
-  try {
-
-    const snapshot =
-      await getDocs(collection(db, "posts"));
-
-    postsContainer.innerHTML = "";
-
-    if (snapshot.empty) {
-
-      postsContainer.innerHTML = `
-        <div class="empty">
-          <div class="empty-icon">🐉</div>
-          <h3>No posts yet</h3>
-          <p>Be the first to share something with the community.</p>
-        </div>
-      `;
-
-      return;
-    }
-
-    snapshot.forEach((doc) => {
-
-      const post = doc.data();
-const postId = doc.id;
-      const postElement =
-        document.createElement("article");
-
-      postElement.className = "post";
-
-      postElement.innerHTML = `
-        <div class="post-header">
-
-          <div class="avatar">
-            ${(post.authorName || "M").charAt(0).toUpperCase()}
-          </div>
-
-          <div>
-            <div class="post-author">
-              ${post.authorName || "Member"}
-            </div>
-
-            <div class="post-time">
-              Community member
-            </div>
-          </div>
-
-        </div>
-
-        <div class="post-text">
-          ${post.text || ""}
-        </div>
-
-        <div class="actions">
-          <button class="action like-button" data-post-id="${postId}">
-  ❤️ <span>Like</span>
-</button>
-          <button class="action">💬 Comment</button>
-          <button class="action">↗️ Share</button>
-        </div>
-      `;
-
-      postsContainer.appendChild(postElement);
-const likeButton =
-  postElement.querySelector(".like-button");
-
-likeButton.addEventListener("click", async () => {
-
-  if (!currentUser) {
-    alert("Please sign in again.");
-    return;
-  }
-
-  try {
-
-    const likeRef = doc(
-      db,
-      "posts",
-      postId,
-      "likes",
-      currentUser.uid
-    );
-
-    const likeSnap = await getDoc(likeRef);
-
-    if (likeSnap.exists()) {
-
-      alert("Already liked ❤️");
-      return;
-
-    }
-
-    await setDoc(likeRef, {
-      userId: currentUser.uid,
-      createdAt: serverTimestamp()
-    });
-
-    likeButton.querySelector("span").textContent =
-      "Liked";
-
-    likeButton.disabled = true;
-
-  } catch (error) {
-
-    console.error("Like error:", error);
-
-    alert(
-      error.code + ": " +
-      error.message
-    );
-
-  }
-
-});
-    });
-
-  } catch (error) {
-
-    console.error("Error loading posts:", error);
-
-  }
-}
-
-console.log("PROFILE CODE START");
-
-const editProfileButton =
-  document.getElementById("editProfileButton");
-
-const profileEditor =
-  document.getElementById("profileEditor");
-
-const usernameInput =
-  document.getElementById("usernameInput");
-
-const saveUsernameButton =
-  document.getElementById("saveUsernameButton");
-
-const profileUsername =
-  document.getElementById("profileUsername");
-
-const profileAvatar =
-  document.getElementById("profileAvatar");
-
-
-if (editProfileButton) {
-
-  editProfileButton.addEventListener("click", function () {
-
-    profileEditor.style.display = "block";
-
-    usernameInput.focus();
-
-  });
-
-}
-
-
-if (saveUsernameButton) {
-
-  saveUsernameButton.addEventListener("click", async function () {
-
-    if (!currentUser) {
-      alert("Please sign in again.");
-      return;
-    }
-
-    const username =
-      usernameInput.value.trim();
-
-    if (username.length < 3) {
-      alert("Username must be at least 3 characters.");
-      return;
-    }
-
-    try {
-
-      await setDoc(
-        doc(db, "users", currentUser.uid),
-        {
-          username: username,
-          updatedAt: serverTimestamp()
-        },
-        { merge: true }
-      );
-
-      profileUsername.textContent =
-        username;
-
-      profileAvatar.textContent =
-        username.charAt(0).toUpperCase();
-
-      profileEditor.style.display =
-        "none";
-
-      alert("Username updated! 🐉");
-
-    } catch (error) {
-
-      console.error(error);
+    if(!currentUser){
 
       alert(
-        error.code + ": " +
+        "Please sign in first."
+      );
+
+      return;
+
+    }
+
+
+    const text =
+      document.getElementById(
+        "postText"
+      ).value.trim();
+
+
+    if(!text){
+
+      alert(
+        "Write something first!"
+      );
+
+      return;
+
+    }
+
+
+    const username =
+      document.getElementById(
+        "composerName"
+      ).textContent ||
+      "Member";
+
+
+    try{
+
+      await addDoc(
+        collection(
+          db,
+          "posts"
+        ),
+        {
+
+          text:
+            text,
+
+          authorId:
+            currentUser.uid,
+
+          authorName:
+            username,
+
+          createdAt:
+            serverTimestamp()
+
+        }
+      );
+
+
+      document.getElementById(
+        "postText"
+      ).value =
+        "";
+
+
+      await loadPosts();
+
+
+      alert(
+        "Post published! 🐉"
+      );
+
+
+    }catch(error){
+
+      console.error(
+        "Post error:",
+        error
+      );
+
+      alert(
+        error.code +
+        ": " +
         error.message
       );
 
     }
 
-  });
-
-}
-  // USER SEARCH
-
-const userSearchInput =
-  document.getElementById("userSearchInput");
-
-const userSearchButton =
-  document.getElementById("userSearchButton");
-
-const searchResults =
-  document.getElementById("searchResults");
-
-userSearchButton.addEventListener("click", async () => {
-
-  const searchText =
-    userSearchInput.value.trim().toLowerCase();
-
-  if (!searchText) {
-    searchResults.innerHTML =
-      "<p>Enter a username to search.</p>";
-    return;
   }
+);
 
-  try {
 
-    const usersSnapshot =
-      await getDocs(collection(db, "users"));
+/* LOAD POSTS */
 
-    searchResults.innerHTML = "";
+async function loadPosts(){
 
-    let found = false;
-
-    usersSnapshot.forEach((userDoc) => {
-
-      const user =
-        userDoc.data();
-
-      const username =
-        (user.username || "").toLowerCase();
-
-      if (
-        username.includes(searchText) &&
-        userDoc.id !== currentUser?.uid
-      ) {
-
-        found = true;
-
-        const result =
-          document.createElement("div");
-
-        result.className =
-          "search-result";
-
-        result.innerHTML = `
-  <div class="search-result-user">
-    ${user.username}
-  </div>
-
-  <button class="follow-button">
-    Follow
-  </button>
-`;
-
-const followButton =
-  result.querySelector(".follow-button");
-
-followButton.addEventListener("click", async () => {
-
-  if (!currentUser) {
-    alert("Please sign in again.");
-    return;
-  }
-
-  try {
-
-    const followId =
-      currentUser.uid + "_" + userDoc.id;
-
-    await setDoc(
-      doc(db, "follows", followId),
-      {
-        followerId: currentUser.uid,
-        followingId: userDoc.id,
-        createdAt: serverTimestamp()
-      }
+  const postsContainer =
+    document.getElementById(
+      "posts"
     );
 
-    followButton.textContent = "Following";
-    followButton.disabled = true;
 
-    alert("Following " + user.username + "! 👥");
+  try{
 
-  } catch (error) {
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "posts"
+        )
+      );
 
-    console.error(error);
 
-    alert(
-      error.code + ": " +
-      error.message
-    );
+    postsContainer.innerHTML =
+      "";
 
-  }
 
-});
+    if(snapshot.empty){
 
-        searchResults.appendChild(result);
-      }
+      postsContainer.innerHTML = `
 
-    });
+        <div class="empty">
 
-    if (!found) {
-      searchResults.innerHTML =
-        "<p>No members found.</p>";
+          <div class="empty-icon">
+            🐉
+          </div>
+
+          <h3>
+            No posts yet
+          </h3>
+
+          <p>
+            Be the first to share something with the community.
+          </p>
+
+        </div>
+
+      `;
+
+      return;
+
     }
 
-  } catch (error) {
 
-    console.error(error);
+    snapshot.forEach(
+      (postDoc) => {
 
-    alert(
-      error.code + ": " +
-      error.message
+        const post =
+          postDoc.data();
+
+        const postId =
+          postDoc.id;
+
+
+        const postElement =
+          document.createElement(
+            "article"
+          );
+
+
+        postElement.className =
+          "post";
+
+
+        postElement.innerHTML = `
+
+          <div class="post-header">
+
+            <div class="avatar">
+
+              ${(post.authorName || "M")
+                .charAt(0)
+                .toUpperCase()}
+
+            </div>
+
+            <div>
+
+              <div class="post-author">
+                ${post.authorName || "Member"}
+              </div>
+
+              <div class="post-time">
+                Community member
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="post-text">
+            ${post.text || ""}
+          </div>
+
+
+          <div class="actions">
+
+            <button
+              class="action like-button">
+
+              ❤️ <span>Like</span>
+
+            </button>
+
+            <button class="action">
+              💬 Comment
+            </button>
+
+            <button class="action">
+              ↗️ Share
+            </button>
+
+          </div>
+
+        `;
+
+
+        postsContainer.appendChild(
+          postElement
+        );
+
+
+        /* LIKE */
+
+        const likeButton =
+          postElement.querySelector(
+            ".like-button"
+          );
+
+
+        likeButton.addEventListener(
+          "click",
+          async () => {
+
+            if(!currentUser){
+
+              alert(
+                "Please sign in again."
+              );
+
+              return;
+
+            }
+
+
+            try{
+
+              const likeRef =
+                doc(
+                  db,
+                  "posts",
+                  postId,
+                  "likes",
+                  currentUser.uid
+                );
+
+
+              const likeSnap =
+                await getDoc(
+                  likeRef
+                );
+
+
+              if(
+                likeSnap.exists()
+              ){
+
+                alert(
+                  "Already liked ❤️"
+                );
+
+                return;
+
+              }
+
+
+              await setDoc(
+                likeRef,
+                {
+
+                  userId:
+                    currentUser.uid,
+
+                  createdAt:
+                    serverTimestamp()
+
+                }
+              );
+
+
+              likeButton
+                .querySelector(
+                  "span"
+                )
+                .textContent =
+                "Liked";
+
+
+              likeButton.disabled =
+                true;
+
+
+            }catch(error){
+
+              console.error(
+                "Like error:",
+                error
+              );
+
+              alert(
+                error.code +
+                ": " +
+                error.message
+              );
+
+            }
+
+          }
+        );
+
+      }
     );
 
-  }
 
-});
-  // FOLLOWERS & FOLLOWING COUNTS
-
-async function loadFollowCounts() {
-
-  if (!currentUser) return;
-
-  try {
-
-    const followsSnapshot =
-      await getDocs(collection(db, "follows"));
-
-    let followers = 0;
-    let following = 0;
-
-    followsSnapshot.forEach((followDoc) => {
-
-      const follow =
-        followDoc.data();
-
-      if (follow.followingId === currentUser.uid) {
-        followers++;
-      }
-
-      if (follow.followerId === currentUser.uid) {
-        following++;
-      }
-
-    });
-
-    document.getElementById(
-      "followersCount"
-    ).textContent = followers;
-
-    document.getElementById(
-      "followingCount"
-    ).textContent = following;
-
-  } catch (error) {
+  }catch(error){
 
     console.error(
-      "Follow count error:",
+      "Load posts error:",
       error
     );
 
+
+    postsContainer.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          ⚠️
+        </div>
+
+        <h3>
+          Couldn't load posts
+        </h3>
+
+        <p>
+          Please refresh the page.
+        </p>
+
+      </div>
+
+    `;
+
   }
 
 }
 
-loadFollowCounts();
-  loadPosts();
-  // PROFILE NAVIGATION
+
+/* SEARCH MEMBERS */
+
+const userSearchButton =
+  document.getElementById(
+    "userSearchButton"
+  );
+
+const userSearchInput =
+  document.getElementById(
+    "userSearchInput"
+  );
+
+const searchResults =
+  document.getElementById(
+    "searchResults"
+  );
+
+
+userSearchButton.addEventListener(
+  "click",
+  async () => {
+
+    const searchText =
+      userSearchInput.value
+        .trim()
+        .toLowerCase();
+
+
+    if(!searchText){
+
+      searchResults.innerHTML =
+        "<p>Enter a username to search.</p>";
+
+      return;
+
+    }
+
+
+    try{
+
+      const usersSnapshot =
+        await getDocs(
+          collection(
+            db,
+            "users"
+          )
+        );
+
+
+      searchResults.innerHTML =
+        "";
+
+      let found =
+        false;
+
+
+      usersSnapshot.forEach(
+        (userDoc) => {
+
+          const user =
+            userDoc.data();
+
+
+          const username =
+            (
+              user.username ||
+              ""
+            ).toLowerCase();
+
+
+          if(
+            username.includes(
+              searchText
+            ) &&
+            userDoc.id !==
+            currentUser?.uid
+          ){
+
+            found =
+              true;
+
+
+            const result =
+              document.createElement(
+                "div"
+              );
+
+
+            result.className =
+              "search-result";
+
+
+            result.innerHTML = `
+
+              <div class="search-result-user">
+                ${user.username}
+              </div>
+
+              <button class="follow-button">
+                Follow
+              </button>
+
+            `;
+
+
+            const followButton =
+              result.querySelector(
+                ".follow-button"
+              );
+
+
+            followButton.addEventListener(
+              "click",
+              async () => {
+
+                if(!currentUser){
+
+                  alert(
+                    "Please sign in again."
+                  );
+
+                  return;
+
+                }
+
+
+                try{
+
+                  const followId =
+                    currentUser.uid +
+                    "_" +
+                    userDoc.id;
+
+
+                  await setDoc(
+                    doc(
+                      db,
+                      "follows",
+                      followId
+                    ),
+                    {
+
+                      followerId:
+                        currentUser.uid,
+
+                      followingId:
+                        userDoc.id,
+
+                      createdAt:
+                        serverTimestamp()
+
+                    }
+                  );
+
+
+                  followButton.textContent =
+                    "Following";
+
+                  followButton.disabled =
+                    true;
+
+
+                }catch(error){
+
+                  console.error(
+                    error
+                  );
+
+                  alert(
+                    error.code +
+                    ": " +
+                    error.message
+                  );
+
+                }
+
+              }
+            );
+
+
+            searchResults.appendChild(
+              result
+            );
+
+          }
+
+        }
+      );
+
+
+      if(!found){
+
+        searchResults.innerHTML =
+          "<p>No members found.</p>";
+
+      }
+
+
+    }catch(error){
+
+      console.error(
+        "Search error:",
+        error
+      );
+
+      alert(
+        error.code +
+        ": " +
+        error.message
+      );
+
+    }
+
+  }
+);
+
+
+/* PROFILE BUTTON */
 
 const profileNavButton =
-  document.getElementById("profileNavButton");
+  document.getElementById(
+    "profileNavButton"
+  );
 
-const myProfile =
-  document.getElementById("myProfile");
 
-if (profileNavButton) {
-  profileNavButton.addEventListener("click", () => {
-    window.location.href = "profile.html";
-  });
+if(profileNavButton){
+
+  profileNavButton.addEventListener(
+    "click",
+    () => {
+
+      window.location.href =
+        "profile.html";
+
+    }
+  );
+
 }
+
+
+/* INITIAL LOAD */
+
+loadPosts();
+
 </script>
 
 </body>
