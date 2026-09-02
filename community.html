@@ -849,114 +849,32 @@ onAuthStateChanged(
 
     if(!user){
 
-      currentUser = null;
+      currentUser = user;
 
-      document.getElementById(
-        "profileName"
-      ).textContent =
-        "Please sign in";
+communityLogin.style.display = "none";
 
-      communityLogin.style.display =
-        "block";
+let username = "Member";
 
-      return;
+const profileRef = doc(db, "users", user.uid);
+const profileSnap = await getDoc(profileRef);
 
-    }
+if (
+  profileSnap.exists() &&
+  profileSnap.data().username
+) {
+  username = profileSnap.data().username;
+} else if (user.displayName) {
+  username = user.displayName;
+}
 
+document.getElementById("profileName").textContent = username;
+document.getElementById("composerName").textContent = username;
+document.getElementById("composerAvatar").textContent =
+  username.charAt(0).toUpperCase();
+document.getElementById("welcomeText").textContent =
+  "Welcome, " + username + " 👋";
 
-    currentUser =
-      user;
-
-    communityLogin.style.display =
-      "none";
-
-
-    let username =
-      "Member";
-
-
-    /* LOAD USERNAME */
-
-    try{
-
-      const profileRef =
-        doc(
-          db,
-          "users",
-          user.uid
-        );
-
-
-      const profileSnap =
-        await getDoc(
-          profileRef
-        );
-
-
-      if(
-        profileSnap.exists() &&
-        profileSnap.data().username
-      ){
-
-        username =
-          profileSnap.data().username;
-
-      }else if(user.displayName){
-
-        username =
-          user.displayName;
-
-      }
-
-    }catch(error){
-
-      console.error(
-        "Username loading error:",
-        error
-      );
-
-
-      if(user.displayName){
-
-        username =
-          user.displayName;
-
-      }
-
-    }
-
-
-    /* DISPLAY USER */
-
-    document.getElementById(
-      "profileName"
-    ).textContent =
-      username;
-
-
-    document.getElementById(
-      "composerName"
-    ).textContent =
-      username;
-
-
-    document.getElementById(
-      "composerAvatar"
-    ).textContent =
-      username
-        .charAt(0)
-        .toUpperCase();
-
-
-    document.getElementById(
-      "welcomeText"
-    ).textContent =
-      "Welcome, " +
-      username +
-      " 👋";
-
-
-    await loadPosts();
+await loadPosts();
 
   }
 );
@@ -2316,9 +2234,7 @@ if(profileNavButton){
 }
 
 
-/* ================================
-   INITIAL LOAD
-================================ */
+
 
 
 
