@@ -1018,7 +1018,7 @@ async function loadPosts() {
     snapshot.forEach((doc) => {
 
       const post = doc.data();
-
+const postId = doc.id;
       const postElement =
         document.createElement("article");
 
@@ -1048,7 +1048,9 @@ async function loadPosts() {
         </div>
 
         <div class="actions">
-          <button class="action">❤️ Like</button>
+          <button class="action like-button" data-post-id="${postId}">
+  ❤️ <span>Like</span>
+</button>
           <button class="action">💬 Comment</button>
           <button class="action">↗️ Share</button>
         </div>
