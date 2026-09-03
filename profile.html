@@ -20,6 +20,8 @@ body{
   padding-bottom:30px;
 }
 
+/* ================= TOP BAR ================= */
+
 .topbar{
   height:60px;
   display:flex;
@@ -59,6 +61,8 @@ body{
   cursor:pointer;
 }
 
+/* ================= PROFILE ================= */
+
 .profile{
   padding:18px 16px 0;
 }
@@ -84,10 +88,7 @@ body{
   overflow:hidden;
 }
 
-.avatar img,
-.small-avatar img,
-.comment-avatar img,
-.list-avatar img{
+.avatar img{
   width:100%;
   height:100%;
   object-fit:cover;
@@ -118,6 +119,8 @@ body{
   font-size:12px;
 }
 
+/* ================= INFO ================= */
+
 .info{
   margin-top:17px;
 }
@@ -141,6 +144,8 @@ body{
   color:#858995;
   font-size:12px;
 }
+
+/* ================= BUTTONS ================= */
 
 .buttons{
   display:flex;
@@ -175,6 +180,8 @@ body{
   border:1px solid #30343e;
 }
 
+/* ================= POSTS HEADER ================= */
+
 .post-header{
   height:52px;
   margin-top:19px;
@@ -189,6 +196,8 @@ body{
   font-size:23px;
 }
 
+/* ================= POSTS ================= */
+
 .posts{
   padding-bottom:25px;
 }
@@ -201,14 +210,14 @@ body{
 
 .my-post-top{
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   justify-content:space-between;
   margin-bottom:2px;
 }
 
 .my-post-user{
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   gap:8px;
   min-width:0;
 }
@@ -225,6 +234,12 @@ body{
   font-weight:700;
   flex-shrink:0;
   overflow:hidden;
+}
+
+.small-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 .my-post-meta{
@@ -265,6 +280,8 @@ body{
   cursor:pointer;
 }
 
+/* ================= POST MENU ================= */
+
 .post-menu{
   display:none;
   position:absolute;
@@ -289,6 +306,8 @@ body{
   font-size:13px;
   cursor:pointer;
 }
+
+/* ================= POST ACTIONS ================= */
 
 .post-actions{
   display:flex;
@@ -322,6 +341,8 @@ body{
   opacity:.6;
   cursor:default;
 }
+
+/* ================= COMMENTS ================= */
 
 .comments{
   margin-top:11px;
@@ -390,6 +411,12 @@ body{
   overflow:hidden;
 }
 
+.comment-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
 .comment-content{
   min-width:0;
   flex:1;
@@ -420,6 +447,8 @@ body{
   padding:4px 0;
 }
 
+/* ================= EMPTY ================= */
+
 .empty{
   display:flex;
   flex-direction:column;
@@ -444,6 +473,8 @@ body{
 .empty p{
   font-size:12px;
 }
+
+/* ================= TOP MENU ================= */
 
 .menu{
   display:none;
@@ -473,6 +504,8 @@ body{
 .signout{
   color:#ff5d6c !important;
 }
+
+/* ================= MODAL ================= */
 
 .overlay{
   display:none;
@@ -554,6 +587,8 @@ body{
   font-size:12px;
   color:#aaa;
 }
+
+/* ================= USER SHEET ================= */
 
 .sheet-overlay{
   display:none;
@@ -642,6 +677,12 @@ body{
   flex-shrink:0;
 }
 
+.list-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
 .list-info{
   min-width:0;
 }
@@ -670,6 +711,8 @@ body{
   font-size:13px;
 }
 
+/* ================= LOADING ================= */
+
 .loading{
   position:fixed;
   inset:0;
@@ -693,6 +736,8 @@ body{
   to{transform:rotate(360deg);}
 }
 
+/* ================= DESKTOP ================= */
+
 @media(min-width:700px){
   body{
     max-width:650px;
@@ -709,24 +754,34 @@ body{
 </div>
 
 <header class="topbar">
+
   <div class="back" onclick="goBack()">‹</div>
 
   <div class="username-title" id="topUsername">
     Profile
   </div>
 
-  <div class="more" onclick="toggleTopMenu()">•••</div>
+  <div class="more" onclick="toggleTopMenu()">
+    •••
+  </div>
+
 </header>
 
 <div class="menu" id="topMenu">
-  <button class="signout" onclick="signOut()">Sign out</button>
+
+  <button class="signout" onclick="signOut()">
+    Sign out
+  </button>
+
 </div>
 
 <main class="profile">
 
   <section class="profile-top">
 
-    <div class="avatar" id="avatar">M</div>
+    <div class="avatar" id="avatar">
+      M
+    </div>
 
     <div class="stats">
 
@@ -751,7 +806,9 @@ body{
 
   <section class="info">
 
-    <div class="name" id="profileName">Member</div>
+    <div class="name" id="profileName">
+      Member
+    </div>
 
     <div class="bio" id="profileBio">
       Building and preserving our heritage.
@@ -781,26 +838,46 @@ body{
 
 </section>
 
+<!-- EDIT PROFILE -->
+
 <div class="overlay" id="editOverlay">
 
   <div class="modal">
 
     <div class="modal-title">
+
       <h2>Edit profile</h2>
+
       <div class="close" onclick="closeEdit()">×</div>
+
     </div>
 
     <div class="field">
+
       <label>Username</label>
-      <input type="text" id="editUsername" maxlength="40" placeholder="Enter username">
+
+      <input
+        type="text"
+        id="editUsername"
+        maxlength="40"
+        placeholder="Enter username">
+
     </div>
 
     <div class="field">
+
       <label>Bio</label>
-      <textarea id="editBio" maxlength="160" placeholder="Write something about yourself..."></textarea>
+
+      <textarea
+        id="editBio"
+        maxlength="160"
+        placeholder="Write something about yourself..."></textarea>
+
     </div>
 
-    <button class="save" onclick="saveProfile()">Save changes</button>
+    <button class="save" onclick="saveProfile()">
+      Save changes
+    </button>
 
     <div class="status" id="saveStatus"></div>
 
@@ -808,14 +885,22 @@ body{
 
 </div>
 
+<!-- FOLLOWERS / FOLLOWING -->
+
 <div class="sheet-overlay" id="sheetOverlay">
 
   <div class="sheet">
 
     <div class="sheet-head">
-      <h3 id="sheetTitle">Followers</h3>
 
-      <div class="sheet-close" onclick="closeUserList()">×</div>
+      <h3 id="sheetTitle">
+        Followers
+      </h3>
+
+      <div class="sheet-close" onclick="closeUserList()">
+        ×
+      </div>
+
     </div>
 
     <div class="user-list" id="userList">
@@ -836,13 +921,30 @@ body{
 
 <script>
 
+/* =====================================================
+   FIREBASE
+===================================================== */
+
 const firebaseConfig = {
-  apiKey:"AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
-  authDomain:"jsp-taysu.firebaseapp.com",
-  projectId:"jsp-taysu",
-  storageBucket:"jsp-taysu.firebasestorage.app",
-  messagingSenderId:"280992025632",
-  appId:"1:280992025632:web:48efa21208a78be9a78045"
+
+  apiKey:
+    "AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
+
+  authDomain:
+    "jsp-taysu.firebaseapp.com",
+
+  projectId:
+    "jsp-taysu",
+
+  storageBucket:
+    "jsp-taysu.firebasestorage.app",
+
+  messagingSenderId:
+    "280992025632",
+
+  appId:
+    "1:280992025632:web:48efa21208a78be9a78045"
+
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -850,248 +952,439 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-const loading=document.getElementById("loading");
-const avatar=document.getElementById("avatar");
-const profileName=document.getElementById("profileName");
-const profileBio=document.getElementById("profileBio");
-const topUsername=document.getElementById("topUsername");
-const postCount=document.getElementById("postCount");
-const followersCount=document.getElementById("followersCount");
-const followingCount=document.getElementById("followingCount");
-const postsContainer=document.getElementById("posts");
-const profileButtons=document.getElementById("profileButtons");
-const topMenu=document.getElementById("topMenu");
-const editOverlay=document.getElementById("editOverlay");
-const editUsername=document.getElementById("editUsername");
-const editBio=document.getElementById("editBio");
-const saveStatus=document.getElementById("saveStatus");
-const sheetOverlay=document.getElementById("sheetOverlay");
-const sheetTitle=document.getElementById("sheetTitle");
-const userList=document.getElementById("userList");
 
-let currentUser=null;
-let profileUserData=null;
-let profileUserId=null;
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const loading =
+  document.getElementById("loading");
+
+const avatar =
+  document.getElementById("avatar");
+
+const profileName =
+  document.getElementById("profileName");
+
+const profileBio =
+  document.getElementById("profileBio");
+
+const topUsername =
+  document.getElementById("topUsername");
+
+const postCount =
+  document.getElementById("postCount");
+
+const followersCount =
+  document.getElementById("followersCount");
+
+const followingCount =
+  document.getElementById("followingCount");
+
+const postsContainer =
+  document.getElementById("posts");
+
+const profileButtons =
+  document.getElementById("profileButtons");
+
+const topMenu =
+  document.getElementById("topMenu");
+
+const editOverlay =
+  document.getElementById("editOverlay");
+
+const editUsername =
+  document.getElementById("editUsername");
+
+const editBio =
+  document.getElementById("editBio");
+
+const saveStatus =
+  document.getElementById("saveStatus");
+
+const sheetOverlay =
+  document.getElementById("sheetOverlay");
+
+const sheetTitle =
+  document.getElementById("sheetTitle");
+
+const userList =
+  document.getElementById("userList");
+
+
+/* =====================================================
+   GLOBAL STATE
+===================================================== */
+
+let currentUser = null;
+let profileUserData = null;
+let profileUserId = null;
+
+
+/* =====================================================
+   GET PROFILE UID
+===================================================== */
 
 function getProfileUid(){
 
-  const params=new URLSearchParams(window.location.search);
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
 
   return params.get("uid");
+
 }
 
-auth.onAuthStateChanged(async user=>{
 
-  if(!user){
+/* =====================================================
+   AUTH
+===================================================== */
 
-    window.location.href="index.html";
-    return;
+auth.onAuthStateChanged(
+  async user => {
+
+    if(!user){
+
+      window.location.href =
+        "index.html";
+
+      return;
+
+    }
+
+    currentUser = user;
+
+    profileUserId =
+      getProfileUid() ||
+      user.uid;
+
+    try{
+
+      await loadProfile();
+
+      await loadPosts();
+
+    }catch(error){
+
+      console.error(
+        "PROFILE LOAD ERROR:",
+        error
+      );
+
+      showProfileError();
+
+    }
+
+    loading.style.display =
+      "none";
 
   }
+);
 
-  currentUser=user;
 
-  profileUserId=getProfileUid() || user.uid;
-
-  try{
-
-    await loadProfile();
-    await loadPosts();
-
-  }catch(error){
-
-    console.error("PROFILE LOAD ERROR:",error);
-    showProfileError();
-
-  }
-
-  loading.style.display="none";
-
-});
-
+/* =====================================================
+   LOAD PROFILE
+===================================================== */
 
 async function loadProfile(){
 
-  const ref=db.collection("users").doc(profileUserId);
-  const snap=await ref.get();
+  const ref =
+    db.collection("users")
+      .doc(profileUserId);
+
+  const snap =
+    await ref.get();
 
   if(!snap.exists){
 
-    if(profileUserId===currentUser.uid){
+    if(profileUserId === currentUser.uid){
 
-      const username=
+      const username =
         currentUser.displayName ||
         currentUser.email?.split("@")[0] ||
         "Member";
 
-      const newData={
+      const newData = {
 
         username:username,
 
-        bio:"Building and preserving our heritage.",
+        bio:
+          "Building and preserving our heritage.",
 
-        email:currentUser.email || "",
+        email:
+          currentUser.email || "",
 
         createdAt:
-          firebase.firestore.FieldValue.serverTimestamp()
+          firebase.firestore
+            .FieldValue
+            .serverTimestamp()
 
       };
 
-      await ref.set(newData,{merge:true});
+      await ref.set(
+        newData,
+        {merge:true}
+      );
 
-      profileUserData=newData;
+      profileUserData =
+        newData;
 
     }else{
 
       showProfileNotFound();
+
       return;
 
     }
 
   }else{
 
-    profileUserData=snap.data();
+    profileUserData =
+      snap.data();
 
   }
 
-  const username=profileUserData.username || "Member";
 
-  const bio=
+  const username =
+    profileUserData.username ||
+    "Member";
+
+  const bio =
     profileUserData.bio ||
     "Building and preserving our heritage.";
 
-  displayProfile(username,bio);
+  displayProfile(
+    username,
+    bio
+  );
 
   await refreshRelationshipData();
 
   await renderProfileButtons();
 
+
 }
 
 
+/* =====================================================
+   RELATIONSHIP DATA
+===================================================== */
+
 async function refreshRelationshipData(){
 
-  if(!profileUserId)return;
+  if(!profileUserId){
+    return;
+  }
 
   try{
 
-    const followersSnap=
-      await db.collection("follows")
-      .where("followingId","==",profileUserId)
-      .get();
+    const followersSnap =
+      await db
+        .collection("follows")
+        .where(
+          "followingId",
+          "==",
+          profileUserId
+        )
+        .get();
 
-    const followingSnap=
-      await db.collection("follows")
-      .where("followerId","==",profileUserId)
-      .get();
+    const followingSnap =
+      await db
+        .collection("follows")
+        .where(
+          "followerId",
+          "==",
+          profileUserId
+        )
+        .get();
 
-    const followers=
+    const followers =
       followersSnap.docs
-      .map(doc=>doc.data().followerId)
-      .filter(Boolean);
+        .map(
+          doc =>
+            doc.data().followerId
+        )
+        .filter(Boolean);
 
-    const following=
+    const following =
       followingSnap.docs
-      .map(doc=>doc.data().followingId)
-      .filter(Boolean);
+        .map(
+          doc =>
+            doc.data().followingId
+        )
+        .filter(Boolean);
 
-    profileUserData.followers=followers;
-    profileUserData.following=following;
+    profileUserData.followers =
+      followers;
 
-    followersCount.textContent=followers.length;
-    followingCount.textContent=following.length;
+    profileUserData.following =
+      following;
+
+    followersCount.textContent =
+      followers.length;
+
+    followingCount.textContent =
+      following.length;
 
   }catch(error){
 
-    console.error("RELATIONSHIP COUNT ERROR:",error);
+    console.error(
+      "RELATIONSHIP COUNT ERROR:",
+      error
+    );
 
-    followersCount.textContent="0";
-    followingCount.textContent="0";
+    followersCount.textContent =
+      "0";
+
+    followingCount.textContent =
+      "0";
 
   }
 
 }
 
 
-function displayProfile(username,bio){
+/* =====================================================
+   DISPLAY PROFILE
+===================================================== */
 
-  profileName.textContent=username;
-  topUsername.textContent=username;
-  profileBio.textContent=bio;
+function displayProfile(
+  username,
+  bio
+){
 
-  const photo=
+  profileName.textContent =
+    username;
+
+  topUsername.textContent =
+    username;
+
+  profileBio.textContent =
+    bio;
+
+  const photo =
     profileUserData?.photoURL ||
     profileUserData?.photoUrl ||
     null;
 
   if(photo){
 
-    avatar.innerHTML=
+    avatar.innerHTML =
       `<img src="${escapeAttribute(photo)}" alt="">`;
 
   }else{
 
-    const letter=
-      username.trim().charAt(0).toUpperCase() || "M";
+    const letter =
+      username
+        .trim()
+        .charAt(0)
+        .toUpperCase() ||
+        "M";
 
-    avatar.textContent=letter;
+    avatar.textContent =
+      letter;
 
   }
 
 }
 
 
+/* =====================================================
+   LOAD POSTS
+===================================================== */
+
 async function loadPosts(){
 
-  postsContainer.innerHTML=`
+  postsContainer.innerHTML = `
 
     <div class="empty">
-      <div class="empty-icon">◌</div>
-      <h3>Loading posts...</h3>
-      <p>Please wait a moment.</p>
+
+      <div class="empty-icon">
+        ◌
+      </div>
+
+      <h3>
+        Loading posts...
+      </h3>
+
+      <p>
+        Please wait a moment.
+      </p>
+
     </div>
 
   `;
 
   try{
 
-    const snapshot=
-      await db.collection("posts")
-      .where("authorId","==",profileUserId)
-      .get();
+    const snapshot =
+      await db
+        .collection("posts")
+        .where(
+          "authorId",
+          "==",
+          profileUserId
+        )
+        .get();
 
-    const posts=[];
+    const posts = [];
 
-    snapshot.forEach(doc=>{
+    snapshot.forEach(
+      doc => {
 
-      posts.push({
-        id:doc.id,
-        ...doc.data()
-      });
+        posts.push({
 
-    });
+          id:doc.id,
 
-    posts.sort((a,b)=>{
+          ...doc.data()
 
-      const aTime=a.createdAt?.seconds || 0;
-      const bTime=b.createdAt?.seconds || 0;
+        });
 
-      return bTime-aTime;
+      }
+    );
 
-    });
 
-    postCount.textContent=posts.length;
+    posts.sort(
+      (a,b) => {
 
-    postsContainer.innerHTML="";
+        const aTime =
+          a.createdAt?.seconds || 0;
 
-    if(posts.length===0){
+        const bTime =
+          b.createdAt?.seconds || 0;
 
-      postsContainer.innerHTML=`
+        return bTime - aTime;
+
+      }
+    );
+
+
+    postCount.textContent =
+      posts.length;
+
+    postsContainer.innerHTML =
+      "";
+
+
+    if(posts.length === 0){
+
+      postsContainer.innerHTML = `
 
         <div class="empty">
-          <div class="empty-icon">✦</div>
-          <h3>No posts yet</h3>
-          <p>Posts will appear here.</p>
+
+          <div class="empty-icon">
+            ✦
+          </div>
+
+          <h3>
+            No posts yet
+          </h3>
+
+          <p>
+            Posts will appear here.
+          </p>
+
         </div>
 
       `;
@@ -1100,18 +1393,39 @@ async function loadPosts(){
 
     }
 
-    posts.forEach(post=>renderPost(post));
+
+    posts.forEach(
+      post => {
+
+        renderPost(post);
+
+      }
+    );
+
 
   }catch(error){
 
-    console.error("Posts error:",error);
+    console.error(
+      "Posts error:",
+      error
+    );
 
-    postsContainer.innerHTML=`
+    postsContainer.innerHTML = `
 
       <div class="empty">
-        <div class="empty-icon">⚠️</div>
-        <h3>Couldn't load posts</h3>
-        <p>Please refresh the page.</p>
+
+        <div class="empty-icon">
+          ⚠️
+        </div>
+
+        <h3>
+          Couldn't load posts
+        </h3>
+
+        <p>
+          Please refresh the page.
+        </p>
+
       </div>
 
     `;
@@ -1121,30 +1435,43 @@ async function loadPosts(){
 }
 
 
+/* =====================================================
+   RENDER POST
+===================================================== */
+
 function renderPost(post){
 
-  const username=
+  const username =
     post.authorName ||
     profileUserData.username ||
     "Member";
 
-  const article=document.createElement("article");
+  const article =
+    document.createElement("article");
 
-  article.className="my-post";
+  article.className =
+    "my-post";
 
-  const isOwnPost=
+
+  const isOwnPost =
     currentUser &&
-    post.authorId===currentUser.uid;
+    post.authorId ===
+    currentUser.uid;
 
-  const photo=
+
+  const photo =
     profileUserData.photoURL ||
     profileUserData.photoUrl ||
     "";
 
-  const cleanPostText=
-    String(post.text || "").trim();
 
-  article.innerHTML=`
+  const cleanPostText =
+    String(
+      post.text || ""
+    ).trim();
+
+
+  article.innerHTML = `
 
     <div class="my-post-top">
 
@@ -1154,11 +1481,19 @@ function renderPost(post){
 
           ${
             photo
+
             ?
-            `<img src="${escapeAttribute(photo)}" alt="">`
+
+            `<img
+              src="${escapeAttribute(photo)}"
+              alt="">`
+
             :
+
             escapeHTML(
-              username.charAt(0).toUpperCase()
+              username
+                .charAt(0)
+                .toUpperCase()
             )
           }
 
@@ -1174,31 +1509,36 @@ function renderPost(post){
             ${formatPostTime(post.createdAt)}
           </div>
 
+          <div class="my-post-text">
+            ${escapeHTML(cleanPostText)}
+          </div>
+
         </div>
 
       </div>
 
       ${
         isOwnPost
+
         ?
+
         `
-        <button
-          class="post-menu-button"
-          type="button"
-          aria-label="Post options">
-          •••
-        </button>
+          <button
+            class="post-menu-button"
+            type="button"
+            aria-label="Post options">
+
+            •••
+
+          </button>
         `
+
         :
+
         ""
+
       }
 
-    </div>
-
-    <!-- TEXT STAYS DIRECTLY UNDER USERNAME -->
-
-    <div class="my-post-text">
-      ${escapeHTML(cleanPostText)}
     </div>
 
     <div class="post-actions">
@@ -1209,7 +1549,9 @@ function renderPost(post){
 
         <span class="action-icon">♡</span>
 
-        <span class="like-count">0</span>
+        <span class="like-count">
+          0
+        </span>
 
       </button>
 
@@ -1219,19 +1561,22 @@ function renderPost(post){
 
         <span class="action-icon">💬</span>
 
-        <span class="comment-count">0</span>
+        <span class="comment-count">
+          0
+        </span>
 
       </button>
 
-      <!-- SHARE ADDED -->
-
       <button
         class="post-action share-button"
-        type="button">
+        type="button"
+        onclick="sharePost(this)">
 
         <span class="action-icon">↗</span>
 
-        <span>Share</span>
+        <span>
+          Share
+        </span>
 
       </button>
 
@@ -1250,7 +1595,9 @@ function renderPost(post){
         <button
           class="comment-send"
           type="button">
+
           Send
+
         </button>
 
       </div>
@@ -1261,37 +1608,56 @@ function renderPost(post){
 
     ${
       isOwnPost
+
       ?
-      `
-      <div class="post-menu">
 
-        <button
-          type="button"
-          class="delete-post-button">
-          Delete post
-        </button>
-
-      </div>
       `
+        <div class="post-menu">
+
+          <button
+            type="button"
+            class="delete-post-button">
+
+            Delete post
+
+          </button>
+
+        </div>
+      `
+
       :
+
       ""
+
     }
 
   `;
 
-  postsContainer.appendChild(article);
+
+  postsContainer.appendChild(
+    article
+  );
 
 
-  /* LIKE */
+  /* ===============================================
+     LIKE SYSTEM
+  =============================================== */
 
-  const likeButton=
-    article.querySelector(".like-button");
+  const likeButton =
+    article.querySelector(
+      ".like-button"
+    );
 
-  const likeCount=
-    article.querySelector(".like-count");
+  const likeCount =
+    article.querySelector(
+      ".like-count"
+    );
 
-  const likeIcon=
-    likeButton.querySelector(".action-icon");
+  const likeIcon =
+    likeButton.querySelector(
+      ".action-icon"
+    );
+
 
   loadLikeState(
     post.id,
@@ -1300,84 +1666,99 @@ function renderPost(post){
     likeCount
   );
 
-  likeButton.addEventListener("click",async()=>{
 
-    await toggleLike(
-      post.id,
-      likeButton,
-      likeIcon,
-      likeCount
+  likeButton.addEventListener(
+    "click",
+    async () => {
+
+      await toggleLike(
+        post.id,
+        likeButton,
+        likeIcon,
+        likeCount
+      );
+
+    }
+  );
+
+
+  /* ===============================================
+     COMMENTS
+  =============================================== */
+
+  const commentButton =
+    article.querySelector(
+      ".comment-button"
     );
 
-  });
+  const comments =
+    article.querySelector(
+      ".comments"
+    );
 
+  const commentCount =
+    article.querySelector(
+      ".comment-count"
+    );
 
-  /* COMMENTS */
+  const commentInput =
+    article.querySelector(
+      ".comment-input"
+    );
 
-  const commentButton=
-    article.querySelector(".comment-button");
+  const commentSend =
+    article.querySelector(
+      ".comment-send"
+    );
 
-  const comments=
-    article.querySelector(".comments");
+  const commentList =
+    article.querySelector(
+      ".comment-list"
+    );
 
-  const commentCount=
-    article.querySelector(".comment-count");
-
-  const commentInput=
-    article.querySelector(".comment-input");
-
-  const commentSend=
-    article.querySelector(".comment-send");
-
-  const commentList=
-    article.querySelector(".comment-list");
 
   loadCommentCount(
     post.id,
     commentCount
   );
 
-  commentButton.addEventListener("click",async()=>{
 
-    const isOpen=
-      comments.classList.contains("open");
+  commentButton.addEventListener(
+    "click",
+    async () => {
 
-    if(isOpen){
+      const isOpen =
+        comments.classList.contains(
+          "open"
+        );
 
-      comments.classList.remove("open");
-      return;
+      if(isOpen){
+
+        comments.classList.remove(
+          "open"
+        );
+
+        return;
+
+      }
+
+      comments.classList.add(
+        "open"
+      );
+
+      await loadComments(
+        post.id,
+        commentList,
+        commentCount
+      );
 
     }
-
-    comments.classList.add("open");
-
-    await loadComments(
-      post.id,
-      commentList,
-      commentCount
-    );
-
-  });
+  );
 
 
-  commentSend.addEventListener("click",async()=>{
-
-    await submitComment(
-      post.id,
-      commentInput,
-      commentSend,
-      commentList,
-      commentCount
-    );
-
-  });
-
-
-  commentInput.addEventListener("keydown",async event=>{
-
-    if(event.key==="Enter"){
-
-      event.preventDefault();
+  commentSend.addEventListener(
+    "click",
+    async () => {
 
       await submitComment(
         post.id,
@@ -1388,119 +1769,192 @@ function renderPost(post){
       );
 
     }
-
-  });
-
-
-  /* SHARE POST */
-
-  const shareButton=
-    article.querySelector(".share-button");
-
-  shareButton.addEventListener("click",async()=>{
-
-    await sharePost(post);
-
-  });
+  );
 
 
-  /* OWN POST DELETE */
+  commentInput.addEventListener(
+    "keydown",
+    async event => {
 
-  if(!isOwnPost)return;
+      if(event.key === "Enter"){
 
-  const menuButton=
-    article.querySelector(".post-menu-button");
+        event.preventDefault();
 
-  const postMenu=
-    article.querySelector(".post-menu");
-
-  menuButton.addEventListener("click",event=>{
-
-    event.stopPropagation();
-
-    document
-      .querySelectorAll(".post-menu")
-      .forEach(otherMenu=>{
-
-        if(otherMenu!==postMenu){
-          otherMenu.style.display="none";
-        }
-
-      });
-
-    postMenu.style.display=
-      postMenu.style.display==="block"
-      ?
-      "none"
-      :
-      "block";
-
-  });
-
-  const deleteButton=
-    article.querySelector(".delete-post-button");
-
-  deleteButton.addEventListener("click",async()=>{
-
-    const confirmed=
-      confirm("Delete this post?");
-
-    if(!confirmed)return;
-
-    deleteButton.disabled=true;
-    deleteButton.textContent="Deleting...";
-
-    try{
-
-      await db
-        .collection("posts")
-        .doc(post.id)
-        .delete();
-
-      article.remove();
-
-      postCount.textContent=
-        Math.max(
-          0,
-          Number(postCount.textContent)-1
+        await submitComment(
+          post.id,
+          commentInput,
+          commentSend,
+          commentList,
+          commentCount
         );
-
-      if(
-        postsContainer
-        .querySelectorAll(".my-post")
-        .length===0
-      ){
-
-        postsContainer.innerHTML=`
-
-          <div class="empty">
-
-            <div class="empty-icon">✦</div>
-
-            <h3>No posts yet</h3>
-
-            <p>Posts will appear here.</p>
-
-          </div>
-
-        `;
 
       }
 
-    }catch(error){
+    }
+  );
 
-      console.error("Delete error:",error);
 
-      alert(
-        error.code+": "+error.message
-      );
+  /* ===============================================
+     OWN POST DELETE
+  =============================================== */
 
-      deleteButton.disabled=false;
-      deleteButton.textContent="Delete post";
+  if(!isOwnPost){
+    return;
+  }
+
+
+  const menuButton =
+    article.querySelector(
+      ".post-menu-button"
+    );
+
+  const postMenu =
+    article.querySelector(
+      ".post-menu"
+    );
+
+
+  menuButton.addEventListener(
+    "click",
+    event => {
+
+      event.stopPropagation();
+
+      document
+        .querySelectorAll(
+          ".post-menu"
+        )
+        .forEach(
+          otherMenu => {
+
+            if(
+              otherMenu !==
+              postMenu
+            ){
+
+              otherMenu.style.display =
+                "none";
+
+            }
+
+          }
+        );
+
+
+      postMenu.style.display =
+        postMenu.style.display ===
+        "block"
+          ?
+        "none"
+          :
+        "block";
 
     }
+  );
 
-  });
+
+  const deleteButton =
+    article.querySelector(
+      ".delete-post-button"
+    );
+
+
+  deleteButton.addEventListener(
+    "click",
+    async () => {
+
+      const confirmed =
+        confirm(
+          "Delete this post?"
+        );
+
+
+      if(!confirmed){
+        return;
+      }
+
+
+      deleteButton.disabled =
+        true;
+
+      deleteButton.textContent =
+        "Deleting...";
+
+
+      try{
+
+        await db
+          .collection("posts")
+          .doc(post.id)
+          .delete();
+
+
+        article.remove();
+
+
+        postCount.textContent =
+          Math.max(
+            0,
+            Number(
+              postCount.textContent
+            ) - 1
+          );
+
+
+        if(
+          postsContainer
+            .querySelectorAll(
+              ".my-post"
+            )
+            .length === 0
+        ){
+
+          postsContainer.innerHTML = `
+
+            <div class="empty">
+
+              <div class="empty-icon">
+                ✦
+              </div>
+
+              <h3>
+                No posts yet
+              </h3>
+
+              <p>
+                Posts will appear here.
+              </p>
+
+            </div>
+
+          `;
+
+        }
+
+
+      }catch(error){
+
+        console.error(
+          "Delete error:",
+          error
+        );
+
+        alert(
+          error.code +
+          ": " +
+          error.message
+        );
+
+        deleteButton.disabled =
+          false;
+
+        deleteButton.textContent =
+          "Delete post";
+
+      }
+
+    }
+  );
 
 }
 
@@ -1509,78 +1963,50 @@ function renderPost(post){
    SHARE POST
 ===================================================== */
 
-async function sharePost(post){
+async function sharePost(button){
 
-  const username=
-    post.authorName ||
-    profileUserData?.username ||
-    "Member";
+  const article =
+    button.closest(".my-post");
 
-  const postText=
-    String(post.text || "").trim();
-
-  const shareUrl=
-    window.location.origin +
-    window.location.pathname +
-    "?post=" +
-    encodeURIComponent(post.id);
-
-  const shareData={
+  const shareData = {
 
     title:
-      username + " • JSP TAYSU",
+      "JSP TAYSU",
 
     text:
-      postText
-      ?
-      username + " posted on JSP TAYSU:\n\n" + postText
-      :
       "Check out this post on JSP TAYSU.",
 
-    url:shareUrl
+    url:
+      window.location.href
 
   };
+
 
   try{
 
     if(navigator.share){
 
-      await navigator.share(shareData);
+      await navigator.share(
+        shareData
+      );
 
     }else{
 
       await navigator.clipboard.writeText(
-        shareUrl
+        window.location.href
       );
 
-      alert("Post link copied!");
+      alert(
+        "Post link copied!"
+      );
 
     }
 
   }catch(error){
 
-    if(error.name!=="AbortError"){
-
-      console.error(
-        "POST SHARE ERROR:",
-        error
-      );
-
-      try{
-
-        await navigator.clipboard.writeText(
-          shareUrl
-        );
-
-        alert("Post link copied!");
-
-      }catch(copyError){
-
-        alert("Could not share this post.");
-
-      }
-
-    }
+    console.log(
+      "Share cancelled."
+    );
 
   }
 
@@ -1588,7 +2014,9 @@ async function sharePost(post){
 
 
 /* =====================================================
-   LIKE SYSTEM
+   LIKE STATE
+   Firestore:
+   posts/{postId}/likes/{userId}
 ===================================================== */
 
 async function loadLikeState(
@@ -1600,30 +2028,34 @@ async function loadLikeState(
 
   try{
 
-    const likesRef=
+    const likesRef =
       db
         .collection("posts")
         .doc(postId)
         .collection("likes");
 
-    const countSnap=
+    const countSnap =
       await likesRef.get();
 
-    countElement.textContent=
+    countElement.textContent =
       countSnap.size;
+
 
     if(currentUser){
 
-      const myLike=
+      const myLike =
         await likesRef
-        .doc(currentUser.uid)
-        .get();
+          .doc(currentUser.uid)
+          .get();
 
       if(myLike.exists){
 
-        button.classList.add("liked");
+        button.classList.add(
+          "liked"
+        );
 
-        icon.textContent="♥";
+        icon.textContent =
+          "♥";
 
       }
 
@@ -1641,6 +2073,10 @@ async function loadLikeState(
 }
 
 
+/* =====================================================
+   TOGGLE LIKE
+===================================================== */
+
 async function toggleLike(
   postId,
   button,
@@ -1648,74 +2084,102 @@ async function toggleLike(
   countElement
 ){
 
-  if(!currentUser)return;
+  if(!currentUser){
+    return;
+  }
 
-  button.disabled=true;
 
-  const likeRef=
+  button.disabled =
+    true;
+
+
+  const likeRef =
     db
       .collection("posts")
       .doc(postId)
       .collection("likes")
       .doc(currentUser.uid);
 
+
   try{
 
-    const snap=
+    const snap =
       await likeRef.get();
+
 
     if(snap.exists){
 
       await likeRef.delete();
 
-      button.classList.remove("liked");
+      button.classList.remove(
+        "liked"
+      );
 
-      icon.textContent="♡";
+      icon.textContent =
+        "♡";
 
-      countElement.textContent=
+
+      countElement.textContent =
         Math.max(
           0,
-          Number(countElement.textContent)-1
+          Number(
+            countElement.textContent
+          ) - 1
         );
 
     }else{
 
       await likeRef.set({
 
-        userId:currentUser.uid,
+        userId:
+          currentUser.uid,
 
         createdAt:
-          firebase.firestore.FieldValue.serverTimestamp()
+          firebase.firestore
+            .FieldValue
+            .serverTimestamp()
 
       });
 
-      button.classList.add("liked");
+      button.classList.add(
+        "liked"
+      );
 
-      icon.textContent="♥";
+      icon.textContent =
+        "♥";
 
-      countElement.textContent=
-        Number(countElement.textContent)+1;
+
+      countElement.textContent =
+        Number(
+          countElement.textContent
+        ) + 1;
 
     }
 
+
   }catch(error){
 
-    console.error("LIKE ERROR:",error);
+    console.error(
+      "LIKE ERROR:",
+      error
+    );
 
     alert(
-      "Could not update like.\n\n"+
+      "Could not update like.\n\n" +
       error.message
     );
 
   }
 
-  button.disabled=false;
+
+  button.disabled =
+    false;
 
 }
 
 
 /* =====================================================
-   COMMENTS
+   COMMENT COUNT
 ===================================================== */
 
 async function loadCommentCount(
@@ -1725,14 +2189,14 @@ async function loadCommentCount(
 
   try{
 
-    const snapshot=
+    const snapshot =
       await db
-      .collection("posts")
-      .doc(postId)
-      .collection("comments")
-      .get();
+        .collection("posts")
+        .doc(postId)
+        .collection("comments")
+        .get();
 
-    countElement.textContent=
+    countElement.textContent =
       snapshot.size;
 
   }catch(error){
@@ -1742,12 +2206,17 @@ async function loadCommentCount(
       error
     );
 
-    countElement.textContent="0";
+    countElement.textContent =
+      "0";
 
   }
 
 }
 
+
+/* =====================================================
+   LOAD COMMENTS
+===================================================== */
 
 async function loadComments(
   postId,
@@ -1755,7 +2224,7 @@ async function loadComments(
   countElement
 ){
 
-  list.innerHTML=`
+  list.innerHTML = `
 
     <div class="no-comments">
       Loading comments...
@@ -1763,40 +2232,55 @@ async function loadComments(
 
   `;
 
+
   try{
 
-    const snapshot=
+    const snapshot =
       await db
-      .collection("posts")
-      .doc(postId)
-      .collection("comments")
-      .get();
+        .collection("posts")
+        .doc(postId)
+        .collection("comments")
+        .get();
 
-    const comments=
-      snapshot.docs.map(doc=>({
 
-        id:doc.id,
-        ...doc.data()
+    const comments =
+      snapshot.docs.map(
+        doc => ({
 
-      }));
+          id:doc.id,
 
-    comments.sort((a,b)=>{
+          ...doc.data()
 
-      const aTime=a.createdAt?.seconds || 0;
-      const bTime=b.createdAt?.seconds || 0;
+        })
+      );
 
-      return aTime-bTime;
 
-    });
+    comments.sort(
+      (a,b) => {
 
-    countElement.textContent=
+        const aTime =
+          a.createdAt?.seconds || 0;
+
+        const bTime =
+          b.createdAt?.seconds || 0;
+
+        return aTime - bTime;
+
+      }
+    );
+
+
+    countElement.textContent =
       comments.length;
 
-    list.innerHTML="";
 
-    if(comments.length===0){
+    list.innerHTML =
+      "";
 
-      list.innerHTML=`
+
+    if(comments.length === 0){
+
+      list.innerHTML = `
 
         <div class="no-comments">
           No comments yet.
@@ -1808,14 +2292,18 @@ async function loadComments(
 
     }
 
-    comments.forEach(comment=>{
 
-      renderComment(
-        comment,
-        list
-      );
+    comments.forEach(
+      comment => {
 
-    });
+        renderComment(
+          comment,
+          list
+        );
+
+      }
+    );
+
 
   }catch(error){
 
@@ -1824,7 +2312,7 @@ async function loadComments(
       error
     );
 
-    list.innerHTML=`
+    list.innerHTML = `
 
       <div class="no-comments">
         Couldn't load comments.
@@ -1837,34 +2325,58 @@ async function loadComments(
 }
 
 
-function renderComment(comment,list){
+/* =====================================================
+   RENDER COMMENT
+===================================================== */
 
-  const username=
-    comment.authorName || "Member";
+function renderComment(
+  comment,
+  list
+){
 
-  const photo=
-    comment.authorPhoto || "";
+  const username =
+    comment.authorName ||
+    "Member";
 
-  const div=
-    document.createElement("div");
+  const photo =
+    comment.authorPhoto ||
+    "";
 
-  div.className="comment";
 
-  div.innerHTML=`
+  const div =
+    document.createElement(
+      "div"
+    );
+
+  div.className =
+    "comment";
+
+
+  div.innerHTML = `
 
     <div class="comment-avatar">
 
       ${
         photo
+
         ?
-        `<img src="${escapeAttribute(photo)}" alt="">`
+
+        `<img
+          src="${escapeAttribute(photo)}"
+          alt="">`
+
         :
+
         escapeHTML(
-          username.charAt(0).toUpperCase()
+          username
+            .charAt(0)
+            .toUpperCase()
         )
+
       }
 
     </div>
+
 
     <div class="comment-content">
 
@@ -1873,7 +2385,9 @@ function renderComment(comment,list){
       </div>
 
       <div class="comment-text">
-        ${escapeHTML(comment.text || "")}
+        ${escapeHTML(
+          comment.text || ""
+        )}
       </div>
 
       <div class="comment-time">
@@ -1884,10 +2398,17 @@ function renderComment(comment,list){
 
   `;
 
-  list.appendChild(div);
+
+  list.appendChild(
+    div
+  );
 
 }
 
+
+/* =====================================================
+   SUBMIT COMMENT
+===================================================== */
 
 async function submitComment(
   postId,
@@ -1897,24 +2418,39 @@ async function submitComment(
   countElement
 ){
 
-  if(!currentUser)return;
+  if(!currentUser){
+    return;
+  }
 
-  const text=input.value.trim();
 
-  if(!text)return;
+  const text =
+    input.value.trim();
 
-  sendButton.disabled=true;
-  sendButton.textContent="Sending...";
+
+  if(!text){
+    return;
+  }
+
+
+  sendButton.disabled =
+    true;
+
+  sendButton.textContent =
+    "Sending...";
+
 
   try{
 
-    const username=
+    const username =
       currentUser.displayName ||
       currentUser.email?.split("@")[0] ||
       "Member";
 
-    const photo=
-      currentUser.photoURL || "";
+
+    const photo =
+      currentUser.photoURL ||
+      "";
+
 
     await db
       .collection("posts")
@@ -1922,26 +2458,36 @@ async function submitComment(
       .collection("comments")
       .add({
 
-        authorId:currentUser.uid,
+        authorId:
+          currentUser.uid,
 
-        authorName:username,
+        authorName:
+          username,
 
-        authorPhoto:photo,
+        authorPhoto:
+          photo,
 
-        text:text,
+        text:
+          text,
 
         createdAt:
-          firebase.firestore.FieldValue.serverTimestamp()
+          firebase.firestore
+            .FieldValue
+            .serverTimestamp()
 
       });
 
-    input.value="";
+
+    input.value =
+      "";
+
 
     await loadComments(
       postId,
       list,
       countElement
     );
+
 
   }catch(error){
 
@@ -1951,20 +2497,24 @@ async function submitComment(
     );
 
     alert(
-      "Could not post comment.\n\n"+
+      "Could not post comment.\n\n" +
       error.message
     );
 
   }
 
-  sendButton.disabled=false;
-  sendButton.textContent="Send";
+
+  sendButton.disabled =
+    false;
+
+  sendButton.textContent =
+    "Send";
 
 }
 
 
 /* =====================================================
-   FOLLOW STATUS — UNCHANGED
+   FOLLOW STATUS
 ===================================================== */
 
 async function isFollowing(){
@@ -1972,25 +2522,29 @@ async function isFollowing(){
   if(
     !currentUser ||
     !profileUserId ||
-    profileUserId===currentUser.uid
+    profileUserId ===
+    currentUser.uid
   ){
 
     return false;
 
   }
 
-  const followId=
-    currentUser.uid+
-    "_"+
+
+  const followId =
+    currentUser.uid +
+    "_" +
     profileUserId;
+
 
   try{
 
-    const snap=
+    const snap =
       await db
-      .collection("follows")
-      .doc(followId)
-      .get();
+        .collection("follows")
+        .doc(followId)
+        .get();
+
 
     return snap.exists;
 
@@ -2009,30 +2563,38 @@ async function isFollowing(){
 
 
 /* =====================================================
-   PROFILE BUTTONS — UNCHANGED
+   PROFILE BUTTONS
 ===================================================== */
 
 async function renderProfileButtons(){
 
-  profileButtons.innerHTML="";
+  profileButtons.innerHTML =
+    "";
+
 
   if(
     !currentUser ||
-    profileUserId===currentUser.uid
+    profileUserId ===
+    currentUser.uid
   ){
 
-    profileButtons.innerHTML=`
+    profileButtons.innerHTML = `
 
       <button
         class="btn edit"
         onclick="openEdit()">
+
         Edit profile
+
       </button>
+
 
       <button
         class="btn following"
         onclick="shareProfile()">
+
         Share profile
+
       </button>
 
     `;
@@ -2041,27 +2603,30 @@ async function renderProfileButtons(){
 
   }
 
-  const following=
+
+  const following =
     await isFollowing();
 
-  profileButtons.innerHTML=`
+
+  profileButtons.innerHTML = `
 
     <button
       id="followButton"
       class="btn ${
         following
-        ? "following"
-        : "follow"
+          ? "following"
+          : "follow"
       }"
       onclick="toggleFollow()">
 
       ${
         following
-        ? "Following"
-        : "Follow"
+          ? "Following"
+          : "Follow"
       }
 
     </button>
+
 
     <button
       class="btn following"
@@ -2077,7 +2642,7 @@ async function renderProfileButtons(){
 
 
 /* =====================================================
-   FOLLOW / UNFOLLOW — UNCHANGED
+   FOLLOW / UNFOLLOW
 ===================================================== */
 
 async function toggleFollow(){
@@ -2085,36 +2650,47 @@ async function toggleFollow(){
   if(
     !currentUser ||
     !profileUserId ||
-    profileUserId===currentUser.uid
+    profileUserId ===
+    currentUser.uid
   ){
 
     return;
 
   }
 
-  const button=
+
+  const button =
     document.getElementById(
       "followButton"
     );
 
-  if(!button)return;
 
-  button.disabled=true;
+  if(!button){
+    return;
+  }
 
-  const followId=
-    currentUser.uid+
-    "_"+
+
+  button.disabled =
+    true;
+
+
+  const followId =
+    currentUser.uid +
+    "_" +
     profileUserId;
 
-  const followRef=
+
+  const followRef =
     db
       .collection("follows")
       .doc(followId);
 
+
   try{
 
-    const snap=
+    const snap =
       await followRef.get();
+
 
     if(snap.exists){
 
@@ -2131,14 +2707,19 @@ async function toggleFollow(){
           profileUserId,
 
         createdAt:
-          firebase.firestore.FieldValue.serverTimestamp()
+          firebase.firestore
+            .FieldValue
+            .serverTimestamp()
 
       });
 
     }
 
+
     await refreshRelationshipData();
+
     await renderProfileButtons();
+
 
   }catch(error){
 
@@ -2147,12 +2728,15 @@ async function toggleFollow(){
       error
     );
 
+
     alert(
-      "Could not update follow status.\n\n"+
+      "Could not update follow status.\n\n" +
       (error.message || "")
     );
 
-    button.disabled=false;
+
+    button.disabled =
+      false;
 
   }
 
@@ -2160,21 +2744,27 @@ async function toggleFollow(){
 
 
 /* =====================================================
-   FOLLOWERS / FOLLOWING
+   FOLLOWERS / FOLLOWING LIST
 ===================================================== */
 
 async function openUserList(type){
 
-  if(!profileUserId)return;
+  if(!profileUserId){
+    return;
+  }
 
-  sheetOverlay.style.display="flex";
 
-  sheetTitle.textContent=
-    type==="followers"
-    ? "Followers"
-    : "Following";
+  sheetOverlay.style.display =
+    "flex";
 
-  userList.innerHTML=`
+
+  sheetTitle.textContent =
+    type === "followers"
+      ? "Followers"
+      : "Following";
+
+
+  userList.innerHTML = `
 
     <div class="sheet-empty">
       Loading...
@@ -2182,73 +2772,86 @@ async function openUserList(type){
 
   `;
 
+
   try{
 
     let snapshot;
 
-    if(type==="followers"){
 
-      snapshot=
+    if(type === "followers"){
+
+      snapshot =
         await db
-        .collection("follows")
-        .where(
-          "followingId",
-          "==",
-          profileUserId
-        )
-        .get();
+          .collection("follows")
+          .where(
+            "followingId",
+            "==",
+            profileUserId
+          )
+          .get();
 
     }else{
 
-      snapshot=
+      snapshot =
         await db
-        .collection("follows")
-        .where(
-          "followerId",
-          "==",
-          profileUserId
-        )
-        .get();
+          .collection("follows")
+          .where(
+            "followerId",
+            "==",
+            profileUserId
+          )
+          .get();
 
     }
 
-    const ids=
+
+    const ids =
       snapshot.docs
-      .map(doc=>{
+        .map(
+          doc => {
 
-        const data=doc.data() || {};
+            const data =
+              doc.data() || {};
 
-        return type==="followers"
-          ? data.followerId
-          : data.followingId;
+            return type === "followers"
+              ? data.followerId
+              : data.followingId;
 
-      })
-      .filter(Boolean);
+          }
+        )
+        .filter(Boolean);
 
-    if(type==="followers"){
 
-      followersCount.textContent=
+    if(type === "followers"){
+
+      followersCount.textContent =
         ids.length;
 
     }else{
 
-      followingCount.textContent=
+      followingCount.textContent =
         ids.length;
 
     }
 
-    if(ids.length===0){
 
-      userList.innerHTML=`
+    if(ids.length === 0){
+
+      userList.innerHTML = `
 
         <div class="sheet-empty">
 
           ${
-            type==="followers"
-            ?
+            type === "followers"
+
+              ?
+
             "No followers yet."
-            :
+
+              :
+
             "Not following anyone yet."
+
           }
 
         </div>
@@ -2259,44 +2862,58 @@ async function openUserList(type){
 
     }
 
-    const users=[];
 
-    const snapshots=
+    const users = [];
+
+
+    const snapshots =
       await Promise.all(
-        ids.map(uid=>
-          db
-          .collection("users")
-          .doc(uid)
-          .get()
+        ids.map(
+          uid =>
+            db
+              .collection("users")
+              .doc(uid)
+              .get()
         )
       );
 
-    snapshots.forEach((snap,index)=>{
 
-      if(snap.exists){
+    snapshots.forEach(
+      (snap,index) => {
 
-        users.push({
+        if(snap.exists){
 
-          uid:ids[index],
-          ...snap.data()
+          users.push({
 
-        });
+            uid:
+              ids[index],
+
+            ...snap.data()
+
+          });
+
+        }
 
       }
+    );
 
-    });
 
-    userList.innerHTML="";
+    userList.innerHTML =
+      "";
 
-    users.forEach(user=>{
 
-      renderUserRow(user);
+    users.forEach(
+      user => {
 
-    });
+        renderUserRow(user);
 
-    if(users.length===0){
+      }
+    );
 
-      userList.innerHTML=`
+
+    if(users.length === 0){
+
+      userList.innerHTML = `
 
         <div class="sheet-empty">
           No users found.
@@ -2306,6 +2923,7 @@ async function openUserList(type){
 
     }
 
+
   }catch(error){
 
     console.error(
@@ -2313,7 +2931,8 @@ async function openUserList(type){
       error
     );
 
-    userList.innerHTML=`
+
+    userList.innerHTML = `
 
       <div class="sheet-empty">
         Couldn't load users.
@@ -2326,42 +2945,65 @@ async function openUserList(type){
 }
 
 
+/* =====================================================
+   USER ROW
+===================================================== */
+
 function renderUserRow(user){
 
-  const row=
-    document.createElement("div");
+  const row =
+    document.createElement(
+      "div"
+    );
 
-  row.className="user-row";
 
-  const username=
-    user.username || "Member";
+  row.className =
+    "user-row";
 
-  const photo=
+
+  const username =
+    user.username ||
+    "Member";
+
+
+  const photo =
     user.photoURL ||
     user.photoUrl ||
     "";
 
-  row.innerHTML=`
+
+  row.innerHTML = `
 
     <div class="list-avatar">
 
       ${
         photo
-        ?
-        `<img src="${escapeAttribute(photo)}" alt="">`
-        :
+
+          ?
+
+        `<img
+          src="${escapeAttribute(photo)}"
+          alt="">`
+
+          :
+
         escapeHTML(
-          username.charAt(0).toUpperCase()
+          username
+            .charAt(0)
+            .toUpperCase()
         )
+
       }
 
     </div>
+
 
     <div class="list-info">
 
       <div class="list-name">
         ${escapeHTML(username)}
       </div>
+
 
       <div class="list-bio">
 
@@ -2376,17 +3018,27 @@ function renderUserRow(user){
 
   `;
 
-  row.addEventListener("click",()=>{
 
-    closeUserList();
+  row.addEventListener(
+    "click",
+    () => {
 
-    window.location.href=
-      "profile.html?uid="+
-      encodeURIComponent(user.uid);
+      closeUserList();
 
-  });
 
-  userList.appendChild(row);
+      window.location.href =
+        "profile.html?uid=" +
+        encodeURIComponent(
+          user.uid
+        );
+
+    }
+  );
+
+
+  userList.appendChild(
+    row
+  );
 
 }
 
@@ -2399,53 +3051,73 @@ function openEdit(){
 
   if(
     !currentUser ||
-    profileUserId!==currentUser.uid
+    profileUserId !==
+    currentUser.uid
   ){
 
     return;
 
   }
 
-  editUsername.value=
+
+  editUsername.value =
     profileName.textContent;
 
-  editBio.value=
+
+  editBio.value =
     profileBio.textContent;
 
-  saveStatus.textContent="";
 
-  editOverlay.style.display="flex";
+  saveStatus.textContent =
+    "";
+
+
+  editOverlay.style.display =
+    "flex";
 
 }
 
 
 function closeEdit(){
 
-  editOverlay.style.display="none";
+  editOverlay.style.display =
+    "none";
 
 }
 
 
+/* =====================================================
+   SAVE PROFILE
+===================================================== */
+
 async function saveProfile(){
 
-  if(!currentUser)return;
+  if(!currentUser){
+    return;
+  }
 
-  const username=
+
+  const username =
     editUsername.value.trim();
 
-  const bio=
+
+  const bio =
     editBio.value.trim();
+
 
   if(!username){
 
-    saveStatus.textContent=
+    saveStatus.textContent =
       "Username cannot be empty.";
 
     return;
 
   }
 
-  saveStatus.textContent="Saving...";
+
+  saveStatus.textContent =
+    "Saving...";
+
 
   try{
 
@@ -2454,35 +3126,52 @@ async function saveProfile(){
       .doc(currentUser.uid)
       .set({
 
-        username:username,
+        username:
+          username,
 
-        bio:bio,
+        bio:
+          bio,
 
         updatedAt:
-          firebase.firestore.FieldValue.serverTimestamp()
+          firebase.firestore
+            .FieldValue
+            .serverTimestamp()
 
       },{
         merge:true
       });
 
+
     await currentUser.updateProfile({
-      displayName:username
+
+      displayName:
+        username
+
     });
 
-    profileUserData.username=username;
-    profileUserData.bio=bio;
+
+    profileUserData.username =
+      username;
+
+    profileUserData.bio =
+      bio;
+
 
     displayProfile(
       username,
       bio
     );
 
-    saveStatus.textContent="Saved ✓";
+
+    saveStatus.textContent =
+      "Saved ✓";
+
 
     setTimeout(
       closeEdit,
       600
     );
+
 
   }catch(error){
 
@@ -2491,7 +3180,8 @@ async function saveProfile(){
       error
     );
 
-    saveStatus.textContent=
+
+    saveStatus.textContent =
       "Could not save profile.";
 
   }
@@ -2500,15 +3190,15 @@ async function saveProfile(){
 
 
 /* =====================================================
-   SHARE PROFILE
+   SHARE
 ===================================================== */
 
 async function shareProfile(){
 
-  const shareData={
+  const shareData = {
 
     title:
-      "JSP TAYSU • "+
+      "JSP TAYSU • " +
       profileName.textContent,
 
     text:
@@ -2518,6 +3208,7 @@ async function shareProfile(){
       window.location.href
 
   };
+
 
   try{
 
@@ -2533,7 +3224,10 @@ async function shareProfile(){
         window.location.href
       );
 
-      alert("Profile link copied!");
+
+      alert(
+        "Profile link copied!"
+      );
 
     }
 
@@ -2554,73 +3248,113 @@ async function shareProfile(){
 
 function toggleTopMenu(){
 
-  topMenu.style.display=
-    topMenu.style.display==="block"
-    ?
+  topMenu.style.display =
+    topMenu.style.display ===
+    "block"
+      ?
     "none"
-    :
+      :
     "block";
 
 }
 
 
-document.addEventListener("click",event=>{
+/* =====================================================
+   CLOSE MENUS
+===================================================== */
 
-  if(
-    !event.target.closest(".more") &&
-    !event.target.closest("#topMenu")
-  ){
+document.addEventListener(
+  "click",
+  event => {
 
-    topMenu.style.display="none";
+    if(
+      !event.target.closest(".more") &&
+      !event.target.closest("#topMenu")
+    ){
 
-  }
+      topMenu.style.display =
+        "none";
 
-  if(
-    !event.target.closest(".post-menu-button") &&
-    !event.target.closest(".post-menu")
-  ){
-
-    document
-      .querySelectorAll(".post-menu")
-      .forEach(menu=>{
-
-        menu.style.display="none";
-
-      });
-
-  }
-
-});
+    }
 
 
-sheetOverlay.addEventListener("click",event=>{
+    if(
+      !event.target.closest(
+        ".post-menu-button"
+      ) &&
+      !event.target.closest(
+        ".post-menu"
+      )
+    ){
 
-  if(event.target===sheetOverlay){
+      document
+        .querySelectorAll(
+          ".post-menu"
+        )
+        .forEach(
+          menu => {
 
-    closeUserList();
+            menu.style.display =
+              "none";
 
-  }
+          }
+        );
 
-});
-
-
-editOverlay.addEventListener("click",event=>{
-
-  if(event.target===editOverlay){
-
-    closeEdit();
+    }
 
   }
+);
 
-});
+
+/* =====================================================
+   CLOSE SHEETS
+===================================================== */
+
+sheetOverlay.addEventListener(
+  "click",
+  event => {
+
+    if(
+      event.target ===
+      sheetOverlay
+    ){
+
+      closeUserList();
+
+    }
+
+  }
+);
+
+
+editOverlay.addEventListener(
+  "click",
+  event => {
+
+    if(
+      event.target ===
+      editOverlay
+    ){
+
+      closeEdit();
+
+    }
+
+  }
+);
 
 
 function closeUserList(){
 
-  sheetOverlay.style.display="none";
+  sheetOverlay.style.display =
+    "none";
 
 }
 
+
+/* =====================================================
+   SIGN OUT
+===================================================== */
 
 async function signOut(){
 
@@ -2628,18 +3362,25 @@ async function signOut(){
 
     await auth.signOut();
 
-    window.location.href="index.html";
+    window.location.href =
+      "index.html";
 
   }catch(error){
 
     console.error(error);
 
-    alert("Sign out failed.");
+    alert(
+      "Sign out failed."
+    );
 
   }
 
 }
 
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
 
 function goBack(){
 
@@ -2654,7 +3395,7 @@ function goBack(){
 
   }else{
 
-    window.location.href=
+    window.location.href =
       "community.html";
 
   }
@@ -2662,32 +3403,55 @@ function goBack(){
 }
 
 
+/* =====================================================
+   PROFILE NOT FOUND
+===================================================== */
+
 function showProfileNotFound(){
 
-  profileName.textContent=
+  profileName.textContent =
     "User not found";
 
-  topUsername.textContent=
+
+  topUsername.textContent =
     "Profile";
 
-  profileBio.textContent=
+
+  profileBio.textContent =
     "This profile doesn't exist.";
 
-  profileButtons.innerHTML="";
 
-  postCount.textContent="0";
-  followersCount.textContent="0";
-  followingCount.textContent="0";
+  profileButtons.innerHTML =
+    "";
 
-  postsContainer.innerHTML=`
+
+  postCount.textContent =
+    "0";
+
+
+  followersCount.textContent =
+    "0";
+
+
+  followingCount.textContent =
+    "0";
+
+
+  postsContainer.innerHTML = `
 
     <div class="empty">
 
-      <div class="empty-icon">◌</div>
+      <div class="empty-icon">
+        ◌
+      </div>
 
-      <h3>Profile unavailable</h3>
+      <h3>
+        Profile unavailable
+      </h3>
 
-      <p>This account may have been removed.</p>
+      <p>
+        This account may have been removed.
+      </p>
 
     </div>
 
@@ -2695,18 +3459,28 @@ function showProfileNotFound(){
 
 }
 
+
+/* =====================================================
+   PROFILE ERROR
+===================================================== */
 
 function showProfileError(){
 
-  postsContainer.innerHTML=`
+  postsContainer.innerHTML = `
 
     <div class="empty">
 
-      <div class="empty-icon">⚠️</div>
+      <div class="empty-icon">
+        ⚠️
+      </div>
 
-      <h3>Couldn't load profile</h3>
+      <h3>
+        Couldn't load profile
+      </h3>
 
-      <p>Please refresh the page.</p>
+      <p>
+        Please refresh the page.
+      </p>
 
     </div>
 
@@ -2715,39 +3489,83 @@ function showProfileError(){
 }
 
 
+/* =====================================================
+   TIME
+===================================================== */
+
 function formatPostTime(timestamp){
 
-  if(!timestamp)return "Just now";
+  if(!timestamp){
 
-  const date=
+    return "Just now";
+
+  }
+
+
+  const date =
     timestamp.toDate
-    ?
+      ?
     timestamp.toDate()
-    :
+      :
     new Date(timestamp);
 
-  const diff=
-    Date.now()-date.getTime();
 
-  const seconds=
-    Math.floor(diff/1000);
+  const diff =
+    Date.now() -
+    date.getTime();
 
-  if(seconds<60)return "Just now";
 
-  const minutes=
-    Math.floor(seconds/60);
+  const seconds =
+    Math.floor(
+      diff / 1000
+    );
 
-  if(minutes<60)return minutes+"m";
 
-  const hours=
-    Math.floor(minutes/60);
+  if(seconds < 60){
 
-  if(hours<24)return hours+"h";
+    return "Just now";
 
-  const days=
-    Math.floor(hours/24);
+  }
 
-  if(days<7)return days+"d";
+
+  const minutes =
+    Math.floor(
+      seconds / 60
+    );
+
+
+  if(minutes < 60){
+
+    return minutes + "m";
+
+  }
+
+
+  const hours =
+    Math.floor(
+      minutes / 60
+    );
+
+
+  if(hours < 24){
+
+    return hours + "h";
+
+  }
+
+
+  const days =
+    Math.floor(
+      hours / 24
+    );
+
+
+  if(days < 7){
+
+    return days + "d";
+
+  }
+
 
   return date.toLocaleDateString(
     undefined,
@@ -2760,17 +3578,23 @@ function formatPostTime(timestamp){
 }
 
 
+/* =====================================================
+   SECURITY
+===================================================== */
+
 function escapeHTML(text){
 
-  const div=
-    document.createElement("div");
+  const div =
+    document.createElement(
+      "div"
+    );
 
-  div.textContent=
-    text==null
-    ?
-    ""
-    :
-    String(text);
+
+  div.textContent =
+    text == null
+      ? ""
+      : String(text);
+
 
   return div.innerHTML;
 
