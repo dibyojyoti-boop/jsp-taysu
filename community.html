@@ -869,17 +869,21 @@ onAuthStateChanged(
       return;
     }
 
+
     currentUser = user;
 
     communityLogin.style.display = "none";
 
+
     let username = "Member";
+
 
     const profileRef =
       doc(db, "users", user.uid);
 
     const profileSnap =
       await getDoc(profileRef);
+
 
     if(
       profileSnap.exists() &&
@@ -896,6 +900,7 @@ onAuthStateChanged(
 
     }
 
+
     document.getElementById("profileName").textContent =
       username;
 
@@ -908,10 +913,12 @@ onAuthStateChanged(
     document.getElementById("welcomeText").textContent =
       "Welcome, " + username + " 👋";
 
+
     await loadPosts();
 
   }
 );
+
 
 /* ================================
    CREATE POST
