@@ -9,10 +9,6 @@
 
 <style>
 
-/* =====================================================
-   RESET
-===================================================== */
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -24,42 +20,28 @@ html{
 }
 
 body{
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Arial,
-    sans-serif;
-
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
   background:#0b0d10;
   color:#f5f5f5;
-
   padding-bottom:78px;
 }
 
-/* =====================================================
-   TOP BAR
-===================================================== */
+/* TOP BAR */
 
 .topbar{
   position:sticky;
   top:0;
   z-index:100;
-
   background:rgba(11,13,16,.92);
   backdrop-filter:blur(18px);
-
   border-bottom:1px solid #25282d;
 }
 
 .topbar-inner{
   max-width:720px;
   margin:auto;
-
   height:64px;
   padding:0 16px;
-
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -69,7 +51,6 @@ body{
   display:flex;
   align-items:center;
   gap:9px;
-
   font-size:18px;
   font-weight:800;
   letter-spacing:-.4px;
@@ -81,28 +62,20 @@ body{
 
 .profile-name{
   max-width:170px;
-
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
-
   color:#aeb3bb;
   font-size:13px;
 }
 
-/* =====================================================
-   MAIN
-===================================================== */
+/* MAIN */
 
 .container{
   max-width:720px;
   margin:auto;
   padding:17px 14px 30px;
 }
-
-/* =====================================================
-   SECTIONS
-===================================================== */
 
 .page-section{
   display:none;
@@ -112,16 +85,14 @@ body{
   display:block;
 }
 
-/* =====================================================
-   FEED
-===================================================== */
+/* FEED HEADER */
 
 .feed-heading{
   display:flex;
   justify-content:space-between;
   align-items:center;
-
-  padding:5px 4px 13px;
+  gap:10px;
+  padding:5px 4px 10px;
 }
 
 .feed-heading h2{
@@ -129,46 +100,64 @@ body{
   letter-spacing:-.5px;
 }
 
-.feed-heading-icon{
+.feed-heading-right{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.feed-search-button{
   width:34px;
   height:34px;
-
+  border:0;
   border-radius:10px;
-
   background:#171a1f;
-
+  color:#d7bd8c;
   display:flex;
   align-items:center;
   justify-content:center;
-
-  color:#d7bd8c;
+  cursor:pointer;
 }
 
-.feed-heading-icon svg{
+.feed-search-button svg{
   width:19px;
   height:19px;
 }
 
-/* =====================================================
-   POSTS
-===================================================== */
+.feed-search-box{
+  display:none;
+  margin-bottom:9px;
+}
+
+.feed-search-box.show{
+  display:flex;
+}
+
+#feedSearchInput{
+  width:100%;
+  padding:11px 13px;
+  border:1px solid #292d33;
+  border-radius:12px;
+  background:#15181d;
+  color:#fff;
+  outline:none;
+  font-size:14px;
+}
+
+/* POSTS */
 
 #posts{
   display:flex;
   flex-direction:column;
-  gap:4px;
+  gap:0;
 }
 
 .post{
   background:#111419;
-
   border:1px solid #292d33;
   border-radius:18px;
-
-  padding:14px;
-
-  margin-bottom:9px;
-
+  padding:12px 14px;
+  margin-bottom:7px;
   box-shadow:0 8px 24px rgba(0,0,0,.13);
 }
 
@@ -176,27 +165,21 @@ body{
   display:flex;
   align-items:center;
   gap:10px;
-
-  margin-bottom:8px;
+  margin-bottom:5px;
+  cursor:pointer;
 }
 
 .avatar{
   width:42px;
   height:42px;
-
   flex-shrink:0;
-
   border-radius:50%;
-
   background:#33271f;
   color:#ead9b8;
-
   border:2px solid #554438;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   font-size:15px;
   font-weight:800;
 }
@@ -209,82 +192,57 @@ body{
 .post-time{
   color:#777f89;
   font-size:11px;
-  margin-top:2px;
+  margin-top:1px;
 }
 
 .post-text{
   color:#eceef1;
-
   font-size:15px;
-  line-height:1.5;
-
+  line-height:1.42;
   white-space:pre-wrap;
   overflow-wrap:anywhere;
-
-  margin:0 2px 8px;
+  margin:0 1px 5px;
 }
 
 .post-media{
   width:100%;
-
   border-radius:14px;
-
-  margin:6px 0 8px;
-
+  margin:4px 0 5px;
   display:block;
-
   max-height:520px;
-
   object-fit:cover;
-
   background:#08090b;
 }
 
 .post-video{
   width:100%;
-
   border-radius:14px;
-
   background:#08090b;
-
-  margin:6px 0 8px;
-
+  margin:4px 0 5px;
   max-height:520px;
 }
 
-/* =====================================================
-   ACTIONS
-===================================================== */
+/* ACTIONS */
 
 .actions{
   border-top:1px solid #25282d;
-
-  padding-top:6px;
-
+  padding-top:4px;
   display:flex;
   align-items:center;
-
   gap:2px;
 }
 
 .action{
   border:0;
   background:transparent;
-
   color:#9299a2;
-
   display:flex;
   align-items:center;
   gap:5px;
-
-  padding:7px 8px;
-
+  padding:6px 8px;
   border-radius:10px;
-
   cursor:pointer;
-
   font-size:12px;
-
   transition:.18s;
 }
 
@@ -307,31 +265,24 @@ body{
   font-weight:600;
 }
 
-/* =====================================================
-   COMMENTS
-===================================================== */
+/* COMMENTS */
 
 .comments-area{
   display:none;
-
-  margin-top:8px;
-  padding-top:8px;
-
+  margin-top:7px;
+  padding-top:7px;
   border-top:1px solid #25282d;
 }
 
 .comments-list{
-  margin-bottom:9px;
+  margin-bottom:8px;
 }
 
 .comment{
   background:#181b20;
-
   border:1px solid #282c32;
   border-radius:11px;
-
   padding:8px 10px;
-
   margin-bottom:5px;
 }
 
@@ -339,7 +290,6 @@ body{
   display:flex;
   justify-content:space-between;
   align-items:center;
-
   margin-bottom:3px;
 }
 
@@ -352,17 +302,14 @@ body{
   color:#c8ccd1;
   font-size:13px;
   line-height:1.4;
-
   overflow-wrap:anywhere;
 }
 
 .delete-comment{
   border:0;
   background:none;
-
   color:#8e7272;
   font-size:10px;
-
   cursor:pointer;
 }
 
@@ -374,64 +321,44 @@ body{
 .comment-input{
   flex:1;
   min-width:0;
-
   padding:9px 11px;
-
   border:1px solid #2a2e34;
   border-radius:11px;
-
   background:#15181d;
   color:white;
-
   outline:none;
 }
 
 .comment-send{
   border:0;
-
   padding:0 13px;
-
   border-radius:11px;
-
   background:#f1f1f1;
   color:#0b0d10;
-
   font-weight:700;
-
   cursor:pointer;
 }
 
-/* =====================================================
-   EMPTY
-===================================================== */
+/* EMPTY */
 
 .empty{
   text-align:center;
-
   background:#111419;
-
   border:1px solid #292d33;
   border-radius:18px;
-
   padding:45px 20px;
-
   color:#858c95;
 }
 
 .empty-icon{
   width:50px;
   height:50px;
-
   margin:0 auto 13px;
-
   border-radius:15px;
-
   background:#191c21;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   color:#d7bd8c;
 }
 
@@ -450,9 +377,7 @@ body{
   font-size:13px;
 }
 
-/* =====================================================
-   CREATE
-===================================================== */
+/* CREATE */
 
 .create-page-title{
   padding:6px 3px 14px;
@@ -471,10 +396,8 @@ body{
 
 .create-card{
   background:#111419;
-
   border:1px solid #292d33;
   border-radius:18px;
-
   padding:14px;
 }
 
@@ -482,8 +405,7 @@ body{
   display:flex;
   align-items:center;
   gap:10px;
-
-  margin-bottom:9px;
+  margin-bottom:7px;
 }
 
 .composer-name{
@@ -499,26 +421,18 @@ body{
 
 #postText{
   width:100%;
-
-  min-height:72px;
-  height:72px;
-
+  min-height:62px;
+  height:62px;
   resize:vertical;
-
   border:0;
   outline:none;
-
   border-radius:12px;
-
-  padding:11px;
-
+  padding:10px;
   background:#181b20;
-
   color:#f4f4f4;
-
   font-family:inherit;
   font-size:15px;
-  line-height:1.5;
+  line-height:1.45;
 }
 
 #postText::placeholder{
@@ -527,7 +441,7 @@ body{
 
 .create-media-preview{
   display:none;
-  margin-top:10px;
+  margin-top:8px;
   position:relative;
 }
 
@@ -535,28 +449,21 @@ body{
 .create-media-preview video{
   width:100%;
   max-height:400px;
-
   object-fit:cover;
   border-radius:14px;
-
   background:#08090b;
 }
 
 .remove-media{
   position:absolute;
-
   right:8px;
   top:8px;
-
   width:31px;
   height:31px;
-
   border:0;
   border-radius:50%;
-
   background:rgba(0,0,0,.75);
   color:#fff;
-
   cursor:pointer;
   font-size:17px;
 }
@@ -565,10 +472,8 @@ body{
   display:flex;
   justify-content:space-between;
   align-items:center;
-
   gap:10px;
-
-  margin-top:9px;
+  margin-top:8px;
 }
 
 .media-buttons{
@@ -578,20 +483,14 @@ body{
 
 .media-button{
   border:1px solid #30343a;
-
   background:#181b20;
   color:#b9bec5;
-
   padding:8px 10px;
-
   border-radius:11px;
-
   cursor:pointer;
-
   display:flex;
   align-items:center;
   gap:5px;
-
   font-size:12px;
   font-weight:600;
 }
@@ -603,16 +502,11 @@ body{
 
 .post-btn{
   border:0;
-
   background:#f1f1f1;
   color:#0b0d10;
-
   padding:9px 17px;
-
   border-radius:12px;
-
   font-weight:800;
-
   cursor:pointer;
 }
 
@@ -621,9 +515,7 @@ body{
   cursor:default;
 }
 
-/* =====================================================
-   EXPLORE
-===================================================== */
+/* EXPLORE */
 
 .explore-title{
   padding:7px 3px 15px;
@@ -649,32 +541,24 @@ body{
 #userSearchInput{
   flex:1;
   min-width:0;
-
   padding:13px 15px;
-
   border:1px solid #292d33;
   border-radius:14px;
-
   background:#15181d;
   color:#fff;
-
   font-size:14px;
   outline:none;
 }
 
 .search-button{
   width:48px;
-
   border:0;
   border-radius:14px;
-
   background:#f1f1f1;
   color:#0b0d10;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   cursor:pointer;
 }
 
@@ -689,14 +573,10 @@ body{
 
 .search-result{
   background:#15181d;
-
   border:1px solid #292d33;
   border-radius:15px;
-
   padding:12px;
-
   margin-bottom:7px;
-
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -706,43 +586,39 @@ body{
   display:flex;
   align-items:center;
   gap:10px;
+  cursor:pointer;
+  min-width:0;
 }
 
 .search-avatar{
   width:39px;
   height:39px;
-
+  flex-shrink:0;
   border-radius:50%;
-
   background:#30251f;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   font-weight:800;
   color:#ead9b8;
-
   border:1px solid #5a4739;
 }
 
 .search-username{
   font-size:14px;
   font-weight:700;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
 .follow-button{
   border:0;
-
   padding:8px 14px;
-
   border-radius:10px;
-
   background:#f1f1f1;
   color:#0b0d10;
-
   font-weight:700;
-
   cursor:pointer;
 }
 
@@ -751,9 +627,7 @@ body{
   color:#aaa;
 }
 
-/* =====================================================
-   ALERTS
-===================================================== */
+/* ALERTS */
 
 .alert-title{
   padding:7px 3px 15px;
@@ -774,15 +648,10 @@ body{
   display:flex;
   align-items:center;
   gap:11px;
-
   padding:12px;
-
   background:#111419;
-
   border:1px solid #292d33;
   border-radius:15px;
-
-  transition:.18s;
 }
 
 .notification.unread{
@@ -792,17 +661,12 @@ body{
 .notification-icon{
   width:40px;
   height:40px;
-
   flex-shrink:0;
-
   border-radius:50%;
-
   background:#1b1e23;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   color:#d7bd8c;
 }
 
@@ -825,18 +689,14 @@ body{
 
 .alert-empty{
   text-align:center;
-
   padding:50px 20px;
-
   color:#858c95;
 }
 
 .alert-empty svg{
   width:36px;
   height:36px;
-
   color:#d7bd8c;
-
   margin-bottom:10px;
 }
 
@@ -849,55 +709,37 @@ body{
   font-size:13px;
 }
 
-/* =====================================================
-   BOTTOM NAV
-===================================================== */
+/* BOTTOM NAV */
 
 .bottom-nav{
   position:fixed;
-
   left:0;
   right:0;
   bottom:0;
-
   height:72px;
-
   z-index:200;
-
   background:rgba(11,13,16,.96);
-
   backdrop-filter:blur(20px);
-
   border-top:1px solid #292d33;
-
   display:flex;
   justify-content:center;
-
   padding:6px 8px;
-
   box-shadow:0 -10px 30px rgba(0,0,0,.2);
 }
 
 .nav-item{
   flex:1;
   max-width:115px;
-
   border:0;
   background:none;
-
   color:#727983;
-
   cursor:pointer;
-
   border-radius:13px;
-
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-
   gap:4px;
-
   transition:.18s;
 }
 
@@ -927,10 +769,8 @@ body{
 .create-plus{
   width:32px;
   height:32px;
-
   border:1px solid #555b63;
   border-radius:10px;
-
   display:flex;
   align-items:center;
   justify-content:center;
@@ -945,9 +785,11 @@ body{
   display:none;
 }
 
-/* =====================================================
-   RESPONSIVE
-===================================================== */
+.profile-link{
+  cursor:pointer;
+}
+
+/* RESPONSIVE */
 
 @media(max-width:500px){
 
@@ -970,7 +812,7 @@ body{
 
   .post{
     border-radius:16px;
-    padding:13px;
+    padding:11px 12px;
   }
 
   .post-text{
@@ -996,8 +838,8 @@ body{
   }
 
   #postText{
-    min-height:68px;
-    height:68px;
+    min-height:62px;
+    height:62px;
   }
 
   .media-button{
@@ -1011,6 +853,7 @@ body{
   .bottom-nav{
     height:68px;
   }
+
 }
 
 </style>
@@ -1027,7 +870,9 @@ body{
       <span>JSP TAYSU</span>
     </div>
 
-    <div class="profile-name" id="profileName">
+    <div
+      class="profile-name"
+      id="profileName">
       Member
     </div>
 
@@ -1039,9 +884,7 @@ body{
 <main class="container">
 
 
-<!-- =====================================================
-     HOME — ONLY COMMUNITY FEED
-===================================================== -->
+<!-- HOME -->
 
 <section
   id="homeSection"
@@ -1053,27 +896,47 @@ body{
       Community Feed
     </h2>
 
-    <div class="feed-heading-icon">
+    <div class="feed-heading-right">
 
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor">
+      <button
+        id="feedSearchButton"
+        class="feed-search-button"
+        type="button"
+        aria-label="Search posts">
 
-        <path
-          d="M12 3
-             C7 3 4 6 4 11
-             c0 4 3 7 8 7
-             2 0 4-.5 5.5-1.5
-             L21 19
-             l-1-4
-             c.7-1.2 1-2.5 1-4
-             0-5-3-8-9-8Z">
-        </path>
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor">
 
-      </svg>
+          <circle
+            cx="11"
+            cy="11"
+            r="7">
+          </circle>
+
+          <path
+            d="m20 20-4-4">
+          </path>
+
+        </svg>
+
+      </button>
 
     </div>
+
+  </div>
+
+
+  <div
+    id="feedSearchBox"
+    class="feed-search-box">
+
+    <input
+      id="feedSearchInput"
+      type="text"
+      placeholder="Search posts or topics..."
+      maxlength="100">
 
   </div>
 
@@ -1118,10 +981,7 @@ body{
 </section>
 
 
-
-<!-- =====================================================
-     CREATE
-===================================================== -->
+<!-- CREATE -->
 
 <section
   id="createSection"
@@ -1288,10 +1148,7 @@ body{
 </section>
 
 
-
-<!-- =====================================================
-     EXPLORE — SEARCH HERE
-===================================================== -->
+<!-- EXPLORE -->
 
 <section
   id="exploreSection"
@@ -1316,12 +1173,14 @@ body{
       type="text"
       id="userSearchInput"
       placeholder="Search members..."
-      maxlength="30">
+      maxlength="30"
+      autocomplete="off">
 
     <button
       id="userSearchButton"
       class="search-button"
-      aria-label="Search">
+      aria-label="Search"
+      type="button">
 
       <svg
         viewBox="0 0 24 24"
@@ -1350,10 +1209,7 @@ body{
 </section>
 
 
-
-<!-- =====================================================
-     ALERTS
-===================================================== -->
+<!-- ALERTS -->
 
 <section
   id="alertsSection"
@@ -1409,13 +1265,9 @@ body{
 </main>
 
 
-
-<!-- =====================================================
-     BOTTOM NAV
-===================================================== -->
+<!-- BOTTOM NAV -->
 
 <nav class="bottom-nav">
-
 
   <button
     class="nav-item active"
@@ -1440,12 +1292,9 @@ body{
 
     </svg>
 
-    <span>
-      Home
-    </span>
+    <span>Home</span>
 
   </button>
-
 
 
   <button
@@ -1469,12 +1318,9 @@ body{
 
     </svg>
 
-    <span>
-      Explore
-    </span>
+    <span>Explore</span>
 
   </button>
-
 
 
   <button
@@ -1495,12 +1341,9 @@ body{
 
     </div>
 
-    <span>
-      Create
-    </span>
+    <span>Create</span>
 
   </button>
-
 
 
   <button
@@ -1519,18 +1362,13 @@ body{
            c0-2-3-2-3-9">
       </path>
 
-      <path
-        d="M10 21h4">
-      </path>
+      <path d="M10 21h4"></path>
 
     </svg>
 
-    <span>
-      Alerts
-    </span>
+    <span>Alerts</span>
 
   </button>
-
 
 
   <button
@@ -1556,21 +1394,16 @@ body{
 
     </svg>
 
-    <span>
-      Profile
-    </span>
+    <span>Profile</span>
 
   </button>
 
 </nav>
 
 
-
 <script type="module">
 
-/* =====================================================
-   FIREBASE IMPORTS
-===================================================== */
+/* FIREBASE */
 
 import {
   initializeApp
@@ -1582,8 +1415,7 @@ from
 import {
   getAuth,
   onAuthStateChanged,
-  GoogleAuthProvider,
-  signInWithRedirect
+  GoogleAuthProvider
 }
 from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
@@ -1614,9 +1446,7 @@ from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
 
-/* =====================================================
-   FIREBASE CONFIG
-===================================================== */
+/* CONFIG */
 
 const firebaseConfig = {
 
@@ -1659,10 +1489,11 @@ let selectedMediaFile = null;
 let selectedMediaType = null;
 let currentUsername = "Member";
 
+let allPosts = [];
+let allMembers = [];
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
+
+/* ELEMENTS */
 
 const profileName =
   document.getElementById("profileName");
@@ -1676,18 +1507,11 @@ const composerAvatar =
 const alertList =
   document.getElementById("alertList");
 
-
-/* =====================================================
-   GOOGLE LOGIN
-===================================================== */
-
-const provider =
-  new GoogleAuthProvider();
+const postsContainer =
+  document.getElementById("posts");
 
 
-/* =====================================================
-   AUTH STATE
-===================================================== */
+/* AUTH */
 
 onAuthStateChanged(
   auth,
@@ -1761,9 +1585,7 @@ onAuthStateChanged(
       username;
 
     composerAvatar.textContent =
-      username
-        .charAt(0)
-        .toUpperCase();
+      username.charAt(0).toUpperCase();
 
 
     await loadPosts();
@@ -1774,31 +1596,21 @@ onAuthStateChanged(
 );
 
 
-/* =====================================================
-   NAVIGATION
-===================================================== */
+/* NAVIGATION */
 
 const sections = {
 
   homeSection:
-    document.getElementById(
-      "homeSection"
-    ),
+    document.getElementById("homeSection"),
 
   createSection:
-    document.getElementById(
-      "createSection"
-    ),
+    document.getElementById("createSection"),
 
   exploreSection:
-    document.getElementById(
-      "exploreSection"
-    ),
+    document.getElementById("exploreSection"),
 
   alertsSection:
-    document.getElementById(
-      "alertsSection"
-    )
+    document.getElementById("alertsSection")
 
 };
 
@@ -1808,9 +1620,7 @@ function showSection(sectionId){
   Object.values(sections)
     .forEach(section => {
 
-      section.classList.remove(
-        "active"
-      );
+      section.classList.remove("active");
 
     });
 
@@ -1818,9 +1628,7 @@ function showSection(sectionId){
   if(sections[sectionId]){
 
     sections[sectionId]
-      .classList.add(
-        "active"
-      );
+      .classList.add("active");
 
   }
 
@@ -1829,13 +1637,8 @@ function showSection(sectionId){
     .querySelectorAll(".nav-item")
     .forEach(button => {
 
-      button.classList.remove(
-        "active"
-      );
-
-      button.classList.remove(
-        "create-active"
-      );
+      button.classList.remove("active");
+      button.classList.remove("create-active");
 
     });
 
@@ -1848,36 +1651,33 @@ function showSection(sectionId){
 
   if(matchingButton){
 
-    matchingButton.classList.add(
-      "active"
-    );
+    matchingButton.classList.add("active");
 
   }
 
 
-  if(
-    sectionId ===
-    "createSection"
-  ){
+  if(sectionId === "createSection"){
 
     document
-      .getElementById(
-        "createNav"
-      )
-      .classList.add(
-        "create-active"
-      );
+      .getElementById("createNav")
+      .classList.add("create-active");
 
   }
 
 
   if(
-    sectionId ===
-    "alertsSection" &&
+    sectionId === "alertsSection" &&
     currentUser
   ){
 
     loadNotifications();
+
+  }
+
+
+  if(sectionId === "exploreSection"){
+
+    loadMembers();
 
   }
 
@@ -1924,42 +1724,119 @@ document
   );
 
 
+/* PROFILE BUTTON */
+
 document
   .getElementById("profileNavButton")
   .addEventListener(
     "click",
     () => {
 
-      window.location.href =
-        "profile.html";
+      if(!currentUser){
+
+        alert("Please sign in first.");
+
+        return;
+
+      }
+
+      openProfile(
+        currentUser.uid
+      );
 
     }
   );
 
 
-/* =====================================================
-   MEDIA SELECT
-===================================================== */
+/* PROFILE OPEN */
+
+function openProfile(uid){
+
+  if(!uid){
+
+    return;
+
+  }
+
+  window.location.href =
+    "profile.html?uid=" +
+    encodeURIComponent(uid);
+
+}
+
+
+/* FEED SEARCH */
+
+const feedSearchButton =
+  document.getElementById(
+    "feedSearchButton"
+  );
+
+const feedSearchBox =
+  document.getElementById(
+    "feedSearchBox"
+  );
+
+const feedSearchInput =
+  document.getElementById(
+    "feedSearchInput"
+  );
+
+
+feedSearchButton.addEventListener(
+  "click",
+  () => {
+
+    feedSearchBox.classList.toggle(
+      "show"
+    );
+
+    if(
+      feedSearchBox.classList.contains(
+        "show"
+      )
+    ){
+
+      feedSearchInput.focus();
+
+    }else{
+
+      feedSearchInput.value =
+        "";
+
+      renderFilteredPosts("");
+
+    }
+
+  }
+);
+
+
+feedSearchInput.addEventListener(
+  "input",
+  () => {
+
+    renderFilteredPosts(
+      feedSearchInput.value
+    );
+
+  }
+);
+
+
+/* MEDIA */
 
 const photoButton =
-  document.getElementById(
-    "photoButton"
-  );
+  document.getElementById("photoButton");
 
 const videoButton =
-  document.getElementById(
-    "videoButton"
-  );
+  document.getElementById("videoButton");
 
 const photoInput =
-  document.getElementById(
-    "photoInput"
-  );
+  document.getElementById("photoInput");
 
 const videoInput =
-  document.getElementById(
-    "videoInput"
-  );
+  document.getElementById("videoInput");
 
 
 photoButton.addEventListener(
@@ -1968,9 +1845,7 @@ photoButton.addEventListener(
 
     if(!currentUser){
 
-      alert(
-        "Please sign in first."
-      );
+      alert("Please sign in first.");
 
       return;
 
@@ -1988,9 +1863,7 @@ videoButton.addEventListener(
 
     if(!currentUser){
 
-      alert(
-        "Please sign in first."
-      );
+      alert("Please sign in first.");
 
       return;
 
@@ -2054,9 +1927,7 @@ videoInput.addEventListener(
 );
 
 
-/* =====================================================
-   MEDIA PREVIEW
-===================================================== */
+/* MEDIA PREVIEW */
 
 function showMediaPreview(
   file,
@@ -2075,9 +1946,7 @@ function showMediaPreview(
 
 
   const url =
-    URL.createObjectURL(
-      file
-    );
+    URL.createObjectURL(file);
 
 
   if(type === "image"){
@@ -2114,17 +1983,11 @@ document
     "click",
     () => {
 
-      selectedMediaFile =
-        null;
+      selectedMediaFile = null;
+      selectedMediaType = null;
 
-      selectedMediaType =
-        null;
-
-      photoInput.value =
-        "";
-
-      videoInput.value =
-        "";
+      photoInput.value = "";
+      videoInput.value = "";
 
       document
         .getElementById(
@@ -2144,23 +2007,17 @@ document
   );
 
 
-/* =====================================================
-   CREATE POST
-===================================================== */
+/* CREATE POST */
 
 document
-  .getElementById(
-    "postButton"
-  )
+  .getElementById("postButton")
   .addEventListener(
     "click",
     async () => {
 
       if(!currentUser){
 
-        alert(
-          "Please sign in first."
-        );
+        alert("Please sign in first.");
 
         return;
 
@@ -2169,9 +2026,7 @@ document
 
       const text =
         document
-          .getElementById(
-            "postText"
-          )
+          .getElementById("postText")
           .value
           .trim();
 
@@ -2196,11 +2051,8 @@ document
         );
 
 
-      button.disabled =
-        true;
-
-      button.textContent =
-        "Posting...";
+      button.disabled = true;
+      button.textContent = "Posting...";
 
 
       try{
@@ -2287,24 +2139,16 @@ document
 
 
         document
-          .getElementById(
-            "postText"
-          )
+          .getElementById("postText")
           .value =
           "";
 
 
-        selectedMediaFile =
-          null;
+        selectedMediaFile = null;
+        selectedMediaType = null;
 
-        selectedMediaType =
-          null;
-
-        photoInput.value =
-          "";
-
-        videoInput.value =
-          "";
+        photoInput.value = "";
+        videoInput.value = "";
 
 
         document
@@ -2325,9 +2169,7 @@ document
 
         await loadPosts();
 
-        showSection(
-          "homeSection"
-        );
+        showSection("homeSection");
 
 
       }catch(error){
@@ -2345,11 +2187,8 @@ document
 
       }finally{
 
-        button.disabled =
-          false;
-
-        button.textContent =
-          "Post";
+        button.disabled = false;
+        button.textContent = "Post";
 
       }
 
@@ -2357,17 +2196,9 @@ document
   );
 
 
-/* =====================================================
-   LOAD POSTS
-===================================================== */
+/* LOAD POSTS */
 
 async function loadPosts(){
-
-  const postsContainer =
-    document.getElementById(
-      "posts"
-    );
-
 
   try{
 
@@ -2380,44 +2211,13 @@ async function loadPosts(){
       );
 
 
-    postsContainer.innerHTML =
-      "";
-
-
-    if(snapshot.empty){
-
-      postsContainer.innerHTML = `
-
-        <div class="empty">
-
-          <div class="empty-icon">
-            🐉
-          </div>
-
-          <h3>
-            No posts yet
-          </h3>
-
-          <p>
-            Be the first to share something.
-          </p>
-
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    const posts = [];
+    allPosts = [];
 
 
     snapshot.forEach(
       postDoc => {
 
-        posts.push({
+        allPosts.push({
 
           id:
             postDoc.id,
@@ -2430,16 +2230,14 @@ async function loadPosts(){
     );
 
 
-    posts.sort(
+    allPosts.sort(
       (a,b) => {
 
         const aTime =
-          a.createdAt?.seconds ||
-          0;
+          a.createdAt?.seconds || 0;
 
         const bTime =
-          b.createdAt?.seconds ||
-          0;
+          b.createdAt?.seconds || 0;
 
         return bTime - aTime;
 
@@ -2447,16 +2245,9 @@ async function loadPosts(){
     );
 
 
-    for(
-      const post of posts
-    ){
-
-      await renderPost(
-        post,
-        postsContainer
-      );
-
-    }
+    renderFilteredPosts(
+      feedSearchInput.value
+    );
 
 
   }catch(error){
@@ -2492,9 +2283,93 @@ async function loadPosts(){
 }
 
 
-/* =====================================================
-   RENDER POST
-===================================================== */
+/* FILTER POSTS */
+
+async function renderFilteredPosts(
+  searchText
+){
+
+  const query =
+    String(searchText || "")
+      .trim()
+      .toLowerCase();
+
+
+  const filtered =
+    allPosts.filter(post => {
+
+      if(!query){
+
+        return true;
+
+      }
+
+
+      const text =
+        String(
+          post.text || ""
+        ).toLowerCase();
+
+
+      const author =
+        String(
+          post.authorName || ""
+        ).toLowerCase();
+
+
+      return (
+        text.includes(query) ||
+        author.includes(query)
+      );
+
+    });
+
+
+  postsContainer.innerHTML = "";
+
+
+  if(filtered.length === 0){
+
+    postsContainer.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          🔍
+        </div>
+
+        <h3>
+          No matching posts
+        </h3>
+
+        <p>
+          Try another topic or keyword.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  for(
+    const post of filtered
+  ){
+
+    await renderPost(
+      post,
+      postsContainer
+    );
+
+  }
+
+}
+
+
+/* RENDER POST */
 
 async function renderPost(
   post,
@@ -2502,9 +2377,7 @@ async function renderPost(
 ){
 
   const postElement =
-    document.createElement(
-      "article"
-    );
+    document.createElement("article");
 
 
   postElement.className =
@@ -2516,11 +2389,8 @@ async function renderPost(
     "Member";
 
 
-  let likeCount =
-    0;
-
-  let alreadyLiked =
-    false;
+  let likeCount = 0;
+  let alreadyLiked = false;
 
 
   try{
@@ -2561,8 +2431,7 @@ async function renderPost(
   }
 
 
-  let commentCount =
-    0;
+  let commentCount = 0;
 
 
   try{
@@ -2636,7 +2505,11 @@ async function renderPost(
 
   postElement.innerHTML = `
 
-    <div class="post-header">
+    <div
+      class="post-header"
+      data-profile-id="${escapeAttribute(
+        post.authorId || ""
+      )}">
 
       <div class="avatar">
 
@@ -2665,12 +2538,14 @@ async function renderPost(
 
     ${
       post.text
-        ? `
-          <div class="post-text">
-            ${escapeHTML(post.text)}
-          </div>
-        `
-        : ""
+      ?
+      `
+        <div class="post-text">
+          ${escapeHTML(post.text)}
+        </div>
+      `
+      :
+      ""
     }
 
 
@@ -2799,9 +2674,31 @@ async function renderPost(
   );
 
 
-  /* =================================================
-     LIKE
-  ================================================= */
+  /* PROFILE CLICK */
+
+  const postHeader =
+    postElement.querySelector(
+      ".post-header"
+    );
+
+
+  postHeader.addEventListener(
+    "click",
+    () => {
+
+      if(post.authorId){
+
+        openProfile(
+          post.authorId
+        );
+
+      }
+
+    }
+  );
+
+
+  /* LIKE */
 
   const likeButton =
     postElement.querySelector(
@@ -2834,8 +2731,7 @@ async function renderPost(
       }
 
 
-      likeButton.disabled =
-        true;
+      likeButton.disabled = true;
 
 
       try{
@@ -2918,8 +2814,6 @@ async function renderPost(
             );
 
 
-          /* NOTIFICATION */
-
           if(
             post.authorId &&
             post.authorId !==
@@ -2978,9 +2872,7 @@ async function renderPost(
   );
 
 
-  /* =================================================
-     COMMENTS
-  ================================================= */
+  /* COMMENTS */
 
   const commentButton =
     postElement.querySelector(
@@ -3109,8 +3001,7 @@ async function renderPost(
       );
 
 
-      commentInput.value =
-        "";
+      commentInput.value = "";
 
 
       let count =
@@ -3130,8 +3021,6 @@ async function renderPost(
         commentsList
       );
 
-
-      /* NOTIFICATION */
 
       if(
         post.authorId &&
@@ -3197,10 +3086,7 @@ async function renderPost(
     "keydown",
     event => {
 
-      if(
-        event.key ===
-        "Enter"
-      ){
+      if(event.key === "Enter"){
 
         event.preventDefault();
 
@@ -3212,9 +3098,7 @@ async function renderPost(
   );
 
 
-  /* =================================================
-     SHARE
-  ================================================= */
+  /* SHARE */
 
   const shareButton =
     postElement.querySelector(
@@ -3270,17 +3154,14 @@ async function renderPost(
 }
 
 
-/* =====================================================
-   LOAD COMMENTS
-===================================================== */
+/* COMMENTS */
 
 async function loadComments(
   postId,
   commentsList
 ){
 
-  commentsList.innerHTML =
-    "";
+  commentsList.innerHTML = "";
 
 
   try{
@@ -3341,12 +3222,10 @@ async function loadComments(
       (a,b) => {
 
         const aTime =
-          a.createdAt?.seconds ||
-          0;
+          a.createdAt?.seconds || 0;
 
         const bTime =
-          b.createdAt?.seconds ||
-          0;
+          b.createdAt?.seconds || 0;
 
         return aTime - bTime;
 
@@ -3358,9 +3237,7 @@ async function loadComments(
       comment => {
 
         const element =
-          document.createElement(
-            "div"
-          );
+          document.createElement("div");
 
 
         element.className =
@@ -3372,48 +3249,36 @@ async function loadComments(
           <div class="comment-top">
 
             <div class="comment-user">
-
               ${escapeHTML(
                 comment.username ||
                 "Member"
               )}
-
             </div>
-
 
             ${
               currentUser &&
               comment.userId ===
               currentUser.uid
-
               ?
-
               `
                 <button
                   class="delete-comment"
                   type="button">
-
                   Delete
-
                 </button>
               `
-
               :
-
               ""
-
             }
 
           </div>
 
 
           <div class="comment-text">
-
             ${escapeHTML(
               comment.text ||
               ""
             )}
-
           </div>
 
         `;
@@ -3505,9 +3370,68 @@ async function loadComments(
 }
 
 
-/* =====================================================
-   SEARCH MEMBERS — EXPLORE
-===================================================== */
+/* LOAD MEMBERS */
+
+async function loadMembers(){
+
+  if(
+    allMembers.length > 0
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "users"
+        )
+      );
+
+
+    allMembers = [];
+
+
+    snapshot.forEach(
+      userDoc => {
+
+        const data =
+          userDoc.data();
+
+
+        allMembers.push({
+
+          id:
+            userDoc.id,
+
+          ...data
+
+        });
+
+      }
+    );
+
+
+    searchMembers();
+
+  }catch(error){
+
+    console.error(
+      "Members error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* MEMBER SEARCH */
 
 const userSearchButton =
   document.getElementById(
@@ -3531,14 +3455,19 @@ userSearchButton.addEventListener(
 );
 
 
+/* LIVE SEARCH */
+
+userSearchInput.addEventListener(
+  "input",
+  searchMembers
+);
+
+
 userSearchInput.addEventListener(
   "keydown",
   event => {
 
-    if(
-      event.key ===
-      "Enter"
-    ){
+    if(event.key === "Enter"){
 
       searchMembers();
 
@@ -3556,6 +3485,27 @@ async function searchMembers(){
       .toLowerCase();
 
 
+  if(!currentUser){
+
+    return;
+
+  }
+
+
+  if(
+    allMembers.length === 0
+  ){
+
+    await loadMembers();
+
+    return;
+
+  }
+
+
+  searchResults.innerHTML = "";
+
+
   if(!searchText){
 
     searchResults.innerHTML = `
@@ -3567,7 +3517,7 @@ async function searchMembers(){
           padding:5px;
         ">
 
-        Enter a username to search.
+        Start typing a member's name.
 
       </p>
 
@@ -3578,279 +3528,119 @@ async function searchMembers(){
   }
 
 
-  if(!currentUser){
+  const matches =
+    allMembers
+      .filter(user => {
 
-    alert(
-      "Please sign in first."
-    );
+        if(
+          user.id ===
+          currentUser.uid
+        ){
+
+          return false;
+
+        }
+
+
+        const username =
+          String(
+            user.username ||
+            user.displayName ||
+            ""
+          ).toLowerCase();
+
+
+        return username.includes(
+          searchText
+        );
+
+      })
+      .sort(
+        (a,b) => {
+
+          const aName =
+            String(
+              a.username ||
+              a.displayName ||
+              ""
+            ).toLowerCase();
+
+          const bName =
+            String(
+              b.username ||
+              b.displayName ||
+              ""
+            ).toLowerCase();
+
+
+          /*
+            Names beginning with the
+            search text appear first.
+          */
+
+          const aStarts =
+            aName.startsWith(
+              searchText
+            );
+
+          const bStarts =
+            bName.startsWith(
+              searchText
+            );
+
+
+          if(
+            aStarts !==
+            bStarts
+          ){
+
+            return aStarts
+              ? -1
+              : 1;
+
+          }
+
+
+          return aName.localeCompare(
+            bName
+          );
+
+        }
+      )
+      .slice(
+        0,
+        20
+      );
+
+
+  if(matches.length === 0){
+
+    searchResults.innerHTML = `
+
+      <p
+        style="
+          color:#777f89;
+          font-size:13px;
+          padding:5px;
+        ">
+
+        No members found.
+
+      </p>
+
+    `;
 
     return;
 
   }
 
 
-  try{
-
-    const snapshot =
-      await getDocs(
-        collection(
-          db,
-          "users"
-        )
-      );
-
-
-    searchResults.innerHTML =
-      "";
-
-
-    let found =
-      false;
-
-
-    for(
-      const userDoc of snapshot.docs
-    ){
-
-      const user =
-        userDoc.data();
-
-
-      const username =
-        (
-          user.username ||
-          ""
-        ).toLowerCase();
-
-
-      if(
-        username.includes(
-          searchText
-        ) &&
-        userDoc.id !==
-        currentUser.uid
-      ){
-
-        found =
-          true;
-
-
-        const result =
-          document.createElement(
-            "div"
-          );
-
-
-        result.className =
-          "search-result";
-
-
-        const name =
-          user.username ||
-          "Member";
-
-
-        result.innerHTML = `
-
-          <div class="search-user">
-
-            <div class="search-avatar">
-
-              ${escapeHTML(
-                name
-                  .charAt(0)
-                  .toUpperCase()
-              )}
-
-            </div>
-
-            <div class="search-username">
-
-              ${escapeHTML(name)}
-
-            </div>
-
-          </div>
-
-
-          <button
-            class="follow-button"
-            type="button">
-
-            Follow
-
-          </button>
-
-        `;
-
-
-        const followButton =
-          result.querySelector(
-            ".follow-button"
-          );
-
-
-        const followId =
-          currentUser.uid +
-          "_" +
-          userDoc.id;
-
-
-        try{
-
-          const followSnap =
-            await getDoc(
-              doc(
-                db,
-                "follows",
-                followId
-              )
-            );
-
-
-          if(followSnap.exists()){
-
-            followButton.textContent =
-              "Following";
-
-            followButton.disabled =
-              true;
-
-          }
-
-        }catch(error){
-
-          console.error(
-            "Follow check:",
-            error
-          );
-
-        }
-
-
-        followButton.addEventListener(
-          "click",
-          async () => {
-
-            if(!currentUser){
-
-              return;
-
-            }
-
-
-            followButton.disabled =
-              true;
-
-
-            try{
-
-              await setDoc(
-                doc(
-                  db,
-                  "follows",
-                  followId
-                ),
-                {
-
-                  followerId:
-                    currentUser.uid,
-
-                  followingId:
-                    userDoc.id,
-
-                  createdAt:
-                    serverTimestamp()
-
-                }
-              );
-
-
-              followButton.textContent =
-                "Following";
-
-
-              /* FOLLOW NOTIFICATION */
-
-              await createNotification({
-
-                recipientId:
-                  userDoc.id,
-
-                senderId:
-                  currentUser.uid,
-
-                senderName:
-                  currentUsername,
-
-                type:
-                  "follow"
-
-              });
-
-
-            }catch(error){
-
-              console.error(
-                "Follow error:",
-                error
-              );
-
-              followButton.disabled =
-                false;
-
-              alert(
-                error.code +
-                ": " +
-                error.message
-              );
-
-            }
-
-          }
-        );
-
-
-        searchResults.appendChild(
-          result
-        );
-
-      }
-
-    }
-
-
-    if(!found){
-
-      searchResults.innerHTML = `
-
-        <p
-          style="
-            color:#777f89;
-            font-size:13px;
-            padding:5px;
-          ">
-
-          No members found.
-
-        </p>
-
-      `;
-
-    }
-
-
-  }catch(error){
-
-    console.error(
-      "Search error:",
-      error
-    );
-
-    alert(
-      error.code +
-      ": " +
-      error.message
+  for(
+    const user of matches
+  ){
+
+    await renderMemberSearchResult(
+      user
     );
 
   }
@@ -3858,9 +3648,220 @@ async function searchMembers(){
 }
 
 
-/* =====================================================
-   NOTIFICATIONS
-===================================================== */
+/* MEMBER RESULT */
+
+async function renderMemberSearchResult(
+  user
+){
+
+  const result =
+    document.createElement(
+      "div"
+    );
+
+
+  result.className =
+    "search-result";
+
+
+  const name =
+    user.username ||
+    user.displayName ||
+    "Member";
+
+
+  result.innerHTML = `
+
+    <div
+      class="search-user"
+      data-profile-id="${escapeAttribute(
+        user.id
+      )}">
+
+      <div class="search-avatar">
+
+        ${escapeHTML(
+          name
+            .charAt(0)
+            .toUpperCase()
+        )}
+
+      </div>
+
+      <div class="search-username">
+
+        ${escapeHTML(name)}
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="follow-button"
+      type="button">
+
+      Follow
+
+    </button>
+
+  `;
+
+
+  const profileElement =
+    result.querySelector(
+      ".search-user"
+    );
+
+
+  profileElement.addEventListener(
+    "click",
+    () => {
+
+      openProfile(
+        user.id
+      );
+
+    }
+  );
+
+
+  const followButton =
+    result.querySelector(
+      ".follow-button"
+    );
+
+
+  const followId =
+    currentUser.uid +
+    "_" +
+    user.id;
+
+
+  try{
+
+    const followSnap =
+      await getDoc(
+        doc(
+          db,
+          "follows",
+          followId
+        )
+      );
+
+
+    if(followSnap.exists()){
+
+      followButton.textContent =
+        "Following";
+
+      followButton.disabled =
+        true;
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Follow check:",
+      error
+    );
+
+  }
+
+
+  followButton.addEventListener(
+    "click",
+    async event => {
+
+      event.stopPropagation();
+
+
+      if(!currentUser){
+
+        return;
+
+      }
+
+
+      followButton.disabled =
+        true;
+
+
+      try{
+
+        await setDoc(
+          doc(
+            db,
+            "follows",
+            followId
+          ),
+          {
+
+            followerId:
+              currentUser.uid,
+
+            followingId:
+              user.id,
+
+            createdAt:
+              serverTimestamp()
+
+          }
+        );
+
+
+        followButton.textContent =
+          "Following";
+
+
+        await createNotification({
+
+          recipientId:
+            user.id,
+
+          senderId:
+            currentUser.uid,
+
+          senderName:
+            currentUsername,
+
+          type:
+            "follow"
+
+        });
+
+
+      }catch(error){
+
+        console.error(
+          "Follow error:",
+          error
+        );
+
+        followButton.disabled =
+          false;
+
+        alert(
+          error.code +
+          ": " +
+          error.message
+        );
+
+      }
+
+    }
+  );
+
+
+  searchResults.appendChild(
+    result
+  );
+
+}
+
+
+/* NOTIFICATIONS */
 
 async function createNotification(data){
 
@@ -3925,9 +3926,7 @@ async function createNotification(data){
 }
 
 
-/* =====================================================
-   LOAD NOTIFICATIONS
-===================================================== */
+/* LOAD NOTIFICATIONS */
 
 async function loadNotifications(){
 
@@ -3983,12 +3982,10 @@ async function loadNotifications(){
       (a,b) => {
 
         const aTime =
-          a.createdAt?.seconds ||
-          0;
+          a.createdAt?.seconds || 0;
 
         const bTime =
-          b.createdAt?.seconds ||
-          0;
+          b.createdAt?.seconds || 0;
 
         return bTime - aTime;
 
@@ -3997,8 +3994,7 @@ async function loadNotifications(){
 
 
     if(
-      notifications.length ===
-      0
+      notifications.length === 0
     ){
 
       alertList.innerHTML = `
@@ -4038,8 +4034,7 @@ async function loadNotifications(){
     }
 
 
-    alertList.innerHTML =
-      "";
+    alertList.innerHTML = "";
 
 
     notifications.forEach(
@@ -4055,12 +4050,8 @@ async function loadNotifications(){
           "notification";
 
 
-        let message =
-          "";
-
-
-        let icon =
-          "";
+        let message = "";
+        let icon = "";
 
 
         if(
@@ -4069,7 +4060,9 @@ async function loadNotifications(){
         ){
 
           message =
-            `<b>${escapeHTML(notification.senderName)}</b> liked your post.`;
+            `<b>${escapeHTML(
+              notification.senderName
+            )}</b> liked your post.`;
 
           icon = `
             <svg
@@ -4099,7 +4092,9 @@ async function loadNotifications(){
         ){
 
           message =
-            `<b>${escapeHTML(notification.senderName)}</b> commented on your post.`;
+            `<b>${escapeHTML(
+              notification.senderName
+            )}</b> commented on your post.`;
 
           icon = `
             <svg
@@ -4126,7 +4121,9 @@ async function loadNotifications(){
         ){
 
           message =
-            `<b>${escapeHTML(notification.senderName)}</b> started following you.`;
+            `<b>${escapeHTML(
+              notification.senderName
+            )}</b> started following you.`;
 
           icon = `
             <svg
@@ -4155,25 +4152,19 @@ async function loadNotifications(){
         element.innerHTML = `
 
           <div class="notification-icon">
-
             ${icon}
-
           </div>
 
           <div>
 
             <div class="notification-text">
-
               ${message}
-
             </div>
 
             <div class="notification-time">
-
               ${formatTime(
                 notification.createdAt
               )}
-
             </div>
 
           </div>
@@ -4218,9 +4209,7 @@ async function loadNotifications(){
 }
 
 
-/* =====================================================
-   HELPERS
-===================================================== */
+/* HELPERS */
 
 function escapeHTML(text){
 
