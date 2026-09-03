@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -15,126 +16,73 @@
   padding:0;
 }
 
-:root{
-  --bg:#0b0d12;
-  --card:#151820;
-  --card2:#1c2029;
-  --border:#282d37;
-  --text:#f5f5f7;
-  --muted:#9b9faa;
-  --brown:#4a392b;
-  --brown-light:#70553f;
-  --accent:#d7b47a;
-}
-
 body{
   font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  padding-bottom:78px;
+  background:#0b0d12;
+  color:#f5f5f7;
+  min-height:100vh;
+  padding-bottom:75px;
 }
 
-/* =================================
+/* ================================
    TOP BAR
-================================= */
+================================ */
 
 .topbar{
+  height:62px;
+  border-bottom:1px solid #282b33;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
   position:sticky;
   top:0;
   z-index:100;
-  height:62px;
-  background:rgba(11,13,18,.94);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);
+  background:rgba(11,13,18,.96);
+  backdrop-filter:blur(12px);
 }
 
-.topbar-inner{
-  max-width:720px;
-  height:100%;
-  margin:auto;
-  padding:0 17px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+.top-left,
+.top-right{
+  width:45px;
 }
 
-.back-button,
-.menu-button{
-  width:40px;
-  height:40px;
+.top-left button,
+.top-right button{
   border:0;
   background:none;
-  color:white;
+  color:#f5f5f7;
   cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
 }
 
-.back-button:hover,
-.menu-button:hover{
-  background:#1c2028;
+.top-left button{
+  font-size:34px;
+  line-height:1;
 }
 
-.profile-title{
-  font-size:18px;
+.top-right{
+  text-align:right;
+}
+
+.more-icon{
+  font-size:25px;
+  letter-spacing:3px;
+}
+
+.top-title{
+  font-size:19px;
   font-weight:800;
-  letter-spacing:.2px;
 }
 
-.top-actions{
-  display:flex;
-  gap:3px;
-}
+/* ================================
+   PROFILE
+================================ */
 
-/* =================================
-   MAIN
-================================= */
-
-.container{
-  max-width:720px;
+.profile{
+  max-width:700px;
   margin:auto;
+  padding:25px 20px 0;
 }
-
-/* =================================
-   PROFILE HEADER
-================================= */
-
-.profile-header{
-  padding:22px 17px 18px;
-}
-
-/* username */
-
-.username-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:22px;
-}
-
-.username{
-  font-size:21px;
-  font-weight:800;
-  letter-spacing:.2px;
-}
-
-.verified{
-  display:inline-flex;
-  width:17px;
-  height:17px;
-  margin-left:5px;
-  border-radius:50%;
-  background:#4d82ff;
-  align-items:center;
-  justify-content:center;
-  font-size:11px;
-}
-
-/* =================================
-   AVATAR + STATS
-================================= */
 
 .profile-main{
   display:flex;
@@ -142,569 +90,457 @@ body{
   gap:25px;
 }
 
-.profile-avatar{
-  width:88px;
-  height:88px;
-  min-width:88px;
+.profile-photo{
+  width:104px;
+  height:104px;
+  min-width:104px;
   border-radius:50%;
-  background:linear-gradient(
-    145deg,
-    #5c4635,
-    #34271e
-  );
-  border:3px solid #292e38;
+  overflow:hidden;
+  background:#075947;
+  border:4px solid #252934;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:34px;
-  font-weight:800;
-  color:#f0dfbd;
-  overflow:hidden;
+  color:white;
+  font-size:40px;
+  font-weight:500;
 }
 
-.profile-avatar img{
+.profile-photo img{
   width:100%;
   height:100%;
   object-fit:cover;
+  display:none;
 }
+
+.profile-photo img.loaded{
+  display:block;
+}
+
+.profile-photo span{
+  display:block;
+}
+
+.profile-photo img.loaded + span{
+  display:none;
+}
+
+/* STATS */
 
 .stats{
   flex:1;
   display:flex;
-  justify-content:space-around;
+  justify-content:space-between;
   text-align:center;
+  gap:10px;
 }
 
 .stat{
-  cursor:default;
+  min-width:65px;
 }
 
-.stat-number{
+.stat strong{
   display:block;
-  font-size:18px;
+  font-size:20px;
   font-weight:800;
-  margin-bottom:5px;
+  color:#f5f5f7;
 }
 
-.stat-label{
+.stat span{
   display:block;
-  color:var(--muted);
-  font-size:12px;
-}
-
-/* =================================
-   BIO
-================================= */
-
-.bio{
-  margin-top:18px;
-}
-
-.display-name{
-  font-size:15px;
-  font-weight:800;
-  margin-bottom:7px;
-}
-
-.bio-text{
-  color:#d5d6db;
-  font-size:14px;
-  line-height:1.5;
-  white-space:pre-wrap;
-}
-
-.community-label{
-  color:#a8abb4;
+  margin-top:7px;
+  color:#979aa5;
   font-size:13px;
+}
+
+/* PROFILE INFO */
+
+.profile-info{
+  margin-top:24px;
+}
+
+.profile-name{
+  font-size:22px;
+  font-weight:800;
+  margin-bottom:8px;
+}
+
+.profile-bio{
+  color:#d4d5da;
+  font-size:15px;
+  line-height:1.45;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
+
+.profile-subtitle{
+  color:#989ba5;
+  font-size:14px;
   margin-top:7px;
 }
 
-/* =================================
-   PROFILE BUTTONS
-================================= */
+/* BUTTONS */
 
 .profile-buttons{
   display:flex;
-  gap:8px;
-  margin-top:17px;
+  gap:10px;
+  margin-top:18px;
 }
 
-.profile-btn{
+.profile-button{
   flex:1;
-  border:1px solid var(--border);
-  background:var(--card2);
-  color:white;
-  height:38px;
-  border-radius:9px;
-  font-size:13px;
+  height:43px;
+  border:1px solid #30343e;
+  border-radius:12px;
+  background:#1b1e26;
+  color:#f5f5f7;
+  font-size:14px;
   font-weight:800;
   cursor:pointer;
-  transition:.2s;
 }
 
-.profile-btn:hover{
-  background:#252a34;
+.profile-button:hover{
+  background:#242832;
 }
 
-.profile-btn.primary{
-  background:#f0f0f2;
-  color:#111319;
-  border-color:#f0f0f2;
+.profile-button.primary{
+  background:#f5f5f7;
+  color:#111318;
+  border-color:#f5f5f7;
 }
 
-.profile-btn.primary:hover{
-  background:#dcdde1;
+/* ================================
+   POSTS HEADER
+================================ */
+
+.posts-section{
+  margin-top:28px;
+  border-top:1px solid #282b33;
 }
 
-/* =================================
-   HIGHLIGHTS
-================================= */
-
-.highlights{
-  display:flex;
-  gap:18px;
-  overflow-x:auto;
-  padding:4px 17px 19px;
-  scrollbar-width:none;
-}
-
-.highlights::-webkit-scrollbar{
-  display:none;
-}
-
-.highlight{
-  min-width:65px;
-  text-align:center;
-  cursor:pointer;
-}
-
-.highlight-circle{
-  width:62px;
-  height:62px;
-  border-radius:50%;
-  border:2px solid #303540;
+.posts-heading{
+  height:55px;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:#171a21;
-  margin:auto auto 7px;
-  font-size:22px;
-}
-
-.highlight-circle.add{
-  border:1px solid #555b67;
-  font-size:29px;
-  color:#d8dae0;
-}
-
-.highlight span{
-  font-size:10px;
-  color:#c5c7ce;
-  white-space:nowrap;
-}
-
-/* =================================
-   TABS
-================================= */
-
-.tabs{
-  height:51px;
-  display:flex;
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-}
-
-.tab{
-  flex:1;
-  border:0;
-  background:none;
-  color:#777d89;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  border-bottom:1px solid #282b33;
   position:relative;
 }
 
-.tab.active{
-  color:white;
-}
-
-.tab.active::after{
+.posts-heading::after{
   content:"";
   position:absolute;
   bottom:-1px;
-  left:20%;
-  right:20%;
+  left:0;
+  width:100%;
   height:2px;
-  background:white;
+  background:#f5f5f7;
 }
 
-/* =================================
-   POST GRID
-================================= */
-
-.posts-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:2px;
+.posts-heading svg{
+  width:23px;
+  height:23px;
+  stroke:#f5f5f7;
+  fill:none;
+  stroke-width:2;
 }
 
-.grid-post{
-  position:relative;
-  aspect-ratio:1/1;
-  background:#171a20;
+/* ================================
+   POSTS
+================================ */
+
+#posts{
+  min-height:250px;
+}
+
+.post{
+  padding:15px 18px;
+  border-bottom:1px solid #20232a;
+  transition:.18s;
+}
+
+.post:hover{
+  background:#101218;
+}
+
+.post-top{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.post-avatar{
+  width:38px;
+  height:38px;
+  min-width:38px;
+  border-radius:50%;
   overflow:hidden;
-  cursor:pointer;
+  background:#075947;
+  border:2px solid #282c35;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-weight:800;
+  font-size:16px;
 }
 
-.grid-post img,
-.grid-post video{
+.post-avatar img{
   width:100%;
   height:100%;
   object-fit:cover;
+  display:none;
 }
 
-.grid-text{
-  width:100%;
-  height:100%;
-  padding:15px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  background:#171a20;
-  color:#eeeeef;
-  font-size:12px;
-  line-height:1.4;
+.post-avatar img.loaded{
+  display:block;
+}
+
+.post-avatar img.loaded + span{
+  display:none;
+}
+
+.post-user-info{
+  min-width:0;
+  flex:1;
+}
+
+.post-author{
+  font-size:14px;
+  font-weight:800;
+  color:#f5f5f7;
+  white-space:nowrap;
   overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-.grid-post:hover .post-overlay{
-  opacity:1;
+.post-time{
+  color:#858995;
+  font-size:11px;
+  margin-top:3px;
 }
 
-.post-overlay{
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,.56);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  transition:.2s;
+.post-menu{
+  border:0;
+  background:none;
+  color:#858995;
+  font-size:20px;
+  cursor:pointer;
+  padding:5px;
 }
 
-.overlay-info{
-  display:flex;
-  gap:14px;
+/* THE IMPORTANT PART:
+   ONE LINE ONLY */
+
+.post-text{
+  margin:9px 0 0 48px;
+  font-size:14px;
+  color:#e5e5e8;
+  line-height:1.4;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+
+  max-width:calc(100% - 48px);
+}
+
+/* DELETE */
+
+.delete-button{
+  border:0;
+  background:none;
+  color:#ff6674;
   font-size:12px;
-  font-weight:bold;
+  cursor:pointer;
+  padding:5px 0;
+  margin-left:48px;
+  margin-top:4px;
+  display:none;
 }
 
-/* =================================
-   EMPTY
-================================= */
+.post.show-delete .delete-button{
+  display:block;
+}
 
-.empty-profile{
+/* EMPTY */
+
+.empty{
   text-align:center;
   padding:70px 20px;
-  color:var(--muted);
+  color:#858995;
 }
 
 .empty-icon{
-  width:65px;
-  height:65px;
-  border:2px solid #515763;
-  border-radius:50%;
-  margin:0 auto 16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  margin-bottom:14px;
 }
 
-.empty-profile h3{
-  color:#f1f1f3;
-  font-size:18px;
-  margin-bottom:7px;
+.empty-icon svg{
+  width:38px;
+  height:38px;
+  stroke:#656a76;
+  fill:none;
+  stroke-width:1.8;
 }
 
-.empty-profile p{
+.empty h3{
+  color:#d9dbe0;
+  font-size:16px;
+  margin-bottom:6px;
+}
+
+.empty p{
   font-size:13px;
 }
 
-/* =================================
-   LOADING
-================================= */
-
-.loading{
-  padding:70px 20px;
-  text-align:center;
-  color:var(--muted);
-}
-
-/* =================================
-   DELETE MODAL
-================================= */
-
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.72);
-  z-index:500;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-
-.modal.show{
-  display:flex;
-}
-
-.modal-box{
-  width:100%;
-  max-width:350px;
-  background:#1a1d24;
-  border:1px solid #30343e;
-  border-radius:17px;
-  padding:21px;
-  text-align:center;
-}
-
-.modal-box h3{
-  margin-bottom:8px;
-  font-size:18px;
-}
-
-.modal-box p{
-  color:#a4a8b1;
-  font-size:13px;
-  line-height:1.5;
-  margin-bottom:18px;
-}
-
-.modal-buttons{
-  display:flex;
-  gap:8px;
-}
-
-.modal-btn{
-  flex:1;
-  height:40px;
-  border-radius:9px;
-  border:1px solid #333843;
-  background:#242831;
-  color:white;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.modal-btn.delete{
-  background:#8d3e3e;
-  border-color:#8d3e3e;
-}
-
-.modal-btn.delete:hover{
-  background:#a54848;
-}
-
-/* =================================
-   POST VIEW
-================================= */
-
-.post-view{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.88);
-  z-index:400;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-}
-
-.post-view.show{
-  display:flex;
-}
-
-.post-view-box{
-  width:100%;
-  max-width:600px;
-  max-height:90vh;
-  overflow:auto;
-  background:#151820;
-  border:1px solid #30343e;
-  border-radius:17px;
-  padding:18px;
-}
-
-.close-view{
-  float:right;
-  border:0;
-  background:none;
-  color:white;
-  font-size:25px;
-  cursor:pointer;
-}
-
-.view-author{
-  font-size:15px;
-  font-weight:800;
-  margin-bottom:17px;
-}
-
-.view-text{
-  font-size:17px;
-  line-height:1.6;
-  white-space:pre-wrap;
-  margin-bottom:20px;
-}
-
-.view-media{
-  width:100%;
-  max-height:500px;
-  object-fit:contain;
-  border-radius:10px;
-  background:#090a0e;
-}
-
-/* =================================
+/* ================================
    BOTTOM NAV
-================================= */
+================================ */
 
 .bottom-nav{
   position:fixed;
   left:0;
   right:0;
   bottom:0;
-  height:68px;
-  z-index:200;
-
-  background:rgba(11,13,18,.96);
-  backdrop-filter:blur(15px);
-
-  border-top:1px solid var(--border);
-
+  height:70px;
+  background:rgba(11,13,18,.97);
+  backdrop-filter:blur(14px);
+  border-top:1px solid #282b33;
   display:flex;
-  justify-content:center;
-  padding:7px 8px;
+  justify-content:space-around;
+  align-items:center;
+  z-index:200;
 }
 
 .nav-item{
   flex:1;
-  max-width:120px;
+  height:100%;
   border:0;
   background:none;
-  color:#777d88;
+  color:#858995;
   cursor:pointer;
-  border-radius:12px;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:4px;
+  gap:5px;
 }
 
 .nav-item svg{
-  width:23px;
-  height:23px;
+  width:24px;
+  height:24px;
   stroke:currentColor;
+  fill:none;
+  stroke-width:2;
 }
 
 .nav-item span{
   font-size:10px;
 }
 
-.nav-item:hover{
-  background:#171a21;
-  color:#dddfe4;
-}
-
 .nav-item.active{
-  color:white;
+  color:#f5f5f7;
 }
 
-/* =================================
+.nav-item.create svg{
+  width:27px;
+  height:27px;
+}
+
+/* ================================
+   LOADING
+================================ */
+
+.loading{
+  text-align:center;
+  padding:65px 20px;
+  color:#858995;
+  font-size:13px;
+}
+
+/* ================================
    MOBILE
-================================= */
+================================ */
 
 @media(max-width:500px){
 
-  .profile-header{
-    padding:19px 14px 16px;
-  }
-
-  .username{
-    font-size:19px;
+  .profile{
+    padding:23px 15px 0;
   }
 
   .profile-main{
     gap:17px;
   }
 
-  .profile-avatar{
-    width:82px;
-    height:82px;
-    min-width:82px;
+  .profile-photo{
+    width:94px;
+    height:94px;
+    min-width:94px;
   }
 
-  .stat-number{
-    font-size:16px;
+  .stats{
+    gap:5px;
   }
 
-  .stat-label{
-    font-size:11px;
+  .stat strong{
+    font-size:19px;
   }
 
-  .bio-text{
-    font-size:13px;
+  .stat span{
+    font-size:12px;
   }
 
-  .highlights{
-    padding-left:14px;
-    padding-right:14px;
+  .profile-name{
+    font-size:21px;
   }
 
-  .grid-text{
-    font-size:11px;
-    padding:9px;
+  .profile-bio{
+    font-size:14px;
+  }
+
+  .post{
+    padding:14px 15px;
+  }
+
+  .post-text{
+    margin-left:48px;
+  }
+
+  .topbar{
+    padding:0 14px;
   }
 
 }
 
 </style>
 
-<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-<script>
-eruda.init();
-</script>
-
 </head>
+
 
 <body>
 
 
-<!-- =================================
+<!-- ================================
      TOP BAR
-================================= -->
+================================ -->
 
 <header class="topbar">
 
-  <div class="topbar-inner">
+  <div class="top-left">
 
     <button
-      class="back-button"
       id="backButton"
       aria-label="Back">
 
       <svg
-        width="23"
-        height="23"
+        width="27"
+        height="27"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        stroke-width="2">
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round">
 
         <path d="M19 12H5"/>
         <path d="M12 19l-7-7 7-7"/>
@@ -713,94 +549,65 @@ eruda.init();
 
     </button>
 
-
-    <div
-      class="profile-title"
-      id="topUsername">
-
-      Profile
-
-    </div>
+  </div>
 
 
-    <div class="top-actions">
+  <div class="top-title">
+    Profile
+  </div>
 
-      <button
-        class="menu-button"
-        id="menuButton"
-        aria-label="Menu">
 
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2">
+  <div class="top-right">
 
-          <circle cx="5" cy="12" r="1"/>
-          <circle cx="12" cy="12" r="1"/>
-          <circle cx="19" cy="12" r="1"/>
+    <button
+      id="moreButton"
+      class="more-icon">
 
-        </svg>
+      ···
 
-      </button>
-
-    </div>
+    </button>
 
   </div>
 
 </header>
 
 
-<main class="container">
+<!-- ================================
+     PROFILE
+================================ -->
+
+<main class="profile">
 
 
-<!-- =================================
-     PROFILE HEADER
-================================= -->
-
-<section class="profile-header">
+  <section class="profile-main">
 
 
-  <div class="username-row">
+    <!-- PROFILE PHOTO -->
 
-    <div
-      class="username"
-      id="username">
+    <div class="profile-photo">
 
-      Loading...
+      <img
+        id="profileImage"
+        alt="Profile">
 
-    </div>
-
-  </div>
-
-
-  <div class="profile-main">
-
-
-    <div
-      class="profile-avatar"
-      id="profileAvatar">
-
-      M
+      <span id="profileInitial">
+        M
+      </span>
 
     </div>
 
+
+    <!-- STATS -->
 
     <div class="stats">
 
       <div class="stat">
 
-        <span
-          class="stat-number"
-          id="postCount">
-
+        <strong id="postCount">
           0
+        </strong>
 
-        </span>
-
-        <span class="stat-label">
+        <span>
           posts
         </span>
 
@@ -809,15 +616,11 @@ eruda.init();
 
       <div class="stat">
 
-        <span
-          class="stat-number"
-          id="followerCount">
-
+        <strong id="followersCount">
           0
+        </strong>
 
-        </span>
-
-        <span class="stat-label">
+        <span>
           followers
         </span>
 
@@ -826,15 +629,11 @@ eruda.init();
 
       <div class="stat">
 
-        <span
-          class="stat-number"
-          id="followingCount">
-
+        <strong id="followingCount">
           0
+        </strong>
 
-        </span>
-
-        <span class="stat-label">
+        <span>
           following
         </span>
 
@@ -842,16 +641,16 @@ eruda.init();
 
     </div>
 
-  </div>
+  </section>
 
 
-  <!-- BIO -->
+  <!-- PROFILE INFO -->
 
-  <div class="bio">
+  <section class="profile-info">
 
     <div
-      class="display-name"
-      id="displayName">
+      class="profile-name"
+      id="profileName">
 
       Member
 
@@ -859,297 +658,87 @@ eruda.init();
 
 
     <div
-      class="bio-text"
-      id="bioText">
+      class="profile-bio"
+      id="profileBio">
 
       Building and preserving our heritage.
 
     </div>
 
 
-    <div class="community-label">
+    <div class="profile-subtitle">
 
       JSP TAYSU • Tai Ahom Youth & Students Union
 
     </div>
 
-  </div>
+
+    <!-- BUTTONS -->
+
+    <div class="profile-buttons">
+
+      <button
+        class="profile-button primary"
+        id="editProfileButton">
+
+        Edit profile
+
+      </button>
 
 
-  <!-- BUTTONS -->
+      <button
+        class="profile-button"
+        id="shareProfileButton">
 
-  <div class="profile-buttons">
+        Share profile
 
-    <button
-      class="profile-btn primary"
-      id="editProfileButton">
+      </button>
 
-      Edit profile
-
-    </button>
-
-
-    <button
-      class="profile-btn"
-      id="shareProfileButton">
-
-      Share profile
-
-    </button>
-
-  </div>
-
-
-</section>
-
-
-<!-- =================================
-     HIGHLIGHTS
-================================= -->
-
-<section class="highlights">
-
-  <div class="highlight">
-
-    <div class="highlight-circle add">
-      +
     </div>
 
-    <span>
-      New
-    </span>
-
-  </div>
+  </section>
 
 
-  <div class="highlight">
+  <!-- ================================
+       POSTS
+  ================================= -->
 
-    <div class="highlight-circle">
-      🐉
+  <section class="posts-section">
+
+
+    <div class="posts-heading">
+
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true">
+
+        <rect x="3" y="3" width="7" height="7"/>
+        <rect x="14" y="3" width="7" height="7"/>
+        <rect x="3" y="14" width="7" height="7"/>
+        <rect x="14" y="14" width="7" height="7"/>
+
+      </svg>
+
     </div>
 
-    <span>
-      Heritage
-    </span>
 
-  </div>
+    <div id="posts">
 
+      <div class="loading">
+        Loading posts...
+      </div>
 
-  <div class="highlight">
-
-    <div class="highlight-circle">
-      ✦
     </div>
 
-    <span>
-      Culture
-    </span>
-
-  </div>
-
-
-  <div class="highlight">
-
-    <div class="highlight-circle">
-      T
-    </div>
-
-    <span>
-      Community
-    </span>
-
-  </div>
-
-</section>
-
-
-<!-- =================================
-     TABS
-================================= -->
-
-<div class="tabs">
-
-  <button
-    class="tab active"
-    id="postsTab">
-
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2">
-
-      <rect x="3" y="3" width="7" height="7"/>
-      <rect x="14" y="3" width="7" height="7"/>
-      <rect x="3" y="14" width="7" height="7"/>
-      <rect x="14" y="14" width="7" height="7"/>
-
-    </svg>
-
-  </button>
-
-
-  <button class="tab">
-
-    <svg
-      width="23"
-      height="23"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2">
-
-      <rect
-        x="3"
-        y="4"
-        width="18"
-        height="16"
-        rx="2"/>
-
-      <circle
-        cx="8.5"
-        cy="9"
-        r="1.5"/>
-
-      <path d="M21 15l-5-5L5 20"/>
-
-    </svg>
-
-  </button>
-
-
-  <button class="tab">
-
-    <svg
-      width="23"
-      height="23"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2">
-
-      <path d="M20 7h-7"/>
-      <path d="M20 12h-9"/>
-      <path d="M20 17h-7"/>
-
-      <path d="M4 5v14"/>
-      <path d="M1 8l3-3 3 3"/>
-
-    </svg>
-
-  </button>
-
-</div>
-
-
-<!-- =================================
-     POSTS
-================================= -->
-
-<section id="postsGrid">
-
-  <div class="loading">
-    Loading posts...
-  </div>
-
-</section>
+  </section>
 
 
 </main>
 
 
-<!-- =================================
-     DELETE MODAL
-================================= -->
-
-<div
-  class="modal"
-  id="deleteModal">
-
-  <div class="modal-box">
-
-    <h3>
-      Delete post?
-    </h3>
-
-    <p>
-      This post will be permanently removed
-      from the community.
-    </p>
-
-    <div class="modal-buttons">
-
-      <button
-        class="modal-btn"
-        id="cancelDelete">
-
-        Cancel
-
-      </button>
-
-
-      <button
-        class="modal-btn delete"
-        id="confirmDelete">
-
-        Delete
-
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- =================================
-     POST VIEW
-================================= -->
-
-<div
-  class="post-view"
-  id="postView">
-
-  <div class="post-view-box">
-
-    <button
-      class="close-view"
-      id="closePostView">
-
-      ×
-
-    </button>
-
-
-    <div
-      class="view-author"
-      id="viewAuthor">
-
-      Member
-
-    </div>
-
-
-    <div
-      class="view-text"
-      id="viewText">
-
-    </div>
-
-
-    <div id="viewMedia"></div>
-
-  </div>
-
-</div>
-
-
-<!-- =================================
+<!-- ================================
      BOTTOM NAV
-================================= -->
+================================ -->
 
 <nav class="bottom-nav">
 
@@ -1160,11 +749,7 @@ eruda.init();
     class="nav-item"
     id="homeNav">
 
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2">
+    <svg viewBox="0 0 24 24">
 
       <path d="M3 10.5L12 3l9 7.5"/>
       <path d="M5 9.5V21h14V9.5"/>
@@ -1185,18 +770,10 @@ eruda.init();
     class="nav-item"
     id="exploreNav">
 
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2">
+    <svg viewBox="0 0 24 24">
 
-      <circle
-        cx="11"
-        cy="11"
-        r="7"/>
-
-      <path d="M20 20l-4-4"/>
+      <circle cx="11" cy="11" r="7"/>
+      <path d="M16.5 16.5L21 21"/>
 
     </svg>
 
@@ -1210,14 +787,10 @@ eruda.init();
   <!-- CREATE -->
 
   <button
-    class="nav-item"
+    class="nav-item create"
     id="createNav">
 
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2">
+    <svg viewBox="0 0 24 24">
 
       <path d="M12 5v14"/>
       <path d="M5 12h14"/>
@@ -1237,13 +810,9 @@ eruda.init();
     class="nav-item"
     id="alertsNav">
 
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2">
+    <svg viewBox="0 0 24 24">
 
-      <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+      <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
       <path d="M10 21h4"/>
 
     </svg>
@@ -1261,17 +830,9 @@ eruda.init();
     class="nav-item active"
     id="profileNav">
 
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2">
+    <svg viewBox="0 0 24 24">
 
-      <circle
-        cx="12"
-        cy="8"
-        r="4"/>
-
+      <circle cx="12" cy="8" r="4"/>
       <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/>
 
     </svg>
@@ -1282,44 +843,51 @@ eruda.init();
 
   </button>
 
+
 </nav>
 
 
-<!-- =================================
+<!-- ================================
      FIREBASE
-================================= -->
+================================ -->
 
 <script type="module">
 
-import {
-  initializeApp
-}
+
+import { initializeApp }
+
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 
 import {
+
   getAuth,
-  onAuthStateChanged
+  onAuthStateChanged,
+  setPersistence,
+  browserLocalPersistence
+
 }
+
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
 import {
+
   getFirestore,
-  collection,
-  getDocs,
-  query,
-  where,
   doc,
   getDoc,
+  collection,
+  getDocs,
   deleteDoc
+
 }
+
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-/* =================================
+/* ================================
    FIREBASE CONFIG
-================================= */
+================================ */
 
 const firebaseConfig = {
 
@@ -1358,40 +926,49 @@ const db =
 
 let currentUser = null;
 
-let currentPosts = [];
 
-let deletePostId = null;
-
-
-/* =================================
+/* ================================
    ELEMENTS
-================================= */
+================================ */
 
-const usernameElement =
-  document.getElementById("username");
+const profileName =
+  document.getElementById("profileName");
 
-const topUsername =
-  document.getElementById("topUsername");
+const profileBio =
+  document.getElementById("profileBio");
 
-const displayName =
-  document.getElementById("displayName");
+const profileImage =
+  document.getElementById("profileImage");
 
-const profileAvatar =
-  document.getElementById("profileAvatar");
-
-const bioText =
-  document.getElementById("bioText");
+const profileInitial =
+  document.getElementById("profileInitial");
 
 const postCount =
   document.getElementById("postCount");
 
-const postsGrid =
-  document.getElementById("postsGrid");
+const followersCount =
+  document.getElementById("followersCount");
+
+const followingCount =
+  document.getElementById("followingCount");
+
+const postsContainer =
+  document.getElementById("posts");
 
 
-/* =================================
-   AUTH
-================================= */
+/* ================================
+   LOGIN PERSISTENCE
+================================ */
+
+await setPersistence(
+  auth,
+  browserLocalPersistence
+);
+
+
+/* ================================
+   AUTH STATE
+================================ */
 
 onAuthStateChanged(
   auth,
@@ -1407,19 +984,23 @@ onAuthStateChanged(
     }
 
 
-    currentUser = user;
+    currentUser =
+      user;
+
 
     await loadProfile();
 
-    await loadUserPosts();
+    await loadPosts();
+
+    await loadFollowStats();
 
   }
 );
 
 
-/* =================================
+/* ================================
    LOAD PROFILE
-================================= */
+================================ */
 
 async function loadProfile(){
 
@@ -1432,8 +1013,18 @@ async function loadProfile(){
     "Building and preserving our heritage.";
 
 
-  let photo =
-    currentUser.photoURL || "";
+  /* GOOGLE PHOTO */
+
+  if(currentUser.photoURL){
+
+    profileImage.src =
+      currentUser.photoURL;
+
+    profileImage.classList.add(
+      "loaded"
+    );
+
+  }
 
 
   try{
@@ -1447,7 +1038,9 @@ async function loadProfile(){
 
 
     const profileSnap =
-      await getDoc(profileRef);
+      await getDoc(
+        profileRef
+      );
 
 
     if(profileSnap.exists()){
@@ -1464,7 +1057,10 @@ async function loadProfile(){
       }
 
 
-      if(data.bio){
+      if(
+        data.bio !== undefined &&
+        data.bio !== null
+      ){
 
         bio =
           data.bio;
@@ -1474,8 +1070,12 @@ async function loadProfile(){
 
       if(data.photoURL){
 
-        photo =
+        profileImage.src =
           data.photoURL;
+
+        profileImage.classList.add(
+          "loaded"
+        );
 
       }
 
@@ -1491,117 +1091,160 @@ async function loadProfile(){
   }
 
 
-  usernameElement.textContent =
+  profileName.textContent =
     username;
 
 
-  topUsername.textContent =
-    username;
-
-
-  displayName.textContent =
-    username;
-
-
-  bioText.textContent =
+  profileBio.textContent =
     bio;
 
 
-  if(photo){
-
-    profileAvatar.innerHTML = `
-
-      <img
-        src="${escapeAttribute(photo)}"
-        alt="Profile">
-
-    `;
-
-  }else{
-
-    profileAvatar.textContent =
-      username
-        .charAt(0)
-        .toUpperCase();
-
-  }
+  profileInitial.textContent =
+    username
+      .charAt(0)
+      .toUpperCase();
 
 }
 
 
-/* =================================
+/* ================================
    LOAD POSTS
-================================= */
+================================ */
 
-async function loadUserPosts(){
+async function loadPosts(){
 
-  postsGrid.innerHTML = `
-
-    <div class="loading">
-      Loading your posts...
-    </div>
-
-  `;
+  postsContainer.innerHTML =
+    `
+      <div class="loading">
+        Loading posts...
+      </div>
+    `;
 
 
   try{
 
-    const postsQuery =
-      query(
-        collection(db,"posts"),
-        where(
-          "authorId",
-          "==",
-          currentUser.uid
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "posts"
         )
       );
 
 
-    const snapshot =
-      await getDocs(postsQuery);
-
-
-    currentPosts = [];
+    const posts = [];
 
 
     snapshot.forEach(
-      (postDoc) => {
+      postDoc => {
 
-        currentPosts.push({
+        const data =
+          postDoc.data();
 
-          id:
-            postDoc.id,
 
-          ...postDoc.data()
+        /*
+          ONLY SHOW CURRENT
+          USER'S POSTS
+        */
 
-        });
+        if(
+          data.authorId ===
+          currentUser.uid
+        ){
+
+          posts.push({
+
+            id:
+              postDoc.id,
+
+            ...data
+
+          });
+
+        }
 
       }
     );
 
 
-    /* newest first */
+    /* NEWEST FIRST */
 
-    currentPosts.sort(
+    posts.sort(
       (a,b) => {
 
-        const aTime =
+        const timeA =
           a.createdAt?.seconds || 0;
 
-        const bTime =
+        const timeB =
           b.createdAt?.seconds || 0;
 
-        return bTime - aTime;
+        return timeB - timeA;
 
       }
     );
 
 
     postCount.textContent =
-      currentPosts.length;
+      posts.length;
 
 
-    renderPosts();
+    if(posts.length === 0){
+
+      postsContainer.innerHTML =
+        `
+
+        <div class="empty">
+
+          <div class="empty-icon">
+
+            <svg viewBox="0 0 24 24">
+
+              <rect
+                x="3"
+                y="3"
+                width="18"
+                height="18"
+                rx="3"/>
+
+              <path d="M8 12h8"/>
+              <path d="M12 8v8"/>
+
+            </svg>
+
+          </div>
+
+
+          <h3>
+            No posts yet
+          </h3>
+
+
+          <p>
+            Your posts will appear here.
+          </p>
+
+        </div>
+
+        `;
+
+      return;
+
+    }
+
+
+    postsContainer.innerHTML =
+      "";
+
+
+    posts.forEach(
+      post => {
+
+        createPostElement(
+          post
+        );
+
+      }
+    );
 
 
   }catch(error){
@@ -1612,30 +1255,10 @@ async function loadUserPosts(){
     );
 
 
-    postsGrid.innerHTML = `
+    postsContainer.innerHTML =
+      `
 
-      <div class="empty-profile">
-
-        <div class="empty-icon">
-
-          <svg
-            width="30"
-            height="30"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2">
-
-            <path d="M12 9v4"/>
-            <path d="M12 17h.01"/>
-            <circle
-              cx="12"
-              cy="12"
-              r="9"/>
-
-          </svg>
-
-        </div>
+      <div class="empty">
 
         <h3>
           Couldn't load posts
@@ -1647,477 +1270,454 @@ async function loadUserPosts(){
 
       </div>
 
-    `;
+      `;
 
   }
 
 }
 
 
-/* =================================
-   RENDER POSTS
-================================= */
+/* ================================
+   CREATE POST ELEMENT
+================================ */
 
-function renderPosts(){
+function createPostElement(post){
 
-  postsGrid.innerHTML = "";
+  const article =
+    document.createElement(
+      "article"
+    );
 
 
-  if(currentPosts.length === 0){
+  article.className =
+    "post";
 
-    postsGrid.innerHTML = `
 
-      <div class="empty-profile">
+  const username =
+    post.authorName ||
+    "Member";
 
-        <div class="empty-icon">
 
-          <svg
-            width="30"
-            height="30"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2">
+  const initial =
+    username
+      .charAt(0)
+      .toUpperCase();
 
-            <rect
-              x="3"
-              y="3"
-              width="18"
-              height="18"
-              rx="3"/>
 
-            <path d="M12 8v8"/>
-            <path d="M8 12h8"/>
+  const time =
+    formatTime(
+      post.createdAt
+    );
 
-          </svg>
+
+  article.innerHTML =
+    `
+
+      <div class="post-top">
+
+
+        <div class="post-avatar">
+
+          <img
+            class="post-author-image"
+            alt="">
+
+          <span>
+            ${escapeHTML(initial)}
+          </span>
 
         </div>
 
-        <h3>
-          No posts yet
-        </h3>
 
-        <p>
-          Share your first post with the community.
-        </p>
+        <div class="post-user-info">
+
+          <div class="post-author">
+
+            ${escapeHTML(username)}
+
+          </div>
+
+
+          <div class="post-time">
+
+            ${time}
+
+          </div>
+
+        </div>
+
+
+        <button
+          class="post-menu"
+          type="button"
+          aria-label="Post options">
+
+          ···
+
+        </button>
 
       </div>
 
+
+      <div
+        class="post-text"
+        title="${escapeHTML(post.text || "")}">
+
+        ${escapeHTML(post.text || "")}
+
+      </div>
+
+
+      <button
+        class="delete-button"
+        type="button">
+
+        Delete post
+
+      </button>
+
     `;
 
-    return;
+
+  postsContainer.appendChild(
+    article
+  );
+
+
+  /* ================================
+     PROFILE PHOTO ON POST
+  ================================= */
+
+  const postImage =
+    article.querySelector(
+      ".post-author-image"
+    );
+
+
+  if(currentUser.photoURL){
+
+    postImage.src =
+      currentUser.photoURL;
+
+    postImage.classList.add(
+      "loaded"
+    );
 
   }
 
 
-  currentPosts.forEach(
-    (post) => {
+  /* ================================
+     OPTIONS
+  ================================= */
 
-      const item =
-        document.createElement("div");
-
-
-      item.className =
-        "grid-post";
-
-
-      /* PHOTO */
-
-      if(post.mediaType === "image" && post.mediaUrl){
-
-        item.innerHTML = `
-
-          <img
-            src="${escapeAttribute(post.mediaUrl)}"
-            alt="Post">
-
-          <div class="post-overlay">
-
-            <div class="overlay-info">
-              View post
-            </div>
-
-          </div>
-
-        `;
-
-      }
-
-      /* VIDEO */
-
-      else if(
-        post.mediaType === "video" &&
-        post.mediaUrl
-      ){
-
-        item.innerHTML = `
-
-          <video
-            src="${escapeAttribute(post.mediaUrl)}"
-            muted
-            preload="metadata">
-          </video>
-
-          <div class="post-overlay">
-
-            <div class="overlay-info">
-              View video
-            </div>
-
-          </div>
-
-        `;
-
-      }
-
-      /* TEXT POST */
-
-      else{
-
-        const text =
-          post.text || "";
+  const menu =
+    article.querySelector(
+      ".post-menu"
+    );
 
 
-        item.innerHTML = `
+  menu.addEventListener(
+    "click",
+    () => {
 
-          <div class="grid-text">
-
-            ${escapeHTML(text)}
-
-          </div>
-
-
-          <div class="post-overlay">
-
-            <div class="overlay-info">
-
-              <span>
-                View
-              </span>
-
-              <span>
-                Delete
-              </span>
-
-            </div>
-
-          </div>
-
-        `;
-
-      }
-
-
-      /* CLICK */
-
-      item.addEventListener(
-        "click",
-        () => {
-
-          openPost(post);
-
-        }
+      article.classList.toggle(
+        "show-delete"
       );
-
-
-      postsGrid.appendChild(item);
 
     }
   );
 
-}
 
-
-/* =================================
-   OPEN POST
-================================= */
-
-function openPost(post){
-
-  document.getElementById(
-    "viewAuthor"
-  ).textContent =
-    post.authorName ||
-    currentUser.displayName ||
-    "Member";
-
-
-  document.getElementById(
-    "viewText"
-  ).textContent =
-    post.text || "";
-
-
-  const media =
-    document.getElementById(
-      "viewMedia"
-    );
-
-
-  media.innerHTML = "";
-
-
-  if(
-    post.mediaType === "image" &&
-    post.mediaUrl
-  ){
-
-    const img =
-      document.createElement("img");
-
-
-    img.className =
-      "view-media";
-
-
-    img.src =
-      post.mediaUrl;
-
-
-    media.appendChild(img);
-
-  }
-
-
-  if(
-    post.mediaType === "video" &&
-    post.mediaUrl
-  ){
-
-    const video =
-      document.createElement("video");
-
-
-    video.className =
-      "view-media";
-
-
-    video.controls =
-      true;
-
-
-    video.src =
-      post.mediaUrl;
-
-
-    media.appendChild(video);
-
-  }
-
-
-  document.getElementById(
-    "postView"
-  ).classList.add("show");
-
-
-  /* add delete button */
-
-  const existing =
-    document.getElementById(
-      "viewDeleteButton"
-    );
-
-
-  if(existing){
-
-    existing.remove();
-
-  }
-
+  /* ================================
+     DELETE
+  ================================= */
 
   const deleteButton =
-    document.createElement("button");
-
-
-  deleteButton.id =
-    "viewDeleteButton";
-
-
-  deleteButton.textContent =
-    "Delete post";
-
-
-  deleteButton.style.cssText = `
-
-    width:100%;
-    height:42px;
-    margin-top:18px;
-    border:0;
-    border-radius:10px;
-    background:#8d3e3e;
-    color:white;
-    font-weight:800;
-    cursor:pointer;
-
-  `;
+    article.querySelector(
+      ".delete-button"
+    );
 
 
   deleteButton.addEventListener(
     "click",
-    () => {
+    async () => {
 
-      closePostView();
+      const confirmDelete =
+        confirm(
+          "Delete this post?"
+        );
 
-      showDeleteModal(
-        post.id
-      );
+
+      if(!confirmDelete){
+
+        return;
+
+      }
+
+
+      try{
+
+        deleteButton.textContent =
+          "Deleting...";
+
+
+        deleteButton.disabled =
+          true;
+
+
+        await deleteDoc(
+          doc(
+            db,
+            "posts",
+            post.id
+          )
+        );
+
+
+        await loadPosts();
+
+
+      }catch(error){
+
+        console.error(
+          "Delete post error:",
+          error
+        );
+
+
+        alert(
+          error.code +
+          ": " +
+          error.message
+        );
+
+
+        deleteButton.textContent =
+          "Delete post";
+
+
+        deleteButton.disabled =
+          false;
+
+      }
 
     }
   );
 
-
-  document
-    .querySelector(".post-view-box")
-    .appendChild(deleteButton);
-
 }
 
 
-/* =================================
-   DELETE
-================================= */
+/* ================================
+   FOLLOW STATS
+================================ */
 
-function showDeleteModal(postId){
+async function loadFollowStats(){
 
-  deletePostId =
-    postId;
+  try{
 
-
-  document.getElementById(
-    "deleteModal"
-  ).classList.add("show");
-
-}
-
-
-function closeDeleteModal(){
-
-  deletePostId =
-    null;
-
-
-  document.getElementById(
-    "deleteModal"
-  ).classList.remove("show");
-
-}
-
-
-document.getElementById(
-  "cancelDelete"
-).addEventListener(
-  "click",
-  closeDeleteModal
-);
-
-
-document.getElementById(
-  "confirmDelete"
-).addEventListener(
-  "click",
-  async () => {
-
-    if(!deletePostId){
-
-      return;
-
-    }
-
-
-    const id =
-      deletePostId;
-
-
-    const button =
-      document.getElementById(
-        "confirmDelete"
-      );
-
-
-    button.textContent =
-      "Deleting...";
-
-
-    try{
-
-      await deleteDoc(
-        doc(
+    const snapshot =
+      await getDocs(
+        collection(
           db,
-          "posts",
-          id
+          "follows"
         )
       );
 
 
-      currentPosts =
-        currentPosts.filter(
-          post =>
-            post.id !== id
-        );
+    let followers =
+      0;
+
+    let following =
+      0;
 
 
-      postCount.textContent =
-        currentPosts.length;
+    snapshot.forEach(
+      followDoc => {
+
+        const data =
+          followDoc.data();
 
 
-      renderPosts();
+        if(
+          data.followingId ===
+          currentUser.uid
+        ){
 
-      closeDeleteModal();
+          followers++;
+
+        }
 
 
-      alert(
-        "Post deleted."
+        if(
+          data.followerId ===
+          currentUser.uid
+        ){
+
+          following++;
+
+        }
+
+      }
+    );
+
+
+    followersCount.textContent =
+      followers;
+
+
+    followingCount.textContent =
+      following;
+
+
+  }catch(error){
+
+    console.error(
+      "Follow stats error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* ================================
+   FORMAT TIME
+================================ */
+
+function formatTime(timestamp){
+
+  if(!timestamp){
+
+    return "now";
+
+  }
+
+
+  try{
+
+    const date =
+      timestamp.toDate
+        ? timestamp.toDate()
+        : new Date(
+            timestamp.seconds * 1000
+          );
+
+
+    const now =
+      new Date();
+
+
+    const seconds =
+      Math.floor(
+        (now - date) / 1000
       );
 
 
-    }catch(error){
+    if(seconds < 60){
 
-      console.error(
-        "Delete post error:",
-        error
-      );
-
-
-      alert(
-        error.code +
-        ": " +
-        error.message
-      );
+      return "now";
 
     }
 
 
-    button.textContent =
-      "Delete";
+    const minutes =
+      Math.floor(
+        seconds / 60
+      );
+
+
+    if(minutes < 60){
+
+      return minutes + "m ago";
+
+    }
+
+
+    const hours =
+      Math.floor(
+        minutes / 60
+      );
+
+
+    if(hours < 24){
+
+      return hours + "h ago";
+
+    }
+
+
+    const days =
+      Math.floor(
+        hours / 24
+      );
+
+
+    if(days < 7){
+
+      return days + "d ago";
+
+    }
+
+
+    return date.toLocaleDateString(
+      undefined,
+      {
+        day:"numeric",
+        month:"short"
+      }
+    );
+
+  }catch(error){
+
+    return "now";
+
+  }
+
+}
+
+
+/* ================================
+   SAFE HTML
+================================ */
+
+function escapeHTML(text){
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+
+  div.textContent =
+    String(text);
+
+
+  return div.innerHTML;
+
+}
+
+
+/* ================================
+   EDIT PROFILE
+================================ */
+
+document.getElementById(
+  "editProfileButton"
+).addEventListener(
+  "click",
+  () => {
+
+    window.location.href =
+      "edit-profile.html";
 
   }
 );
 
 
-/* =================================
-   CLOSE POST VIEW
-================================= */
-
-function closePostView(){
-
-  document.getElementById(
-    "postView"
-  ).classList.remove("show");
-
-}
-
-
-document.getElementById(
-  "closePostView"
-).addEventListener(
-  "click",
-  closePostView
-);
-
-
-/* =================================
+/* ================================
    SHARE PROFILE
-================================= */
+================================ */
 
 document.getElementById(
   "shareProfileButton"
@@ -2126,7 +1726,7 @@ document.getElementById(
   async () => {
 
     const username =
-      usernameElement.textContent;
+      profileName.textContent;
 
 
     const shareData = {
@@ -2159,6 +1759,7 @@ document.getElementById(
           window.location.href
         );
 
+
         alert(
           "Profile link copied! 🔗"
         );
@@ -2177,44 +1778,9 @@ document.getElementById(
 );
 
 
-/* =================================
-   EDIT PROFILE
-================================= */
-
-document.getElementById(
-  "editProfileButton"
-).addEventListener(
-  "click",
-  () => {
-
-    window.location.href =
-      "edit-profile.html";
-
-  }
-);
-
-
-/* =================================
-   MENU
-================================= */
-
-document.getElementById(
-  "menuButton"
-).addEventListener(
-  "click",
-  () => {
-
-    alert(
-      "Profile settings coming soon."
-    );
-
-  }
-);
-
-
-/* =================================
+/* ================================
    BACK
-================================= */
+================================ */
 
 document.getElementById(
   "backButton"
@@ -2229,9 +1795,27 @@ document.getElementById(
 );
 
 
-/* =================================
-   NAVIGATION
-================================= */
+/* ================================
+   MORE
+================================ */
+
+document.getElementById(
+  "moreButton"
+).addEventListener(
+  "click",
+  () => {
+
+    alert(
+      "JSP TAYSU Profile"
+    );
+
+  }
+);
+
+
+/* ================================
+   BOTTOM NAV
+================================ */
 
 document.getElementById(
   "homeNav"
@@ -2253,7 +1837,7 @@ document.getElementById(
   () => {
 
     window.location.href =
-      "community.html";
+      "explore.html";
 
   }
 );
@@ -2266,7 +1850,7 @@ document.getElementById(
   () => {
 
     window.location.href =
-      "community.html#create";
+      "community.html#creator";
 
   }
 );
@@ -2278,43 +1862,27 @@ document.getElementById(
   "click",
   () => {
 
-    alert(
-      "Alerts coming soon."
-    );
+    window.location.href =
+      "alerts.html";
 
   }
 );
 
 
-/* profile already active */
+document.getElementById(
+  "profileNav"
+).addEventListener(
+  "click",
+  () => {
 
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
 
-/* =================================
-   ESCAPE HTML
-================================= */
+  }
+);
 
-function escapeHTML(text){
-
-  const div =
-    document.createElement("div");
-
-  div.textContent =
-    text || "";
-
-  return div.innerHTML;
-
-}
-
-
-function escapeAttribute(text){
-
-  return String(text || "")
-    .replace(/&/g,"&amp;")
-    .replace(/"/g,"&quot;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;");
-
-}
 
 </script>
 
