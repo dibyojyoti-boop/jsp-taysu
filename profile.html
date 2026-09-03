@@ -20,8 +20,6 @@ body{
   padding-bottom:75px;
 }
 
-/* TOP BAR */
-
 .topbar{
   height:64px;
   display:flex;
@@ -35,47 +33,54 @@ body{
   z-index:20;
 }
 
-.back{
-  font-size:31px;
+.back,
+.more{
   cursor:pointer;
+  user-select:none;
 }
 
-.username-title{
-  font-size:21px;
-  font-weight:700;
+.back{
+  font-size:31px;
 }
 
 .more{
-  font-size:27px;
+  font-size:23px;
   letter-spacing:3px;
-  cursor:pointer;
+}
+
+.username-title{
+  font-size:20px;
+  font-weight:700;
+  max-width:220px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
 /* PROFILE */
 
 .profile{
-  padding:18px 20px 0;
+  padding:20px;
 }
 
 .profile-top{
   display:flex;
   align-items:center;
-  gap:25px;
+  gap:24px;
 }
 
 .avatar{
-  width:110px;
-  height:110px;
+  width:105px;
+  height:105px;
   border-radius:50%;
   background:#006b57;
   border:4px solid #20242e;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:52px;
-  font-weight:400;
-  overflow:hidden;
+  font-size:48px;
   flex-shrink:0;
+  overflow:hidden;
 }
 
 .avatar img{
@@ -87,61 +92,56 @@ body{
 .stats{
   flex:1;
   display:flex;
-  justify-content:space-between;
+  justify-content:space-around;
   text-align:center;
 }
 
 .stat strong{
   display:block;
-  font-size:22px;
-  font-weight:700;
+  font-size:20px;
 }
 
 .stat span{
-  color:#9da1ac;
-  font-size:15px;
-  margin-top:5px;
   display:block;
+  color:#9da1ac;
+  font-size:13px;
+  margin-top:5px;
 }
 
-/* INFO */
-
 .info{
-  margin-top:28px;
+  margin-top:23px;
 }
 
 .name{
-  font-size:25px;
+  font-size:22px;
   font-weight:750;
 }
 
 .bio{
-  margin-top:8px;
+  margin-top:7px;
   color:#d5d6da;
-  font-size:18px;
-  line-height:1.4;
+  font-size:15px;
+  line-height:1.45;
 }
 
 .org{
-  margin-top:8px;
+  margin-top:7px;
   color:#9699a4;
-  font-size:16px;
+  font-size:13px;
 }
-
-/* BUTTONS */
 
 .buttons{
   display:flex;
-  gap:12px;
-  margin-top:20px;
+  gap:10px;
+  margin-top:18px;
 }
 
 .btn{
   flex:1;
-  height:50px;
-  border:none;
-  border-radius:13px;
-  font-size:16px;
+  height:45px;
+  border:0;
+  border-radius:11px;
+  font-size:14px;
   font-weight:700;
   cursor:pointer;
 }
@@ -153,111 +153,94 @@ body{
 
 .share{
   background:#1d212a;
-  color:white;
+  color:#fff;
   border:1px solid #2b303b;
-}
-
-/* HIGHLIGHTS */
-
-.highlights{
-  display:flex;
-  gap:22px;
-  margin-top:27px;
-  overflow-x:auto;
-  padding-bottom:23px;
-}
-
-.highlight{
-  min-width:72px;
-  text-align:center;
-  color:#b7b9c1;
-  font-size:14px;
-}
-
-.highlight-circle{
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  border:3px solid #292e39;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin:auto;
-  font-size:29px;
-  background:#151820;
-}
-
-.highlight-name{
-  margin-top:8px;
-}
-
-/* POST HEADER */
-
-.post-header{
-  height:58px;
-  border-top:1px solid #272b34;
-  border-bottom:1px solid #272b34;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.post-icon{
-  font-size:25px;
-  color:white;
 }
 
 /* POSTS */
 
+.post-header{
+  height:55px;
+  border-top:1px solid #272b34;
+  border-bottom:1px solid #272b34;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.post-icon{
+  font-size:24px;
+}
+
 .posts{
-  min-height:430px;
-  padding-bottom:20px;
+  padding:0 0 20px;
 }
 
 .empty{
-  height:390px;
+  min-height:250px;
   display:flex;
   align-items:center;
   justify-content:center;
-  color:#d5d6dc;
-  font-size:17px;
-}
-
-/* BOTTOM NAV */
-
-.bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  height:72px;
-  background:#0b0d12;
-  border-top:1px solid #252832;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  z-index:30;
-}
-
-.nav-item{
-  color:#858995;
+  color:#9699a4;
+  font-size:14px;
   text-align:center;
-  font-size:13px;
+  padding:30px;
+}
+
+/* POST CARD */
+
+.user-post{
+  border-bottom:1px solid #252832;
+  padding:15px 17px;
+}
+
+.user-post-header{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:8px;
+}
+
+.mini-avatar{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  background:#006b57;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  flex-shrink:0;
+}
+
+.post-user{
+  font-size:14px;
+  font-weight:700;
+}
+
+.post-date{
+  color:#858995;
+  font-size:11px;
+  margin-top:2px;
+}
+
+.user-post-text{
+  font-size:15px;
+  line-height:1.45;
+  color:#e5e5e8;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  margin-left:44px;
+}
+
+.post-delete{
+  margin-left:44px;
+  margin-top:8px;
+  border:0;
+  background:none;
+  color:#ff5d6c;
+  font-size:12px;
   cursor:pointer;
-}
-
-.nav-item .icon{
-  font-size:27px;
-  display:block;
-  margin-bottom:3px;
-}
-
-.nav-item.active{
-  color:white;
-}
-
-.create-icon{
-  font-size:34px !important;
 }
 
 /* MENU */
@@ -267,7 +250,7 @@ body{
   position:fixed;
   top:68px;
   right:14px;
-  width:150px;
+  width:145px;
   background:#1b1e26;
   border:1px solid #303541;
   border-radius:13px;
@@ -278,12 +261,12 @@ body{
 
 .menu button{
   width:100%;
-  padding:15px;
+  padding:14px;
   border:0;
   background:none;
   color:#fff;
   text-align:left;
-  font-size:15px;
+  font-size:14px;
   cursor:pointer;
 }
 
@@ -318,11 +301,11 @@ body{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:22px;
+  margin-bottom:20px;
 }
 
 .modal-title h2{
-  font-size:22px;
+  font-size:21px;
 }
 
 .close{
@@ -332,13 +315,13 @@ body{
 }
 
 .field{
-  margin-bottom:17px;
+  margin-bottom:16px;
 }
 
 .field label{
   display:block;
   color:#999da8;
-  font-size:14px;
+  font-size:13px;
   margin-bottom:7px;
 }
 
@@ -349,37 +332,32 @@ body{
   border:1px solid #30343e;
   color:white;
   border-radius:12px;
-  padding:14px;
-  font-size:16px;
+  padding:13px;
+  font-size:15px;
   outline:none;
 }
 
 .field textarea{
-  min-height:100px;
+  min-height:90px;
   resize:none;
-}
-
-.field input:focus,
-.field textarea:focus{
-  border-color:#777d8b;
 }
 
 .save{
   width:100%;
-  height:50px;
+  height:48px;
   border:0;
-  border-radius:13px;
+  border-radius:12px;
   background:#f2f2f4;
   color:#111;
-  font-size:16px;
+  font-size:15px;
   font-weight:700;
   cursor:pointer;
 }
 
 .status{
   text-align:center;
-  margin-top:10px;
-  font-size:14px;
+  margin-top:9px;
+  font-size:13px;
   color:#aaa;
 }
 
@@ -405,10 +383,48 @@ body{
 }
 
 @keyframes spin{
-  to{transform:rotate(360deg);}
+  to{transform:rotate(360deg)}
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:70px;
+  background:#0b0d12;
+  border-top:1px solid #252832;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:30;
+}
+
+.nav-item{
+  color:#858995;
+  text-align:center;
+  font-size:11px;
+  cursor:pointer;
+}
+
+.nav-item .icon{
+  font-size:25px;
+  display:block;
+  margin-bottom:3px;
+}
+
+.nav-item.active{
+  color:white;
+}
+
+.create-icon{
+  font-size:32px !important;
 }
 
 @media(min-width:700px){
+
   body{
     max-width:650px;
     margin:auto;
@@ -424,13 +440,9 @@ body{
 
 <body>
 
-<!-- LOADING -->
-
 <div class="loading" id="loading">
   <div class="loader"></div>
 </div>
-
-<!-- TOP BAR -->
 
 <header class="topbar">
 
@@ -446,8 +458,6 @@ body{
 
 </header>
 
-<!-- MENU -->
-
 <div class="menu" id="menu">
 
   <button class="signout" onclick="signOut()">
@@ -456,14 +466,12 @@ body{
 
 </div>
 
-<!-- PROFILE -->
-
 <main class="profile">
 
   <section class="profile-top">
 
     <div class="avatar" id="avatar">
-      D
+      M
     </div>
 
     <div class="stats">
@@ -474,12 +482,12 @@ body{
       </div>
 
       <div class="stat">
-        <strong>0</strong>
+        <strong id="followersCount">0</strong>
         <span>followers</span>
       </div>
 
       <div class="stat">
-        <strong>0</strong>
+        <strong id="followingCount">0</strong>
         <span>following</span>
       </div>
 
@@ -490,7 +498,7 @@ body{
   <section class="info">
 
     <div class="name" id="profileName">
-      Tsao khun Tonmoy
+      Member
     </div>
 
     <div class="bio" id="profileBio">
@@ -502,8 +510,6 @@ body{
     </div>
 
   </section>
-
-  <!-- BUTTONS -->
 
   <div class="buttons">
 
@@ -517,35 +523,7 @@ body{
 
   </div>
 
-  <!-- HIGHLIGHTS -->
-
-  <div class="highlights">
-
-    <div class="highlight">
-      <div class="highlight-circle">+</div>
-      <div class="highlight-name">New</div>
-    </div>
-
-    <div class="highlight">
-      <div class="highlight-circle">🐉</div>
-      <div class="highlight-name">Heritage</div>
-    </div>
-
-    <div class="highlight">
-      <div class="highlight-circle">✦</div>
-      <div class="highlight-name">Culture</div>
-    </div>
-
-    <div class="highlight">
-      <div class="highlight-circle">T</div>
-      <div class="highlight-name">Community</div>
-    </div>
-
-  </div>
-
 </main>
-
-<!-- POSTS -->
 
 <section class="post-header">
 
@@ -555,15 +533,13 @@ body{
 
 </section>
 
-<section class="posts">
+<section class="posts" id="posts">
 
-  <div class="empty" id="emptyPosts">
-    No posts yet 🌙
+  <div class="empty">
+    Loading posts...
   </div>
 
 </section>
-
-<!-- BOTTOM NAV -->
 
 <nav class="bottom-nav">
 
@@ -594,7 +570,7 @@ body{
 
 </nav>
 
-<!-- EDIT PROFILE MODAL -->
+<!-- EDIT PROFILE -->
 
 <div class="overlay" id="editOverlay">
 
@@ -654,28 +630,30 @@ body{
 
 /* =====================================================
    FIREBASE CONFIG
-   ===================================================== */
+   SAME PROJECT AS COMMUNITY.HTML
+===================================================== */
 
 const firebaseConfig = {
 
-  apiKey: "YOUR_API_KEY",
+  apiKey:
+    "AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
 
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  authDomain:
+    "jsp-taysu.firebaseapp.com",
 
-  projectId: "YOUR_PROJECT_ID",
+  projectId:
+    "jsp-taysu",
 
-  storageBucket: "YOUR_PROJECT.appspot.com",
+  storageBucket:
+    "jsp-taysu.firebasestorage.app",
 
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  messagingSenderId:
+    "280992025632",
 
-  appId: "YOUR_APP_ID"
+  appId:
+    "1:280992025632:web:48efa21208a78be9a78045"
 
 };
-
-
-/* =====================================================
-   FIREBASE INIT
-   ===================================================== */
 
 firebase.initializeApp(firebaseConfig);
 
@@ -685,39 +663,86 @@ const db = firebase.firestore();
 
 /* =====================================================
    ELEMENTS
-   ===================================================== */
+===================================================== */
 
-const loading = document.getElementById("loading");
+const loading =
+  document.getElementById("loading");
 
-const profileName = document.getElementById("profileName");
-const profileBio = document.getElementById("profileBio");
-const topUsername = document.getElementById("topUsername");
-const avatar = document.getElementById("avatar");
+const profileName =
+  document.getElementById("profileName");
 
-const editOverlay = document.getElementById("editOverlay");
+const profileBio =
+  document.getElementById("profileBio");
 
-const editUsername = document.getElementById("editUsername");
-const editBio = document.getElementById("editBio");
+const topUsername =
+  document.getElementById("topUsername");
 
-const saveStatus = document.getElementById("saveStatus");
+const avatar =
+  document.getElementById("avatar");
 
-const menu = document.getElementById("menu");
+const postCount =
+  document.getElementById("postCount");
+
+const followersCount =
+  document.getElementById("followersCount");
+
+const followingCount =
+  document.getElementById("followingCount");
+
+const postsContainer =
+  document.getElementById("posts");
+
+const editOverlay =
+  document.getElementById("editOverlay");
+
+const editUsername =
+  document.getElementById("editUsername");
+
+const editBio =
+  document.getElementById("editBio");
+
+const saveStatus =
+  document.getElementById("saveStatus");
+
+const menu =
+  document.getElementById("menu");
 
 
 /* =====================================================
-   AUTH STATE
-   ===================================================== */
+   AUTH
+===================================================== */
 
 auth.onAuthStateChanged(async user => {
 
   if(!user){
+
+    /*
+      IMPORTANT:
+      Do NOT redirect to username/address setup page.
+      Only go to main login page if completely logged out.
+    */
 
     window.location.href = "index.html";
 
     return;
   }
 
-  await loadProfile(user);
+  try{
+
+    await loadProfile(user);
+
+    await loadMyPosts(user);
+
+    await loadFollowCounts(user);
+
+  }catch(error){
+
+    console.error(
+      "Profile loading error:",
+      error
+    );
+
+  }
 
   loading.style.display = "none";
 
@@ -726,59 +751,377 @@ auth.onAuthStateChanged(async user => {
 
 /* =====================================================
    LOAD PROFILE
-   ===================================================== */
+===================================================== */
 
 async function loadProfile(user){
 
+  let username =
+    user.displayName ||
+    user.email?.split("@")[0] ||
+    "Member";
+
+  let bio =
+    "Building and preserving our heritage.";
+
   try{
 
-    const ref = db.collection("users").doc(user.uid);
+    const ref =
+      db.collection("users").doc(user.uid);
 
-    const snap = await ref.get();
-
-    let username =
-      user.displayName ||
-      user.email?.split("@")[0] ||
-      "Member";
-
-    let bio =
-      "Building and preserving our heritage.";
+    const snap =
+      await ref.get();
 
     if(snap.exists){
 
-      const data = snap.data();
+      const data =
+        snap.data();
+
+      /*
+        Use existing username saved by
+        your username/address page.
+      */
 
       if(data.username){
-        username = data.username;
+
+        username =
+          data.username;
+
       }
 
       if(data.bio){
-        bio = data.bio;
+
+        bio =
+          data.bio;
+
       }
 
     }else{
 
+      /*
+        If document doesn't exist,
+        create a basic profile.
+
+        This does NOT redirect anywhere.
+      */
+
       await ref.set({
 
-        username: username,
-        bio: bio,
-        email: user.email || "",
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        username:
+          username,
 
-      }, {merge:true});
+        bio:
+          bio,
+
+        email:
+          user.email || "",
+
+        createdAt:
+          firebase.firestore.FieldValue.serverTimestamp()
+
+      },{merge:true});
 
     }
 
-    displayProfile(username,bio);
+  }catch(error){
+
+    console.error(
+      "Profile Firestore error:",
+      error
+    );
+
+  }
+
+  displayProfile(
+    username,
+    bio
+  );
+
+}
+
+
+/* =====================================================
+   DISPLAY PROFILE
+===================================================== */
+
+function displayProfile(
+  username,
+  bio
+){
+
+  profileName.textContent =
+    username;
+
+  topUsername.textContent =
+    username;
+
+  profileBio.textContent =
+    bio;
+
+  const firstLetter =
+    username
+      .trim()
+      .charAt(0)
+      .toUpperCase() || "M";
+
+  avatar.textContent =
+    firstLetter;
+
+}
+
+
+/* =====================================================
+   LOAD MY POSTS
+===================================================== */
+
+async function loadMyPosts(user){
+
+  postsContainer.innerHTML =
+    "";
+
+  try{
+
+    const snapshot =
+      await db
+        .collection("posts")
+        .where(
+          "authorId",
+          "==",
+          user.uid
+        )
+        .get();
+
+    const posts = [];
+
+    snapshot.forEach(doc => {
+
+      posts.push({
+
+        id:
+          doc.id,
+
+        ...doc.data()
+
+      });
+
+    });
+
+    posts.sort((a,b) => {
+
+      const aTime =
+        a.createdAt?.seconds || 0;
+
+      const bTime =
+        b.createdAt?.seconds || 0;
+
+      return bTime - aTime;
+
+    });
+
+    postCount.textContent =
+      posts.length;
+
+    if(posts.length === 0){
+
+      postsContainer.innerHTML = `
+
+        <div class="empty">
+          No posts yet 🌙
+        </div>
+
+      `;
+
+      return;
+    }
+
+    posts.forEach(post => {
+
+      const username =
+        post.authorName ||
+        profileName.textContent ||
+        "Member";
+
+      const article =
+        document.createElement("article");
+
+      article.className =
+        "user-post";
+
+      let dateText =
+        "Just now";
+
+      if(post.createdAt){
+
+        try{
+
+          const date =
+            new Date(
+              post.createdAt.seconds * 1000
+            );
+
+          dateText =
+            date.toLocaleDateString(
+              "en-IN",
+              {
+                day:"numeric",
+                month:"short",
+                year:"numeric"
+              }
+            );
+
+        }catch(error){}
+
+      }
+
+      article.innerHTML = `
+
+        <div class="user-post-header">
+
+          <div class="mini-avatar">
+            ${escapeHTML(
+              username
+                .charAt(0)
+                .toUpperCase()
+            )}
+          </div>
+
+          <div>
+
+            <div class="post-user">
+              ${escapeHTML(username)}
+            </div>
+
+            <div class="post-date">
+              ${dateText}
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="user-post-text">
+          ${escapeHTML(post.text || "")}
+        </div>
+
+        <button
+          class="post-delete"
+          type="button">
+
+          Delete post
+
+        </button>
+
+      `;
+
+      postsContainer.appendChild(
+        article
+      );
+
+      const deleteButton =
+        article.querySelector(
+          ".post-delete"
+        );
+
+      deleteButton.addEventListener(
+        "click",
+        async () => {
+
+          const confirmDelete =
+            confirm(
+              "Delete this post?"
+            );
+
+          if(!confirmDelete){
+
+            return;
+
+          }
+
+          try{
+
+            deleteButton.disabled =
+              true;
+
+            deleteButton.textContent =
+              "Deleting...";
+
+            await db
+              .collection("posts")
+              .doc(post.id)
+              .delete();
+
+            article.remove();
+
+            const current =
+              Number(
+                postCount.textContent
+              ) || 0;
+
+            postCount.textContent =
+              Math.max(
+                0,
+                current - 1
+              );
+
+            if(
+              postsContainer
+                .querySelectorAll(
+                  ".user-post"
+                ).length === 0
+            ){
+
+              postsContainer.innerHTML = `
+
+                <div class="empty">
+                  No posts yet 🌙
+                </div>
+
+              `;
+
+            }
+
+          }catch(error){
+
+            console.error(
+              "Delete post error:",
+              error
+            );
+
+            alert(
+              "Could not delete post."
+            );
+
+            deleteButton.disabled =
+              false;
+
+            deleteButton.textContent =
+              "Delete post";
+
+          }
+
+        }
+      );
+
+    });
 
   }catch(error){
 
-    console.error(error);
-
-    displayProfile(
-      user.displayName || "Member",
-      "Building and preserving our heritage."
+    console.error(
+      "Posts loading error:",
+      error
     );
+
+    /*
+      If Firestore rules don't allow the query,
+      show a clean message instead of redirecting.
+    */
+
+    postsContainer.innerHTML = `
+
+      <div class="empty">
+        Couldn't load posts.
+      </div>
+
+    `;
 
   }
 
@@ -786,28 +1129,60 @@ async function loadProfile(user){
 
 
 /* =====================================================
-   DISPLAY PROFILE
-   ===================================================== */
+   FOLLOW COUNTS
+===================================================== */
 
-function displayProfile(username,bio){
+async function loadFollowCounts(user){
 
-  profileName.textContent = username;
+  try{
 
-  topUsername.textContent = username;
+    const followingSnap =
+      await db
+        .collection("follows")
+        .where(
+          "followerId",
+          "==",
+          user.uid
+        )
+        .get();
 
-  profileBio.textContent = bio;
+    const followersSnap =
+      await db
+        .collection("follows")
+        .where(
+          "followingId",
+          "==",
+          user.uid
+        )
+        .get();
 
-  const firstLetter =
-    username.trim().charAt(0).toUpperCase() || "D";
+    followingCount.textContent =
+      followingSnap.size;
 
-  avatar.innerHTML = firstLetter;
+    followersCount.textContent =
+      followersSnap.size;
+
+  }catch(error){
+
+    console.error(
+      "Follow count error:",
+      error
+    );
+
+    followersCount.textContent =
+      "0";
+
+    followingCount.textContent =
+      "0";
+
+  }
 
 }
 
 
 /* =====================================================
    EDIT PROFILE
-   ===================================================== */
+===================================================== */
 
 function openEdit(){
 
@@ -817,27 +1192,31 @@ function openEdit(){
   editBio.value =
     profileBio.textContent;
 
-  saveStatus.textContent = "";
+  saveStatus.textContent =
+    "";
 
-  editOverlay.style.display = "flex";
+  editOverlay.style.display =
+    "flex";
 
 }
 
 
 function closeEdit(){
 
-  editOverlay.style.display = "none";
+  editOverlay.style.display =
+    "none";
 
 }
 
 
 /* =====================================================
    SAVE PROFILE
-   ===================================================== */
+===================================================== */
 
 async function saveProfile(){
 
-  const user = auth.currentUser;
+  const user =
+    auth.currentUser;
 
   if(!user){
 
@@ -868,33 +1247,40 @@ async function saveProfile(){
 
   try{
 
-    await db.collection("users")
+    await db
+      .collection("users")
       .doc(user.uid)
       .set({
 
-        username: username,
+        username:
+          username,
 
-        bio: bio,
+        bio:
+          bio,
 
         updatedAt:
           firebase.firestore.FieldValue.serverTimestamp()
 
-      }, {merge:true});
+      },{merge:true});
 
-
-    /* Update Firebase Auth display name */
 
     await user.updateProfile({
 
-      displayName: username
+      displayName:
+        username
 
     });
 
 
-    displayProfile(username,bio);
+    displayProfile(
+      username,
+      bio
+    );
+
 
     saveStatus.textContent =
       "Saved ✓";
+
 
     setTimeout(() => {
 
@@ -905,10 +1291,13 @@ async function saveProfile(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Save profile error:",
+      error
+    );
 
     saveStatus.textContent =
-      "Could not save. Check Firestore rules.";
+      "Could not save profile.";
 
   }
 
@@ -916,43 +1305,47 @@ async function saveProfile(){
 
 
 /* =====================================================
-   THREE DOT MENU
-   ===================================================== */
+   MENU
+===================================================== */
 
 function toggleMenu(){
 
   if(menu.style.display === "block"){
 
-    menu.style.display = "none";
+    menu.style.display =
+      "none";
 
   }else{
 
-    menu.style.display = "block";
+    menu.style.display =
+      "block";
 
   }
 
 }
 
 
-/* CLOSE MENU WHEN CLICKING OUTSIDE */
+document.addEventListener(
+  "click",
+  event => {
 
-document.addEventListener("click",function(event){
+    if(
+      !event.target.closest(".more") &&
+      !event.target.closest(".menu")
+    ){
 
-  if(
-    !event.target.closest(".more") &&
-    !event.target.closest(".menu")
-  ){
+      menu.style.display =
+        "none";
 
-    menu.style.display = "none";
+    }
 
   }
-
-});
+);
 
 
 /* =====================================================
    SIGN OUT
-   ===================================================== */
+===================================================== */
 
 async function signOut(){
 
@@ -960,13 +1353,16 @@ async function signOut(){
 
     await auth.signOut();
 
-    window.location.href = "index.html";
+    window.location.href =
+      "index.html";
 
   }catch(error){
 
     console.error(error);
 
-    alert("Sign out failed. Please try again.");
+    alert(
+      "Sign out failed. Please try again."
+    );
 
   }
 
@@ -975,16 +1371,22 @@ async function signOut(){
 
 /* =====================================================
    SHARE PROFILE
-   ===================================================== */
+===================================================== */
 
 async function shareProfile(){
 
+  const username =
+    profileName.textContent;
+
   const shareData = {
 
-    title: "JSP TAYSU",
+    title:
+      username + " • JSP TAYSU",
 
     text:
-      "Check out this profile on JSP TAYSU.",
+      "Check out " +
+      username +
+      "'s profile on JSP TAYSU.",
 
     url:
       window.location.href
@@ -995,7 +1397,9 @@ async function shareProfile(){
 
     if(navigator.share){
 
-      await navigator.share(shareData);
+      await navigator.share(
+        shareData
+      );
 
     }else{
 
@@ -1003,13 +1407,17 @@ async function shareProfile(){
         window.location.href
       );
 
-      alert("Profile link copied!");
+      alert(
+        "Profile link copied! 🔗"
+      );
 
     }
 
   }catch(error){
 
-    console.log(error);
+    console.log(
+      "Share cancelled."
+    );
 
   }
 
@@ -1018,46 +1426,72 @@ async function shareProfile(){
 
 /* =====================================================
    NAVIGATION
-   ===================================================== */
+===================================================== */
 
 function goHome(){
 
-  window.location.href = "community.html";
+  window.location.href =
+    "community.html";
 
 }
 
 function goExplore(){
 
-  window.location.href = "explore.html";
+  window.location.href =
+    "explore.html";
 
 }
 
 function goCreate(){
 
-  window.location.href = "create.html";
+  window.location.href =
+    "create.html";
 
 }
 
 function goAlerts(){
 
-  window.location.href = "alerts.html";
+  window.location.href =
+    "alerts.html";
 
 }
 
 
 /* =====================================================
-   CLOSE MODAL WHEN CLICKING BACKDROP
-   ===================================================== */
+   ESCAPE HTML
+===================================================== */
 
-editOverlay.addEventListener("click",function(event){
+function escapeHTML(text){
 
-  if(event.target === editOverlay){
+  const div =
+    document.createElement("div");
 
-    closeEdit();
+  div.textContent =
+    text;
+
+  return div.innerHTML;
+
+}
+
+
+/* =====================================================
+   CLOSE EDIT MODAL
+===================================================== */
+
+editOverlay.addEventListener(
+  "click",
+  event => {
+
+    if(
+      event.target === editOverlay
+    ){
+
+      closeEdit();
+
+    }
 
   }
-
-});
+);
 
 </script>
 
