@@ -881,25 +881,21 @@ onAuthStateChanged(
     const profileRef =
       doc(db, "users", user.uid);
 
-    const profileSnap =
-      await getDoc(profileRef);
+    let username = user.displayName || "Member";
 
+try {
+  const profileRef = doc(db, "users", user.uid);
+  const profileSnap = await getDoc(profileRef);
 
-    if(
-      profileSnap.exists() &&
-      profileSnap.data().username
-    ){
-
-      username =
-        profileSnap.data().username;
-
-    }else if(user.displayName){
-
-      username =
-        user.displayName;
-
-    }
-
+  if (
+    profileSnap.exists() &&
+    profileSnap.data().username
+  ) {
+    username = profileSnap.data().username;
+  }
+} catch (error) {
+  console.error("Profile read error:", error);
+}
 
     document.getElementById("profileName").textContent =
       username;
