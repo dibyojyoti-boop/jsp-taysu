@@ -1,437 +1,496 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>JSP TAYSU Community</title>
 
 <style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
-  font-family:Arial,sans-serif;
-  background:#f7f4ed;
-  color:#211c17;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  background:#0b0d10;
+  color:#f5f5f5;
+
   padding-bottom:78px;
 }
 
-button,input,textarea{
-  font-family:inherit;
-}
-
-button{
-  -webkit-tap-highlight-color:transparent;
-}
-
-/* TOP BAR */
+/* =====================================================
+   TOP BAR
+===================================================== */
 
 .topbar{
   position:sticky;
   top:0;
   z-index:100;
-  background:#4a392b;
-  color:#fffdf9;
-  padding:13px 15px;
-  box-shadow:0 3px 15px rgba(64,48,32,.16);
+
+  background:rgba(11,13,16,.92);
+  backdrop-filter:blur(18px);
+
+  border-bottom:1px solid #25282d;
 }
 
 .topbar-inner{
   max-width:720px;
   margin:auto;
+
+  height:64px;
+
+  padding:0 16px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
 }
 
 .logo{
-  font-size:17px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+
+  font-size:18px;
   font-weight:800;
-  letter-spacing:.4px;
+  letter-spacing:-.4px;
 }
 
-.profile{
-  max-width:180px;
+.logo-dragon{
+  font-size:23px;
+}
+
+.profile-name{
+  max-width:170px;
+
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
+
+  color:#aeb3bb;
   font-size:13px;
-  color:#eadfc9;
 }
 
-/* CONTAINER */
+/* =====================================================
+   MAIN
+===================================================== */
 
 .container{
   max-width:720px;
   margin:auto;
-  padding:15px 12px 30px;
+
+  padding:20px 14px 30px;
 }
 
-/* SEARCH */
+/* =====================================================
+   PAGE SECTIONS
+===================================================== */
+
+.page-section{
+  display:none;
+}
+
+.page-section.active{
+  display:block;
+}
+
+/* =====================================================
+   WELCOME
+===================================================== */
+
+.welcome{
+  padding:6px 4px 20px;
+}
+
+.welcome h1{
+  font-size:28px;
+  font-weight:800;
+  letter-spacing:-1px;
+  margin-bottom:6px;
+}
+
+.welcome p{
+  color:#8f969f;
+  font-size:14px;
+}
+
+/* =====================================================
+   SEARCH
+===================================================== */
 
 .search-box{
   display:flex;
-  gap:7px;
-  margin-bottom:8px;
+  gap:9px;
+  margin-bottom:16px;
 }
 
 #userSearchInput{
   flex:1;
+
   min-width:0;
-  padding:12px 14px;
-  border:1px solid #ddd3c5;
+
+  padding:14px 16px;
+
+  border:1px solid #292d33;
   border-radius:15px;
-  background:#fffdf9;
-  color:#211c17;
+
+  background:#15181d;
+  color:#fff;
+
   font-size:14px;
+
   outline:none;
+
+  transition:.2s;
+}
+
+#userSearchInput::placeholder{
+  color:#777e88;
 }
 
 #userSearchInput:focus{
-  border-color:#ad8d5c;
+  border-color:#777e88;
+  background:#181b20;
 }
 
-#userSearchButton{
+.search-button{
+  width:50px;
+
   border:0;
   border-radius:15px;
-  padding:12px 14px;
-  background:#4a392b;
-  color:white;
-  font-weight:700;
+
+  background:#f1f1f1;
+  color:#0b0d10;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
   cursor:pointer;
+
+  transition:.2s;
 }
 
+.search-button:hover{
+  transform:translateY(-1px);
+  background:#fff;
+}
+
+.search-button svg{
+  width:20px;
+  height:20px;
+}
+
+/* SEARCH RESULTS */
+
 #searchResults{
-  margin-bottom:13px;
+  margin-bottom:18px;
 }
 
 .search-result{
-  background:#fffdf9;
-  border:1px solid #e8e0d3;
-  padding:11px 12px;
-  border-radius:14px;
-  margin-bottom:7px;
+  background:#15181d;
+  border:1px solid #292d33;
+
+  border-radius:16px;
+
+  padding:13px;
+
+  margin-bottom:8px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
 }
 
-.search-result-user{
-  font-weight:700;
+.search-user{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.search-avatar{
+  width:39px;
+  height:39px;
+
+  border-radius:50%;
+
+  background:#30251f;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-weight:800;
+  color:#ead9b8;
+
+  border:1px solid #5a4739;
+}
+
+.search-username{
   font-size:14px;
+  font-weight:700;
 }
 
 .follow-button{
   border:0;
-  border-radius:18px;
-  padding:7px 13px;
-  background:#4a392b;
-  color:white;
-  cursor:pointer;
+
+  padding:8px 14px;
+
+  border-radius:10px;
+
+  background:#f1f1f1;
+  color:#0b0d10;
+
   font-weight:700;
-}
 
-.follow-button.following{
-  background:#eee6da;
-  color:#4a392b;
-}
-
-/* WELCOME */
-
-.welcome{
-  padding:4px 3px 13px;
-}
-
-.welcome h1{
-  font-size:25px;
-  margin-bottom:5px;
-}
-
-.welcome p{
-  color:#81776b;
-  font-size:13px;
-}
-
-/* LOGIN */
-
-#communityLogin{
-  background:#fffdf9;
-  border:1px solid #e8e0d3;
-  border-radius:18px;
-  text-align:center;
-  padding:19px;
-  margin-bottom:14px;
-  box-shadow:0 5px 18px rgba(64,48,32,.05);
-}
-
-/* CREATE */
-
-.create-post{
-  background:#fffdf9;
-  border:1px solid #e8e0d3;
-  border-radius:20px;
-  padding:15px;
-  margin-bottom:21px;
-  box-shadow:0 7px 24px rgba(64,48,32,.06);
-}
-
-.composer-header{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:11px;
-}
-
-.avatar{
-  width:43px;
-  height:43px;
-  flex-shrink:0;
-  border-radius:50%;
-  background:#4a392b;
-  color:#f7e9c8;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:800;
-  border:2px solid #eadfc9;
-}
-
-.composer-info strong{
-  font-size:15px;
-}
-
-.composer-info small{
-  display:block;
-  color:#8a8177;
-  margin-top:3px;
-  font-size:12px;
-}
-
-#postText{
-  width:100%;
-  min-height:78px;
-  resize:vertical;
-  border:0;
-  border-radius:14px;
-  padding:10px 2px;
-  font-family:inherit;
-  font-size:16px;
-  outline:none;
-  background:transparent;
-  color:#211c17;
-}
-
-#postText::placeholder{
-  color:#978d81;
-}
-
-/* SELECTED MEDIA */
-
-.media-preview{
-  display:none;
-  position:relative;
-  margin:7px 0 11px;
-  border-radius:15px;
-  overflow:hidden;
-  background:#f0ebe3;
-  border:1px solid #e3dbcf;
-}
-
-.media-preview img,
-.media-preview video{
-  display:block;
-  width:100%;
-  max-height:380px;
-  object-fit:contain;
-  background:#eee9e1;
-}
-
-.remove-media{
-  position:absolute;
-  right:8px;
-  top:8px;
-  border:0;
-  width:30px;
-  height:30px;
-  border-radius:50%;
-  background:rgba(40,32,25,.75);
-  color:white;
-  cursor:pointer;
-  font-size:16px;
-}
-
-.post-options{
-  border-top:1px solid #eee6da;
-  padding-top:10px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:8px;
-}
-
-.media-buttons{
-  display:flex;
-  gap:6px;
-  flex-wrap:wrap;
-}
-
-.media-buttons button{
-  border:1px solid #e3dbcf;
-  background:#f5eee4;
-  color:#66594c;
-  padding:8px 10px;
-  border-radius:18px;
-  cursor:pointer;
-  font-size:12px;
-  font-weight:600;
-}
-
-.media-buttons button:hover{
-  background:#eee4d4;
-}
-
-.post-btn{
-  border:0;
-  background:#4a392b;
-  color:white;
-  padding:10px 18px;
-  border-radius:20px;
-  font-weight:bold;
   cursor:pointer;
 }
 
-.post-btn:disabled{
-  opacity:.6;
+.follow-button:disabled{
+  background:#292d33;
+  color:#aaa;
   cursor:default;
 }
 
-/* FEED TITLE */
+/* =====================================================
+   FEED HEADER
+===================================================== */
 
-.section-title{
+.feed-heading{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin:0 3px 10px;
+
+  padding:5px 4px 13px;
 }
 
-.section-title h2{
-  font-size:19px;
-  color:#493a2d;
+.feed-heading h2{
+  font-size:21px;
+  letter-spacing:-.5px;
 }
 
-/* POSTS */
+.feed-heading-icon{
+  width:34px;
+  height:34px;
+
+  border-radius:10px;
+
+  background:#171a1f;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#d7bd8c;
+}
+
+.feed-heading-icon svg{
+  width:19px;
+  height:19px;
+}
+
+/* =====================================================
+   POSTS
+===================================================== */
 
 .post{
-  background:#fffdf9;
-  border:1px solid #e8e0d3;
+  background:#111419;
+
+  border:1px solid #292d33;
+
   border-radius:18px;
-  padding:14px 15px;
-  margin-bottom:11px;
-  box-shadow:0 5px 18px rgba(64,48,32,.05);
+
+  padding:16px;
+
+  margin-bottom:13px;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.18);
 }
 
 .post-header{
   display:flex;
   align-items:center;
-  gap:10px;
-  margin-bottom:9px;
+  gap:11px;
+
+  margin-bottom:13px;
+}
+
+.avatar{
+  width:43px;
+  height:43px;
+
+  flex-shrink:0;
+
+  border-radius:50%;
+
+  background:#33271f;
+
+  color:#ead9b8;
+
+  border:2px solid #554438;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:16px;
+  font-weight:800;
 }
 
 .post-author{
   font-size:14px;
   font-weight:800;
-  color:#30251d;
 }
 
 .post-time{
-  color:#8a8177;
+  color:#777f89;
   font-size:11px;
-  margin-top:2px;
+  margin-top:3px;
 }
+
+/* POST TEXT */
 
 .post-text{
+  color:#eceef1;
+
+  font-size:16px;
+
   line-height:1.55;
-  margin-bottom:10px;
+
   white-space:pre-wrap;
   overflow-wrap:anywhere;
-  color:#302820;
-  font-size:15px;
+
+  margin:4px 2px 13px;
 }
+
+/* POST MEDIA */
 
 .post-media{
-  margin:9px 0 11px;
+  width:100%;
+
   border-radius:15px;
-  overflow:hidden;
-  background:#eee9e1;
-}
 
-.post-media img{
+  margin:8px 0 13px;
+
   display:block;
-  width:100%;
-  max-height:500px;
+
+  max-height:520px;
+
   object-fit:cover;
+
+  background:#08090b;
 }
 
-.post-media video{
-  display:block;
+.post-video{
   width:100%;
-  max-height:500px;
-  background:#000;
+  border-radius:15px;
+  background:#08090b;
+  margin:8px 0 13px;
+  max-height:520px;
 }
+
+/* ACTIONS */
 
 .actions{
-  border-top:1px solid #eee6da;
-  padding-top:7px;
+  border-top:1px solid #25282d;
+
+  padding-top:8px;
+
   display:flex;
+  align-items:center;
+
   gap:2px;
 }
 
 .action{
   border:0;
-  background:none;
-  color:#766b60;
-  padding:7px 9px;
-  border-radius:17px;
+  background:transparent;
+
+  color:#9299a2;
+
+  display:flex;
+  align-items:center;
+  gap:6px;
+
+  padding:8px 9px;
+
+  border-radius:10px;
+
   cursor:pointer;
+
   font-size:12px;
+
+  transition:.18s;
 }
 
 .action:hover{
-  background:#f3ede4;
-  color:#493a2d;
+  background:#1b1e23;
+  color:#fff;
+}
+
+.action svg{
+  width:18px;
+  height:18px;
+  stroke-width:1.8;
 }
 
 .action.liked{
-  color:#9a5d4b;
-  font-weight:700;
+  color:#ff5d6c;
 }
 
-.action:disabled{
-  cursor:default;
-  opacity:.65;
+.action b{
+  font-weight:600;
+  color:inherit;
 }
 
-/* COMMENTS */
+/* =====================================================
+   COMMENTS
+===================================================== */
 
 .comments-area{
   display:none;
+
   margin-top:10px;
+
+  padding-top:10px;
+
+  border-top:1px solid #25282d;
 }
 
 .comments-list{
-  margin-bottom:8px;
+  margin-bottom:10px;
 }
 
 .comment{
-  background:#f7f1e8;
-  border:1px solid #eee4d5;
+  background:#181b20;
+
+  border:1px solid #282c32;
+
   border-radius:12px;
-  padding:9px 10px;
+
+  padding:9px 11px;
+
   margin-bottom:6px;
 }
 
@@ -439,245 +498,645 @@ button{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:8px;
-  margin-bottom:3px;
+
+  margin-bottom:4px;
 }
 
 .comment-user{
   font-size:12px;
   font-weight:800;
-  color:#493a2d;
 }
 
 .comment-text{
+  color:#c8ccd1;
   font-size:13px;
-  line-height:1.4;
+  line-height:1.45;
   overflow-wrap:anywhere;
 }
 
 .delete-comment{
   border:0;
   background:none;
-  color:#9a5d4b;
-  font-size:11px;
+
+  color:#8e7272;
+
+  font-size:10px;
+
   cursor:pointer;
 }
 
-.comment-compose{
+.comment-form{
   display:flex;
-  gap:6px;
+  gap:7px;
 }
 
 .comment-input{
   flex:1;
+
   min-width:0;
-  padding:9px 11px;
-  border:1px solid #ddd3c5;
+
+  padding:10px 12px;
+
+  border:1px solid #2a2e34;
   border-radius:12px;
+
+  background:#15181d;
+  color:white;
+
   outline:none;
-  background:#faf7f1;
-  color:#211c17;
 }
 
 .comment-send{
   border:0;
+
+  padding:0 14px;
+
   border-radius:12px;
-  padding:9px 13px;
-  background:#4a392b;
-  color:white;
+
+  background:#f1f1f1;
+  color:#0b0d10;
+
   font-weight:700;
+
   cursor:pointer;
 }
 
-/* EMPTY */
+/* =====================================================
+   EMPTY
+===================================================== */
 
 .empty{
-  background:#fffdf9;
-  border:1px solid #e8e0d3;
-  border-radius:19px;
   text-align:center;
-  padding:40px 20px;
-  color:#81776b;
+
+  background:#111419;
+
+  border:1px solid #292d33;
+
+  border-radius:18px;
+
+  padding:45px 20px;
+
+  color:#858c95;
 }
 
 .empty-icon{
-  font-size:33px;
-  margin-bottom:7px;
+  width:50px;
+  height:50px;
+
+  margin:0 auto 13px;
+
+  border-radius:15px;
+
+  background:#191c21;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#d7bd8c;
+}
+
+.empty-icon svg{
+  width:26px;
+  height:26px;
 }
 
 .empty h3{
-  color:#493a2d;
-  margin-bottom:6px;
-  font-size:17px;
+  color:#e7e9ec;
+  margin-bottom:5px;
+  font-size:16px;
 }
 
 .empty p{
   font-size:13px;
 }
 
-/* ALERTS */
+/* =====================================================
+   CREATE PAGE
+===================================================== */
 
-.alert-panel{
-  display:none;
-  background:#fffdf9;
-  border:1px solid #e8e0d3;
-  border-radius:18px;
-  padding:15px;
+.create-page-title{
+  padding:6px 3px 18px;
+}
+
+.create-page-title h1{
+  font-size:27px;
+  letter-spacing:-1px;
+}
+
+.create-page-title p{
+  color:#858c95;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.create-card{
+  background:#111419;
+
+  border:1px solid #292d33;
+
+  border-radius:20px;
+
+  padding:17px;
+}
+
+.composer-header{
+  display:flex;
+  align-items:center;
+  gap:11px;
+
   margin-bottom:15px;
 }
 
-.alert-item{
-  padding:11px 3px;
-  border-bottom:1px solid #eee6da;
+.composer-name{
+  font-size:15px;
+  font-weight:800;
+}
+
+.composer-sub{
+  color:#777f89;
+  font-size:12px;
+  margin-top:3px;
+}
+
+#postText{
+  width:100%;
+
+  min-height:170px;
+
+  resize:vertical;
+
+  border:0;
+  outline:none;
+
+  border-radius:14px;
+
+  padding:15px;
+
+  background:#181b20;
+
+  color:#f4f4f4;
+
+  font-family:inherit;
+
+  font-size:16px;
+
+  line-height:1.55;
+}
+
+#postText::placeholder{
+  color:#6f7680;
+}
+
+.create-media-preview{
+  display:none;
+
+  margin-top:12px;
+
+  position:relative;
+}
+
+.create-media-preview img,
+.create-media-preview video{
+  width:100%;
+  max-height:400px;
+  object-fit:cover;
+
+  border-radius:15px;
+  background:#08090b;
+}
+
+.remove-media{
+  position:absolute;
+
+  right:9px;
+  top:9px;
+
+  width:32px;
+  height:32px;
+
+  border:0;
+  border-radius:50%;
+
+  background:rgba(0,0,0,.75);
+  color:#fff;
+
+  cursor:pointer;
+
+  font-size:17px;
+}
+
+.create-options{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  gap:10px;
+
+  margin-top:13px;
+}
+
+.media-buttons{
+  display:flex;
+  gap:7px;
+}
+
+.media-button{
+  border:1px solid #30343a;
+
+  background:#181b20;
+
+  color:#b9bec5;
+
+  padding:9px 12px;
+
+  border-radius:12px;
+
+  cursor:pointer;
+
+  display:flex;
+  align-items:center;
+  gap:6px;
+
+  font-size:12px;
+  font-weight:600;
+}
+
+.media-button:hover{
+  background:#202329;
+  color:#fff;
+}
+
+.media-button svg{
+  width:16px;
+  height:16px;
+}
+
+.post-btn{
+  border:0;
+
+  background:#f1f1f1;
+  color:#0b0d10;
+
+  padding:10px 19px;
+
+  border-radius:13px;
+
+  font-weight:800;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.post-btn:hover{
+  transform:translateY(-1px);
+  background:#fff;
+}
+
+.post-btn:disabled{
+  opacity:.5;
+  cursor:default;
+  transform:none;
+}
+
+/* =====================================================
+   EXPLORE
+===================================================== */
+
+.explore-title{
+  padding:7px 3px 18px;
+}
+
+.explore-title h1{
+  font-size:27px;
+  letter-spacing:-1px;
+}
+
+.explore-title p{
+  color:#858c95;
   font-size:13px;
+  margin-top:5px;
 }
 
-.alert-item:last-child{
-  border-bottom:0;
+.explore-card{
+  background:#111419;
+  border:1px solid #292d33;
+  border-radius:18px;
+  padding:18px;
 }
 
-.alert-empty{
+.explore-card h3{
+  margin-bottom:6px;
+}
+
+.explore-card p{
+  color:#858c95;
+  font-size:13px;
+  line-height:1.5;
+}
+
+/* =====================================================
+   ALERTS
+===================================================== */
+
+.alert-title{
+  padding:7px 3px 18px;
+}
+
+.alert-title h1{
+  font-size:27px;
+  letter-spacing:-1px;
+}
+
+.alert-card{
+  background:#111419;
+  border:1px solid #292d33;
+  border-radius:18px;
+  padding:25px 18px;
   text-align:center;
-  color:#81776b;
-  padding:20px;
+}
+
+.alert-card svg{
+  width:35px;
+  height:35px;
+  color:#d7bd8c;
+  margin-bottom:10px;
+}
+
+.alert-card h3{
+  margin-bottom:5px;
+}
+
+.alert-card p{
+  color:#858c95;
   font-size:13px;
 }
 
-/* BOTTOM NAV */
+/* =====================================================
+   LOGIN
+===================================================== */
+
+#communityLogin{
+  background:#111419;
+
+  border:1px solid #292d33;
+
+  border-radius:18px;
+
+  padding:18px;
+
+  text-align:center;
+
+  margin-bottom:17px;
+}
+
+#communityLogin p{
+  color:#aeb3bb;
+  font-size:14px;
+  margin-bottom:12px;
+}
+
+/* =====================================================
+   BOTTOM NAV
+===================================================== */
 
 .bottom-nav{
   position:fixed;
+
   left:0;
   right:0;
   bottom:0;
-  height:67px;
+
+  height:72px;
+
   z-index:200;
-  background:rgba(255,253,249,.97);
-  backdrop-filter:blur(10px);
-  border-top:1px solid #e3dbcf;
+
+  background:rgba(11,13,16,.96);
+
+  backdrop-filter:blur(20px);
+
+  border-top:1px solid #292d33;
+
   display:flex;
   justify-content:center;
-  gap:4px;
+
   padding:6px 8px;
-  box-shadow:0 -4px 18px rgba(64,48,32,.06);
+
+  box-shadow:0 -10px 30px rgba(0,0,0,.2);
 }
 
 .nav-item{
   flex:1;
-  max-width:110px;
+
+  max-width:115px;
+
   border:0;
   background:none;
-  color:#8a8177;
+
+  color:#727983;
+
   cursor:pointer;
+
   border-radius:13px;
-  font-size:18px;
-  transition:.2s;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  gap:4px;
+
+  transition:.18s;
+}
+
+.nav-item svg{
+  width:21px;
+  height:21px;
+
+  stroke-width:1.8;
 }
 
 .nav-item span{
-  display:block;
   font-size:10px;
-  margin-top:3px;
 }
 
 .nav-item:hover{
-  background:#f3ede4;
+  color:#dfe2e6;
+  background:#15181d;
 }
 
 .nav-item.active{
-  color:#4a392b;
-  font-weight:bold;
+  color:#fff;
 }
+
+.nav-item.create-active{
+  color:#d7bd8c;
+}
+
+/* =====================================================
+   CREATE PLUS
+===================================================== */
+
+.create-plus{
+  width:32px;
+  height:32px;
+
+  border:1px solid #555b63;
+
+  border-radius:10px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.create-plus svg{
+  width:18px;
+  height:18px;
+}
+
+/* =====================================================
+   FILE INPUT
+===================================================== */
 
 .hidden-file{
   display:none;
 }
 
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
 @media(max-width:500px){
 
   .container{
-    padding:13px 9px 25px;
+    padding:17px 10px 25px;
   }
 
-  .topbar{
-    padding:12px 13px;
+  .topbar-inner{
+    height:61px;
+    padding:0 13px;
   }
 
   .logo{
-    font-size:15px;
+    font-size:16px;
   }
 
-  .profile{
+  .profile-name{
     max-width:130px;
   }
 
   .welcome h1{
-    font-size:23px;
-  }
-
-  .create-post{
-    padding:14px;
-  }
-
-  .media-buttons button{
-    padding:7px 8px;
-    font-size:11px;
-  }
-
-  .post-btn{
-    padding:9px 15px;
+    font-size:25px;
   }
 
   .post{
-    padding:13px;
+    border-radius:17px;
+    padding:14px;
+  }
+
+  .post-text{
+    font-size:15px;
   }
 
   .action{
-    padding:7px 7px;
+    padding:8px 7px;
   }
 
+  .action span{
+    display:none;
+  }
+
+  .action svg{
+    width:19px;
+    height:19px;
+  }
+
+  .create-card{
+    border-radius:18px;
+    padding:14px;
+  }
+
+  #postText{
+    min-height:150px;
+  }
+
+  .media-button{
+    padding:8px 10px;
+  }
+
+  .post-btn{
+    padding:10px 15px;
+  }
+
+  .bottom-nav{
+    height:68px;
+  }
 }
+
 </style>
-
-<!-- REMOVE THESE TWO ERUDA LINES WHEN SITE IS READY -->
-<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-<script>
-eruda.init();
-</script>
-
 </head>
+
 
 <body>
 
+
+<!-- =====================================================
+     TOP BAR
+===================================================== -->
+
 <header class="topbar">
+
   <div class="topbar-inner">
 
     <div class="logo">
-      🐉 JSP TAYSU
+      <span class="logo-dragon">🐉</span>
+      <span>JSP TAYSU</span>
     </div>
 
-    <div class="profile" id="profileName">
-      Please sign in
+    <div
+      class="profile-name"
+      id="profileName">
+
+      Member
+
     </div>
 
   </div>
+
 </header>
+
 
 
 <main class="container">
 
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section
+  id="homeSection"
+  class="page-section active">
+
+
   <!-- LOGIN -->
 
-  <div id="communityLogin" style="display:none;">
+  <div
+    id="communityLogin"
+    style="display:none;">
 
-    <p style="margin-bottom:12px;">
-      Sign in to join the community 🐉
+    <p>
+      Sign in to join the community
     </p>
 
     <button
       id="communityGoogleLogin"
       class="post-btn">
+
       Continue with Google
+
     </button>
 
   </div>
@@ -706,154 +1165,69 @@ eruda.init();
       type="text"
       id="userSearchInput"
       placeholder="Search members..."
-      maxlength="30"
-    >
+      maxlength="30">
 
-    <button id="userSearchButton">
-      🔎
+    <button
+      id="userSearchButton"
+      class="search-button"
+      aria-label="Search">
+
+      <!-- SEARCH SVG -->
+
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor">
+
+        <circle
+          cx="11"
+          cy="11"
+          r="7">
+        </circle>
+
+        <path
+          d="m20 20-4-4">
+        </path>
+
+      </svg>
+
     </button>
 
   </div>
 
+
   <div id="searchResults"></div>
-
-
-  <!-- ALERTS -->
-
-  <section
-    id="alertsPanel"
-    class="alert-panel">
-
-    <h3 style="margin-bottom:8px;color:#493a2d;">
-      🔔 Alerts
-    </h3>
-
-    <div id="alertsList">
-      <div class="alert-empty">
-        No alerts yet.
-      </div>
-    </div>
-
-  </section>
-
-
-  <!-- CREATE POST -->
-
-  <section
-    class="create-post"
-    id="createPostSection">
-
-    <div class="composer-header">
-
-      <div
-        class="avatar"
-        id="composerAvatar">
-        M
-      </div>
-
-      <div class="composer-info">
-
-        <strong id="composerName">
-          Member
-        </strong>
-
-        <small>
-          Share with the community
-        </small>
-
-      </div>
-
-    </div>
-
-
-    <textarea
-      id="postText"
-      maxlength="2000"
-      placeholder="What's on your mind?">
-    </textarea>
-
-
-    <!-- SELECTED MEDIA -->
-
-    <div
-      class="media-preview"
-      id="mediaPreview">
-
-      <img
-        id="imagePreview"
-        style="display:none;"
-        alt="Selected image">
-
-      <video
-        id="videoPreview"
-        style="display:none;"
-        controls>
-      </video>
-
-      <button
-        type="button"
-        class="remove-media"
-        id="removeMedia">
-        ×
-      </button>
-
-    </div>
-
-
-    <input
-      type="file"
-      id="photoInput"
-      class="hidden-file"
-      accept="image/*">
-
-    <input
-      type="file"
-      id="videoInput"
-      class="hidden-file"
-      accept="video/*">
-
-
-    <div class="post-options">
-
-      <div class="media-buttons">
-
-        <button
-          type="button"
-          id="photoButton">
-          📷 Photo
-        </button>
-
-        <button
-          type="button"
-          id="videoButton">
-          🎥 Video
-        </button>
-
-      </div>
-
-
-      <button
-        class="post-btn"
-        id="postButton">
-        Post
-      </button>
-
-    </div>
-
-  </section>
 
 
   <!-- FEED -->
 
-  <div class="section-title">
+  <div class="feed-heading">
 
     <h2>
       Community Feed
     </h2>
 
-    <span>
-      🐉
-    </span>
+    <div class="feed-heading-icon">
+
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor">
+
+        <path
+          d="M12 3
+             C7 3 4 6 4 11
+             c0 4 3 7 8 7
+             2 0 4-.5 5.5-1.5
+             L21 19
+             l-1-4
+             c.7-1.2 1-2.5 1-4
+             0-5-3-8-9-8Z">
+        </path>
+
+      </svg>
+
+    </div>
 
   </div>
 
@@ -863,7 +1237,24 @@ eruda.init();
     <div class="empty">
 
       <div class="empty-icon">
-        🐉
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor">
+
+          <circle
+            cx="12"
+            cy="12"
+            r="8">
+          </circle>
+
+          <path
+            d="M8 12h8">
+          </path>
+
+        </svg>
+
       </div>
 
       <h3>
@@ -878,84 +1269,479 @@ eruda.init();
 
   </section>
 
+</section>
+
+
+
+<!-- =====================================================
+     CREATE
+===================================================== -->
+
+<section
+  id="createSection"
+  class="page-section">
+
+
+  <div class="create-page-title">
+
+    <h1>
+      Create
+    </h1>
+
+    <p>
+      Share something with the JSP TAYSU community.
+    </p>
+
+  </div>
+
+
+  <div class="create-card">
+
+
+    <div class="composer-header">
+
+      <div
+        class="avatar"
+        id="composerAvatar">
+
+        M
+
+      </div>
+
+      <div>
+
+        <div
+          class="composer-name"
+          id="composerName">
+
+          Member
+
+        </div>
+
+        <div class="composer-sub">
+          Share with the community
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <textarea
+      id="postText"
+      maxlength="5000"
+      placeholder="What's on your mind?">
+
+    </textarea>
+
+
+    <!-- MEDIA PREVIEW -->
+
+    <div
+      id="createMediaPreview"
+      class="create-media-preview">
+
+      <button
+        id="removeMediaButton"
+        class="remove-media"
+        type="button">
+
+        ×
+
+      </button>
+
+      <div id="mediaPreviewContent"></div>
+
+    </div>
+
+
+    <div class="create-options">
+
+
+      <div class="media-buttons">
+
+
+        <!-- PHOTO -->
+
+        <button
+          class="media-button"
+          id="photoButton"
+          type="button">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor">
+
+            <rect
+              x="3"
+              y="4"
+              width="18"
+              height="16"
+              rx="3">
+            </rect>
+
+            <circle
+              cx="8.5"
+              cy="9"
+              r="1.5">
+            </circle>
+
+            <path
+              d="m5 17 4-4 3 3 2-2 5 5">
+            </path>
+
+          </svg>
+
+          Photo
+
+        </button>
+
+
+        <!-- VIDEO -->
+
+        <button
+          class="media-button"
+          id="videoButton"
+          type="button">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor">
+
+            <rect
+              x="3"
+              y="5"
+              width="13"
+              height="14"
+              rx="3">
+            </rect>
+
+            <path
+              d="m16 10 5-3v10l-5-3z">
+            </path>
+
+          </svg>
+
+          Video
+
+        </button>
+
+
+        <input
+          type="file"
+          id="photoInput"
+          class="hidden-file"
+          accept="image/*">
+
+
+        <input
+          type="file"
+          id="videoInput"
+          class="hidden-file"
+          accept="video/*">
+
+      </div>
+
+
+      <button
+        class="post-btn"
+        id="postButton"
+        type="button">
+
+        Post
+
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     EXPLORE
+===================================================== -->
+
+<section
+  id="exploreSection"
+  class="page-section">
+
+
+  <div class="explore-title">
+
+    <h1>
+      Explore
+    </h1>
+
+    <p>
+      Discover members and community activity.
+    </p>
+
+  </div>
+
+
+  <div class="explore-card">
+
+    <h3>
+      🐉 Tai Ahom Community
+    </h3>
+
+    <p>
+      Search for members from the Home section
+      and connect with the community.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ALERTS
+===================================================== -->
+
+<section
+  id="alertsSection"
+  class="page-section">
+
+
+  <div class="alert-title">
+
+    <h1>
+      Alerts
+    </h1>
+
+  </div>
+
+
+  <div class="alert-card">
+
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor">
+
+      <path
+        d="M18 8
+           a6 6 0 0 0-12 0
+           c0 7-3 7-3 9h18
+           c0-2-3-2-3-9">
+
+      </path>
+
+      <path
+        d="M10 21h4">
+      </path>
+
+    </svg>
+
+    <h3>
+      No new alerts
+    </h3>
+
+    <p>
+      Your community notifications will appear here.
+    </p>
+
+  </div>
+
+</section>
+
 </main>
 
 
-<!-- BOTTOM NAV -->
+
+<!-- =====================================================
+     BOTTOM NAV
+===================================================== -->
 
 <nav class="bottom-nav">
 
+
+  <!-- HOME -->
+
   <button
     class="nav-item active"
-    id="homeNav">
+    data-section="homeSection">
 
-    🏠
-    <span>Home</span>
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor">
+
+      <path
+        d="M3 10.5 12 3l9 7.5">
+      </path>
+
+      <path
+        d="M5 9v11h14V9">
+      </path>
+
+      <path
+        d="M9 20v-6h6v6">
+      </path>
+
+    </svg>
+
+    <span>
+      Home
+    </span>
 
   </button>
 
+
+  <!-- EXPLORE -->
 
   <button
     class="nav-item"
-    id="exploreNav">
+    data-section="exploreSection">
 
-    🔥
-    <span>Explore</span>
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor">
+
+      <circle
+        cx="11"
+        cy="11"
+        r="7">
+      </circle>
+
+      <path
+        d="m20 20-4-4">
+      </path>
+
+    </svg>
+
+    <span>
+      Explore
+    </span>
 
   </button>
 
+
+  <!-- CREATE -->
 
   <button
     class="nav-item"
     id="createNav">
 
-    ➕
-    <span>Create</span>
+    <div class="create-plus">
+
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor">
+
+        <path d="M12 5v14"></path>
+        <path d="M5 12h14"></path>
+
+      </svg>
+
+    </div>
+
+    <span>
+      Create
+    </span>
 
   </button>
 
+
+  <!-- ALERTS -->
 
   <button
     class="nav-item"
-    id="alertsNav">
+    data-section="alertsSection">
 
-    🔔
-    <span>Alerts</span>
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor">
+
+      <path
+        d="M18 8
+           a6 6 0 0 0-12 0
+           c0 7-3 7-3 9h18
+           c0-2-3-2-3-9">
+      </path>
+
+      <path
+        d="M10 21h4">
+      </path>
+
+    </svg>
+
+    <span>
+      Alerts
+    </span>
 
   </button>
 
+
+  <!-- PROFILE -->
 
   <button
     class="nav-item"
     id="profileNavButton">
 
-    👤
-    <span>Profile</span>
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor">
+
+      <circle
+        cx="12"
+        cy="8"
+        r="4">
+      </circle>
+
+      <path
+        d="M4 21
+           c0-4 3.5-7 8-7
+           s8 3 8 7">
+      </path>
+
+    </svg>
+
+    <span>
+      Profile
+    </span>
 
   </button>
+
 
 </nav>
 
 
+
 <script type="module">
 
-/* =========================================================
-   FIREBASE IMPORTS
-========================================================= */
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+/* =====================================================
+   FIREBASE IMPORTS
+===================================================== */
+
+import {
+  initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
 
 import {
   getAuth,
   onAuthStateChanged,
   GoogleAuthProvider,
-  signInWithRedirect,
-  getRedirectResult,
-  setPersistence,
-  browserLocalPersistence
+  signInWithRedirect
 }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
 
 import {
   getFirestore,
@@ -966,12 +1752,13 @@ import {
   doc,
   setDoc,
   getDoc,
-  deleteDoc,
-  query,
-  orderBy,
-  limit
+  deleteDoc
 }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* STORAGE */
 
 import {
   getStorage,
@@ -979,12 +1766,14 @@ import {
   uploadBytes,
   getDownloadURL
 }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
 
-/* =========================================================
+
+/* =====================================================
    FIREBASE CONFIG
-========================================================= */
+===================================================== */
 
 const firebaseConfig = {
 
@@ -1012,88 +1801,64 @@ const firebaseConfig = {
 const app =
   initializeApp(firebaseConfig);
 
+
 const auth =
   getAuth(app);
+
 
 const db =
   getFirestore(app);
 
+
 const storage =
   getStorage(app);
 
+
 let currentUser = null;
-let currentUsername = "Member";
+let selectedMediaFile = null;
+let selectedMediaType = null;
 
 
-/* =========================================================
+
+/* =====================================================
    ELEMENTS
-========================================================= */
+===================================================== */
 
 const communityLogin =
-  document.getElementById("communityLogin");
+  document.getElementById(
+    "communityLogin"
+  );
 
 const communityGoogleLogin =
-  document.getElementById("communityGoogleLogin");
+  document.getElementById(
+    "communityGoogleLogin"
+  );
 
 const profileName =
-  document.getElementById("profileName");
+  document.getElementById(
+    "profileName"
+  );
 
 const composerName =
-  document.getElementById("composerName");
+  document.getElementById(
+    "composerName"
+  );
 
 const composerAvatar =
-  document.getElementById("composerAvatar");
+  document.getElementById(
+    "composerAvatar"
+  );
 
 const welcomeText =
-  document.getElementById("welcomeText");
-
-const postText =
-  document.getElementById("postText");
-
-const postButton =
-  document.getElementById("postButton");
-
-const photoButton =
-  document.getElementById("photoButton");
-
-const videoButton =
-  document.getElementById("videoButton");
-
-const photoInput =
-  document.getElementById("photoInput");
-
-const videoInput =
-  document.getElementById("videoInput");
-
-const mediaPreview =
-  document.getElementById("mediaPreview");
-
-const imagePreview =
-  document.getElementById("imagePreview");
-
-const videoPreview =
-  document.getElementById("videoPreview");
-
-const removeMedia =
-  document.getElementById("removeMedia");
-
-let selectedFile = null;
-let selectedType = null;
+  document.getElementById(
+    "welcomeText"
+  );
 
 
-/* =========================================================
-   FIREBASE AUTH PERSISTENCE
-========================================================= */
 
-await setPersistence(
-  auth,
-  browserLocalPersistence
-);
-
-
-/* =========================================================
+/* =====================================================
    GOOGLE LOGIN
-========================================================= */
+===================================================== */
 
 const provider =
   new GoogleAuthProvider();
@@ -1126,27 +1891,10 @@ communityGoogleLogin.addEventListener(
 );
 
 
-/* =========================================================
-   REDIRECT RESULT
-========================================================= */
 
-try{
-
-  await getRedirectResult(auth);
-
-}catch(error){
-
-  console.error(
-    "Redirect login error:",
-    error
-  );
-
-}
-
-
-/* =========================================================
+/* =====================================================
    AUTH STATE
-========================================================= */
+===================================================== */
 
 onAuthStateChanged(
   auth,
@@ -1172,6 +1920,7 @@ onAuthStateChanged(
         "Welcome 👋";
 
       return;
+
     }
 
 
@@ -1181,12 +1930,10 @@ onAuthStateChanged(
       "none";
 
 
-    currentUsername =
+    let username =
       user.displayName ||
       "Member";
 
-
-    /* LOAD PROFILE */
 
     try{
 
@@ -1196,6 +1943,7 @@ onAuthStateChanged(
           "users",
           user.uid
         );
+
 
       const profileSnap =
         await getDoc(
@@ -1208,7 +1956,7 @@ onAuthStateChanged(
         profileSnap.data().username
       ){
 
-        currentUsername =
+        username =
           profileSnap.data().username;
 
       }
@@ -1223,22 +1971,20 @@ onAuthStateChanged(
     }
 
 
-    /* SHOW USER */
-
     profileName.textContent =
-      currentUsername;
+      username;
 
     composerName.textContent =
-      currentUsername;
+      username;
 
     composerAvatar.textContent =
-      currentUsername
+      username
         .charAt(0)
         .toUpperCase();
 
     welcomeText.textContent =
       "Welcome, " +
-      currentUsername +
+      username +
       " 👋";
 
 
@@ -1248,9 +1994,197 @@ onAuthStateChanged(
 );
 
 
-/* =========================================================
-   MEDIA SELECT
-========================================================= */
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+const sections = {
+
+  homeSection:
+    document.getElementById(
+      "homeSection"
+    ),
+
+  createSection:
+    document.getElementById(
+      "createSection"
+    ),
+
+  exploreSection:
+    document.getElementById(
+      "exploreSection"
+    ),
+
+  alertsSection:
+    document.getElementById(
+      "alertsSection"
+    )
+
+};
+
+
+function showSection(
+  sectionId
+){
+
+  Object.values(sections)
+    .forEach(section => {
+
+      section.classList.remove(
+        "active"
+      );
+
+    });
+
+
+  if(sections[sectionId]){
+
+    sections[sectionId]
+      .classList.add(
+        "active"
+      );
+
+  }
+
+
+  document
+    .querySelectorAll(
+      ".nav-item"
+    )
+    .forEach(button => {
+
+      button.classList.remove(
+        "active"
+      );
+
+    });
+
+
+  const matchingButton =
+    document.querySelector(
+      `[data-section="${sectionId}"]`
+    );
+
+
+  if(matchingButton){
+
+    matchingButton.classList.add(
+      "active"
+    );
+
+  }
+
+
+  if(
+    sectionId ===
+    "createSection"
+  ){
+
+    document
+      .getElementById(
+        "createNav"
+      )
+      .classList.add(
+        "create-active"
+      );
+
+  }
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+
+/* NORMAL NAV */
+
+document
+  .querySelectorAll(
+    ".nav-item[data-section]"
+  )
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        showSection(
+          button.dataset.section
+        );
+
+      }
+    );
+
+  });
+
+
+
+/* CREATE */
+
+document
+  .getElementById(
+    "createNav"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      showSection(
+        "createSection"
+      );
+
+    }
+  );
+
+
+
+/* PROFILE */
+
+document
+  .getElementById(
+    "profileNavButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      window.location.href =
+        "profile.html";
+
+    }
+  );
+
+
+
+/* =====================================================
+   PHOTO / VIDEO SELECT
+===================================================== */
+
+const photoButton =
+  document.getElementById(
+    "photoButton"
+  );
+
+const videoButton =
+  document.getElementById(
+    "videoButton"
+  );
+
+const photoInput =
+  document.getElementById(
+    "photoInput"
+  );
+
+const videoInput =
+  document.getElementById(
+    "videoInput"
+  );
+
 
 photoButton.addEventListener(
   "click",
@@ -1292,9 +2226,6 @@ videoButton.addEventListener(
 );
 
 
-/* =========================================================
-   PHOTO SELECTED
-========================================================= */
 
 photoInput.addEventListener(
   "change",
@@ -1303,39 +2234,25 @@ photoInput.addEventListener(
     const file =
       photoInput.files[0];
 
-    if(!file) return;
+    if(file){
 
+      selectedMediaFile =
+        file;
 
-    selectedFile =
-      file;
+      selectedMediaType =
+        "image";
 
-    selectedType =
-      "image";
+      showMediaPreview(
+        file,
+        "image"
+      );
 
-
-    const url =
-      URL.createObjectURL(file);
-
-
-    imagePreview.src =
-      url;
-
-    imagePreview.style.display =
-      "block";
-
-    videoPreview.style.display =
-      "none";
-
-    mediaPreview.style.display =
-      "block";
+    }
 
   }
 );
 
 
-/* =========================================================
-   VIDEO SELECTED
-========================================================= */
 
 videoInput.addEventListener(
   "change",
@@ -1344,155 +2261,172 @@ videoInput.addEventListener(
     const file =
       videoInput.files[0];
 
-    if(!file) return;
+    if(file){
 
+      selectedMediaFile =
+        file;
 
-    selectedFile =
-      file;
+      selectedMediaType =
+        "video";
 
-    selectedType =
-      "video";
+      showMediaPreview(
+        file,
+        "video"
+      );
 
-
-    const url =
-      URL.createObjectURL(file);
-
-
-    videoPreview.src =
-      url;
-
-    videoPreview.style.display =
-      "block";
-
-    imagePreview.style.display =
-      "none";
-
-    mediaPreview.style.display =
-      "block";
+    }
 
   }
 );
 
 
-/* =========================================================
-   REMOVE MEDIA
-========================================================= */
 
-removeMedia.addEventListener(
-  "click",
-  () => {
+/* =====================================================
+   MEDIA PREVIEW
+===================================================== */
 
-    selectedFile = null;
-    selectedType = null;
-
-    photoInput.value = "";
-    videoInput.value = "";
-
-    imagePreview.src = "";
-    videoPreview.src = "";
-
-    mediaPreview.style.display =
-      "none";
-
-  }
-);
-
-
-/* =========================================================
-   UPLOAD MEDIA
-========================================================= */
-
-async function uploadMedia(
+function showMediaPreview(
   file,
   type
 ){
 
-  if(!currentUser){
-    throw new Error(
-      "User is not logged in."
+  const preview =
+    document.getElementById(
+      "createMediaPreview"
     );
+
+  const content =
+    document.getElementById(
+      "mediaPreviewContent"
+    );
+
+
+  const url =
+    URL.createObjectURL(
+      file
+    );
+
+
+  if(type === "image"){
+
+    content.innerHTML = `
+      <img
+        src="${url}"
+        alt="Selected photo">
+    `;
+
+  }else{
+
+    content.innerHTML = `
+      <video
+        src="${url}"
+        controls>
+      </video>
+    `;
+
   }
 
 
-  const safeName =
-    file.name
-      .replace(
-        /[^a-zA-Z0-9._-]/g,
-        "_"
-      );
-
-
-  const filePath =
-    "posts/" +
-    currentUser.uid +
-    "/" +
-    Date.now() +
-    "_" +
-    safeName;
-
-
-  const storageRef =
-    ref(
-      storage,
-      filePath
-    );
-
-
-  await uploadBytes(
-    storageRef,
-    file
-  );
-
-
-  const downloadURL =
-    await getDownloadURL(
-      storageRef
-    );
-
-
-  return downloadURL;
+  preview.style.display =
+    "block";
 
 }
 
 
-/* =========================================================
+
+/* REMOVE MEDIA */
+
+document
+  .getElementById(
+    "removeMediaButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      selectedMediaFile =
+        null;
+
+      selectedMediaType =
+        null;
+
+      photoInput.value =
+        "";
+
+      videoInput.value =
+        "";
+
+      document
+        .getElementById(
+          "createMediaPreview"
+        )
+        .style.display =
+        "none";
+
+      document
+        .getElementById(
+          "mediaPreviewContent"
+        )
+        .innerHTML =
+        "";
+
+    }
+  );
+
+
+
+/* =====================================================
    CREATE POST
-========================================================= */
+===================================================== */
 
-postButton.addEventListener(
-  "click",
-  async () => {
-
-    if(!currentUser){
-
-      alert(
-        "Please sign in first."
-      );
-
-      return;
-
-    }
+document
+  .getElementById(
+    "postButton"
+  )
+  .addEventListener(
+    "click",
+    async () => {
 
 
-    const text =
-      postText.value.trim();
+      if(!currentUser){
+
+        alert(
+          "Please sign in first."
+        );
+
+        return;
+
+      }
 
 
-    if(
-      !text &&
-      !selectedFile
-    ){
-
-      alert(
-        "Write something or add a photo/video."
-      );
-
-      return;
-
-    }
+      const text =
+        document
+          .getElementById(
+            "postText"
+          )
+          .value
+          .trim();
 
 
-    try{
+      if(
+        !text &&
+        !selectedMediaFile
+      ){
+
+        alert(
+          "Write something or select a photo/video."
+        );
+
+        return;
+
+      }
+
+
+      const postButton =
+        document.getElementById(
+          "postButton"
+        );
+
 
       postButton.disabled =
         true;
@@ -1501,114 +2435,192 @@ postButton.addEventListener(
         "Posting...";
 
 
-      let mediaURL = "";
-      let mediaType = "";
+      try{
 
 
-      /* UPLOAD MEDIA */
+        let mediaUrl =
+          "";
 
-      if(selectedFile){
+        let mediaType =
+          "";
 
-        mediaURL =
-          await uploadMedia(
-            selectedFile,
-            selectedType
-          );
 
-        mediaType =
-          selectedType;
+        /* =========================================
+           UPLOAD MEDIA
+        ========================================= */
+
+        if(selectedMediaFile){
+
+          const file =
+            selectedMediaFile;
+
+
+          const safeName =
+            file.name
+              .replace(
+                /[^a-zA-Z0-9._-]/g,
+                "_"
+              );
+
+
+          const filePath =
+            "posts/" +
+            currentUser.uid +
+            "/" +
+            Date.now() +
+            "_" +
+            safeName;
+
+
+          const storageRef =
+            ref(
+              storage,
+              filePath
+            );
+
+
+          const uploadResult =
+            await uploadBytes(
+              storageRef,
+              file
+            );
+
+
+          mediaUrl =
+            await getDownloadURL(
+              uploadResult.ref
+            );
+
+
+          mediaType =
+            selectedMediaType;
+
+        }
+
+
+        /* =========================================
+           SAVE POST
+        ========================================= */
+
+        await addDoc(
+          collection(
+            db,
+            "posts"
+          ),
+          {
+
+            text:
+              text,
+
+            authorId:
+              currentUser.uid,
+
+            authorName:
+              composerName.textContent ||
+              "Member",
+
+            mediaUrl:
+              mediaUrl,
+
+            mediaType:
+              mediaType,
+
+            createdAt:
+              serverTimestamp()
+
+          }
+        );
+
+
+        /* RESET */
+
+        document
+          .getElementById(
+            "postText"
+          )
+          .value =
+          "";
+
+
+        selectedMediaFile =
+          null;
+
+        selectedMediaType =
+          null;
+
+        photoInput.value =
+          "";
+
+        videoInput.value =
+          "";
+
+
+        document
+          .getElementById(
+            "createMediaPreview"
+          )
+          .style.display =
+          "none";
+
+
+        document
+          .getElementById(
+            "mediaPreviewContent"
+          )
+          .innerHTML =
+          "";
+
+
+        await loadPosts();
+
+
+        showSection(
+          "homeSection"
+        );
+
+
+        alert(
+          "Post published! 🐉"
+        );
+
+
+      }catch(error){
+
+        console.error(
+          "Post error:",
+          error
+        );
+
+
+        /*
+          If Firebase Storage isn't enabled yet,
+          media upload will fail here.
+        */
+
+        alert(
+          error.code +
+          ": " +
+          error.message
+        );
+
+      }finally{
+
+        postButton.disabled =
+          false;
+
+        postButton.textContent =
+          "Post";
 
       }
 
-
-      /* SAVE POST */
-
-      await addDoc(
-        collection(
-          db,
-          "posts"
-        ),
-        {
-
-          text:
-            text,
-
-          authorId:
-            currentUser.uid,
-
-          authorName:
-            currentUsername,
-
-          mediaURL:
-            mediaURL,
-
-          mediaType:
-            mediaType,
-
-          createdAt:
-            serverTimestamp()
-
-        }
-      );
-
-
-      /* RESET */
-
-      postText.value = "";
-
-      selectedFile = null;
-      selectedType = null;
-
-      photoInput.value = "";
-      videoInput.value = "";
-
-      imagePreview.src = "";
-      videoPreview.src = "";
-
-      mediaPreview.style.display =
-        "none";
-
-
-      await loadPosts();
-
-
-      alert(
-        "Post published! 🐉"
-      );
-
-
-    }catch(error){
-
-      console.error(
-        "Post error:",
-        error
-      );
-
-
-      alert(
-        error.code ||
-        "Upload error" +
-        ": " +
-        error.message
-      );
-
-    }finally{
-
-      postButton.disabled =
-        false;
-
-      postButton.textContent =
-        "Post";
-
     }
-
-  }
-);
+  );
 
 
-/* =========================================================
+
+/* =====================================================
    LOAD POSTS
-========================================================= */
+===================================================== */
 
 async function loadPosts(){
 
@@ -1618,28 +2630,8 @@ async function loadPosts(){
     );
 
 
-  postsContainer.innerHTML = `
-
-    <div class="empty">
-
-      <div class="empty-icon">
-        🐉
-      </div>
-
-      <h3>
-        Loading community...
-      </h3>
-
-      <p>
-        Please wait a moment.
-      </p>
-
-    </div>
-
-  `;
-
-
   try{
+
 
     const snapshot =
       await getDocs(
@@ -1650,6 +2642,10 @@ async function loadPosts(){
       );
 
 
+    postsContainer.innerHTML =
+      "";
+
+
     if(snapshot.empty){
 
       postsContainer.innerHTML = `
@@ -1657,7 +2653,26 @@ async function loadPosts(){
         <div class="empty">
 
           <div class="empty-icon">
-            🐉
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor">
+
+              <path
+                d="M12 3v18">
+              </path>
+
+              <path
+                d="M5 10c2-1 3-3 3-6">
+              </path>
+
+              <path
+                d="M19 10c-2-1-3-3-3-6">
+              </path>
+
+            </svg>
+
           </div>
 
           <h3>
@@ -1665,7 +2680,7 @@ async function loadPosts(){
           </h3>
 
           <p>
-            Be the first to share something with the community.
+            Be the first to share something.
           </p>
 
         </div>
@@ -1696,22 +2711,24 @@ async function loadPosts(){
     );
 
 
+    /* NEWEST FIRST */
+
     posts.sort(
       (a,b) => {
 
-        const aTime =
-          a.createdAt?.seconds || 0;
+        const timeA =
+          a.createdAt?.seconds ||
+          0;
 
-        const bTime =
-          b.createdAt?.seconds || 0;
+        const timeB =
+          b.createdAt?.seconds ||
+          0;
 
-        return bTime - aTime;
+        return timeB - timeA;
 
       }
     );
 
-
-    postsContainer.innerHTML = "";
 
 
     for(
@@ -1759,9 +2776,10 @@ async function loadPosts(){
 }
 
 
-/* =========================================================
+
+/* =====================================================
    RENDER POST
-========================================================= */
+===================================================== */
 
 async function renderPost(
   post,
@@ -1772,6 +2790,7 @@ async function renderPost(
     document.createElement(
       "article"
     );
+
 
   postElement.className =
     "post";
@@ -1784,8 +2803,11 @@ async function renderPost(
 
   /* LIKE COUNT */
 
-  let likeCount = 0;
-  let alreadyLiked = false;
+  let likeCount =
+    0;
+
+  let alreadyLiked =
+    false;
 
 
   try{
@@ -1819,16 +2841,18 @@ async function renderPost(
   }catch(error){
 
     console.error(
-      "Like error:",
+      "Like loading error:",
       error
     );
 
   }
 
 
+
   /* COMMENT COUNT */
 
-  let commentCount = 0;
+  let commentCount =
+    0;
 
 
   try{
@@ -1857,53 +2881,35 @@ async function renderPost(
   }
 
 
+
   /* TIME */
 
-  let postTime =
-    "Community member";
+  const timeText =
+    formatTime(
+      post.createdAt
+    );
 
 
-  if(post.createdAt){
 
-    try{
+  /* MEDIA */
 
-      const date =
-        new Date(
-          post.createdAt.seconds *
-          1000
-        );
-
-      postTime =
-        formatTimeAgo(date);
-
-    }catch(error){
-
-      postTime =
-        "Community member";
-
-    }
-
-  }
-
-
-  let mediaHTML = "";
+  let mediaHTML =
+    "";
 
 
   if(
-    post.mediaURL &&
-    post.mediaType === "image"
+    post.mediaUrl &&
+    post.mediaType ===
+    "image"
   ){
 
     mediaHTML = `
 
-      <div class="post-media">
-
-        <img
-          src="${escapeHTML(post.mediaURL)}"
-          alt="Community post image"
-          loading="lazy">
-
-      </div>
+      <img
+        class="post-media"
+        src="${escapeAttribute(post.mediaUrl)}"
+        alt="Community post image"
+        loading="lazy">
 
     `;
 
@@ -1911,26 +2917,30 @@ async function renderPost(
 
 
   if(
-    post.mediaURL &&
-    post.mediaType === "video"
+    post.mediaUrl &&
+    post.mediaType ===
+    "video"
   ){
 
     mediaHTML = `
 
-      <div class="post-media">
+      <video
+        class="post-video"
+        controls
+        preload="metadata">
 
-        <video
-          src="${escapeHTML(post.mediaURL)}"
-          controls
-          preload="metadata">
-        </video>
+        <source
+          src="${escapeAttribute(post.mediaUrl)}">
 
-      </div>
+      </video>
 
     `;
 
   }
 
+
+
+  /* POST HTML */
 
   postElement.innerHTML = `
 
@@ -1949,11 +2959,17 @@ async function renderPost(
       <div>
 
         <div class="post-author">
-          ${escapeHTML(username)}
+
+          ${escapeHTML(
+            username
+          )}
+
         </div>
 
         <div class="post-time">
-          ${escapeHTML(postTime)}
+
+          ${timeText}
+
         </div>
 
       </div>
@@ -1977,12 +2993,31 @@ async function renderPost(
 
     <div class="actions">
 
+
+      <!-- LIKE -->
+
       <button
         class="action like-button
         ${alreadyLiked ? "liked" : ""}"
         type="button">
 
-        ❤️
+        <svg
+          viewBox="0 0 24 24"
+          fill="${alreadyLiked ? "currentColor" : "none"}"
+          stroke="currentColor">
+
+          <path
+            d="M20.8 8.7
+               C20.8 13.7 12 20 12 20
+               S3.2 13.7 3.2 8.7
+               C3.2 5.7 5.4 3.7 8.1 3.7
+               C9.8 3.7 11.3 4.6 12 5.9
+               C12.7 4.6 14.2 3.7 15.9 3.7
+               C18.6 3.7 20.8 5.7 20.8 8.7Z">
+          </path>
+
+        </svg>
+
         <span>
           ${alreadyLiked ? "Unlike" : "Like"}
         </span>
@@ -1994,11 +3029,27 @@ async function renderPost(
       </button>
 
 
+
+      <!-- COMMENT -->
+
       <button
         class="action comment-button"
         type="button">
 
-        💬
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor">
+
+          <path
+            d="M20 11.5
+               a7.5 7.5 0 0 1-7.5 7.5
+               H8l-4 2 1.5-4
+               A7.5 7.5 0 1 1 20 11.5Z">
+          </path>
+
+        </svg>
+
         <span>
           Comment
         </span>
@@ -2010,26 +3061,54 @@ async function renderPost(
       </button>
 
 
+
+      <!-- SHARE -->
+
       <button
         class="action share-button"
         type="button">
 
-        ↗️
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor">
+
+          <path
+            d="M12 16V4">
+          </path>
+
+          <path
+            d="m7 9 5-5 5 5">
+          </path>
+
+          <path
+            d="M5 13v5
+               a2 2 0 0 0 2 2h10
+               a2 2 0 0 0 2-2v-5">
+          </path>
+
+        </svg>
+
         <span>
           Share
         </span>
 
       </button>
 
+
     </div>
 
 
+
+    <!-- COMMENTS -->
+
     <div class="comments-area">
 
-      <div class="comments-list"></div>
+      <div class="comments-list">
+      </div>
 
 
-      <div class="comment-compose">
+      <div class="comment-form">
 
         <input
           class="comment-input"
@@ -2040,7 +3119,9 @@ async function renderPost(
         <button
           class="comment-send"
           type="button">
+
           Send
+
         </button>
 
       </div>
@@ -2055,18 +3136,14 @@ async function renderPost(
   );
 
 
-  /* =====================================================
+
+  /* =================================================
      LIKE
-  ===================================================== */
+  ================================================= */
 
   const likeButton =
     postElement.querySelector(
       ".like-button"
-    );
-
-  const likeText =
-    likeButton.querySelector(
-      "span"
     );
 
   const likeCountElement =
@@ -2074,10 +3151,16 @@ async function renderPost(
       ".like-count"
     );
 
+  const likeText =
+    likeButton.querySelector(
+      "span"
+    );
+
 
   likeButton.addEventListener(
     "click",
     async () => {
+
 
       if(!currentUser){
 
@@ -2112,6 +3195,12 @@ async function renderPost(
           );
 
 
+        let count =
+          Number(
+            likeCountElement.textContent
+          ) || 0;
+
+
         if(
           likeSnap.exists()
         ){
@@ -2121,20 +3210,6 @@ async function renderPost(
           );
 
 
-          likeText.textContent =
-            "Like";
-
-          likeButton.classList
-            .remove("liked");
-
-
-          let count =
-            Number(
-              likeCountElement
-                .textContent
-            ) || 0;
-
-
           count =
             Math.max(
               0,
@@ -2142,9 +3217,23 @@ async function renderPost(
             );
 
 
-          likeCountElement
-            .textContent =
-              count;
+          likeText.textContent =
+            "Like";
+
+          likeButton.classList
+            .remove(
+              "liked"
+            );
+
+
+          likeButton
+            .querySelector(
+              "svg"
+            )
+            .setAttribute(
+              "fill",
+              "none"
+            );
 
         }else{
 
@@ -2162,28 +3251,32 @@ async function renderPost(
           );
 
 
+          count++;
+
+
           likeText.textContent =
             "Unlike";
 
           likeButton.classList
-            .add("liked");
+            .add(
+              "liked"
+            );
 
 
-          let count =
-            Number(
-              likeCountElement
-                .textContent
-            ) || 0;
-
-
-          count++;
-
-
-          likeCountElement
-            .textContent =
-            count;
+          likeButton
+            .querySelector(
+              "svg"
+            )
+            .setAttribute(
+              "fill",
+              "currentColor"
+            );
 
         }
+
+
+        likeCountElement.textContent =
+          count;
 
 
       }catch(error){
@@ -2210,9 +3303,10 @@ async function renderPost(
   );
 
 
-  /* =====================================================
+
+  /* =================================================
      COMMENTS
-  ===================================================== */
+  ================================================= */
 
   const commentButton =
     postElement.querySelector(
@@ -2249,6 +3343,7 @@ async function renderPost(
     "click",
     async () => {
 
+
       if(!currentUser){
 
         alert(
@@ -2260,30 +3355,32 @@ async function renderPost(
       }
 
 
-      if(
+      const isOpen =
         commentsArea.style.display ===
-        "block"
-      ){
+        "block";
+
+
+      if(isOpen){
 
         commentsArea.style.display =
           "none";
 
-        return;
+      }else{
+
+        commentsArea.style.display =
+          "block";
+
+
+        await loadComments(
+          post.id,
+          commentsList
+        );
 
       }
 
-
-      commentsArea.style.display =
-        "block";
-
-
-      await loadComments(
-        post.id,
-        commentsList
-      );
-
     }
   );
+
 
 
   /* SEND COMMENT */
@@ -2291,6 +3388,7 @@ async function renderPost(
   commentSend.addEventListener(
     "click",
     async () => {
+
 
       if(!currentUser){
 
@@ -2307,13 +3405,18 @@ async function renderPost(
         commentInput.value.trim();
 
 
-      if(!text) return;
+      if(!text){
+
+        return;
+
+      }
+
+
+      commentSend.disabled =
+        true;
 
 
       try{
-
-        commentSend.disabled =
-          true;
 
 
         await addDoc(
@@ -2332,7 +3435,8 @@ async function renderPost(
               currentUser.uid,
 
             username:
-              currentUsername,
+              composerName.textContent ||
+              "Member",
 
             createdAt:
               serverTimestamp()
@@ -2347,16 +3451,14 @@ async function renderPost(
 
         let count =
           Number(
-            commentCountElement
-              .textContent
+            commentCountElement.textContent
           ) || 0;
 
 
         count++;
 
 
-        commentCountElement
-          .textContent =
+        commentCountElement.textContent =
           count;
 
 
@@ -2390,6 +3492,9 @@ async function renderPost(
   );
 
 
+
+  /* ENTER */
+
   commentInput.addEventListener(
     "keydown",
     event => {
@@ -2409,9 +3514,10 @@ async function renderPost(
   );
 
 
-  /* =====================================================
+
+  /* =================================================
      SHARE
-  ===================================================== */
+  ================================================= */
 
   const shareButton =
     postElement.querySelector(
@@ -2423,11 +3529,13 @@ async function renderPost(
     "click",
     async () => {
 
+
       const shareText =
         `${username} shared a post on JSP TAYSU Community 🐉`;
 
 
       try{
+
 
         if(
           navigator.share
@@ -2454,11 +3562,13 @@ async function renderPost(
               window.location.href
             );
 
+
           alert(
             "Community link copied! 🔗"
           );
 
         }
+
 
       }catch(error){
 
@@ -2474,19 +3584,22 @@ async function renderPost(
 }
 
 
-/* =========================================================
+
+/* =====================================================
    LOAD COMMENTS
-========================================================= */
+===================================================== */
 
 async function loadComments(
   postId,
   commentsList
 ){
 
-  commentsList.innerHTML = "";
+  commentsList.innerHTML =
+    "";
 
 
   try{
+
 
     const snapshot =
       await getDocs(
@@ -2503,11 +3616,12 @@ async function loadComments(
 
       commentsList.innerHTML = `
 
-        <div style="
-          color:#8a8177;
-          font-size:12px;
-          padding:5px 2px;
-        ">
+        <div
+          style="
+            color:#777f89;
+            font-size:12px;
+            padding:5px 2px;
+          ">
 
           No comments yet.
 
@@ -2542,15 +3656,15 @@ async function loadComments(
     comments.sort(
       (a,b) => {
 
-        const aTime =
+        const timeA =
           a.createdAt?.seconds ||
           0;
 
-        const bTime =
+        const timeB =
           b.createdAt?.seconds ||
           0;
 
-        return aTime - bTime;
+        return timeA - timeB;
 
       }
     );
@@ -2558,6 +3672,7 @@ async function loadComments(
 
     comments.forEach(
       comment => {
+
 
         const element =
           document.createElement(
@@ -2582,18 +3697,28 @@ async function loadComments(
 
             </div>
 
+
             ${
               currentUser &&
               comment.userId ===
               currentUser.uid
-                ? `
-                  <button
-                    class="delete-comment"
-                    type="button">
-                    Delete
-                  </button>
-                `
-                : ""
+
+              ?
+
+              `
+                <button
+                  class="delete-comment"
+                  type="button">
+
+                  Delete
+
+                </button>
+              `
+
+              :
+
+              ""
+
             }
 
           </div>
@@ -2628,11 +3753,9 @@ async function loadComments(
             "click",
             async () => {
 
-              if(!currentUser)
-                return;
-
 
               try{
+
 
                 await deleteDoc(
                   doc(
@@ -2654,7 +3777,6 @@ async function loadComments(
               }catch(error){
 
                 console.error(
-                  "Delete error:",
                   error
                 );
 
@@ -2685,11 +3807,11 @@ async function loadComments(
 
     commentsList.innerHTML = `
 
-      <div style="
-        color:#9a5d4b;
-        font-size:12px;
-        padding:5px;
-      ">
+      <div
+        style="
+          color:#9c7373;
+          font-size:12px;
+        ">
 
         Couldn't load comments.
 
@@ -2702,9 +3824,10 @@ async function loadComments(
 }
 
 
-/* =========================================================
+
+/* =====================================================
    SEARCH MEMBERS
-========================================================= */
+===================================================== */
 
 const userSearchButton =
   document.getElementById(
@@ -2724,7 +3847,7 @@ const searchResults =
 
 userSearchButton.addEventListener(
   "click",
-  searchUsers
+  searchMembers
 );
 
 
@@ -2737,7 +3860,7 @@ userSearchInput.addEventListener(
       "Enter"
     ){
 
-      searchUsers();
+      searchMembers();
 
     }
 
@@ -2745,7 +3868,8 @@ userSearchInput.addEventListener(
 );
 
 
-async function searchUsers(){
+
+async function searchMembers(){
 
   const searchText =
     userSearchInput.value
@@ -2757,11 +3881,12 @@ async function searchUsers(){
 
     searchResults.innerHTML = `
 
-      <p style="
-        color:#81776b;
-        font-size:13px;
-        margin-bottom:10px;
-      ">
+      <p
+        style="
+          color:#777f89;
+          font-size:13px;
+          padding:5px;
+        ">
 
         Enter a username to search.
 
@@ -2787,22 +3912,8 @@ async function searchUsers(){
 
   try{
 
-    searchResults.innerHTML = `
 
-      <p style="
-        color:#81776b;
-        font-size:13px;
-        padding:5px;
-      ">
-
-        Searching...
-
-      </p>
-
-    `;
-
-
-    const usersSnapshot =
+    const snapshot =
       await getDocs(
         collection(
           db,
@@ -2815,12 +3926,12 @@ async function searchUsers(){
       "";
 
 
-    let found = false;
+    let found =
+      false;
 
 
     for(
-      const userDoc of
-      usersSnapshot.docs
+      const userDoc of snapshot.docs
     ){
 
       const user =
@@ -2831,8 +3942,7 @@ async function searchUsers(){
         (
           user.username ||
           ""
-        )
-        .toLowerCase();
+        ).toLowerCase();
 
 
       if(
@@ -2843,7 +3953,8 @@ async function searchUsers(){
         currentUser.uid
       ){
 
-        found = true;
+        found =
+          true;
 
 
         const result =
@@ -2856,16 +3967,35 @@ async function searchUsers(){
           "search-result";
 
 
+        const name =
+          user.username ||
+          "Member";
+
+
         result.innerHTML = `
 
-          <div class="search-result-user">
+          <div class="search-user">
 
-            ${escapeHTML(
-              user.username ||
-              "Member"
-            )}
+            <div class="search-avatar">
+
+              ${escapeHTML(
+                name
+                  .charAt(0)
+                  .toUpperCase()
+              )}
+
+            </div>
+
+            <div class="search-username">
+
+              ${escapeHTML(
+                name
+              )}
+
+            </div>
 
           </div>
+
 
           <button
             class="follow-button"
@@ -2892,6 +4022,7 @@ async function searchUsers(){
 
         try{
 
+
           const followSnap =
             await getDoc(
               doc(
@@ -2906,18 +4037,14 @@ async function searchUsers(){
             followSnap.exists()
           ){
 
-            followButton
-              .textContent =
+            followButton.textContent =
               "Following";
-
-            followButton
-              .classList
-              .add("following");
 
             followButton.disabled =
               true;
 
           }
+
 
         }catch(error){
 
@@ -2933,14 +4060,8 @@ async function searchUsers(){
           "click",
           async () => {
 
-            if(!currentUser)
-              return;
-
 
             try{
-
-              followButton.disabled =
-                true;
 
 
               await setDoc(
@@ -2957,10 +4078,6 @@ async function searchUsers(){
                   followingId:
                     userDoc.id,
 
-                  followingName:
-                    user.username ||
-                    "Member",
-
                   createdAt:
                     serverTimestamp()
 
@@ -2968,69 +4085,18 @@ async function searchUsers(){
               );
 
 
-              /* CREATE ALERT */
-
-              try{
-
-                await addDoc(
-                  collection(
-                    db,
-                    "users",
-                    userDoc.id,
-                    "notifications"
-                  ),
-                  {
-
-                    type:
-                      "follow",
-
-                    fromUserId:
-                      currentUser.uid,
-
-                    fromUsername:
-                      currentUsername,
-
-                    text:
-                      currentUsername +
-                      " started following you.",
-
-                    createdAt:
-                      serverTimestamp(),
-
-                    read:
-                      false
-
-                  }
-                );
-
-              }catch(notificationError){
-
-                console.error(
-                  "Notification error:",
-                  notificationError
-                );
-
-              }
-
-
-              followButton
-                .textContent =
+              followButton.textContent =
                 "Following";
 
-              followButton
-                .classList
-                .add("following");
+              followButton.disabled =
+                true;
 
 
             }catch(error){
 
               console.error(
-                "Follow error:",
                 error
               );
-
-              followButton.disabled =
-                false;
 
               alert(
                 error.code +
@@ -3057,11 +4123,12 @@ async function searchUsers(){
 
       searchResults.innerHTML = `
 
-        <p style="
-          color:#81776b;
-          font-size:13px;
-          padding:5px;
-        ">
+        <p
+          style="
+            color:#777f89;
+            font-size:13px;
+            padding:5px;
+          ">
 
           No members found.
 
@@ -3070,6 +4137,7 @@ async function searchUsers(){
       `;
 
     }
+
 
   }catch(error){
 
@@ -3090,438 +4158,132 @@ async function searchUsers(){
 }
 
 
-/* =========================================================
-   ALERTS
-========================================================= */
 
-const alertsPanel =
-  document.getElementById(
-    "alertsPanel"
-  );
+/* =====================================================
+   HELPERS
+===================================================== */
 
-const alertsList =
-  document.getElementById(
-    "alertsList"
-  );
-
-
-async function loadAlerts(){
-
-  if(!currentUser){
-
-    alertsList.innerHTML = `
-
-      <div class="alert-empty">
-        Please sign in to see alerts.
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  try{
-
-    const snapshot =
-      await getDocs(
-        collection(
-          db,
-          "users",
-          currentUser.uid,
-          "notifications"
-        )
-      );
-
-
-    if(snapshot.empty){
-
-      alertsList.innerHTML = `
-
-        <div class="alert-empty">
-          No alerts yet 🐉
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    const alerts = [];
-
-
-    snapshot.forEach(
-      notificationDoc => {
-
-        alerts.push({
-
-          id:
-            notificationDoc.id,
-
-          ...notificationDoc.data()
-
-        });
-
-      }
-    );
-
-
-    alerts.sort(
-      (a,b) => {
-
-        const aTime =
-          a.createdAt?.seconds ||
-          0;
-
-        const bTime =
-          b.createdAt?.seconds ||
-          0;
-
-        return bTime - aTime;
-
-      }
-    );
-
-
-    alertsList.innerHTML = "";
-
-
-    alerts.slice(
-      0,
-      30
-    ).forEach(
-      alert => {
-
-        const element =
-          document.createElement(
-            "div"
-          );
-
-
-        element.className =
-          "alert-item";
-
-
-        element.textContent =
-          alert.text ||
-          "You have a new notification.";
-
-
-        alertsList.appendChild(
-          element
-        );
-
-      }
-    );
-
-
-  }catch(error){
-
-    console.error(
-      "Alerts error:",
-      error
-    );
-
-
-    alertsList.innerHTML = `
-
-      <div class="alert-empty">
-        Couldn't load alerts.
-      </div>
-
-    `;
-
-  }
-
-}
-
-
-/* =========================================================
-   BOTTOM NAVIGATION
-========================================================= */
-
-const navItems =
-  document.querySelectorAll(
-    ".nav-item"
-  );
-
-
-function setActive(
-  element
-){
-
-  navItems.forEach(
-    item =>
-      item.classList
-        .remove("active")
-  );
-
-
-  element.classList
-    .add("active");
-
-}
-
-
-/* HOME */
-
-document.getElementById(
-  "homeNav"
-).addEventListener(
-  "click",
-  () => {
-
-    setActive(
-      document.getElementById(
-        "homeNav"
-      )
-    );
-
-    alertsPanel.style.display =
-      "none";
-
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    });
-
-  }
-);
-
-
-/* EXPLORE */
-
-document.getElementById(
-  "exploreNav"
-).addEventListener(
-  "click",
-  () => {
-
-    setActive(
-      document.getElementById(
-        "exploreNav"
-      )
-    );
-
-    alertsPanel.style.display =
-      "none";
-
-
-    document.getElementById(
-      "userSearchInput"
-    ).focus();
-
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    });
-
-  }
-);
-
-
-/* CREATE */
-
-document.getElementById(
-  "createNav"
-).addEventListener(
-  "click",
-  () => {
-
-    setActive(
-      document.getElementById(
-        "createNav"
-      )
-    );
-
-    alertsPanel.style.display =
-      "none";
-
-
-    document.getElementById(
-      "createPostSection"
-    ).scrollIntoView({
-      behavior:"smooth",
-      block:"center"
-    });
-
-
-    setTimeout(
-      () => {
-
-        if(currentUser){
-
-          postText.focus();
-
-        }else{
-
-          alert(
-            "Please sign in first."
-          );
-
-        }
-
-      },
-      500
-    );
-
-  }
-);
-
-
-/* ALERTS */
-
-document.getElementById(
-  "alertsNav"
-).addEventListener(
-  "click",
-  async () => {
-
-    setActive(
-      document.getElementById(
-        "alertsNav"
-      )
-    );
-
-
-    if(
-      alertsPanel.style.display ===
-      "block"
-    ){
-
-      alertsPanel.style.display =
-        "none";
-
-      return;
-
-    }
-
-
-    alertsPanel.style.display =
-      "block";
-
-
-    await loadAlerts();
-
-
-    alertsPanel.scrollIntoView({
-      behavior:"smooth",
-      block:"start"
-    });
-
-  }
-);
-
-
-/* PROFILE */
-
-document.getElementById(
-  "profileNavButton"
-).addEventListener(
-  "click",
-  () => {
-
-    setActive(
-      document.getElementById(
-        "profileNavButton"
-      )
-    );
-
-    window.location.href =
-      "profile.html";
-
-  }
-);
-
-
-/* =========================================================
-   SAFE HTML
-========================================================= */
-
-function escapeHTML(
-  text
-){
+function escapeHTML(text){
 
   const div =
     document.createElement(
       "div"
     );
 
-
   div.textContent =
     String(text);
-
 
   return div.innerHTML;
 
 }
 
 
-/* =========================================================
-   TIME FORMAT
-========================================================= */
+function escapeAttribute(text){
 
-function formatTimeAgo(
-  date
-){
-
-  const seconds =
-    Math.floor(
-      (
-        Date.now() -
-        date.getTime()
-      ) / 1000
+  return String(text)
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
     );
-
-
-  if(seconds < 10)
-    return "Just now";
-
-
-  if(seconds < 60)
-    return seconds +
-      "s ago";
-
-
-  const minutes =
-    Math.floor(
-      seconds / 60
-    );
-
-
-  if(minutes < 60)
-    return minutes +
-      "m ago";
-
-
-  const hours =
-    Math.floor(
-      minutes / 60
-    );
-
-
-  if(hours < 24)
-    return hours +
-      "h ago";
-
-
-  const days =
-    Math.floor(
-      hours / 24
-    );
-
-
-  if(days < 7)
-    return days +
-      "d ago";
-
-
-  return date.toLocaleDateString();
 
 }
+
+
+function formatTime(
+  timestamp
+){
+
+  if(
+    !timestamp ||
+    !timestamp.seconds
+  ){
+
+    return "Just now";
+
+  }
+
+
+  const date =
+    new Date(
+      timestamp.seconds * 1000
+    );
+
+
+  const now =
+    new Date();
+
+
+  const diff =
+    Math.floor(
+      (now - date) / 1000
+    );
+
+
+  if(diff < 60){
+
+    return "Just now";
+
+  }
+
+
+  if(diff < 3600){
+
+    return (
+      Math.floor(
+        diff / 60
+      ) +
+      "m ago"
+    );
+
+  }
+
+
+  if(diff < 86400){
+
+    return (
+      Math.floor(
+        diff / 3600
+      ) +
+      "h ago"
+    );
+
+  }
+
+
+  if(diff < 604800){
+
+    return (
+      Math.floor(
+        diff / 86400
+      ) +
+      "d ago"
+    );
+
+  }
+
+
+  return date.toLocaleDateString(
+    "en-IN",
+    {
+      day:"numeric",
+      month:"short"
+    }
+  );
+
+}
+
 
 </script>
 
