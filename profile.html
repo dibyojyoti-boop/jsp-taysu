@@ -3,10 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>Profile • JSP TAYSU</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 body{
   background:#0b0d12;
@@ -14,6 +20,8 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   padding-bottom:76px;
 }
+
+/* ================= TOP BAR ================= */
 
 .topbar{
   height:60px;
@@ -54,7 +62,7 @@ body{
   cursor:pointer;
 }
 
-/* PROFILE */
+/* ================= PROFILE ================= */
 
 .profile{
   padding:18px 16px 0;
@@ -112,6 +120,8 @@ body{
   font-size:12px;
 }
 
+/* ================= INFO ================= */
+
 .info{
   margin-top:17px;
 }
@@ -136,6 +146,8 @@ body{
   font-size:12px;
 }
 
+/* ================= BUTTONS ================= */
+
 .buttons{
   display:flex;
   gap:8px;
@@ -157,7 +169,8 @@ body{
   cursor:default;
 }
 
-.edit,.follow{
+.edit,
+.follow{
   background:#f1f1f3;
   color:#111318;
 }
@@ -168,7 +181,7 @@ body{
   border:1px solid #30343e;
 }
 
-/* POSTS HEADER */
+/* ================= POSTS HEADER ================= */
 
 .post-header{
   height:52px;
@@ -184,7 +197,7 @@ body{
   font-size:23px;
 }
 
-/* POSTS */
+/* ================= POSTS ================= */
 
 .posts{
   padding-bottom:25px;
@@ -268,6 +281,8 @@ body{
   cursor:pointer;
 }
 
+/* ================= POST MENU ================= */
+
 .post-menu{
   display:none;
   position:absolute;
@@ -293,7 +308,7 @@ body{
   cursor:pointer;
 }
 
-/* EMPTY */
+/* ================= EMPTY ================= */
 
 .empty{
   display:flex;
@@ -320,7 +335,7 @@ body{
   font-size:12px;
 }
 
-/* TOP MENU */
+/* ================= TOP MENU ================= */
 
 .menu{
   display:none;
@@ -351,7 +366,7 @@ body{
   color:#ff5d6c !important;
 }
 
-/* MODAL */
+/* ================= MODAL ================= */
 
 .overlay{
   display:none;
@@ -434,7 +449,7 @@ body{
   color:#aaa;
 }
 
-/* USER SHEET */
+/* ================= USER SHEET ================= */
 
 .sheet-overlay{
   display:none;
@@ -456,8 +471,12 @@ body{
 }
 
 @keyframes sheetUp{
-  from{transform:translateY(100%)}
-  to{transform:translateY(0)}
+  from{
+    transform:translateY(100%);
+  }
+  to{
+    transform:translateY(0);
+  }
 }
 
 .sheet-head{
@@ -557,7 +576,7 @@ body{
   font-size:13px;
 }
 
-/* LOADING */
+/* ================= LOADING ================= */
 
 .loading{
   position:fixed;
@@ -579,10 +598,12 @@ body{
 }
 
 @keyframes spin{
-  to{transform:rotate(360deg)}
+  to{
+    transform:rotate(360deg);
+  }
 }
 
-/* NAV */
+/* ================= NAV ================= */
 
 .bottom-nav{
   position:fixed;
@@ -624,7 +645,10 @@ body{
   font-size:29px !important;
 }
 
+/* ================= DESKTOP ================= */
+
 @media(min-width:700px){
+
   body{
     max-width:650px;
     margin:auto;
@@ -634,7 +658,9 @@ body{
     max-width:650px;
     margin:auto;
   }
+
 }
+
 </style>
 </head>
 
@@ -645,24 +671,34 @@ body{
 </div>
 
 <header class="topbar">
+
   <div class="back" onclick="goBack()">‹</div>
 
   <div class="username-title" id="topUsername">
     Profile
   </div>
 
-  <div class="more" onclick="toggleTopMenu()">•••</div>
+  <div class="more" onclick="toggleTopMenu()">
+    •••
+  </div>
+
 </header>
 
 <div class="menu" id="topMenu">
-  <button class="signout" onclick="signOut()">Sign out</button>
+
+  <button class="signout" onclick="signOut()">
+    Sign out
+  </button>
+
 </div>
 
 <main class="profile">
 
   <section class="profile-top">
 
-    <div class="avatar" id="avatar">M</div>
+    <div class="avatar" id="avatar">
+      M
+    </div>
 
     <div class="stats">
 
@@ -671,14 +707,20 @@ body{
         <span>posts</span>
       </div>
 
-      <div class="stat" onclick="openUserList('followers')">
+      <div class="stat"
+           onclick="openUserList('followers')">
+
         <strong id="followersCount">0</strong>
         <span>followers</span>
+
       </div>
 
-      <div class="stat" onclick="openUserList('following')">
+      <div class="stat"
+           onclick="openUserList('following')">
+
         <strong id="followingCount">0</strong>
         <span>following</span>
+
       </div>
 
     </div>
@@ -687,7 +729,9 @@ body{
 
   <section class="info">
 
-    <div class="name" id="profileName">Member</div>
+    <div class="name" id="profileName">
+      Member
+    </div>
 
     <div class="bio" id="profileBio">
       Building and preserving our heritage.
@@ -704,15 +748,29 @@ body{
 </main>
 
 <section class="post-header">
-  <div class="post-icon">▦</div>
+
+  <div class="post-icon">
+    ▦
+  </div>
+
 </section>
 
 <section class="posts" id="posts">
 
   <div class="empty">
-    <div class="empty-icon">◌</div>
-    <h3>Loading posts...</h3>
-    <p>Please wait a moment.</p>
+
+    <div class="empty-icon">
+      ◌
+    </div>
+
+    <h3>
+      Loading posts...
+    </h3>
+
+    <p>
+      Please wait a moment.
+    </p>
+
   </div>
 
 </section>
@@ -751,11 +809,17 @@ body{
   <div class="modal">
 
     <div class="modal-title">
+
       <h2>Edit profile</h2>
-      <div class="close" onclick="closeEdit()">×</div>
+
+      <div class="close" onclick="closeEdit()">
+        ×
+      </div>
+
     </div>
 
     <div class="field">
+
       <label>Username</label>
 
       <input
@@ -763,6 +827,7 @@ body{
         id="editUsername"
         maxlength="40"
         placeholder="Enter username">
+
     </div>
 
     <div class="field">
@@ -792,7 +857,9 @@ body{
 
     <div class="sheet-head">
 
-      <h3 id="sheetTitle">Followers</h3>
+      <h3 id="sheetTitle">
+        Followers
+      </h3>
 
       <div class="sheet-close" onclick="closeUserList()">
         ×
@@ -818,94 +885,191 @@ body{
 
 <script>
 
+/* =====================================================
+   FIREBASE
+===================================================== */
+
 const firebaseConfig = {
-  apiKey:"AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
-  authDomain:"jsp-taysu.firebaseapp.com",
-  projectId:"jsp-taysu",
-  storageBucket:"jsp-taysu.firebasestorage.app",
-  messagingSenderId:"280992025632",
-  appId:"1:280992025632:web:48efa21208a78be9a78045"
+
+  apiKey:
+    "AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
+
+  authDomain:
+    "jsp-taysu.firebaseapp.com",
+
+  projectId:
+    "jsp-taysu",
+
+  storageBucket:
+    "jsp-taysu.firebasestorage.app",
+
+  messagingSenderId:
+    "280992025632",
+
+  appId:
+    "1:280992025632:web:48efa21208a78be9a78045"
+
 };
 
 firebase.initializeApp(firebaseConfig);
 
-const auth = firebase.auth();
-const db = firebase.firestore();
+const auth =
+  firebase.auth();
 
-const loading = document.getElementById("loading");
-const avatar = document.getElementById("avatar");
-const profileName = document.getElementById("profileName");
-const profileBio = document.getElementById("profileBio");
-const topUsername = document.getElementById("topUsername");
-const postCount = document.getElementById("postCount");
-const followersCount = document.getElementById("followersCount");
-const followingCount = document.getElementById("followingCount");
-const postsContainer = document.getElementById("posts");
-const profileButtons = document.getElementById("profileButtons");
-const topMenu = document.getElementById("topMenu");
-const editOverlay = document.getElementById("editOverlay");
-const editUsername = document.getElementById("editUsername");
-const editBio = document.getElementById("editBio");
-const saveStatus = document.getElementById("saveStatus");
-const sheetOverlay = document.getElementById("sheetOverlay");
-const sheetTitle = document.getElementById("sheetTitle");
-const userList = document.getElementById("userList");
+const db =
+  firebase.firestore();
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const loading =
+  document.getElementById("loading");
+
+const avatar =
+  document.getElementById("avatar");
+
+const profileName =
+  document.getElementById("profileName");
+
+const profileBio =
+  document.getElementById("profileBio");
+
+const topUsername =
+  document.getElementById("topUsername");
+
+const postCount =
+  document.getElementById("postCount");
+
+const followersCount =
+  document.getElementById("followersCount");
+
+const followingCount =
+  document.getElementById("followingCount");
+
+const postsContainer =
+  document.getElementById("posts");
+
+const profileButtons =
+  document.getElementById("profileButtons");
+
+const topMenu =
+  document.getElementById("topMenu");
+
+const editOverlay =
+  document.getElementById("editOverlay");
+
+const editUsername =
+  document.getElementById("editUsername");
+
+const editBio =
+  document.getElementById("editBio");
+
+const saveStatus =
+  document.getElementById("saveStatus");
+
+const sheetOverlay =
+  document.getElementById("sheetOverlay");
+
+const sheetTitle =
+  document.getElementById("sheetTitle");
+
+const userList =
+  document.getElementById("userList");
+
+
+/* =====================================================
+   GLOBAL STATE
+===================================================== */
 
 let currentUser = null;
 let profileUserData = null;
 let profileUserId = null;
 
+
+/* =====================================================
+   GET PROFILE UID
+===================================================== */
+
 function getProfileUid(){
 
   const params =
-    new URLSearchParams(window.location.search);
+    new URLSearchParams(
+      window.location.search
+    );
 
   return params.get("uid");
+
 }
 
-/* AUTH */
 
-auth.onAuthStateChanged(async user => {
+/* =====================================================
+   AUTH
+===================================================== */
 
-  if(!user){
-    window.location.href="index.html";
-    return;
+auth.onAuthStateChanged(
+  async user => {
+
+    if(!user){
+
+      window.location.href =
+        "index.html";
+
+      return;
+
+    }
+
+    currentUser =
+      user;
+
+    profileUserId =
+      getProfileUid() ||
+      user.uid;
+
+    try{
+
+      await loadProfile();
+
+      await loadPosts();
+
+    }catch(error){
+
+      console.error(
+        "PROFILE LOAD ERROR:",
+        error
+      );
+
+      showProfileError();
+
+    }
+
+    loading.style.display =
+      "none";
+
   }
-
-  currentUser=user;
-
-  profileUserId =
-    getProfileUid() || user.uid;
-
-  try{
-
-    await loadProfile();
-    await loadPosts();
-
-  }catch(error){
-
-    console.error("PROFILE LOAD ERROR:",error);
-    showProfileError();
-
-  }
-
-  loading.style.display="none";
-});
+);
 
 
-/* LOAD PROFILE */
+/* =====================================================
+   LOAD PROFILE
+===================================================== */
 
 async function loadProfile(){
 
   const ref =
-    db.collection("users").doc(profileUserId);
+    db.collection("users")
+      .doc(profileUserId);
 
   const snap =
     await ref.get();
 
   if(!snap.exists){
 
-    if(profileUserId === currentUser.uid){
+    if(
+      profileUserId ===
+      currentUser.uid
+    ){
 
       const username =
         currentUser.displayName ||
@@ -922,48 +1086,66 @@ async function loadProfile(){
         email:
           currentUser.email || "",
 
-        followers:[],
-        following:[],
-
         createdAt:
-          firebase.firestore.FieldValue.serverTimestamp()
+          firebase.firestore
+            .FieldValue
+            .serverTimestamp()
 
       };
 
-      await ref.set(newData,{merge:true});
+      await ref.set(
+        newData,
+        {merge:true}
+      );
 
-      profileUserData=newData;
+      profileUserData =
+        newData;
 
     }else{
 
       showProfileNotFound();
+
       return;
 
     }
 
   }else{
 
-    profileUserData=snap.data();
+    profileUserData =
+      snap.data();
 
   }
 
+
   const username =
-    profileUserData.username || "Member";
+    profileUserData.username ||
+    "Member";
 
   const bio =
     profileUserData.bio ||
     "Building and preserving our heritage.";
 
-  displayProfile(username,bio);
+  displayProfile(
+    username,
+    bio
+  );
+
+
+  /* IMPORTANT:
+     Followers/following now come
+     from the follows collection.
+  */
 
   await refreshRelationshipData();
 
-  renderProfileButtons();
+  await renderProfileButtons();
+
 }
 
 
 /* =====================================================
-   FIXED FOLLOWER / FOLLOWING COUNTS
+   RELATIONSHIP DATA
+   USING follows COLLECTION
 ===================================================== */
 
 async function refreshRelationshipData(){
@@ -974,72 +1156,66 @@ async function refreshRelationshipData(){
 
   try{
 
-    /*
-      Followers of this profile:
-      users whose following array contains profileUserId
+    /* Followers:
+       Someone is following this profile.
     */
 
     const followersSnap =
       await db
-        .collection("users")
+        .collection("follows")
         .where(
-          "following",
-          "array-contains",
+          "followingId",
+          "==",
           profileUserId
         )
         .get();
 
 
-    /*
-      Following of this profile:
-      users whose followers array contains profileUserId
+    /* Following:
+       This profile is following someone.
     */
 
     const followingSnap =
       await db
-        .collection("users")
+        .collection("follows")
         .where(
-          "followers",
-          "array-contains",
+          "followerId",
+          "==",
           profileUserId
         )
         .get();
 
 
-    const followerIds=[];
-
-    followersSnap.forEach(doc => {
-
-      if(doc.id !== profileUserId){
-        followerIds.push(doc.id);
-      }
-
-    });
+    const followers =
+      followersSnap.docs
+        .map(
+          doc =>
+            doc.data().followerId
+        )
+        .filter(Boolean);
 
 
-    const followingIds=[];
-
-    followingSnap.forEach(doc => {
-
-      if(doc.id !== profileUserId){
-        followingIds.push(doc.id);
-      }
-
-    });
+    const following =
+      followingSnap.docs
+        .map(
+          doc =>
+            doc.data().followingId
+        )
+        .filter(Boolean);
 
 
     profileUserData.followers =
-      followerIds;
+      followers;
 
     profileUserData.following =
-      followingIds;
+      following;
 
 
     followersCount.textContent =
-      followerIds.length;
+      followers.length;
 
     followingCount.textContent =
-      followingIds.length;
+      following.length;
 
 
   }catch(error){
@@ -1049,40 +1225,34 @@ async function refreshRelationshipData(){
       error
     );
 
-
-    /*
-      Fallback to the arrays already stored
-      inside the profile document.
-    */
-
-    const followers =
-      Array.isArray(profileUserData?.followers)
-        ? profileUserData.followers
-        : [];
-
-    const following =
-      Array.isArray(profileUserData?.following)
-        ? profileUserData.following
-        : [];
-
     followersCount.textContent =
-      followers.length;
+      "0";
 
     followingCount.textContent =
-      following.length;
+      "0";
 
   }
 
 }
 
 
-/* DISPLAY PROFILE */
+/* =====================================================
+   DISPLAY PROFILE
+===================================================== */
 
-function displayProfile(username,bio){
+function displayProfile(
+  username,
+  bio
+){
 
-  profileName.textContent=username;
-  topUsername.textContent=username;
-  profileBio.textContent=bio;
+  profileName.textContent =
+    username;
+
+  topUsername.textContent =
+    username;
+
+  profileBio.textContent =
+    bio;
 
   const photo =
     profileUserData?.photoURL ||
@@ -1097,28 +1267,42 @@ function displayProfile(username,bio){
   }else{
 
     const letter =
-      username.trim().charAt(0).toUpperCase() || "M";
+      username
+        .trim()
+        .charAt(0)
+        .toUpperCase() ||
+        "M";
 
-    avatar.textContent=letter;
+    avatar.textContent =
+      letter;
 
   }
 
 }
 
 
-/* LOAD POSTS */
+/* =====================================================
+   LOAD POSTS
+   UNCHANGED
+===================================================== */
 
 async function loadPosts(){
 
-  postsContainer.innerHTML=`
+  postsContainer.innerHTML = `
 
     <div class="empty">
 
-      <div class="empty-icon">◌</div>
+      <div class="empty-icon">
+        ◌
+      </div>
 
-      <h3>Loading posts...</h3>
+      <h3>
+        Loading posts...
+      </h3>
 
-      <p>Please wait a moment.</p>
+      <p>
+        Please wait a moment.
+      </p>
 
     </div>
 
@@ -1129,72 +1313,110 @@ async function loadPosts(){
     const snapshot =
       await db
         .collection("posts")
-        .where("authorId","==",profileUserId)
+        .where(
+          "authorId",
+          "==",
+          profileUserId
+        )
         .get();
 
-    const posts=[];
+    const posts = [];
 
-    snapshot.forEach(doc => {
+    snapshot.forEach(
+      doc => {
 
-      posts.push({
-        id:doc.id,
-        ...doc.data()
-      });
+        posts.push({
 
-    });
+          id:doc.id,
 
-    posts.sort((a,b)=>{
+          ...doc.data()
 
-      const aTime =
-        a.createdAt?.seconds || 0;
+        });
 
-      const bTime =
-        b.createdAt?.seconds || 0;
+      }
+    );
 
-      return bTime-aTime;
 
-    });
+    posts.sort(
+      (a,b) => {
 
-    postCount.textContent=posts.length;
+        const aTime =
+          a.createdAt?.seconds || 0;
 
-    postsContainer.innerHTML="";
+        const bTime =
+          b.createdAt?.seconds || 0;
 
-    if(posts.length===0){
+        return bTime - aTime;
 
-      postsContainer.innerHTML=`
+      }
+    );
+
+
+    postCount.textContent =
+      posts.length;
+
+    postsContainer.innerHTML =
+      "";
+
+
+    if(posts.length === 0){
+
+      postsContainer.innerHTML = `
 
         <div class="empty">
 
-          <div class="empty-icon">✦</div>
+          <div class="empty-icon">
+            ✦
+          </div>
 
-          <h3>No posts yet</h3>
+          <h3>
+            No posts yet
+          </h3>
 
-          <p>Posts will appear here.</p>
+          <p>
+            Posts will appear here.
+          </p>
 
         </div>
 
       `;
 
       return;
+
     }
 
-    posts.forEach(post=>{
-      renderPost(post);
-    });
+
+    posts.forEach(
+      post => {
+
+        renderPost(post);
+
+      }
+    );
+
 
   }catch(error){
 
-    console.error("Posts error:",error);
+    console.error(
+      "Posts error:",
+      error
+    );
 
-    postsContainer.innerHTML=`
+    postsContainer.innerHTML = `
 
       <div class="empty">
 
-        <div class="empty-icon">⚠️</div>
+        <div class="empty-icon">
+          ⚠️
+        </div>
 
-        <h3>Couldn't load posts</h3>
+        <h3>
+          Couldn't load posts
+        </h3>
 
-        <p>Please refresh the page.</p>
+        <p>
+          Please refresh the page.
+        </p>
 
       </div>
 
@@ -1205,7 +1427,10 @@ async function loadPosts(){
 }
 
 
-/* RENDER POST — UNCHANGED */
+/* =====================================================
+   RENDER POST
+   UNCHANGED
+===================================================== */
 
 function renderPost(post){
 
@@ -1217,21 +1442,29 @@ function renderPost(post){
   const article =
     document.createElement("article");
 
-  article.className="my-post";
+  article.className =
+    "my-post";
+
 
   const isOwnPost =
     currentUser &&
-    post.authorId === currentUser.uid;
+    post.authorId ===
+    currentUser.uid;
+
 
   const photo =
     profileUserData.photoURL ||
     profileUserData.photoUrl ||
     "";
 
-  const cleanPostText =
-    String(post.text || "").trim();
 
-  article.innerHTML=`
+  const cleanPostText =
+    String(
+      post.text || ""
+    ).trim();
+
+
+  article.innerHTML = `
 
     <div class="my-post-top">
 
@@ -1241,17 +1474,24 @@ function renderPost(post){
 
           ${
             photo
-              ?
+
+            ?
+
             `<img
               src="${escapeAttribute(photo)}"
               alt="">`
-              :
+
+            :
+
             escapeHTML(
-              username.charAt(0).toUpperCase()
+              username
+                .charAt(0)
+                .toUpperCase()
             )
           }
 
         </div>
+
 
         <div class="my-post-meta">
 
@@ -1267,211 +1507,346 @@ function renderPost(post){
 
       </div>
 
+
       ${
         isOwnPost
-          ?
+
+        ?
+
         `
           <button
             class="post-menu-button"
             type="button"
             aria-label="Post options">
+
             •••
+
           </button>
         `
-          :
+
+        :
+
         ""
+
       }
 
     </div>
 
-    <div class="my-post-text">${escapeHTML(cleanPostText)}</div>
+
+    <div class="my-post-text">${
+      escapeHTML(cleanPostText)
+    }</div>
+
 
     ${
       isOwnPost
-        ?
+
+      ?
+
       `
         <div class="post-menu">
 
           <button
             type="button"
             class="delete-post-button">
+
             Delete post
+
           </button>
 
         </div>
       `
-        :
+
+      :
+
       ""
+
     }
 
   `;
 
-  postsContainer.appendChild(article);
+
+  postsContainer.appendChild(
+    article
+  );
+
 
   if(!isOwnPost){
     return;
   }
 
+
   const menuButton =
-    article.querySelector(".post-menu-button");
+    article.querySelector(
+      ".post-menu-button"
+    );
 
   const postMenu =
-    article.querySelector(".post-menu");
+    article.querySelector(
+      ".post-menu"
+    );
 
-  menuButton.addEventListener("click",event=>{
 
-    event.stopPropagation();
+  menuButton.addEventListener(
+    "click",
+    event => {
 
-    document
-      .querySelectorAll(".post-menu")
-      .forEach(otherMenu=>{
+      event.stopPropagation();
 
-        if(otherMenu!==postMenu){
-          otherMenu.style.display="none";
-        }
+      document
+        .querySelectorAll(
+          ".post-menu"
+        )
+        .forEach(
+          otherMenu => {
 
-      });
+            if(
+              otherMenu !==
+              postMenu
+            ){
 
-    postMenu.style.display =
-      postMenu.style.display==="block"
-        ?
-      "none"
-        :
-      "block";
+              otherMenu.style.display =
+                "none";
 
-  });
+            }
 
-  const deleteButton =
-    article.querySelector(".delete-post-button");
-
-  deleteButton.addEventListener("click",async()=>{
-
-    const confirmed =
-      confirm("Delete this post?");
-
-    if(!confirmed){
-      return;
-    }
-
-    deleteButton.disabled=true;
-    deleteButton.textContent="Deleting...";
-
-    try{
-
-      await db
-        .collection("posts")
-        .doc(post.id)
-        .delete();
-
-      article.remove();
-
-      postCount.textContent =
-        Math.max(
-          0,
-          Number(postCount.textContent)-1
+          }
         );
 
-      if(
-        postsContainer
-          .querySelectorAll(".my-post")
-          .length===0
-      ){
 
-        postsContainer.innerHTML=`
+      postMenu.style.display =
+        postMenu.style.display ===
+        "block"
+          ?
+        "none"
+          :
+        "block";
 
-          <div class="empty">
+    }
+  );
 
-            <div class="empty-icon">✦</div>
 
-            <h3>No posts yet</h3>
+  const deleteButton =
+    article.querySelector(
+      ".delete-post-button"
+    );
 
-            <p>Posts will appear here.</p>
 
-          </div>
+  deleteButton.addEventListener(
+    "click",
+    async () => {
 
-        `;
+      const confirmed =
+        confirm(
+          "Delete this post?"
+        );
+
+
+      if(!confirmed){
+        return;
+      }
+
+
+      deleteButton.disabled =
+        true;
+
+      deleteButton.textContent =
+        "Deleting...";
+
+
+      try{
+
+        await db
+          .collection("posts")
+          .doc(post.id)
+          .delete();
+
+
+        article.remove();
+
+
+        postCount.textContent =
+          Math.max(
+            0,
+            Number(
+              postCount.textContent
+            ) - 1
+          );
+
+
+        if(
+          postsContainer
+            .querySelectorAll(
+              ".my-post"
+            )
+            .length === 0
+        ){
+
+          postsContainer.innerHTML = `
+
+            <div class="empty">
+
+              <div class="empty-icon">
+                ✦
+              </div>
+
+              <h3>
+                No posts yet
+              </h3>
+
+              <p>
+                Posts will appear here.
+              </p>
+
+            </div>
+
+          `;
+
+        }
+
+
+      }catch(error){
+
+        console.error(
+          "Delete error:",
+          error
+        );
+
+        alert(
+          error.code +
+          ": " +
+          error.message
+        );
+
+        deleteButton.disabled =
+          false;
+
+        deleteButton.textContent =
+          "Delete post";
 
       }
 
-    }catch(error){
-
-      console.error("Delete error:",error);
-
-      alert(
-        error.code + ": " + error.message
-      );
-
-      deleteButton.disabled=false;
-      deleteButton.textContent="Delete post";
-
     }
-
-  });
+  );
 
 }
 
 
-/* FOLLOW STATUS */
+/* =====================================================
+   FOLLOW STATUS
+   USING follows DOCUMENT
+===================================================== */
 
-function isFollowing(){
-
-  if(!currentUser || !profileUserData){
-    return false;
-  }
-
-  const followers =
-    Array.isArray(profileUserData.followers)
-      ?
-    profileUserData.followers
-      :
-    [];
-
-  return followers.includes(currentUser.uid);
-}
-
-
-/* BUTTONS */
-
-function renderProfileButtons(){
-
-  profileButtons.innerHTML="";
+async function isFollowing(){
 
   if(
     !currentUser ||
-    profileUserId===currentUser.uid
+    !profileUserId ||
+    profileUserId ===
+    currentUser.uid
   ){
 
-    profileButtons.innerHTML=`
+    return false;
+
+  }
+
+
+  const followId =
+    currentUser.uid +
+    "_" +
+    profileUserId;
+
+
+  try{
+
+    const snap =
+      await db
+        .collection("follows")
+        .doc(followId)
+        .get();
+
+
+    return snap.exists;
+
+  }catch(error){
+
+    console.error(
+      "FOLLOW STATUS ERROR:",
+      error
+    );
+
+    return false;
+
+  }
+
+}
+
+
+/* =====================================================
+   PROFILE BUTTONS
+===================================================== */
+
+async function renderProfileButtons(){
+
+  profileButtons.innerHTML =
+    "";
+
+
+  if(
+    !currentUser ||
+    profileUserId ===
+    currentUser.uid
+  ){
+
+    profileButtons.innerHTML = `
 
       <button
         class="btn edit"
         onclick="openEdit()">
+
         Edit profile
+
       </button>
+
 
       <button
         class="btn following"
         onclick="shareProfile()">
+
         Share profile
+
       </button>
 
     `;
 
     return;
+
   }
 
-  const following=isFollowing();
 
-  profileButtons.innerHTML=`
+  const following =
+    await isFollowing();
+
+
+  profileButtons.innerHTML = `
 
     <button
       id="followButton"
-      class="btn ${following ? "following":"follow"}"
+      class="btn ${
+        following
+          ? "following"
+          : "follow"
+      }"
       onclick="toggleFollow()">
 
-      ${following ? "Following":"Follow"}
+      ${
+        following
+          ? "Following"
+          : "Follow"
+      }
 
     </button>
+
 
     <button
       class="btn following"
@@ -1486,122 +1861,92 @@ function renderProfileButtons(){
 }
 
 
-/* FOLLOW / UNFOLLOW */
+/* =====================================================
+   FOLLOW / UNFOLLOW
+   USING follows COLLECTION
+===================================================== */
 
 async function toggleFollow(){
 
   if(
     !currentUser ||
-    profileUserId===currentUser.uid
+    !profileUserId ||
+    profileUserId ===
+    currentUser.uid
   ){
+
     return;
+
   }
 
+
   const button =
-    document.getElementById("followButton");
+    document.getElementById(
+      "followButton"
+    );
+
 
   if(!button){
     return;
   }
 
-  button.disabled=true;
+
+  button.disabled =
+    true;
+
+
+  const followId =
+    currentUser.uid +
+    "_" +
+    profileUserId;
+
+
+  const followRef =
+    db
+      .collection("follows")
+      .doc(followId);
+
 
   try{
 
-    const myRef =
-      db.collection("users")
-        .doc(currentUser.uid);
+    const snap =
+      await followRef.get();
 
-    const targetRef =
-      db.collection("users")
-        .doc(profileUserId);
 
-    const results =
-      await Promise.all([
-        myRef.get(),
-        targetRef.get()
-      ]);
+    if(snap.exists){
 
-    const mySnap=results[0];
-    const targetSnap=results[1];
+      /* UNFOLLOW */
 
-    if(!targetSnap.exists){
-      throw new Error(
-        "Target profile does not exist."
-      );
-    }
-
-    const myData =
-      mySnap.exists ? mySnap.data() : {};
-
-    const targetData =
-      targetSnap.data() || {};
-
-    const targetFollowers =
-      Array.isArray(targetData.followers)
-        ?
-      targetData.followers
-        :
-      [];
-
-    const alreadyFollowing =
-      targetFollowers.includes(
-        currentUser.uid
-      );
-
-    if(alreadyFollowing){
-
-      await Promise.all([
-
-        targetRef.set({
-
-          followers:
-            firebase.firestore.FieldValue.arrayRemove(
-              currentUser.uid
-            )
-
-        },{merge:true}),
-
-        myRef.set({
-
-          following:
-            firebase.firestore.FieldValue.arrayRemove(
-              profileUserId
-            )
-
-        },{merge:true})
-
-      ]);
+      await followRef.delete();
 
     }else{
 
-      await Promise.all([
+      /* FOLLOW */
 
-        targetRef.set({
+      await followRef.set({
 
-          followers:
-            firebase.firestore.FieldValue.arrayUnion(
-              currentUser.uid
-            )
+        followerId:
+          currentUser.uid,
 
-        },{merge:true}),
+        followingId:
+          profileUserId,
 
-        myRef.set({
+        createdAt:
+          firebase.firestore
+            .FieldValue
+            .serverTimestamp()
 
-          following:
-            firebase.firestore.FieldValue.arrayUnion(
-              profileUserId
-            )
-
-        },{merge:true})
-
-      ]);
+      });
 
     }
 
+
+    /* Refresh counts */
+
     await refreshRelationshipData();
 
-    renderProfileButtons();
+    await renderProfileButtons();
+
 
   }catch(error){
 
@@ -1610,19 +1955,25 @@ async function toggleFollow(){
       error
     );
 
+
     alert(
       "Could not update follow status.\n\n" +
       (error.message || "")
     );
 
-    button.disabled=false;
+
+    button.disabled =
+      false;
 
   }
 
 }
 
 
-/* FOLLOWERS / FOLLOWING LIST */
+/* =====================================================
+   FOLLOWERS / FOLLOWING LIST
+   USING follows COLLECTION
+===================================================== */
 
 async function openUserList(type){
 
@@ -1630,16 +1981,18 @@ async function openUserList(type){
     return;
   }
 
-  sheetOverlay.style.display="flex";
+
+  sheetOverlay.style.display =
+    "flex";
+
 
   sheetTitle.textContent =
-    type==="followers"
-      ?
-    "Followers"
-      :
-    "Following";
+    type === "followers"
+      ? "Followers"
+      : "Following";
 
-  userList.innerHTML=`
+
+  userList.innerHTML = `
 
     <div class="sheet-empty">
       Loading...
@@ -1647,101 +2000,88 @@ async function openUserList(type){
 
   `;
 
+
   try{
 
-    /*
-      Use the same relationship queries
-      as the count logic.
-    */
+    let snapshot;
 
-    let snapshots;
 
-    if(type==="followers"){
+    if(type === "followers"){
 
-      snapshots =
+      snapshot =
         await db
-          .collection("users")
+          .collection("follows")
           .where(
-            "following",
-            "array-contains",
+            "followingId",
+            "==",
             profileUserId
           )
           .get();
 
     }else{
 
-      snapshots =
+      snapshot =
         await db
-          .collection("users")
+          .collection("follows")
           .where(
-            "followers",
-            "array-contains",
+            "followerId",
+            "==",
             profileUserId
           )
           .get();
 
     }
 
-    const users=[];
 
-    snapshots.forEach(doc=>{
+    const ids =
+      snapshot.docs
+        .map(
+          doc => {
 
-      if(doc.id!==profileUserId){
+            const data =
+              doc.data() || {};
 
-        users.push({
-          uid:doc.id,
-          ...doc.data()
-        });
+            return type === "followers"
+              ? data.followerId
+              : data.followingId;
 
-      }
+          }
+        )
+        .filter(Boolean);
 
-    });
 
+    /* Keep counts synced */
 
-    /*
-      Keep profile data synchronized.
-    */
+    if(type === "followers"){
 
-    if(type==="followers"){
-
-      profileUserData.followers =
-        users.map(user=>user.uid);
+      followersCount.textContent =
+        ids.length;
 
     }else{
 
-      profileUserData.following =
-        users.map(user=>user.uid);
+      followingCount.textContent =
+        ids.length;
 
     }
 
 
-    followersCount.textContent =
-      Array.isArray(profileUserData.followers)
-        ?
-      profileUserData.followers.length
-        :
-      0;
+    if(ids.length === 0){
 
-    followingCount.textContent =
-      Array.isArray(profileUserData.following)
-        ?
-      profileUserData.following.length
-        :
-      0;
-
-
-    if(users.length===0){
-
-      userList.innerHTML=`
+      userList.innerHTML = `
 
         <div class="sheet-empty">
 
           ${
-            type==="followers"
+            type === "followers"
+
               ?
+
             "No followers yet."
+
               :
+
             "Not following anyone yet."
+
           }
 
         </div>
@@ -1749,14 +2089,70 @@ async function openUserList(type){
       `;
 
       return;
+
     }
 
 
-    userList.innerHTML="";
+    const users = [];
 
-    users.forEach(user=>{
-      renderUserRow(user);
-    });
+
+    const snapshots =
+      await Promise.all(
+        ids.map(
+          uid =>
+            db
+              .collection("users")
+              .doc(uid)
+              .get()
+        )
+      );
+
+
+    snapshots.forEach(
+      (snap,index) => {
+
+        if(snap.exists){
+
+          users.push({
+
+            uid:
+              ids[index],
+
+            ...snap.data()
+
+          });
+
+        }
+
+      }
+    );
+
+
+    userList.innerHTML =
+      "";
+
+
+    users.forEach(
+      user => {
+
+        renderUserRow(user);
+
+      }
+    );
+
+
+    if(users.length === 0){
+
+      userList.innerHTML = `
+
+        <div class="sheet-empty">
+          No users found.
+        </div>
+
+      `;
+
+    }
+
 
   }catch(error){
 
@@ -1765,7 +2161,8 @@ async function openUserList(type){
       error
     );
 
-    userList.innerHTML=`
+
+    userList.innerHTML = `
 
       <div class="sheet-empty">
         Couldn't load users.
@@ -1778,40 +2175,58 @@ async function openUserList(type){
 }
 
 
-/* USER ROW */
+/* =====================================================
+   USER ROW
+===================================================== */
 
 function renderUserRow(user){
 
   const row =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
-  row.className="user-row";
+
+  row.className =
+    "user-row";
+
 
   const username =
-    user.username || "Member";
+    user.username ||
+    "Member";
+
 
   const photo =
     user.photoURL ||
     user.photoUrl ||
     "";
 
-  row.innerHTML=`
+
+  row.innerHTML = `
 
     <div class="list-avatar">
 
       ${
         photo
+
           ?
+
         `<img
           src="${escapeAttribute(photo)}"
           alt="">`
+
           :
+
         escapeHTML(
-          username.charAt(0).toUpperCase()
+          username
+            .charAt(0)
+            .toUpperCase()
         )
+
       }
 
     </div>
+
 
     <div class="list-info">
 
@@ -1819,58 +2234,91 @@ function renderUserRow(user){
         ${escapeHTML(username)}
       </div>
 
+
       <div class="list-bio">
+
         ${escapeHTML(
-          user.bio || "JSP TAYSU member"
+          user.bio ||
+          "JSP TAYSU member"
         )}
+
       </div>
 
     </div>
 
   `;
 
-  row.addEventListener("click",()=>{
 
-    closeUserList();
+  row.addEventListener(
+    "click",
+    () => {
 
-    window.location.href =
-      "profile.html?uid=" +
-      encodeURIComponent(user.uid);
+      closeUserList();
 
-  });
 
-  userList.appendChild(row);
+      window.location.href =
+        "profile.html?uid=" +
+        encodeURIComponent(
+          user.uid
+        );
+
+    }
+  );
+
+
+  userList.appendChild(
+    row
+  );
+
 }
 
 
-/* EDIT */
+/* =====================================================
+   EDIT PROFILE
+===================================================== */
 
 function openEdit(){
 
   if(
     !currentUser ||
-    profileUserId!==currentUser.uid
+    profileUserId !==
+    currentUser.uid
   ){
+
     return;
+
   }
+
 
   editUsername.value =
     profileName.textContent;
 
+
   editBio.value =
     profileBio.textContent;
 
-  saveStatus.textContent="";
 
-  editOverlay.style.display="flex";
+  saveStatus.textContent =
+    "";
+
+
+  editOverlay.style.display =
+    "flex";
+
 }
+
 
 function closeEdit(){
-  editOverlay.style.display="none";
+
+  editOverlay.style.display =
+    "none";
+
 }
 
 
-/* SAVE PROFILE */
+/* =====================================================
+   SAVE PROFILE
+===================================================== */
 
 async function saveProfile(){
 
@@ -1878,11 +2326,14 @@ async function saveProfile(){
     return;
   }
 
+
   const username =
     editUsername.value.trim();
 
+
   const bio =
     editBio.value.trim();
+
 
   if(!username){
 
@@ -1890,9 +2341,13 @@ async function saveProfile(){
       "Username cannot be empty.";
 
     return;
+
   }
 
-  saveStatus.textContent="Saving...";
+
+  saveStatus.textContent =
+    "Saving...";
+
 
   try{
 
@@ -1901,29 +2356,54 @@ async function saveProfile(){
       .doc(currentUser.uid)
       .set({
 
-        username:username,
+        username:
+          username,
 
-        bio:bio,
+        bio:
+          bio,
 
         updatedAt:
-          firebase.firestore.FieldValue.serverTimestamp()
+          firebase.firestore
+            .FieldValue
+            .serverTimestamp()
 
-      },{merge:true});
+      },{
+
+        merge:true
+
+      });
 
 
     await currentUser.updateProfile({
-      displayName:username
+
+      displayName:
+        username
+
     });
 
 
-    profileUserData.username=username;
-    profileUserData.bio=bio;
+    profileUserData.username =
+      username;
 
-    displayProfile(username,bio);
+    profileUserData.bio =
+      bio;
 
-    saveStatus.textContent="Saved ✓";
 
-    setTimeout(closeEdit,600);
+    displayProfile(
+      username,
+      bio
+    );
+
+
+    saveStatus.textContent =
+      "Saved ✓";
+
+
+    setTimeout(
+      closeEdit,
+      600
+    );
+
 
   }catch(error){
 
@@ -1931,6 +2411,7 @@ async function saveProfile(){
       "SAVE PROFILE ERROR:",
       error
     );
+
 
     saveStatus.textContent =
       "Could not save profile.";
@@ -1940,11 +2421,13 @@ async function saveProfile(){
 }
 
 
-/* SHARE */
+/* =====================================================
+   SHARE
+===================================================== */
 
 async function shareProfile(){
 
-  const shareData={
+  const shareData = {
 
     title:
       "JSP TAYSU • " +
@@ -1958,11 +2441,14 @@ async function shareProfile(){
 
   };
 
+
   try{
 
     if(navigator.share){
 
-      await navigator.share(shareData);
+      await navigator.share(
+        shareData
+      );
 
     }else{
 
@@ -1970,25 +2456,33 @@ async function shareProfile(){
         window.location.href
       );
 
-      alert("Profile link copied!");
+
+      alert(
+        "Profile link copied!"
+      );
 
     }
 
   }catch(error){
 
-    console.log("Share cancelled.");
+    console.log(
+      "Share cancelled."
+    );
 
   }
 
 }
 
 
-/* TOP MENU */
+/* =====================================================
+   TOP MENU
+===================================================== */
 
 function toggleTopMenu(){
 
   topMenu.style.display =
-    topMenu.style.display==="block"
+    topMenu.style.display ===
+    "block"
       ?
     "none"
       :
@@ -1997,59 +2491,102 @@ function toggleTopMenu(){
 }
 
 
-/* GLOBAL CLICK */
+/* =====================================================
+   CLOSE MENUS
+===================================================== */
 
-document.addEventListener("click",event=>{
+document.addEventListener(
+  "click",
+  event => {
 
-  if(
-    !event.target.closest(".more") &&
-    !event.target.closest("#topMenu")
-  ){
+    if(
+      !event.target.closest(".more") &&
+      !event.target.closest("#topMenu")
+    ){
 
-    topMenu.style.display="none";
+      topMenu.style.display =
+        "none";
+
+    }
+
+
+    if(
+      !event.target.closest(
+        ".post-menu-button"
+      ) &&
+      !event.target.closest(
+        ".post-menu"
+      )
+    ){
+
+      document
+        .querySelectorAll(
+          ".post-menu"
+        )
+        .forEach(
+          menu => {
+
+            menu.style.display =
+              "none";
+
+          }
+        );
+
+    }
 
   }
+);
 
-  if(
-    !event.target.closest(".post-menu-button") &&
-    !event.target.closest(".post-menu")
-  ){
 
-    document
-      .querySelectorAll(".post-menu")
-      .forEach(menu=>{
-        menu.style.display="none";
-      });
+/* =====================================================
+   CLOSE SHEETS
+===================================================== */
+
+sheetOverlay.addEventListener(
+  "click",
+  event => {
+
+    if(
+      event.target ===
+      sheetOverlay
+    ){
+
+      closeUserList();
+
+    }
 
   }
+);
 
-});
 
+editOverlay.addEventListener(
+  "click",
+  event => {
 
-/* SHEETS */
+    if(
+      event.target ===
+      editOverlay
+    ){
 
-sheetOverlay.addEventListener("click",event=>{
+      closeEdit();
 
-  if(event.target===sheetOverlay){
-    closeUserList();
+    }
+
   }
+);
 
-});
-
-editOverlay.addEventListener("click",event=>{
-
-  if(event.target===editOverlay){
-    closeEdit();
-  }
-
-});
 
 function closeUserList(){
-  sheetOverlay.style.display="none";
+
+  sheetOverlay.style.display =
+    "none";
+
 }
 
 
-/* SIGN OUT */
+/* =====================================================
+   SIGN OUT
+===================================================== */
 
 async function signOut(){
 
@@ -2057,42 +2594,65 @@ async function signOut(){
 
     await auth.signOut();
 
-    window.location.href="index.html";
+    window.location.href =
+      "index.html";
 
   }catch(error){
 
     console.error(error);
 
-    alert("Sign out failed.");
+    alert(
+      "Sign out failed."
+    );
 
   }
 
 }
 
 
-/* NAVIGATION */
+/* =====================================================
+   NAVIGATION
+===================================================== */
 
 function goHome(){
-  window.location.href="community.html";
+
+  window.location.href =
+    "community.html";
+
 }
+
 
 function goExplore(){
-  window.location.href="explore.html";
+
+  window.location.href =
+    "explore.html";
+
 }
+
 
 function goCreate(){
-  window.location.href="create.html";
+
+  window.location.href =
+    "create.html";
+
 }
 
+
 function goAlerts(){
-  window.location.href="alerts.html";
+
+  window.location.href =
+    "alerts.html";
+
 }
+
 
 function goBack(){
 
   if(
     document.referrer &&
-    document.referrer.includes(window.location.host)
+    document.referrer.includes(
+      window.location.host
+    )
   ){
 
     history.back();
@@ -2106,32 +2666,55 @@ function goBack(){
 }
 
 
-/* PROFILE NOT FOUND */
+/* =====================================================
+   PROFILE NOT FOUND
+===================================================== */
 
 function showProfileNotFound(){
 
-  profileName.textContent="User not found";
+  profileName.textContent =
+    "User not found";
 
-  topUsername.textContent="Profile";
 
-  profileBio.textContent=
+  topUsername.textContent =
+    "Profile";
+
+
+  profileBio.textContent =
     "This profile doesn't exist.";
 
-  profileButtons.innerHTML="";
 
-  postCount.textContent="0";
-  followersCount.textContent="0";
-  followingCount.textContent="0";
+  profileButtons.innerHTML =
+    "";
 
-  postsContainer.innerHTML=`
+
+  postCount.textContent =
+    "0";
+
+
+  followersCount.textContent =
+    "0";
+
+
+  followingCount.textContent =
+    "0";
+
+
+  postsContainer.innerHTML = `
 
     <div class="empty">
 
-      <div class="empty-icon">◌</div>
+      <div class="empty-icon">
+        ◌
+      </div>
 
-      <h3>Profile unavailable</h3>
+      <h3>
+        Profile unavailable
+      </h3>
 
-      <p>This account may have been removed.</p>
+      <p>
+        This account may have been removed.
+      </p>
 
     </div>
 
@@ -2140,19 +2723,27 @@ function showProfileNotFound(){
 }
 
 
-/* PROFILE ERROR */
+/* =====================================================
+   PROFILE ERROR
+===================================================== */
 
 function showProfileError(){
 
-  postsContainer.innerHTML=`
+  postsContainer.innerHTML = `
 
     <div class="empty">
 
-      <div class="empty-icon">⚠️</div>
+      <div class="empty-icon">
+        ⚠️
+      </div>
 
-      <h3>Couldn't load profile</h3>
+      <h3>
+        Couldn't load profile
+      </h3>
 
-      <p>Please refresh the page.</p>
+      <p>
+        Please refresh the page.
+      </p>
 
     </div>
 
@@ -2161,13 +2752,18 @@ function showProfileError(){
 }
 
 
-/* TIME */
+/* =====================================================
+   TIME
+===================================================== */
 
 function formatPostTime(timestamp){
 
   if(!timestamp){
+
     return "Just now";
+
   }
+
 
   const date =
     timestamp.toDate
@@ -2176,36 +2772,63 @@ function formatPostTime(timestamp){
       :
     new Date(timestamp);
 
+
   const diff =
-    Date.now()-date.getTime();
+    Date.now() -
+    date.getTime();
+
 
   const seconds =
-    Math.floor(diff/1000);
+    Math.floor(
+      diff / 1000
+    );
 
-  if(seconds<60){
+
+  if(seconds < 60){
+
     return "Just now";
+
   }
+
 
   const minutes =
-    Math.floor(seconds/60);
+    Math.floor(
+      seconds / 60
+    );
 
-  if(minutes<60){
-    return minutes+"m";
+
+  if(minutes < 60){
+
+    return minutes + "m";
+
   }
+
 
   const hours =
-    Math.floor(minutes/60);
+    Math.floor(
+      minutes / 60
+    );
 
-  if(hours<24){
-    return hours+"h";
+
+  if(hours < 24){
+
+    return hours + "h";
+
   }
+
 
   const days =
-    Math.floor(hours/24);
+    Math.floor(
+      hours / 24
+    );
 
-  if(days<7){
-    return days+"d";
+
+  if(days < 7){
+
+    return days + "d";
+
   }
+
 
   return date.toLocaleDateString(
     undefined,
@@ -2218,27 +2841,48 @@ function formatPostTime(timestamp){
 }
 
 
-/* SECURITY */
+/* =====================================================
+   SECURITY
+===================================================== */
 
 function escapeHTML(text){
 
   const div =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
+
 
   div.textContent =
-    text==null ? "" : String(text);
+    text == null
+      ? ""
+      : String(text);
+
 
   return div.innerHTML;
 
 }
 
+
 function escapeAttribute(text){
 
   return String(text)
-    .replace(/&/g,"&amp;")
-    .replace(/"/g,"&quot;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;");
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    );
 
 }
 
