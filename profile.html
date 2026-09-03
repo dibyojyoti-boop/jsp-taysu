@@ -664,14 +664,10 @@ body{
 
 <body>
 
-<!-- LOADING -->
-
 <div class="loading" id="loading">
   <div class="loader"></div>
 </div>
 
-
-<!-- TOP BAR -->
 
 <header class="topbar">
 
@@ -688,8 +684,6 @@ body{
 </header>
 
 
-<!-- TOP MENU -->
-
 <div class="menu" id="topMenu">
 
   <button class="signout" onclick="signOut()">
@@ -698,8 +692,6 @@ body{
 
 </div>
 
-
-<!-- PROFILE -->
 
 <main class="profile">
 
@@ -759,8 +751,6 @@ body{
 </main>
 
 
-<!-- POSTS HEADER -->
-
 <section class="post-header">
 
   <div class="post-icon">
@@ -769,8 +759,6 @@ body{
 
 </section>
 
-
-<!-- POSTS -->
 
 <section class="posts" id="posts">
 
@@ -792,8 +780,6 @@ body{
 
 </section>
 
-
-<!-- BOTTOM NAV -->
 
 <nav class="bottom-nav">
 
@@ -825,8 +811,6 @@ body{
 </nav>
 
 
-<!-- EDIT PROFILE -->
-
 <div class="overlay" id="editOverlay">
 
   <div class="modal">
@@ -835,8 +819,7 @@ body{
 
       <h2>Edit profile</h2>
 
-      <div class="close"
-           onclick="closeEdit()">
+      <div class="close" onclick="closeEdit()">
         ×
       </div>
 
@@ -873,19 +856,14 @@ body{
 
     </button>
 
-    <div
-      class="status"
-      id="saveStatus"></div>
+    <div class="status" id="saveStatus"></div>
 
   </div>
 
 </div>
 
 
-<!-- FOLLOWERS / FOLLOWING -->
-
-<div class="sheet-overlay"
-     id="sheetOverlay">
+<div class="sheet-overlay" id="sheetOverlay">
 
   <div class="sheet">
 
@@ -905,9 +883,7 @@ body{
 
     </div>
 
-    <div
-      class="user-list"
-      id="userList">
+    <div class="user-list" id="userList">
 
       <div class="sheet-empty">
         Loading...
@@ -920,19 +896,15 @@ body{
 </div>
 
 
-<!-- FIREBASE -->
-
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 
 <script>
 
 /* =====================================================
-   FIREBASE CONFIG
+   FIREBASE
 ===================================================== */
 
 const firebaseConfig = {
@@ -957,14 +929,10 @@ const firebaseConfig = {
 
 };
 
-
 firebase.initializeApp(firebaseConfig);
 
-const auth =
-  firebase.auth();
-
-const db =
-  firebase.firestore();
+const auth = firebase.auth();
+const db = firebase.firestore();
 
 
 /* =====================================================
@@ -1027,18 +995,16 @@ const userList =
 
 
 /* =====================================================
-   GLOBAL STATE
+   STATE
 ===================================================== */
 
 let currentUser = null;
-
 let profileUserData = null;
-
 let profileUserId = null;
 
 
 /* =====================================================
-   GET PROFILE UID
+   PROFILE UID
 ===================================================== */
 
 function getProfileUid(){
@@ -1069,33 +1035,28 @@ auth.onAuthStateChanged(
 
     }
 
-
-    currentUser =
-      user;
-
+    currentUser = user;
 
     profileUserId =
       getProfileUid() ||
       user.uid;
 
-
     try{
 
       await loadProfile();
-
+      await loadRelationshipCounts();
       await loadPosts();
 
     }catch(error){
 
       console.error(
-        "PROFILE LOAD ERROR:",
+        "PROFILE ERROR:",
         error
       );
 
       showProfileError();
 
     }
-
 
     loading.style.display =
       "none";
@@ -1114,23 +1075,17 @@ async function loadProfile(){
     db.collection("users")
       .doc(profileUserId);
 
-
   const snap =
     await ref.get();
 
-
   if(!snap.exists){
 
-    if(
-      profileUserId ===
-      currentUser.uid
-    ){
+    if(profileUserId === currentUser.uid){
 
       const username =
         currentUser.displayName ||
         currentUser.email?.split("@")[0] ||
         "Member";
-
 
       const newData = {
 
@@ -1142,10 +1097,6 @@ async function loadProfile(){
         email:
           currentUser.email || "",
 
-        followers:[],
-
-        following:[],
-
         createdAt:
           firebase.firestore
             .FieldValue
@@ -1153,12 +1104,10 @@ async function loadProfile(){
 
       };
 
-
       await ref.set(
         newData,
         {merge:true}
       );
-
 
       profileUserData =
         newData;
@@ -1178,35 +1127,13 @@ async function loadProfile(){
 
   }
 
-
-  const username =
-    profileUserData.username ||
-    "Member";
-
-
-  const bio =
-    profileUserData.bio ||
-    "Building and preserving our heritage.";
-
-
   displayProfile(
-    username,
-    bio
+    profileUserData.username ||
+      "Member",
+
+    profileUserData.bio ||
+      "Building and preserving our heritage."
   );
-
-
-  /*
-    IMPORTANT:
-
-    Counts are refreshed directly from
-    Firestore relationship arrays.
-
-    This also repairs old profiles where
-    followers/following fields don't exist.
-  */
-
-  await refreshRelationshipData();
-
 
   renderProfileButtons();
 
@@ -1214,67 +1141,112 @@ async function loadProfile(){
 
 
 /* =====================================================
-   RELATIONSHIP DATA
+   IMPORTANT:
+   FOLLOW SYSTEM
+   READ FROM "follows" COLLECTION
 ===================================================== */
 
-async function refreshRelationshipData(){
+/*
+  Expected structure:
+
+  follows/{followDocument}
+
+  followerId: UID of person following
+  followingId: UID of person being followed
+
+  Example:
+
+  followerId = ABC
+  followingId = XYZ
+
+  Means ABC follows XYZ.
+*/
+
+
+async function loadRelationshipCounts(){
 
   if(!profileUserId){
-
     return;
-
   }
 
+  try{
 
-  const profileRef =
-    db.collection("users")
-      .doc(profileUserId);
+    /*
+      Followers:
+      Documents where followingId
+      equals current profile.
+    */
+
+    const followersSnap =
+      await db
+        .collection("follows")
+        .where(
+          "followingId",
+          "==",
+          profileUserId
+        )
+        .get();
 
 
-  const profileSnap =
-    await profileRef.get();
+    /*
+      Following:
+      Documents where followerId
+      equals current profile.
+    */
+
+    const followingSnap =
+      await db
+        .collection("follows")
+        .where(
+          "followerId",
+          "==",
+          profileUserId
+        )
+        .get();
 
 
-  if(!profileSnap.exists){
+    followersCount.textContent =
+      followersSnap.size;
 
-    return;
+
+    followingCount.textContent =
+      followingSnap.size;
+
+
+    /*
+      Save IDs locally.
+    */
+
+    profileUserData.followers =
+      followersSnap.docs.map(
+        doc =>
+          doc.data().followerId
+      );
+
+
+    profileUserData.following =
+      followingSnap.docs.map(
+        doc =>
+          doc.data().followingId
+      );
+
+
+    renderProfileButtons();
+
+  }catch(error){
+
+    console.error(
+      "RELATIONSHIP COUNT ERROR:",
+      error
+    );
+
+    followersCount.textContent =
+      "0";
+
+    followingCount.textContent =
+      "0";
 
   }
-
-
-  const data =
-    profileSnap.data() || {};
-
-
-  const followers =
-    Array.isArray(data.followers)
-      ? data.followers
-      : [];
-
-
-  const following =
-    Array.isArray(data.following)
-      ? data.following
-      : [];
-
-
-  /*
-    Keep local data synchronized.
-  */
-
-  profileUserData.followers =
-    followers;
-
-  profileUserData.following =
-    following;
-
-
-  followersCount.textContent =
-    followers.length;
-
-
-  followingCount.textContent =
-    following.length;
 
 }
 
@@ -1311,16 +1283,12 @@ function displayProfile(
 
   }else{
 
-    const letter =
+    avatar.textContent =
       username
         .trim()
         .charAt(0)
         .toUpperCase() ||
-        "M";
-
-
-    avatar.textContent =
-      letter;
+      "M";
 
   }
 
@@ -1328,7 +1296,7 @@ function displayProfile(
 
 
 /* =====================================================
-   LOAD POSTS
+   POSTS
 ===================================================== */
 
 async function loadPosts(){
@@ -1353,7 +1321,6 @@ async function loadPosts(){
 
   `;
 
-
   try{
 
     const snapshot =
@@ -1366,9 +1333,7 @@ async function loadPosts(){
         )
         .get();
 
-
     const posts = [];
-
 
     snapshot.forEach(
       doc => {
@@ -1402,7 +1367,6 @@ async function loadPosts(){
 
     postCount.textContent =
       posts.length;
-
 
     postsContainer.innerHTML =
       "";
@@ -1447,10 +1411,9 @@ async function loadPosts(){
   }catch(error){
 
     console.error(
-      "Posts error:",
+      "POST ERROR:",
       error
     );
-
 
     postsContainer.innerHTML = `
 
@@ -1488,19 +1451,12 @@ function renderPost(post){
     profileUserData.username ||
     "Member";
 
-
   const article =
     document.createElement("article");
-
 
   article.className =
     "my-post";
 
-
-  /*
-    Delete menu ONLY if this is
-    actually the logged-in user's post.
-  */
 
   const isOwnPost =
     currentUser &&
@@ -1538,72 +1494,52 @@ function renderPost(post){
                 .charAt(0)
                 .toUpperCase()
             )
+
           }
 
         </div>
 
-
         <div class="my-post-meta">
 
           <div class="my-post-name">
-
             ${escapeHTML(username)}
-
           </div>
 
-
           <div class="my-post-time">
-
-            ${formatPostTime(
-              post.createdAt
-            )}
-
+            ${formatPostTime(post.createdAt)}
           </div>
 
         </div>
 
       </div>
 
-
       ${
         isOwnPost
-
         ?
-
         `
           <button
             class="post-menu-button"
-            type="button"
-            aria-label="Post options">
+            type="button">
 
             •••
 
           </button>
         `
-
         :
-
         ""
-
       }
 
     </div>
 
-
     <div class="my-post-text">
 
-      ${escapeHTML(
-        post.text || ""
-      )}
+      ${escapeHTML(post.text || "")}
 
     </div>
 
-
     ${
       isOwnPost
-
       ?
-
       `
         <div class="post-menu">
 
@@ -1617,11 +1553,8 @@ function renderPost(post){
 
         </div>
       `
-
       :
-
       ""
-
     }
 
   `;
@@ -1633,9 +1566,7 @@ function renderPost(post){
 
 
   if(!isOwnPost){
-
     return;
-
   }
 
 
@@ -1643,7 +1574,6 @@ function renderPost(post){
     article.querySelector(
       ".post-menu-button"
     );
-
 
   const postMenu =
     article.querySelector(
@@ -1657,38 +1587,23 @@ function renderPost(post){
 
       event.stopPropagation();
 
-
       document
-        .querySelectorAll(
-          ".post-menu"
-        )
-        .forEach(
-          otherMenu => {
+        .querySelectorAll(".post-menu")
+        .forEach(menu => {
 
-            if(
-              otherMenu !==
-              postMenu
-            ){
-
-              otherMenu.style.display =
-                "none";
-
-            }
-
+          if(menu !== postMenu){
+            menu.style.display =
+              "none";
           }
-        );
 
+        });
 
       postMenu.style.display =
         postMenu.style.display ===
         "block"
-
           ?
-
         "none"
-
           :
-
         "block";
 
     }
@@ -1705,18 +1620,9 @@ function renderPost(post){
     "click",
     async () => {
 
-      const confirmed =
-        confirm(
-          "Delete this post?"
-        );
-
-
-      if(!confirmed){
-
+      if(!confirm("Delete this post?")){
         return;
-
       }
-
 
       deleteButton.disabled =
         true;
@@ -1732,64 +1638,21 @@ function renderPost(post){
           .doc(post.id)
           .delete();
 
-
         article.remove();
-
 
         postCount.textContent =
           Math.max(
             0,
-            Number(
-              postCount.textContent
-            ) - 1
+            Number(postCount.textContent) - 1
           );
-
-
-        if(
-          postsContainer
-            .querySelectorAll(
-              ".my-post"
-            )
-            .length === 0
-        ){
-
-          postsContainer.innerHTML = `
-
-            <div class="empty">
-
-              <div class="empty-icon">
-                ✦
-              </div>
-
-              <h3>
-                No posts yet
-              </h3>
-
-              <p>
-                Posts will appear here.
-              </p>
-
-            </div>
-
-          `;
-
-        }
 
 
       }catch(error){
 
-        console.error(
-          "Delete error:",
-          error
-        );
-
-
         alert(
-          error.code +
-          ": " +
-          error.message
+          error.message ||
+          "Could not delete post."
         );
-
 
         deleteButton.disabled =
           false;
@@ -1806,14 +1669,14 @@ function renderPost(post){
 
 
 /* =====================================================
-   FOLLOW STATUS
+   CHECK FOLLOW STATUS
 ===================================================== */
 
-function isFollowing(){
+async function isFollowing(){
 
   if(
     !currentUser ||
-    !profileUserData
+    profileUserId === currentUser.uid
   ){
 
     return false;
@@ -1821,23 +1684,37 @@ function isFollowing(){
   }
 
 
-  const followers =
-    Array.isArray(
-      profileUserData.followers
-    )
+  try{
 
-      ?
+    const snap =
+      await db
+        .collection("follows")
+        .where(
+          "followerId",
+          "==",
+          currentUser.uid
+        )
+        .where(
+          "followingId",
+          "==",
+          profileUserId
+        )
+        .limit(1)
+        .get();
 
-    profileUserData.followers
 
-      :
+    return !snap.empty;
 
-    [];
+  }catch(error){
 
+    console.error(
+      "FOLLOW CHECK ERROR:",
+      error
+    );
 
-  return followers.includes(
-    currentUser.uid
-  );
+    return false;
+
+  }
 
 }
 
@@ -1846,20 +1723,15 @@ function isFollowing(){
    PROFILE BUTTONS
 ===================================================== */
 
-function renderProfileButtons(){
+async function renderProfileButtons(){
 
   profileButtons.innerHTML =
     "";
 
 
-  /*
-    Own profile
-  */
-
   if(
     !currentUser ||
-    profileUserId ===
-    currentUser.uid
+    profileUserId === currentUser.uid
   ){
 
     profileButtons.innerHTML = `
@@ -1871,7 +1743,6 @@ function renderProfileButtons(){
         Edit profile
 
       </button>
-
 
       <button
         class="btn following"
@@ -1889,7 +1760,7 @@ function renderProfileButtons(){
 
 
   const following =
-    isFollowing();
+    await isFollowing();
 
 
   profileButtons.innerHTML = `
@@ -1910,7 +1781,6 @@ function renderProfileButtons(){
       }
 
     </button>
-
 
     <button
       class="btn following"
@@ -1933,8 +1803,7 @@ async function toggleFollow(){
 
   if(
     !currentUser ||
-    profileUserId ===
-    currentUser.uid
+    profileUserId === currentUser.uid
   ){
 
     return;
@@ -1949,9 +1818,7 @@ async function toggleFollow(){
 
 
   if(!button){
-
     return;
-
   }
 
 
@@ -1961,220 +1828,80 @@ async function toggleFollow(){
 
   try{
 
-    const myRef =
-      db.collection("users")
-        .doc(currentUser.uid);
-
-
-    const targetRef =
-      db.collection("users")
-        .doc(profileUserId);
+    const existing =
+      await db
+        .collection("follows")
+        .where(
+          "followerId",
+          "==",
+          currentUser.uid
+        )
+        .where(
+          "followingId",
+          "==",
+          profileUserId
+        )
+        .limit(1)
+        .get();
 
 
     /*
-      Read both profiles.
+      UNFOLLOW
     */
 
-    const results =
-      await Promise.all([
+    if(!existing.empty){
 
-        myRef.get(),
-
-        targetRef.get()
-
-      ]);
+      const batch =
+        db.batch();
 
 
-    const mySnap =
-      results[0];
+      existing.docs.forEach(
+        doc => {
 
-    const targetSnap =
-      results[1];
+          batch.delete(doc.ref);
 
-
-    if(!targetSnap.exists){
-
-      throw new Error(
-        "Target profile does not exist."
-      );
-
-    }
-
-
-    const myData =
-      mySnap.exists
-        ? mySnap.data()
-        : {};
-
-
-    const targetData =
-      targetSnap.data() || {};
-
-
-    const myFollowing =
-      Array.isArray(
-        myData.following
-      )
-
-        ?
-
-      myData.following
-
-        :
-
-      [];
-
-
-    const targetFollowers =
-      Array.isArray(
-        targetData.followers
-      )
-
-        ?
-
-      targetData.followers
-
-        :
-
-      [];
-
-
-    const alreadyFollowing =
-      targetFollowers.includes(
-        currentUser.uid
+        }
       );
 
 
-    /*
-      Use Firestore atomic array operations.
-      This prevents duplicate IDs.
-    */
-
-    if(alreadyFollowing){
-
-      await Promise.all([
-
-        targetRef.set({
-
-          followers:
-            firebase.firestore
-              .FieldValue
-              .arrayRemove(
-                currentUser.uid
-              )
-
-        },{
-
-          merge:true
-
-        }),
-
-
-        myRef.set({
-
-          following:
-            firebase.firestore
-              .FieldValue
-              .arrayRemove(
-                profileUserId
-              )
-
-        },{
-
-          merge:true
-
-        })
-
-      ]);
-
-    }else{
-
-      await Promise.all([
-
-        targetRef.set({
-
-          followers:
-            firebase.firestore
-              .FieldValue
-              .arrayUnion(
-                currentUser.uid
-              )
-
-        },{
-
-          merge:true
-
-        }),
-
-
-        myRef.set({
-
-          following:
-            firebase.firestore
-              .FieldValue
-              .arrayUnion(
-                profileUserId
-              )
-
-        },{
-
-          merge:true
-
-        })
-
-      ]);
+      await batch.commit();
 
     }
 
 
     /*
-      IMPORTANT:
-      Re-read Firestore after follow/unfollow.
-
-      So the displayed number is not based
-      on an old local value.
+      FOLLOW
     */
 
-    await refreshRelationshipData();
+    else{
 
+      await db
+        .collection("follows")
+        .add({
 
-    /*
-      Re-read current user's profile too.
-      This keeps the following array accurate
-      for future navigation.
-    */
+          followerId:
+            currentUser.uid,
 
-    if(
-      profileUserId !==
-      currentUser.uid
-    ){
+          followingId:
+            profileUserId,
 
-      const updatedMySnap =
-        await myRef.get();
+          createdAt:
+            firebase.firestore
+              .FieldValue
+              .serverTimestamp()
 
-
-      if(updatedMySnap.exists){
-
-        /*
-          Only needed for local state if
-          we later return to this profile.
-        */
-
-        const updatedMyData =
-          updatedMySnap.data();
-
-
-        /*
-          Nothing else required here.
-          Firestore is the source of truth.
-        */
-
-      }
+        });
 
     }
 
 
-    renderProfileButtons();
+    /*
+      Refresh counts.
+    */
+
+    await loadRelationshipCounts();
+
+    await renderProfileButtons();
 
 
   }catch(error){
@@ -2184,12 +1911,10 @@ async function toggleFollow(){
       error
     );
 
-
     alert(
       "Could not update follow status.\n\n" +
-      (error.message || "")
+      error.message
     );
-
 
     button.disabled =
       false;
@@ -2200,15 +1925,13 @@ async function toggleFollow(){
 
 
 /* =====================================================
-   FOLLOWERS / FOLLOWING SHEET
+   FOLLOWERS / FOLLOWING LIST
 ===================================================== */
 
 async function openUserList(type){
 
   if(!profileUserId){
-
     return;
-
   }
 
 
@@ -2218,8 +1941,10 @@ async function openUserList(type){
 
   sheetTitle.textContent =
     type === "followers"
-      ? "Followers"
-      : "Following";
+      ?
+    "Followers"
+      :
+    "Following";
 
 
   userList.innerHTML = `
@@ -2233,109 +1958,96 @@ async function openUserList(type){
 
   try{
 
+    let snapshot;
+
+
     /*
-      ALWAYS read the latest profile
-      directly from Firestore.
+      FOLLOWERS
+
+      followerId = the user we want to show
+      because they follow this profile.
     */
 
-    const profileSnap =
-      await db
-        .collection("users")
-        .doc(profileUserId)
-        .get();
+    if(type === "followers"){
 
-
-    if(!profileSnap.exists){
-
-      userList.innerHTML = `
-
-        <div class="sheet-empty">
-          User profile not found.
-        </div>
-
-      `;
-
-      return;
+      snapshot =
+        await db
+          .collection("follows")
+          .where(
+            "followingId",
+            "==",
+            profileUserId
+          )
+          .get();
 
     }
 
 
-    const latestData =
-      profileSnap.data() || {};
+    /*
+      FOLLOWING
+
+      followingId = the user this profile follows.
+    */
+
+    else{
+
+      snapshot =
+        await db
+          .collection("follows")
+          .where(
+            "followerId",
+            "==",
+            profileUserId
+          )
+          .get();
+
+    }
 
 
     const ids =
-      type === "followers"
+      snapshot.docs.map(
+        doc => {
 
-        ?
+          const data =
+            doc.data();
 
-      (
-        Array.isArray(
-          latestData.followers
-        )
-          ?
+          return type === "followers"
+            ?
+          data.followerId
+            :
+          data.followingId;
 
-        latestData.followers
-
-          :
-
-        []
-      )
-
-        :
-
-      (
-        Array.isArray(
-          latestData.following
-        )
-          ?
-
-        latestData.following
-
-          :
-
-        []
+        }
       );
 
 
     /*
-      Update local state and counts.
+      Remove duplicates just in case.
     */
 
-    profileUserData =
-      {
-        ...profileUserData,
-        ...latestData
-      };
+    const uniqueIds =
+      [...new Set(ids)]
+        .filter(Boolean);
 
 
-    followersCount.textContent =
-      Array.isArray(
-        profileUserData.followers
-      )
-        ?
+    /*
+      Update counts immediately.
+    */
 
-      profileUserData.followers.length
+    if(type === "followers"){
 
-        :
+      followersCount.textContent =
+        uniqueIds.length;
 
-      0;
+    }else{
 
+      followingCount.textContent =
+        uniqueIds.length;
 
-    followingCount.textContent =
-      Array.isArray(
-        profileUserData.following
-      )
-        ?
-
-      profileUserData.following.length
-
-        :
-
-      0;
+    }
 
 
-    if(ids.length === 0){
+    if(uniqueIds.length === 0){
 
       userList.innerHTML = `
 
@@ -2343,13 +2055,9 @@ async function openUserList(type){
 
           ${
             type === "followers"
-
               ?
-
             "No followers yet."
-
               :
-
             "Not following anyone yet."
           }
 
@@ -2362,19 +2070,13 @@ async function openUserList(type){
     }
 
 
-    const users = [];
-
-
     /*
-      Load profiles.
-
-      Promise.all makes this much faster
-      than loading them one-by-one.
+      Load user profiles.
     */
 
-    const snapshots =
+    const userSnapshots =
       await Promise.all(
-        ids.map(
+        uniqueIds.map(
           uid =>
             db
               .collection("users")
@@ -2384,39 +2086,38 @@ async function openUserList(type){
       );
 
 
-    snapshots.forEach(
-      (snap,index) => {
-
-        if(snap.exists){
-
-          users.push({
-
-            uid:ids[index],
-
-            ...snap.data()
-
-          });
-
-        }
-
-      }
-    );
-
-
     userList.innerHTML =
       "";
 
 
-    users.forEach(
-      user => {
+    let foundUsers = 0;
 
-        renderUserRow(user);
+
+    userSnapshots.forEach(
+      (snap,index) => {
+
+        if(!snap.exists){
+          return;
+        }
+
+
+        foundUsers++;
+
+
+        renderUserRow({
+
+          uid:
+            uniqueIds[index],
+
+          ...snap.data()
+
+        });
 
       }
     );
 
 
-    if(users.length === 0){
+    if(foundUsers === 0){
 
       userList.innerHTML = `
 
@@ -2440,7 +2141,9 @@ async function openUserList(type){
     userList.innerHTML = `
 
       <div class="sheet-empty">
+
         Couldn't load users.
+
       </div>
 
     `;
@@ -2457,9 +2160,7 @@ async function openUserList(type){
 function renderUserRow(user){
 
   const row =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
 
   row.className =
@@ -2484,13 +2185,13 @@ function renderUserRow(user){
       ${
         photo
 
-          ?
+        ?
 
         `<img
           src="${escapeAttribute(photo)}"
           alt="">`
 
-          :
+        :
 
         escapeHTML(
           username
@@ -2507,9 +2208,7 @@ function renderUserRow(user){
 
       <div class="list-name">
 
-        ${escapeHTML(
-          username
-        )}
+        ${escapeHTML(username)}
 
       </div>
 
@@ -2534,7 +2233,6 @@ function renderUserRow(user){
 
       closeUserList();
 
-
       window.location.href =
         "profile.html?uid=" +
         encodeURIComponent(
@@ -2545,9 +2243,7 @@ function renderUserRow(user){
   );
 
 
-  userList.appendChild(
-    row
-  );
+  userList.appendChild(row);
 
 }
 
@@ -2560,8 +2256,7 @@ function openEdit(){
 
   if(
     !currentUser ||
-    profileUserId !==
-    currentUser.uid
+    profileUserId !== currentUser.uid
   ){
 
     return;
@@ -2572,14 +2267,11 @@ function openEdit(){
   editUsername.value =
     profileName.textContent;
 
-
   editBio.value =
     profileBio.textContent;
 
-
   saveStatus.textContent =
     "";
-
 
   editOverlay.style.display =
     "flex";
@@ -2602,15 +2294,12 @@ function closeEdit(){
 async function saveProfile(){
 
   if(!currentUser){
-
     return;
-
   }
 
 
   const username =
     editUsername.value.trim();
-
 
   const bio =
     editBio.value.trim();
@@ -2664,7 +2353,6 @@ async function saveProfile(){
     profileUserData.username =
       username;
 
-
     profileUserData.bio =
       bio;
 
@@ -2687,11 +2375,7 @@ async function saveProfile(){
 
   }catch(error){
 
-    console.error(
-      "SAVE PROFILE ERROR:",
-      error
-    );
-
+    console.error(error);
 
     saveStatus.textContent =
       "Could not save profile.";
@@ -2736,7 +2420,6 @@ async function shareProfile(){
         window.location.href
       );
 
-
       alert(
         "Profile link copied!"
       );
@@ -2763,13 +2446,9 @@ function toggleTopMenu(){
   topMenu.style.display =
     topMenu.style.display ===
     "block"
-
       ?
-
     "none"
-
       :
-
     "block";
 
 }
@@ -2804,9 +2483,7 @@ document.addEventListener(
     ){
 
       document
-        .querySelectorAll(
-          ".post-menu"
-        )
+        .querySelectorAll(".post-menu")
         .forEach(
           menu => {
 
@@ -2823,7 +2500,7 @@ document.addEventListener(
 
 
 /* =====================================================
-   CLOSE SHEETS
+   SHEETS
 ===================================================== */
 
 sheetOverlay.addEventListener(
@@ -2878,15 +2555,12 @@ async function signOut(){
 
     await auth.signOut();
 
-
     window.location.href =
       "index.html";
-
 
   }catch(error){
 
     console.error(error);
-
 
     alert(
       "Sign out failed."
@@ -2954,7 +2628,7 @@ function goBack(){
 
 
 /* =====================================================
-   PROFILE NOT FOUND
+   ERROR STATES
 ===================================================== */
 
 function showProfileNotFound(){
@@ -2962,26 +2636,20 @@ function showProfileNotFound(){
   profileName.textContent =
     "User not found";
 
-
   topUsername.textContent =
     "Profile";
-
 
   profileBio.textContent =
     "This profile doesn't exist.";
 
-
   profileButtons.innerHTML =
     "";
-
 
   postCount.textContent =
     "0";
 
-
   followersCount.textContent =
     "0";
-
 
   followingCount.textContent =
     "0";
@@ -3009,10 +2677,6 @@ function showProfileNotFound(){
 
 }
 
-
-/* =====================================================
-   PROFILE ERROR
-===================================================== */
 
 function showProfileError(){
 
@@ -3046,20 +2710,15 @@ function showProfileError(){
 function formatPostTime(timestamp){
 
   if(!timestamp){
-
     return "Just now";
-
   }
 
 
   const date =
     timestamp.toDate
       ?
-
     timestamp.toDate()
-
       :
-
     new Date(timestamp);
 
 
@@ -3069,54 +2728,38 @@ function formatPostTime(timestamp){
 
 
   const seconds =
-    Math.floor(
-      diff / 1000
-    );
+    Math.floor(diff / 1000);
 
 
   if(seconds < 60){
-
     return "Just now";
-
   }
 
 
   const minutes =
-    Math.floor(
-      seconds / 60
-    );
+    Math.floor(seconds / 60);
 
 
   if(minutes < 60){
-
     return minutes + "m";
-
   }
 
 
   const hours =
-    Math.floor(
-      minutes / 60
-    );
+    Math.floor(minutes / 60);
 
 
   if(hours < 24){
-
     return hours + "h";
-
   }
 
 
   const days =
-    Math.floor(
-      hours / 24
-    );
+    Math.floor(hours / 24);
 
 
   if(days < 7){
-
     return days + "d";
-
   }
 
 
@@ -3138,16 +2781,14 @@ function formatPostTime(timestamp){
 function escapeHTML(text){
 
   const div =
-    document.createElement(
-      "div"
-    );
-
+    document.createElement("div");
 
   div.textContent =
     text == null
-      ? ""
-      : String(text);
-
+      ?
+    ""
+      :
+    String(text);
 
   return div.innerHTML;
 
@@ -3157,22 +2798,10 @@ function escapeHTML(text){
 function escapeAttribute(text){
 
   return String(text)
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    );
+    .replace(/&/g,"&amp;")
+    .replace(/"/g,"&quot;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
 
 }
 
