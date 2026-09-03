@@ -26,8 +26,6 @@ body{
   padding-bottom:78px;
 }
 
-/* TOP BAR */
-
 .topbar{
   position:sticky;
   top:0;
@@ -69,8 +67,6 @@ body{
   font-size:13px;
 }
 
-/* MAIN */
-
 .container{
   max-width:720px;
   margin:auto;
@@ -84,8 +80,6 @@ body{
 .page-section.active{
   display:block;
 }
-
-/* FEED HEADER */
 
 .feed-heading{
   display:flex;
@@ -144,8 +138,6 @@ body{
   font-size:14px;
 }
 
-/* POSTS */
-
 #posts{
   display:flex;
   flex-direction:column;
@@ -159,6 +151,13 @@ body{
   padding:12px 14px;
   margin-bottom:7px;
   box-shadow:0 8px 24px rgba(0,0,0,.13);
+  scroll-margin-top:80px;
+}
+
+.post.highlighted{
+  border-color:#d7bd8c;
+  box-shadow:0 0 0 1px rgba(215,189,140,.25),
+             0 8px 28px rgba(0,0,0,.2);
 }
 
 .post-header{
@@ -195,8 +194,6 @@ body{
   margin-top:1px;
 }
 
-/* FIXED POST TEXT */
-
 .post-text{
   color:#eceef1;
   font-size:15px;
@@ -225,8 +222,6 @@ body{
   margin:4px 0 5px;
   max-height:520px;
 }
-
-/* ACTIONS */
 
 .actions{
   border-top:1px solid #25282d;
@@ -268,8 +263,6 @@ body{
 .action b{
   font-weight:600;
 }
-
-/* COMMENTS */
 
 .comments-area{
   display:none;
@@ -343,8 +336,6 @@ body{
   cursor:pointer;
 }
 
-/* EMPTY */
-
 .empty{
   text-align:center;
   background:#111419;
@@ -380,8 +371,6 @@ body{
 .empty p{
   font-size:13px;
 }
-
-/* CREATE */
 
 .create-page-title{
   padding:6px 3px 14px;
@@ -519,8 +508,6 @@ body{
   cursor:default;
 }
 
-/* EXPLORE */
-
 .explore-title{
   padding:7px 3px 15px;
 }
@@ -631,15 +618,31 @@ body{
   color:#aaa;
 }
 
-/* ALERTS */
-
 .alert-title{
   padding:7px 3px 15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
 .alert-title h1{
   font-size:27px;
   letter-spacing:-1px;
+}
+
+.alert-mark-read{
+  border:1px solid #30343a;
+  background:#15181d;
+  color:#aeb3bb;
+  padding:8px 11px;
+  border-radius:10px;
+  font-size:11px;
+  cursor:pointer;
+}
+
+.alert-mark-read:hover{
+  background:#1b1e23;
+  color:#fff;
 }
 
 .alert-list{
@@ -649,6 +652,7 @@ body{
 }
 
 .notification{
+  position:relative;
   display:flex;
   align-items:center;
   gap:11px;
@@ -656,10 +660,28 @@ body{
   background:#111419;
   border:1px solid #292d33;
   border-radius:15px;
+  cursor:pointer;
+  transition:.18s;
+}
+
+.notification:hover{
+  background:#181b20;
 }
 
 .notification.unread{
   background:#15181d;
+  border-color:#343941;
+}
+
+.notification.unread::after{
+  content:"";
+  position:absolute;
+  right:12px;
+  top:14px;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#d7bd8c;
 }
 
 .notification-icon{
@@ -680,9 +702,14 @@ body{
 }
 
 .notification-text{
+  padding-right:12px;
   font-size:13px;
   line-height:1.4;
   color:#dfe2e6;
+}
+
+.notification-text b{
+  color:#fff;
 }
 
 .notification-time{
@@ -713,25 +740,33 @@ body{
   font-size:13px;
 }
 
-/* BOTTOM NAV */
+.alert-loading{
+  text-align:center;
+  padding:35px;
+  color:#777f89;
+  font-size:13px;
+}
 
-.bottom-nav{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  height:72px;
-  z-index:200;
-  background:rgba(11,13,16,.96);
-  backdrop-filter:blur(20px);
-  border-top:1px solid #292d33;
-  display:flex;
+.alert-badge{
+  position:absolute;
+  top:7px;
+  right:calc(50% - 17px);
+  min-width:15px;
+  height:15px;
+  padding:0 4px;
+  border-radius:8px;
+  background:#d7bd8c;
+  color:#0b0d10;
+  font-size:9px;
+  font-weight:800;
+  display:none;
+  align-items:center;
   justify-content:center;
-  padding:6px 8px;
-  box-shadow:0 -10px 30px rgba(0,0,0,.2);
+  border:2px solid #0b0d10;
 }
 
 .nav-item{
+  position:relative;
   flex:1;
   max-width:115px;
   border:0;
@@ -785,6 +820,22 @@ body{
   height:18px;
 }
 
+.bottom-nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:72px;
+  z-index:200;
+  background:rgba(11,13,16,.96);
+  backdrop-filter:blur(20px);
+  border-top:1px solid #292d33;
+  display:flex;
+  justify-content:center;
+  padding:6px 8px;
+  box-shadow:0 -10px 30px rgba(0,0,0,.2);
+}
+
 .hidden-file{
   display:none;
 }
@@ -792,8 +843,6 @@ body{
 .profile-link{
   cursor:pointer;
 }
-
-/* RESPONSIVE */
 
 @media(max-width:500px){
 
@@ -1227,6 +1276,15 @@ body{
       Alerts
     </h1>
 
+    <button
+      id="markAllReadButton"
+      class="alert-mark-read"
+      type="button">
+
+      Mark all read
+
+    </button>
+
   </div>
 
 
@@ -1234,34 +1292,8 @@ body{
     id="alertList"
     class="alert-list">
 
-    <div class="alert-empty">
-
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor">
-
-        <path
-          d="M18 8
-             a6 6 0 0 0-12 0
-             c0 7-3 7-3 9h18
-             c0-2-3-2-3-9">
-        </path>
-
-        <path
-          d="M10 21h4">
-        </path>
-
-      </svg>
-
-      <h3>
-        No new alerts
-      </h3>
-
-      <p>
-        Your community notifications will appear here.
-      </p>
-
+    <div class="alert-loading">
+      Loading alerts...
     </div>
 
   </div>
@@ -1374,6 +1406,12 @@ body{
 
     <span>Alerts</span>
 
+    <div
+      id="alertBadge"
+      class="alert-badge">
+      0
+    </div>
+
   </button>
 
 
@@ -1420,8 +1458,7 @@ from
 
 import {
   getAuth,
-  onAuthStateChanged,
-  GoogleAuthProvider
+  onAuthStateChanged
 }
 from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
@@ -1436,7 +1473,10 @@ import {
   doc,
   setDoc,
   getDoc,
-  deleteDoc
+  deleteDoc,
+  updateDoc,
+  query,
+  where
 }
 from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
@@ -1498,6 +1538,8 @@ let currentUsername = "Member";
 let allPosts = [];
 let allMembers = [];
 
+let notificationCache = [];
+
 
 /* ELEMENTS */
 
@@ -1515,6 +1557,9 @@ const alertList =
 
 const postsContainer =
   document.getElementById("posts");
+
+const alertBadge =
+  document.getElementById("alertBadge");
 
 
 /* AUTH */
@@ -1538,6 +1583,8 @@ onAuthStateChanged(
 
       currentUsername =
         "Member";
+
+      updateAlertBadge(0);
 
       return;
 
@@ -1621,7 +1668,7 @@ const sections = {
 };
 
 
-function showSection(sectionId){
+async function showSection(sectionId){
 
   Object.values(sections)
     .forEach(section => {
@@ -1676,7 +1723,9 @@ function showSection(sectionId){
     currentUser
   ){
 
-    loadNotifications();
+    await loadNotifications();
+
+    await markNotificationsAsRead();
 
   }
 
@@ -2115,32 +2164,44 @@ document
         }
 
 
-        await addDoc(
-          collection(
-            db,
-            "posts"
-          ),
-          {
+        const postRef =
+          await addDoc(
+            collection(
+              db,
+              "posts"
+            ),
+            {
 
-            text:
-              text,
+              text:
+                text,
 
-            authorId:
-              currentUser.uid,
+              authorId:
+                currentUser.uid,
 
-            authorName:
-              currentUsername,
+              authorName:
+                currentUsername,
 
-            mediaUrl:
-              mediaUrl,
+              mediaUrl:
+                mediaUrl,
 
-            mediaType:
-              mediaType,
+              mediaType:
+                mediaType,
 
-            createdAt:
-              serverTimestamp()
+              createdAt:
+                serverTimestamp()
 
-          }
+            }
+          );
+
+
+        /*
+         * NEW:
+         * Notify everyone who follows
+         * the person creating this post.
+         */
+
+        await notifyFollowersAboutPost(
+          postRef.id
         );
 
 
@@ -2200,6 +2261,141 @@ document
 
     }
   );
+
+
+/*
+ * NOTIFY FOLLOWERS
+ *
+ * Finds every document in:
+ *
+ * follows
+ *
+ * where:
+ * followingId == current user's UID
+ *
+ * Then creates an alert for each follower.
+ */
+
+async function notifyFollowersAboutPost(
+  postId
+){
+
+  if(!currentUser){
+
+    return;
+
+  }
+
+
+  try{
+
+    const followersQuery =
+      query(
+        collection(
+          db,
+          "follows"
+        ),
+        where(
+          "followingId",
+          "==",
+          currentUser.uid
+        )
+      );
+
+
+    const snapshot =
+      await getDocs(
+        followersQuery
+      );
+
+
+    if(snapshot.empty){
+
+      return;
+
+    }
+
+
+    const notificationPromises = [];
+
+
+    snapshot.forEach(
+      followDoc => {
+
+        const data =
+          followDoc.data();
+
+
+        const followerId =
+          data.followerId;
+
+
+        if(
+          !followerId ||
+          followerId ===
+          currentUser.uid
+        ){
+
+          return;
+
+        }
+
+
+        notificationPromises.push(
+          addDoc(
+            collection(
+              db,
+              "notifications"
+            ),
+            {
+
+              recipientId:
+                followerId,
+
+              senderId:
+                currentUser.uid,
+
+              senderName:
+                currentUsername,
+
+              type:
+                "new_post",
+
+              postId:
+                postId,
+
+              commentText:
+                "",
+
+              createdAt:
+                serverTimestamp(),
+
+              read:
+                false
+
+            }
+          )
+        );
+
+      }
+    );
+
+
+    await Promise.all(
+      notificationPromises
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "Follower post notification error:",
+      error
+    );
+
+  }
+
+}
 
 
 /* LOAD POSTS */
@@ -2295,7 +2491,7 @@ async function renderFilteredPosts(
   searchText
 ){
 
-  const query =
+  const queryText =
     String(searchText || "")
       .trim()
       .toLowerCase();
@@ -2304,7 +2500,7 @@ async function renderFilteredPosts(
   const filtered =
     allPosts.filter(post => {
 
-      if(!query){
+      if(!queryText){
 
         return true;
 
@@ -2324,8 +2520,8 @@ async function renderFilteredPosts(
 
 
       return (
-        text.includes(query) ||
-        author.includes(query)
+        text.includes(queryText) ||
+        author.includes(queryText)
       );
 
     });
@@ -2388,6 +2584,9 @@ async function renderPost(
 
   postElement.className =
     "post";
+
+  postElement.dataset.postId =
+    post.id;
 
 
   const username =
@@ -3384,6 +3583,8 @@ async function loadMembers(){
     allMembers.length > 0
   ){
 
+    searchMembers();
+
     return;
 
   }
@@ -3460,8 +3661,6 @@ userSearchButton.addEventListener(
   searchMembers
 );
 
-
-/* LIVE SEARCH */
 
 userSearchInput.addEventListener(
   "input",
@@ -3862,7 +4061,7 @@ async function renderMemberSearchResult(
 }
 
 
-/* NOTIFICATIONS */
+/* CREATE NOTIFICATION */
 
 async function createNotification(data){
 
@@ -3914,6 +4113,23 @@ async function createNotification(data){
 
       }
     );
+
+
+    /*
+     * If the current user is the recipient,
+     * refresh the badge immediately.
+     */
+
+    if(
+      currentUser &&
+      data.recipientId ===
+      currentUser.uid
+    ){
+
+      await loadNotifications();
+
+    }
+
 
   }catch(error){
 
@@ -3994,190 +4210,24 @@ async function loadNotifications(){
     );
 
 
-    if(
-      notifications.length === 0
-    ){
-
-      alertList.innerHTML = `
-
-        <div class="alert-empty">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor">
-
-            <path
-              d="M18 8
-                 a6 6 0 0 0-12 0
-                 c0 7-3 7-3 9h18
-                 c0-2-3-2-3-9">
-            </path>
-
-            <path d="M10 21h4"></path>
-
-          </svg>
-
-          <h3>
-            No new alerts
-          </h3>
-
-          <p>
-            Your community notifications will appear here.
-          </p>
-
-        </div>
-
-      `;
-
-      return;
-
-    }
+    notificationCache =
+      notifications;
 
 
-    alertList.innerHTML = "";
+    const unreadCount =
+      notifications.filter(
+        notification =>
+          notification.read !== true
+      ).length;
 
 
-    notifications.forEach(
-      notification => {
-
-        const element =
-          document.createElement(
-            "div"
-          );
+    updateAlertBadge(
+      unreadCount
+    );
 
 
-        element.className =
-          "notification";
-
-
-        let message = "";
-        let icon = "";
-
-
-        if(
-          notification.type ===
-          "like"
-        ){
-
-          message =
-            `<b>${escapeHTML(
-              notification.senderName
-            )}</b> liked your post.`;
-
-          icon = `
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor">
-
-              <path
-                d="M20.8 8.7
-                   C20.8 13.7 12 20 12 20
-                   S3.2 13.7 3.2 8.7
-                   C3.2 5.7 5.4 3.7 8.1 3.7
-                   C9.8 3.7 11.3 4.6 12 5.9
-                   C12.7 4.6 14.2 3.7 15.9 3.7
-                   C18.6 3.7 20.8 5.7 20.8 8.7Z">
-              </path>
-
-            </svg>
-          `;
-
-        }
-
-
-        if(
-          notification.type ===
-          "comment"
-        ){
-
-          message =
-            `<b>${escapeHTML(
-              notification.senderName
-            )}</b> commented on your post.`;
-
-          icon = `
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor">
-
-              <path
-                d="M20 11.5
-                   a7.5 7.5 0 0 1-7.5 7.5
-                   H8l-4 2 1.5-4
-                   A7.5 7.5 0 1 1 20 11.5Z">
-              </path>
-
-            </svg>
-          `;
-
-        }
-
-
-        if(
-          notification.type ===
-          "follow"
-        ){
-
-          message =
-            `<b>${escapeHTML(
-              notification.senderName
-            )}</b> started following you.`;
-
-          icon = `
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor">
-
-              <circle
-                cx="12"
-                cy="8"
-                r="4">
-              </circle>
-
-              <path
-                d="M4 21
-                   c0-4 3.5-7 8-7
-                   s8 3 8 7">
-              </path>
-
-            </svg>
-          `;
-
-        }
-
-
-        element.innerHTML = `
-
-          <div class="notification-icon">
-            ${icon}
-          </div>
-
-          <div>
-
-            <div class="notification-text">
-              ${message}
-            </div>
-
-            <div class="notification-time">
-              ${formatTime(
-                notification.createdAt
-              )}
-            </div>
-
-          </div>
-
-        `;
-
-
-        alertList.appendChild(
-          element
-        );
-
-      }
+    renderNotifications(
+      notifications
     );
 
 
@@ -4206,6 +4256,677 @@ async function loadNotifications(){
     `;
 
   }
+
+}
+
+
+/* RENDER NOTIFICATIONS */
+
+function renderNotifications(
+  notifications
+){
+
+  if(
+    notifications.length === 0
+  ){
+
+    alertList.innerHTML = `
+
+      <div class="alert-empty">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor">
+
+          <path
+            d="M18 8
+               a6 6 0 0 0-12 0
+               c0 7-3 7-3 9h18
+               c0-2-3-2-3-9">
+          </path>
+
+          <path d="M10 21h4"></path>
+
+        </svg>
+
+        <h3>
+          No new alerts
+        </h3>
+
+        <p>
+          Your community notifications will appear here.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  alertList.innerHTML = "";
+
+
+  notifications.forEach(
+    notification => {
+
+      const element =
+        document.createElement(
+          "div"
+        );
+
+
+      element.className =
+        "notification";
+
+
+      if(
+        notification.read !== true
+      ){
+
+        element.classList.add(
+          "unread"
+        );
+
+      }
+
+
+      let message = "";
+      let icon = "";
+
+
+      if(
+        notification.type ===
+        "like"
+      ){
+
+        message =
+          `<b>${escapeHTML(
+            notification.senderName ||
+            "Member"
+          )}</b> liked your post.`;
+
+        icon = `
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor">
+
+            <path
+              d="M20.8 8.7
+                 C20.8 13.7 12 20 12 20
+                 S3.2 13.7 3.2 8.7
+                 C3.2 5.7 5.4 3.7 8.1 3.7
+                 C9.8 3.7 11.3 4.6 12 5.9
+                 C12.7 4.6 14.2 3.7 15.9 3.7
+                 C18.6 3.7 20.8 5.7 20.8 8.7Z">
+            </path>
+
+          </svg>
+        `;
+
+      }
+
+
+      if(
+        notification.type ===
+        "comment"
+      ){
+
+        message =
+          `<b>${escapeHTML(
+            notification.senderName ||
+            "Member"
+          )}</b> commented on your post.`;
+
+        icon = `
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor">
+
+            <path
+              d="M20 11.5
+                 a7.5 7.5 0 0 1-7.5 7.5
+                 H8l-4 2 1.5-4
+                 A7.5 7.5 0 1 1 20 11.5Z">
+            </path>
+
+          </svg>
+        `;
+
+      }
+
+
+      if(
+        notification.type ===
+        "follow"
+      ){
+
+        message =
+          `<b>${escapeHTML(
+            notification.senderName ||
+            "Member"
+          )}</b> started following you.`;
+
+        icon = `
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor">
+
+            <circle
+              cx="12"
+              cy="8"
+              r="4">
+            </circle>
+
+            <path
+              d="M4 21
+                 c0-4 3.5-7 8-7
+                 s8 3 8 7">
+            </path>
+
+          </svg>
+        `;
+
+      }
+
+
+      if(
+        notification.type ===
+        "new_post"
+      ){
+
+        message =
+          `<b>${escapeHTML(
+            notification.senderName ||
+            "Member"
+          )}</b> shared a new post.`;
+
+        icon = `
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor">
+
+            <path
+              d="M4 5
+                 a2 2 0 0 1 2-2h8l6 6v10
+                 a2 2 0 0 1-2 2H6
+                 a2 2 0 0 1-2-2Z">
+            </path>
+
+            <path
+              d="M14 3v6h6">
+            </path>
+
+            <path
+              d="M8 13h8">
+            </path>
+
+            <path
+              d="M8 17h5">
+            </path>
+
+          </svg>
+        `;
+
+      }
+
+
+      /*
+       * Fallback in case an old/unknown
+       * notification type exists.
+       */
+
+      if(!message){
+
+        message =
+          `<b>${escapeHTML(
+            notification.senderName ||
+            "Member"
+          )}</b> sent you a notification.`;
+
+        icon = `
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor">
+
+            <path
+              d="M18 8
+                 a6 6 0 0 0-12 0
+                 c0 7-3 7-3 9h18
+                 c0-2-3-2-3-9">
+            </path>
+
+            <path d="M10 21h4"></path>
+
+          </svg>
+        `;
+
+      }
+
+
+      element.innerHTML = `
+
+        <div class="notification-icon">
+          ${icon}
+        </div>
+
+        <div>
+
+          <div class="notification-text">
+            ${message}
+          </div>
+
+          <div class="notification-time">
+            ${formatTime(
+              notification.createdAt
+            )}
+          </div>
+
+        </div>
+
+      `;
+
+
+      element.addEventListener(
+        "click",
+        async () => {
+
+          await markSingleNotificationRead(
+            notification.id
+          );
+
+
+          /*
+           * If notification is from a post,
+           * open the post in Home.
+           */
+
+          if(
+            notification.postId
+          ){
+
+            await openPostFromNotification(
+              notification.postId
+            );
+
+            return;
+
+          }
+
+
+          /*
+           * Follow notification:
+           * open sender's profile.
+           */
+
+          if(
+            notification.senderId
+          ){
+
+            openProfile(
+              notification.senderId
+            );
+
+          }
+
+        }
+      );
+
+
+      alertList.appendChild(
+        element
+      );
+
+    }
+  );
+
+}
+
+
+/* UPDATE BADGE */
+
+function updateAlertBadge(
+  count
+){
+
+  const safeCount =
+    Math.max(
+      0,
+      Number(count) || 0
+    );
+
+
+  if(safeCount === 0){
+
+    alertBadge.style.display =
+      "none";
+
+    alertBadge.textContent =
+      "0";
+
+    return;
+
+  }
+
+
+  alertBadge.style.display =
+    "flex";
+
+
+  alertBadge.textContent =
+    safeCount > 99
+      ? "99+"
+      : String(safeCount);
+
+}
+
+
+/* MARK ONE READ */
+
+async function markSingleNotificationRead(
+  notificationId
+){
+
+  if(!currentUser){
+
+    return;
+
+  }
+
+
+  try{
+
+    await updateDoc(
+      doc(
+        db,
+        "notifications",
+        notificationId
+      ),
+      {
+
+        read:
+          true
+
+      }
+    );
+
+
+    const cached =
+      notificationCache.find(
+        item =>
+          item.id ===
+          notificationId
+      );
+
+
+    if(cached){
+
+      cached.read =
+        true;
+
+    }
+
+
+    const unreadCount =
+      notificationCache.filter(
+        notification =>
+          notification.read !== true
+      ).length;
+
+
+    updateAlertBadge(
+      unreadCount
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "Mark notification read error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* MARK ALL READ */
+
+async function markNotificationsAsRead(){
+
+  if(!currentUser){
+
+    return;
+
+  }
+
+
+  try{
+
+    const unread =
+      notificationCache.filter(
+        notification =>
+          notification.read !== true
+      );
+
+
+    if(unread.length === 0){
+
+      updateAlertBadge(0);
+
+      return;
+
+    }
+
+
+    const promises =
+      unread.map(
+        notification =>
+          updateDoc(
+            doc(
+              db,
+              "notifications",
+              notification.id
+            ),
+            {
+
+              read:
+                true
+
+            }
+          )
+      );
+
+
+    await Promise.all(
+      promises
+    );
+
+
+    notificationCache.forEach(
+      notification => {
+
+        notification.read =
+          true;
+
+      }
+    );
+
+
+    updateAlertBadge(0);
+
+
+    renderNotifications(
+      notificationCache
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "Mark all notifications read error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* MARK ALL READ BUTTON */
+
+document
+  .getElementById(
+    "markAllReadButton"
+  )
+  .addEventListener(
+    "click",
+    async event => {
+
+      event.stopPropagation();
+
+      await markNotificationsAsRead();
+
+    }
+  );
+
+
+/* OPEN POST FROM ALERT */
+
+async function openPostFromNotification(
+  postId
+){
+
+  if(!postId){
+
+    return;
+
+  }
+
+
+  /*
+   * Make sure posts are available.
+   */
+
+  if(
+    allPosts.length === 0
+  ){
+
+    await loadPosts();
+
+  }
+
+
+  showSection(
+    "homeSection"
+  );
+
+
+  /*
+   * Give the DOM a moment to render.
+   */
+
+  setTimeout(
+    () => {
+
+      const postElement =
+        document.querySelector(
+          `[data-post-id="${CSS.escape(postId)}"]`
+        );
+
+
+      if(!postElement){
+
+        /*
+         * Post may not be present because
+         * the feed was filtered.
+         */
+
+        feedSearchInput.value =
+          "";
+
+        renderFilteredPosts("");
+
+
+        setTimeout(
+          () => {
+
+            const retryElement =
+              document.querySelector(
+                `[data-post-id="${CSS.escape(postId)}"]`
+              );
+
+
+            if(retryElement){
+
+              highlightPost(
+                retryElement
+              );
+
+            }else{
+
+              alert(
+                "This post is no longer available."
+              );
+
+            }
+
+          },
+          150
+        );
+
+        return;
+
+      }
+
+
+      highlightPost(
+        postElement
+      );
+
+    },
+    150
+  );
+
+}
+
+
+/* HIGHLIGHT POST */
+
+function highlightPost(
+  postElement
+){
+
+  postElement.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+  });
+
+
+  postElement.classList.add(
+    "highlighted"
+  );
+
+
+  setTimeout(
+    () => {
+
+      postElement.classList.remove(
+        "highlighted"
+      );
+
+    },
+    2200
+  );
 
 }
 
