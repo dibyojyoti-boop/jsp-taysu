@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>Profile • JSP TAYSU</title>
 
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -18,35 +17,35 @@ body{
   background:#0b0d12;
   color:#f5f5f5;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  padding-bottom:78px;
+  padding-bottom:76px;
 }
 
-/* =========================
-   TOP BAR
-========================= */
+/* ================= TOP BAR ================= */
 
 .topbar{
-  height:64px;
+  height:60px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 18px;
+  padding:0 16px;
   border-bottom:1px solid #252832;
   position:sticky;
   top:0;
-  background:#0b0d12;
+  background:rgba(11,13,18,.96);
+  backdrop-filter:blur(15px);
   z-index:50;
 }
 
 .back{
-  width:40px;
-  font-size:32px;
+  width:42px;
+  font-size:31px;
   cursor:pointer;
   color:#fff;
+  line-height:1;
 }
 
 .username-title{
-  font-size:20px;
+  font-size:18px;
   font-weight:750;
   max-width:230px;
   overflow:hidden;
@@ -55,40 +54,38 @@ body{
 }
 
 .more{
-  width:40px;
+  width:42px;
   text-align:right;
-  font-size:25px;
+  font-size:22px;
   letter-spacing:2px;
   cursor:pointer;
 }
 
-/* =========================
-   PROFILE
-========================= */
+/* ================= PROFILE ================= */
 
 .profile{
-  padding:18px 18px 0;
+  padding:18px 16px 0;
 }
 
 .profile-top{
   display:flex;
   align-items:center;
-  gap:22px;
+  gap:18px;
 }
 
 .avatar{
-  width:105px;
-  height:105px;
+  width:88px;
+  height:88px;
+  min-width:88px;
   border-radius:50%;
   background:#006b57;
-  border:3px solid #242832;
+  border:2px solid #292d37;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:48px;
-  font-weight:500;
+  font-size:36px;
+  font-weight:600;
   overflow:hidden;
-  flex-shrink:0;
 }
 
 .avatar img{
@@ -100,65 +97,67 @@ body{
 .stats{
   flex:1;
   display:flex;
-  justify-content:space-around;
+  justify-content:space-between;
   text-align:center;
+}
+
+.stat{
+  min-width:65px;
+  cursor:pointer;
 }
 
 .stat strong{
   display:block;
-  font-size:21px;
+  font-size:18px;
   font-weight:750;
 }
 
 .stat span{
   display:block;
-  margin-top:5px;
-  color:#969aa6;
-  font-size:13px;
+  margin-top:4px;
+  color:#979ba6;
+  font-size:12px;
 }
 
-/* =========================
-   PROFILE INFO
-========================= */
+/* ================= INFO ================= */
 
 .info{
-  margin-top:22px;
+  margin-top:17px;
 }
 
 .name{
-  font-size:22px;
+  font-size:19px;
   font-weight:750;
 }
 
 .bio{
-  margin-top:6px;
-  color:#d1d3d8;
-  font-size:15px;
+  margin-top:5px;
+  color:#d3d5da;
+  font-size:14px;
   line-height:1.4;
   white-space:pre-wrap;
+  overflow-wrap:anywhere;
 }
 
 .org{
-  margin-top:7px;
+  margin-top:6px;
   color:#858995;
-  font-size:13px;
+  font-size:12px;
 }
 
-/* =========================
-   BUTTONS
-========================= */
+/* ================= BUTTONS ================= */
 
 .buttons{
   display:flex;
-  gap:9px;
-  margin-top:17px;
+  gap:8px;
+  margin-top:15px;
 }
 
 .btn{
   flex:1;
-  height:43px;
+  height:40px;
   border:0;
-  border-radius:10px;
+  border-radius:9px;
   font-size:14px;
   font-weight:700;
   cursor:pointer;
@@ -169,19 +168,22 @@ body{
   color:#111318;
 }
 
-.share{
-  background:#1b1e26;
-  color:#fff;
-  border:1px solid #2b303b;
+.follow{
+  background:#f1f1f3;
+  color:#111318;
 }
 
-/* =========================
-   MY POSTS HEADER
-========================= */
+.following{
+  background:#1b1e26;
+  color:#fff;
+  border:1px solid #30343e;
+}
+
+/* ================= POSTS HEADER ================= */
 
 .post-header{
-  height:55px;
-  margin-top:22px;
+  height:52px;
+  margin-top:19px;
   border-top:1px solid #252832;
   border-bottom:1px solid #252832;
   display:flex;
@@ -190,21 +192,18 @@ body{
 }
 
 .post-icon{
-  font-size:24px;
-  color:#fff;
+  font-size:23px;
 }
 
-/* =========================
-   MY POSTS
-========================= */
+/* ================= POSTS ================= */
 
 .posts{
-  padding:0 0 25px;
+  padding-bottom:25px;
 }
 
 .my-post{
   position:relative;
-  padding:14px 18px 13px;
+  padding:13px 16px 14px;
   border-bottom:1px solid #252832;
 }
 
@@ -212,7 +211,7 @@ body{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  margin-bottom:7px;
+  margin-bottom:5px;
 }
 
 .my-post-user{
@@ -223,16 +222,23 @@ body{
 }
 
 .small-avatar{
-  width:30px;
-  height:30px;
+  width:29px;
+  height:29px;
   border-radius:50%;
   background:#006b57;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:13px;
+  font-size:12px;
   font-weight:700;
   flex-shrink:0;
+  overflow:hidden;
+}
+
+.small-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 .my-post-meta{
@@ -249,41 +255,36 @@ body{
 
 .my-post-time{
   color:#777c88;
-  font-size:11px;
-  margin-top:2px;
+  font-size:10px;
+  margin-top:1px;
 }
 
 .post-menu-button{
   border:0;
   background:none;
-  color:#9a9da6;
-  font-size:21px;
+  color:#999da7;
+  font-size:19px;
   letter-spacing:2px;
-  padding:5px 3px;
+  padding:4px;
   cursor:pointer;
-  line-height:1;
-}
-
-.post-menu-button:hover{
-  color:#fff;
 }
 
 .my-post-text{
   color:#e5e6e9;
-  font-size:15px;
+  font-size:14px;
   line-height:1.45;
   white-space:pre-wrap;
   overflow-wrap:anywhere;
 }
 
-/* POST MENU */
+/* ================= POST MENU ================= */
 
 .post-menu{
   display:none;
   position:absolute;
-  top:48px;
-  right:15px;
-  width:115px;
+  top:45px;
+  right:13px;
+  width:125px;
   background:#1b1e26;
   border:1px solid #30343f;
   border-radius:11px;
@@ -303,14 +304,10 @@ body{
   cursor:pointer;
 }
 
-.post-menu button:hover{
-  background:#272b34;
-}
-
-/* EMPTY */
+/* ================= EMPTY ================= */
 
 .empty{
-  min-height:260px;
+  min-height:220px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -321,33 +318,31 @@ body{
 }
 
 .empty-icon{
-  font-size:34px;
-  margin-bottom:9px;
+  font-size:32px;
+  margin-bottom:8px;
 }
 
 .empty h3{
   color:#d7d8dc;
-  font-size:16px;
-  margin-bottom:5px;
+  font-size:15px;
+  margin-bottom:4px;
 }
 
 .empty p{
-  font-size:13px;
+  font-size:12px;
 }
 
-/* =========================
-   MENU
-========================= */
+/* ================= TOP MENU ================= */
 
 .menu{
   display:none;
   position:fixed;
-  top:68px;
-  right:14px;
-  width:150px;
+  top:65px;
+  right:12px;
+  width:145px;
   background:#1b1e26;
   border:1px solid #303541;
-  border-radius:13px;
+  border-radius:12px;
   overflow:hidden;
   z-index:100;
   box-shadow:0 12px 35px rgba(0,0,0,.5);
@@ -355,7 +350,7 @@ body{
 
 .menu button{
   width:100%;
-  padding:14px;
+  padding:13px;
   border:0;
   background:none;
   color:#fff;
@@ -364,17 +359,11 @@ body{
   cursor:pointer;
 }
 
-.menu button:hover{
-  background:#272b34;
-}
-
 .signout{
   color:#ff5d6c !important;
 }
 
-/* =========================
-   EDIT MODAL
-========================= */
+/* ================= MODAL ================= */
 
 .overlay{
   display:none;
@@ -388,8 +377,8 @@ body{
 .modal{
   width:100%;
   background:#171a21;
-  border-radius:24px 24px 0 0;
-  padding:23px 20px 34px;
+  border-radius:23px 23px 0 0;
+  padding:22px 18px 32px;
   border-top:1px solid #30343e;
 }
 
@@ -397,11 +386,11 @@ body{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  margin-bottom:20px;
+  margin-bottom:19px;
 }
 
 .modal-title h2{
-  font-size:21px;
+  font-size:20px;
 }
 
 .close{
@@ -411,14 +400,14 @@ body{
 }
 
 .field{
-  margin-bottom:16px;
+  margin-bottom:15px;
 }
 
 .field label{
   display:block;
   color:#999da8;
-  font-size:13px;
-  margin-bottom:7px;
+  font-size:12px;
+  margin-bottom:6px;
 }
 
 .field input,
@@ -427,44 +416,163 @@ body{
   background:#0e1015;
   border:1px solid #30343e;
   color:#fff;
-  border-radius:12px;
-  padding:13px;
-  font-size:15px;
+  border-radius:11px;
+  padding:12px;
+  font-size:14px;
   outline:none;
 }
 
 .field textarea{
-  min-height:90px;
+  min-height:85px;
   resize:none;
-}
-
-.field input:focus,
-.field textarea:focus{
-  border-color:#777d8b;
 }
 
 .save{
   width:100%;
-  height:48px;
+  height:46px;
   border:0;
-  border-radius:12px;
+  border-radius:11px;
   background:#f2f2f4;
   color:#111;
-  font-size:15px;
+  font-size:14px;
   font-weight:700;
-  cursor:pointer;
 }
 
 .status{
   text-align:center;
-  margin-top:9px;
-  font-size:13px;
+  margin-top:8px;
+  font-size:12px;
   color:#aaa;
 }
 
-/* =========================
-   LOADING
-========================= */
+/* ================= BOTTOM SHEET ================= */
+
+.sheet-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.68);
+  z-index:300;
+  align-items:flex-end;
+}
+
+.sheet{
+  width:100%;
+  max-height:72vh;
+  background:#15181f;
+  border-radius:23px 23px 0 0;
+  overflow:hidden;
+  border-top:1px solid #30343e;
+  animation:sheetUp .22s ease;
+}
+
+@keyframes sheetUp{
+  from{
+    transform:translateY(100%);
+  }
+  to{
+    transform:translateY(0);
+  }
+}
+
+.sheet-head{
+  height:57px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-bottom:1px solid #292d36;
+  position:relative;
+}
+
+.sheet-head:before{
+  content:"";
+  position:absolute;
+  top:8px;
+  width:38px;
+  height:4px;
+  border-radius:10px;
+  background:#555a66;
+}
+
+.sheet-head h3{
+  font-size:16px;
+}
+
+.sheet-close{
+  position:absolute;
+  right:17px;
+  top:17px;
+  color:#aaa;
+  font-size:22px;
+  cursor:pointer;
+}
+
+.user-list{
+  overflow-y:auto;
+  max-height:calc(72vh - 57px);
+  padding:5px 0 20px;
+}
+
+.user-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:11px 17px;
+  cursor:pointer;
+}
+
+.user-row:active{
+  background:#20232b;
+}
+
+.list-avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#006b57;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  overflow:hidden;
+  flex-shrink:0;
+}
+
+.list-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.list-info{
+  min-width:0;
+}
+
+.list-name{
+  font-size:14px;
+  font-weight:700;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.list-bio{
+  color:#858995;
+  font-size:11px;
+  margin-top:2px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.sheet-empty{
+  text-align:center;
+  padding:45px 20px;
+  color:#858995;
+  font-size:13px;
+}
+
+/* ================= LOADING ================= */
 
 .loading{
   position:fixed;
@@ -477,23 +585,19 @@ body{
 }
 
 .loader{
-  width:30px;
-  height:30px;
+  width:28px;
+  height:28px;
   border:3px solid #333743;
-  border-top-color:white;
+  border-top-color:#fff;
   border-radius:50%;
   animation:spin .8s linear infinite;
 }
 
 @keyframes spin{
-  to{
-    transform:rotate(360deg);
-  }
+  to{transform:rotate(360deg);}
 }
 
-/* =========================
-   BOTTOM NAV
-========================= */
+/* ================= NAV ================= */
 
 .bottom-nav{
   position:fixed;
@@ -517,13 +621,13 @@ body{
   background:none;
   color:#858995;
   text-align:center;
-  font-size:11px;
+  font-size:10px;
   cursor:pointer;
 }
 
 .nav-item .icon{
   display:block;
-  font-size:24px;
+  font-size:23px;
   margin-bottom:3px;
 }
 
@@ -532,59 +636,10 @@ body{
 }
 
 .create-icon{
-  font-size:30px !important;
+  font-size:29px !important;
 }
 
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:500px){
-
-  .profile{
-    padding:16px 15px 0;
-  }
-
-  .profile-top{
-    gap:17px;
-  }
-
-  .avatar{
-    width:92px;
-    height:92px;
-    font-size:42px;
-  }
-
-  .stats{
-    justify-content:space-between;
-  }
-
-  .stat strong{
-    font-size:19px;
-  }
-
-  .stat span{
-    font-size:12px;
-  }
-
-  .name{
-    font-size:20px;
-  }
-
-  .bio{
-    font-size:14px;
-  }
-
-  .org{
-    font-size:12px;
-  }
-
-  .my-post{
-    padding-left:15px;
-    padding-right:15px;
-  }
-
-}
+/* ================= DESKTOP ================= */
 
 @media(min-width:700px){
 
@@ -599,39 +654,35 @@ body{
   }
 
 }
-
 </style>
 </head>
 
 <body>
 
 <!-- LOADING -->
-
 <div class="loading" id="loading">
   <div class="loader"></div>
 </div>
 
 
 <!-- TOP BAR -->
-
 <header class="topbar">
 
-  <div class="back" onclick="goHome()">‹</div>
+  <div class="back" onclick="goBack()">‹</div>
 
   <div class="username-title" id="topUsername">
     Profile
   </div>
 
-  <div class="more" onclick="toggleMenu()">
+  <div class="more" onclick="toggleTopMenu()">
     •••
   </div>
 
 </header>
 
 
-<!-- THREE DOT MENU -->
-
-<div class="menu" id="menu">
+<!-- TOP MENU -->
+<div class="menu" id="topMenu">
 
   <button class="signout" onclick="signOut()">
     Sign out
@@ -641,7 +692,6 @@ body{
 
 
 <!-- PROFILE -->
-
 <main class="profile">
 
   <section class="profile-top">
@@ -657,12 +707,12 @@ body{
         <span>posts</span>
       </div>
 
-      <div class="stat">
+      <div class="stat" onclick="openUserList('followers')">
         <strong id="followersCount">0</strong>
         <span>followers</span>
       </div>
 
-      <div class="stat">
+      <div class="stat" onclick="openUserList('following')">
         <strong id="followingCount">0</strong>
         <span>following</span>
       </div>
@@ -689,106 +739,65 @@ body{
   </section>
 
 
-  <div class="buttons">
+  <div class="buttons" id="profileButtons">
 
-    <button class="btn edit" onclick="openEdit()">
-      Edit profile
-    </button>
-
-    <button class="btn share" onclick="shareProfile()">
-      Share profile
-    </button>
+    <!-- JS inserts Edit or Follow here -->
 
   </div>
 
 </main>
 
 
-<!-- MY POSTS -->
-
+<!-- POSTS HEADER -->
 <section class="post-header">
-
-  <div class="post-icon">
-    ▦
-  </div>
-
+  <div class="post-icon">▦</div>
 </section>
 
 
+<!-- POSTS -->
 <section class="posts" id="posts">
 
   <div class="empty">
-
-    <div class="empty-icon">
-      ◌
-    </div>
-
-    <h3>
-      Loading posts...
-    </h3>
-
-    <p>
-      Please wait a moment.
-    </p>
-
+    <div class="empty-icon">◌</div>
+    <h3>Loading posts...</h3>
+    <p>Please wait a moment.</p>
   </div>
 
 </section>
 
 
 <!-- BOTTOM NAV -->
-
 <nav class="bottom-nav">
 
   <button class="nav-item" onclick="goHome()">
-
     <span class="icon">⌂</span>
-
     Home
-
   </button>
-
 
   <button class="nav-item" onclick="goExplore()">
-
     <span class="icon">⌕</span>
-
     Explore
-
   </button>
-
 
   <button class="nav-item" onclick="goCreate()">
-
     <span class="icon create-icon">＋</span>
-
     Create
-
   </button>
-
 
   <button class="nav-item" onclick="goAlerts()">
-
     <span class="icon">♧</span>
-
     Alerts
-
   </button>
 
-
   <button class="nav-item active">
-
     <span class="icon">♙</span>
-
     Profile
-
   </button>
 
 </nav>
 
 
-<!-- EDIT PROFILE -->
-
+<!-- EDIT MODAL -->
 <div class="overlay" id="editOverlay">
 
   <div class="modal">
@@ -797,18 +806,14 @@ body{
 
       <h2>Edit profile</h2>
 
-      <div class="close" onclick="closeEdit()">
-        ×
-      </div>
+      <div class="close" onclick="closeEdit()">×</div>
 
     </div>
 
 
     <div class="field">
 
-      <label>
-        Username
-      </label>
+      <label>Username</label>
 
       <input
         type="text"
@@ -822,9 +827,7 @@ body{
 
     <div class="field">
 
-      <label>
-        Bio
-      </label>
+      <label>Bio</label>
 
       <textarea
         id="editBio"
@@ -839,7 +842,6 @@ body{
       Save changes
     </button>
 
-
     <div class="status" id="saveStatus"></div>
 
   </div>
@@ -847,8 +849,37 @@ body{
 </div>
 
 
-<!-- FIREBASE -->
+<!-- FOLLOWERS/FOLLOWING SHEET -->
+<div class="sheet-overlay" id="sheetOverlay">
 
+  <div class="sheet">
+
+    <div class="sheet-head">
+
+      <h3 id="sheetTitle">
+        Followers
+      </h3>
+
+      <div class="sheet-close" onclick="closeUserList()">
+        ×
+      </div>
+
+    </div>
+
+    <div class="user-list" id="userList">
+
+      <div class="sheet-empty">
+        Loading...
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -883,17 +914,11 @@ const firebaseConfig = {
 };
 
 
-/* =====================================================
-   FIREBASE INIT
-===================================================== */
-
 firebase.initializeApp(firebaseConfig);
 
-const auth =
-  firebase.auth();
+const auth = firebase.auth();
 
-const db =
-  firebase.firestore();
+const db = firebase.firestore();
 
 
 /* =====================================================
@@ -902,6 +927,9 @@ const db =
 
 const loading =
   document.getElementById("loading");
+
+const avatar =
+  document.getElementById("avatar");
 
 const profileName =
   document.getElementById("profileName");
@@ -912,14 +940,23 @@ const profileBio =
 const topUsername =
   document.getElementById("topUsername");
 
-const avatar =
-  document.getElementById("avatar");
-
 const postCount =
   document.getElementById("postCount");
 
+const followersCount =
+  document.getElementById("followersCount");
+
+const followingCount =
+  document.getElementById("followingCount");
+
 const postsContainer =
   document.getElementById("posts");
+
+const profileButtons =
+  document.getElementById("profileButtons");
+
+const topMenu =
+  document.getElementById("topMenu");
 
 const editOverlay =
   document.getElementById("editOverlay");
@@ -933,15 +970,47 @@ const editBio =
 const saveStatus =
   document.getElementById("saveStatus");
 
-const menu =
-  document.getElementById("menu");
+const sheetOverlay =
+  document.getElementById("sheetOverlay");
 
+const sheetTitle =
+  document.getElementById("sheetTitle");
 
-let currentUser = null;
+const userList =
+  document.getElementById("userList");
 
 
 /* =====================================================
-   AUTH STATE
+   GLOBAL STATE
+===================================================== */
+
+let currentUser = null;
+
+let profileUser = null;
+
+let profileUserData = null;
+
+let profileUserId = null;
+
+
+/* =====================================================
+   GET PROFILE UID
+===================================================== */
+
+function getProfileUid(){
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+  return params.get("uid");
+
+}
+
+
+/* =====================================================
+   AUTH
 ===================================================== */
 
 auth.onAuthStateChanged(async user => {
@@ -957,15 +1026,22 @@ auth.onAuthStateChanged(async user => {
 
   currentUser = user;
 
+  profileUserId =
+    getProfileUid() || user.uid;
+
   try{
 
-    await loadProfile(user);
+    await loadProfile();
 
     await loadMyPosts();
 
   }catch(error){
 
     console.error(error);
+
+    alert(
+      "Something went wrong while loading profile."
+    );
 
   }
 
@@ -979,97 +1055,95 @@ auth.onAuthStateChanged(async user => {
    LOAD PROFILE
 ===================================================== */
 
-async function loadProfile(user){
+async function loadProfile(){
 
-  try{
+  const ref =
+    db.collection("users")
+      .doc(profileUserId);
 
-    const ref =
-      db.collection("users").doc(user.uid);
-
-    const snap =
-      await ref.get();
-
-
-    let username =
-      user.displayName ||
-      user.email?.split("@")[0] ||
-      "Member";
+  const snap =
+    await ref.get();
 
 
-    let bio =
-      "Building and preserving our heritage.";
+  if(!snap.exists){
 
+    if(profileUserId === currentUser.uid){
 
-    if(snap.exists){
-
-      const data =
-        snap.data();
-
-
-      if(data.username){
-
-        username =
-          data.username;
-
-      }
-
-
-      if(data.bio){
-
-        bio =
-          data.bio;
-
-      }
-
-    }else{
+      const username =
+        currentUser.displayName ||
+        currentUser.email?.split("@")[0] ||
+        "Member";
 
       await ref.set({
 
-        username:
-          username,
+        username:username,
 
         bio:
-          bio,
+          "Building and preserving our heritage.",
 
         email:
-          user.email || "",
+          currentUser.email || "",
+
+        followers:[],
+
+        following:[],
 
         createdAt:
           firebase.firestore.FieldValue.serverTimestamp()
 
-      },{
+      },{merge:true});
 
-        merge:true
+      profileUserData = {
 
-      });
+        username:username,
+
+        bio:
+          "Building and preserving our heritage.",
+
+        followers:[],
+
+        following:[]
+
+      };
+
+    }else{
+
+      showProfileNotFound();
+
+      return;
 
     }
 
+  }else{
 
-    displayProfile(
-      username,
-      bio
-    );
-
-
-  }catch(error){
-
-    console.error(
-      "Profile error:",
-      error
-    );
-
-
-    displayProfile(
-
-      user.displayName ||
-      "Member",
-
-      "Building and preserving our heritage."
-
-    );
+    profileUserData =
+      snap.data();
 
   }
+
+
+  profileUser =
+    profileUserData;
+
+
+  const username =
+    profileUserData.username ||
+    "Member";
+
+  const bio =
+    profileUserData.bio ||
+    "Building and preserving our heritage.";
+
+
+  displayProfile(
+    username,
+    bio
+  );
+
+
+  await updateCounts();
+
+  renderProfileButtons();
 
 }
 
@@ -1093,32 +1167,65 @@ function displayProfile(
     bio;
 
 
-  const firstLetter =
-    username
-      .trim()
-      .charAt(0)
-      .toUpperCase() ||
-      "M";
+  const photo =
+    profileUserData?.photoURL ||
+    profileUserData?.photoUrl ||
+    null;
 
 
-  avatar.textContent =
-    firstLetter;
+  if(photo){
+
+    avatar.innerHTML =
+      `<img src="${escapeAttribute(photo)}" alt="">`;
+
+  }else{
+
+    const letter =
+      username
+        .trim()
+        .charAt(0)
+        .toUpperCase() ||
+        "M";
+
+    avatar.textContent =
+      letter;
+
+  }
 
 }
 
 
 /* =====================================================
-   LOAD MY POSTS
+   COUNTS
+===================================================== */
+
+async function updateCounts(){
+
+  const followers =
+    Array.isArray(profileUserData.followers)
+      ? profileUserData.followers
+      : [];
+
+  const following =
+    Array.isArray(profileUserData.following)
+      ? profileUserData.following
+      : [];
+
+
+  followersCount.textContent =
+    followers.length;
+
+  followingCount.textContent =
+    following.length;
+
+}
+
+
+/* =====================================================
+   POST COUNT + POSTS
 ===================================================== */
 
 async function loadMyPosts(){
-
-  if(!currentUser){
-
-    return;
-
-  }
-
 
   postsContainer.innerHTML = `
 
@@ -1149,7 +1256,7 @@ async function loadMyPosts(){
         .where(
           "authorId",
           "==",
-          currentUser.uid
+          profileUserId
         )
         .get();
 
@@ -1157,37 +1264,30 @@ async function loadMyPosts(){
     const posts = [];
 
 
-    snapshot.forEach(
-      postDoc => {
+    snapshot.forEach(doc => {
 
-        posts.push({
+      posts.push({
 
-          id:
-            postDoc.id,
+        id:doc.id,
 
-          ...postDoc.data()
+        ...doc.data()
 
-        });
+      });
 
-      }
-    );
+    });
 
 
-    /* NEWEST FIRST */
+    posts.sort((a,b) => {
 
-    posts.sort(
-      (a,b) => {
+      const aTime =
+        a.createdAt?.seconds || 0;
 
-        const aTime =
-          a.createdAt?.seconds || 0;
+      const bTime =
+        b.createdAt?.seconds || 0;
 
-        const bTime =
-          b.createdAt?.seconds || 0;
+      return bTime - aTime;
 
-        return bTime - aTime;
-
-      }
-    );
+    });
 
 
     postCount.textContent =
@@ -1213,7 +1313,7 @@ async function loadMyPosts(){
           </h3>
 
           <p>
-            Your posts will appear here.
+            Posts will appear here.
           </p>
 
         </div>
@@ -1225,19 +1325,17 @@ async function loadMyPosts(){
     }
 
 
-    posts.forEach(
-      post => {
+    posts.forEach(post => {
 
-        renderMyPost(post);
+      renderPost(post);
 
-      }
-    );
+    });
 
 
   }catch(error){
 
     console.error(
-      "My posts error:",
+      "Posts error:",
       error
     );
 
@@ -1271,20 +1369,30 @@ async function loadMyPosts(){
    RENDER POST
 ===================================================== */
 
-function renderMyPost(post){
+function renderPost(post){
 
   const username =
     post.authorName ||
-    profileName.textContent ||
+    profileUserData.username ||
     "Member";
 
 
   const article =
     document.createElement("article");
 
-
   article.className =
     "my-post";
+
+
+  const isOwnPost =
+    currentUser &&
+    post.authorId === currentUser.uid;
+
+
+  const photo =
+    profileUserData.photoURL ||
+    profileUserData.photoUrl ||
+    "";
 
 
   article.innerHTML = `
@@ -1295,79 +1403,86 @@ function renderMyPost(post){
 
         <div class="small-avatar">
 
-          ${escapeHTML(
-            username
-              .charAt(0)
-              .toUpperCase()
-          )}
+          ${
+            photo
+            ? `<img src="${escapeAttribute(photo)}" alt="">`
+            : escapeHTML(
+                username
+                  .charAt(0)
+                  .toUpperCase()
+              )
+          }
 
         </div>
 
         <div class="my-post-meta">
 
           <div class="my-post-name">
-
             ${escapeHTML(username)}
-
           </div>
 
           <div class="my-post-time">
-
             ${formatPostTime(post.createdAt)}
-
           </div>
 
         </div>
 
       </div>
 
-
-      <button
-        class="post-menu-button"
-        type="button"
-        aria-label="Post options">
-
-        •••
-
-      </button>
+      ${
+        isOwnPost
+        ? `
+          <button
+            class="post-menu-button"
+            type="button"
+            aria-label="Post options">
+            •••
+          </button>
+        `
+        : ""
+      }
 
     </div>
 
 
     <div class="my-post-text">
-
       ${escapeHTML(post.text || "")}
-
     </div>
 
 
-    <div class="post-menu">
+    ${
+      isOwnPost
+      ? `
+        <div class="post-menu">
 
-      <button
-        type="button"
-        class="delete-post-button">
+          <button
+            type="button"
+            class="delete-post-button">
+            Delete post
+          </button>
 
-        Delete post
-
-      </button>
-
-    </div>
+        </div>
+      `
+      : ""
+    }
 
   `;
 
 
-  postsContainer.appendChild(
-    article
-  );
+  postsContainer.appendChild(article);
 
 
-  /* MENU */
+  if(!isOwnPost){
+
+    return;
+
+  }
+
 
   const menuButton =
     article.querySelector(
       ".post-menu-button"
     );
-
 
   const postMenu =
     article.querySelector(
@@ -1381,14 +1496,13 @@ function renderMyPost(post){
 
       event.stopPropagation();
 
-
       document
         .querySelectorAll(".post-menu")
-        .forEach(otherMenu => {
+        .forEach(menu => {
 
-          if(otherMenu !== postMenu){
+          if(menu !== postMenu){
 
-            otherMenu.style.display =
+            menu.style.display =
               "none";
 
           }
@@ -1405,8 +1519,6 @@ function renderMyPost(post){
   );
 
 
-  /* DELETE */
-
   const deleteButton =
     article.querySelector(
       ".delete-post-button"
@@ -1416,13 +1528,6 @@ function renderMyPost(post){
   deleteButton.addEventListener(
     "click",
     async () => {
-
-      if(!currentUser){
-
-        return;
-
-      }
-
 
       const confirmed =
         confirm(
@@ -1455,14 +1560,10 @@ function renderMyPost(post){
         article.remove();
 
 
-        const currentCount =
-          Number(postCount.textContent) || 0;
-
-
         postCount.textContent =
           Math.max(
             0,
-            currentCount - 1
+            Number(postCount.textContent) - 1
           );
 
 
@@ -1485,7 +1586,7 @@ function renderMyPost(post){
               </h3>
 
               <p>
-                Your posts will appear here.
+                Posts will appear here.
               </p>
 
             </div>
@@ -1497,18 +1598,13 @@ function renderMyPost(post){
 
       }catch(error){
 
-        console.error(
-          "Delete post error:",
-          error
-        );
-
+        console.error(error);
 
         alert(
           error.code +
           ": " +
           error.message
         );
-
 
         deleteButton.disabled =
           false;
@@ -1525,103 +1621,496 @@ function renderMyPost(post){
 
 
 /* =====================================================
-   POST TIME
+   FOLLOW SYSTEM
 ===================================================== */
 
-function formatPostTime(timestamp){
+function isFollowing(){
 
-  if(!timestamp){
+  if(!currentUser || !profileUserData){
 
-    return "Just now";
+    return false;
 
   }
 
 
-  let date;
+  const followers =
+    Array.isArray(profileUserData.followers)
+      ? profileUserData.followers
+      : [];
+
+
+  return followers.includes(
+    currentUser.uid
+  );
+
+}
+
+
+/* =====================================================
+   PROFILE BUTTON
+===================================================== */
+
+function renderProfileButtons(){
+
+  profileButtons.innerHTML =
+    "";
 
 
   if(
-    timestamp.toDate
+    !currentUser ||
+    profileUserId === currentUser.uid
   ){
 
-    date =
-      timestamp.toDate();
+    profileButtons.innerHTML = `
 
-  }else{
+      <button
+        class="btn edit"
+        onclick="openEdit()">
+        Edit profile
+      </button>
 
-    date =
-      new Date(timestamp);
+      <button
+        class="btn following"
+        onclick="shareProfile()">
+        Share profile
+      </button>
+
+    `;
+
+    return;
 
   }
 
 
-  const diff =
-    Date.now() -
-    date.getTime();
+  const following =
+    isFollowing();
 
 
-  const seconds =
-    Math.floor(
-      diff / 1000
+  profileButtons.innerHTML = `
+
+    <button
+      id="followButton"
+      class="btn ${
+        following
+          ? "following"
+          : "follow"
+      }"
+      onclick="toggleFollow()">
+
+      ${
+        following
+          ? "Following"
+          : "Follow"
+      }
+
+    </button>
+
+    <button
+      class="btn following"
+      onclick="shareProfile()">
+
+      Share profile
+
+    </button>
+
+  `;
+
+}
+
+
+/* =====================================================
+   FOLLOW / UNFOLLOW
+===================================================== */
+
+async function toggleFollow(){
+
+  if(
+    !currentUser ||
+    profileUserId === currentUser.uid
+  ){
+
+    return;
+
+  }
+
+
+  const button =
+    document.getElementById(
+      "followButton"
     );
 
 
-  if(seconds < 60){
-
-    return "Just now";
-
-  }
+  button.disabled =
+    true;
 
 
-  const minutes =
-    Math.floor(
-      seconds / 60
+  try{
+
+    const myRef =
+      db.collection("users")
+        .doc(currentUser.uid);
+
+    const targetRef =
+      db.collection("users")
+        .doc(profileUserId);
+
+
+    const targetSnap =
+      await targetRef.get();
+
+
+    if(!targetSnap.exists){
+
+      throw new Error(
+        "User profile not found."
+      );
+
+    }
+
+
+    const targetData =
+      targetSnap.data();
+
+
+    const targetFollowers =
+      Array.isArray(
+        targetData.followers
+      )
+        ? targetData.followers
+        : [];
+
+
+    const mySnap =
+      await myRef.get();
+
+
+    const myData =
+      mySnap.exists
+        ? mySnap.data()
+        : {};
+
+
+    const myFollowing =
+      Array.isArray(
+        myData.following
+      )
+        ? myData.following
+        : [];
+
+
+    const alreadyFollowing =
+      targetFollowers.includes(
+        currentUser.uid
+      );
+
+
+    if(alreadyFollowing){
+
+      await targetRef.update({
+
+        followers:
+          firebase.firestore.FieldValue
+            .arrayRemove(
+              currentUser.uid
+            )
+
+      });
+
+
+      await myRef.set({
+
+        following:
+          firebase.firestore.FieldValue
+            .arrayRemove(
+              profileUserId
+            )
+
+      },{merge:true});
+
+
+      profileUserData.followers =
+        targetFollowers.filter(
+          id => id !== currentUser.uid
+        );
+
+
+    }else{
+
+      await targetRef.update({
+
+        followers:
+          firebase.firestore.FieldValue
+            .arrayUnion(
+              currentUser.uid
+            )
+
+      });
+
+
+      await myRef.set({
+
+        following:
+          firebase.firestore.FieldValue
+            .arrayUnion(
+              profileUserId
+            )
+
+      },{merge:true});
+
+
+      profileUserData.followers =
+        [
+          ...targetFollowers,
+          currentUser.uid
+        ];
+
+    }
+
+
+    await updateCounts();
+
+    renderProfileButtons();
+
+
+  }catch(error){
+
+    console.error(
+      "Follow error:",
+      error
     );
 
 
-  if(minutes < 60){
-
-    return minutes +
-      "m";
-
-  }
-
-
-  const hours =
-    Math.floor(
-      minutes / 60
+    alert(
+      "Could not update follow status."
     );
 
+    button.disabled =
+      false;
 
-  if(hours < 24){
+  }
 
-    return hours +
-      "h";
+}
+
+
+/* =====================================================
+   FOLLOWERS / FOLLOWING SHEET
+===================================================== */
+
+async function openUserList(type){
+
+  if(!profileUserData){
+
+    return;
 
   }
 
 
-  const days =
-    Math.floor(
-      hours / 24
-    );
+  sheetOverlay.style.display =
+    "flex";
 
 
-  if(days < 7){
+  sheetTitle.textContent =
+    type === "followers"
+      ? "Followers"
+      : "Following";
 
-    return days +
-      "d";
+
+  userList.innerHTML = `
+
+    <div class="sheet-empty">
+      Loading...
+    </div>
+
+  `;
+
+
+  const ids =
+    type === "followers"
+      ? (
+          Array.isArray(profileUserData.followers)
+            ? profileUserData.followers
+            : []
+        )
+      : (
+          Array.isArray(profileUserData.following)
+            ? profileUserData.following
+            : []
+        );
+
+
+  if(ids.length === 0){
+
+    userList.innerHTML = `
+
+      <div class="sheet-empty">
+
+        ${
+          type === "followers"
+            ? "No followers yet."
+            : "Not following anyone yet."
+        }
+
+      </div>
+
+    `;
+
+    return;
 
   }
 
 
-  return date.toLocaleDateString(
-    undefined,
-    {
-      day:"numeric",
-      month:"short"
+  try{
+
+    const users = [];
+
+
+    for(
+      const uid of ids
+    ){
+
+      const snap =
+        await db
+          .collection("users")
+          .doc(uid)
+          .get();
+
+
+      if(snap.exists){
+
+        users.push({
+
+          uid:uid,
+
+          ...snap.data()
+
+        });
+
+      }
+
+    }
+
+
+    userList.innerHTML =
+      "";
+
+
+    users.forEach(user => {
+
+      renderUserRow(user);
+
+    });
+
+
+    if(users.length === 0){
+
+      userList.innerHTML = `
+
+        <div class="sheet-empty">
+          No users found.
+        </div>
+
+      `;
+
+    }
+
+
+  }catch(error){
+
+    console.error(error);
+
+    userList.innerHTML = `
+
+      <div class="sheet-empty">
+        Couldn't load users.
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =====================================================
+   USER ROW
+===================================================== */
+
+function renderUserRow(user){
+
+  const row =
+    document.createElement("div");
+
+
+  row.className =
+    "user-row";
+
+
+  const username =
+    user.username ||
+    "Member";
+
+
+  const photo =
+    user.photoURL ||
+    user.photoUrl ||
+    "";
+
+
+  row.innerHTML = `
+
+    <div class="list-avatar">
+
+      ${
+        photo
+        ? `<img
+             src="${escapeAttribute(photo)}"
+             alt="">`
+        : escapeHTML(
+            username
+              .charAt(0)
+              .toUpperCase()
+          )
+      }
+
+    </div>
+
+    <div class="list-info">
+
+      <div class="list-name">
+        ${escapeHTML(username)}
+      </div>
+
+      <div class="list-bio">
+        ${
+          escapeHTML(
+            user.bio ||
+            "JSP TAYSU member"
+          )
+        }
+      </div>
+
+    </div>
+
+  `;
+
+
+  row.addEventListener(
+    "click",
+    () => {
+
+      closeUserList();
+
+      window.location.href =
+        "profile.html?uid=" +
+        encodeURIComponent(
+          user.uid
+        );
+
     }
   );
+
+
+  userList.appendChild(row);
 
 }
 
@@ -1631,6 +2120,16 @@ function formatPostTime(timestamp){
 ===================================================== */
 
 function openEdit(){
+
+  if(
+    !currentUser ||
+    profileUserId !== currentUser.uid
+  ){
+
+    return;
+
+  }
+
 
   editUsername.value =
     profileName.textContent;
@@ -1661,14 +2160,7 @@ function closeEdit(){
 
 async function saveProfile(){
 
-  const user =
-    auth.currentUser;
-
-
-  if(!user){
-
-    saveStatus.textContent =
-      "Please sign in again.";
+  if(!currentUser){
 
     return;
 
@@ -1677,7 +2169,6 @@ async function saveProfile(){
 
   const username =
     editUsername.value.trim();
-
 
   const bio =
     editBio.value.trim();
@@ -1701,31 +2192,33 @@ async function saveProfile(){
 
     await db
       .collection("users")
-      .doc(user.uid)
+      .doc(currentUser.uid)
       .set({
 
-        username:
-          username,
+        username:username,
 
-        bio:
-          bio,
+        bio:bio,
 
         updatedAt:
-          firebase.firestore.FieldValue.serverTimestamp()
+          firebase.firestore.FieldValue
+            .serverTimestamp()
 
-      },{
-
-        merge:true
-
-      });
+      },{merge:true});
 
 
-    await user.updateProfile({
+    await currentUser.updateProfile({
 
       displayName:
         username
 
     });
+
+
+    profileUserData.username =
+      username;
+
+    profileUserData.bio =
+      bio;
 
 
     displayProfile(
@@ -1738,114 +2231,18 @@ async function saveProfile(){
       "Saved ✓";
 
 
-    /* Update username in current posts visually */
-
-    document
-      .querySelectorAll(".my-post-name")
-      .forEach(element => {
-
-        element.textContent =
-          username;
-
-      });
-
-
     setTimeout(
-      () => {
-
-        closeEdit();
-
-      },
+      closeEdit,
       600
     );
 
 
   }catch(error){
 
-    console.error(
-      "Save profile error:",
-      error
-    );
-
-
-    saveStatus.textContent =
-      "Could not save. Check Firestore rules.";
-
-  }
-
-}
-
-
-/* =====================================================
-   THREE DOT MENU
-===================================================== */
-
-function toggleMenu(){
-
-  menu.style.display =
-    menu.style.display === "block"
-      ? "none"
-      : "block";
-
-}
-
-
-/* CLOSE TOP MENU */
-
-document.addEventListener(
-  "click",
-  function(event){
-
-    if(
-      !event.target.closest(".more") &&
-      !event.target.closest(".menu")
-    ){
-
-      menu.style.display =
-        "none";
-
-    }
-
-    if(
-      !event.target.closest(".post-menu-button") &&
-      !event.target.closest(".post-menu")
-    ){
-
-      document
-        .querySelectorAll(".post-menu")
-        .forEach(postMenu => {
-
-          postMenu.style.display =
-            "none";
-
-        });
-
-    }
-
-  }
-);
-
-
-/* =====================================================
-   SIGN OUT
-===================================================== */
-
-async function signOut(){
-
-  try{
-
-    await auth.signOut();
-
-    window.location.href =
-      "index.html";
-
-  }catch(error){
-
     console.error(error);
 
-    alert(
-      "Sign out failed. Please try again."
-    );
+    saveStatus.textContent =
+      "Could not save profile.";
 
   }
 
@@ -1853,7 +2250,7 @@ async function signOut(){
 
 
 /* =====================================================
-   SHARE PROFILE
+   SHARE
 ===================================================== */
 
 async function shareProfile(){
@@ -1861,7 +2258,8 @@ async function shareProfile(){
   const shareData = {
 
     title:
-      "JSP TAYSU",
+      "JSP TAYSU • " +
+      profileName.textContent,
 
     text:
       "Check out this profile on JSP TAYSU.",
@@ -1896,6 +2294,125 @@ async function shareProfile(){
 
     console.log(
       "Share cancelled."
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   TOP MENU
+===================================================== */
+
+function toggleTopMenu(){
+
+  topMenu.style.display =
+    topMenu.style.display === "block"
+      ? "none"
+      : "block";
+
+}
+
+
+/* =====================================================
+   CLOSE SHEETS/MENUS
+===================================================== */
+
+document.addEventListener(
+  "click",
+  event => {
+
+    if(
+      !event.target.closest(".more") &&
+      !event.target.closest("#topMenu")
+    ){
+
+      topMenu.style.display =
+        "none";
+
+    }
+
+
+    if(
+      !event.target.closest(".post-menu-button") &&
+      !event.target.closest(".post-menu")
+    ){
+
+      document
+        .querySelectorAll(".post-menu")
+        .forEach(menu => {
+
+          menu.style.display =
+            "none";
+
+        });
+
+    }
+
+  }
+);
+
+
+sheetOverlay.addEventListener(
+  "click",
+  event => {
+
+    if(
+      event.target === sheetOverlay
+    ){
+
+      closeUserList();
+
+    }
+
+  }
+);
+
+
+editOverlay.addEventListener(
+  "click",
+  event => {
+
+    if(
+      event.target === editOverlay
+    ){
+
+      closeEdit();
+
+    }
+
+  }
+);
+
+
+function closeUserList(){
+
+  sheetOverlay.style.display =
+    "none";
+
+}
+
+
+/* =====================================================
+   SIGN OUT
+===================================================== */
+
+async function signOut(){
+
+  try{
+
+    await auth.signOut();
+
+    window.location.href =
+      "index.html";
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Sign out failed."
     );
 
   }
@@ -1939,28 +2456,156 @@ function goAlerts(){
 }
 
 
-/* =====================================================
-   CLOSE EDIT MODAL
-===================================================== */
+function goBack(){
 
-editOverlay.addEventListener(
-  "click",
-  function(event){
+  if(
+    document.referrer &&
+    document.referrer.includes(
+      window.location.host
+    )
+  ){
 
-    if(
-      event.target === editOverlay
-    ){
+    history.back();
 
-      closeEdit();
+  }else{
 
-    }
+    goHome();
 
   }
-);
+
+}
 
 
 /* =====================================================
-   ESCAPE HTML
+   PROFILE NOT FOUND
+===================================================== */
+
+function showProfileNotFound(){
+
+  profileName.textContent =
+    "User not found";
+
+  topUsername.textContent =
+    "Profile";
+
+  profileBio.textContent =
+    "This profile doesn't exist.";
+
+  profileButtons.innerHTML =
+    "";
+
+  postsContainer.innerHTML = `
+
+    <div class="empty">
+
+      <div class="empty-icon">
+        ◌
+      </div>
+
+      <h3>
+        Profile unavailable
+      </h3>
+
+      <p>
+        This account may have been removed.
+      </p>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   TIME
+===================================================== */
+
+function formatPostTime(timestamp){
+
+  if(!timestamp){
+
+    return "Just now";
+
+  }
+
+
+  const date =
+    timestamp.toDate
+      ? timestamp.toDate()
+      : new Date(timestamp);
+
+
+  const diff =
+    Date.now() -
+    date.getTime();
+
+
+  const seconds =
+    Math.floor(
+      diff / 1000
+    );
+
+
+  if(seconds < 60){
+
+    return "Just now";
+
+  }
+
+
+  const minutes =
+    Math.floor(
+      seconds / 60
+    );
+
+
+  if(minutes < 60){
+
+    return minutes + "m";
+
+  }
+
+
+  const hours =
+    Math.floor(
+      minutes / 60
+    );
+
+
+  if(hours < 24){
+
+    return hours + "h";
+
+  }
+
+
+  const days =
+    Math.floor(
+      hours / 24
+    );
+
+
+  if(days < 7){
+
+    return days + "d";
+
+  }
+
+
+  return date.toLocaleDateString(
+    undefined,
+    {
+      day:"numeric",
+      month:"short"
+    }
+  );
+
+}
+
+
+/* =====================================================
+   SECURITY HELPERS
 ===================================================== */
 
 function escapeHTML(text){
@@ -1974,6 +2619,17 @@ function escapeHTML(text){
       : String(text);
 
   return div.innerHTML;
+
+}
+
+
+function escapeAttribute(text){
+
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/"/g,"&quot;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
 
 }
 
