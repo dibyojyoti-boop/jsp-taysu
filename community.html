@@ -848,7 +848,7 @@ onAuthStateChanged(
   auth,
   async (user) => {
 
-    if(!user){
+    if (!user) {
 
       currentUser = null;
 
@@ -869,33 +869,46 @@ onAuthStateChanged(
       return;
     }
 
+    /* USER IS LOGGED IN */
 
     currentUser = user;
 
     communityLogin.style.display = "none";
 
-
-    let username = "Member";
-
-
-    const profileRef =
-      doc(db, "users", user.uid);
+    /* DEFAULT USERNAME */
 
     let username = user.displayName || "Member";
 
-try {
-  const profileRef = doc(db, "users", user.uid);
-  const profileSnap = await getDoc(profileRef);
+    /* GET USER PROFILE */
 
-  if (
-    profileSnap.exists() &&
-    profileSnap.data().username
-  ) {
-    username = profileSnap.data().username;
-  }
-} catch (error) {
-  console.error("Profile read error:", error);
-}
+    try {
+
+      const profileRef =
+        doc(db, "users", user.uid);
+
+      const profileSnap =
+        await getDoc(profileRef);
+
+      if (
+        profileSnap.exists() &&
+        profileSnap.data().username
+      ) {
+
+        username =
+          profileSnap.data().username;
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Profile read error:",
+        error
+      );
+
+    }
+
+    /* SHOW USERNAME */
 
     document.getElementById("profileName").textContent =
       username;
@@ -909,6 +922,7 @@ try {
     document.getElementById("welcomeText").textContent =
       "Welcome, " + username + " 👋";
 
+    /* LOAD COMMUNITY */
 
     await loadPosts();
 
