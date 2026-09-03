@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Profile | JSP TAYSU</title>
+<title>Profile • JSP TAYSU</title>
 
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -17,1872 +14,1050 @@
 }
 
 body{
-  font-family:Arial,Helvetica,sans-serif;
   background:#0b0d12;
-  color:#f5f5f7;
-  min-height:100vh;
+  color:#f5f5f5;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   padding-bottom:75px;
 }
 
-/* ================================
-   TOP BAR
-================================ */
+/* TOP BAR */
 
 .topbar{
-  height:62px;
-  border-bottom:1px solid #282b33;
+  height:64px;
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:0 18px;
+  border-bottom:1px solid #252832;
   position:sticky;
   top:0;
-  z-index:100;
-  background:rgba(11,13,18,.96);
-  backdrop-filter:blur(12px);
+  background:#0b0d12;
+  z-index:20;
 }
 
-.top-left,
-.top-right{
-  width:45px;
-}
-
-.top-left button,
-.top-right button{
-  border:0;
-  background:none;
-  color:#f5f5f7;
+.back{
+  font-size:31px;
   cursor:pointer;
 }
 
-.top-left button{
-  font-size:34px;
-  line-height:1;
+.username-title{
+  font-size:21px;
+  font-weight:700;
 }
 
-.top-right{
-  text-align:right;
-}
-
-.more-icon{
-  font-size:25px;
+.more{
+  font-size:27px;
   letter-spacing:3px;
+  cursor:pointer;
 }
 
-.top-title{
-  font-size:19px;
-  font-weight:800;
-}
-
-/* ================================
-   PROFILE
-================================ */
+/* PROFILE */
 
 .profile{
-  max-width:700px;
-  margin:auto;
-  padding:25px 20px 0;
+  padding:18px 20px 0;
 }
 
-.profile-main{
+.profile-top{
   display:flex;
   align-items:center;
   gap:25px;
 }
 
-.profile-photo{
-  width:104px;
-  height:104px;
-  min-width:104px;
+.avatar{
+  width:110px;
+  height:110px;
   border-radius:50%;
-  overflow:hidden;
-  background:#075947;
-  border:4px solid #252934;
+  background:#006b57;
+  border:4px solid #20242e;
   display:flex;
   align-items:center;
   justify-content:center;
-  color:white;
-  font-size:40px;
-  font-weight:500;
+  font-size:52px;
+  font-weight:400;
+  overflow:hidden;
+  flex-shrink:0;
 }
 
-.profile-photo img{
+.avatar img{
   width:100%;
   height:100%;
   object-fit:cover;
-  display:none;
 }
-
-.profile-photo img.loaded{
-  display:block;
-}
-
-.profile-photo span{
-  display:block;
-}
-
-.profile-photo img.loaded + span{
-  display:none;
-}
-
-/* STATS */
 
 .stats{
   flex:1;
   display:flex;
   justify-content:space-between;
   text-align:center;
-  gap:10px;
-}
-
-.stat{
-  min-width:65px;
 }
 
 .stat strong{
   display:block;
-  font-size:20px;
-  font-weight:800;
-  color:#f5f5f7;
+  font-size:22px;
+  font-weight:700;
 }
 
 .stat span{
-  display:block;
-  margin-top:7px;
-  color:#979aa5;
-  font-size:13px;
-}
-
-/* PROFILE INFO */
-
-.profile-info{
-  margin-top:24px;
-}
-
-.profile-name{
-  font-size:22px;
-  font-weight:800;
-  margin-bottom:8px;
-}
-
-.profile-bio{
-  color:#d4d5da;
+  color:#9da1ac;
   font-size:15px;
-  line-height:1.45;
-  white-space:pre-wrap;
-  overflow-wrap:anywhere;
+  margin-top:5px;
+  display:block;
 }
 
-.profile-subtitle{
-  color:#989ba5;
-  font-size:14px;
-  margin-top:7px;
+/* INFO */
+
+.info{
+  margin-top:28px;
+}
+
+.name{
+  font-size:25px;
+  font-weight:750;
+}
+
+.bio{
+  margin-top:8px;
+  color:#d5d6da;
+  font-size:18px;
+  line-height:1.4;
+}
+
+.org{
+  margin-top:8px;
+  color:#9699a4;
+  font-size:16px;
 }
 
 /* BUTTONS */
 
-.profile-buttons{
+.buttons{
   display:flex;
-  gap:10px;
-  margin-top:18px;
+  gap:12px;
+  margin-top:20px;
 }
 
-.profile-button{
+.btn{
   flex:1;
-  height:43px;
-  border:1px solid #30343e;
-  border-radius:12px;
-  background:#1b1e26;
-  color:#f5f5f7;
-  font-size:14px;
-  font-weight:800;
-  cursor:pointer;
-}
-
-.profile-button:hover{
-  background:#242832;
-}
-
-.profile-button.primary{
-  background:#f5f5f7;
-  color:#111318;
-  border-color:#f5f5f7;
-}
-
-/* ================================
-   POSTS HEADER
-================================ */
-
-.posts-section{
-  margin-top:28px;
-  border-top:1px solid #282b33;
-}
-
-.posts-heading{
-  height:55px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-bottom:1px solid #282b33;
-  position:relative;
-}
-
-.posts-heading::after{
-  content:"";
-  position:absolute;
-  bottom:-1px;
-  left:0;
-  width:100%;
-  height:2px;
-  background:#f5f5f7;
-}
-
-.posts-heading svg{
-  width:23px;
-  height:23px;
-  stroke:#f5f5f7;
-  fill:none;
-  stroke-width:2;
-}
-
-/* ================================
-   POSTS
-================================ */
-
-#posts{
-  min-height:250px;
-}
-
-.post{
-  padding:15px 18px;
-  border-bottom:1px solid #20232a;
-  transition:.18s;
-}
-
-.post:hover{
-  background:#101218;
-}
-
-.post-top{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.post-avatar{
-  width:38px;
-  height:38px;
-  min-width:38px;
-  border-radius:50%;
-  overflow:hidden;
-  background:#075947;
-  border:2px solid #282c35;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:white;
-  font-weight:800;
+  height:50px;
+  border:none;
+  border-radius:13px;
   font-size:16px;
-}
-
-.post-avatar img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:none;
-}
-
-.post-avatar img.loaded{
-  display:block;
-}
-
-.post-avatar img.loaded + span{
-  display:none;
-}
-
-.post-user-info{
-  min-width:0;
-  flex:1;
-}
-
-.post-author{
-  font-size:14px;
-  font-weight:800;
-  color:#f5f5f7;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.post-time{
-  color:#858995;
-  font-size:11px;
-  margin-top:3px;
-}
-
-.post-menu{
-  border:0;
-  background:none;
-  color:#858995;
-  font-size:20px;
+  font-weight:700;
   cursor:pointer;
-  padding:5px;
 }
 
-/* THE IMPORTANT PART:
-   ONE LINE ONLY */
+.edit{
+  background:#f1f1f3;
+  color:#111318;
+}
 
-.post-text{
-  margin:9px 0 0 48px;
+.share{
+  background:#1d212a;
+  color:white;
+  border:1px solid #2b303b;
+}
+
+/* HIGHLIGHTS */
+
+.highlights{
+  display:flex;
+  gap:22px;
+  margin-top:27px;
+  overflow-x:auto;
+  padding-bottom:23px;
+}
+
+.highlight{
+  min-width:72px;
+  text-align:center;
+  color:#b7b9c1;
   font-size:14px;
-  color:#e5e5e8;
-  line-height:1.4;
-
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-
-  max-width:calc(100% - 48px);
 }
 
-/* DELETE */
-
-.delete-button{
-  border:0;
-  background:none;
-  color:#ff6674;
-  font-size:12px;
-  cursor:pointer;
-  padding:5px 0;
-  margin-left:48px;
-  margin-top:4px;
-  display:none;
+.highlight-circle{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  border:3px solid #292e39;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:auto;
+  font-size:29px;
+  background:#151820;
 }
 
-.post.show-delete .delete-button{
-  display:block;
+.highlight-name{
+  margin-top:8px;
 }
 
-/* EMPTY */
+/* POST HEADER */
+
+.post-header{
+  height:58px;
+  border-top:1px solid #272b34;
+  border-bottom:1px solid #272b34;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.post-icon{
+  font-size:25px;
+  color:white;
+}
+
+/* POSTS */
+
+.posts{
+  min-height:430px;
+  padding-bottom:20px;
+}
 
 .empty{
-  text-align:center;
-  padding:70px 20px;
-  color:#858995;
+  height:390px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#d5d6dc;
+  font-size:17px;
 }
 
-.empty-icon{
-  margin-bottom:14px;
-}
-
-.empty-icon svg{
-  width:38px;
-  height:38px;
-  stroke:#656a76;
-  fill:none;
-  stroke-width:1.8;
-}
-
-.empty h3{
-  color:#d9dbe0;
-  font-size:16px;
-  margin-bottom:6px;
-}
-
-.empty p{
-  font-size:13px;
-}
-
-/* ================================
-   BOTTOM NAV
-================================ */
+/* BOTTOM NAV */
 
 .bottom-nav{
   position:fixed;
+  bottom:0;
   left:0;
   right:0;
-  bottom:0;
-  height:70px;
-  background:rgba(11,13,18,.97);
-  backdrop-filter:blur(14px);
-  border-top:1px solid #282b33;
+  height:72px;
+  background:#0b0d12;
+  border-top:1px solid #252832;
   display:flex;
   justify-content:space-around;
   align-items:center;
-  z-index:200;
+  z-index:30;
 }
 
 .nav-item{
-  flex:1;
-  height:100%;
-  border:0;
-  background:none;
   color:#858995;
+  text-align:center;
+  font-size:13px;
   cursor:pointer;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:5px;
 }
 
-.nav-item svg{
-  width:24px;
-  height:24px;
-  stroke:currentColor;
-  fill:none;
-  stroke-width:2;
-}
-
-.nav-item span{
-  font-size:10px;
+.nav-item .icon{
+  font-size:27px;
+  display:block;
+  margin-bottom:3px;
 }
 
 .nav-item.active{
-  color:#f5f5f7;
+  color:white;
 }
 
-.nav-item.create svg{
-  width:27px;
-  height:27px;
+.create-icon{
+  font-size:34px !important;
 }
 
-/* ================================
-   LOADING
-================================ */
+/* MENU */
+
+.menu{
+  display:none;
+  position:fixed;
+  top:68px;
+  right:14px;
+  width:150px;
+  background:#1b1e26;
+  border:1px solid #303541;
+  border-radius:13px;
+  overflow:hidden;
+  z-index:100;
+  box-shadow:0 12px 35px rgba(0,0,0,.5);
+}
+
+.menu button{
+  width:100%;
+  padding:15px;
+  border:0;
+  background:none;
+  color:#fff;
+  text-align:left;
+  font-size:15px;
+  cursor:pointer;
+}
+
+.menu button:hover{
+  background:#272b34;
+}
+
+.signout{
+  color:#ff5d6c !important;
+}
+
+/* MODAL */
+
+.overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.72);
+  z-index:200;
+  align-items:flex-end;
+}
+
+.modal{
+  width:100%;
+  background:#171a21;
+  border-radius:24px 24px 0 0;
+  padding:24px 20px 35px;
+  border-top:1px solid #30343e;
+}
+
+.modal-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:22px;
+}
+
+.modal-title h2{
+  font-size:22px;
+}
+
+.close{
+  font-size:27px;
+  color:#aaa;
+  cursor:pointer;
+}
+
+.field{
+  margin-bottom:17px;
+}
+
+.field label{
+  display:block;
+  color:#999da8;
+  font-size:14px;
+  margin-bottom:7px;
+}
+
+.field input,
+.field textarea{
+  width:100%;
+  background:#0e1015;
+  border:1px solid #30343e;
+  color:white;
+  border-radius:12px;
+  padding:14px;
+  font-size:16px;
+  outline:none;
+}
+
+.field textarea{
+  min-height:100px;
+  resize:none;
+}
+
+.field input:focus,
+.field textarea:focus{
+  border-color:#777d8b;
+}
+
+.save{
+  width:100%;
+  height:50px;
+  border:0;
+  border-radius:13px;
+  background:#f2f2f4;
+  color:#111;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.status{
+  text-align:center;
+  margin-top:10px;
+  font-size:14px;
+  color:#aaa;
+}
+
+/* LOADING */
 
 .loading{
-  text-align:center;
-  padding:65px 20px;
-  color:#858995;
-  font-size:13px;
+  position:fixed;
+  inset:0;
+  background:#0b0d12;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:500;
 }
 
-/* ================================
-   MOBILE
-================================ */
-
-@media(max-width:500px){
-
-  .profile{
-    padding:23px 15px 0;
-  }
-
-  .profile-main{
-    gap:17px;
-  }
-
-  .profile-photo{
-    width:94px;
-    height:94px;
-    min-width:94px;
-  }
-
-  .stats{
-    gap:5px;
-  }
-
-  .stat strong{
-    font-size:19px;
-  }
-
-  .stat span{
-    font-size:12px;
-  }
-
-  .profile-name{
-    font-size:21px;
-  }
-
-  .profile-bio{
-    font-size:14px;
-  }
-
-  .post{
-    padding:14px 15px;
-  }
-
-  .post-text{
-    margin-left:48px;
-  }
-
-  .topbar{
-    padding:0 14px;
-  }
-
+.loader{
+  width:30px;
+  height:30px;
+  border:3px solid #333743;
+  border-top-color:white;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
 }
 
+@keyframes spin{
+  to{transform:rotate(360deg);}
+}
+
+@media(min-width:700px){
+  body{
+    max-width:650px;
+    margin:auto;
+  }
+
+  .bottom-nav{
+    max-width:650px;
+    margin:auto;
+  }
+}
 </style>
-
 </head>
-
 
 <body>
 
+<!-- LOADING -->
 
-<!-- ================================
-     TOP BAR
-================================ -->
+<div class="loading" id="loading">
+  <div class="loader"></div>
+</div>
+
+<!-- TOP BAR -->
 
 <header class="topbar">
 
-  <div class="top-left">
+  <div class="back" onclick="goHome()">‹</div>
 
-    <button
-      id="backButton"
-      aria-label="Back">
-
-      <svg
-        width="27"
-        height="27"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2.2"
-        stroke-linecap="round"
-        stroke-linejoin="round">
-
-        <path d="M19 12H5"/>
-        <path d="M12 19l-7-7 7-7"/>
-
-      </svg>
-
-    </button>
-
-  </div>
-
-
-  <div class="top-title">
+  <div class="username-title" id="topUsername">
     Profile
   </div>
 
-
-  <div class="top-right">
-
-    <button
-      id="moreButton"
-      class="more-icon">
-
-      ···
-
-    </button>
-
+  <div class="more" onclick="toggleMenu()">
+    •••
   </div>
 
 </header>
 
+<!-- MENU -->
 
-<!-- ================================
-     PROFILE
-================================ -->
+<div class="menu" id="menu">
+
+  <button class="signout" onclick="signOut()">
+    Sign out
+  </button>
+
+</div>
+
+<!-- PROFILE -->
 
 <main class="profile">
 
+  <section class="profile-top">
 
-  <section class="profile-main">
-
-
-    <!-- PROFILE PHOTO -->
-
-    <div class="profile-photo">
-
-      <img
-        id="profileImage"
-        alt="Profile">
-
-      <span id="profileInitial">
-        M
-      </span>
-
+    <div class="avatar" id="avatar">
+      D
     </div>
-
-
-    <!-- STATS -->
 
     <div class="stats">
 
       <div class="stat">
-
-        <strong id="postCount">
-          0
-        </strong>
-
-        <span>
-          posts
-        </span>
-
+        <strong id="postCount">0</strong>
+        <span>posts</span>
       </div>
 
-
       <div class="stat">
-
-        <strong id="followersCount">
-          0
-        </strong>
-
-        <span>
-          followers
-        </span>
-
+        <strong>0</strong>
+        <span>followers</span>
       </div>
 
-
       <div class="stat">
-
-        <strong id="followingCount">
-          0
-        </strong>
-
-        <span>
-          following
-        </span>
-
+        <strong>0</strong>
+        <span>following</span>
       </div>
 
     </div>
 
   </section>
 
+  <section class="info">
 
-  <!-- PROFILE INFO -->
-
-  <section class="profile-info">
-
-    <div
-      class="profile-name"
-      id="profileName">
-
-      Member
-
+    <div class="name" id="profileName">
+      Tsao khun Tonmoy
     </div>
 
-
-    <div
-      class="profile-bio"
-      id="profileBio">
-
+    <div class="bio" id="profileBio">
       Building and preserving our heritage.
-
     </div>
 
-
-    <div class="profile-subtitle">
-
+    <div class="org">
       JSP TAYSU • Tai Ahom Youth & Students Union
-
-    </div>
-
-
-    <!-- BUTTONS -->
-
-    <div class="profile-buttons">
-
-      <button
-        class="profile-button primary"
-        id="editProfileButton">
-
-        Edit profile
-
-      </button>
-
-
-      <button
-        class="profile-button"
-        id="shareProfileButton">
-
-        Share profile
-
-      </button>
-
     </div>
 
   </section>
 
+  <!-- BUTTONS -->
 
-  <!-- ================================
-       POSTS
-  ================================= -->
+  <div class="buttons">
 
-  <section class="posts-section">
+    <button class="btn edit" onclick="openEdit()">
+      Edit profile
+    </button>
 
+    <button class="btn share" onclick="shareProfile()">
+      Share profile
+    </button>
 
-    <div class="posts-heading">
+  </div>
 
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true">
+  <!-- HIGHLIGHTS -->
 
-        <rect x="3" y="3" width="7" height="7"/>
-        <rect x="14" y="3" width="7" height="7"/>
-        <rect x="3" y="14" width="7" height="7"/>
-        <rect x="14" y="14" width="7" height="7"/>
+  <div class="highlights">
 
-      </svg>
-
+    <div class="highlight">
+      <div class="highlight-circle">+</div>
+      <div class="highlight-name">New</div>
     </div>
 
-
-    <div id="posts">
-
-      <div class="loading">
-        Loading posts...
-      </div>
-
+    <div class="highlight">
+      <div class="highlight-circle">🐉</div>
+      <div class="highlight-name">Heritage</div>
     </div>
 
-  </section>
+    <div class="highlight">
+      <div class="highlight-circle">✦</div>
+      <div class="highlight-name">Culture</div>
+    </div>
 
+    <div class="highlight">
+      <div class="highlight-circle">T</div>
+      <div class="highlight-name">Community</div>
+    </div>
+
+  </div>
 
 </main>
 
+<!-- POSTS -->
 
-<!-- ================================
-     BOTTOM NAV
-================================ -->
+<section class="post-header">
+
+  <div class="post-icon">
+    ▦
+  </div>
+
+</section>
+
+<section class="posts">
+
+  <div class="empty" id="emptyPosts">
+    No posts yet 🌙
+  </div>
+
+</section>
+
+<!-- BOTTOM NAV -->
 
 <nav class="bottom-nav">
 
+  <div class="nav-item" onclick="goHome()">
+    <span class="icon">⌂</span>
+    Home
+  </div>
 
-  <!-- HOME -->
+  <div class="nav-item" onclick="goExplore()">
+    <span class="icon">⌕</span>
+    Explore
+  </div>
 
-  <button
-    class="nav-item"
-    id="homeNav">
+  <div class="nav-item" onclick="goCreate()">
+    <span class="icon create-icon">＋</span>
+    Create
+  </div>
 
-    <svg viewBox="0 0 24 24">
+  <div class="nav-item" onclick="goAlerts()">
+    <span class="icon">♧</span>
+    Alerts
+  </div>
 
-      <path d="M3 10.5L12 3l9 7.5"/>
-      <path d="M5 9.5V21h14V9.5"/>
-      <path d="M9 21v-7h6v7"/>
-
-    </svg>
-
-    <span>
-      Home
-    </span>
-
-  </button>
-
-
-  <!-- EXPLORE -->
-
-  <button
-    class="nav-item"
-    id="exploreNav">
-
-    <svg viewBox="0 0 24 24">
-
-      <circle cx="11" cy="11" r="7"/>
-      <path d="M16.5 16.5L21 21"/>
-
-    </svg>
-
-    <span>
-      Explore
-    </span>
-
-  </button>
-
-
-  <!-- CREATE -->
-
-  <button
-    class="nav-item create"
-    id="createNav">
-
-    <svg viewBox="0 0 24 24">
-
-      <path d="M12 5v14"/>
-      <path d="M5 12h14"/>
-
-    </svg>
-
-    <span>
-      Create
-    </span>
-
-  </button>
-
-
-  <!-- ALERTS -->
-
-  <button
-    class="nav-item"
-    id="alertsNav">
-
-    <svg viewBox="0 0 24 24">
-
-      <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
-      <path d="M10 21h4"/>
-
-    </svg>
-
-    <span>
-      Alerts
-    </span>
-
-  </button>
-
-
-  <!-- PROFILE -->
-
-  <button
-    class="nav-item active"
-    id="profileNav">
-
-    <svg viewBox="0 0 24 24">
-
-      <circle cx="12" cy="8" r="4"/>
-      <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/>
-
-    </svg>
-
-    <span>
-      Profile
-    </span>
-
-  </button>
-
+  <div class="nav-item active">
+    <span class="icon">♙</span>
+    Profile
+  </div>
 
 </nav>
 
+<!-- EDIT PROFILE MODAL -->
 
-<!-- ================================
-     FIREBASE
-================================ -->
+<div class="overlay" id="editOverlay">
 
-<script type="module">
+  <div class="modal">
+
+    <div class="modal-title">
+
+      <h2>Edit profile</h2>
+
+      <div class="close" onclick="closeEdit()">×</div>
+
+    </div>
+
+    <div class="field">
+
+      <label>Username</label>
+
+      <input
+        type="text"
+        id="editUsername"
+        maxlength="40"
+        placeholder="Enter username"
+      >
+
+    </div>
+
+    <div class="field">
+
+      <label>Bio</label>
+
+      <textarea
+        id="editBio"
+        maxlength="160"
+        placeholder="Write something about yourself..."
+      ></textarea>
+
+    </div>
+
+    <button class="save" onclick="saveProfile()">
+      Save changes
+    </button>
+
+    <div class="status" id="saveStatus"></div>
+
+  </div>
+
+</div>
 
 
-import { initializeApp }
+<!-- FIREBASE -->
 
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
+<script>
 
-import {
-
-  getAuth,
-  onAuthStateChanged,
-  setPersistence,
-  browserLocalPersistence
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-
-import {
-
-  getFirestore,
-  doc,
-  getDoc,
-  collection,
-  getDocs,
-  deleteDoc
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-
-/* ================================
+/* =====================================================
    FIREBASE CONFIG
-================================ */
+   ===================================================== */
 
 const firebaseConfig = {
 
-  apiKey:
-    "AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
+  apiKey: "YOUR_API_KEY",
 
-  authDomain:
-    "jsp-taysu.firebaseapp.com",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
 
-  projectId:
-    "jsp-taysu",
+  projectId: "YOUR_PROJECT_ID",
 
-  storageBucket:
-    "jsp-taysu.firebasestorage.app",
+  storageBucket: "YOUR_PROJECT.appspot.com",
 
-  messagingSenderId:
-    "280992025632",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
 
-  appId:
-    "1:280992025632:web:48efa21208a78be9a78045"
+  appId: "YOUR_APP_ID"
 
 };
 
 
-const app =
-  initializeApp(firebaseConfig);
+/* =====================================================
+   FIREBASE INIT
+   ===================================================== */
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
 
 
-const auth =
-  getAuth(app);
-
-
-const db =
-  getFirestore(app);
-
-
-let currentUser = null;
-
-
-/* ================================
+/* =====================================================
    ELEMENTS
-================================ */
+   ===================================================== */
 
-const profileName =
-  document.getElementById("profileName");
+const loading = document.getElementById("loading");
 
-const profileBio =
-  document.getElementById("profileBio");
+const profileName = document.getElementById("profileName");
+const profileBio = document.getElementById("profileBio");
+const topUsername = document.getElementById("topUsername");
+const avatar = document.getElementById("avatar");
 
-const profileImage =
-  document.getElementById("profileImage");
+const editOverlay = document.getElementById("editOverlay");
 
-const profileInitial =
-  document.getElementById("profileInitial");
+const editUsername = document.getElementById("editUsername");
+const editBio = document.getElementById("editBio");
 
-const postCount =
-  document.getElementById("postCount");
+const saveStatus = document.getElementById("saveStatus");
 
-const followersCount =
-  document.getElementById("followersCount");
-
-const followingCount =
-  document.getElementById("followingCount");
-
-const postsContainer =
-  document.getElementById("posts");
+const menu = document.getElementById("menu");
 
 
-/* ================================
-   LOGIN PERSISTENCE
-================================ */
-
-await setPersistence(
-  auth,
-  browserLocalPersistence
-);
-
-
-/* ================================
+/* =====================================================
    AUTH STATE
-================================ */
+   ===================================================== */
 
-onAuthStateChanged(
-  auth,
-  async (user) => {
+auth.onAuthStateChanged(async user => {
 
-    if(!user){
+  if(!user){
 
-      window.location.href =
-        "community.html";
+    window.location.href = "index.html";
 
-      return;
-
-    }
-
-
-    currentUser =
-      user;
-
-
-    await loadProfile();
-
-    await loadPosts();
-
-    await loadFollowStats();
-
+    return;
   }
-);
+
+  await loadProfile(user);
+
+  loading.style.display = "none";
+
+});
 
 
-/* ================================
+/* =====================================================
    LOAD PROFILE
-================================ */
+   ===================================================== */
 
-async function loadProfile(){
-
-  let username =
-    currentUser.displayName ||
-    "Member";
-
-
-  let bio =
-    "Building and preserving our heritage.";
-
-
-  /* GOOGLE PHOTO */
-
-  if(currentUser.photoURL){
-
-    profileImage.src =
-      currentUser.photoURL;
-
-    profileImage.classList.add(
-      "loaded"
-    );
-
-  }
-
+async function loadProfile(user){
 
   try{
 
-    const profileRef =
-      doc(
-        db,
-        "users",
-        currentUser.uid
-      );
+    const ref = db.collection("users").doc(user.uid);
 
+    const snap = await ref.get();
 
-    const profileSnap =
-      await getDoc(
-        profileRef
-      );
+    let username =
+      user.displayName ||
+      user.email?.split("@")[0] ||
+      "Member";
 
+    let bio =
+      "Building and preserving our heritage.";
 
-    if(profileSnap.exists()){
+    if(snap.exists){
 
-      const data =
-        profileSnap.data();
-
+      const data = snap.data();
 
       if(data.username){
-
-        username =
-          data.username;
-
+        username = data.username;
       }
 
-
-      if(
-        data.bio !== undefined &&
-        data.bio !== null
-      ){
-
-        bio =
-          data.bio;
-
+      if(data.bio){
+        bio = data.bio;
       }
 
+    }else{
 
-      if(data.photoURL){
+      await ref.set({
 
-        profileImage.src =
-          data.photoURL;
+        username: username,
+        bio: bio,
+        email: user.email || "",
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
 
-        profileImage.classList.add(
-          "loaded"
-        );
-
-      }
+      }, {merge:true});
 
     }
 
-  }catch(error){
-
-    console.error(
-      "Profile error:",
-      error
-    );
-
-  }
-
-
-  profileName.textContent =
-    username;
-
-
-  profileBio.textContent =
-    bio;
-
-
-  profileInitial.textContent =
-    username
-      .charAt(0)
-      .toUpperCase();
-
-}
-
-
-/* ================================
-   LOAD POSTS
-================================ */
-
-async function loadPosts(){
-
-  postsContainer.innerHTML =
-    `
-      <div class="loading">
-        Loading posts...
-      </div>
-    `;
-
-
-  try{
-
-    const snapshot =
-      await getDocs(
-        collection(
-          db,
-          "posts"
-        )
-      );
-
-
-    const posts = [];
-
-
-    snapshot.forEach(
-      postDoc => {
-
-        const data =
-          postDoc.data();
-
-
-        /*
-          ONLY SHOW CURRENT
-          USER'S POSTS
-        */
-
-        if(
-          data.authorId ===
-          currentUser.uid
-        ){
-
-          posts.push({
-
-            id:
-              postDoc.id,
-
-            ...data
-
-          });
-
-        }
-
-      }
-    );
-
-
-    /* NEWEST FIRST */
-
-    posts.sort(
-      (a,b) => {
-
-        const timeA =
-          a.createdAt?.seconds || 0;
-
-        const timeB =
-          b.createdAt?.seconds || 0;
-
-        return timeB - timeA;
-
-      }
-    );
-
-
-    postCount.textContent =
-      posts.length;
-
-
-    if(posts.length === 0){
-
-      postsContainer.innerHTML =
-        `
-
-        <div class="empty">
-
-          <div class="empty-icon">
-
-            <svg viewBox="0 0 24 24">
-
-              <rect
-                x="3"
-                y="3"
-                width="18"
-                height="18"
-                rx="3"/>
-
-              <path d="M8 12h8"/>
-              <path d="M12 8v8"/>
-
-            </svg>
-
-          </div>
-
-
-          <h3>
-            No posts yet
-          </h3>
-
-
-          <p>
-            Your posts will appear here.
-          </p>
-
-        </div>
-
-        `;
-
-      return;
-
-    }
-
-
-    postsContainer.innerHTML =
-      "";
-
-
-    posts.forEach(
-      post => {
-
-        createPostElement(
-          post
-        );
-
-      }
-    );
-
+    displayProfile(username,bio);
 
   }catch(error){
 
-    console.error(
-      "Posts error:",
-      error
+    console.error(error);
+
+    displayProfile(
+      user.displayName || "Member",
+      "Building and preserving our heritage."
     );
-
-
-    postsContainer.innerHTML =
-      `
-
-      <div class="empty">
-
-        <h3>
-          Couldn't load posts
-        </h3>
-
-        <p>
-          Please refresh the page.
-        </p>
-
-      </div>
-
-      `;
 
   }
 
 }
 
 
-/* ================================
-   CREATE POST ELEMENT
-================================ */
+/* =====================================================
+   DISPLAY PROFILE
+   ===================================================== */
 
-function createPostElement(post){
+function displayProfile(username,bio){
 
-  const article =
-    document.createElement(
-      "article"
-    );
+  profileName.textContent = username;
+
+  topUsername.textContent = username;
+
+  profileBio.textContent = bio;
+
+  const firstLetter =
+    username.trim().charAt(0).toUpperCase() || "D";
+
+  avatar.innerHTML = firstLetter;
+
+}
 
 
-  article.className =
-    "post";
+/* =====================================================
+   EDIT PROFILE
+   ===================================================== */
 
+function openEdit(){
+
+  editUsername.value =
+    profileName.textContent;
+
+  editBio.value =
+    profileBio.textContent;
+
+  saveStatus.textContent = "";
+
+  editOverlay.style.display = "flex";
+
+}
+
+
+function closeEdit(){
+
+  editOverlay.style.display = "none";
+
+}
+
+
+/* =====================================================
+   SAVE PROFILE
+   ===================================================== */
+
+async function saveProfile(){
+
+  const user = auth.currentUser;
+
+  if(!user){
+
+    saveStatus.textContent =
+      "Please sign in again.";
+
+    return;
+
+  }
 
   const username =
-    post.authorName ||
-    "Member";
+    editUsername.value.trim();
 
+  const bio =
+    editBio.value.trim();
 
-  const initial =
-    username
-      .charAt(0)
-      .toUpperCase();
+  if(!username){
 
+    saveStatus.textContent =
+      "Username cannot be empty.";
 
-  const time =
-    formatTime(
-      post.createdAt
-    );
-
-
-  article.innerHTML =
-    `
-
-      <div class="post-top">
-
-
-        <div class="post-avatar">
-
-          <img
-            class="post-author-image"
-            alt="">
-
-          <span>
-            ${escapeHTML(initial)}
-          </span>
-
-        </div>
-
-
-        <div class="post-user-info">
-
-          <div class="post-author">
-
-            ${escapeHTML(username)}
-
-          </div>
-
-
-          <div class="post-time">
-
-            ${time}
-
-          </div>
-
-        </div>
-
-
-        <button
-          class="post-menu"
-          type="button"
-          aria-label="Post options">
-
-          ···
-
-        </button>
-
-      </div>
-
-
-      <div
-        class="post-text"
-        title="${escapeHTML(post.text || "")}">
-
-        ${escapeHTML(post.text || "")}
-
-      </div>
-
-
-      <button
-        class="delete-button"
-        type="button">
-
-        Delete post
-
-      </button>
-
-    `;
-
-
-  postsContainer.appendChild(
-    article
-  );
-
-
-  /* ================================
-     PROFILE PHOTO ON POST
-  ================================= */
-
-  const postImage =
-    article.querySelector(
-      ".post-author-image"
-    );
-
-
-  if(currentUser.photoURL){
-
-    postImage.src =
-      currentUser.photoURL;
-
-    postImage.classList.add(
-      "loaded"
-    );
+    return;
 
   }
 
-
-  /* ================================
-     OPTIONS
-  ================================= */
-
-  const menu =
-    article.querySelector(
-      ".post-menu"
-    );
-
-
-  menu.addEventListener(
-    "click",
-    () => {
-
-      article.classList.toggle(
-        "show-delete"
-      );
-
-    }
-  );
-
-
-  /* ================================
-     DELETE
-  ================================= */
-
-  const deleteButton =
-    article.querySelector(
-      ".delete-button"
-    );
-
-
-  deleteButton.addEventListener(
-    "click",
-    async () => {
-
-      const confirmDelete =
-        confirm(
-          "Delete this post?"
-        );
-
-
-      if(!confirmDelete){
-
-        return;
-
-      }
-
-
-      try{
-
-        deleteButton.textContent =
-          "Deleting...";
-
-
-        deleteButton.disabled =
-          true;
-
-
-        await deleteDoc(
-          doc(
-            db,
-            "posts",
-            post.id
-          )
-        );
-
-
-        await loadPosts();
-
-
-      }catch(error){
-
-        console.error(
-          "Delete post error:",
-          error
-        );
-
-
-        alert(
-          error.code +
-          ": " +
-          error.message
-        );
-
-
-        deleteButton.textContent =
-          "Delete post";
-
-
-        deleteButton.disabled =
-          false;
-
-      }
-
-    }
-  );
-
-}
-
-
-/* ================================
-   FOLLOW STATS
-================================ */
-
-async function loadFollowStats(){
+  saveStatus.textContent =
+    "Saving...";
 
   try{
 
-    const snapshot =
-      await getDocs(
-        collection(
-          db,
-          "follows"
-        )
-      );
+    await db.collection("users")
+      .doc(user.uid)
+      .set({
 
+        username: username,
 
-    let followers =
-      0;
+        bio: bio,
 
-    let following =
-      0;
+        updatedAt:
+          firebase.firestore.FieldValue.serverTimestamp()
 
+      }, {merge:true});
 
-    snapshot.forEach(
-      followDoc => {
 
-        const data =
-          followDoc.data();
+    /* Update Firebase Auth display name */
 
+    await user.updateProfile({
 
-        if(
-          data.followingId ===
-          currentUser.uid
-        ){
+      displayName: username
 
-          followers++;
-
-        }
-
-
-        if(
-          data.followerId ===
-          currentUser.uid
-        ){
-
-          following++;
-
-        }
-
-      }
-    );
-
-
-    followersCount.textContent =
-      followers;
-
-
-    followingCount.textContent =
-      following;
-
-
-  }catch(error){
-
-    console.error(
-      "Follow stats error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* ================================
-   FORMAT TIME
-================================ */
-
-function formatTime(timestamp){
-
-  if(!timestamp){
-
-    return "now";
-
-  }
-
-
-  try{
-
-    const date =
-      timestamp.toDate
-        ? timestamp.toDate()
-        : new Date(
-            timestamp.seconds * 1000
-          );
-
-
-    const now =
-      new Date();
-
-
-    const seconds =
-      Math.floor(
-        (now - date) / 1000
-      );
-
-
-    if(seconds < 60){
-
-      return "now";
-
-    }
-
-
-    const minutes =
-      Math.floor(
-        seconds / 60
-      );
-
-
-    if(minutes < 60){
-
-      return minutes + "m ago";
-
-    }
-
-
-    const hours =
-      Math.floor(
-        minutes / 60
-      );
-
-
-    if(hours < 24){
-
-      return hours + "h ago";
-
-    }
-
-
-    const days =
-      Math.floor(
-        hours / 24
-      );
-
-
-    if(days < 7){
-
-      return days + "d ago";
-
-    }
-
-
-    return date.toLocaleDateString(
-      undefined,
-      {
-        day:"numeric",
-        month:"short"
-      }
-    );
-
-  }catch(error){
-
-    return "now";
-
-  }
-
-}
-
-
-/* ================================
-   SAFE HTML
-================================ */
-
-function escapeHTML(text){
-
-  const div =
-    document.createElement(
-      "div"
-    );
-
-
-  div.textContent =
-    String(text);
-
-
-  return div.innerHTML;
-
-}
-
-
-/* ================================
-   EDIT PROFILE
-================================ */
-
-document.getElementById(
-  "editProfileButton"
-).addEventListener(
-  "click",
-  () => {
-
-    window.location.href =
-      "edit-profile.html";
-
-  }
-);
-
-
-/* ================================
-   SHARE PROFILE
-================================ */
-
-document.getElementById(
-  "shareProfileButton"
-).addEventListener(
-  "click",
-  async () => {
-
-    const username =
-      profileName.textContent;
-
-
-    const shareData = {
-
-      title:
-        username + " | JSP TAYSU",
-
-      text:
-        "Check out " +
-        username +
-        "'s profile on JSP TAYSU.",
-
-      url:
-        window.location.href
-
-    };
-
-
-    try{
-
-      if(navigator.share){
-
-        await navigator.share(
-          shareData
-        );
-
-      }else{
-
-        await navigator.clipboard.writeText(
-          window.location.href
-        );
-
-
-        alert(
-          "Profile link copied! 🔗"
-        );
-
-      }
-
-    }catch(error){
-
-      console.log(
-        "Share cancelled."
-      );
-
-    }
-
-  }
-);
-
-
-/* ================================
-   BACK
-================================ */
-
-document.getElementById(
-  "backButton"
-).addEventListener(
-  "click",
-  () => {
-
-    window.location.href =
-      "community.html";
-
-  }
-);
-
-
-/* ================================
-   MORE
-================================ */
-
-document.getElementById(
-  "moreButton"
-).addEventListener(
-  "click",
-  () => {
-
-    alert(
-      "JSP TAYSU Profile"
-    );
-
-  }
-);
-
-
-/* ================================
-   BOTTOM NAV
-================================ */
-
-document.getElementById(
-  "homeNav"
-).addEventListener(
-  "click",
-  () => {
-
-    window.location.href =
-      "community.html";
-
-  }
-);
-
-
-document.getElementById(
-  "exploreNav"
-).addEventListener(
-  "click",
-  () => {
-
-    window.location.href =
-      "explore.html";
-
-  }
-);
-
-
-document.getElementById(
-  "createNav"
-).addEventListener(
-  "click",
-  () => {
-
-    window.location.href =
-      "community.html#creator";
-
-  }
-);
-
-
-document.getElementById(
-  "alertsNav"
-).addEventListener(
-  "click",
-  () => {
-
-    window.location.href =
-      "alerts.html";
-
-  }
-);
-
-
-document.getElementById(
-  "profileNav"
-).addEventListener(
-  "click",
-  () => {
-
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
     });
 
-  }
-);
 
+    displayProfile(username,bio);
+
+    saveStatus.textContent =
+      "Saved ✓";
+
+    setTimeout(() => {
+
+      closeEdit();
+
+    },700);
+
+
+  }catch(error){
+
+    console.error(error);
+
+    saveStatus.textContent =
+      "Could not save. Check Firestore rules.";
+
+  }
+
+}
+
+
+/* =====================================================
+   THREE DOT MENU
+   ===================================================== */
+
+function toggleMenu(){
+
+  if(menu.style.display === "block"){
+
+    menu.style.display = "none";
+
+  }else{
+
+    menu.style.display = "block";
+
+  }
+
+}
+
+
+/* CLOSE MENU WHEN CLICKING OUTSIDE */
+
+document.addEventListener("click",function(event){
+
+  if(
+    !event.target.closest(".more") &&
+    !event.target.closest(".menu")
+  ){
+
+    menu.style.display = "none";
+
+  }
+
+});
+
+
+/* =====================================================
+   SIGN OUT
+   ===================================================== */
+
+async function signOut(){
+
+  try{
+
+    await auth.signOut();
+
+    window.location.href = "index.html";
+
+  }catch(error){
+
+    console.error(error);
+
+    alert("Sign out failed. Please try again.");
+
+  }
+
+}
+
+
+/* =====================================================
+   SHARE PROFILE
+   ===================================================== */
+
+async function shareProfile(){
+
+  const shareData = {
+
+    title: "JSP TAYSU",
+
+    text:
+      "Check out this profile on JSP TAYSU.",
+
+    url:
+      window.location.href
+
+  };
+
+  try{
+
+    if(navigator.share){
+
+      await navigator.share(shareData);
+
+    }else{
+
+      await navigator.clipboard.writeText(
+        window.location.href
+      );
+
+      alert("Profile link copied!");
+
+    }
+
+  }catch(error){
+
+    console.log(error);
+
+  }
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
+
+function goHome(){
+
+  window.location.href = "community.html";
+
+}
+
+function goExplore(){
+
+  window.location.href = "explore.html";
+
+}
+
+function goCreate(){
+
+  window.location.href = "create.html";
+
+}
+
+function goAlerts(){
+
+  window.location.href = "alerts.html";
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL WHEN CLICKING BACKDROP
+   ===================================================== */
+
+editOverlay.addEventListener("click",function(event){
+
+  if(event.target === editOverlay){
+
+    closeEdit();
+
+  }
+
+});
 
 </script>
 
