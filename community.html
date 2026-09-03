@@ -7,7 +7,6 @@
 <title>JSP TAYSU Community</title>
 
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -18,12 +17,18 @@ body{
   font-family:Arial,sans-serif;
   background:#f7f4ed;
   color:#211c17;
-  padding-bottom:82px;
+  padding-bottom:78px;
 }
 
-/* ================================
-   TOP BAR
-================================ */
+button,input,textarea{
+  font-family:inherit;
+}
+
+button{
+  -webkit-tap-highlight-color:transparent;
+}
+
+/* TOP BAR */
 
 .topbar{
   position:sticky;
@@ -31,7 +36,7 @@ body{
   z-index:100;
   background:#4a392b;
   color:#fffdf9;
-  padding:14px 16px;
+  padding:13px 15px;
   box-shadow:0 3px 15px rgba(64,48,32,.16);
 }
 
@@ -41,6 +46,7 @@ body{
   display:flex;
   align-items:center;
   justify-content:space-between;
+  gap:12px;
 }
 
 .logo{
@@ -50,7 +56,7 @@ body{
 }
 
 .profile{
-  max-width:170px;
+  max-width:180px;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
@@ -58,50 +64,28 @@ body{
   color:#eadfc9;
 }
 
-/* ================================
-   CONTAINER
-================================ */
+/* CONTAINER */
 
 .container{
   max-width:720px;
   margin:auto;
-  padding:18px 14px 30px;
+  padding:15px 12px 30px;
 }
 
-/* ================================
-   WELCOME
-================================ */
-
-.welcome{
-  padding:4px 4px 17px;
-}
-
-.welcome h1{
-  font-size:26px;
-  margin-bottom:6px;
-  color:#211c17;
-}
-
-.welcome p{
-  color:#81776b;
-  font-size:13px;
-}
-
-/* ================================
-   SEARCH
-================================ */
+/* SEARCH */
 
 .search-box{
   display:flex;
-  gap:8px;
-  margin-bottom:10px;
+  gap:7px;
+  margin-bottom:8px;
 }
 
 #userSearchInput{
   flex:1;
+  min-width:0;
   padding:12px 14px;
   border:1px solid #ddd3c5;
-  border-radius:14px;
+  border-radius:15px;
   background:#fffdf9;
   color:#211c17;
   font-size:14px;
@@ -114,64 +98,85 @@ body{
 
 #userSearchButton{
   border:0;
-  border-radius:14px;
-  padding:12px 15px;
+  border-radius:15px;
+  padding:12px 14px;
   background:#4a392b;
-  color:#fff;
-  font-weight:bold;
+  color:white;
+  font-weight:700;
   cursor:pointer;
 }
 
-#userSearchButton:hover{
-  background:#382b20;
-}
-
 #searchResults{
-  margin-bottom:17px;
+  margin-bottom:13px;
 }
 
 .search-result{
   background:#fffdf9;
   border:1px solid #e8e0d3;
-  padding:12px 13px;
+  padding:11px 12px;
   border-radius:14px;
-  margin-bottom:8px;
+  margin-bottom:7px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  box-shadow:0 3px 12px rgba(64,48,32,.04);
 }
 
 .search-result-user{
-  font-weight:bold;
-  color:#30251d;
+  font-weight:700;
+  font-size:14px;
 }
 
 .follow-button{
   border:0;
   border-radius:18px;
-  padding:8px 14px;
+  padding:7px 13px;
   background:#4a392b;
   color:white;
   cursor:pointer;
   font-weight:700;
 }
 
-.follow-button:disabled{
-  opacity:.6;
-  cursor:default;
+.follow-button.following{
+  background:#eee6da;
+  color:#4a392b;
 }
 
-/* ================================
-   CREATE POST
-================================ */
+/* WELCOME */
+
+.welcome{
+  padding:4px 3px 13px;
+}
+
+.welcome h1{
+  font-size:25px;
+  margin-bottom:5px;
+}
+
+.welcome p{
+  color:#81776b;
+  font-size:13px;
+}
+
+/* LOGIN */
+
+#communityLogin{
+  background:#fffdf9;
+  border:1px solid #e8e0d3;
+  border-radius:18px;
+  text-align:center;
+  padding:19px;
+  margin-bottom:14px;
+  box-shadow:0 5px 18px rgba(64,48,32,.05);
+}
+
+/* CREATE */
 
 .create-post{
   background:#fffdf9;
   border:1px solid #e8e0d3;
-  border-radius:21px;
-  padding:17px;
-  margin-bottom:24px;
+  border-radius:20px;
+  padding:15px;
+  margin-bottom:21px;
   box-shadow:0 7px 24px rgba(64,48,32,.06);
 }
 
@@ -179,12 +184,12 @@ body{
   display:flex;
   align-items:center;
   gap:10px;
-  margin-bottom:13px;
+  margin-bottom:11px;
 }
 
 .avatar{
-  width:44px;
-  height:44px;
+  width:43px;
+  height:43px;
   flex-shrink:0;
   border-radius:50%;
   background:#4a392b;
@@ -196,12 +201,11 @@ body{
   border:2px solid #eadfc9;
 }
 
-.composer-header strong{
+.composer-info strong{
   font-size:15px;
-  color:#30251d;
 }
 
-.composer-header small{
+.composer-info small{
   display:block;
   color:#8a8177;
   margin-top:3px;
@@ -210,33 +214,70 @@ body{
 
 #postText{
   width:100%;
-  min-height:95px;
+  min-height:78px;
   resize:vertical;
-  border:1px solid #ddd3c5;
-  border-radius:15px;
-  padding:13px;
+  border:0;
+  border-radius:14px;
+  padding:10px 2px;
   font-family:inherit;
-  font-size:15px;
+  font-size:16px;
   outline:none;
-  background:#faf7f1;
+  background:transparent;
   color:#211c17;
 }
 
-#postText:focus{
-  background:#fff;
-  border-color:#ad8d5c;
+#postText::placeholder{
+  color:#978d81;
+}
+
+/* SELECTED MEDIA */
+
+.media-preview{
+  display:none;
+  position:relative;
+  margin:7px 0 11px;
+  border-radius:15px;
+  overflow:hidden;
+  background:#f0ebe3;
+  border:1px solid #e3dbcf;
+}
+
+.media-preview img,
+.media-preview video{
+  display:block;
+  width:100%;
+  max-height:380px;
+  object-fit:contain;
+  background:#eee9e1;
+}
+
+.remove-media{
+  position:absolute;
+  right:8px;
+  top:8px;
+  border:0;
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:rgba(40,32,25,.75);
+  color:white;
+  cursor:pointer;
+  font-size:16px;
 }
 
 .post-options{
+  border-top:1px solid #eee6da;
+  padding-top:10px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-top:12px;
+  gap:8px;
 }
 
 .media-buttons{
   display:flex;
   gap:6px;
+  flex-wrap:wrap;
 }
 
 .media-buttons button{
@@ -247,6 +288,7 @@ body{
   border-radius:18px;
   cursor:pointer;
   font-size:12px;
+  font-weight:600;
 }
 
 .media-buttons button:hover{
@@ -257,25 +299,24 @@ body{
   border:0;
   background:#4a392b;
   color:white;
-  padding:10px 19px;
+  padding:10px 18px;
   border-radius:20px;
   font-weight:bold;
   cursor:pointer;
 }
 
-.post-btn:hover{
-  background:#382b20;
+.post-btn:disabled{
+  opacity:.6;
+  cursor:default;
 }
 
-/* ================================
-   FEED TITLE
-================================ */
+/* FEED TITLE */
 
 .section-title{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin:0 3px 11px;
+  margin:0 3px 10px;
 }
 
 .section-title h2{
@@ -283,20 +324,14 @@ body{
   color:#493a2d;
 }
 
-.section-title span{
-  font-size:19px;
-}
-
-/* ================================
-   POSTS
-================================ */
+/* POSTS */
 
 .post{
   background:#fffdf9;
   border:1px solid #e8e0d3;
   border-radius:18px;
-  padding:15px 16px;
-  margin-bottom:12px;
+  padding:14px 15px;
+  margin-bottom:11px;
   box-shadow:0 5px 18px rgba(64,48,32,.05);
 }
 
@@ -304,7 +339,7 @@ body{
   display:flex;
   align-items:center;
   gap:10px;
-  margin-bottom:10px;
+  margin-bottom:9px;
 }
 
 .post-author{
@@ -328,18 +363,39 @@ body{
   font-size:15px;
 }
 
+.post-media{
+  margin:9px 0 11px;
+  border-radius:15px;
+  overflow:hidden;
+  background:#eee9e1;
+}
+
+.post-media img{
+  display:block;
+  width:100%;
+  max-height:500px;
+  object-fit:cover;
+}
+
+.post-media video{
+  display:block;
+  width:100%;
+  max-height:500px;
+  background:#000;
+}
+
 .actions{
   border-top:1px solid #eee6da;
   padding-top:7px;
   display:flex;
-  gap:4px;
+  gap:2px;
 }
 
 .action{
   border:0;
   background:none;
   color:#766b60;
-  padding:7px 10px;
+  padding:7px 9px;
   border-radius:17px;
   cursor:pointer;
   font-size:12px;
@@ -350,28 +406,103 @@ body{
   color:#493a2d;
 }
 
+.action.liked{
+  color:#9a5d4b;
+  font-weight:700;
+}
+
 .action:disabled{
   cursor:default;
   opacity:.65;
 }
 
-/* ================================
-   EMPTY
-================================ */
+/* COMMENTS */
+
+.comments-area{
+  display:none;
+  margin-top:10px;
+}
+
+.comments-list{
+  margin-bottom:8px;
+}
+
+.comment{
+  background:#f7f1e8;
+  border:1px solid #eee4d5;
+  border-radius:12px;
+  padding:9px 10px;
+  margin-bottom:6px;
+}
+
+.comment-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  margin-bottom:3px;
+}
+
+.comment-user{
+  font-size:12px;
+  font-weight:800;
+  color:#493a2d;
+}
+
+.comment-text{
+  font-size:13px;
+  line-height:1.4;
+  overflow-wrap:anywhere;
+}
+
+.delete-comment{
+  border:0;
+  background:none;
+  color:#9a5d4b;
+  font-size:11px;
+  cursor:pointer;
+}
+
+.comment-compose{
+  display:flex;
+  gap:6px;
+}
+
+.comment-input{
+  flex:1;
+  min-width:0;
+  padding:9px 11px;
+  border:1px solid #ddd3c5;
+  border-radius:12px;
+  outline:none;
+  background:#faf7f1;
+  color:#211c17;
+}
+
+.comment-send{
+  border:0;
+  border-radius:12px;
+  padding:9px 13px;
+  background:#4a392b;
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* EMPTY */
 
 .empty{
   background:#fffdf9;
   border:1px solid #e8e0d3;
   border-radius:19px;
   text-align:center;
-  padding:42px 20px;
+  padding:40px 20px;
   color:#81776b;
-  box-shadow:0 5px 18px rgba(64,48,32,.04);
 }
 
 .empty-icon{
-  font-size:34px;
-  margin-bottom:8px;
+  font-size:33px;
+  margin-bottom:7px;
 }
 
 .empty h3{
@@ -384,41 +515,50 @@ body{
   font-size:13px;
 }
 
-/* ================================
-   LOGIN
-================================ */
+/* ALERTS */
 
-#communityLogin{
+.alert-panel{
+  display:none;
   background:#fffdf9;
   border:1px solid #e8e0d3;
   border-radius:18px;
-  text-align:center;
-  padding:20px;
+  padding:15px;
   margin-bottom:15px;
-  box-shadow:0 5px 18px rgba(64,48,32,.05);
 }
 
-/* ================================
-   BOTTOM NAV
-================================ */
+.alert-item{
+  padding:11px 3px;
+  border-bottom:1px solid #eee6da;
+  font-size:13px;
+}
+
+.alert-item:last-child{
+  border-bottom:0;
+}
+
+.alert-empty{
+  text-align:center;
+  color:#81776b;
+  padding:20px;
+  font-size:13px;
+}
+
+/* BOTTOM NAV */
 
 .bottom-nav{
   position:fixed;
   left:0;
   right:0;
   bottom:0;
-  height:68px;
+  height:67px;
   z-index:200;
-
   background:rgba(255,253,249,.97);
   backdrop-filter:blur(10px);
-
   border-top:1px solid #e3dbcf;
-
   display:flex;
   justify-content:center;
   gap:4px;
-  padding:7px 10px;
+  padding:6px 8px;
   box-shadow:0 -4px 18px rgba(64,48,32,.06);
 }
 
@@ -442,7 +582,6 @@ body{
 
 .nav-item:hover{
   background:#f3ede4;
-  color:#493a2d;
 }
 
 .nav-item.active{
@@ -450,18 +589,18 @@ body{
   font-weight:bold;
 }
 
-/* ================================
-   MOBILE
-================================ */
+.hidden-file{
+  display:none;
+}
 
 @media(max-width:500px){
 
   .container{
-    padding:15px 10px 25px;
+    padding:13px 9px 25px;
   }
 
   .topbar{
-    padding:13px 14px;
+    padding:12px 13px;
   }
 
   .logo{
@@ -478,7 +617,6 @@ body{
 
   .create-post{
     padding:14px;
-    border-radius:19px;
   }
 
   .media-buttons button{
@@ -487,29 +625,31 @@ body{
   }
 
   .post-btn{
-    padding:9px 16px;
+    padding:9px 15px;
   }
 
   .post{
-    padding:14px;
+    padding:13px;
   }
 
-  .bottom-nav{
-    height:65px;
+  .action{
+    padding:7px 7px;
   }
+
 }
-
 </style>
-  <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+
+<!-- REMOVE THESE TWO ERUDA LINES WHEN SITE IS READY -->
+<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
 <script>
-  eruda.init();
+eruda.init();
 </script>
+
 </head>
 
 <body>
 
 <header class="topbar">
-
   <div class="topbar-inner">
 
     <div class="logo">
@@ -517,16 +657,14 @@ body{
     </div>
 
     <div class="profile" id="profileName">
-      Member
+      Please sign in
     </div>
 
   </div>
-
 </header>
 
 
 <main class="container">
-
 
   <!-- LOGIN -->
 
@@ -539,9 +677,7 @@ body{
     <button
       id="communityGoogleLogin"
       class="post-btn">
-
       Continue with Google
-
     </button>
 
   </div>
@@ -574,30 +710,48 @@ body{
     >
 
     <button id="userSearchButton">
-      🔎 Search
+      🔎
     </button>
 
   </div>
 
-
   <div id="searchResults"></div>
+
+
+  <!-- ALERTS -->
+
+  <section
+    id="alertsPanel"
+    class="alert-panel">
+
+    <h3 style="margin-bottom:8px;color:#493a2d;">
+      🔔 Alerts
+    </h3>
+
+    <div id="alertsList">
+      <div class="alert-empty">
+        No alerts yet.
+      </div>
+    </div>
+
+  </section>
 
 
   <!-- CREATE POST -->
 
-  <section class="create-post">
+  <section
+    class="create-post"
+    id="createPostSection">
 
     <div class="composer-header">
 
       <div
         class="avatar"
         id="composerAvatar">
-
         M
-
       </div>
 
-      <div>
+      <div class="composer-info">
 
         <strong id="composerName">
           Member
@@ -614,19 +768,64 @@ body{
 
     <textarea
       id="postText"
-      placeholder="What's on your mind?"
-    ></textarea>
+      maxlength="2000"
+      placeholder="What's on your mind?">
+    </textarea>
+
+
+    <!-- SELECTED MEDIA -->
+
+    <div
+      class="media-preview"
+      id="mediaPreview">
+
+      <img
+        id="imagePreview"
+        style="display:none;"
+        alt="Selected image">
+
+      <video
+        id="videoPreview"
+        style="display:none;"
+        controls>
+      </video>
+
+      <button
+        type="button"
+        class="remove-media"
+        id="removeMedia">
+        ×
+      </button>
+
+    </div>
+
+
+    <input
+      type="file"
+      id="photoInput"
+      class="hidden-file"
+      accept="image/*">
+
+    <input
+      type="file"
+      id="videoInput"
+      class="hidden-file"
+      accept="video/*">
 
 
     <div class="post-options">
 
       <div class="media-buttons">
 
-        <button type="button">
+        <button
+          type="button"
+          id="photoButton">
           📷 Photo
         </button>
 
-        <button type="button">
+        <button
+          type="button"
+          id="videoButton">
           🎥 Video
         </button>
 
@@ -636,9 +835,7 @@ body{
       <button
         class="post-btn"
         id="postButton">
-
         Post
-
       </button>
 
     </div>
@@ -646,7 +843,7 @@ body{
   </section>
 
 
-  <!-- COMMUNITY FEED -->
+  <!-- FEED -->
 
   <div class="section-title">
 
@@ -688,25 +885,45 @@ body{
 
 <nav class="bottom-nav">
 
-  <button class="nav-item active">
+  <button
+    class="nav-item active"
+    id="homeNav">
+
     🏠
     <span>Home</span>
+
   </button>
 
-  <button class="nav-item">
+
+  <button
+    class="nav-item"
+    id="exploreNav">
+
     🔥
     <span>Explore</span>
+
   </button>
 
-  <button class="nav-item">
+
+  <button
+    class="nav-item"
+    id="createNav">
+
     ➕
     <span>Create</span>
+
   </button>
 
-  <button class="nav-item">
+
+  <button
+    class="nav-item"
+    id="alertsNav">
+
     🔔
     <span>Alerts</span>
+
   </button>
+
 
   <button
     class="nav-item"
@@ -722,6 +939,10 @@ body{
 
 <script type="module">
 
+/* =========================================================
+   FIREBASE IMPORTS
+========================================================= */
+
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
@@ -730,6 +951,7 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithRedirect,
+  getRedirectResult,
   setPersistence,
   browserLocalPersistence
 }
@@ -744,14 +966,25 @@ import {
   doc,
   setDoc,
   getDoc,
-    deleteDoc
+  deleteDoc,
+  query,
+  orderBy,
+  limit
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
-/* ================================
-   FIREBASE
-================================ */
+
+/* =========================================================
+   FIREBASE CONFIG
+========================================================= */
 
 const firebaseConfig = {
 
@@ -785,32 +1018,85 @@ const auth =
 const db =
   getFirestore(app);
 
+const storage =
+  getStorage(app);
+
 let currentUser = null;
+let currentUsername = "Member";
 
 
-/* ================================
-   KEEP LOGIN
-================================ */
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const communityLogin =
+  document.getElementById("communityLogin");
+
+const communityGoogleLogin =
+  document.getElementById("communityGoogleLogin");
+
+const profileName =
+  document.getElementById("profileName");
+
+const composerName =
+  document.getElementById("composerName");
+
+const composerAvatar =
+  document.getElementById("composerAvatar");
+
+const welcomeText =
+  document.getElementById("welcomeText");
+
+const postText =
+  document.getElementById("postText");
+
+const postButton =
+  document.getElementById("postButton");
+
+const photoButton =
+  document.getElementById("photoButton");
+
+const videoButton =
+  document.getElementById("videoButton");
+
+const photoInput =
+  document.getElementById("photoInput");
+
+const videoInput =
+  document.getElementById("videoInput");
+
+const mediaPreview =
+  document.getElementById("mediaPreview");
+
+const imagePreview =
+  document.getElementById("imagePreview");
+
+const videoPreview =
+  document.getElementById("videoPreview");
+
+const removeMedia =
+  document.getElementById("removeMedia");
+
+let selectedFile = null;
+let selectedType = null;
 
 
+/* =========================================================
+   FIREBASE AUTH PERSISTENCE
+========================================================= */
+
+await setPersistence(
+  auth,
+  browserLocalPersistence
+);
 
 
-/* ================================
+/* =========================================================
    GOOGLE LOGIN
-================================ */
+========================================================= */
 
 const provider =
   new GoogleAuthProvider();
-
-const communityLogin =
-  document.getElementById(
-    "communityLogin"
-  );
-
-const communityGoogleLogin =
-  document.getElementById(
-    "communityGoogleLogin"
-  );
 
 
 communityGoogleLogin.addEventListener(
@@ -840,89 +1126,121 @@ communityGoogleLogin.addEventListener(
 );
 
 
-/* ================================
+/* =========================================================
+   REDIRECT RESULT
+========================================================= */
+
+try{
+
+  await getRedirectResult(auth);
+
+}catch(error){
+
+  console.error(
+    "Redirect login error:",
+    error
+  );
+
+}
+
+
+/* =========================================================
    AUTH STATE
-================================ */
+========================================================= */
 
 onAuthStateChanged(
   auth,
   async (user) => {
 
-    if (!user) {
+    if(!user){
 
       currentUser = null;
 
-      communityLogin.style.display = "block";
+      communityLogin.style.display =
+        "block";
 
-      document.getElementById("profileName").textContent =
+      profileName.textContent =
         "Please sign in";
 
-      document.getElementById("composerName").textContent =
+      composerName.textContent =
         "Member";
 
-      document.getElementById("composerAvatar").textContent =
+      composerAvatar.textContent =
         "M";
 
-      document.getElementById("welcomeText").textContent =
+      welcomeText.textContent =
         "Welcome 👋";
 
       return;
     }
 
-    /* USER IS LOGGED IN */
 
     currentUser = user;
 
-    communityLogin.style.display = "none";
+    communityLogin.style.display =
+      "none";
 
-    /* DEFAULT USERNAME */
 
-    let username = user.displayName || "Member";
+    currentUsername =
+      user.displayName ||
+      "Member";
 
-    /* GET USER PROFILE */
 
-    try {
+    /* LOAD PROFILE */
+
+    try{
 
       const profileRef =
-        doc(db, "users", user.uid);
+        doc(
+          db,
+          "users",
+          user.uid
+        );
 
       const profileSnap =
-        await getDoc(profileRef);
+        await getDoc(
+          profileRef
+        );
 
-      if (
+
+      if(
         profileSnap.exists() &&
         profileSnap.data().username
-      ) {
+      ){
 
-        username =
+        currentUsername =
           profileSnap.data().username;
 
       }
 
-    } catch (error) {
+    }catch(error){
 
       console.error(
-        "Profile read error:",
+        "Profile error:",
         error
       );
 
     }
 
-    /* SHOW USERNAME */
 
-    document.getElementById("profileName").textContent =
-      username;
+    /* SHOW USER */
 
-    document.getElementById("composerName").textContent =
-      username;
+    profileName.textContent =
+      currentUsername;
 
-    document.getElementById("composerAvatar").textContent =
-      username.charAt(0).toUpperCase();
+    composerName.textContent =
+      currentUsername;
 
-    document.getElementById("welcomeText").textContent =
-      "Welcome, " + username + " 👋";
+    composerAvatar.textContent =
+      currentUsername
+        .charAt(0)
+        .toUpperCase();
 
-    /* LOAD COMMUNITY */
+    welcomeText.textContent =
+      "Welcome, " +
+      currentUsername +
+      " 👋";
+
 
     await loadPosts();
 
@@ -930,13 +1248,218 @@ onAuthStateChanged(
 );
 
 
-/* ================================
-   CREATE POST
-================================ */
+/* =========================================================
+   MEDIA SELECT
+========================================================= */
 
-document.getElementById(
-  "postButton"
-).addEventListener(
+photoButton.addEventListener(
+  "click",
+  () => {
+
+    if(!currentUser){
+
+      alert(
+        "Please sign in first."
+      );
+
+      return;
+
+    }
+
+    photoInput.click();
+
+  }
+);
+
+
+videoButton.addEventListener(
+  "click",
+  () => {
+
+    if(!currentUser){
+
+      alert(
+        "Please sign in first."
+      );
+
+      return;
+
+    }
+
+    videoInput.click();
+
+  }
+);
+
+
+/* =========================================================
+   PHOTO SELECTED
+========================================================= */
+
+photoInput.addEventListener(
+  "change",
+  () => {
+
+    const file =
+      photoInput.files[0];
+
+    if(!file) return;
+
+
+    selectedFile =
+      file;
+
+    selectedType =
+      "image";
+
+
+    const url =
+      URL.createObjectURL(file);
+
+
+    imagePreview.src =
+      url;
+
+    imagePreview.style.display =
+      "block";
+
+    videoPreview.style.display =
+      "none";
+
+    mediaPreview.style.display =
+      "block";
+
+  }
+);
+
+
+/* =========================================================
+   VIDEO SELECTED
+========================================================= */
+
+videoInput.addEventListener(
+  "change",
+  () => {
+
+    const file =
+      videoInput.files[0];
+
+    if(!file) return;
+
+
+    selectedFile =
+      file;
+
+    selectedType =
+      "video";
+
+
+    const url =
+      URL.createObjectURL(file);
+
+
+    videoPreview.src =
+      url;
+
+    videoPreview.style.display =
+      "block";
+
+    imagePreview.style.display =
+      "none";
+
+    mediaPreview.style.display =
+      "block";
+
+  }
+);
+
+
+/* =========================================================
+   REMOVE MEDIA
+========================================================= */
+
+removeMedia.addEventListener(
+  "click",
+  () => {
+
+    selectedFile = null;
+    selectedType = null;
+
+    photoInput.value = "";
+    videoInput.value = "";
+
+    imagePreview.src = "";
+    videoPreview.src = "";
+
+    mediaPreview.style.display =
+      "none";
+
+  }
+);
+
+
+/* =========================================================
+   UPLOAD MEDIA
+========================================================= */
+
+async function uploadMedia(
+  file,
+  type
+){
+
+  if(!currentUser){
+    throw new Error(
+      "User is not logged in."
+    );
+  }
+
+
+  const safeName =
+    file.name
+      .replace(
+        /[^a-zA-Z0-9._-]/g,
+        "_"
+      );
+
+
+  const filePath =
+    "posts/" +
+    currentUser.uid +
+    "/" +
+    Date.now() +
+    "_" +
+    safeName;
+
+
+  const storageRef =
+    ref(
+      storage,
+      filePath
+    );
+
+
+  await uploadBytes(
+    storageRef,
+    file
+  );
+
+
+  const downloadURL =
+    await getDownloadURL(
+      storageRef
+    );
+
+
+  return downloadURL;
+
+}
+
+
+/* =========================================================
+   CREATE POST
+========================================================= */
+
+postButton.addEventListener(
   "click",
   async () => {
 
@@ -952,15 +1475,16 @@ document.getElementById(
 
 
     const text =
-      document.getElementById(
-        "postText"
-      ).value.trim();
+      postText.value.trim();
 
 
-    if(!text){
+    if(
+      !text &&
+      !selectedFile
+    ){
 
       alert(
-        "Write something first!"
+        "Write something or add a photo/video."
       );
 
       return;
@@ -968,14 +1492,36 @@ document.getElementById(
     }
 
 
-    const username =
-      document.getElementById(
-        "composerName"
-      ).textContent ||
-      "Member";
-
-
     try{
+
+      postButton.disabled =
+        true;
+
+      postButton.textContent =
+        "Posting...";
+
+
+      let mediaURL = "";
+      let mediaType = "";
+
+
+      /* UPLOAD MEDIA */
+
+      if(selectedFile){
+
+        mediaURL =
+          await uploadMedia(
+            selectedFile,
+            selectedType
+          );
+
+        mediaType =
+          selectedType;
+
+      }
+
+
+      /* SAVE POST */
 
       await addDoc(
         collection(
@@ -991,7 +1537,13 @@ document.getElementById(
             currentUser.uid,
 
           authorName:
-            username,
+            currentUsername,
+
+          mediaURL:
+            mediaURL,
+
+          mediaType:
+            mediaType,
 
           createdAt:
             serverTimestamp()
@@ -1000,10 +1552,21 @@ document.getElementById(
       );
 
 
-      document.getElementById(
-        "postText"
-      ).value =
-        "";
+      /* RESET */
+
+      postText.value = "";
+
+      selectedFile = null;
+      selectedType = null;
+
+      photoInput.value = "";
+      videoInput.value = "";
+
+      imagePreview.src = "";
+      videoPreview.src = "";
+
+      mediaPreview.style.display =
+        "none";
 
 
       await loadPosts();
@@ -1023,10 +1586,19 @@ document.getElementById(
 
 
       alert(
-        error.code +
+        error.code ||
+        "Upload error" +
         ": " +
         error.message
       );
+
+    }finally{
+
+      postButton.disabled =
+        false;
+
+      postButton.textContent =
+        "Post";
 
     }
 
@@ -1034,690 +1606,125 @@ document.getElementById(
 );
 
 
-/* ================================
+/* =========================================================
    LOAD POSTS
-================================ */
+========================================================= */
 
 async function loadPosts(){
 
   const postsContainer =
-    document.getElementById("posts");
+    document.getElementById(
+      "posts"
+    );
+
+
+  postsContainer.innerHTML = `
+
+    <div class="empty">
+
+      <div class="empty-icon">
+        🐉
+      </div>
+
+      <h3>
+        Loading community...
+      </h3>
+
+      <p>
+        Please wait a moment.
+      </p>
+
+    </div>
+
+  `;
+
 
   try{
 
     const snapshot =
       await getDocs(
-        collection(db, "posts")
+        collection(
+          db,
+          "posts"
+        )
       );
 
-    postsContainer.innerHTML = "";
 
     if(snapshot.empty){
 
       postsContainer.innerHTML = `
+
         <div class="empty">
-          <div class="empty-icon">🐉</div>
-          <h3>No posts yet</h3>
-          <p>Be the first to share something with the community.</p>
+
+          <div class="empty-icon">
+            🐉
+          </div>
+
+          <h3>
+            No posts yet
+          </h3>
+
+          <p>
+            Be the first to share something with the community.
+          </p>
+
         </div>
+
       `;
 
       return;
+
     }
+
 
     const posts = [];
 
-    snapshot.forEach((postDoc) => {
 
-      posts.push({
-        id: postDoc.id,
-        ...postDoc.data()
-      });
+    snapshot.forEach(
+      postDoc => {
 
-    });
+        posts.push({
 
-    /* NEWEST FIRST */
+          id:
+            postDoc.id,
 
-    posts.sort((a,b) => {
+          ...postDoc.data()
 
-      const timeA =
-        a.createdAt?.seconds || 0;
-
-      const timeB =
-        b.createdAt?.seconds || 0;
-
-      return timeB - timeA;
-
-    });
-
-
-    for(const post of posts){
-
-      const postElement =
-        document.createElement("article");
-
-      postElement.className = "post";
-
-      const username =
-        post.authorName || "Member";
-
-
-      /* ================================
-         GET LIKE COUNT
-      ================================= */
-
-      let likeCount = 0;
-      let alreadyLiked = false;
-
-      try{
-
-        const likesSnapshot =
-          await getDocs(
-            collection(
-              db,
-              "posts",
-              post.id,
-              "likes"
-            )
-          );
-
-        likeCount =
-          likesSnapshot.size;
-
-        if(currentUser){
-
-          alreadyLiked =
-            likesSnapshot.docs.some(
-              likeDoc =>
-                likeDoc.id === currentUser.uid
-            );
-
-        }
-
-      }catch(error){
-
-        console.error(
-          "Like loading error:",
-          error
-        );
+        });
 
       }
+    );
 
 
-      /* ================================
-         GET COMMENT COUNT
-      ================================= */
+    posts.sort(
+      (a,b) => {
 
-      let commentCount = 0;
+        const aTime =
+          a.createdAt?.seconds || 0;
 
-      try{
+        const bTime =
+          b.createdAt?.seconds || 0;
 
-        const commentsSnapshot =
-          await getDocs(
-            collection(
-              db,
-              "posts",
-              post.id,
-              "comments"
-            )
-          );
-
-        commentCount =
-          commentsSnapshot.size;
-
-      }catch(error){
-
-        console.error(
-          "Comment count error:",
-          error
-        );
+        return bTime - aTime;
 
       }
+    );
 
 
-      /* ================================
-         POST HTML
-      ================================= */
+    postsContainer.innerHTML = "";
 
-      postElement.innerHTML = `
 
-        <div class="post-header">
+    for(
+      const post of posts
+    ){
 
-          <div class="avatar">
-
-            ${escapeHTML(
-              username
-                .charAt(0)
-                .toUpperCase()
-            )}
-
-          </div>
-
-          <div>
-
-            <div class="post-author">
-
-              ${escapeHTML(username)}
-
-            </div>
-
-            <div class="post-time">
-
-              Community member
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="post-text">
-
-          ${escapeHTML(
-            post.text || ""
-          )}
-
-        </div>
-
-
-        <div class="actions">
-
-          <button
-            class="action like-button"
-            type="button">
-
-            ❤️
-            <span>
-              ${alreadyLiked ? "Unlike" : "Like"}
-            </span>
-
-            <b class="like-count">
-              ${likeCount}
-            </b>
-
-          </button>
-
-
-          <button
-            class="action comment-button"
-            type="button">
-
-            💬
-            <span>Comment</span>
-
-            <b class="comment-count">
-              ${commentCount}
-            </b>
-
-          </button>
-
-
-          <button
-            class="action share-button"
-            type="button">
-
-            ↗️
-            <span>Share</span>
-
-          </button>
-
-        </div>
-
-
-        <!-- COMMENTS -->
-
-        <div
-          class="comments-area"
-          style="display:none; margin-top:10px;">
-
-          <div
-            class="comments-list"
-            style="margin-bottom:8px;">
-          </div>
-
-
-          <div
-            style="
-              display:flex;
-              gap:7px;
-            ">
-
-            <input
-              class="comment-input"
-              type="text"
-              placeholder="Write a comment..."
-              maxlength="300"
-              style="
-                flex:1;
-                padding:9px 11px;
-                border:1px solid #ddd3c5;
-                border-radius:12px;
-                outline:none;
-                background:#faf7f1;
-                color:#211c17;
-              "
-            >
-
-            <button
-              class="comment-send"
-              type="button"
-              style="
-                border:0;
-                border-radius:12px;
-                padding:9px 13px;
-                background:#4a392b;
-                color:white;
-                font-weight:700;
-                cursor:pointer;
-              ">
-
-              Send
-
-            </button>
-
-          </div>
-
-        </div>
-
-      `;
-
-
-      postsContainer.appendChild(
-        postElement
-      );
-
-
-      /* ================================
-         LIKE / UNLIKE
-      ================================= */
-
-      const likeButton =
-        postElement.querySelector(
-          ".like-button"
-        );
-
-      const likeCountElement =
-        postElement.querySelector(
-          ".like-count"
-        );
-
-      const likeText =
-        likeButton.querySelector(
-          "span"
-        );
-
-
-      likeButton.addEventListener(
-        "click",
-        async () => {
-
-          if(!currentUser){
-
-            alert(
-              "Please sign in first."
-            );
-
-            return;
-
-          }
-
-
-          try{
-
-            const likeRef =
-              doc(
-                db,
-                "posts",
-                post.id,
-                "likes",
-                currentUser.uid
-              );
-
-
-            const likeSnap =
-              await getDoc(likeRef);
-
-
-            if(likeSnap.exists()){
-
-              /* UNLIKE */
-
-              await deleteDoc(
-                likeRef
-              );
-
-              likeText.textContent =
-                "Like";
-
-              let count =
-                Number(
-                  likeCountElement.textContent
-                ) || 0;
-
-              count =
-                Math.max(
-                  0,
-                  count - 1
-                );
-
-              likeCountElement.textContent =
-                count;
-
-            }else{
-
-              /* LIKE */
-
-              await setDoc(
-                likeRef,
-                {
-
-                  userId:
-                    currentUser.uid,
-
-                  createdAt:
-                    serverTimestamp()
-
-                }
-              );
-
-
-              likeText.textContent =
-                "Unlike";
-
-
-              let count =
-                Number(
-                  likeCountElement.textContent
-                ) || 0;
-
-
-              count++;
-
-
-              likeCountElement.textContent =
-                count;
-
-            }
-
-          }catch(error){
-
-            console.error(
-              "Like error:",
-              error
-            );
-
-            alert(
-              error.code +
-              ": " +
-              error.message
-            );
-
-          }
-
-        }
-      );
-
-
-      /* ================================
-         COMMENTS
-      ================================= */
-
-      const commentButton =
-        postElement.querySelector(
-          ".comment-button"
-        );
-
-      const commentsArea =
-        postElement.querySelector(
-          ".comments-area"
-        );
-
-      const commentsList =
-        postElement.querySelector(
-          ".comments-list"
-        );
-
-      const commentInput =
-        postElement.querySelector(
-          ".comment-input"
-        );
-
-      const commentSend =
-        postElement.querySelector(
-          ".comment-send"
-        );
-
-      const commentCountElement =
-        postElement.querySelector(
-          ".comment-count"
-        );
-
-
-      commentButton.addEventListener(
-        "click",
-        async () => {
-
-          if(!currentUser){
-
-            alert(
-              "Please sign in first."
-            );
-
-            return;
-
-          }
-
-
-          if(
-            commentsArea.style.display ===
-            "none"
-          ){
-
-            commentsArea.style.display =
-              "block";
-
-            await loadComments(
-              post.id,
-              commentsList
-            );
-
-          }else{
-
-            commentsArea.style.display =
-              "none";
-
-          }
-
-        }
-      );
-
-
-      /* SEND COMMENT */
-
-      commentSend.addEventListener(
-        "click",
-        async () => {
-
-          if(!currentUser){
-
-            alert(
-              "Please sign in first."
-            );
-
-            return;
-
-          }
-
-
-          const text =
-            commentInput.value.trim();
-
-
-          if(!text){
-
-            return;
-
-          }
-
-
-          const commenterName =
-            document.getElementById(
-              "composerName"
-            ).textContent ||
-            "Member";
-
-
-          try{
-
-            await addDoc(
-              collection(
-                db,
-                "posts",
-                post.id,
-                "comments"
-              ),
-              {
-
-                text:
-                  text,
-
-                userId:
-                  currentUser.uid,
-
-                username:
-                  commenterName,
-
-                createdAt:
-                  serverTimestamp()
-
-              }
-            );
-
-
-            commentInput.value =
-              "";
-
-
-            let count =
-              Number(
-                commentCountElement.textContent
-              ) || 0;
-
-
-            count++;
-
-
-            commentCountElement.textContent =
-              count;
-
-
-            await loadComments(
-              post.id,
-              commentsList
-            );
-
-
-          }catch(error){
-
-            console.error(
-              "Comment error:",
-              error
-            );
-
-            alert(
-              error.code +
-              ": " +
-              error.message
-            );
-
-          }
-
-        }
-      );
-
-
-      /* ENTER TO COMMENT */
-
-      commentInput.addEventListener(
-        "keydown",
-        (event) => {
-
-          if(
-            event.key === "Enter"
-          ){
-
-            event.preventDefault();
-
-            commentSend.click();
-
-          }
-
-        }
-      );
-
-
-      /* ================================
-         SHARE
-      ================================= */
-
-      const shareButton =
-        postElement.querySelector(
-          ".share-button"
-        );
-
-
-      shareButton.addEventListener(
-        "click",
-        async () => {
-
-          const shareText =
-            `${username} shared a post on JSP TAYSU Community 🐉`;
-
-
-          try{
-
-            if(
-              navigator.share
-            ){
-
-              await navigator.share({
-
-                title:
-                  "JSP TAYSU Community",
-
-                text:
-                  shareText,
-
-                url:
-                  window.location.href
-
-              });
-
-            }else{
-
-              await navigator.clipboard.writeText(
-                window.location.href
-              );
-
-              alert(
-                "Community link copied! 🔗"
-              );
-
-            }
-
-          }catch(error){
-
-            console.log(
-              "Share cancelled."
-            );
-
-          }
-
-        }
+      await renderPost(
+        post,
+        postsContainer
       );
 
     }
+
 
   }catch(error){
 
@@ -1752,17 +1759,731 @@ async function loadPosts(){
 }
 
 
-/* ================================
+/* =========================================================
+   RENDER POST
+========================================================= */
+
+async function renderPost(
+  post,
+  postsContainer
+){
+
+  const postElement =
+    document.createElement(
+      "article"
+    );
+
+  postElement.className =
+    "post";
+
+
+  const username =
+    post.authorName ||
+    "Member";
+
+
+  /* LIKE COUNT */
+
+  let likeCount = 0;
+  let alreadyLiked = false;
+
+
+  try{
+
+    const likesSnapshot =
+      await getDocs(
+        collection(
+          db,
+          "posts",
+          post.id,
+          "likes"
+        )
+      );
+
+
+    likeCount =
+      likesSnapshot.size;
+
+
+    if(currentUser){
+
+      alreadyLiked =
+        likesSnapshot.docs.some(
+          likeDoc =>
+            likeDoc.id ===
+            currentUser.uid
+        );
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Like error:",
+      error
+    );
+
+  }
+
+
+  /* COMMENT COUNT */
+
+  let commentCount = 0;
+
+
+  try{
+
+    const commentsSnapshot =
+      await getDocs(
+        collection(
+          db,
+          "posts",
+          post.id,
+          "comments"
+        )
+      );
+
+
+    commentCount =
+      commentsSnapshot.size;
+
+  }catch(error){
+
+    console.error(
+      "Comment count error:",
+      error
+    );
+
+  }
+
+
+  /* TIME */
+
+  let postTime =
+    "Community member";
+
+
+  if(post.createdAt){
+
+    try{
+
+      const date =
+        new Date(
+          post.createdAt.seconds *
+          1000
+        );
+
+      postTime =
+        formatTimeAgo(date);
+
+    }catch(error){
+
+      postTime =
+        "Community member";
+
+    }
+
+  }
+
+
+  let mediaHTML = "";
+
+
+  if(
+    post.mediaURL &&
+    post.mediaType === "image"
+  ){
+
+    mediaHTML = `
+
+      <div class="post-media">
+
+        <img
+          src="${escapeHTML(post.mediaURL)}"
+          alt="Community post image"
+          loading="lazy">
+
+      </div>
+
+    `;
+
+  }
+
+
+  if(
+    post.mediaURL &&
+    post.mediaType === "video"
+  ){
+
+    mediaHTML = `
+
+      <div class="post-media">
+
+        <video
+          src="${escapeHTML(post.mediaURL)}"
+          controls
+          preload="metadata">
+        </video>
+
+      </div>
+
+    `;
+
+  }
+
+
+  postElement.innerHTML = `
+
+    <div class="post-header">
+
+      <div class="avatar">
+
+        ${escapeHTML(
+          username
+            .charAt(0)
+            .toUpperCase()
+        )}
+
+      </div>
+
+      <div>
+
+        <div class="post-author">
+          ${escapeHTML(username)}
+        </div>
+
+        <div class="post-time">
+          ${escapeHTML(postTime)}
+        </div>
+
+      </div>
+
+    </div>
+
+
+    ${
+      post.text
+        ? `
+          <div class="post-text">
+            ${escapeHTML(post.text)}
+          </div>
+        `
+        : ""
+    }
+
+
+    ${mediaHTML}
+
+
+    <div class="actions">
+
+      <button
+        class="action like-button
+        ${alreadyLiked ? "liked" : ""}"
+        type="button">
+
+        ❤️
+        <span>
+          ${alreadyLiked ? "Unlike" : "Like"}
+        </span>
+
+        <b class="like-count">
+          ${likeCount}
+        </b>
+
+      </button>
+
+
+      <button
+        class="action comment-button"
+        type="button">
+
+        💬
+        <span>
+          Comment
+        </span>
+
+        <b class="comment-count">
+          ${commentCount}
+        </b>
+
+      </button>
+
+
+      <button
+        class="action share-button"
+        type="button">
+
+        ↗️
+        <span>
+          Share
+        </span>
+
+      </button>
+
+    </div>
+
+
+    <div class="comments-area">
+
+      <div class="comments-list"></div>
+
+
+      <div class="comment-compose">
+
+        <input
+          class="comment-input"
+          type="text"
+          maxlength="300"
+          placeholder="Write a comment...">
+
+        <button
+          class="comment-send"
+          type="button">
+          Send
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  postsContainer.appendChild(
+    postElement
+  );
+
+
+  /* =====================================================
+     LIKE
+  ===================================================== */
+
+  const likeButton =
+    postElement.querySelector(
+      ".like-button"
+    );
+
+  const likeText =
+    likeButton.querySelector(
+      "span"
+    );
+
+  const likeCountElement =
+    postElement.querySelector(
+      ".like-count"
+    );
+
+
+  likeButton.addEventListener(
+    "click",
+    async () => {
+
+      if(!currentUser){
+
+        alert(
+          "Please sign in first."
+        );
+
+        return;
+
+      }
+
+
+      likeButton.disabled =
+        true;
+
+
+      try{
+
+        const likeRef =
+          doc(
+            db,
+            "posts",
+            post.id,
+            "likes",
+            currentUser.uid
+          );
+
+
+        const likeSnap =
+          await getDoc(
+            likeRef
+          );
+
+
+        if(
+          likeSnap.exists()
+        ){
+
+          await deleteDoc(
+            likeRef
+          );
+
+
+          likeText.textContent =
+            "Like";
+
+          likeButton.classList
+            .remove("liked");
+
+
+          let count =
+            Number(
+              likeCountElement
+                .textContent
+            ) || 0;
+
+
+          count =
+            Math.max(
+              0,
+              count - 1
+            );
+
+
+          likeCountElement
+            .textContent =
+              count;
+
+        }else{
+
+          await setDoc(
+            likeRef,
+            {
+
+              userId:
+                currentUser.uid,
+
+              createdAt:
+                serverTimestamp()
+
+            }
+          );
+
+
+          likeText.textContent =
+            "Unlike";
+
+          likeButton.classList
+            .add("liked");
+
+
+          let count =
+            Number(
+              likeCountElement
+                .textContent
+            ) || 0;
+
+
+          count++;
+
+
+          likeCountElement
+            .textContent =
+            count;
+
+        }
+
+
+      }catch(error){
+
+        console.error(
+          "Like error:",
+          error
+        );
+
+        alert(
+          error.code +
+          ": " +
+          error.message
+        );
+
+      }finally{
+
+        likeButton.disabled =
+          false;
+
+      }
+
+    }
+  );
+
+
+  /* =====================================================
+     COMMENTS
+  ===================================================== */
+
+  const commentButton =
+    postElement.querySelector(
+      ".comment-button"
+    );
+
+  const commentsArea =
+    postElement.querySelector(
+      ".comments-area"
+    );
+
+  const commentsList =
+    postElement.querySelector(
+      ".comments-list"
+    );
+
+  const commentInput =
+    postElement.querySelector(
+      ".comment-input"
+    );
+
+  const commentSend =
+    postElement.querySelector(
+      ".comment-send"
+    );
+
+  const commentCountElement =
+    postElement.querySelector(
+      ".comment-count"
+    );
+
+
+  commentButton.addEventListener(
+    "click",
+    async () => {
+
+      if(!currentUser){
+
+        alert(
+          "Please sign in first."
+        );
+
+        return;
+
+      }
+
+
+      if(
+        commentsArea.style.display ===
+        "block"
+      ){
+
+        commentsArea.style.display =
+          "none";
+
+        return;
+
+      }
+
+
+      commentsArea.style.display =
+        "block";
+
+
+      await loadComments(
+        post.id,
+        commentsList
+      );
+
+    }
+  );
+
+
+  /* SEND COMMENT */
+
+  commentSend.addEventListener(
+    "click",
+    async () => {
+
+      if(!currentUser){
+
+        alert(
+          "Please sign in first."
+        );
+
+        return;
+
+      }
+
+
+      const text =
+        commentInput.value.trim();
+
+
+      if(!text) return;
+
+
+      try{
+
+        commentSend.disabled =
+          true;
+
+
+        await addDoc(
+          collection(
+            db,
+            "posts",
+            post.id,
+            "comments"
+          ),
+          {
+
+            text:
+              text,
+
+            userId:
+              currentUser.uid,
+
+            username:
+              currentUsername,
+
+            createdAt:
+              serverTimestamp()
+
+          }
+        );
+
+
+        commentInput.value =
+          "";
+
+
+        let count =
+          Number(
+            commentCountElement
+              .textContent
+          ) || 0;
+
+
+        count++;
+
+
+        commentCountElement
+          .textContent =
+          count;
+
+
+        await loadComments(
+          post.id,
+          commentsList
+        );
+
+
+      }catch(error){
+
+        console.error(
+          "Comment error:",
+          error
+        );
+
+        alert(
+          error.code +
+          ": " +
+          error.message
+        );
+
+      }finally{
+
+        commentSend.disabled =
+          false;
+
+      }
+
+    }
+  );
+
+
+  commentInput.addEventListener(
+    "keydown",
+    event => {
+
+      if(
+        event.key ===
+        "Enter"
+      ){
+
+        event.preventDefault();
+
+        commentSend.click();
+
+      }
+
+    }
+  );
+
+
+  /* =====================================================
+     SHARE
+  ===================================================== */
+
+  const shareButton =
+    postElement.querySelector(
+      ".share-button"
+    );
+
+
+  shareButton.addEventListener(
+    "click",
+    async () => {
+
+      const shareText =
+        `${username} shared a post on JSP TAYSU Community 🐉`;
+
+
+      try{
+
+        if(
+          navigator.share
+        ){
+
+          await navigator.share({
+
+            title:
+              "JSP TAYSU Community",
+
+            text:
+              shareText,
+
+            url:
+              window.location.href
+
+          });
+
+        }else{
+
+          await navigator
+            .clipboard
+            .writeText(
+              window.location.href
+            );
+
+          alert(
+            "Community link copied! 🔗"
+          );
+
+        }
+
+      }catch(error){
+
+        console.log(
+          "Share cancelled."
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
    LOAD COMMENTS
-================================ */
+========================================================= */
 
 async function loadComments(
   postId,
   commentsList
 ){
 
-  commentsList.innerHTML =
-    "";
+  commentsList.innerHTML = "";
 
 
   try{
@@ -1803,7 +2524,7 @@ async function loadComments(
 
 
     snapshot.forEach(
-      (commentDoc) => {
+      commentDoc => {
 
         comments.push({
 
@@ -1821,141 +2542,135 @@ async function loadComments(
     comments.sort(
       (a,b) => {
 
-        const timeA =
-          a.createdAt?.seconds || 0;
+        const aTime =
+          a.createdAt?.seconds ||
+          0;
 
-        const timeB =
-          b.createdAt?.seconds || 0;
+        const bTime =
+          b.createdAt?.seconds ||
+          0;
 
-        return timeA - timeB;
+        return aTime - bTime;
 
       }
     );
 
 
     comments.forEach(
-      (comment) => {
+      comment => {
 
-        const commentElement =
+        const element =
           document.createElement(
             "div"
           );
 
 
-        commentElement.style.cssText = `
-          background:#f7f1e8;
-          border:1px solid #eee4d5;
-          border-radius:12px;
-          padding:9px 11px;
-          margin-bottom:6px;
+        element.className =
+          "comment";
+
+
+        element.innerHTML = `
+
+          <div class="comment-top">
+
+            <div class="comment-user">
+
+              ${escapeHTML(
+                comment.username ||
+                "Member"
+              )}
+
+            </div>
+
+            ${
+              currentUser &&
+              comment.userId ===
+              currentUser.uid
+                ? `
+                  <button
+                    class="delete-comment"
+                    type="button">
+                    Delete
+                  </button>
+                `
+                : ""
+            }
+
+          </div>
+
+
+          <div class="comment-text">
+
+            ${escapeHTML(
+              comment.text ||
+              ""
+            )}
+
+          </div>
+
         `;
 
 
-        commentElement.innerHTML = `
-
-  <div style="
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:3px;
-  ">
-
-    <div style="
-      font-size:12px;
-      font-weight:800;
-      color:#493a2d;
-    ">
-      ${escapeHTML(
-        comment.username || "Member"
-      )}
-    </div>
-
-    ${
-      currentUser &&
-      comment.userId === currentUser.uid
-        ? `
-          <button
-            class="delete-comment"
-            type="button"
-            style="
-              border:0;
-              background:none;
-              color:#9a5d4b;
-              font-size:11px;
-              cursor:pointer;
-            "
-          >
-            Delete
-          </button>
-        `
-        : ""
-    }
-
-  </div>
-
-  <div style="
-    font-size:13px;
-    line-height:1.4;
-    color:#302820;
-    overflow-wrap:anywhere;
-  ">
-    ${escapeHTML(comment.text || "")}
-  </div>
-
-`;
-
         commentsList.appendChild(
-          commentElement
-        );
-const deleteButton =
-  commentElement.querySelector(
-    ".delete-comment"
-  );
-
-if(deleteButton){
-
-  deleteButton.addEventListener(
-    "click",
-    async () => {
-
-      if(!currentUser) return;
-
-      try{
-
-        await deleteDoc(
-          doc(
-            db,
-            "posts",
-            postId,
-            "comments",
-            comment.id
-          )
+          element
         );
 
-        await loadComments(
-          postId,
-          commentsList
-        );
 
-      }catch(error){
+        const deleteButton =
+          element.querySelector(
+            ".delete-comment"
+          );
 
-        console.error(
-          "Delete comment error:",
-          error
-        );
 
-        alert(
-          error.code +
-          ": " +
-          error.message
-        );
+        if(deleteButton){
 
-      }
+          deleteButton.addEventListener(
+            "click",
+            async () => {
 
-    }
-  );
+              if(!currentUser)
+                return;
 
-}
+
+              try{
+
+                await deleteDoc(
+                  doc(
+                    db,
+                    "posts",
+                    postId,
+                    "comments",
+                    comment.id
+                  )
+                );
+
+
+                await loadComments(
+                  postId,
+                  commentsList
+                );
+
+
+              }catch(error){
+
+                console.error(
+                  "Delete error:",
+                  error
+                );
+
+                alert(
+                  error.code +
+                  ": " +
+                  error.message
+                );
+
+              }
+
+            }
+          );
+
+        }
+
       }
     );
 
@@ -1963,7 +2678,7 @@ if(deleteButton){
   }catch(error){
 
     console.error(
-      "Comments loading error:",
+      "Comments error:",
       error
     );
 
@@ -1973,6 +2688,7 @@ if(deleteButton){
       <div style="
         color:#9a5d4b;
         font-size:12px;
+        padding:5px;
       ">
 
         Couldn't load comments.
@@ -1986,272 +2702,42 @@ if(deleteButton){
 }
 
 
-
-/* ================================
-   SAFE HTML
-================================ */
-
-function escapeHTML(text){
-
-  const div =
-    document.createElement(
-      "div"
-    );
-
-  div.textContent =
-    text;
-
-  return div.innerHTML;
-
-}
-
-
-/* ================================
+/* =========================================================
    SEARCH MEMBERS
-================================ */
+========================================================= */
 
 const userSearchButton =
-  document.getElementById("userSearchButton");
+  document.getElementById(
+    "userSearchButton"
+  );
 
 const userSearchInput =
-  document.getElementById("userSearchInput");
+  document.getElementById(
+    "userSearchInput"
+  );
 
 const searchResults =
-  document.getElementById("searchResults");
+  document.getElementById(
+    "searchResults"
+  );
 
 
 userSearchButton.addEventListener(
   "click",
-  async () => {
+  searchUsers
+);
 
-    const searchText =
-      userSearchInput.value
-        .trim()
-        .toLowerCase();
 
+userSearchInput.addEventListener(
+  "keydown",
+  event => {
 
-    if(!searchText){
+    if(
+      event.key ===
+      "Enter"
+    ){
 
-      searchResults.innerHTML =
-        "<p style='color:#81776b;font-size:13px;'>Enter a username to search.</p>";
-
-      return;
-
-    }
-
-
-    if(!currentUser){
-
-      alert("Please sign in first.");
-
-      return;
-
-    }
-
-
-    try{
-
-      const usersSnapshot =
-        await getDocs(
-          collection(db, "users")
-        );
-
-
-      searchResults.innerHTML = "";
-
-      let found = false;
-
-
-      usersSnapshot.forEach(
-        (userDoc) => {
-
-          const user =
-            userDoc.data();
-
-
-          const username =
-            (user.username || "")
-              .toLowerCase();
-
-
-          if(
-            username.includes(searchText) &&
-            userDoc.id !== currentUser.uid
-          ){
-
-            found = true;
-
-
-            const result =
-              document.createElement("div");
-
-
-            result.className =
-              "search-result";
-
-
-            result.innerHTML = `
-
-              <div class="search-result-user">
-                ${escapeHTML(
-                  user.username || "Member"
-                )}
-              </div>
-
-              <button
-                class="follow-button"
-                type="button">
-
-                Follow
-
-              </button>
-
-            `;
-
-
-            const followButton =
-              result.querySelector(
-                ".follow-button"
-              );
-
-
-            const followId =
-              currentUser.uid +
-              "_" +
-              userDoc.id;
-
-
-            /* CHECK FOLLOW STATUS */
-
-            try{
-
-              const followSnap =
-                await getDoc(
-                  doc(
-                    db,
-                    "follows",
-                    followId
-                  )
-                );
-
-
-              if(followSnap.exists()){
-
-                followButton.textContent =
-                  "Following";
-
-                followButton.disabled =
-                  true;
-
-              }
-
-            }catch(error){
-
-              console.error(
-                "Follow status error:",
-                error
-              );
-
-            }
-
-
-            /* FOLLOW */
-
-            followButton.addEventListener(
-              "click",
-              async () => {
-
-                if(!currentUser){
-
-                  alert(
-                    "Please sign in again."
-                  );
-
-                  return;
-
-                }
-
-
-                try{
-
-                  await setDoc(
-                    doc(
-                      db,
-                      "follows",
-                      followId
-                    ),
-                    {
-
-                      followerId:
-                        currentUser.uid,
-
-                      followingId:
-                        userDoc.id,
-
-                      createdAt:
-                        serverTimestamp()
-
-                    }
-                  );
-
-
-                  followButton.textContent =
-                    "Following";
-
-                  followButton.disabled =
-                    true;
-
-
-                }catch(error){
-
-                  console.error(
-                    "Follow error:",
-                    error
-                  );
-
-                  alert(
-                    error.code +
-                    ": " +
-                    error.message
-                  );
-
-                }
-
-              }
-            );
-
-
-            searchResults.appendChild(
-              result
-            );
-
-          }
-
-        }
-      );
-
-
-      if(!found){
-
-        searchResults.innerHTML =
-          "<p style='color:#81776b;font-size:13px;'>No members found.</p>";
-
-      }
-
-
-    }catch(error){
-
-      console.error(
-        "Search error:",
-        error
-      );
-
-
-      alert(
-        error.code +
-        ": " +
-        error.message
-      );
+      searchUsers();
 
     }
 
@@ -2259,34 +2745,783 @@ userSearchButton.addEventListener(
 );
 
 
-/* ================================
-   PROFILE BUTTON
-================================ */
+async function searchUsers(){
 
-const profileNavButton =
-  document.getElementById(
-    "profileNavButton"
-  );
+  const searchText =
+    userSearchInput.value
+      .trim()
+      .toLowerCase();
 
 
-if(profileNavButton){
+  if(!searchText){
 
-  profileNavButton.addEventListener(
-    "click",
-    () => {
+    searchResults.innerHTML = `
 
-      window.location.href =
-        "profile.html";
+      <p style="
+        color:#81776b;
+        font-size:13px;
+        margin-bottom:10px;
+      ">
+
+        Enter a username to search.
+
+      </p>
+
+    `;
+
+    return;
+
+  }
+
+
+  if(!currentUser){
+
+    alert(
+      "Please sign in first."
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    searchResults.innerHTML = `
+
+      <p style="
+        color:#81776b;
+        font-size:13px;
+        padding:5px;
+      ">
+
+        Searching...
+
+      </p>
+
+    `;
+
+
+    const usersSnapshot =
+      await getDocs(
+        collection(
+          db,
+          "users"
+        )
+      );
+
+
+    searchResults.innerHTML =
+      "";
+
+
+    let found = false;
+
+
+    for(
+      const userDoc of
+      usersSnapshot.docs
+    ){
+
+      const user =
+        userDoc.data();
+
+
+      const username =
+        (
+          user.username ||
+          ""
+        )
+        .toLowerCase();
+
+
+      if(
+        username.includes(
+          searchText
+        ) &&
+        userDoc.id !==
+        currentUser.uid
+      ){
+
+        found = true;
+
+
+        const result =
+          document.createElement(
+            "div"
+          );
+
+
+        result.className =
+          "search-result";
+
+
+        result.innerHTML = `
+
+          <div class="search-result-user">
+
+            ${escapeHTML(
+              user.username ||
+              "Member"
+            )}
+
+          </div>
+
+          <button
+            class="follow-button"
+            type="button">
+
+            Follow
+
+          </button>
+
+        `;
+
+
+        const followButton =
+          result.querySelector(
+            ".follow-button"
+          );
+
+
+        const followId =
+          currentUser.uid +
+          "_" +
+          userDoc.id;
+
+
+        try{
+
+          const followSnap =
+            await getDoc(
+              doc(
+                db,
+                "follows",
+                followId
+              )
+            );
+
+
+          if(
+            followSnap.exists()
+          ){
+
+            followButton
+              .textContent =
+              "Following";
+
+            followButton
+              .classList
+              .add("following");
+
+            followButton.disabled =
+              true;
+
+          }
+
+        }catch(error){
+
+          console.error(
+            "Follow check:",
+            error
+          );
+
+        }
+
+
+        followButton.addEventListener(
+          "click",
+          async () => {
+
+            if(!currentUser)
+              return;
+
+
+            try{
+
+              followButton.disabled =
+                true;
+
+
+              await setDoc(
+                doc(
+                  db,
+                  "follows",
+                  followId
+                ),
+                {
+
+                  followerId:
+                    currentUser.uid,
+
+                  followingId:
+                    userDoc.id,
+
+                  followingName:
+                    user.username ||
+                    "Member",
+
+                  createdAt:
+                    serverTimestamp()
+
+                }
+              );
+
+
+              /* CREATE ALERT */
+
+              try{
+
+                await addDoc(
+                  collection(
+                    db,
+                    "users",
+                    userDoc.id,
+                    "notifications"
+                  ),
+                  {
+
+                    type:
+                      "follow",
+
+                    fromUserId:
+                      currentUser.uid,
+
+                    fromUsername:
+                      currentUsername,
+
+                    text:
+                      currentUsername +
+                      " started following you.",
+
+                    createdAt:
+                      serverTimestamp(),
+
+                    read:
+                      false
+
+                  }
+                );
+
+              }catch(notificationError){
+
+                console.error(
+                  "Notification error:",
+                  notificationError
+                );
+
+              }
+
+
+              followButton
+                .textContent =
+                "Following";
+
+              followButton
+                .classList
+                .add("following");
+
+
+            }catch(error){
+
+              console.error(
+                "Follow error:",
+                error
+              );
+
+              followButton.disabled =
+                false;
+
+              alert(
+                error.code +
+                ": " +
+                error.message
+              );
+
+            }
+
+          }
+        );
+
+
+        searchResults.appendChild(
+          result
+        );
+
+      }
 
     }
-  );
+
+
+    if(!found){
+
+      searchResults.innerHTML = `
+
+        <p style="
+          color:#81776b;
+          font-size:13px;
+          padding:5px;
+        ">
+
+          No members found.
+
+        </p>
+
+      `;
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Search error:",
+      error
+    );
+
+
+    alert(
+      error.code +
+      ": " +
+      error.message
+    );
+
+  }
 
 }
 
 
+/* =========================================================
+   ALERTS
+========================================================= */
+
+const alertsPanel =
+  document.getElementById(
+    "alertsPanel"
+  );
+
+const alertsList =
+  document.getElementById(
+    "alertsList"
+  );
 
 
+async function loadAlerts(){
 
+  if(!currentUser){
+
+    alertsList.innerHTML = `
+
+      <div class="alert-empty">
+        Please sign in to see alerts.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "users",
+          currentUser.uid,
+          "notifications"
+        )
+      );
+
+
+    if(snapshot.empty){
+
+      alertsList.innerHTML = `
+
+        <div class="alert-empty">
+          No alerts yet 🐉
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    const alerts = [];
+
+
+    snapshot.forEach(
+      notificationDoc => {
+
+        alerts.push({
+
+          id:
+            notificationDoc.id,
+
+          ...notificationDoc.data()
+
+        });
+
+      }
+    );
+
+
+    alerts.sort(
+      (a,b) => {
+
+        const aTime =
+          a.createdAt?.seconds ||
+          0;
+
+        const bTime =
+          b.createdAt?.seconds ||
+          0;
+
+        return bTime - aTime;
+
+      }
+    );
+
+
+    alertsList.innerHTML = "";
+
+
+    alerts.slice(
+      0,
+      30
+    ).forEach(
+      alert => {
+
+        const element =
+          document.createElement(
+            "div"
+          );
+
+
+        element.className =
+          "alert-item";
+
+
+        element.textContent =
+          alert.text ||
+          "You have a new notification.";
+
+
+        alertsList.appendChild(
+          element
+        );
+
+      }
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "Alerts error:",
+      error
+    );
+
+
+    alertsList.innerHTML = `
+
+      <div class="alert-empty">
+        Couldn't load alerts.
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   BOTTOM NAVIGATION
+========================================================= */
+
+const navItems =
+  document.querySelectorAll(
+    ".nav-item"
+  );
+
+
+function setActive(
+  element
+){
+
+  navItems.forEach(
+    item =>
+      item.classList
+        .remove("active")
+  );
+
+
+  element.classList
+    .add("active");
+
+}
+
+
+/* HOME */
+
+document.getElementById(
+  "homeNav"
+).addEventListener(
+  "click",
+  () => {
+
+    setActive(
+      document.getElementById(
+        "homeNav"
+      )
+    );
+
+    alertsPanel.style.display =
+      "none";
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+  }
+);
+
+
+/* EXPLORE */
+
+document.getElementById(
+  "exploreNav"
+).addEventListener(
+  "click",
+  () => {
+
+    setActive(
+      document.getElementById(
+        "exploreNav"
+      )
+    );
+
+    alertsPanel.style.display =
+      "none";
+
+
+    document.getElementById(
+      "userSearchInput"
+    ).focus();
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+  }
+);
+
+
+/* CREATE */
+
+document.getElementById(
+  "createNav"
+).addEventListener(
+  "click",
+  () => {
+
+    setActive(
+      document.getElementById(
+        "createNav"
+      )
+    );
+
+    alertsPanel.style.display =
+      "none";
+
+
+    document.getElementById(
+      "createPostSection"
+    ).scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+
+
+    setTimeout(
+      () => {
+
+        if(currentUser){
+
+          postText.focus();
+
+        }else{
+
+          alert(
+            "Please sign in first."
+          );
+
+        }
+
+      },
+      500
+    );
+
+  }
+);
+
+
+/* ALERTS */
+
+document.getElementById(
+  "alertsNav"
+).addEventListener(
+  "click",
+  async () => {
+
+    setActive(
+      document.getElementById(
+        "alertsNav"
+      )
+    );
+
+
+    if(
+      alertsPanel.style.display ===
+      "block"
+    ){
+
+      alertsPanel.style.display =
+        "none";
+
+      return;
+
+    }
+
+
+    alertsPanel.style.display =
+      "block";
+
+
+    await loadAlerts();
+
+
+    alertsPanel.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+  }
+);
+
+
+/* PROFILE */
+
+document.getElementById(
+  "profileNavButton"
+).addEventListener(
+  "click",
+  () => {
+
+    setActive(
+      document.getElementById(
+        "profileNavButton"
+      )
+    );
+
+    window.location.href =
+      "profile.html";
+
+  }
+);
+
+
+/* =========================================================
+   SAFE HTML
+========================================================= */
+
+function escapeHTML(
+  text
+){
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+
+  div.textContent =
+    String(text);
+
+
+  return div.innerHTML;
+
+}
+
+
+/* =========================================================
+   TIME FORMAT
+========================================================= */
+
+function formatTimeAgo(
+  date
+){
+
+  const seconds =
+    Math.floor(
+      (
+        Date.now() -
+        date.getTime()
+      ) / 1000
+    );
+
+
+  if(seconds < 10)
+    return "Just now";
+
+
+  if(seconds < 60)
+    return seconds +
+      "s ago";
+
+
+  const minutes =
+    Math.floor(
+      seconds / 60
+    );
+
+
+  if(minutes < 60)
+    return minutes +
+      "m ago";
+
+
+  const hours =
+    Math.floor(
+      minutes / 60
+    );
+
+
+  if(hours < 24)
+    return hours +
+      "h ago";
+
+
+  const days =
+    Math.floor(
+      hours / 24
+    );
+
+
+  if(days < 7)
+    return days +
+      "d ago";
+
+
+  return date.toLocaleDateString();
+
+}
 
 </script>
 
