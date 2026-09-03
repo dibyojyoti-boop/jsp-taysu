@@ -849,36 +849,104 @@ onAuthStateChanged(
 
     if(!user){
 
-      currentUser = user;
+      currentUser = null;
 
-communityLogin.style.display = "none";
+      document.getElementById("profileName").textContent =
+        "Please sign in";
 
-let username = "Member";
+      document.getElementById("composerName").textContent =
+        "Member";
 
-const profileRef = doc(db, "users", user.uid);
-const profileSnap = await getDoc(profileRef);
+      document.getElementById("composerAvatar").textContent =
+        "M";
 
-if (
-  profileSnap.exists() &&
-  profileSnap.data().username
-) {
-  username = profileSnap.data().username;
-} else if (user.displayName) {
-  username = user.displayName;
-}
+      document.getElementById("welcomeText").textContent =
+        "Welcome 👋";
 
-document.getElementById("profileName").textContent = username;
-document.getElementById("composerName").textContent = username;
-document.getElementById("composerAvatar").textContent =
-  username.charAt(0).toUpperCase();
-document.getElementById("welcomeText").textContent =
-  "Welcome, " + username + " 👋";
+      communityLogin.style.display =
+        "block";
 
-await loadPosts();
+      return;
+
+    }
+
+
+    /* USER FOUND */
+
+    currentUser = user;
+
+    communityLogin.style.display =
+      "none";
+
+
+    let username =
+      "Member";
+
+
+    const profileRef =
+      doc(
+        db,
+        "users",
+        user.uid
+      );
+
+
+    const profileSnap =
+      await getDoc(
+        profileRef
+      );
+
+
+    if(
+      profileSnap.exists() &&
+      profileSnap.data().username
+    ){
+
+      username =
+        profileSnap.data().username;
+
+    }else if(
+      user.displayName
+    ){
+
+      username =
+        user.displayName;
+
+    }
+
+
+    document.getElementById(
+      "profileName"
+    ).textContent =
+      username;
+
+
+    document.getElementById(
+      "composerName"
+    ).textContent =
+      username;
+
+
+    document.getElementById(
+      "composerAvatar"
+    ).textContent =
+      username
+        .charAt(0)
+        .toUpperCase();
+
+
+    document.getElementById(
+      "welcomeText"
+    ).textContent =
+      "Welcome, " +
+      username +
+      " 👋";
+
+
+    await loadPosts();
 
   }
 );
-
 
 /* ================================
    CREATE POST
