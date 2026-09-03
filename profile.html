@@ -7,6 +7,7 @@
 <title>Profile • JSP TAYSU</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -17,8 +18,12 @@ body{
   background:#0b0d12;
   color:#f5f5f5;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  padding-bottom:75px;
+  padding-bottom:78px;
 }
+
+/* =========================
+   TOP BAR
+========================= */
 
 .topbar{
   height:64px;
@@ -30,43 +35,45 @@ body{
   position:sticky;
   top:0;
   background:#0b0d12;
-  z-index:20;
-}
-
-.back,
-.more{
-  cursor:pointer;
-  user-select:none;
+  z-index:50;
 }
 
 .back{
-  font-size:31px;
-}
-
-.more{
-  font-size:23px;
-  letter-spacing:3px;
+  width:40px;
+  font-size:32px;
+  cursor:pointer;
+  color:#fff;
 }
 
 .username-title{
   font-size:20px;
-  font-weight:700;
-  max-width:220px;
+  font-weight:750;
+  max-width:230px;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
 }
 
-/* PROFILE */
+.more{
+  width:40px;
+  text-align:right;
+  font-size:25px;
+  letter-spacing:2px;
+  cursor:pointer;
+}
+
+/* =========================
+   PROFILE
+========================= */
 
 .profile{
-  padding:20px;
+  padding:18px 18px 0;
 }
 
 .profile-top{
   display:flex;
   align-items:center;
-  gap:24px;
+  gap:22px;
 }
 
 .avatar{
@@ -74,13 +81,14 @@ body{
   height:105px;
   border-radius:50%;
   background:#006b57;
-  border:4px solid #20242e;
+  border:3px solid #242832;
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:48px;
-  flex-shrink:0;
+  font-weight:500;
   overflow:hidden;
+  flex-shrink:0;
 }
 
 .avatar img{
@@ -98,18 +106,23 @@ body{
 
 .stat strong{
   display:block;
-  font-size:20px;
+  font-size:21px;
+  font-weight:750;
 }
 
 .stat span{
   display:block;
-  color:#9da1ac;
-  font-size:13px;
   margin-top:5px;
+  color:#969aa6;
+  font-size:13px;
 }
 
+/* =========================
+   PROFILE INFO
+========================= */
+
 .info{
-  margin-top:23px;
+  margin-top:22px;
 }
 
 .name{
@@ -118,29 +131,34 @@ body{
 }
 
 .bio{
-  margin-top:7px;
-  color:#d5d6da;
+  margin-top:6px;
+  color:#d1d3d8;
   font-size:15px;
-  line-height:1.45;
+  line-height:1.4;
+  white-space:pre-wrap;
 }
 
 .org{
   margin-top:7px;
-  color:#9699a4;
+  color:#858995;
   font-size:13px;
 }
 
+/* =========================
+   BUTTONS
+========================= */
+
 .buttons{
   display:flex;
-  gap:10px;
-  margin-top:18px;
+  gap:9px;
+  margin-top:17px;
 }
 
 .btn{
   flex:1;
-  height:45px;
+  height:43px;
   border:0;
-  border-radius:11px;
+  border-radius:10px;
   font-size:14px;
   font-weight:700;
   cursor:pointer;
@@ -152,105 +170,181 @@ body{
 }
 
 .share{
-  background:#1d212a;
+  background:#1b1e26;
   color:#fff;
   border:1px solid #2b303b;
 }
 
-/* POSTS */
+/* =========================
+   MY POSTS HEADER
+========================= */
 
 .post-header{
   height:55px;
-  border-top:1px solid #272b34;
-  border-bottom:1px solid #272b34;
+  margin-top:22px;
+  border-top:1px solid #252832;
+  border-bottom:1px solid #252832;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
 }
 
 .post-icon{
   font-size:24px;
+  color:#fff;
 }
+
+/* =========================
+   MY POSTS
+========================= */
 
 .posts{
-  padding:0 0 20px;
+  padding:0 0 25px;
 }
 
-.empty{
-  min-height:250px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#9699a4;
-  font-size:14px;
-  text-align:center;
-  padding:30px;
-}
-
-/* POST CARD */
-
-.user-post{
+.my-post{
+  position:relative;
+  padding:14px 18px 13px;
   border-bottom:1px solid #252832;
-  padding:15px 17px;
 }
 
-.user-post-header{
+.my-post-top{
   display:flex;
   align-items:center;
-  gap:9px;
-  margin-bottom:8px;
+  justify-content:space-between;
+  margin-bottom:7px;
 }
 
-.mini-avatar{
-  width:35px;
-  height:35px;
+.my-post-user{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+}
+
+.small-avatar{
+  width:30px;
+  height:30px;
   border-radius:50%;
   background:#006b57;
   display:flex;
   align-items:center;
   justify-content:center;
+  font-size:13px;
   font-weight:700;
   flex-shrink:0;
 }
 
-.post-user{
-  font-size:14px;
-  font-weight:700;
+.my-post-meta{
+  min-width:0;
 }
 
-.post-date{
-  color:#858995;
+.my-post-name{
+  font-size:13px;
+  font-weight:750;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.my-post-time{
+  color:#777c88;
   font-size:11px;
   margin-top:2px;
 }
 
-.user-post-text{
-  font-size:15px;
-  line-height:1.45;
-  color:#e5e5e8;
-  white-space:pre-wrap;
-  overflow-wrap:anywhere;
-  margin-left:44px;
-}
-
-.post-delete{
-  margin-left:44px;
-  margin-top:8px;
+.post-menu-button{
   border:0;
   background:none;
-  color:#ff5d6c;
-  font-size:12px;
+  color:#9a9da6;
+  font-size:21px;
+  letter-spacing:2px;
+  padding:5px 3px;
+  cursor:pointer;
+  line-height:1;
+}
+
+.post-menu-button:hover{
+  color:#fff;
+}
+
+.my-post-text{
+  color:#e5e6e9;
+  font-size:15px;
+  line-height:1.45;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
+
+/* POST MENU */
+
+.post-menu{
+  display:none;
+  position:absolute;
+  top:48px;
+  right:15px;
+  width:115px;
+  background:#1b1e26;
+  border:1px solid #30343f;
+  border-radius:11px;
+  overflow:hidden;
+  z-index:20;
+  box-shadow:0 10px 30px rgba(0,0,0,.45);
+}
+
+.post-menu button{
+  width:100%;
+  border:0;
+  background:none;
+  color:#ff6574;
+  text-align:left;
+  padding:12px 14px;
+  font-size:13px;
   cursor:pointer;
 }
 
-/* MENU */
+.post-menu button:hover{
+  background:#272b34;
+}
+
+/* EMPTY */
+
+.empty{
+  min-height:260px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:#888d98;
+  text-align:center;
+  padding:30px 20px;
+}
+
+.empty-icon{
+  font-size:34px;
+  margin-bottom:9px;
+}
+
+.empty h3{
+  color:#d7d8dc;
+  font-size:16px;
+  margin-bottom:5px;
+}
+
+.empty p{
+  font-size:13px;
+}
+
+/* =========================
+   MENU
+========================= */
 
 .menu{
   display:none;
   position:fixed;
   top:68px;
   right:14px;
-  width:145px;
+  width:150px;
   background:#1b1e26;
   border:1px solid #303541;
   border-radius:13px;
@@ -278,7 +372,9 @@ body{
   color:#ff5d6c !important;
 }
 
-/* MODAL */
+/* =========================
+   EDIT MODAL
+========================= */
 
 .overlay{
   display:none;
@@ -293,14 +389,14 @@ body{
   width:100%;
   background:#171a21;
   border-radius:24px 24px 0 0;
-  padding:24px 20px 35px;
+  padding:23px 20px 34px;
   border-top:1px solid #30343e;
 }
 
 .modal-title{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   margin-bottom:20px;
 }
 
@@ -330,7 +426,7 @@ body{
   width:100%;
   background:#0e1015;
   border:1px solid #30343e;
-  color:white;
+  color:#fff;
   border-radius:12px;
   padding:13px;
   font-size:15px;
@@ -340,6 +436,11 @@ body{
 .field textarea{
   min-height:90px;
   resize:none;
+}
+
+.field input:focus,
+.field textarea:focus{
+  border-color:#777d8b;
 }
 
 .save{
@@ -361,7 +462,9 @@ body{
   color:#aaa;
 }
 
-/* LOADING */
+/* =========================
+   LOADING
+========================= */
 
 .loading{
   position:fixed;
@@ -383,10 +486,14 @@ body{
 }
 
 @keyframes spin{
-  to{transform:rotate(360deg)}
+  to{
+    transform:rotate(360deg);
+  }
 }
 
-/* BOTTOM NAV */
+/* =========================
+   BOTTOM NAV
+========================= */
 
 .bottom-nav{
   position:fixed;
@@ -394,15 +501,20 @@ body{
   left:0;
   right:0;
   height:70px;
-  background:#0b0d12;
+  background:rgba(11,13,18,.97);
+  backdrop-filter:blur(12px);
   border-top:1px solid #252832;
   display:flex;
   justify-content:space-around;
   align-items:center;
-  z-index:30;
+  z-index:100;
 }
 
 .nav-item{
+  flex:1;
+  max-width:100px;
+  border:0;
+  background:none;
   color:#858995;
   text-align:center;
   font-size:11px;
@@ -410,17 +522,68 @@ body{
 }
 
 .nav-item .icon{
-  font-size:25px;
   display:block;
+  font-size:24px;
   margin-bottom:3px;
 }
 
 .nav-item.active{
-  color:white;
+  color:#fff;
 }
 
 .create-icon{
-  font-size:32px !important;
+  font-size:30px !important;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:500px){
+
+  .profile{
+    padding:16px 15px 0;
+  }
+
+  .profile-top{
+    gap:17px;
+  }
+
+  .avatar{
+    width:92px;
+    height:92px;
+    font-size:42px;
+  }
+
+  .stats{
+    justify-content:space-between;
+  }
+
+  .stat strong{
+    font-size:19px;
+  }
+
+  .stat span{
+    font-size:12px;
+  }
+
+  .name{
+    font-size:20px;
+  }
+
+  .bio{
+    font-size:14px;
+  }
+
+  .org{
+    font-size:12px;
+  }
+
+  .my-post{
+    padding-left:15px;
+    padding-right:15px;
+  }
+
 }
 
 @media(min-width:700px){
@@ -434,15 +597,22 @@ body{
     max-width:650px;
     margin:auto;
   }
+
 }
+
 </style>
 </head>
 
 <body>
 
+<!-- LOADING -->
+
 <div class="loading" id="loading">
   <div class="loader"></div>
 </div>
+
+
+<!-- TOP BAR -->
 
 <header class="topbar">
 
@@ -458,6 +628,9 @@ body{
 
 </header>
 
+
+<!-- THREE DOT MENU -->
+
 <div class="menu" id="menu">
 
   <button class="signout" onclick="signOut()">
@@ -465,6 +638,9 @@ body{
   </button>
 
 </div>
+
+
+<!-- PROFILE -->
 
 <main class="profile">
 
@@ -495,6 +671,7 @@ body{
 
   </section>
 
+
   <section class="info">
 
     <div class="name" id="profileName">
@@ -511,6 +688,7 @@ body{
 
   </section>
 
+
   <div class="buttons">
 
     <button class="btn edit" onclick="openEdit()">
@@ -525,6 +703,9 @@ body{
 
 </main>
 
+
+<!-- MY POSTS -->
+
 <section class="post-header">
 
   <div class="post-icon">
@@ -533,42 +714,78 @@ body{
 
 </section>
 
+
 <section class="posts" id="posts">
 
   <div class="empty">
-    Loading posts...
+
+    <div class="empty-icon">
+      ◌
+    </div>
+
+    <h3>
+      Loading posts...
+    </h3>
+
+    <p>
+      Please wait a moment.
+    </p>
+
   </div>
 
 </section>
 
+
+<!-- BOTTOM NAV -->
+
 <nav class="bottom-nav">
 
-  <div class="nav-item" onclick="goHome()">
+  <button class="nav-item" onclick="goHome()">
+
     <span class="icon">⌂</span>
+
     Home
-  </div>
 
-  <div class="nav-item" onclick="goExplore()">
+  </button>
+
+
+  <button class="nav-item" onclick="goExplore()">
+
     <span class="icon">⌕</span>
+
     Explore
-  </div>
 
-  <div class="nav-item" onclick="goCreate()">
+  </button>
+
+
+  <button class="nav-item" onclick="goCreate()">
+
     <span class="icon create-icon">＋</span>
+
     Create
-  </div>
 
-  <div class="nav-item" onclick="goAlerts()">
+  </button>
+
+
+  <button class="nav-item" onclick="goAlerts()">
+
     <span class="icon">♧</span>
-    Alerts
-  </div>
 
-  <div class="nav-item active">
+    Alerts
+
+  </button>
+
+
+  <button class="nav-item active">
+
     <span class="icon">♙</span>
+
     Profile
-  </div>
+
+  </button>
 
 </nav>
+
 
 <!-- EDIT PROFILE -->
 
@@ -580,13 +797,18 @@ body{
 
       <h2>Edit profile</h2>
 
-      <div class="close" onclick="closeEdit()">×</div>
+      <div class="close" onclick="closeEdit()">
+        ×
+      </div>
 
     </div>
 
+
     <div class="field">
 
-      <label>Username</label>
+      <label>
+        Username
+      </label>
 
       <input
         type="text"
@@ -597,9 +819,12 @@ body{
 
     </div>
 
+
     <div class="field">
 
-      <label>Bio</label>
+      <label>
+        Bio
+      </label>
 
       <textarea
         id="editBio"
@@ -609,9 +834,11 @@ body{
 
     </div>
 
+
     <button class="save" onclick="saveProfile()">
       Save changes
     </button>
+
 
     <div class="status" id="saveStatus"></div>
 
@@ -626,11 +853,11 @@ body{
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
+
 <script>
 
 /* =====================================================
    FIREBASE CONFIG
-   SAME PROJECT AS COMMUNITY.HTML
 ===================================================== */
 
 const firebaseConfig = {
@@ -655,10 +882,18 @@ const firebaseConfig = {
 
 };
 
+
+/* =====================================================
+   FIREBASE INIT
+===================================================== */
+
 firebase.initializeApp(firebaseConfig);
 
-const auth = firebase.auth();
-const db = firebase.firestore();
+const auth =
+  firebase.auth();
+
+const db =
+  firebase.firestore();
 
 
 /* =====================================================
@@ -683,12 +918,6 @@ const avatar =
 const postCount =
   document.getElementById("postCount");
 
-const followersCount =
-  document.getElementById("followersCount");
-
-const followingCount =
-  document.getElementById("followingCount");
-
 const postsContainer =
   document.getElementById("posts");
 
@@ -708,43 +937,40 @@ const menu =
   document.getElementById("menu");
 
 
+let currentUser = null;
+
+
 /* =====================================================
-   AUTH
+   AUTH STATE
 ===================================================== */
 
 auth.onAuthStateChanged(async user => {
 
   if(!user){
 
-    /*
-      IMPORTANT:
-      Do NOT redirect to username/address setup page.
-      Only go to main login page if completely logged out.
-    */
-
-    window.location.href = "index.html";
+    window.location.href =
+      "index.html";
 
     return;
+
   }
+
+  currentUser = user;
 
   try{
 
     await loadProfile(user);
 
-    await loadMyPosts(user);
-
-    await loadFollowCounts(user);
+    await loadMyPosts();
 
   }catch(error){
 
-    console.error(
-      "Profile loading error:",
-      error
-    );
+    console.error(error);
 
   }
 
-  loading.style.display = "none";
+  loading.style.display =
+    "none";
 
 });
 
@@ -755,14 +981,6 @@ auth.onAuthStateChanged(async user => {
 
 async function loadProfile(user){
 
-  let username =
-    user.displayName ||
-    user.email?.split("@")[0] ||
-    "Member";
-
-  let bio =
-    "Building and preserving our heritage.";
-
   try{
 
     const ref =
@@ -771,15 +989,22 @@ async function loadProfile(user){
     const snap =
       await ref.get();
 
+
+    let username =
+      user.displayName ||
+      user.email?.split("@")[0] ||
+      "Member";
+
+
+    let bio =
+      "Building and preserving our heritage.";
+
+
     if(snap.exists){
 
       const data =
         snap.data();
 
-      /*
-        Use existing username saved by
-        your username/address page.
-      */
 
       if(data.username){
 
@@ -787,6 +1012,7 @@ async function loadProfile(user){
           data.username;
 
       }
+
 
       if(data.bio){
 
@@ -796,13 +1022,6 @@ async function loadProfile(user){
       }
 
     }else{
-
-      /*
-        If document doesn't exist,
-        create a basic profile.
-
-        This does NOT redirect anywhere.
-      */
 
       await ref.set({
 
@@ -818,23 +1037,39 @@ async function loadProfile(user){
         createdAt:
           firebase.firestore.FieldValue.serverTimestamp()
 
-      },{merge:true});
+      },{
+
+        merge:true
+
+      });
 
     }
+
+
+    displayProfile(
+      username,
+      bio
+    );
+
 
   }catch(error){
 
     console.error(
-      "Profile Firestore error:",
+      "Profile error:",
       error
     );
 
-  }
 
-  displayProfile(
-    username,
-    bio
-  );
+    displayProfile(
+
+      user.displayName ||
+      "Member",
+
+      "Building and preserving our heritage."
+
+    );
+
+  }
 
 }
 
@@ -857,11 +1092,14 @@ function displayProfile(
   profileBio.textContent =
     bio;
 
+
   const firstLetter =
     username
       .trim()
       .charAt(0)
-      .toUpperCase() || "M";
+      .toUpperCase() ||
+      "M";
+
 
   avatar.textContent =
     firstLetter;
@@ -873,10 +1111,35 @@ function displayProfile(
    LOAD MY POSTS
 ===================================================== */
 
-async function loadMyPosts(user){
+async function loadMyPosts(){
 
-  postsContainer.innerHTML =
-    "";
+  if(!currentUser){
+
+    return;
+
+  }
+
+
+  postsContainer.innerHTML = `
+
+    <div class="empty">
+
+      <div class="empty-icon">
+        ◌
+      </div>
+
+      <h3>
+        Loading posts...
+      </h3>
+
+      <p>
+        Please wait a moment.
+      </p>
+
+    </div>
+
+  `;
+
 
   try{
 
@@ -886,239 +1149,115 @@ async function loadMyPosts(user){
         .where(
           "authorId",
           "==",
-          user.uid
+          currentUser.uid
         )
         .get();
 
+
     const posts = [];
 
-    snapshot.forEach(doc => {
 
-      posts.push({
+    snapshot.forEach(
+      postDoc => {
 
-        id:
-          doc.id,
+        posts.push({
 
-        ...doc.data()
+          id:
+            postDoc.id,
 
-      });
+          ...postDoc.data()
 
-    });
+        });
 
-    posts.sort((a,b) => {
+      }
+    );
 
-      const aTime =
-        a.createdAt?.seconds || 0;
 
-      const bTime =
-        b.createdAt?.seconds || 0;
+    /* NEWEST FIRST */
 
-      return bTime - aTime;
+    posts.sort(
+      (a,b) => {
 
-    });
+        const aTime =
+          a.createdAt?.seconds || 0;
+
+        const bTime =
+          b.createdAt?.seconds || 0;
+
+        return bTime - aTime;
+
+      }
+    );
+
 
     postCount.textContent =
       posts.length;
+
+
+    postsContainer.innerHTML =
+      "";
+
 
     if(posts.length === 0){
 
       postsContainer.innerHTML = `
 
         <div class="empty">
-          No posts yet 🌙
+
+          <div class="empty-icon">
+            ✦
+          </div>
+
+          <h3>
+            No posts yet
+          </h3>
+
+          <p>
+            Your posts will appear here.
+          </p>
+
         </div>
 
       `;
 
       return;
+
     }
 
-    posts.forEach(post => {
 
-      const username =
-        post.authorName ||
-        profileName.textContent ||
-        "Member";
+    posts.forEach(
+      post => {
 
-      const article =
-        document.createElement("article");
-
-      article.className =
-        "user-post";
-
-      let dateText =
-        "Just now";
-
-      if(post.createdAt){
-
-        try{
-
-          const date =
-            new Date(
-              post.createdAt.seconds * 1000
-            );
-
-          dateText =
-            date.toLocaleDateString(
-              "en-IN",
-              {
-                day:"numeric",
-                month:"short",
-                year:"numeric"
-              }
-            );
-
-        }catch(error){}
+        renderMyPost(post);
 
       }
+    );
 
-      article.innerHTML = `
-
-        <div class="user-post-header">
-
-          <div class="mini-avatar">
-            ${escapeHTML(
-              username
-                .charAt(0)
-                .toUpperCase()
-            )}
-          </div>
-
-          <div>
-
-            <div class="post-user">
-              ${escapeHTML(username)}
-            </div>
-
-            <div class="post-date">
-              ${dateText}
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="user-post-text">
-          ${escapeHTML(post.text || "")}
-        </div>
-
-        <button
-          class="post-delete"
-          type="button">
-
-          Delete post
-
-        </button>
-
-      `;
-
-      postsContainer.appendChild(
-        article
-      );
-
-      const deleteButton =
-        article.querySelector(
-          ".post-delete"
-        );
-
-      deleteButton.addEventListener(
-        "click",
-        async () => {
-
-          const confirmDelete =
-            confirm(
-              "Delete this post?"
-            );
-
-          if(!confirmDelete){
-
-            return;
-
-          }
-
-          try{
-
-            deleteButton.disabled =
-              true;
-
-            deleteButton.textContent =
-              "Deleting...";
-
-            await db
-              .collection("posts")
-              .doc(post.id)
-              .delete();
-
-            article.remove();
-
-            const current =
-              Number(
-                postCount.textContent
-              ) || 0;
-
-            postCount.textContent =
-              Math.max(
-                0,
-                current - 1
-              );
-
-            if(
-              postsContainer
-                .querySelectorAll(
-                  ".user-post"
-                ).length === 0
-            ){
-
-              postsContainer.innerHTML = `
-
-                <div class="empty">
-                  No posts yet 🌙
-                </div>
-
-              `;
-
-            }
-
-          }catch(error){
-
-            console.error(
-              "Delete post error:",
-              error
-            );
-
-            alert(
-              "Could not delete post."
-            );
-
-            deleteButton.disabled =
-              false;
-
-            deleteButton.textContent =
-              "Delete post";
-
-          }
-
-        }
-      );
-
-    });
 
   }catch(error){
 
     console.error(
-      "Posts loading error:",
+      "My posts error:",
       error
     );
 
-    /*
-      If Firestore rules don't allow the query,
-      show a clean message instead of redirecting.
-    */
 
     postsContainer.innerHTML = `
 
       <div class="empty">
-        Couldn't load posts.
+
+        <div class="empty-icon">
+          ⚠️
+        </div>
+
+        <h3>
+          Couldn't load posts
+        </h3>
+
+        <p>
+          Please refresh the page.
+        </p>
+
       </div>
 
     `;
@@ -1129,53 +1268,360 @@ async function loadMyPosts(user){
 
 
 /* =====================================================
-   FOLLOW COUNTS
+   RENDER POST
 ===================================================== */
 
-async function loadFollowCounts(user){
+function renderMyPost(post){
 
-  try{
+  const username =
+    post.authorName ||
+    profileName.textContent ||
+    "Member";
 
-    const followingSnap =
-      await db
-        .collection("follows")
-        .where(
-          "followerId",
-          "==",
-          user.uid
-        )
-        .get();
 
-    const followersSnap =
-      await db
-        .collection("follows")
-        .where(
-          "followingId",
-          "==",
-          user.uid
-        )
-        .get();
+  const article =
+    document.createElement("article");
 
-    followingCount.textContent =
-      followingSnap.size;
 
-    followersCount.textContent =
-      followersSnap.size;
+  article.className =
+    "my-post";
 
-  }catch(error){
 
-    console.error(
-      "Follow count error:",
-      error
+  article.innerHTML = `
+
+    <div class="my-post-top">
+
+      <div class="my-post-user">
+
+        <div class="small-avatar">
+
+          ${escapeHTML(
+            username
+              .charAt(0)
+              .toUpperCase()
+          )}
+
+        </div>
+
+        <div class="my-post-meta">
+
+          <div class="my-post-name">
+
+            ${escapeHTML(username)}
+
+          </div>
+
+          <div class="my-post-time">
+
+            ${formatPostTime(post.createdAt)}
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="post-menu-button"
+        type="button"
+        aria-label="Post options">
+
+        •••
+
+      </button>
+
+    </div>
+
+
+    <div class="my-post-text">
+
+      ${escapeHTML(post.text || "")}
+
+    </div>
+
+
+    <div class="post-menu">
+
+      <button
+        type="button"
+        class="delete-post-button">
+
+        Delete post
+
+      </button>
+
+    </div>
+
+  `;
+
+
+  postsContainer.appendChild(
+    article
+  );
+
+
+  /* MENU */
+
+  const menuButton =
+    article.querySelector(
+      ".post-menu-button"
     );
 
-    followersCount.textContent =
-      "0";
 
-    followingCount.textContent =
-      "0";
+  const postMenu =
+    article.querySelector(
+      ".post-menu"
+    );
+
+
+  menuButton.addEventListener(
+    "click",
+    event => {
+
+      event.stopPropagation();
+
+
+      document
+        .querySelectorAll(".post-menu")
+        .forEach(otherMenu => {
+
+          if(otherMenu !== postMenu){
+
+            otherMenu.style.display =
+              "none";
+
+          }
+
+        });
+
+
+      postMenu.style.display =
+        postMenu.style.display === "block"
+          ? "none"
+          : "block";
+
+    }
+  );
+
+
+  /* DELETE */
+
+  const deleteButton =
+    article.querySelector(
+      ".delete-post-button"
+    );
+
+
+  deleteButton.addEventListener(
+    "click",
+    async () => {
+
+      if(!currentUser){
+
+        return;
+
+      }
+
+
+      const confirmed =
+        confirm(
+          "Delete this post?"
+        );
+
+
+      if(!confirmed){
+
+        return;
+
+      }
+
+
+      deleteButton.disabled =
+        true;
+
+      deleteButton.textContent =
+        "Deleting...";
+
+
+      try{
+
+        await db
+          .collection("posts")
+          .doc(post.id)
+          .delete();
+
+
+        article.remove();
+
+
+        const currentCount =
+          Number(postCount.textContent) || 0;
+
+
+        postCount.textContent =
+          Math.max(
+            0,
+            currentCount - 1
+          );
+
+
+        if(
+          postsContainer
+            .querySelectorAll(".my-post")
+            .length === 0
+        ){
+
+          postsContainer.innerHTML = `
+
+            <div class="empty">
+
+              <div class="empty-icon">
+                ✦
+              </div>
+
+              <h3>
+                No posts yet
+              </h3>
+
+              <p>
+                Your posts will appear here.
+              </p>
+
+            </div>
+
+          `;
+
+        }
+
+
+      }catch(error){
+
+        console.error(
+          "Delete post error:",
+          error
+        );
+
+
+        alert(
+          error.code +
+          ": " +
+          error.message
+        );
+
+
+        deleteButton.disabled =
+          false;
+
+        deleteButton.textContent =
+          "Delete post";
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   POST TIME
+===================================================== */
+
+function formatPostTime(timestamp){
+
+  if(!timestamp){
+
+    return "Just now";
 
   }
+
+
+  let date;
+
+
+  if(
+    timestamp.toDate
+  ){
+
+    date =
+      timestamp.toDate();
+
+  }else{
+
+    date =
+      new Date(timestamp);
+
+  }
+
+
+  const diff =
+    Date.now() -
+    date.getTime();
+
+
+  const seconds =
+    Math.floor(
+      diff / 1000
+    );
+
+
+  if(seconds < 60){
+
+    return "Just now";
+
+  }
+
+
+  const minutes =
+    Math.floor(
+      seconds / 60
+    );
+
+
+  if(minutes < 60){
+
+    return minutes +
+      "m";
+
+  }
+
+
+  const hours =
+    Math.floor(
+      minutes / 60
+    );
+
+
+  if(hours < 24){
+
+    return hours +
+      "h";
+
+  }
+
+
+  const days =
+    Math.floor(
+      hours / 24
+    );
+
+
+  if(days < 7){
+
+    return days +
+      "d";
+
+  }
+
+
+  return date.toLocaleDateString(
+    undefined,
+    {
+      day:"numeric",
+      month:"short"
+    }
+  );
 
 }
 
@@ -1218,6 +1664,7 @@ async function saveProfile(){
   const user =
     auth.currentUser;
 
+
   if(!user){
 
     saveStatus.textContent =
@@ -1227,11 +1674,14 @@ async function saveProfile(){
 
   }
 
+
   const username =
     editUsername.value.trim();
 
+
   const bio =
     editBio.value.trim();
+
 
   if(!username){
 
@@ -1242,8 +1692,10 @@ async function saveProfile(){
 
   }
 
+
   saveStatus.textContent =
     "Saving...";
+
 
   try{
 
@@ -1261,7 +1713,11 @@ async function saveProfile(){
         updatedAt:
           firebase.firestore.FieldValue.serverTimestamp()
 
-      },{merge:true});
+      },{
+
+        merge:true
+
+      });
 
 
     await user.updateProfile({
@@ -1282,11 +1738,26 @@ async function saveProfile(){
       "Saved ✓";
 
 
-    setTimeout(() => {
+    /* Update username in current posts visually */
 
-      closeEdit();
+    document
+      .querySelectorAll(".my-post-name")
+      .forEach(element => {
 
-    },700);
+        element.textContent =
+          username;
+
+      });
+
+
+    setTimeout(
+      () => {
+
+        closeEdit();
+
+      },
+      600
+    );
 
 
   }catch(error){
@@ -1296,8 +1767,9 @@ async function saveProfile(){
       error
     );
 
+
     saveStatus.textContent =
-      "Could not save profile.";
+      "Could not save. Check Firestore rules.";
 
   }
 
@@ -1305,29 +1777,24 @@ async function saveProfile(){
 
 
 /* =====================================================
-   MENU
+   THREE DOT MENU
 ===================================================== */
 
 function toggleMenu(){
 
-  if(menu.style.display === "block"){
-
-    menu.style.display =
-      "none";
-
-  }else{
-
-    menu.style.display =
-      "block";
-
-  }
+  menu.style.display =
+    menu.style.display === "block"
+      ? "none"
+      : "block";
 
 }
 
 
+/* CLOSE TOP MENU */
+
 document.addEventListener(
   "click",
-  event => {
+  function(event){
 
     if(
       !event.target.closest(".more") &&
@@ -1336,6 +1803,22 @@ document.addEventListener(
 
       menu.style.display =
         "none";
+
+    }
+
+    if(
+      !event.target.closest(".post-menu-button") &&
+      !event.target.closest(".post-menu")
+    ){
+
+      document
+        .querySelectorAll(".post-menu")
+        .forEach(postMenu => {
+
+          postMenu.style.display =
+            "none";
+
+        });
 
     }
 
@@ -1375,23 +1858,19 @@ async function signOut(){
 
 async function shareProfile(){
 
-  const username =
-    profileName.textContent;
-
   const shareData = {
 
     title:
-      username + " • JSP TAYSU",
+      "JSP TAYSU",
 
     text:
-      "Check out " +
-      username +
-      "'s profile on JSP TAYSU.",
+      "Check out this profile on JSP TAYSU.",
 
     url:
       window.location.href
 
   };
+
 
   try{
 
@@ -1408,7 +1887,7 @@ async function shareProfile(){
       );
 
       alert(
-        "Profile link copied! 🔗"
+        "Profile link copied!"
       );
 
     }
@@ -1435,12 +1914,14 @@ function goHome(){
 
 }
 
+
 function goExplore(){
 
   window.location.href =
     "explore.html";
 
 }
+
 
 function goCreate(){
 
@@ -1449,12 +1930,33 @@ function goCreate(){
 
 }
 
+
 function goAlerts(){
 
   window.location.href =
     "alerts.html";
 
 }
+
+
+/* =====================================================
+   CLOSE EDIT MODAL
+===================================================== */
+
+editOverlay.addEventListener(
+  "click",
+  function(event){
+
+    if(
+      event.target === editOverlay
+    ){
+
+      closeEdit();
+
+    }
+
+  }
+);
 
 
 /* =====================================================
@@ -1467,31 +1969,13 @@ function escapeHTML(text){
     document.createElement("div");
 
   div.textContent =
-    text;
+    text == null
+      ? ""
+      : String(text);
 
   return div.innerHTML;
 
 }
-
-
-/* =====================================================
-   CLOSE EDIT MODAL
-===================================================== */
-
-editOverlay.addEventListener(
-  "click",
-  event => {
-
-    if(
-      event.target === editOverlay
-    ){
-
-      closeEdit();
-
-    }
-
-  }
-);
 
 </script>
 
