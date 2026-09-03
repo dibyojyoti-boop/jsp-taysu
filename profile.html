@@ -7,6 +7,7 @@
 <title>Profile • JSP TAYSU</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -163,11 +164,12 @@ body{
   cursor:pointer;
 }
 
-.edit{
-  background:#f1f1f3;
-  color:#111318;
+.btn:disabled{
+  opacity:.6;
+  cursor:default;
 }
 
+.edit,
 .follow{
   background:#f1f1f3;
   color:#111318;
@@ -307,14 +309,13 @@ body{
 /* ================= EMPTY ================= */
 
 .empty{
-  min-height:220px;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   color:#888d98;
   text-align:center;
-  padding:30px 20px;
+  padding:42px 20px;
 }
 
 .empty-icon{
@@ -436,6 +437,7 @@ body{
   color:#111;
   font-size:14px;
   font-weight:700;
+  cursor:pointer;
 }
 
 .status{
@@ -445,7 +447,7 @@ body{
   color:#aaa;
 }
 
-/* ================= BOTTOM SHEET ================= */
+/* ================= USER SHEET ================= */
 
 .sheet-overlay{
   display:none;
@@ -594,7 +596,9 @@ body{
 }
 
 @keyframes spin{
-  to{transform:rotate(360deg);}
+  to{
+    transform:rotate(360deg);
+  }
 }
 
 /* ================= NAV ================= */
@@ -654,18 +658,21 @@ body{
   }
 
 }
+
 </style>
 </head>
 
 <body>
 
 <!-- LOADING -->
+
 <div class="loading" id="loading">
   <div class="loader"></div>
 </div>
 
 
 <!-- TOP BAR -->
+
 <header class="topbar">
 
   <div class="back" onclick="goBack()">‹</div>
@@ -682,6 +689,7 @@ body{
 
 
 <!-- TOP MENU -->
+
 <div class="menu" id="topMenu">
 
   <button class="signout" onclick="signOut()">
@@ -692,6 +700,7 @@ body{
 
 
 <!-- PROFILE -->
+
 <main class="profile">
 
   <section class="profile-top">
@@ -707,14 +716,20 @@ body{
         <span>posts</span>
       </div>
 
-      <div class="stat" onclick="openUserList('followers')">
+      <div class="stat"
+           onclick="openUserList('followers')">
+
         <strong id="followersCount">0</strong>
         <span>followers</span>
+
       </div>
 
-      <div class="stat" onclick="openUserList('following')">
+      <div class="stat"
+           onclick="openUserList('following')">
+
         <strong id="followingCount">0</strong>
         <span>following</span>
+
       </div>
 
     </div>
@@ -739,34 +754,47 @@ body{
   </section>
 
 
-  <div class="buttons" id="profileButtons">
-
-    <!-- JS inserts Edit or Follow here -->
-
-  </div>
+  <div class="buttons" id="profileButtons"></div>
 
 </main>
 
 
 <!-- POSTS HEADER -->
+
 <section class="post-header">
-  <div class="post-icon">▦</div>
+
+  <div class="post-icon">
+    ▦
+  </div>
+
 </section>
 
 
 <!-- POSTS -->
+
 <section class="posts" id="posts">
 
   <div class="empty">
-    <div class="empty-icon">◌</div>
-    <h3>Loading posts...</h3>
-    <p>Please wait a moment.</p>
+
+    <div class="empty-icon">
+      ◌
+    </div>
+
+    <h3>
+      Loading posts...
+    </h3>
+
+    <p>
+      Please wait a moment.
+    </p>
+
   </div>
 
 </section>
 
 
 <!-- BOTTOM NAV -->
+
 <nav class="bottom-nav">
 
   <button class="nav-item" onclick="goHome()">
@@ -797,7 +825,8 @@ body{
 </nav>
 
 
-<!-- EDIT MODAL -->
+<!-- EDIT PROFILE -->
+
 <div class="overlay" id="editOverlay">
 
   <div class="modal">
@@ -806,10 +835,12 @@ body{
 
       <h2>Edit profile</h2>
 
-      <div class="close" onclick="closeEdit()">×</div>
+      <div class="close"
+           onclick="closeEdit()">
+        ×
+      </div>
 
     </div>
-
 
     <div class="field">
 
@@ -819,11 +850,9 @@ body{
         type="text"
         id="editUsername"
         maxlength="40"
-        placeholder="Enter username"
-      >
+        placeholder="Enter username">
 
     </div>
-
 
     <div class="field">
 
@@ -832,25 +861,31 @@ body{
       <textarea
         id="editBio"
         maxlength="160"
-        placeholder="Write something about yourself..."
-      ></textarea>
+        placeholder="Write something about yourself..."></textarea>
 
     </div>
 
+    <button
+      class="save"
+      onclick="saveProfile()">
 
-    <button class="save" onclick="saveProfile()">
       Save changes
+
     </button>
 
-    <div class="status" id="saveStatus"></div>
+    <div
+      class="status"
+      id="saveStatus"></div>
 
   </div>
 
 </div>
 
 
-<!-- FOLLOWERS/FOLLOWING SHEET -->
-<div class="sheet-overlay" id="sheetOverlay">
+<!-- FOLLOWERS / FOLLOWING -->
+
+<div class="sheet-overlay"
+     id="sheetOverlay">
 
   <div class="sheet">
 
@@ -860,13 +895,19 @@ body{
         Followers
       </h3>
 
-      <div class="sheet-close" onclick="closeUserList()">
+      <div
+        class="sheet-close"
+        onclick="closeUserList()">
+
         ×
+
       </div>
 
     </div>
 
-    <div class="user-list" id="userList">
+    <div
+      class="user-list"
+      id="userList">
 
       <div class="sheet-empty">
         Loading...
@@ -880,8 +921,11 @@ body{
 
 
 <!-- FIREBASE -->
+
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 
@@ -916,9 +960,11 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const auth = firebase.auth();
+const auth =
+  firebase.auth();
 
-const db = firebase.firestore();
+const db =
+  firebase.firestore();
 
 
 /* =====================================================
@@ -986,8 +1032,6 @@ const userList =
 
 let currentUser = null;
 
-let profileUser = null;
-
 let profileUserData = null;
 
 let profileUserId = null;
@@ -1013,42 +1057,51 @@ function getProfileUid(){
    AUTH
 ===================================================== */
 
-auth.onAuthStateChanged(async user => {
+auth.onAuthStateChanged(
+  async user => {
 
-  if(!user){
+    if(!user){
 
-    window.location.href =
-      "index.html";
+      window.location.href =
+        "index.html";
 
-    return;
+      return;
+
+    }
+
+
+    currentUser =
+      user;
+
+
+    profileUserId =
+      getProfileUid() ||
+      user.uid;
+
+
+    try{
+
+      await loadProfile();
+
+      await loadPosts();
+
+    }catch(error){
+
+      console.error(
+        "PROFILE LOAD ERROR:",
+        error
+      );
+
+      showProfileError();
+
+    }
+
+
+    loading.style.display =
+      "none";
 
   }
-
-  currentUser = user;
-
-  profileUserId =
-    getProfileUid() || user.uid;
-
-  try{
-
-    await loadProfile();
-
-    await loadMyPosts();
-
-  }catch(error){
-
-    console.error(error);
-
-    alert(
-      "Something went wrong while loading profile."
-    );
-
-  }
-
-  loading.style.display =
-    "none";
-
-});
+);
 
 
 /* =====================================================
@@ -1061,20 +1114,25 @@ async function loadProfile(){
     db.collection("users")
       .doc(profileUserId);
 
+
   const snap =
     await ref.get();
 
 
   if(!snap.exists){
 
-    if(profileUserId === currentUser.uid){
+    if(
+      profileUserId ===
+      currentUser.uid
+    ){
 
       const username =
         currentUser.displayName ||
         currentUser.email?.split("@")[0] ||
         "Member";
 
-      await ref.set({
+
+      const newData = {
 
         username:username,
 
@@ -1089,22 +1147,21 @@ async function loadProfile(){
         following:[],
 
         createdAt:
-          firebase.firestore.FieldValue.serverTimestamp()
-
-      },{merge:true});
-
-      profileUserData = {
-
-        username:username,
-
-        bio:
-          "Building and preserving our heritage.",
-
-        followers:[],
-
-        following:[]
+          firebase.firestore
+            .FieldValue
+            .serverTimestamp()
 
       };
+
+
+      await ref.set(
+        newData,
+        {merge:true}
+      );
+
+
+      profileUserData =
+        newData;
 
     }else{
 
@@ -1122,13 +1179,10 @@ async function loadProfile(){
   }
 
 
-  profileUser =
-    profileUserData;
-
-
   const username =
     profileUserData.username ||
     "Member";
+
 
   const bio =
     profileUserData.bio ||
@@ -1141,9 +1195,86 @@ async function loadProfile(){
   );
 
 
-  await updateCounts();
+  /*
+    IMPORTANT:
+
+    Counts are refreshed directly from
+    Firestore relationship arrays.
+
+    This also repairs old profiles where
+    followers/following fields don't exist.
+  */
+
+  await refreshRelationshipData();
+
 
   renderProfileButtons();
+
+}
+
+
+/* =====================================================
+   RELATIONSHIP DATA
+===================================================== */
+
+async function refreshRelationshipData(){
+
+  if(!profileUserId){
+
+    return;
+
+  }
+
+
+  const profileRef =
+    db.collection("users")
+      .doc(profileUserId);
+
+
+  const profileSnap =
+    await profileRef.get();
+
+
+  if(!profileSnap.exists){
+
+    return;
+
+  }
+
+
+  const data =
+    profileSnap.data() || {};
+
+
+  const followers =
+    Array.isArray(data.followers)
+      ? data.followers
+      : [];
+
+
+  const following =
+    Array.isArray(data.following)
+      ? data.following
+      : [];
+
+
+  /*
+    Keep local data synchronized.
+  */
+
+  profileUserData.followers =
+    followers;
+
+  profileUserData.following =
+    following;
+
+
+  followersCount.textContent =
+    followers.length;
+
+
+  followingCount.textContent =
+    following.length;
 
 }
 
@@ -1187,6 +1318,7 @@ function displayProfile(
         .toUpperCase() ||
         "M";
 
+
     avatar.textContent =
       letter;
 
@@ -1196,36 +1328,10 @@ function displayProfile(
 
 
 /* =====================================================
-   COUNTS
+   LOAD POSTS
 ===================================================== */
 
-async function updateCounts(){
-
-  const followers =
-    Array.isArray(profileUserData.followers)
-      ? profileUserData.followers
-      : [];
-
-  const following =
-    Array.isArray(profileUserData.following)
-      ? profileUserData.following
-      : [];
-
-
-  followersCount.textContent =
-    followers.length;
-
-  followingCount.textContent =
-    following.length;
-
-}
-
-
-/* =====================================================
-   POST COUNT + POSTS
-===================================================== */
-
-async function loadMyPosts(){
+async function loadPosts(){
 
   postsContainer.innerHTML = `
 
@@ -1264,30 +1370,34 @@ async function loadMyPosts(){
     const posts = [];
 
 
-    snapshot.forEach(doc => {
+    snapshot.forEach(
+      doc => {
 
-      posts.push({
+        posts.push({
 
-        id:doc.id,
+          id:doc.id,
 
-        ...doc.data()
+          ...doc.data()
 
-      });
+        });
 
-    });
+      }
+    );
 
 
-    posts.sort((a,b) => {
+    posts.sort(
+      (a,b) => {
 
-      const aTime =
-        a.createdAt?.seconds || 0;
+        const aTime =
+          a.createdAt?.seconds || 0;
 
-      const bTime =
-        b.createdAt?.seconds || 0;
+        const bTime =
+          b.createdAt?.seconds || 0;
 
-      return bTime - aTime;
+        return bTime - aTime;
 
-    });
+      }
+    );
 
 
     postCount.textContent =
@@ -1325,11 +1435,13 @@ async function loadMyPosts(){
     }
 
 
-    posts.forEach(post => {
+    posts.forEach(
+      post => {
 
-      renderPost(post);
+        renderPost(post);
 
-    });
+      }
+    );
 
 
   }catch(error){
@@ -1380,13 +1492,20 @@ function renderPost(post){
   const article =
     document.createElement("article");
 
+
   article.className =
     "my-post";
 
 
+  /*
+    Delete menu ONLY if this is
+    actually the logged-in user's post.
+  */
+
   const isOwnPost =
     currentUser &&
-    post.authorId === currentUser.uid;
+    post.authorId ===
+    currentUser.uid;
 
 
   const photo =
@@ -1405,71 +1524,112 @@ function renderPost(post){
 
           ${
             photo
-            ? `<img src="${escapeAttribute(photo)}" alt="">`
-            : escapeHTML(
-                username
-                  .charAt(0)
-                  .toUpperCase()
-              )
+
+            ?
+
+            `<img
+              src="${escapeAttribute(photo)}"
+              alt="">`
+
+            :
+
+            escapeHTML(
+              username
+                .charAt(0)
+                .toUpperCase()
+            )
           }
 
         </div>
 
+
         <div class="my-post-meta">
 
           <div class="my-post-name">
+
             ${escapeHTML(username)}
+
           </div>
 
+
           <div class="my-post-time">
-            ${formatPostTime(post.createdAt)}
+
+            ${formatPostTime(
+              post.createdAt
+            )}
+
           </div>
 
         </div>
 
       </div>
 
+
       ${
         isOwnPost
-        ? `
+
+        ?
+
+        `
           <button
             class="post-menu-button"
             type="button"
             aria-label="Post options">
+
             •••
+
           </button>
         `
-        : ""
+
+        :
+
+        ""
+
       }
 
     </div>
 
 
     <div class="my-post-text">
-      ${escapeHTML(post.text || "")}
+
+      ${escapeHTML(
+        post.text || ""
+      )}
+
     </div>
 
 
     ${
       isOwnPost
-      ? `
+
+      ?
+
+      `
         <div class="post-menu">
 
           <button
             type="button"
             class="delete-post-button">
+
             Delete post
+
           </button>
 
         </div>
       `
-      : ""
+
+      :
+
+      ""
+
     }
 
   `;
 
 
-  postsContainer.appendChild(article);
+  postsContainer.appendChild(
+    article
+  );
 
 
   if(!isOwnPost){
@@ -1484,6 +1644,7 @@ function renderPost(post){
       ".post-menu-button"
     );
 
+
   const postMenu =
     article.querySelector(
       ".post-menu"
@@ -1496,24 +1657,39 @@ function renderPost(post){
 
       event.stopPropagation();
 
+
       document
-        .querySelectorAll(".post-menu")
-        .forEach(menu => {
+        .querySelectorAll(
+          ".post-menu"
+        )
+        .forEach(
+          otherMenu => {
 
-          if(menu !== postMenu){
+            if(
+              otherMenu !==
+              postMenu
+            ){
 
-            menu.style.display =
-              "none";
+              otherMenu.style.display =
+                "none";
+
+            }
 
           }
-
-        });
+        );
 
 
       postMenu.style.display =
-        postMenu.style.display === "block"
-          ? "none"
-          : "block";
+        postMenu.style.display ===
+        "block"
+
+          ?
+
+        "none"
+
+          :
+
+        "block";
 
     }
   );
@@ -1563,13 +1739,17 @@ function renderPost(post){
         postCount.textContent =
           Math.max(
             0,
-            Number(postCount.textContent) - 1
+            Number(
+              postCount.textContent
+            ) - 1
           );
 
 
         if(
           postsContainer
-            .querySelectorAll(".my-post")
+            .querySelectorAll(
+              ".my-post"
+            )
             .length === 0
         ){
 
@@ -1598,13 +1778,18 @@ function renderPost(post){
 
       }catch(error){
 
-        console.error(error);
+        console.error(
+          "Delete error:",
+          error
+        );
+
 
         alert(
           error.code +
           ": " +
           error.message
         );
+
 
         deleteButton.disabled =
           false;
@@ -1621,12 +1806,15 @@ function renderPost(post){
 
 
 /* =====================================================
-   FOLLOW SYSTEM
+   FOLLOW STATUS
 ===================================================== */
 
 function isFollowing(){
 
-  if(!currentUser || !profileUserData){
+  if(
+    !currentUser ||
+    !profileUserData
+  ){
 
     return false;
 
@@ -1634,9 +1822,17 @@ function isFollowing(){
 
 
   const followers =
-    Array.isArray(profileUserData.followers)
-      ? profileUserData.followers
-      : [];
+    Array.isArray(
+      profileUserData.followers
+    )
+
+      ?
+
+    profileUserData.followers
+
+      :
+
+    [];
 
 
   return followers.includes(
@@ -1647,7 +1843,7 @@ function isFollowing(){
 
 
 /* =====================================================
-   PROFILE BUTTON
+   PROFILE BUTTONS
 ===================================================== */
 
 function renderProfileButtons(){
@@ -1656,9 +1852,14 @@ function renderProfileButtons(){
     "";
 
 
+  /*
+    Own profile
+  */
+
   if(
     !currentUser ||
-    profileUserId === currentUser.uid
+    profileUserId ===
+    currentUser.uid
   ){
 
     profileButtons.innerHTML = `
@@ -1666,13 +1867,18 @@ function renderProfileButtons(){
       <button
         class="btn edit"
         onclick="openEdit()">
+
         Edit profile
+
       </button>
+
 
       <button
         class="btn following"
         onclick="shareProfile()">
+
         Share profile
+
       </button>
 
     `;
@@ -1705,6 +1911,7 @@ function renderProfileButtons(){
 
     </button>
 
+
     <button
       class="btn following"
       onclick="shareProfile()">
@@ -1726,7 +1933,8 @@ async function toggleFollow(){
 
   if(
     !currentUser ||
-    profileUserId === currentUser.uid
+    profileUserId ===
+    currentUser.uid
   ){
 
     return;
@@ -1740,6 +1948,13 @@ async function toggleFollow(){
     );
 
 
+  if(!button){
+
+    return;
+
+  }
+
+
   button.disabled =
     true;
 
@@ -1750,38 +1965,40 @@ async function toggleFollow(){
       db.collection("users")
         .doc(currentUser.uid);
 
+
     const targetRef =
       db.collection("users")
         .doc(profileUserId);
 
 
+    /*
+      Read both profiles.
+    */
+
+    const results =
+      await Promise.all([
+
+        myRef.get(),
+
+        targetRef.get()
+
+      ]);
+
+
+    const mySnap =
+      results[0];
+
     const targetSnap =
-      await targetRef.get();
+      results[1];
 
 
     if(!targetSnap.exists){
 
       throw new Error(
-        "User profile not found."
+        "Target profile does not exist."
       );
 
     }
-
-
-    const targetData =
-      targetSnap.data();
-
-
-    const targetFollowers =
-      Array.isArray(
-        targetData.followers
-      )
-        ? targetData.followers
-        : [];
-
-
-    const mySnap =
-      await myRef.get();
 
 
     const myData =
@@ -1790,12 +2007,36 @@ async function toggleFollow(){
         : {};
 
 
+    const targetData =
+      targetSnap.data() || {};
+
+
     const myFollowing =
       Array.isArray(
         myData.following
       )
-        ? myData.following
-        : [];
+
+        ?
+
+      myData.following
+
+        :
+
+      [];
+
+
+    const targetFollowers =
+      Array.isArray(
+        targetData.followers
+      )
+
+        ?
+
+      targetData.followers
+
+        :
+
+      [];
 
 
     const alreadyFollowing =
@@ -1804,70 +2045,134 @@ async function toggleFollow(){
       );
 
 
+    /*
+      Use Firestore atomic array operations.
+      This prevents duplicate IDs.
+    */
+
     if(alreadyFollowing){
 
-      await targetRef.update({
+      await Promise.all([
 
-        followers:
-          firebase.firestore.FieldValue
-            .arrayRemove(
-              currentUser.uid
-            )
+        targetRef.set({
 
-      });
+          followers:
+            firebase.firestore
+              .FieldValue
+              .arrayRemove(
+                currentUser.uid
+              )
 
+        },{
 
-      await myRef.set({
+          merge:true
 
-        following:
-          firebase.firestore.FieldValue
-            .arrayRemove(
-              profileUserId
-            )
-
-      },{merge:true});
+        }),
 
 
-      profileUserData.followers =
-        targetFollowers.filter(
-          id => id !== currentUser.uid
-        );
+        myRef.set({
 
+          following:
+            firebase.firestore
+              .FieldValue
+              .arrayRemove(
+                profileUserId
+              )
+
+        },{
+
+          merge:true
+
+        })
+
+      ]);
 
     }else{
 
-      await targetRef.update({
+      await Promise.all([
 
-        followers:
-          firebase.firestore.FieldValue
-            .arrayUnion(
-              currentUser.uid
-            )
+        targetRef.set({
 
-      });
+          followers:
+            firebase.firestore
+              .FieldValue
+              .arrayUnion(
+                currentUser.uid
+              )
 
+        },{
 
-      await myRef.set({
+          merge:true
 
-        following:
-          firebase.firestore.FieldValue
-            .arrayUnion(
-              profileUserId
-            )
-
-      },{merge:true});
+        }),
 
 
-      profileUserData.followers =
-        [
-          ...targetFollowers,
-          currentUser.uid
-        ];
+        myRef.set({
+
+          following:
+            firebase.firestore
+              .FieldValue
+              .arrayUnion(
+                profileUserId
+              )
+
+        },{
+
+          merge:true
+
+        })
+
+      ]);
 
     }
 
 
-    await updateCounts();
+    /*
+      IMPORTANT:
+      Re-read Firestore after follow/unfollow.
+
+      So the displayed number is not based
+      on an old local value.
+    */
+
+    await refreshRelationshipData();
+
+
+    /*
+      Re-read current user's profile too.
+      This keeps the following array accurate
+      for future navigation.
+    */
+
+    if(
+      profileUserId !==
+      currentUser.uid
+    ){
+
+      const updatedMySnap =
+        await myRef.get();
+
+
+      if(updatedMySnap.exists){
+
+        /*
+          Only needed for local state if
+          we later return to this profile.
+        */
+
+        const updatedMyData =
+          updatedMySnap.data();
+
+
+        /*
+          Nothing else required here.
+          Firestore is the source of truth.
+        */
+
+      }
+
+    }
+
 
     renderProfileButtons();
 
@@ -1875,14 +2180,16 @@ async function toggleFollow(){
   }catch(error){
 
     console.error(
-      "Follow error:",
+      "FOLLOW ERROR:",
       error
     );
 
 
     alert(
-      "Could not update follow status."
+      "Could not update follow status.\n\n" +
+      (error.message || "")
     );
+
 
     button.disabled =
       false;
@@ -1898,7 +2205,7 @@ async function toggleFollow(){
 
 async function openUserList(type){
 
-  if(!profileUserData){
+  if(!profileUserId){
 
     return;
 
@@ -1924,81 +2231,189 @@ async function openUserList(type){
   `;
 
 
-  const ids =
-    type === "followers"
-      ? (
-          Array.isArray(profileUserData.followers)
-            ? profileUserData.followers
-            : []
-        )
-      : (
-          Array.isArray(profileUserData.following)
-            ? profileUserData.following
-            : []
-        );
-
-
-  if(ids.length === 0){
-
-    userList.innerHTML = `
-
-      <div class="sheet-empty">
-
-        ${
-          type === "followers"
-            ? "No followers yet."
-            : "Not following anyone yet."
-        }
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
   try{
+
+    /*
+      ALWAYS read the latest profile
+      directly from Firestore.
+    */
+
+    const profileSnap =
+      await db
+        .collection("users")
+        .doc(profileUserId)
+        .get();
+
+
+    if(!profileSnap.exists){
+
+      userList.innerHTML = `
+
+        <div class="sheet-empty">
+          User profile not found.
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    const latestData =
+      profileSnap.data() || {};
+
+
+    const ids =
+      type === "followers"
+
+        ?
+
+      (
+        Array.isArray(
+          latestData.followers
+        )
+          ?
+
+        latestData.followers
+
+          :
+
+        []
+      )
+
+        :
+
+      (
+        Array.isArray(
+          latestData.following
+        )
+          ?
+
+        latestData.following
+
+          :
+
+        []
+      );
+
+
+    /*
+      Update local state and counts.
+    */
+
+    profileUserData =
+      {
+        ...profileUserData,
+        ...latestData
+      };
+
+
+    followersCount.textContent =
+      Array.isArray(
+        profileUserData.followers
+      )
+        ?
+
+      profileUserData.followers.length
+
+        :
+
+      0;
+
+
+    followingCount.textContent =
+      Array.isArray(
+        profileUserData.following
+      )
+        ?
+
+      profileUserData.following.length
+
+        :
+
+      0;
+
+
+    if(ids.length === 0){
+
+      userList.innerHTML = `
+
+        <div class="sheet-empty">
+
+          ${
+            type === "followers"
+
+              ?
+
+            "No followers yet."
+
+              :
+
+            "Not following anyone yet."
+          }
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
 
     const users = [];
 
 
-    for(
-      const uid of ids
-    ){
+    /*
+      Load profiles.
 
-      const snap =
-        await db
-          .collection("users")
-          .doc(uid)
-          .get();
+      Promise.all makes this much faster
+      than loading them one-by-one.
+    */
+
+    const snapshots =
+      await Promise.all(
+        ids.map(
+          uid =>
+            db
+              .collection("users")
+              .doc(uid)
+              .get()
+        )
+      );
 
 
-      if(snap.exists){
+    snapshots.forEach(
+      (snap,index) => {
 
-        users.push({
+        if(snap.exists){
 
-          uid:uid,
+          users.push({
 
-          ...snap.data()
+            uid:ids[index],
 
-        });
+            ...snap.data()
+
+          });
+
+        }
 
       }
-
-    }
+    );
 
 
     userList.innerHTML =
       "";
 
 
-    users.forEach(user => {
+    users.forEach(
+      user => {
 
-      renderUserRow(user);
+        renderUserRow(user);
 
-    });
+      }
+    );
 
 
     if(users.length === 0){
@@ -2016,7 +2431,11 @@ async function openUserList(type){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "USER LIST ERROR:",
+      error
+    );
+
 
     userList.innerHTML = `
 
@@ -2038,7 +2457,9 @@ async function openUserList(type){
 function renderUserRow(user){
 
   const row =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
 
   row.className =
@@ -2062,31 +2483,44 @@ function renderUserRow(user){
 
       ${
         photo
-        ? `<img
-             src="${escapeAttribute(photo)}"
-             alt="">`
-        : escapeHTML(
-            username
-              .charAt(0)
-              .toUpperCase()
-          )
+
+          ?
+
+        `<img
+          src="${escapeAttribute(photo)}"
+          alt="">`
+
+          :
+
+        escapeHTML(
+          username
+            .charAt(0)
+            .toUpperCase()
+        )
+
       }
 
     </div>
 
+
     <div class="list-info">
 
       <div class="list-name">
-        ${escapeHTML(username)}
+
+        ${escapeHTML(
+          username
+        )}
+
       </div>
 
+
       <div class="list-bio">
-        ${
-          escapeHTML(
-            user.bio ||
-            "JSP TAYSU member"
-          )
-        }
+
+        ${escapeHTML(
+          user.bio ||
+          "JSP TAYSU member"
+        )}
+
       </div>
 
     </div>
@@ -2100,6 +2534,7 @@ function renderUserRow(user){
 
       closeUserList();
 
+
       window.location.href =
         "profile.html?uid=" +
         encodeURIComponent(
@@ -2110,7 +2545,9 @@ function renderUserRow(user){
   );
 
 
-  userList.appendChild(row);
+  userList.appendChild(
+    row
+  );
 
 }
 
@@ -2123,7 +2560,8 @@ function openEdit(){
 
   if(
     !currentUser ||
-    profileUserId !== currentUser.uid
+    profileUserId !==
+    currentUser.uid
   ){
 
     return;
@@ -2134,11 +2572,14 @@ function openEdit(){
   editUsername.value =
     profileName.textContent;
 
+
   editBio.value =
     profileBio.textContent;
 
+
   saveStatus.textContent =
     "";
+
 
   editOverlay.style.display =
     "flex";
@@ -2170,6 +2611,7 @@ async function saveProfile(){
   const username =
     editUsername.value.trim();
 
+
   const bio =
     editBio.value.trim();
 
@@ -2200,10 +2642,15 @@ async function saveProfile(){
         bio:bio,
 
         updatedAt:
-          firebase.firestore.FieldValue
+          firebase.firestore
+            .FieldValue
             .serverTimestamp()
 
-      },{merge:true});
+      },{
+
+        merge:true
+
+      });
 
 
     await currentUser.updateProfile({
@@ -2216,6 +2663,7 @@ async function saveProfile(){
 
     profileUserData.username =
       username;
+
 
     profileUserData.bio =
       bio;
@@ -2239,7 +2687,11 @@ async function saveProfile(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "SAVE PROFILE ERROR:",
+      error
+    );
+
 
     saveStatus.textContent =
       "Could not save profile.";
@@ -2284,6 +2736,7 @@ async function shareProfile(){
         window.location.href
       );
 
+
       alert(
         "Profile link copied!"
       );
@@ -2308,15 +2761,22 @@ async function shareProfile(){
 function toggleTopMenu(){
 
   topMenu.style.display =
-    topMenu.style.display === "block"
-      ? "none"
-      : "block";
+    topMenu.style.display ===
+    "block"
+
+      ?
+
+    "none"
+
+      :
+
+    "block";
 
 }
 
 
 /* =====================================================
-   CLOSE SHEETS/MENUS
+   CLOSE MENUS
 ===================================================== */
 
 document.addEventListener(
@@ -2335,18 +2795,26 @@ document.addEventListener(
 
 
     if(
-      !event.target.closest(".post-menu-button") &&
-      !event.target.closest(".post-menu")
+      !event.target.closest(
+        ".post-menu-button"
+      ) &&
+      !event.target.closest(
+        ".post-menu"
+      )
     ){
 
       document
-        .querySelectorAll(".post-menu")
-        .forEach(menu => {
+        .querySelectorAll(
+          ".post-menu"
+        )
+        .forEach(
+          menu => {
 
-          menu.style.display =
-            "none";
+            menu.style.display =
+              "none";
 
-        });
+          }
+        );
 
     }
 
@@ -2354,12 +2822,17 @@ document.addEventListener(
 );
 
 
+/* =====================================================
+   CLOSE SHEETS
+===================================================== */
+
 sheetOverlay.addEventListener(
   "click",
   event => {
 
     if(
-      event.target === sheetOverlay
+      event.target ===
+      sheetOverlay
     ){
 
       closeUserList();
@@ -2375,7 +2848,8 @@ editOverlay.addEventListener(
   event => {
 
     if(
-      event.target === editOverlay
+      event.target ===
+      editOverlay
     ){
 
       closeEdit();
@@ -2404,12 +2878,15 @@ async function signOut(){
 
     await auth.signOut();
 
+
     window.location.href =
       "index.html";
+
 
   }catch(error){
 
     console.error(error);
+
 
     alert(
       "Sign out failed."
@@ -2485,14 +2962,30 @@ function showProfileNotFound(){
   profileName.textContent =
     "User not found";
 
+
   topUsername.textContent =
     "Profile";
+
 
   profileBio.textContent =
     "This profile doesn't exist.";
 
+
   profileButtons.innerHTML =
     "";
+
+
+  postCount.textContent =
+    "0";
+
+
+  followersCount.textContent =
+    "0";
+
+
+  followingCount.textContent =
+    "0";
+
 
   postsContainer.innerHTML = `
 
@@ -2518,6 +3011,35 @@ function showProfileNotFound(){
 
 
 /* =====================================================
+   PROFILE ERROR
+===================================================== */
+
+function showProfileError(){
+
+  postsContainer.innerHTML = `
+
+    <div class="empty">
+
+      <div class="empty-icon">
+        ⚠️
+      </div>
+
+      <h3>
+        Couldn't load profile
+      </h3>
+
+      <p>
+        Please refresh the page.
+      </p>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
    TIME
 ===================================================== */
 
@@ -2532,8 +3054,13 @@ function formatPostTime(timestamp){
 
   const date =
     timestamp.toDate
-      ? timestamp.toDate()
-      : new Date(timestamp);
+      ?
+
+    timestamp.toDate()
+
+      :
+
+    new Date(timestamp);
 
 
   const diff =
@@ -2605,18 +3132,22 @@ function formatPostTime(timestamp){
 
 
 /* =====================================================
-   SECURITY HELPERS
+   SECURITY
 ===================================================== */
 
 function escapeHTML(text){
 
   const div =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
+
 
   div.textContent =
     text == null
       ? ""
       : String(text);
+
 
   return div.innerHTML;
 
@@ -2626,10 +3157,22 @@ function escapeHTML(text){
 function escapeAttribute(text){
 
   return String(text)
-    .replace(/&/g,"&amp;")
-    .replace(/"/g,"&quot;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;");
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    );
 
 }
 
