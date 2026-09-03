@@ -792,10 +792,7 @@ let currentUser = null;
    KEEP LOGIN
 ================================ */
 
-await setPersistence(
-  auth,
-  browserLocalPersistence
-);
+
 
 
 /* ================================
@@ -855,6 +852,8 @@ onAuthStateChanged(
 
       currentUser = null;
 
+      communityLogin.style.display = "block";
+
       document.getElementById("profileName").textContent =
         "Please sign in";
 
@@ -867,39 +866,20 @@ onAuthStateChanged(
       document.getElementById("welcomeText").textContent =
         "Welcome 👋";
 
-      communityLogin.style.display =
-        "block";
-
       return;
-
     }
-
-
-    /* USER FOUND */
 
     currentUser = user;
 
-    communityLogin.style.display =
-      "none";
+    communityLogin.style.display = "none";
 
-
-    let username =
-      "Member";
-
+    let username = "Member";
 
     const profileRef =
-      doc(
-        db,
-        "users",
-        user.uid
-      );
-
+      doc(db, "users", user.uid);
 
     const profileSnap =
-      await getDoc(
-        profileRef
-      );
-
+      await getDoc(profileRef);
 
     if(
       profileSnap.exists() &&
@@ -909,43 +889,24 @@ onAuthStateChanged(
       username =
         profileSnap.data().username;
 
-    }else if(
-      user.displayName
-    ){
+    }else if(user.displayName){
 
       username =
         user.displayName;
 
     }
 
-
-    document.getElementById(
-      "profileName"
-    ).textContent =
+    document.getElementById("profileName").textContent =
       username;
 
-
-    document.getElementById(
-      "composerName"
-    ).textContent =
+    document.getElementById("composerName").textContent =
       username;
 
+    document.getElementById("composerAvatar").textContent =
+      username.charAt(0).toUpperCase();
 
-    document.getElementById(
-      "composerAvatar"
-    ).textContent =
-      username
-        .charAt(0)
-        .toUpperCase();
-
-
-    document.getElementById(
-      "welcomeText"
-    ).textContent =
-      "Welcome, " +
-      username +
-      " 👋";
-
+    document.getElementById("welcomeText").textContent =
+      "Welcome, " + username + " 👋";
 
     await loadPosts();
 
