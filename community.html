@@ -2,169 +2,150 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JSP TAYSU Community</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 
-:root{
-  --bg:#080a0d;
-  --card:#0f1217;
-  --card2:#151920;
-  --line:#252a31;
-  --text:#f5f7fa;
-  --muted:#8d95a1;
-  --blue:#1d9bf0;
-  --blue2:#147dcc;
-  --like:#f04470;
-  --green:#22c55e;
-  --purple:#a98cff;
-  --gold:#d7bd8c;
-}
-
 html{scroll-behavior:smooth}
 
 body{
   font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  padding-bottom:82px;
+  background:#0b0d10;
+  color:#f5f5f5;
+  padding-bottom:78px
 }
 
-button,input,textarea{font:inherit}
-button{cursor:pointer}
+button,input,textarea{font-family:inherit}
 
 .topbar{
   position:sticky;
   top:0;
   z-index:100;
-  background:rgba(8,10,13,.91);
+  background:rgba(11,13,16,.92);
   backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--line);
+  border-bottom:1px solid #25282d
 }
 
 .topbar-inner{
-  max-width:700px;
+  max-width:720px;
   margin:auto;
-  height:62px;
-  padding:0 15px;
+  height:64px;
+  padding:0 16px;
   display:flex;
   align-items:center;
-  justify-content:space-between;
+  justify-content:space-between
 }
 
 .logo{
   display:flex;
   align-items:center;
   gap:9px;
-  font-size:17px;
-  font-weight:850;
-  letter-spacing:-.4px;
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:-.4px
 }
 
-.logo-mark{
-  width:34px;
-  height:34px;
-  border-radius:11px;
-  background:#151a21;
-  border:1px solid #303741;
-  display:grid;
-  place-items:center;
-  font-size:19px;
-}
+.logo-dragon{font-size:23px}
 
 .profile-name{
-  max-width:160px;
-  color:#aeb5bf;
-  font-size:13px;
+  max-width:170px;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
+  color:#aeb3bb;
+  font-size:13px
 }
 
 .container{
-  max-width:700px;
+  max-width:720px;
   margin:auto;
-  padding:13px 10px 28px;
+  padding:17px 14px 30px
 }
 
 .page-section{display:none}
 .page-section.active{display:block}
 
-/* ---------- HEADINGS ---------- */
-
 .feed-heading{
-  height:45px;
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  padding:0 5px;
+  align-items:center;
+  gap:10px;
+  padding:5px 4px 10px
 }
 
 .feed-heading h2{
   font-size:21px;
-  letter-spacing:-.6px;
+  letter-spacing:-.5px
 }
 
-.icon-btn{
-  width:36px;
-  height:36px;
-  border:1px solid var(--line);
-  border-radius:11px;
-  background:#11151a;
-  color:#d7dde5;
-  display:grid;
-  place-items:center;
+.feed-heading-right{
+  display:flex;
+  align-items:center;
+  gap:7px
 }
 
-.icon-btn svg{
+.feed-search-button{
+  width:34px;
+  height:34px;
+  border:0;
+  border-radius:10px;
+  background:#171a1f;
+  color:#d7bd8c;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer
+}
+
+.feed-search-button svg{
   width:19px;
-  height:19px;
+  height:19px
 }
 
-.search-strip{
+.feed-search-box{
   display:none;
-  padding:0 2px 10px;
+  margin-bottom:9px
 }
 
-.search-strip.show{display:block}
+.feed-search-box.show{display:flex}
 
-.search-strip input{
+#feedSearchInput{
   width:100%;
-  background:#11151a;
-  border:1px solid #303640;
-  color:#fff;
-  border-radius:13px;
   padding:11px 13px;
+  border:1px solid #292d33;
+  border-radius:12px;
+  background:#15181d;
+  color:#fff;
   outline:none;
+  font-size:14px
 }
 
-/* =========================================================
-   HOME POSTS — TWITTER STYLE
-   ========================================================= */
+/* =========================
+   HOME POSTS
+========================= */
 
 #posts{
   display:flex;
   flex-direction:column;
-  gap:0;
+  gap:0
 }
 
 .post{
-  background:var(--card);
+  background:transparent;
   border-bottom:1px solid #20252c;
-  padding:13px 9px 9px;
+  padding:13px 9px 9px
 }
 
 .post:first-child{
-  border-top:1px solid #20252c;
+  border-top:1px solid #20252c
 }
 
-/* THIS IS THE IMPORTANT FIX */
 .post-layout{
   display:grid;
   grid-template-columns:43px minmax(0,1fr);
-  gap:10px;
+  gap:10px
 }
 
 .post-avatar{
@@ -178,28 +159,26 @@ button{cursor:pointer}
   font-weight:850;
   color:#e9edf2;
   overflow:hidden;
+  flex-shrink:0
 }
 
 .post-avatar img{
   width:100%;
   height:100%;
   object-fit:cover;
-  display:block;
+  display:block
 }
 
-.post-main{
-  min-width:0;
-}
+.post-main{min-width:0}
 
-/* Header no longer contains the avatar */
 .post-header{
   min-width:0;
-  cursor:pointer;
+  cursor:pointer
 }
 
 .author-wrap{
   min-width:0;
-  width:100%;
+  width:100%
 }
 
 .author-line{
@@ -207,32 +186,24 @@ button{cursor:pointer}
   align-items:center;
   gap:5px;
   min-width:0;
-  line-height:1.2;
+  line-height:1.2
 }
 
 .author{
   font-size:15px;
   font-weight:800;
-
-  /* FULL NAME — NO ELLIPSIS */
   max-width:none;
   overflow:visible;
   text-overflow:clip;
   white-space:normal;
   overflow-wrap:anywhere;
-  word-break:break-word;
+  word-break:break-word
 }
 
 .verified{
-  color:var(--blue);
-  display:inline-flex;
-  flex:0 0 auto;
-}
-
-.verified svg{
-  width:14px;
-  height:14px;
-  fill:currentColor;
+  color:#4da3ff;
+  font-size:12px;
+  flex:0 0 auto
 }
 
 .handle{
@@ -240,7 +211,7 @@ button{cursor:pointer}
   font-size:12px;
   margin-top:2px;
   white-space:normal;
-  overflow-wrap:anywhere;
+  overflow-wrap:anywhere
 }
 
 .more{
@@ -250,13 +221,9 @@ button{cursor:pointer}
   background:none;
   border:0;
   flex:0 0 auto;
+  cursor:pointer
 }
 
-.more:hover{
-  color:#dfe5eb;
-}
-
-/* TEXT DIRECTLY UNDER HEADER */
 .post-text{
   font-size:14px;
   line-height:1.44;
@@ -264,21 +231,10 @@ button{cursor:pointer}
   white-space:pre-wrap;
   overflow-wrap:anywhere;
   word-break:normal;
-  margin:6px 0 8px;
+  margin:6px 0 8px
 }
 
-/* MEDIA ALSO ALIGNS WITH TEXT COLUMN */
-.post-media{
-  display:block;
-  width:100%;
-  margin:6px 0 8px;
-  border:1px solid #252b32;
-  border-radius:14px;
-  max-height:560px;
-  object-fit:cover;
-  background:#050608;
-}
-
+.post-media,
 .post-video{
   display:block;
   width:100%;
@@ -286,273 +242,242 @@ button{cursor:pointer}
   border:1px solid #252b32;
   border-radius:14px;
   max-height:560px;
-  background:#050608;
+  object-fit:cover;
+  background:#050608
 }
 
-/* ACTIONS */
 .actions{
   width:100%;
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:0;
-  margin:0;
+  margin:0
 }
 
 .action{
   border:0;
-  background:none;
-  color:#7e8792;
+  background:transparent;
+  color:#7d8792;
   display:flex;
   align-items:center;
-  justify-content:center;
   gap:5px;
-  min-height:34px;
-  padding:5px 7px;
+  padding:6px 7px;
   border-radius:10px;
-  font-size:11px;
-  transition:.18s;
+  cursor:pointer;
+  font-size:12px;
+  transition:.18s
+}
+
+.action:hover{
+  background:#171b20;
+  color:#fff
 }
 
 .action svg{
   width:18px;
   height:18px;
-  stroke-width:1.9;
+  stroke-width:1.8
 }
 
-.action:hover{
-  background:#171b21;
-  color:#e7ebef;
-}
+.action.like-button.liked{color:#ff5d6c}
+.action.comment-button.active{color:#8b7cff}
+.action.share-button.active{color:#54c78a}
 
-.action.like.liked{
-  color:var(--like);
-}
-
-.action.comment.open{
-  color:var(--blue);
-}
-
-.action.share:hover{
-  color:var(--green);
+.action.like-button.liked svg{
+  fill:currentColor
 }
 
 .action b{
-  font-weight:650;
-  color:inherit;
+  font-weight:600
 }
 
-/* COMMENTS */
-
-.comments{
+.comments-area{
   display:none;
-  width:100%;
-  margin-top:5px;
+  margin-top:7px;
   padding-top:7px;
-  border-top:1px solid #23282f;
+  border-top:1px solid #25282d
 }
+
+.comments-list{margin-bottom:8px}
 
 .comment{
-  padding:8px 0;
-  border-bottom:1px solid #1f242a;
-}
-
-.comment:last-child{
-  border-bottom:0;
+  background:#15181d;
+  border:1px solid #282c32;
+  border-radius:11px;
+  padding:8px 10px;
+  margin-bottom:5px
 }
 
 .comment-top{
   display:flex;
   justify-content:space-between;
-  gap:8px;
+  align-items:center;
+  margin-bottom:3px
 }
 
 .comment-user{
   font-size:12px;
-  font-weight:800;
+  font-weight:800
 }
 
 .comment-text{
+  color:#c8ccd1;
   font-size:13px;
-  color:#c5cbd3;
   line-height:1.4;
-  margin-top:2px;
-  white-space:pre-wrap;
-  overflow-wrap:anywhere;
+  overflow-wrap:anywhere
 }
 
 .delete-comment{
-  background:none;
   border:0;
-  color:#7e8792;
+  background:none;
+  color:#8e7272;
   font-size:10px;
+  cursor:pointer
 }
 
 .comment-form{
   display:flex;
-  gap:7px;
-  margin-top:7px;
+  gap:7px
 }
 
 .comment-input{
-  min-width:0;
   flex:1;
-  background:#12161b;
-  border:1px solid #2a3037;
+  min-width:0;
+  padding:9px 11px;
+  border:1px solid #2a2e34;
   border-radius:11px;
-  color:#fff;
-  padding:9px 10px;
-  outline:none;
+  background:#15181d;
+  color:white;
+  outline:none
 }
 
 .comment-send{
   border:0;
-  background:var(--blue);
-  color:#fff;
-  border-radius:11px;
   padding:0 13px;
-  font-weight:750;
+  border-radius:11px;
+  background:#f1f1f1;
+  color:#0b0d10;
+  font-weight:700;
+  cursor:pointer
 }
 
-/* ---------- EMPTY ---------- */
+/* =========================
+   EMPTY
+========================= */
 
 .empty{
-  margin-top:10px;
   text-align:center;
-  border:1px solid var(--line);
-  background:var(--card);
-  border-radius:17px;
   padding:45px 20px;
-  color:var(--muted);
+  color:#858c95
 }
 
 .empty-icon{
-  width:48px;
-  height:48px;
-  margin:0 auto 12px;
+  width:50px;
+  height:50px;
+  margin:0 auto 13px;
   border-radius:15px;
-  background:#171b21;
-  display:grid;
-  place-items:center;
-  color:var(--blue);
+  background:#191c21;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#d7bd8c
 }
 
 .empty-icon svg{
-  width:25px;
-  height:25px;
+  width:26px;
+  height:26px
 }
 
 .empty h3{
-  color:#e9edf1;
-  font-size:16px;
+  color:#e7e9ec;
   margin-bottom:5px;
+  font-size:16px
 }
 
-.empty p{
-  font-size:13px;
+.empty p{font-size:13px}
+
+/* =========================
+   CREATE
+========================= */
+
+.create-page-title{
+  padding:6px 3px 14px
 }
 
-/* ---------- CREATE ---------- */
-
-.create-title,
-.explore-title,
-.alert-title{
-  padding:7px 4px 14px;
-}
-
-.create-title h1,
+.create-page-title h1,
 .explore-title h1,
 .alert-title h1{
   font-size:27px;
-  letter-spacing:-1px;
+  letter-spacing:-1px
 }
 
-.create-title p,
+.create-page-title p,
 .explore-title p{
+  color:#858c95;
   font-size:13px;
-  color:var(--muted);
-  margin-top:4px;
+  margin-top:4px
 }
 
 .create-card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:17px;
-  padding:14px;
+  background:#111419;
+  border:1px solid #292d33;
+  border-radius:18px;
+  padding:14px
 }
 
-.composer{
+.composer-header{
   display:flex;
   align-items:center;
   gap:10px;
-  margin-bottom:9px;
+  margin-bottom:7px
 }
 
 .composer-name{
-  font-size:14px;
-  font-weight:800;
+  font-size:15px;
+  font-weight:800
 }
 
 .composer-sub{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:2px;
-}
-
-.avatar{
-  width:43px;
-  height:43px;
-  flex:0 0 43px;
-  border-radius:50%;
-  background:linear-gradient(145deg,#26384b,#171b21);
-  border:1px solid #46515e;
-  display:grid;
-  place-items:center;
-  font-weight:850;
-  color:#e9edf2;
-  overflow:hidden;
-}
-
-.avatar img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+  color:#777f89;
+  font-size:12px;
+  margin-top:2px
 }
 
 #postText{
   width:100%;
-  min-height:125px;
+  min-height:62px;
+  height:62px;
   resize:vertical;
   border:0;
-  outline:0;
-  border-radius:13px;
-  background:#14181e;
-  color:#f4f6f8;
-  padding:12px;
+  outline:none;
+  border-radius:12px;
+  padding:10px;
+  background:#181b20;
+  color:#f4f4f4;
+  font-family:inherit;
   font-size:15px;
-  line-height:1.48;
+  line-height:1.45
 }
 
-#postText::placeholder{
-  color:#6d7580;
-}
+#postText::placeholder{color:#6f7680}
 
-.preview{
+.create-media-preview{
   display:none;
-  position:relative;
-  margin-top:9px;
+  margin-top:8px;
+  position:relative
 }
 
-.preview img,
-.preview video{
+.create-media-preview img,
+.create-media-preview video{
   width:100%;
-  max-height:420px;
+  max-height:400px;
   object-fit:cover;
   border-radius:14px;
-  background:#050608;
+  background:#08090b
 }
 
-.remove{
+.remove-media{
   position:absolute;
   right:8px;
   top:8px;
@@ -560,211 +485,211 @@ button{cursor:pointer}
   height:31px;
   border:0;
   border-radius:50%;
-  background:rgba(0,0,0,.78);
+  background:rgba(0,0,0,.75);
   color:#fff;
-  font-size:19px;
+  cursor:pointer;
+  font-size:17px
 }
 
-.create-bottom{
+.create-options{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-top:10px;
-  gap:8px;
+  gap:10px;
+  margin-top:8px
 }
 
-.media-row{
+.media-buttons{
   display:flex;
-  gap:6px;
+  gap:6px
 }
 
-.media-btn{
-  border:1px solid #303741;
-  background:#151920;
-  color:#aeb6c0;
-  border-radius:10px;
+.media-button{
+  border:1px solid #30343a;
+  background:#181b20;
+  color:#b9bec5;
   padding:8px 10px;
+  border-radius:11px;
+  cursor:pointer;
   display:flex;
   align-items:center;
   gap:5px;
   font-size:12px;
-  font-weight:650;
+  font-weight:600
 }
 
-.media-btn svg{
-  width:16px;
-  height:16px;
-  color:var(--blue);
+.media-button svg{
+  width:15px;
+  height:15px
 }
 
 .post-btn{
   border:0;
-  background:var(--blue);
-  color:#fff;
-  border-radius:11px;
+  background:#f1f1f1;
+  color:#0b0d10;
   padding:9px 17px;
+  border-radius:12px;
   font-weight:800;
-}
-
-.post-btn:hover{
-  background:var(--blue2);
+  cursor:pointer
 }
 
 .post-btn:disabled{
-  opacity:.55;
-  cursor:default;
+  opacity:.5;
+  cursor:default
 }
 
-.hidden{
-  display:none;
-}
-
-/* =========================================================
+/* =========================
    EXPLORE
-   ========================================================= */
+========================= */
 
-.search-main{
+.explore-title{
+  padding:7px 3px 15px
+}
+
+.search-box{
   display:flex;
   gap:8px;
+  margin-bottom:13px
 }
 
-.search-main input{
+#userSearchInput{
   flex:1;
   min-width:0;
-  background:#11151a;
-  border:1px solid #303640;
+  padding:13px 15px;
+  border:1px solid #292d33;
+  border-radius:14px;
+  background:#15181d;
   color:#fff;
-  border-radius:13px;
-  padding:12px 14px;
-  outline:none;
+  font-size:14px;
+  outline:none
 }
 
-.search-main button{
+.search-button{
   width:48px;
   border:0;
-  border-radius:13px;
-  background:var(--blue);
-  color:#fff;
-  display:grid;
-  place-items:center;
+  border-radius:14px;
+  background:#f1f1f1;
+  color:#0b0d10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer
 }
 
-.search-main svg{
+.search-button svg{
   width:20px;
-  height:20px;
+  height:20px
 }
 
-.search-results{
-  margin-top:10px;
+#searchResults{
+  margin-bottom:18px
 }
 
 .search-result{
+  background:#15181d;
+  border:1px solid #292d33;
+  border-radius:15px;
+  padding:12px;
+  margin-bottom:7px;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  gap:8px;
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:10px;
-  margin-bottom:7px;
+  justify-content:space-between
 }
 
 .search-user{
   display:flex;
   align-items:center;
-  gap:9px;
-  min-width:0;
+  gap:10px;
   cursor:pointer;
+  min-width:0
 }
 
 .search-avatar{
   width:39px;
   height:39px;
-  flex:0 0 39px;
+  flex-shrink:0;
   border-radius:50%;
-  background:#202833;
-  border:1px solid #414c58;
+  background:linear-gradient(145deg,#26384b,#171b21);
   display:grid;
   place-items:center;
   font-weight:800;
-  overflow:hidden;
+  color:#ead9b8;
+  border:1px solid #46515e;
+  overflow:hidden
 }
 
 .search-avatar img{
   width:100%;
   height:100%;
-  object-fit:cover;
+  object-fit:cover
 }
 
 .search-username{
-  font-size:13px;
-  font-weight:750;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+  font-size:14px;
+  font-weight:700;
+  overflow-wrap:anywhere
 }
 
-.follow-btn{
+.follow-button{
   border:0;
-  background:var(--blue);
-  color:#fff;
-  padding:8px 13px;
+  padding:8px 14px;
   border-radius:10px;
-  font-size:12px;
-  font-weight:800;
-  min-width:78px;
+  background:#1d9bf0;
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+  flex-shrink:0
 }
 
-.follow-btn.following{
-  background:#315b7b;
-  color:#cfe9ff;
-  opacity:.78;
+.follow-button.following{
+  background:#164d73;
+  color:#9acfff
 }
 
-.follow-btn:disabled{
-  cursor:default;
+.follow-button:disabled{
+  cursor:default
 }
 
-/* DISCOVER HEADER */
+/* Explore tabs */
 
-.explore-feed-title{
+.explore-tabs{
   display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin:20px 3px 9px;
+  border-bottom:1px solid #252a30;
+  margin:3px 0 0
 }
 
-.explore-feed-title h2{
-  font-size:17px;
+.explore-tab{
+  flex:1;
+  border:0;
+  background:transparent;
+  color:#777f89;
+  padding:12px 6px;
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+  position:relative
 }
 
-.tabs{
-  display:flex;
-  gap:5px;
+.explore-tab.active{
+  color:#f4f5f6
 }
 
-.tab{
-  border:1px solid var(--line);
-  background:#11151a;
-  color:#818a95;
-  border-radius:9px;
-  padding:6px 9px;
-  font-size:11px;
+.explore-tab.active::after{
+  content:"";
+  position:absolute;
+  left:25%;
+  right:25%;
+  bottom:-1px;
+  height:2px;
+  border-radius:5px;
+  background:#f1f1f1
 }
-
-.tab.active{
-  background:#1b2631;
-  color:#dceeff;
-  border-color:#31566f;
-}
-
-/* PHOTO / REELS GRID */
 
 .explore-media-grid{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:3px;
+  margin-top:8px
 }
 
 .explore-media-tile{
@@ -773,7 +698,7 @@ button{cursor:pointer}
   overflow:hidden;
   position:relative;
   border-radius:2px;
-  cursor:pointer;
+  cursor:pointer
 }
 
 .explore-media-tile img,
@@ -781,42 +706,45 @@ button{cursor:pointer}
   width:100%;
   height:100%;
   object-fit:cover;
-  display:block;
+  display:block
 }
 
-.explore-media-tile.reel:after{
-  content:"▶";
+.video-badge{
   position:absolute;
   right:7px;
   top:7px;
-  background:rgba(0,0,0,.62);
-  border-radius:7px;
-  padding:4px 6px;
-  font-size:10px;
+  width:27px;
+  height:27px;
+  border-radius:50%;
+  background:rgba(0,0,0,.65);
+  display:grid;
+  place-items:center
 }
 
-/* =========================================================
-   EXPLORE TEXT POSTS
-   NO BOX / NO GRID / FULL WIDTH
-   ========================================================= */
+.video-badge svg{
+  width:13px;
+  height:13px
+}
+
+/* Explore text feed */
 
 .explore-text-feed{
-  margin-top:8px;
+  margin-top:8px
 }
 
 .explore-text-post{
   width:100%;
-  background:var(--card);
+  background:transparent;
   border-top:1px solid #20252c;
   border-bottom:1px solid #20252c;
   padding:13px 9px 9px;
-  cursor:pointer;
+  cursor:pointer
 }
 
 .explore-text-layout{
   display:grid;
   grid-template-columns:40px minmax(0,1fr);
-  gap:9px;
+  gap:9px
 }
 
 .explore-text-avatar{
@@ -829,24 +757,25 @@ button{cursor:pointer}
   place-items:center;
   font-size:14px;
   font-weight:850;
-  overflow:hidden;
+  overflow:hidden
 }
 
 .explore-text-avatar img{
   width:100%;
   height:100%;
   object-fit:cover;
+  display:block
 }
 
 .explore-text-main{
-  min-width:0;
+  min-width:0
 }
 
 .explore-text-author-line{
   display:flex;
   align-items:center;
   gap:5px;
-  min-width:0;
+  min-width:0
 }
 
 .explore-text-author{
@@ -854,14 +783,14 @@ button{cursor:pointer}
   font-weight:800;
   white-space:normal;
   overflow-wrap:anywhere;
-  word-break:break-word;
+  word-break:break-word
 }
 
 .explore-text-meta{
   color:#747d88;
   font-size:12px;
   margin-top:2px;
-  overflow-wrap:anywhere;
+  overflow-wrap:anywhere
 }
 
 .explore-text-content{
@@ -870,7 +799,7 @@ button{cursor:pointer}
   margin-top:6px;
   white-space:pre-wrap;
   overflow-wrap:anywhere;
-  color:#f1f3f5;
+  color:#f1f3f5
 }
 
 .explore-text-actions{
@@ -878,156 +807,147 @@ button{cursor:pointer}
   justify-content:space-between;
   align-items:center;
   margin-top:7px;
-  color:#727c88;
+  color:#727c88
 }
 
-.explore-text-action{
-  border:0;
-  background:none;
-  color:inherit;
+.explore-text-actions .action{
+  padding:5px 7px
+}
+
+/* =========================
+   ALERTS
+========================= */
+
+.alert-title{
+  padding:7px 3px 15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center
+}
+
+.alert-heading-actions{
   display:flex;
   align-items:center;
-  gap:5px;
-  padding:4px 6px;
-  border-radius:8px;
+  gap:8px
+}
+
+.mark-read{
+  border:1px solid #30343a;
+  background:#15181d;
+  color:#aeb4bd;
+  border-radius:10px;
+  padding:7px 10px;
   font-size:11px;
+  cursor:pointer
 }
 
-.explore-text-action svg{
-  width:17px;
-  height:17px;
+.alert-list{
+  display:flex;
+  flex-direction:column;
+  gap:7px
 }
-
-.explore-text-action:hover{
-  background:#171b21;
-  color:#dfe5eb;
-}
-
-/* ---------- ALERTS ---------- */
 
 .notification{
   display:flex;
-  align-items:flex-start;
+  align-items:center;
   gap:11px;
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:14px;
   padding:12px;
-  margin-bottom:7px;
+  background:#111419;
+  border:1px solid #292d33;
+  border-radius:15px;
   cursor:pointer;
+  transition:.18s
+}
+
+.notification:hover{
+  background:#191c21
 }
 
 .notification.unread{
-  border-color:#2f5570;
-  background:#101820;
+  background:#15181d;
+  border-color:#3a3f47
 }
 
 .notification-icon{
   width:40px;
   height:40px;
-  flex:0 0 40px;
+  flex-shrink:0;
   border-radius:50%;
-  background:#17202a;
-  display:grid;
-  place-items:center;
-  color:var(--blue);
-}
-
-.notification-icon.like{
-  color:var(--like);
-}
-
-.notification-icon.follow{
-  color:var(--blue);
-}
-
-.notification-icon.comment{
-  color:var(--purple);
+  background:#1b1e23;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#d7bd8c
 }
 
 .notification-icon svg{
   width:19px;
-  height:19px;
+  height:19px
 }
+
+.notification.like-alert .notification-icon{color:#ff5d6c}
+.notification.comment-alert .notification-icon{color:#8b7cff}
+.notification.follow-alert .notification-icon{color:#1d9bf0}
 
 .notification-text{
   font-size:13px;
   line-height:1.4;
-  color:#dfe3e8;
-}
-
-.notification-text b{
-  color:#fff;
+  color:#dfe2e6
 }
 
 .notification-time{
+  color:#777f89;
   font-size:10px;
-  color:#707985;
-  margin-top:3px;
-}
-
-.alert-tools{
-  display:flex;
-  justify-content:flex-end;
-  margin-bottom:8px;
-}
-
-.read-all{
-  border:1px solid #303640;
-  background:#12161b;
-  color:#aeb6c0;
-  border-radius:9px;
-  padding:7px 10px;
-  font-size:11px;
+  margin-top:3px
 }
 
 .alert-empty{
   text-align:center;
   padding:50px 20px;
-  color:var(--muted);
+  color:#858c95
 }
 
 .alert-empty svg{
-  width:35px;
-  height:35px;
-  color:var(--blue);
-  margin-bottom:10px;
+  width:36px;
+  height:36px;
+  color:#d7bd8c;
+  margin-bottom:10px
 }
 
 .alert-empty h3{
-  color:#e9edf1;
-  margin-bottom:5px;
-  font-size:16px;
+  color:#e7e9ec;
+  margin-bottom:5px
 }
 
-.alert-empty p{
-  font-size:13px;
-}
+.alert-empty p{font-size:13px}
 
-/* ---------- BOTTOM NAV ---------- */
+/* =========================
+   BOTTOM NAV
+========================= */
 
 .bottom-nav{
   position:fixed;
   left:0;
   right:0;
   bottom:0;
-  height:73px;
+  height:72px;
   z-index:200;
-  background:rgba(8,10,13,.96);
+  background:rgba(11,13,16,.96);
   backdrop-filter:blur(20px);
-  border-top:1px solid var(--line);
+  border-top:1px solid #292d33;
   display:flex;
   justify-content:center;
-  padding:5px 7px;
-  box-shadow:0 -10px 28px rgba(0,0,0,.24);
+  padding:6px 8px;
+  box-shadow:0 -10px 30px rgba(0,0,0,.2)
 }
 
 .nav-item{
   flex:1;
-  max-width:120px;
+  max-width:115px;
   border:0;
   background:none;
-  color:#737c88;
+  color:#727983;
+  cursor:pointer;
   border-radius:13px;
   display:flex;
   flex-direction:column;
@@ -1035,201 +955,173 @@ button{cursor:pointer}
   justify-content:center;
   gap:4px;
   transition:.18s;
-  position:relative;
+  position:relative
 }
 
 .nav-item svg{
   width:21px;
   height:21px;
-  stroke-width:1.8;
+  stroke-width:1.8
 }
 
-.nav-item span{
-  font-size:10px;
-}
+.nav-item span{font-size:10px}
 
 .nav-item:hover{
-  background:#12161b;
-  color:#dfe5eb;
+  color:#dfe2e6;
+  background:#15181d
 }
 
-.nav-item.active{
-  color:#fff;
-}
-
-.nav-item.explore-active{
-  color:var(--blue);
-}
-
-.nav-item.alert-active{
-  color:var(--purple);
-}
-
-.nav-item.create-active{
-  color:var(--green);
-}
+.nav-item.active{color:#fff}
+.nav-item.create-active{color:#d7bd8c}
 
 .create-plus{
-  width:34px;
-  height:30px;
+  width:32px;
+  height:32px;
+  border:1px solid #555b63;
   border-radius:10px;
-  background:#16261d;
-  border:1px solid #315c40;
-  display:grid;
-  place-items:center;
+  display:flex;
+  align-items:center;
+  justify-content:center
 }
 
 .create-plus svg{
   width:18px;
-  height:18px;
+  height:18px
 }
 
-.badge{
+.hidden-file{display:none}
+.profile-link{cursor:pointer}
+
+.alert-badge{
   position:absolute;
-  top:7px;
+  top:8px;
   right:calc(50% - 19px);
-  min-width:15px;
-  height:15px;
+  min-width:16px;
+  height:16px;
   padding:0 4px;
-  border-radius:9px;
-  background:var(--like);
+  border-radius:20px;
+  background:#ff3b52;
   color:#fff;
   font-size:9px;
   font-weight:800;
   display:none;
-  place-items:center;
-  border:2px solid var(--bg);
+  align-items:center;
+  justify-content:center;
+  border:2px solid #0b0d10
 }
 
-/* ---------- MOBILE ---------- */
+.alert-badge.show{display:flex}
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:500px){
 
   .container{
-    padding:10px 7px 25px;
+    padding:15px 10px 25px
   }
 
   .topbar-inner{
-    height:60px;
-    padding:0 12px;
+    height:61px;
+    padding:0 13px
   }
 
-  .logo{
-    font-size:15px;
-  }
+  .logo{font-size:16px}
 
   .profile-name{
-    max-width:125px;
+    max-width:130px
   }
 
   .post{
-    padding:12px 7px 8px;
+    padding:12px 7px 8px
   }
 
   .post-layout{
     grid-template-columns:40px minmax(0,1fr);
-    gap:9px;
+    gap:9px
   }
 
   .post-avatar{
     width:40px;
-    height:40px;
+    height:40px
   }
 
-  .author{
-    font-size:14.5px;
-  }
+  .author{font-size:14.5px}
 
-  .handle{
-    font-size:11.5px;
-  }
+  .handle{font-size:11.5px}
 
   .post-text{
     font-size:14px;
     line-height:1.44;
-    margin:6px 0 8px;
+    margin:6px 0 8px
   }
 
   .post-media,
   .post-video{
     width:100%;
     margin:6px 0 8px;
-    border-radius:13px;
+    border-radius:13px
   }
 
-  .actions,
-  .comments{
-    width:100%;
-    margin-left:0;
+  .actions{
+    width:100%
   }
 
   .action{
-    padding:5px 4px;
+    padding:7px 5px
   }
 
-  .action span{
-    display:none;
-  }
+  .action span{display:none}
 
   .action svg{
     width:19px;
-    height:19px;
-  }
-
-  .explore-media-grid{
-    gap:2px;
-  }
-
-  .explore-text-post{
-    padding:12px 7px 8px;
-  }
-
-  .explore-text-layout{
-    grid-template-columns:39px minmax(0,1fr);
-    gap:8px;
-  }
-
-  .explore-text-avatar{
-    width:39px;
-    height:39px;
-  }
-
-  .explore-text-author{
-    font-size:14.5px;
-  }
-
-  .explore-text-content{
-    font-size:14px;
-  }
-
-  .explore-text-action{
-    padding:4px;
-  }
-
-  .explore-text-action span{
-    display:none;
+    height:19px
   }
 
   .create-card{
     border-radius:17px;
-    padding:13px;
+    padding:13px
   }
 
   #postText{
-    min-height:110px;
+    min-height:62px;
+    height:62px
   }
 
-  .media-btn{
-    padding:8px 9px;
+  .media-button{
+    padding:8px 9px
   }
 
   .post-btn{
-    padding:9px 14px;
+    padding:9px 14px
   }
 
-  .bottom-nav{
-    height:69px;
+  .bottom-nav{height:68px}
+
+  .explore-text-post{
+    padding:12px 7px 8px
   }
+
+  .explore-text-layout{
+    grid-template-columns:39px minmax(0,1fr);
+    gap:8px
+  }
+
+  .explore-text-avatar{
+    width:39px;
+    height:39px
+  }
+
+  .explore-text-author{font-size:14.5px}
+
+  .explore-text-content{font-size:14px}
+
+  .follow-button{
+    padding:8px 12px
+  }
+
+  .explore-media-grid{gap:2px}
 }
 </style>
 </head>
@@ -1239,7 +1131,7 @@ button{cursor:pointer}
 <header class="topbar">
   <div class="topbar-inner">
     <div class="logo">
-      <div class="logo-mark">🐉</div>
+      <span class="logo-dragon">🐉</span>
       <span>JSP TAYSU</span>
     </div>
     <div class="profile-name" id="profileName">Member</div>
@@ -1253,31 +1145,34 @@ button{cursor:pointer}
 <section id="homeSection" class="page-section active">
 
   <div class="feed-heading">
-    <h2>Community</h2>
+    <h2>Community Feed</h2>
 
-    <button class="icon-btn" id="feedSearchButton" aria-label="Search posts">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <circle cx="11" cy="11" r="7"></circle>
-        <path d="m20 20-4-4"></path>
-      </svg>
-    </button>
+    <div class="feed-heading-right">
+      <button id="feedSearchButton" class="feed-search-button" type="button" aria-label="Search posts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-4-4"></path>
+        </svg>
+      </button>
+    </div>
   </div>
 
-  <div class="search-strip" id="feedSearchBox">
-    <input
-      id="feedSearchInput"
-      maxlength="100"
-      placeholder="Search posts, people or topics..."
-    >
+  <div id="feedSearchBox" class="feed-search-box">
+    <input id="feedSearchInput" type="text" placeholder="Search posts or topics..." maxlength="100">
   </div>
 
-  <div id="posts">
+  <section id="posts">
     <div class="empty">
-      <div class="empty-icon">⌛</div>
+      <div class="empty-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="12" cy="12" r="8"></circle>
+          <path d="M8 12h8"></path>
+        </svg>
+      </div>
       <h3>Loading community...</h3>
       <p>Please wait a moment.</p>
     </div>
-  </div>
+  </section>
 
 </section>
 
@@ -1286,38 +1181,38 @@ button{cursor:pointer}
 
 <section id="createSection" class="page-section">
 
-  <div class="create-title">
+  <div class="create-page-title">
     <h1>Create</h1>
-    <p>Share your thoughts, photos or videos with JSP TAYSU.</p>
+    <p>Share something with the JSP TAYSU community.</p>
   </div>
 
   <div class="create-card">
 
-    <div class="composer">
-      <div class="avatar" id="composerAvatar">M</div>
+    <div class="composer-header">
+      <div class="post-avatar" id="composerAvatar">M</div>
 
       <div>
         <div class="composer-name" id="composerName">Member</div>
-        <div class="composer-sub">Public community post</div>
+        <div class="composer-sub">Share with the community</div>
       </div>
     </div>
 
     <textarea
       id="postText"
       maxlength="5000"
-      placeholder="What are you thinking about?"
+      placeholder="What's on your mind?"
     ></textarea>
 
-    <div class="preview" id="createMediaPreview">
-      <button class="remove" id="removeMediaButton" type="button">×</button>
+    <div id="createMediaPreview" class="create-media-preview">
+      <button id="removeMediaButton" class="remove-media" type="button">×</button>
       <div id="mediaPreviewContent"></div>
     </div>
 
-    <div class="create-bottom">
+    <div class="create-options">
 
-      <div class="media-row">
+      <div class="media-buttons">
 
-        <button class="media-btn" id="photoButton" type="button">
+        <button class="media-button" id="photoButton" type="button">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <rect x="3" y="4" width="18" height="16" rx="3"></rect>
             <circle cx="8.5" cy="9" r="1.5"></circle>
@@ -1326,7 +1221,7 @@ button{cursor:pointer}
           Photo
         </button>
 
-        <button class="media-btn" id="videoButton" type="button">
+        <button class="media-button" id="videoButton" type="button">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <rect x="3" y="5" width="13" height="14" rx="3"></rect>
             <path d="m16 10 5-3v10l-5-3z"></path>
@@ -1334,14 +1229,12 @@ button{cursor:pointer}
           Video
         </button>
 
-        <input id="photoInput" class="hidden" type="file" accept="image/*">
-        <input id="videoInput" class="hidden" type="file" accept="video/*">
+        <input type="file" id="photoInput" class="hidden-file" accept="image/*">
+        <input type="file" id="videoInput" class="hidden-file" accept="video/*">
 
       </div>
 
-      <button class="post-btn" id="postButton" type="button">
-        Post
-      </button>
+      <button class="post-btn" id="postButton" type="button">Post</button>
 
     </div>
 
@@ -1356,19 +1249,20 @@ button{cursor:pointer}
 
   <div class="explore-title">
     <h1>Explore</h1>
-    <p>Find members and discover what the community is sharing.</p>
+    <p>Discover members and community posts.</p>
   </div>
 
-  <div class="search-main">
+  <div class="search-box">
 
     <input
+      type="text"
       id="userSearchInput"
-      maxlength="40"
-      autocomplete="off"
       placeholder="Search members..."
+      maxlength="50"
+      autocomplete="off"
     >
 
-    <button id="userSearchButton" aria-label="Search" type="button">
+    <button id="userSearchButton" class="search-button" type="button" aria-label="Search">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
         <circle cx="11" cy="11" r="7"></circle>
         <path d="m20 20-4-4"></path>
@@ -1377,23 +1271,26 @@ button{cursor:pointer}
 
   </div>
 
-  <div id="searchResults" class="search-results"></div>
+  <div id="searchResults"></div>
 
-  <div class="explore-feed-title">
+  <div class="explore-tabs">
 
-    <h2>Discover</h2>
+    <button class="explore-tab active" data-explore-mode="all" type="button">
+      Posts
+    </button>
 
-    <div class="tabs">
-      <button class="tab active" data-tab="all">Posts</button>
-      <button class="tab" data-tab="video">Reels</button>
-    </div>
+    <button class="explore-tab" data-explore-mode="reels" type="button">
+      Reels
+    </button>
+
+    <button class="explore-tab" data-explore-mode="photos" type="button">
+      Photos
+    </button>
 
   </div>
 
-  <!-- MEDIA GRID -->
   <div id="exploreMediaGrid" class="explore-media-grid"></div>
 
-  <!-- TEXT FEED -->
   <div id="exploreTextFeed" class="explore-text-feed"></div>
 
 </section>
@@ -1404,20 +1301,31 @@ button{cursor:pointer}
 <section id="alertsSection" class="page-section">
 
   <div class="alert-title">
+
     <h1>Alerts</h1>
-  </div>
 
-  <div class="alert-tools">
-    <button class="read-all" id="readAllButton">
-      Mark all as read
-    </button>
-  </div>
-
-  <div id="alertList">
-    <div class="alert-empty">
-      <h3>Loading alerts...</h3>
-      <p>Your likes, comments and follows will appear here.</p>
+    <div class="alert-heading-actions">
+      <button id="markReadButton" class="mark-read" type="button">
+        Mark all read
+      </button>
     </div>
+
+  </div>
+
+  <div id="alertList" class="alert-list">
+
+    <div class="alert-empty">
+
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M18 8 a6 6 0 0 0-12 0 c0 7-3 7-3 9h18 c0-2-3-2-3-9"></path>
+        <path d="M10 21h4"></path>
+      </svg>
+
+      <h3>No new alerts</h3>
+      <p>Your community notifications will appear here.</p>
+
+    </div>
+
   </div>
 
 </section>
@@ -1425,52 +1333,72 @@ button{cursor:pointer}
 </main>
 
 
-<!-- ================= BOTTOM NAV ================= -->
+<!-- ================= NAV ================= -->
 
 <nav class="bottom-nav">
 
-  <button class="nav-item active home" data-section="homeSection">
+  <button class="nav-item active" data-section="homeSection">
+
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
       <path d="M3 10.5 12 3l9 7.5"></path>
       <path d="M5 9v11h14V9"></path>
       <path d="M9 20v-6h6v6"></path>
     </svg>
+
     <span>Home</span>
+
   </button>
 
+
   <button class="nav-item" data-section="exploreSection">
+
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
       <circle cx="11" cy="11" r="7"></circle>
       <path d="m20 20-4-4"></path>
     </svg>
+
     <span>Explore</span>
+
   </button>
 
+
   <button class="nav-item" id="createNav">
+
     <div class="create-plus">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
         <path d="M12 5v14"></path>
         <path d="M5 12h14"></path>
       </svg>
     </div>
+
     <span>Create</span>
+
   </button>
 
+
   <button class="nav-item" data-section="alertsSection">
+
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
       <path d="M18 8 a6 6 0 0 0-12 0 c0 7-3 7-3 9h18 c0-2-3-2-3-9"></path>
       <path d="M10 21h4"></path>
     </svg>
+
     <span>Alerts</span>
-    <i class="badge" id="alertBadge">0</i>
+
+    <span id="alertBadge" class="alert-badge">0</span>
+
   </button>
 
+
   <button class="nav-item" id="profileNavButton">
+
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
       <circle cx="12" cy="8" r="4"></circle>
-      <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"></path>
+      <path d="M4 21 c0-4 3.5-7 8-7 s8 3 8 7"></path>
     </svg>
+
     <span>Profile</span>
+
   </button>
 
 </nav>
@@ -1479,13 +1407,16 @@ button{cursor:pointer}
 <script type="module">
 
 /* =========================================================
-   FIREBASE — LEFT AS-IS
-   ========================================================= */
+   FIREBASE — KEPT INTACT
+========================================================= */
 
 import {initializeApp}
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-import {getAuth,onAuthStateChanged}
+import {
+  getAuth,
+  onAuthStateChanged
+}
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import {
@@ -1500,7 +1431,6 @@ import {
   deleteDoc,
   query,
   where,
-  limit,
   onSnapshot
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
@@ -1523,31 +1453,50 @@ const firebaseConfig={
   appId:"1:280992025632:web:48efa21208a78be9a78045"
 };
 
+
 const app=initializeApp(firebaseConfig);
 const auth=getAuth(app);
 const db=getFirestore(app);
 const storage=getStorage(app);
 
+
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
+
 let currentUser=null;
-let currentUsername="Member";
 let selectedMediaFile=null;
 let selectedMediaType=null;
+let currentUsername="Member";
+
 let allPosts=[];
 let allMembers=[];
+
+let profileCache={};
+
+let currentExploreMode="all";
 let notificationUnsubscribe=null;
 
-const $=id=>document.getElementById(id);
 
-const postsContainer=$("posts");
-const alertList=$("alertList");
-const alertBadge=$("alertBadge");
+/* =========================================================
+   DOM
+========================================================= */
 
-const userCache=new Map();
+const profileName=document.getElementById("profileName");
+const composerName=document.getElementById("composerName");
+const composerAvatar=document.getElementById("composerAvatar");
+const alertList=document.getElementById("alertList");
+const postsContainer=document.getElementById("posts");
+
+const alertBadge=document.getElementById("alertBadge");
+
+const exploreMediaGrid=document.getElementById("exploreMediaGrid");
+const exploreTextFeed=document.getElementById("exploreTextFeed");
 
 
 /* =========================================================
    AUTH — DO NOT CHANGE
-   ========================================================= */
+========================================================= */
 
 onAuthStateChanged(auth,async user=>{
 
@@ -1555,56 +1504,66 @@ onAuthStateChanged(auth,async user=>{
 
   if(!user){
 
-    $("profileName").textContent="Please sign in";
+    profileName.textContent="Please sign in";
+    composerName.textContent="Member";
 
-    $("composerName").textContent="Member";
-    $("composerAvatar").textContent="M";
+    composerAvatar.innerHTML="M";
 
     currentUsername="Member";
-
-    postsContainer.innerHTML=
-      '<div class="empty">'+
-      '<div class="empty-icon">🔐</div>'+
-      '<h3>Sign in to view the community</h3>'+
-      '<p>Please sign in first.</p>'+
-      '</div>';
 
     return;
   }
 
   let username=user.displayName||"Member";
+  let photoURL=user.photoURL||"";
 
   try{
 
-    const snap=await getDoc(doc(db,"users",user.uid));
+    const profileSnap=await getDoc(
+      doc(db,"users",user.uid)
+    );
 
-    if(snap.exists()){
+    if(profileSnap.exists()){
 
-      const d=snap.data();
+      const data=profileSnap.data();
 
-      username=
-        d.username||
-        d.name||
-        d.displayName||
-        username;
+      if(data.username){
+        username=data.username;
+      }
+
+      photoURL=
+        data.photoURL||
+        data.photoUrl||
+        data.avatar||
+        data.profilePhoto||
+        data.profilePic||
+        photoURL;
     }
 
-  }catch(e){
+  }catch(error){
 
-    console.error("Profile error",e);
+    console.error("Profile error:",error);
 
   }
 
   currentUsername=username;
 
-  $("profileName").textContent=username;
-  $("composerName").textContent=username;
-  $("composerAvatar").textContent=
-    username.charAt(0).toUpperCase();
+  profileName.textContent=username;
+  composerName.textContent=username;
+
+  if(photoURL){
+
+    composerAvatar.innerHTML=
+      `<img src="${escapeAttribute(photoURL)}" alt="Profile">`;
+
+  }else{
+
+    composerAvatar.textContent=
+      username.charAt(0).toUpperCase();
+
+  }
 
   await loadPosts();
-  await loadMembers();
-
   subscribeNotifications();
 
 });
@@ -1612,252 +1571,305 @@ onAuthStateChanged(auth,async user=>{
 
 /* =========================================================
    NAVIGATION
-   ========================================================= */
+========================================================= */
 
 const sections={
-  homeSection:$("homeSection"),
-  createSection:$("createSection"),
-  exploreSection:$("exploreSection"),
-  alertsSection:$("alertsSection")
+  homeSection:document.getElementById("homeSection"),
+  createSection:document.getElementById("createSection"),
+  exploreSection:document.getElementById("exploreSection"),
+  alertsSection:document.getElementById("alertsSection")
 };
 
-function showSection(id){
 
-  Object.values(sections)
-    .forEach(s=>s.classList.remove("active"));
+function showSection(sectionId){
 
-  if(sections[id]){
-    sections[id].classList.add("active");
+  Object.values(sections).forEach(section=>{
+    section.classList.remove("active");
+  });
+
+  if(sections[sectionId]){
+    sections[sectionId].classList.add("active");
   }
 
-  document
-    .querySelectorAll(".nav-item")
-    .forEach(b=>{
-      b.classList.remove(
-        "active",
-        "create-active",
-        "explore-active",
-        "alert-active"
-      );
-    });
+  document.querySelectorAll(".nav-item").forEach(button=>{
+    button.classList.remove("active");
+    button.classList.remove("create-active");
+  });
 
-  const b=
-    document.querySelector(
-      `[data-section="${id}"]`
-    );
+  const matchingButton=
+    document.querySelector(`[data-section="${sectionId}"]`);
 
-  if(b)b.classList.add("active");
-
-  if(id==="createSection"){
-    $("createNav").classList.add(
-      "active",
-      "create-active"
-    );
+  if(matchingButton){
+    matchingButton.classList.add("active");
   }
 
-  if(id==="exploreSection"){
-    loadExploreGrid(
-      document.querySelector(".tab.active")?.dataset.tab||"all"
-    );
+  if(sectionId==="createSection"){
+    document.getElementById("createNav")
+      .classList.add("create-active");
   }
 
-  if(id==="alertsSection"){
-    refreshNotifications();
+  if(sectionId==="exploreSection"){
+
+    loadMembers();
+    loadExploreGrid();
+
+  }
+
+  if(sectionId==="alertsSection"&&currentUser){
+
+    subscribeNotifications();
+
   }
 
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
+
 }
 
 
 document
   .querySelectorAll(".nav-item[data-section]")
-  .forEach(b=>{
-    b.addEventListener(
+  .forEach(button=>{
+
+    button.addEventListener(
       "click",
-      ()=>showSection(b.dataset.section)
+      ()=>showSection(button.dataset.section)
     );
+
   });
 
 
-$("createNav").addEventListener(
-  "click",
-  ()=>showSection("createSection")
-);
+document
+  .getElementById("createNav")
+  .addEventListener(
+    "click",
+    ()=>showSection("createSection")
+  );
 
 
-$("profileNavButton").addEventListener(
-  "click",
-  ()=>{
+document
+  .getElementById("profileNavButton")
+  .addEventListener("click",()=>{
 
     if(!currentUser){
+
       alert("Please sign in first.");
       return;
+
     }
+
+    openProfile(currentUser.uid);
+
+  });
+
+
+function openProfile(uid){
+
+  if(uid){
 
     window.location.href=
       "profile.html?uid="+
-      encodeURIComponent(currentUser.uid);
+      encodeURIComponent(uid);
+
   }
-);
+
+}
 
 
 /* =========================================================
-   SEARCH POSTS
-   ========================================================= */
+   FEED SEARCH
+========================================================= */
 
-$("feedSearchButton").addEventListener(
-  "click",
-  ()=>{
+const feedSearchButton=
+  document.getElementById("feedSearchButton");
 
-    const box=$("feedSearchBox");
+const feedSearchBox=
+  document.getElementById("feedSearchBox");
 
-    box.classList.toggle("show");
+const feedSearchInput=
+  document.getElementById("feedSearchInput");
 
-    if(box.classList.contains("show")){
 
-      $("feedSearchInput").focus();
+feedSearchButton.addEventListener("click",()=>{
 
-    }else{
+  feedSearchBox.classList.toggle("show");
 
-      $("feedSearchInput").value="";
-      renderPosts("");
-    }
+  if(feedSearchBox.classList.contains("show")){
+
+    feedSearchInput.focus();
+
+  }else{
+
+    feedSearchInput.value="";
+    renderFilteredPosts("");
+
   }
-);
+
+});
 
 
-$("feedSearchInput").addEventListener(
+feedSearchInput.addEventListener(
   "input",
-  e=>renderPosts(e.target.value)
+  ()=>renderFilteredPosts(feedSearchInput.value)
 );
-
-
-/* =========================================================
-   CREATE MEDIA
-   ========================================================= */
-
-$("photoButton").addEventListener(
-  "click",
-  ()=>{
-
-    if(!currentUser){
-      alert("Please sign in first.");
-      return;
-    }
-
-    $("photoInput").click();
-  }
-);
-
-
-$("videoButton").addEventListener(
-  "click",
-  ()=>{
-
-    if(!currentUser){
-      alert("Please sign in first.");
-      return;
-    }
-
-    $("videoInput").click();
-  }
-);
-
-
-$("photoInput").addEventListener(
-  "change",
-  e=>{
-
-    if(e.target.files[0]){
-      selectMedia(
-        e.target.files[0],
-        "image"
-      );
-    }
-  }
-);
-
-
-$("videoInput").addEventListener(
-  "change",
-  e=>{
-
-    if(e.target.files[0]){
-      selectMedia(
-        e.target.files[0],
-        "video"
-      );
-    }
-  }
-);
-
-
-function selectMedia(file,type){
-
-  selectedMediaFile=file;
-  selectedMediaType=type;
-
-  const url=
-    URL.createObjectURL(file);
-
-  $("mediaPreviewContent").innerHTML=
-    type==="image"
-      ? `<img src="${url}" alt="Selected photo">`
-      : `<video src="${url}" controls></video>`;
-
-  $("createMediaPreview").style.display="block";
-}
-
-
-$("removeMediaButton").addEventListener(
-  "click",
-  clearMedia
-);
-
-
-function clearMedia(){
-
-  selectedMediaFile=null;
-  selectedMediaType=null;
-
-  $("photoInput").value="";
-  $("videoInput").value="";
-
-  $("createMediaPreview").style.display="none";
-  $("mediaPreviewContent").innerHTML="";
-}
 
 
 /* =========================================================
    CREATE POST
-   ========================================================= */
+========================================================= */
 
-$("postButton").addEventListener(
-  "click",
-  async()=>{
+const photoButton=
+  document.getElementById("photoButton");
+
+const videoButton=
+  document.getElementById("videoButton");
+
+const photoInput=
+  document.getElementById("photoInput");
+
+const videoInput=
+  document.getElementById("videoInput");
+
+
+photoButton.addEventListener("click",()=>{
+
+  if(!currentUser){
+
+    alert("Please sign in first.");
+    return;
+
+  }
+
+  photoInput.click();
+
+});
+
+
+videoButton.addEventListener("click",()=>{
+
+  if(!currentUser){
+
+    alert("Please sign in first.");
+    return;
+
+  }
+
+  videoInput.click();
+
+});
+
+
+photoInput.addEventListener("change",()=>{
+
+  const file=photoInput.files[0];
+
+  if(file){
+
+    selectedMediaFile=file;
+    selectedMediaType="image";
+
+    showMediaPreview(
+      file,
+      "image"
+    );
+
+  }
+
+});
+
+
+videoInput.addEventListener("change",()=>{
+
+  const file=videoInput.files[0];
+
+  if(file){
+
+    selectedMediaFile=file;
+    selectedMediaType="video";
+
+    showMediaPreview(
+      file,
+      "video"
+    );
+
+  }
+
+});
+
+
+function showMediaPreview(file,type){
+
+  const preview=
+    document.getElementById("createMediaPreview");
+
+  const content=
+    document.getElementById("mediaPreviewContent");
+
+  const url=URL.createObjectURL(file);
+
+  content.innerHTML=
+    type==="image"
+      ? `<img src="${url}" alt="Selected photo">`
+      : `<video src="${url}" controls></video>`;
+
+  preview.style.display="block";
+
+}
+
+
+document
+  .getElementById("removeMediaButton")
+  .addEventListener("click",()=>{
+
+    selectedMediaFile=null;
+    selectedMediaType=null;
+
+    photoInput.value="";
+    videoInput.value="";
+
+    document.getElementById(
+      "createMediaPreview"
+    ).style.display="none";
+
+    document.getElementById(
+      "mediaPreviewContent"
+    ).innerHTML="";
+
+  });
+
+
+document
+  .getElementById("postButton")
+  .addEventListener("click",async()=>{
 
     if(!currentUser){
+
       alert("Please sign in first.");
       return;
+
     }
 
     const text=
-      $("postText").value.trim();
+      document.getElementById("postText")
+        .value.trim();
 
     if(!text&&!selectedMediaFile){
+
       alert(
-        "Write something or choose a photo/video."
+        "Write something or select a photo/video."
       );
+
       return;
+
     }
 
-    const btn=$("postButton");
+    const button=
+      document.getElementById("postButton");
 
-    btn.disabled=true;
-    btn.textContent="Posting...";
+    button.disabled=true;
+    button.textContent="Posting...";
 
     try{
 
@@ -1868,25 +1880,33 @@ $("postButton").addEventListener(
 
         const file=selectedMediaFile;
 
-        const safe=
+        const safeName=
           file.name.replace(
             /[^a-zA-Z0-9._-]/g,
             "_"
           );
 
-        const path=
-          `posts/${currentUser.uid}/${Date.now()}_${safe}`;
+        const filePath=
+          "posts/"+
+          currentUser.uid+
+          "/"+
+          Date.now()+
+          "_"+
+          safeName;
 
-        const up=
+        const uploadResult=
           await uploadBytes(
-            ref(storage,path),
+            ref(storage,filePath),
             file
           );
 
         mediaUrl=
-          await getDownloadURL(up.ref);
+          await getDownloadURL(
+            uploadResult.ref
+          );
 
         mediaType=selectedMediaType;
+
       }
 
       await addDoc(
@@ -1901,53 +1921,70 @@ $("postButton").addEventListener(
         }
       );
 
-      $("postText").value="";
+      document.getElementById(
+        "postText"
+      ).value="";
 
-      clearMedia();
+      selectedMediaFile=null;
+      selectedMediaType=null;
+
+      photoInput.value="";
+      videoInput.value="";
+
+      document.getElementById(
+        "createMediaPreview"
+      ).style.display="none";
+
+      document.getElementById(
+        "mediaPreviewContent"
+      ).innerHTML="";
 
       await loadPosts();
 
       showSection("homeSection");
 
-    }catch(e){
+    }catch(error){
 
-      console.error(e);
+      console.error("Post error:",error);
 
       alert(
-        (e.code||"Error")+
+        (error.code||"Error")+
         ": "+
-        e.message
+        error.message
       );
 
     }finally{
 
-      btn.disabled=false;
-      btn.textContent="Post";
+      button.disabled=false;
+      button.textContent="Post";
+
     }
-  }
-);
+
+  });
 
 
 /* =========================================================
    LOAD POSTS
-   ========================================================= */
+========================================================= */
 
 async function loadPosts(){
 
   try{
 
-    const snap=
+    const snapshot=
       await getDocs(
         collection(db,"posts")
       );
 
     allPosts=[];
 
-    snap.forEach(d=>{
+    snapshot.forEach(postDoc=>{
+
       allPosts.push({
-        id:d.id,
-        ...d.data()
+        id:postDoc.id,
+        ...postDoc.data()
       });
+
     });
 
     allPosts.sort(
@@ -1956,81 +1993,97 @@ async function loadPosts(){
         (a.createdAt?.seconds||0)
     );
 
-    renderPosts(
-      $("feedSearchInput").value||""
+    renderFilteredPosts(
+      feedSearchInput.value
     );
 
-    loadExploreGrid(
-      document.querySelector(".tab.active")?.dataset.tab||"all"
+    renderExplore();
+
+  }catch(error){
+
+    console.error(
+      "Load posts error:",
+      error
     );
 
-  }catch(e){
+    postsContainer.innerHTML=`
+      <div class="empty">
+        <div class="empty-icon">⚠️</div>
+        <h3>Couldn't load posts</h3>
+        <p>Please refresh the page.</p>
+      </div>
+    `;
 
-    console.error("Posts",e);
-
-    postsContainer.innerHTML=
-      '<div class="empty">'+
-      '<div class="empty-icon">⚠️</div>'+
-      '<h3>Couldn’t load posts</h3>'+
-      '<p>Check your Firebase rules and refresh.</p>'+
-      '</div>';
   }
+
 }
 
 
-/* =========================================================
-   RENDER HOME POSTS
-   ========================================================= */
+async function renderFilteredPosts(searchText){
 
-function renderPosts(search=""){
-
-  const q=
-    String(search)
+  const queryText=
+    String(searchText||"")
       .trim()
       .toLowerCase();
 
-  const list=
-    allPosts.filter(
-      p=>
-        !q||
-        String(p.text||"")
-          .toLowerCase()
-          .includes(q)||
-        String(p.authorName||"")
-          .toLowerCase()
-          .includes(q)
+  const filtered=
+    allPosts.filter(post=>
+      !queryText||
+      String(post.text||"")
+        .toLowerCase()
+        .includes(queryText)||
+      String(post.authorName||"")
+        .toLowerCase()
+        .includes(queryText)
     );
 
   postsContainer.innerHTML="";
 
-  if(!list.length){
+  if(filtered.length===0){
 
-    postsContainer.innerHTML=
-      '<div class="empty">'+
-      '<div class="empty-icon">🔎</div>'+
-      '<h3>No posts found</h3>'+
-      '<p>Try another word or topic.</p>'+
-      '</div>';
+    postsContainer.innerHTML=`
+      <div class="empty">
+        <div class="empty-icon">🔍</div>
+        <h3>No matching posts</h3>
+        <p>Try another topic or keyword.</p>
+      </div>
+    `;
 
     return;
+
   }
 
-  list.forEach(
-    p=>renderPost(p,postsContainer)
-  );
+  /*
+    Promise.all keeps the original feed order even though
+    likes/comments/profile data load asynchronously.
+  */
+
+  const elements=
+    await Promise.all(
+      filtered.map(
+        post=>buildPostElement(post)
+      )
+    );
+
+  elements.forEach(element=>{
+    postsContainer.appendChild(element);
+  });
+
 }
 
 
 /* =========================================================
-   USER PROFILE PHOTO HELPER
-   ========================================================= */
+   PROFILE CACHE
+========================================================= */
 
 async function getUserProfile(uid){
 
-  if(!uid)return null;
+  if(!uid){
+    return {};
+  }
 
-  if(userCache.has(uid)){
-    return userCache.get(uid);
+  if(profileCache[uid]){
+    return profileCache[uid];
   }
 
   try{
@@ -2044,58 +2097,70 @@ async function getUserProfile(uid){
 
       const data=snap.data();
 
-      userCache.set(uid,data);
+      profileCache[uid]=data;
 
       return data;
+
     }
 
-  }catch(e){
+  }catch(error){
 
     console.error(
-      "User profile error:",
-      e
+      "Profile fetch error:",
+      error
     );
+
   }
 
-  userCache.set(uid,null);
+  profileCache[uid]={};
 
-  return null;
+  return {};
+
 }
 
 
-function getPhotoURL(data){
-
-  if(!data)return "";
+function getPhotoURL(profile){
 
   return (
-    data.photoURL||
-    data.photoUrl||
-    data.avatar||
-    data.profilePhoto||
-    data.profilePic||
+    profile.photoURL||
+    profile.photoUrl||
+    profile.avatar||
+    profile.profilePhoto||
+    profile.profilePic||
     ""
   );
+
 }
 
 
 /* =========================================================
-   RENDER POST
-   ========================================================= */
+   BUILD HOME POST
+========================================================= */
 
-async function renderPost(post,container){
+async function buildPostElement(post){
 
-  const el=
+  const postElement=
     document.createElement("article");
 
-  el.className="post";
+  postElement.className="post";
+
+  const username=
+    post.authorName||"Member";
+
+  const profile=
+    await getUserProfile(
+      post.authorId
+    );
+
+  const photoURL=
+    getPhotoURL(profile);
 
   let likeCount=0;
-  let liked=false;
-  let commentCount=0;
+  let alreadyLiked=false;
 
   try{
 
-    const ls=
+    const likesSnapshot=
       await getDocs(
         collection(
           db,
@@ -2105,13 +2170,31 @@ async function renderPost(post,container){
         )
       );
 
-    likeCount=ls.size;
+    likeCount=likesSnapshot.size;
 
-    liked=
-      !!currentUser&&
-      ls.docs.some(
-        d=>d.id===currentUser.uid
-      );
+    if(currentUser){
+
+      alreadyLiked=
+        likesSnapshot.docs.some(
+          likeDoc=>
+            likeDoc.id===currentUser.uid
+        );
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Like loading error:",
+      error
+    );
+
+  }
+
+
+  let commentCount=0;
+
+  try{
 
     commentCount=
       (
@@ -2125,81 +2208,75 @@ async function renderPost(post,container){
         )
       ).size;
 
-  }catch(e){
+  }catch(error){
 
     console.error(
-      "Counts",
-      e
+      "Comment loading error:",
+      error
     );
+
   }
 
-  const name=
-    post.authorName||
-    "Member";
 
-  const initial=
-    name
-      .charAt(0)
-      .toUpperCase();
+  let avatarHTML="";
 
-  const handle=
-    "@"+
-    name
-      .toLowerCase()
-      .replace(/\s+/g,"")
-      .slice(0,20);
+  if(photoURL){
 
-  const profile=
-    await getUserProfile(
-      post.authorId
-    );
+    avatarHTML=
+      `<img src="${escapeAttribute(photoURL)}" alt="Profile">`;
 
-  const photoURL=
-    getPhotoURL(profile);
+  }else{
 
-  const avatarHTML=
-    photoURL
-      ? `<img src="${escapeAttr(photoURL)}" alt="">`
-      : escapeHTML(initial);
+    avatarHTML=
+      escapeHTML(
+        username
+          .charAt(0)
+          .toUpperCase()
+      );
 
-  let media="";
+  }
+
+
+  let mediaHTML="";
 
   if(
     post.mediaUrl&&
     post.mediaType==="image"
   ){
 
-    media=
-      `<img
+    mediaHTML=`
+      <img
         class="post-media"
-        src="${escapeAttr(post.mediaUrl)}"
-        alt="Community photo"
+        src="${escapeAttribute(post.mediaUrl)}"
+        alt="Community post image"
         loading="lazy"
-      >`;
+      >
+    `;
+
   }
+
 
   if(
     post.mediaUrl&&
     post.mediaType==="video"
   ){
 
-    media=
-      `<video
+    mediaHTML=`
+      <video
         class="post-video"
         controls
         preload="metadata"
       >
-        <source src="${escapeAttr(post.mediaUrl)}">
-      </video>`;
+        <source
+          src="${escapeAttribute(post.mediaUrl)}"
+        >
+      </video>
+    `;
+
   }
 
-  /*
-    IMPORTANT:
-    Avatar is now OUTSIDE the header.
-    Text is INSIDE post-main directly below header.
-  */
 
-  el.innerHTML=`
+  postElement.innerHTML=`
 
     <div class="post-layout">
 
@@ -2211,7 +2288,7 @@ async function renderPost(post,container){
 
         <div
           class="post-header"
-          data-uid="${escapeAttr(post.authorId||"")}"
+          data-profile-id="${escapeAttribute(post.authorId||"")}"
         >
 
           <div class="author-wrap">
@@ -2219,20 +2296,14 @@ async function renderPost(post,container){
             <div class="author-line">
 
               <span class="author">
-                ${escapeHTML(name)}
+                ${escapeHTML(username)}
               </span>
 
-              <span class="verified">
-                <svg viewBox="0 0 24 24">
-                  <path d="M12 2l2.1 2.1 3-.2.9 2.9 2.6 1.6-1 2.8 1 2.8-2.6 1.6-.9 2.9-3-.2L12 22l-2.1-2.1-3 .2-.9-2.9-2.6-1.6 1-2.8 1-2.8-2.6-1.6-.9-2.9 3 .2L12 2z"></path>
-                  <path
-                    d="m8.5 12 2.2 2.2 4.8-5"
-                    fill="none"
-                    stroke="#fff"
-                    stroke-width="1.8"
-                  />
-                </svg>
-              </span>
+              ${
+                profile.verified===true
+                  ? `<span class="verified">✓</span>`
+                  : ""
+              }
 
               <button
                 class="more"
@@ -2245,7 +2316,7 @@ async function renderPost(post,container){
             </div>
 
             <div class="handle">
-              ${escapeHTML(handle)}
+              @${escapeHTML(makeHandle(username))}
               ·
               ${formatTime(post.createdAt)}
             </div>
@@ -2254,82 +2325,105 @@ async function renderPost(post,container){
 
         </div>
 
+
         ${
           post.text
-            ? `<div class="post-text">
-                ${escapeHTML(post.text)}
-              </div>`
+            ? `
+              <div class="post-text">
+                ${escapeHTML(
+                  normalizePostText(post.text)
+                )}
+              </div>
+            `
             : ""
         }
 
-        ${media}
+        ${mediaHTML}
+
 
         <div class="actions">
 
           <button
-            class="action comment"
+            class="action like-button ${
+              alreadyLiked?"liked":""
+            }"
             type="button"
           >
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="${alreadyLiked?"currentColor":"none"}"
+              stroke="currentColor"
+            >
+              <path d="M20.8 8.7 C20.8 13.7 12 20 12 20 S3.2 13.7 3.2 8.7 C3.2 5.7 5.4 3.7 8.1 3.7 C9.8 3.7 11.3 4.6 12 5.9 C12.7 4.6 14.2 3.7 15.9 3.7 C18.6 3.7 20.8 5.7 20.8 8.7Z"></path>
+            </svg>
+
+            <span>
+              ${alreadyLiked?"Unlike":"Like"}
+            </span>
+
+            <b class="like-count">
+              ${likeCount}
+            </b>
+
+          </button>
+
+
+          <button
+            class="action comment-button"
+            type="button"
+          >
+
             <svg
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
             >
-              <path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 2 1.5-4A7.5 7.5 0 1 1 20 11.5Z"/>
+              <path d="M20 11.5 a7.5 7.5 0 0 1-7.5 7.5 H8l-4 2 1.5-4 A7.5 7.5 0 1 1 20 11.5Z"></path>
             </svg>
 
             <span>Comment</span>
-            <b class="comment-count">${commentCount}</b>
+
+            <b class="comment-count">
+              ${commentCount}
+            </b>
+
           </button>
 
 
           <button
-            class="action like ${liked?"liked":""}"
+            class="action share-button"
             type="button"
           >
-            <svg
-              viewBox="0 0 24 24"
-              fill="${liked?"currentColor":"none"}"
-              stroke="currentColor"
-            >
-              <path d="M20.8 8.7C20.8 13.7 12 20 12 20S3.2 13.7 3.2 8.7C3.2 5.7 5.4 3.7 8.1 3.7c1.7 0 3.2.9 3.9 2.2.7-1.3 2.2-2.2 3.9-2.2 2.7 0 4.9 2 4.9 5Z"/>
-            </svg>
 
-            <span>Like</span>
-            <b class="like-count">${likeCount}</b>
-          </button>
-
-
-          <button
-            class="action share"
-            type="button"
-          >
             <svg
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
             >
-              <path d="M12 16V4"/>
-              <path d="m7 9 5-5 5 5"/>
-              <path d="M5 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/>
+              <path d="M12 16V4"></path>
+              <path d="m7 9 5-5 5 5"></path>
+              <path d="M5 13v5 a2 2 0 0 0 2 2h10 a2 2 0 0 0 2-2v-5"></path>
             </svg>
 
             <span>Share</span>
+
           </button>
 
         </div>
 
 
-        <div class="comments">
+        <div class="comments-area">
 
-          <div class="comment-list"></div>
+          <div class="comments-list"></div>
 
           <div class="comment-form">
 
             <input
               class="comment-input"
+              type="text"
               maxlength="300"
-              placeholder="Write a reply..."
+              placeholder="Write a comment..."
             >
 
             <button
@@ -2348,66 +2442,67 @@ async function renderPost(post,container){
     </div>
   `;
 
-  container.appendChild(el);
 
+  /* Profile */
 
-  /* PROFILE CLICK */
+  postElement
+    .querySelector(".post-header")
+    .addEventListener(
+      "click",
+      ()=>{
 
-  el.querySelector(
-    ".post-header"
-  ).addEventListener(
-    "click",
-    ()=>{
-      if(post.authorId){
+        if(post.authorId){
+          openProfile(post.authorId);
+        }
 
-        window.location.href=
-          "profile.html?uid="+
-          encodeURIComponent(
-            post.authorId
-          );
       }
-    }
-  );
+    );
 
 
-  /* MORE BUTTON MUST NOT OPEN PROFILE */
+  /* More */
 
-  el.querySelector(
-    ".more"
-  ).addEventListener(
-    "click",
-    event=>{
-      event.stopPropagation();
-    }
-  );
+  postElement
+    .querySelector(".more")
+    .addEventListener(
+      "click",
+      event=>{
+        event.stopPropagation();
+      }
+    );
 
 
-  /* LIKE */
+  /* Like */
 
-  const likeBtn=
-    el.querySelector(".like");
+  const likeButton=
+    postElement.querySelector(
+      ".like-button"
+    );
 
-  const likeNum=
-    el.querySelector(".like-count");
+  const likeCountElement=
+    postElement.querySelector(
+      ".like-count"
+    );
 
-  likeBtn.addEventListener(
+  const likeText=
+    likeButton.querySelector("span");
+
+
+  likeButton.addEventListener(
     "click",
     async()=>{
 
       if(!currentUser){
 
-        alert(
-          "Please sign in first."
-        );
-
+        alert("Please sign in first.");
         return;
+
       }
 
-      likeBtn.disabled=true;
+      likeButton.disabled=true;
 
       try{
 
-        const r=
+        const likeRef=
           doc(
             db,
             "posts",
@@ -2416,29 +2511,30 @@ async function renderPost(post,container){
             currentUser.uid
           );
 
-        const s=
-          await getDoc(r);
+        const likeSnap=
+          await getDoc(likeRef);
 
-        let n=
+        let count=
           Number(
-            likeNum.textContent
+            likeCountElement.textContent
           )||0;
 
-        if(s.exists()){
+        if(likeSnap.exists()){
 
-          await deleteDoc(r);
+          await deleteDoc(likeRef);
 
-          n=
-            Math.max(
-              0,
-              n-1
-            );
+          count=Math.max(
+            0,
+            count-1
+          );
 
-          likeBtn.classList.remove(
+          likeText.textContent="Like";
+
+          likeButton.classList.remove(
             "liked"
           );
 
-          likeBtn
+          likeButton
             .querySelector("svg")
             .setAttribute(
               "fill",
@@ -2448,20 +2544,22 @@ async function renderPost(post,container){
         }else{
 
           await setDoc(
-            r,
+            likeRef,
             {
               userId:currentUser.uid,
               createdAt:serverTimestamp()
             }
           );
 
-          n++;
+          count++;
 
-          likeBtn.classList.add(
+          likeText.textContent="Unlike";
+
+          likeButton.classList.add(
             "liked"
           );
 
-          likeBtn
+          likeButton
             .querySelector("svg")
             .setAttribute(
               "fill",
@@ -2474,78 +2572,113 @@ async function renderPost(post,container){
           ){
 
             await createNotification({
+
               recipientId:post.authorId,
               senderId:currentUser.uid,
               senderName:currentUsername,
               type:"like",
               postId:post.id
+
             });
+
           }
+
         }
 
-        likeNum.textContent=n;
+        likeCountElement.textContent=count;
 
-      }catch(e){
+      }catch(error){
 
-        console.error(e);
+        console.error(
+          "Like error:",
+          error
+        );
 
         alert(
-          (e.code||"Error")+
+          (error.code||"Error")+
           ": "+
-          e.message
+          error.message
         );
 
       }finally{
 
-        likeBtn.disabled=false;
+        likeButton.disabled=false;
+
       }
+
     }
   );
 
 
-  /* COMMENTS */
+  /* Comments */
 
-  const comments=
-    el.querySelector(".comments");
+  const commentButton=
+    postElement.querySelector(
+      ".comment-button"
+    );
 
-  const commentBtn=
-    el.querySelector(".comment");
+  const commentsArea=
+    postElement.querySelector(
+      ".comments-area"
+    );
 
-  const list=
-    el.querySelector(".comment-list");
+  const commentsList=
+    postElement.querySelector(
+      ".comments-list"
+    );
 
-  const input=
-    el.querySelector(".comment-input");
+  const commentInput=
+    postElement.querySelector(
+      ".comment-input"
+    );
 
-  const send=
-    el.querySelector(".comment-send");
+  const commentSend=
+    postElement.querySelector(
+      ".comment-send"
+    );
 
-  const cc=
-    el.querySelector(".comment-count");
+  const commentCountElement=
+    postElement.querySelector(
+      ".comment-count"
+    );
 
 
-  commentBtn.addEventListener(
+  commentButton.addEventListener(
     "click",
     async()=>{
 
-      comments.style.display=
-        comments.style.display==="block"
-          ? "none"
-          : "block";
+      if(!currentUser){
 
-      commentBtn.classList.toggle(
-        "open"
-      );
+        alert("Please sign in first.");
+        return;
+
+      }
 
       if(
-        comments.style.display==="block"
+        commentsArea.style.display==="block"
       ){
+
+        commentsArea.style.display="none";
+
+        commentButton.classList.remove(
+          "active"
+        );
+
+      }else{
+
+        commentsArea.style.display="block";
+
+        commentButton.classList.add(
+          "active"
+        );
 
         await loadComments(
           post.id,
-          list
+          commentsList
         );
+
       }
+
     }
   );
 
@@ -2554,19 +2687,17 @@ async function renderPost(post,container){
 
     if(!currentUser){
 
-      alert(
-        "Please sign in first."
-      );
-
+      alert("Please sign in first.");
       return;
+
     }
 
     const text=
-      input.value.trim();
+      commentInput.value.trim();
 
     if(!text)return;
 
-    send.disabled=true;
+    commentSend.disabled=true;
 
     try{
 
@@ -2585,14 +2716,18 @@ async function renderPost(post,container){
         }
       );
 
-      input.value="";
+      commentInput.value="";
 
-      cc.textContent=
-        (Number(cc.textContent)||0)+1;
+      commentCountElement.textContent=
+        (
+          Number(
+            commentCountElement.textContent
+          )||0
+        )+1;
 
       await loadComments(
         post.id,
-        list
+        commentsList
       );
 
       if(
@@ -2601,105 +2736,143 @@ async function renderPost(post,container){
       ){
 
         await createNotification({
+
           recipientId:post.authorId,
           senderId:currentUser.uid,
           senderName:currentUsername,
           type:"comment",
-          postId:post.id
+          postId:post.id,
+          commentText:text
+
         });
+
       }
 
-    }catch(e){
+    }catch(error){
 
-      console.error(e);
+      console.error(
+        "Comment error:",
+        error
+      );
 
       alert(
-        (e.code||"Error")+
+        (error.code||"Error")+
         ": "+
-        e.message
+        error.message
       );
 
     }finally{
 
-      send.disabled=false;
+      commentSend.disabled=false;
+
     }
+
   }
 
 
-  send.addEventListener(
+  commentSend.addEventListener(
     "click",
     sendComment
   );
 
 
-  input.addEventListener(
+  commentInput.addEventListener(
     "keydown",
-    e=>{
+    event=>{
 
-      if(e.key==="Enter"){
+      if(event.key==="Enter"){
 
-        e.preventDefault();
-
+        event.preventDefault();
         sendComment();
+
       }
+
     }
   );
 
 
-  /* SHARE */
+  /* Share */
 
-  el.querySelector(
-    ".share"
-  ).addEventListener(
-    "click",
-    async()=>{
+  postElement
+    .querySelector(".share-button")
+    .addEventListener(
+      "click",
+      async()=>{
 
-      const url=
-        location.href.split("#")[0]+
-        "#post-"+post.id;
-
-      try{
-
-        if(navigator.share){
-
-          await navigator.share({
-            title:"JSP TAYSU Community",
-            text:
-              `${name} shared a post on JSP TAYSU`,
-            url
-          });
-
-        }else{
-
-          await navigator.clipboard
-            .writeText(url);
-
-          alert(
-            "Post link copied 🔗"
+        const shareButton=
+          postElement.querySelector(
+            ".share-button"
           );
+
+        try{
+
+          if(navigator.share){
+
+            await navigator.share({
+
+              title:
+                "JSP TAYSU Community",
+
+              text:
+                `${username} shared a post on JSP TAYSU Community 🐉`,
+
+              url:
+                window.location.href
+
+            });
+
+          }else{
+
+            await navigator.clipboard.writeText(
+              window.location.href
+            );
+
+            alert(
+              "Community link copied! 🔗"
+            );
+
+          }
+
+          shareButton.classList.add(
+            "active"
+          );
+
+          setTimeout(
+            ()=>shareButton.classList.remove("active"),
+            1200
+          );
+
+        }catch(error){
+
+          console.log(
+            "Share cancelled."
+          );
+
         }
 
-      }catch(e){}
-    }
-  );
+      }
+    );
+
+
+  return postElement;
 
 }
 
 
 /* =========================================================
    COMMENTS
-   ========================================================= */
+========================================================= */
 
 async function loadComments(
   postId,
-  list
+  commentsList
 ){
 
-  list.innerHTML="";
+  commentsList.innerHTML="";
 
   try{
 
-    const snap=
+    const snapshot=
       await getDocs(
         collection(
           db,
@@ -2709,68 +2882,84 @@ async function loadComments(
         )
       );
 
-    if(snap.empty){
+    if(snapshot.empty){
 
-      list.innerHTML=
-        '<div style="color:#737c88;font-size:12px;padding:5px 0">'+
-        'No replies yet.'+
-        '</div>';
+      commentsList.innerHTML=`
+        <div style="color:#777f89;font-size:12px;padding:4px 2px;">
+          No comments yet.
+        </div>
+      `;
 
       return;
+
     }
 
-    const arr=[];
+    const comments=[];
 
-    snap.forEach(
-      d=>
-        arr.push({
-          id:d.id,
-          ...d.data()
-        })
-    );
+    snapshot.forEach(commentDoc=>{
 
-    arr.sort(
+      comments.push({
+        id:commentDoc.id,
+        ...commentDoc.data()
+      });
+
+    });
+
+    comments.sort(
       (a,b)=>
         (a.createdAt?.seconds||0)-
         (b.createdAt?.seconds||0)
     );
 
-    arr.forEach(c=>{
 
-      const e=
+    comments.forEach(comment=>{
+
+      const element=
         document.createElement("div");
 
-      e.className="comment";
+      element.className="comment";
 
-      e.innerHTML=
-        `<div class="comment-top">
-          <span class="comment-user">
-            ${escapeHTML(c.username||"Member")}
-          </span>
+      element.innerHTML=`
+
+        <div class="comment-top">
+
+          <div class="comment-user">
+            ${escapeHTML(
+              comment.username||"Member"
+            )}
+          </div>
 
           ${
             currentUser&&
-            c.userId===currentUser.uid
-              ? '<button class="delete-comment" type="button">Delete</button>'
+            comment.userId===currentUser.uid
+              ? `<button class="delete-comment" type="button">
+                   Delete
+                 </button>`
               : ""
           }
 
         </div>
 
         <div class="comment-text">
-          ${escapeHTML(c.text||"")}
-        </div>`;
+          ${escapeHTML(
+            comment.text||""
+          )}
+        </div>
+      `;
 
-      list.appendChild(e);
 
-      const del=
-        e.querySelector(
+      commentsList.appendChild(element);
+
+
+      const deleteButton=
+        element.querySelector(
           ".delete-comment"
         );
 
-      if(del){
 
-        del.addEventListener(
+      if(deleteButton){
+
+        deleteButton.addEventListener(
           "click",
           async()=>{
 
@@ -2782,190 +2971,260 @@ async function loadComments(
                   "posts",
                   postId,
                   "comments",
-                  c.id
+                  comment.id
                 )
               );
 
               await loadComments(
                 postId,
-                list
+                commentsList
               );
 
-            }catch(err){
+            }catch(error){
+
+              console.error(error);
 
               alert(
-                (err.code||"Error")+
+                (error.code||"Error")+
                 ": "+
-                err.message
+                error.message
               );
+
             }
+
           }
         );
+
       }
 
     });
 
-  }catch(e){
+  }catch(error){
 
-    console.error(e);
+    console.error(
+      "Comments error:",
+      error
+    );
 
-    list.innerHTML=
-      '<div style="color:#a77a7a;font-size:12px">'+
-      'Couldn’t load replies.'+
-      '</div>';
+    commentsList.innerHTML=`
+      <div style="color:#9c7373;font-size:12px;">
+        Couldn't load comments.
+      </div>
+    `;
+
   }
+
 }
 
 
 /* =========================================================
    MEMBERS
-   ========================================================= */
+========================================================= */
 
 async function loadMembers(){
 
   try{
 
-    const snap=
-      await getDocs(
-        collection(db,"users")
-      );
+    if(allMembers.length===0){
 
-    allMembers=[];
+      const snapshot=
+        await getDocs(
+          collection(db,"users")
+        );
 
-    snap.forEach(
-      d=>
+      allMembers=[];
+
+      snapshot.forEach(userDoc=>{
+
         allMembers.push({
-          id:d.id,
-          ...d.data()
-        })
-    );
+          id:userDoc.id,
+          ...userDoc.data()
+        });
+
+      });
+
+    }
 
     searchMembers();
 
-  }catch(e){
+  }catch(error){
 
     console.error(
-      "Members",
-      e
+      "Members error:",
+      error
     );
+
   }
+
 }
 
 
-$("userSearchButton")
-  .addEventListener(
-    "click",
-    searchMembers
+const userSearchButton=
+  document.getElementById(
+    "userSearchButton"
+  );
+
+const userSearchInput=
+  document.getElementById(
+    "userSearchInput"
+  );
+
+const searchResults=
+  document.getElementById(
+    "searchResults"
   );
 
 
-$("userSearchInput")
-  .addEventListener(
-    "input",
-    searchMembers
-  );
+userSearchButton.addEventListener(
+  "click",
+  searchMembers
+);
 
+userSearchInput.addEventListener(
+  "input",
+  searchMembers
+);
 
-$("userSearchInput")
-  .addEventListener(
-    "keydown",
-    e=>{
+userSearchInput.addEventListener(
+  "keydown",
+  event=>{
 
-      if(e.key==="Enter"){
-        searchMembers();
-      }
+    if(event.key==="Enter"){
+      searchMembers();
     }
-  );
+
+  }
+);
 
 
 async function searchMembers(){
 
+  const searchText=
+    userSearchInput.value
+      .trim()
+      .toLowerCase();
+
   if(!currentUser)return;
 
-  const q=
-    String(
-      $("userSearchInput").value||""
-    )
-    .trim()
-    .toLowerCase();
+  if(allMembers.length===0){
 
-  const box=
-    $("searchResults");
+    await loadMembers();
+    return;
 
-  box.innerHTML="";
+  }
 
-  if(!q){
+  searchResults.innerHTML="";
 
-    loadExploreGrid(
-      document.querySelector(".tab.active")?.dataset.tab||"all"
-    );
+  if(!searchText){
+
+    searchResults.innerHTML=`
+      <p style="color:#777f89;font-size:13px;padding:5px;">
+        Start typing a member's name.
+      </p>
+    `;
 
     return;
+
   }
+
 
   const matches=
     allMembers
+
       .filter(
-        u=>u.id!==currentUser.uid
+        user=>user.id!==currentUser.uid
       )
+
       .filter(
-        u=>
+        user=>
           String(
-            u.username||
-            u.name||
-            u.displayName||
+            user.username||
+            user.displayName||
             ""
           )
           .toLowerCase()
-          .includes(q)
+          .includes(searchText)
       )
+
+      .sort(
+        (a,b)=>
+          String(
+            a.username||
+            a.displayName||
+            ""
+          ).localeCompare(
+            String(
+              b.username||
+              b.displayName||
+              ""
+            )
+          )
+      )
+
       .slice(0,20);
 
-  if(!matches.length){
 
-    box.innerHTML=
-      '<p style="color:#737c88;font-size:13px;padding:5px">'+
-      'No members found.'+
-      '</p>';
+  if(matches.length===0){
+
+    searchResults.innerHTML=`
+      <p style="color:#777f89;font-size:13px;padding:5px;">
+        No members found.
+      </p>
+    `;
 
     return;
+
   }
 
-  for(const u of matches){
 
-    await renderMember(u);
-  }
+  /*
+    Render search results in correct order.
+  */
+
+  const results=
+    await Promise.all(
+      matches.map(
+        user=>buildMemberSearchResult(user)
+      )
+    );
+
+  results.forEach(
+    result=>searchResults.appendChild(result)
+  );
+
 }
 
 
-async function renderMember(u){
+async function buildMemberSearchResult(user){
+
+  const result=
+    document.createElement("div");
+
+  result.className="search-result";
 
   const name=
-    u.username||
-    u.name||
-    u.displayName||
+    user.username||
+    user.displayName||
     "Member";
 
-  const photo=
-    getPhotoURL(u);
+  const photoURL=
+    getPhotoURL(user);
 
-  const avatar=
-    photo
-      ? `<img src="${escapeAttr(photo)}" alt="">`
+
+  const avatarHTML=
+    photoURL
+      ? `<img src="${escapeAttribute(photoURL)}" alt="Profile">`
       : escapeHTML(
           name.charAt(0).toUpperCase()
         );
 
-  const e=
-    document.createElement("div");
 
-  e.className="search-result";
+  result.innerHTML=`
 
-  e.innerHTML=
-    `<div class="search-user">
+    <div class="search-user">
 
       <div class="search-avatar">
-        ${avatar}
+        ${avatarHTML}
       </div>
 
       <div class="search-username">
@@ -2974,475 +3233,964 @@ async function renderMember(u){
 
     </div>
 
-    <button class="follow-btn" type="button">
+    <button
+      class="follow-button"
+      type="button"
+    >
       Follow
-    </button>`;
+    </button>
 
-  $("searchResults")
-    .appendChild(e);
-
-
-  e.querySelector(
-    ".search-user"
-  ).addEventListener(
-    "click",
-    ()=>{
-
-      window.location.href=
-        "profile.html?uid="+
-        encodeURIComponent(u.id);
-    }
-  );
+  `;
 
 
-  const btn=
-    e.querySelector(
-      ".follow-btn"
+  result
+    .querySelector(".search-user")
+    .addEventListener(
+      "click",
+      ()=>openProfile(user.id)
     );
 
-  const fid=
+
+  const followButton=
+    result.querySelector(
+      ".follow-button"
+    );
+
+  const followId=
     currentUser.uid+
     "_"+
-    u.id;
+    user.id;
 
 
   try{
 
-    const s=
+    const followSnap=
       await getDoc(
         doc(
           db,
           "follows",
-          fid
+          followId
         )
       );
 
-    if(s.exists()){
+    if(followSnap.exists()){
 
-      btn.textContent="Following";
+      followButton.textContent=
+        "Following";
 
-      btn.classList.add(
+      followButton.classList.add(
         "following"
       );
+
     }
 
-  }catch(err){
+  }catch(error){
 
     console.error(
       "Follow check:",
-      err
+      error
     );
+
   }
 
 
-  btn.addEventListener(
+  followButton.addEventListener(
     "click",
-    async ev=>{
+    async event=>{
 
-      ev.stopPropagation();
+      event.stopPropagation();
 
       if(!currentUser)return;
 
-      btn.disabled=true;
+      followButton.disabled=true;
 
       try{
 
-        const r=
+        const followRef=
           doc(
             db,
             "follows",
-            fid
+            followId
           );
 
-        const s=
-          await getDoc(r);
+        const existing=
+          await getDoc(followRef);
 
 
-        if(s.exists()){
+        if(existing.exists()){
 
-          await deleteDoc(r);
+          /*
+            Following state stays stable.
+            This avoids accidental duplicate follow notifications.
+          */
 
-          btn.textContent="Follow";
+          followButton.textContent=
+            "Following";
 
-          btn.classList.remove(
+          followButton.classList.add(
             "following"
           );
 
-        }else{
+          return;
 
-          await setDoc(
-            r,
-            {
-              followerId:currentUser.uid,
-              followingId:u.id,
-              createdAt:serverTimestamp()
-            }
-          );
-
-          btn.textContent="Following";
-
-          btn.classList.add(
-            "following"
-          );
-
-          await createNotification({
-            recipientId:u.id,
-            senderId:currentUser.uid,
-            senderName:currentUsername,
-            type:"follow"
-          });
         }
 
-      }catch(err){
+
+        await setDoc(
+          followRef,
+          {
+            followerId:currentUser.uid,
+            followingId:user.id,
+            createdAt:serverTimestamp()
+          }
+        );
+
+
+        followButton.textContent=
+          "Following";
+
+        followButton.classList.add(
+          "following"
+        );
+
+
+        await createNotification({
+
+          recipientId:user.id,
+          senderId:currentUser.uid,
+          senderName:currentUsername,
+          type:"follow"
+
+        });
+
+
+      }catch(error){
 
         console.error(
           "Follow error:",
-          err
+          error
         );
+
+        followButton.disabled=false;
 
         alert(
-          (err.code||"Error")+
+          (error.code||"Error")+
           ": "+
-          err.message
+          error.message
         );
 
-      }finally{
-
-        btn.disabled=false;
       }
+
     }
   );
+
+
+  return result;
+
 }
 
 
 /* =========================================================
-   EXPLORE TABS
-   ========================================================= */
+   EXPLORE
+========================================================= */
 
 document
-  .querySelectorAll(".tab")
-  .forEach(t=>{
+  .querySelectorAll(".explore-tab")
+  .forEach(tab=>{
 
-    t.addEventListener(
+    tab.addEventListener(
       "click",
       ()=>{
 
         document
-          .querySelectorAll(".tab")
-          .forEach(
-            x=>x.classList.remove("active")
-          );
+          .querySelectorAll(".explore-tab")
+          .forEach(button=>{
+            button.classList.remove("active");
+          });
 
-        t.classList.add("active");
+        tab.classList.add("active");
 
-        loadExploreGrid(
-          t.dataset.tab
-        );
+        currentExploreMode=
+          tab.dataset.exploreMode;
+
+        renderExplore();
+
       }
     );
+
   });
 
 
-/* =========================================================
-   EXPLORE
-   ========================================================= */
+async function loadExploreGrid(){
 
-function loadExploreGrid(mode="all"){
+  if(allPosts.length===0){
 
-  const mediaGrid=
-    $("exploreMediaGrid");
+    await loadPosts();
 
-  const textFeed=
-    $("exploreTextFeed");
+  }else{
 
-  mediaGrid.innerHTML="";
-  textFeed.innerHTML="";
+    renderExplore();
+
+  }
+
+}
 
 
-  /* POSTS TAB */
+async function renderExplore(){
 
-  if(mode==="all"){
+  exploreMediaGrid.innerHTML="";
+  exploreTextFeed.innerHTML="";
+
+
+  const posts=
+    [...allPosts].sort(
+      (a,b)=>
+        (b.createdAt?.seconds||0)-
+        (a.createdAt?.seconds||0)
+    );
+
+
+  if(
+    currentExploreMode==="all"
+  ){
 
     const mediaPosts=
-      allPosts.filter(
-        p=>
-          p.mediaUrl&&
-          p.mediaType==="image"
+      posts.filter(
+        post=>
+          post.mediaUrl&&
+          (
+            post.mediaType==="image"||
+            post.mediaType==="video"
+          )
       );
 
     const textPosts=
-      allPosts.filter(
-        p=>
-          !p.mediaUrl&&
-          String(p.text||"").trim()
+      posts.filter(
+        post=>
+          !post.mediaUrl&&
+          String(post.text||"").trim()
       );
 
 
-    /* PHOTOS */
+    renderExploreMediaTiles(
+      mediaPosts
+    );
 
-    mediaPosts.forEach(
-      p=>{
+    const elements=
+      await Promise.all(
+        textPosts.map(
+          post=>buildExploreTextPost(post)
+        )
+      );
 
-        const tile=
-          document.createElement("div");
+    elements.forEach(
+      element=>
+        exploreTextFeed.appendChild(element)
+    );
 
-        tile.className=
-          "explore-media-tile";
+    return;
 
-        tile.innerHTML=
-          `<img
-            src="${escapeAttr(p.mediaUrl)}"
-            alt=""
-            loading="lazy"
-          >`;
+  }
 
-        tile.addEventListener(
-          "click",
-          ()=>{
-            showSection("homeSection");
 
-            $("feedSearchInput").value=
-              "";
+  if(
+    currentExploreMode==="photos"
+  ){
 
-            renderPosts("");
-          }
-        );
+    const photoPosts=
+      posts.filter(
+        post=>
+          post.mediaUrl&&
+          post.mediaType==="image"
+      );
 
-        mediaGrid.appendChild(tile);
+    renderExploreMediaTiles(
+      photoPosts
+    );
+
+    return;
+
+  }
+
+
+  if(
+    currentExploreMode==="reels"
+  ){
+
+    const videoPosts=
+      posts.filter(
+        post=>
+          post.mediaUrl&&
+          post.mediaType==="video"
+      );
+
+    renderExploreMediaTiles(
+      videoPosts
+    );
+
+  }
+
+}
+
+
+function renderExploreMediaTiles(posts){
+
+  if(posts.length===0){
+
+    exploreMediaGrid.innerHTML=`
+      <div style="
+        grid-column:1/-1;
+        text-align:center;
+        padding:45px 15px;
+        color:#777f89;
+        font-size:13px;
+      ">
+        Nothing here yet.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  posts.forEach(post=>{
+
+    const tile=
+      document.createElement("div");
+
+    tile.className=
+      "explore-media-tile";
+
+
+    if(post.mediaType==="image"){
+
+      tile.innerHTML=`
+        <img
+          src="${escapeAttribute(post.mediaUrl)}"
+          alt="Community photo"
+          loading="lazy"
+        >
+      `;
+
+    }else{
+
+      tile.innerHTML=`
+
+        <video
+          src="${escapeAttribute(post.mediaUrl)}"
+          muted
+          preload="metadata"
+        ></video>
+
+        <span class="video-badge">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              d="m9 7 8 5-8 5z"
+              fill="currentColor"
+            ></path>
+          </svg>
+
+        </span>
+
+      `;
+
+    }
+
+
+    /*
+      Clicking a media tile opens Home and focuses
+      the actual post instead of simply doing nothing.
+    */
+
+    tile.addEventListener(
+      "click",
+      async()=>{
+
+        showSection("homeSection");
+
+        await renderFilteredPosts("");
+
+        const homePosts=
+          [...postsContainer.querySelectorAll(".post")];
+
+        const index=
+          allPosts.findIndex(
+            item=>item.id===post.id
+          );
+
+        if(
+          index>=0&&
+          homePosts[index]
+        ){
+
+          homePosts[index].scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+          });
+
+          homePosts[index].animate(
+            [
+              {opacity:.45},
+              {opacity:1}
+            ],
+            {
+              duration:450
+            }
+          );
+
+        }
+
       }
     );
 
 
-    /* TEXT POSTS — FULL WIDTH */
+    exploreMediaGrid.appendChild(tile);
 
-    textPosts.forEach(
-      p=>
-        renderExploreTextPost(
-          p,
-          textFeed
-        )
-    );
+  });
 
-
-    if(
-      !mediaPosts.length&&
-      !textPosts.length
-    ){
-
-      mediaGrid.innerHTML=
-        '<div class="empty" style="grid-column:1/-1">'+
-        '<h3>No content yet</h3>'+
-        '<p>When members post, it will appear here.</p>'+
-        '</div>';
-    }
-
-    return;
-  }
-
-
-  /* REELS TAB — VIDEOS ONLY */
-
-  const videos=
-    allPosts.filter(
-      p=>
-        p.mediaUrl&&
-        p.mediaType==="video"
-    );
-
-
-  if(!videos.length){
-
-    mediaGrid.innerHTML=
-      '<div class="empty" style="grid-column:1/-1">'+
-      '<h3>No reels yet</h3>'+
-      '<p>Uploaded videos will appear here.</p>'+
-      '</div>';
-
-    return;
-  }
-
-
-  videos.forEach(
-    p=>{
-
-      const tile=
-        document.createElement("div");
-
-      tile.className=
-        "explore-media-tile reel";
-
-      tile.innerHTML=
-        `<video
-          src="${escapeAttr(p.mediaUrl)}"
-          muted
-          preload="metadata"
-        ></video>`;
-
-      tile.addEventListener(
-        "click",
-        ()=>{
-          showSection("homeSection");
-
-          $("feedSearchInput").value="";
-
-          renderPosts("");
-        }
-      );
-
-      mediaGrid.appendChild(tile);
-    }
-  );
 }
 
 
 /* =========================================================
    EXPLORE TEXT POST
-   ========================================================= */
+========================================================= */
 
-async function renderExploreTextPost(
-  post,
-  container
-){
+async function buildExploreTextPost(post){
 
-  const name=
+  const article=
+    document.createElement("article");
+
+  article.className=
+    "explore-text-post";
+
+
+  const username=
     post.authorName||
     "Member";
 
-  const initial=
-    name
-      .charAt(0)
-      .toUpperCase();
-
-  const handle=
-    "@"+
-    name
-      .toLowerCase()
-      .replace(/\s+/g,"")
-      .slice(0,20);
 
   const profile=
     await getUserProfile(
       post.authorId
     );
 
-  const photo=
+
+  const photoURL=
     getPhotoURL(profile);
 
-  const avatar=
-    photo
-      ? `<img src="${escapeAttr(photo)}" alt="">`
-      : escapeHTML(initial);
+
+  const avatarHTML=
+    photoURL
+      ? `<img src="${escapeAttribute(photoURL)}" alt="Profile">`
+      : escapeHTML(
+          username.charAt(0).toUpperCase()
+        );
 
 
-  const row=
-    document.createElement("article");
-
-  row.className=
-    "explore-text-post";
+  let likeCount=0;
+  let alreadyLiked=false;
+  let commentCount=0;
 
 
-  row.innerHTML=
-    `<div class="explore-text-layout">
+  try{
+
+    const likesSnapshot=
+      await getDocs(
+        collection(
+          db,
+          "posts",
+          post.id,
+          "likes"
+        )
+      );
+
+    likeCount=
+      likesSnapshot.size;
+
+    if(currentUser){
+
+      alreadyLiked=
+        likesSnapshot.docs.some(
+          likeDoc=>
+            likeDoc.id===currentUser.uid
+        );
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Explore like error:",
+      error
+    );
+
+  }
+
+
+  try{
+
+    commentCount=
+      (
+        await getDocs(
+          collection(
+            db,
+            "posts",
+            post.id,
+            "comments"
+          )
+        )
+      ).size;
+
+  }catch(error){
+
+    console.error(
+      "Explore comment error:",
+      error
+    );
+
+  }
+
+
+  article.innerHTML=`
+
+    <div class="explore-text-layout">
 
       <div class="explore-text-avatar">
-        ${avatar}
+        ${avatarHTML}
       </div>
+
 
       <div class="explore-text-main">
 
         <div class="explore-text-author-line">
 
           <span class="explore-text-author">
-            ${escapeHTML(name)}
+            ${escapeHTML(username)}
           </span>
 
-          <span class="verified">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 2l2.1 2.1 3-.2.9 2.9 2.6 1.6-1 2.8 1 2.8-2.6 1.6-.9 2.9-3-.2L12 22l-2.1-2.1-3 .2-.9-2.9-2.6-1.6 1-2.8 1-2.8-2.6-1.6-.9-2.9 3 .2L12 2z"></path>
-              <path
-                d="m8.5 12 2.2 2.2 4.8-5"
-                fill="none"
-                stroke="#fff"
-                stroke-width="1.8"
-              />
-            </svg>
-          </span>
+          ${
+            profile.verified===true
+              ? `<span class="verified">✓</span>`
+              : ""
+          }
+
+          <button
+            class="more explore-more"
+            type="button"
+          >
+            •••
+          </button>
 
         </div>
 
+
         <div class="explore-text-meta">
-          ${escapeHTML(handle)}
+          @${escapeHTML(makeHandle(username))}
           ·
           ${formatTime(post.createdAt)}
         </div>
 
+
         <div class="explore-text-content">
-          ${escapeHTML(post.text||"")}
+          ${escapeHTML(
+            normalizePostText(post.text||"")
+          )}
         </div>
+
 
         <div class="explore-text-actions">
 
-          <button class="explore-text-action">
+          <button
+            class="action explore-like ${
+              alreadyLiked?"liked":""
+            }"
+            type="button"
+          >
+
             <svg
               viewBox="0 0 24 24"
-              fill="none"
+              fill="${alreadyLiked?"currentColor":"none"}"
               stroke="currentColor"
             >
-              <path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 2 1.5-4A7.5 7.5 0 1 1 20 11.5Z"/>
+              <path d="M20.8 8.7 C20.8 13.7 12 20 12 20 S3.2 13.7 3.2 8.7 C3.2 5.7 5.4 3.7 8.1 3.7 C9.8 3.7 11.3 4.6 12 5.9 C12.7 4.6 14.2 3.7 15.9 3.7 C18.6 3.7 20.8 5.7 20.8 8.7Z"></path>
             </svg>
-            <span>Comment</span>
+
+            <b class="explore-like-count">
+              ${likeCount}
+            </b>
+
           </button>
 
-          <button class="explore-text-action">
+
+          <button
+            class="action explore-comment"
+            type="button"
+          >
+
             <svg
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
             >
-              <path d="M20.8 8.7C20.8 13.7 12 20 12 20S3.2 13.7 3.2 8.7C3.2 5.7 5.4 3.7 8.1 3.7c1.7 0 3.2.9 3.9 2.2.7-1.3 2.2-2.2 3.9-2.2 2.7 0 4.9 2 4.9 5Z"/>
+              <path d="M20 11.5 a7.5 7.5 0 0 1-7.5 7.5 H8l-4 2 1.5-4 A7.5 7.5 0 1 1 20 11.5Z"></path>
             </svg>
-            <span>Like</span>
+
+            <b>
+              ${commentCount}
+            </b>
+
           </button>
 
-          <button class="explore-text-action">
+
+          <button
+            class="action explore-share"
+            type="button"
+          >
+
             <svg
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
             >
-              <path d="M12 16V4"/>
-              <path d="m7 9 5-5 5 5"/>
-              <path d="M5 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/>
+              <path d="M12 16V4"></path>
+              <path d="m7 9 5-5 5 5"></path>
+              <path d="M5 13v5 a2 2 0 0 0 2 2h10 a2 2 0 0 0 2-2v-5"></path>
             </svg>
-            <span>Share</span>
+
           </button>
 
         </div>
 
       </div>
 
-    </div>`;
+    </div>
+  `;
 
 
-  row.addEventListener(
+  /* Profile */
+
+  article
+    .querySelector(".explore-text-author-line")
+    .addEventListener(
+      "click",
+      event=>{
+
+        if(
+          event.target.closest(".explore-more")
+        ){
+          return;
+        }
+
+        if(post.authorId){
+          openProfile(post.authorId);
+        }
+
+      }
+    );
+
+
+  /* More */
+
+  article
+    .querySelector(".explore-more")
+    .addEventListener(
+      "click",
+      event=>{
+        event.stopPropagation();
+      }
+    );
+
+
+  /* Like */
+
+  const likeButton=
+    article.querySelector(
+      ".explore-like"
+    );
+
+  const likeCountElement=
+    article.querySelector(
+      ".explore-like-count"
+    );
+
+
+  likeButton.addEventListener(
     "click",
-    ()=>{
-      showSection("homeSection");
+    async event=>{
 
-      $("feedSearchInput").value="";
+      event.stopPropagation();
 
-      renderPosts("");
+      if(!currentUser){
+
+        alert("Please sign in first.");
+        return;
+
+      }
+
+      likeButton.disabled=true;
+
+      try{
+
+        const likeRef=
+          doc(
+            db,
+            "posts",
+            post.id,
+            "likes",
+            currentUser.uid
+          );
+
+        const likeSnap=
+          await getDoc(likeRef);
+
+        let count=
+          Number(
+            likeCountElement.textContent
+          )||0;
+
+
+        if(likeSnap.exists()){
+
+          await deleteDoc(likeRef);
+
+          count=Math.max(
+            0,
+            count-1
+          );
+
+          likeButton.classList.remove(
+            "liked"
+          );
+
+          likeButton
+            .querySelector("svg")
+            .setAttribute(
+              "fill",
+              "none"
+            );
+
+        }else{
+
+          await setDoc(
+            likeRef,
+            {
+              userId:currentUser.uid,
+              createdAt:serverTimestamp()
+            }
+          );
+
+          count++;
+
+          likeButton.classList.add(
+            "liked"
+          );
+
+          likeButton
+            .querySelector("svg")
+            .setAttribute(
+              "fill",
+              "currentColor"
+            );
+
+
+          if(
+            post.authorId&&
+            post.authorId!==currentUser.uid
+          ){
+
+            await createNotification({
+
+              recipientId:post.authorId,
+              senderId:currentUser.uid,
+              senderName:currentUsername,
+              type:"like",
+              postId:post.id
+
+            });
+
+          }
+
+        }
+
+
+        likeCountElement.textContent=
+          count;
+
+
+      }catch(error){
+
+        console.error(
+          "Explore like error:",
+          error
+        );
+
+      }finally{
+
+        likeButton.disabled=false;
+
+      }
+
     }
   );
 
 
-  container.appendChild(row);
+  /* Comment */
+
+  article
+    .querySelector(".explore-comment")
+    .addEventListener(
+      "click",
+      event=>{
+
+        event.stopPropagation();
+
+        showSection("homeSection");
+
+        renderFilteredPosts("").then(()=>{
+
+          const homePosts=
+            [...postsContainer.querySelectorAll(".post")];
+
+          const index=
+            allPosts.findIndex(
+              item=>item.id===post.id
+            );
+
+          if(
+            index>=0&&
+            homePosts[index]
+          ){
+
+            homePosts[index].scrollIntoView({
+              behavior:"smooth",
+              block:"center"
+            });
+
+            const button=
+              homePosts[index]
+                .querySelector(
+                  ".comment-button"
+                );
+
+            if(button){
+              button.click();
+            }
+
+          }
+
+        });
+
+      }
+    );
+
+
+  /* Share */
+
+  article
+    .querySelector(".explore-share")
+    .addEventListener(
+      "click",
+      async event=>{
+
+        event.stopPropagation();
+
+        try{
+
+          if(navigator.share){
+
+            await navigator.share({
+
+              title:
+                "JSP TAYSU Community",
+
+              text:
+                `${username} shared a post on JSP TAYSU Community 🐉`,
+
+              url:
+                window.location.href
+
+            });
+
+          }else{
+
+            await navigator.clipboard.writeText(
+              window.location.href
+            );
+
+            alert(
+              "Community link copied! 🔗"
+            );
+
+          }
+
+        }catch(error){
+
+          console.log(
+            "Share cancelled."
+          );
+
+        }
+
+      }
+    );
+
+
+  /* Clicking text opens the real post */
+
+  article.addEventListener(
+    "click",
+    event=>{
+
+      if(
+        event.target.closest("button")
+      ){
+        return;
+      }
+
+      showSection("homeSection");
+
+      renderFilteredPosts("").then(()=>{
+
+        const homePosts=
+          [...postsContainer.querySelectorAll(".post")];
+
+        const index=
+          allPosts.findIndex(
+            item=>item.id===post.id
+          );
+
+        if(
+          index>=0&&
+          homePosts[index]
+        ){
+
+          homePosts[index].scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+          });
+
+        }
+
+      });
+
+    }
+  );
+
+
+  return article;
+
 }
 
 
 /* =========================================================
    NOTIFICATIONS
-   ========================================================= */
+========================================================= */
 
 async function createNotification(data){
 
@@ -3450,11 +4198,11 @@ async function createNotification(data){
 
     if(
       !data.recipientId||
-      !data.senderId||
-      data.recipientId===data.senderId
+      !data.senderId
     ){
       return;
     }
+
 
     await addDoc(
       collection(
@@ -3465,34 +4213,49 @@ async function createNotification(data){
         recipientId:data.recipientId,
         senderId:data.senderId,
         senderName:
-          data.senderName||"Member",
+          data.senderName||
+          "Member",
         type:data.type,
         postId:data.postId||"",
+        commentText:
+          data.commentText||
+          "",
         createdAt:serverTimestamp(),
         read:false
       }
     );
 
-  }catch(e){
+  }catch(error){
 
     console.error(
-      "Notification write failed:",
-      e
+      "Notification error:",
+      error
     );
+
   }
+
 }
 
 
-/* =========================================================
-   REALTIME ALERTS
-   ========================================================= */
+/*
+  Realtime listener.
+
+  No limit(100), so older notifications are not
+  silently excluded anymore.
+*/
 
 function subscribeNotifications(){
+
+  if(!currentUser)return;
 
   if(notificationUnsubscribe){
 
     notificationUnsubscribe();
+
+    notificationUnsubscribe=null;
+
   }
+
 
   const q=
     query(
@@ -3504,302 +4267,271 @@ function subscribeNotifications(){
         "recipientId",
         "==",
         currentUser.uid
-      ),
-      limit(100)
+      )
     );
+
 
   notificationUnsubscribe=
     onSnapshot(
       q,
-      snap=>{
+      snapshot=>{
 
-        const arr=[];
+        const notifications=[];
 
-        snap.forEach(
-          d=>
-            arr.push({
-              id:d.id,
-              ...d.data()
-            })
+        snapshot.forEach(
+          notificationDoc=>{
+
+            notifications.push({
+              id:notificationDoc.id,
+              ...notificationDoc.data()
+            });
+
+          }
         );
 
-        arr.sort(
+
+        notifications.sort(
           (a,b)=>
             (b.createdAt?.seconds||0)-
             (a.createdAt?.seconds||0)
         );
 
-        renderNotifications(arr);
-      },
-      e=>{
 
-        console.error(
-          "Notification listener failed",
-          e
+        renderNotifications(
+          notifications
         );
 
-        alertList.innerHTML=
-          '<div class="alert-empty">'+
-          '<h3>Alerts couldn’t load</h3>'+
-          '<p>Check your Firestore rules for the notifications collection.</p>'+
-          '</div>';
+      },
+      error=>{
+
+        console.error(
+          "Notifications listener:",
+          error
+        );
+
+        alertList.innerHTML=`
+          <div class="alert-empty">
+            <h3>Couldn't load alerts</h3>
+            <p>Please try again later.</p>
+          </div>
+        `;
+
       }
     );
+
 }
 
 
-async function refreshNotifications(){
+function renderNotifications(
+  notifications
+){
 
-  if(!currentUser)return;
-
-  try{
-
-    const q=
-      query(
-        collection(
-          db,
-          "notifications"
-        ),
-        where(
-          "recipientId",
-          "==",
-          currentUser.uid
-        ),
-        limit(100)
-      );
-
-    const snap=
-      await getDocs(q);
-
-    const arr=[];
-
-    snap.forEach(
-      d=>
-        arr.push({
-          id:d.id,
-          ...d.data()
-        })
-    );
-
-    arr.sort(
-      (a,b)=>
-        (b.createdAt?.seconds||0)-
-        (a.createdAt?.seconds||0)
-    );
-
-    renderNotifications(arr);
-
-  }catch(e){
-
-    console.error(e);
-  }
-}
-
-
-function renderNotifications(arr){
-
-  const unread=
-    arr.filter(
-      n=>n.read!==true
+  const unreadCount=
+    notifications.filter(
+      item=>item.read!==true
     ).length;
 
-  alertBadge.textContent=
-    unread>99
-      ? "99+"
-      : String(unread);
 
-  alertBadge.style.display=
-    unread
-      ? "grid"
-      : "none";
+  if(unreadCount>0){
+
+    alertBadge.textContent=
+      unreadCount>99
+        ? "99+"
+        : unreadCount;
+
+    alertBadge.classList.add(
+      "show"
+    );
+
+  }else{
+
+    alertBadge.classList.remove(
+      "show"
+    );
+
+  }
+
+
+  if(notifications.length===0){
+
+    alertList.innerHTML=`
+      <div class="alert-empty">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+        >
+          <path d="M18 8 a6 6 0 0 0-12 0 c0 7-3 7-3 9h18 c0-2-3-2-3-9"></path>
+          <path d="M10 21h4"></path>
+        </svg>
+
+        <h3>No new alerts</h3>
+
+        <p>
+          Your community notifications will appear here.
+        </p>
+
+      </div>
+    `;
+
+    return;
+
+  }
+
 
   alertList.innerHTML="";
 
 
-  if(!arr.length){
+  notifications.forEach(
+    notification=>{
 
-    alertList.innerHTML=
-      '<div class="alert-empty">'+
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">'+
-      '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>'+
-      '<path d="M10 21h4"/>'+
-      '</svg>'+
-      '<h3>No alerts yet</h3>'+
-      '<p>Likes, comments and follows will appear here.</p>'+
-      '</div>';
-
-    return;
-  }
+      const element=
+        document.createElement("div");
 
 
-  arr.forEach(n=>{
-
-    const e=
-      document.createElement("div");
-
-    e.className=
-      "notification"+
-      (
-        n.read===true
-          ? ""
-          : " unread"
-      );
+      let message="";
+      let icon="";
+      let alertClass="";
 
 
-    let icon="bell";
+      if(
+        notification.type==="like"
+      ){
 
-    let msg=
-      `<b>${escapeHTML(
-        n.senderName||"Member"
-      )}</b> sent you a notification.`;
+        alertClass="like-alert";
 
-    let cls="";
+        message=
+          `<b>${escapeHTML(
+            notification.senderName||
+            "Member"
+          )}</b> liked your post.`;
 
+        icon=`
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path d="M20.8 8.7 C20.8 13.7 12 20 12 20 S3.2 13.7 3.2 8.7 C3.2 5.7 5.4 3.7 8.1 3.7 C9.8 3.7 11.3 4.6 12 5.9 C12.7 4.6 14.2 3.7 15.9 3.7 C18.6 3.7 20.8 5.7 20.8 8.7Z"></path>
+          </svg>
+        `;
 
-    if(n.type==="like"){
+      }else if(
+        notification.type==="comment"
+      ){
 
-      icon="heart";
-      cls="like";
+        alertClass="comment-alert";
 
-      msg=
-        `<b>${escapeHTML(
-          n.senderName||"Member"
-        )}</b> liked your post.`;
+        message=
+          `<b>${escapeHTML(
+            notification.senderName||
+            "Member"
+          )}</b> commented on your post.`;
 
-    }else if(n.type==="comment"){
+        icon=`
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path d="M20 11.5 a7.5 7.5 0 0 1-7.5 7.5 H8l-4 2 1.5-4 A7.5 7.5 0 1 1 20 11.5Z"></path>
+          </svg>
+        `;
 
-      icon="comment";
-      cls="comment";
+      }else if(
+        notification.type==="follow"
+      ){
 
-      msg=
-        `<b>${escapeHTML(
-          n.senderName||"Member"
-        )}</b> commented on your post.`;
+        alertClass="follow-alert";
 
-    }else if(n.type==="follow"){
+        message=
+          `<b>${escapeHTML(
+            notification.senderName||
+            "Member"
+          )}</b> started following you.`;
 
-      icon="user";
-      cls="follow";
+        icon=`
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <circle cx="12" cy="8" r="4"></circle>
+            <path d="M4 21 c0-4 3.5-7 8-7 s8 3 8 7"></path>
+          </svg>
+        `;
 
-      msg=
-        `<b>${escapeHTML(
-          n.senderName||"Member"
-        )}</b> started following you.`;
-    }
+      }else{
 
+        message=
+          `<b>${escapeHTML(
+            notification.senderName||
+            "Member"
+          )}</b> sent you a notification.`;
 
-    e.innerHTML=
-      `<div class="notification-icon ${cls}">
-        ${iconSVG(icon)}
-      </div>
+        icon=`
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path d="M18 8 a6 6 0 0 0-12 0 c0 7-3 7-3 9h18 c0-2-3-2-3-9"></path>
+            <path d="M10 21h4"></path>
+          </svg>
+        `;
 
-      <div style="flex:1;min-width:0">
-
-        <div class="notification-text">
-          ${msg}
-        </div>
-
-        <div class="notification-time">
-          ${formatTime(n.createdAt)}
-        </div>
-
-      </div>`;
-
-
-    e.addEventListener(
-      "click",
-      async()=>{
-
-        try{
-
-          if(n.read!==true){
-
-            await setDoc(
-              doc(
-                db,
-                "notifications",
-                n.id
-              ),
-              {
-                read:true
-              },
-              {
-                merge:true
-              }
-            );
-
-            e.classList.remove(
-              "unread"
-            );
-          }
-
-          if(n.postId){
-
-            showSection(
-              "homeSection"
-            );
-
-            $("feedSearchInput")
-              .value="";
-
-            renderPosts("");
-          }
-
-        }catch(err){
-
-          console.error(err);
-        }
       }
-    );
 
 
-    alertList.appendChild(e);
-
-  });
-}
-
-
-/* =========================================================
-   MARK ALL READ
-   ========================================================= */
-
-$("readAllButton").addEventListener(
-  "click",
-  async()=>{
-
-    if(!currentUser)return;
-
-    try{
-
-      const q=
-        query(
-          collection(
-            db,
-            "notifications"
-          ),
-          where(
-            "recipientId",
-            "==",
-            currentUser.uid
-          ),
-          limit(100)
+      element.className=
+        "notification "+
+        alertClass+
+        (
+          notification.read===true
+            ? ""
+            : " unread"
         );
 
-      const snap=
-        await getDocs(q);
 
-      await Promise.all(
-        snap.docs
-          .filter(
-            d=>d.data().read!==true
-          )
-          .map(
-            d=>
-              setDoc(
+      element.innerHTML=`
+
+        <div class="notification-icon">
+          ${icon}
+        </div>
+
+        <div style="flex:1;min-width:0;">
+
+          <div class="notification-text">
+            ${message}
+          </div>
+
+          <div class="notification-time">
+            ${formatTime(
+              notification.createdAt
+            )}
+          </div>
+
+        </div>
+
+      `;
+
+
+      element.addEventListener(
+        "click",
+        async()=>{
+
+          try{
+
+            if(
+              notification.read!==true
+            ){
+
+              await setDoc(
                 doc(
                   db,
                   "notifications",
-                  d.id
+                  notification.id
                 ),
                 {
                   read:true
@@ -3807,127 +4539,261 @@ $("readAllButton").addEventListener(
                 {
                   merge:true
                 }
-              )
-          )
+              );
+
+            }
+
+
+            if(notification.postId){
+
+              showSection(
+                "homeSection"
+              );
+
+              await renderFilteredPosts(
+                ""
+              );
+
+              const homePosts=
+                [
+                  ...postsContainer
+                    .querySelectorAll(".post")
+                ];
+
+              const index=
+                allPosts.findIndex(
+                  item=>
+                    item.id===
+                    notification.postId
+                );
+
+
+              if(
+                index>=0&&
+                homePosts[index]
+              ){
+
+                homePosts[index].scrollIntoView({
+                  behavior:"smooth",
+                  block:"center"
+                });
+
+              }
+
+            }
+
+          }catch(error){
+
+            console.error(
+              "Read notification error:",
+              error
+            );
+
+          }
+
+        }
       );
 
-      await refreshNotifications();
 
-    }catch(e){
-
-      console.error(e);
-
-      alert(
-        (e.code||"Error")+
-        ": "+
-        e.message
+      alertList.appendChild(
+        element
       );
+
     }
-  }
-);
+  );
 
-
-/* =========================================================
-   ICONS
-   ========================================================= */
-
-function iconSVG(type){
-
-  const p={
-
-    heart:
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">'+
-      '<path d="M20.8 8.7C20.8 13.7 12 20 12 20S3.2 13.7 3.2 8.7C3.2 5.7 5.4 3.7 8.1 3.7c1.7 0 3.2.9 3.9 2.2.7-1.3 2.2-2.2 3.9-2.2 2.7 0 4.9 2 4.9 5Z"/>'+
-      '</svg>',
-
-    comment:
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">'+
-      '<path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 2 1.5-4A7.5 7.5 0 1 1 20 11.5Z"/>'+
-      '</svg>',
-
-    user:
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">'+
-      '<circle cx="12" cy="8" r="4"/>'+
-      '<path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/>'+
-      '</svg>',
-
-    bell:
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">'+
-      '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>'+
-      '<path d="M10 21h4"/>'+
-      '</svg>'
-  };
-
-  return p[type]||p.bell;
 }
 
 
 /* =========================================================
-   SECURITY HELPERS
-   ========================================================= */
+   MARK ALL READ
+========================================================= */
 
-function escapeHTML(v){
+document
+  .getElementById("markReadButton")
+  .addEventListener(
+    "click",
+    async()=>{
 
-  const d=
+      if(!currentUser)return;
+
+      try{
+
+        const q=
+          query(
+            collection(
+              db,
+              "notifications"
+            ),
+            where(
+              "recipientId",
+              "==",
+              currentUser.uid
+            )
+          );
+
+
+        const snapshot=
+          await getDocs(q);
+
+
+        const updates=[];
+
+
+        snapshot.forEach(
+          notificationDoc=>{
+
+            const data=
+              notificationDoc.data();
+
+            if(data.read!==true){
+
+              updates.push(
+                setDoc(
+                  doc(
+                    db,
+                    "notifications",
+                    notificationDoc.id
+                  ),
+                  {
+                    read:true
+                  },
+                  {
+                    merge:true
+                  }
+                )
+              );
+
+            }
+
+          }
+        );
+
+
+        await Promise.all(
+          updates
+        );
+
+      }catch(error){
+
+        console.error(
+          "Mark read error:",
+          error
+        );
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function normalizePostText(text){
+
+  return String(text)
+    .replace(/[ \t]+\n/g,"\n")
+    .replace(/\n[ \t]+/g,"\n");
+
+}
+
+
+function makeHandle(name){
+
+  return String(name||"Member")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g,"")
+    .slice(0,24)||"member";
+
+}
+
+
+function escapeHTML(text){
+
+  const div=
     document.createElement("div");
 
-  d.textContent=
-    String(v??"");
+  div.textContent=
+    String(text);
 
-  return d.innerHTML;
+  return div.innerHTML;
+
 }
 
 
-function escapeAttr(v){
+function escapeAttribute(text){
 
-  return String(v??"")
+  return String(text)
     .replace(/&/g,"&amp;")
     .replace(/"/g,"&quot;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;");
+
 }
 
 
-/* =========================================================
-   TIME
-   ========================================================= */
+function formatTime(timestamp){
 
-function formatTime(ts){
+  /*
+    Firestore serverTimestamp can temporarily
+    be unavailable immediately after creation.
+    In that case "Just now" is intentional.
+  */
 
-  if(!ts||!ts.seconds){
+  if(
+    !timestamp||
+    !timestamp.seconds
+  ){
+
     return "Just now";
+
   }
 
-  const d=
+
+  const date=
     new Date(
-      ts.seconds*1000
+      timestamp.seconds*1000
     );
+
+  const now=
+    new Date();
 
   const diff=
     Math.floor(
-      (Date.now()-d.getTime())/
-      1000
+      (now-date)/1000
     );
+
 
   if(diff<60)
     return "Just now";
 
   if(diff<3600)
-    return Math.floor(diff/60)+"m";
+    return Math.floor(
+      diff/60
+    )+"m ago";
 
   if(diff<86400)
-    return Math.floor(diff/3600)+"h";
+    return Math.floor(
+      diff/3600
+    )+"h ago";
 
   if(diff<604800)
-    return Math.floor(diff/86400)+"d";
+    return Math.floor(
+      diff/86400
+    )+"d ago";
 
-  return d.toLocaleDateString(
+
+  return date.toLocaleDateString(
     "en-IN",
     {
       day:"numeric",
       month:"short"
     }
   );
+
 }
 
 </script>
