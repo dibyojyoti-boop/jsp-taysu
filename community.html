@@ -4,68 +4,132 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JSP TAYSU Community</title>
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-background:#0b0d10;color:#f5f5f5;padding-bottom:78px
-}
-
-.topbar{
-position:sticky;top:0;z-index:100;
-background:rgba(11,13,16,.88);
-backdrop-filter:blur(18px)
-}
-.topbar-inner{
-max-width:720px;margin:auto;height:58px;padding:0 16px;
-display:flex;align-items:center;justify-content:space-between
-}
-.top-actions{display:flex;align-items:center;gap:4px}
-.top-icon{
-position:relative;width:38px;height:38px;border:0;background:transparent;
-color:#f1f2f4;display:flex;align-items:center;justify-content:center;
-cursor:pointer
-}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#0b0d10;color:#f5f5f5;padding-bottom:78px}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(11,13,16,.92);backdrop-filter:blur(18px);border-bottom:1px solid #25282d}
+.topbar-inner{max-width:720px;margin:auto;height:60px;padding:0 12px;display:flex;align-items:center;justify-content:space-between}
+.top-icon{width:40px;height:40px;border:0;background:transparent;color:#f1f2f4;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer}
 .top-icon svg{width:22px;height:22px;stroke-width:1.8}
-.top-icon:active{transform:scale(.94)}
-.top-dot{
-display:none;position:absolute;top:5px;right:5px;width:7px;height:7px;
-border-radius:50%;background:#ff3040
-}
+.top-dot{display:none;position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%;background:#ff3040}
 .top-dot.show{display:block}
+.logo{display:flex;align-items:center;gap:9px;font-size:18px;font-weight:800;letter-spacing:-.4px}
+.logo-dragon{font-size:23px}
+.profile-name{max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#aeb3bb;font-size:13px}
 
-.container{
-max-width:720px;margin:auto;padding:17px 14px 30px
-}
+.container{max-width:720px;margin:auto;padding:17px 14px 30px}
 .page-section{display:none}
 .page-section.active{display:block}
+.page-section.create-slide{animation:createSlideIn .28s cubic-bezier(.2,.8,.2,1)}
+@keyframes createSlideIn{from{transform:translateX(100%);opacity:.8}to{transform:translateX(0);opacity:1}}
+body.create-open{overflow:hidden}
+.create-open .topbar,.create-open .bottom-nav{display:none}
+.create-open .container{padding:0;max-width:none}
+.create-open #createSection{min-height:100vh;padding:18px 16px 28px}
 
-/* FEED */
+.create-back{border:0;background:transparent;color:#bfc4ca;display:flex;align-items:center;gap:5px;font-size:13px;font-weight:700;padding:4px 0 18px;cursor:pointer}
+.create-back svg{width:19px;height:19px}
+
+.create-modebar{
+position:fixed;left:0;right:0;bottom:0;z-index:210;height:74px;
+background:rgba(11,13,16,.97);backdrop-filter:blur(20px);
+border-top:1px solid #292d33;display:none;
+grid-template-columns:repeat(3,1fr);padding:6px 12px
+}
+.create-open .create-modebar{display:grid}
+.create-mode{
+border:0;background:none;color:#737b85;
+display:flex;flex-direction:column;align-items:center;
+justify-content:center;gap:3px;cursor:pointer
+}
+.create-mode svg{width:21px;height:21px}
+.create-mode span{font-size:10px}
+.create-mode.active{color:#fff}
+
+.create-choice-row{
+display:grid;grid-template-columns:1fr 1fr;
+gap:10px;margin:3px 0 18px
+}
+.create-choice-top{
+border:1px solid #2b3037;background:#15181d;color:#f1f2f4;
+border-radius:15px;padding:17px 12px;
+display:flex;align-items:center;gap:10px;cursor:pointer
+}
+.create-choice-top.active{
+border-color:#1683ff;background:#121b27
+}
+.create-choice-top .choice-icon{
+width:39px;height:39px;border-radius:11px;
+background:#20242a;display:flex;align-items:center;
+justify-content:center;color:#d7bd8c
+}
+.create-choice-top .choice-icon svg{width:20px;height:20px}
+.create-choice-top strong{font-size:13px;display:block}
+.create-choice-top small{font-size:10px;color:#777f89;display:block;margin-top:2px}
+
+.create-mode-panel{display:none}
+.create-mode-panel.active{display:block}
+.create-card{background:transparent;border:0;border-radius:0;padding:0}
+.create-card .composer-header{margin-top:3px}
+.create-caption-label{font-size:11px;color:#777f89;margin:13px 0 2px}
+.note-hint{color:#777f89;font-size:11px;margin-top:8px}
+
+.comments-area{
+max-height:42vh;
+overflow:auto;
+overscroll-behavior:contain
+}
+
+.comment{position:relative}
+.reply-button,.view-replies{
+border:0;background:none;color:#8eaed0;
+font-size:10px;font-weight:700;cursor:pointer;
+margin-top:5px;margin-right:10px
+}
+.reply-form{display:flex;gap:6px;margin-top:7px}
+.reply-form input{
+flex:1;min-width:0;padding:8px 10px;
+border:1px solid #2a2e34;border-radius:10px;
+background:#15181d;color:#fff;outline:none;font-size:12px
+}
+.reply-form button{
+border:0;border-radius:10px;padding:0 11px;
+background:#f1f1f1;color:#0b0d10;font-weight:700
+}
+.replies{
+margin:6px 0 0 18px;border-left:1px solid #30343a;
+padding-left:9px
+}
+.reply{padding:6px 0}
+.reply .comment-user{font-size:11px}
+.reply .comment-text{font-size:12px}
+.comments-list{margin-bottom:7px}
+
 .feed-heading{
 display:flex;justify-content:space-between;align-items:center;
 gap:10px;padding:5px 4px 10px
 }
 .feed-heading h2{font-size:21px;letter-spacing:-.5px}
+.feed-heading-right{display:flex;align-items:center;gap:7px}
 .feed-search-button{
-width:34px;height:34px;border:0;border-radius:50%;
-background:transparent;color:#d7bd8c;
+width:34px;height:34px;border:0;border-radius:10px;
+background:#171a1f;color:#d7bd8c;
 display:flex;align-items:center;justify-content:center;cursor:pointer
 }
 .feed-search-button svg{width:19px;height:19px}
 .feed-search-box{display:none;margin-bottom:9px}
 .feed-search-box.show{display:flex}
 #feedSearchInput{
-width:100%;padding:11px 2px;border:0;
-border-bottom:1px solid #30343a;background:transparent;
-color:#fff;outline:none;font-size:14px
+width:100%;padding:11px 13px;border:1px solid #292d33;
+border-radius:12px;background:#15181d;color:#fff;outline:none;font-size:14px
 }
 
 #posts{display:flex;flex-direction:column;gap:0}
 .post{
-background:transparent;border:0;border-radius:0;
-padding:17px 0;margin-bottom:0
+background:#111419;border:1px solid #292d33;border-radius:18px;
+padding:12px 14px;margin-bottom:7px;
+box-shadow:0 8px 24px rgba(0,0,0,.13)
 }
 .post-header{
 display:flex;align-items:center;gap:10px;
@@ -96,79 +160,76 @@ margin:4px 0 5px;max-height:520px
 }
 
 .actions{
-padding-top:5px;display:flex;align-items:center;gap:2px
+border-top:1px solid #25282d;padding-top:4px;
+display:flex;align-items:center;gap:2px
 }
 .action{
 border:0;background:transparent;color:#9299a2;
 display:flex;align-items:center;gap:5px;padding:6px 8px;
-border-radius:10px;cursor:pointer;font-size:12px
+border-radius:10px;cursor:pointer;font-size:12px;transition:.18s
 }
-.action:hover{color:#fff}
+.action:hover{background:#1b1e23;color:#fff}
 .action svg{width:18px;height:18px;stroke-width:1.8}
 .action.liked{color:#ff5d6c}
 .action b{font-weight:600}
 
+.comments-area{
+display:none;margin-top:7px;padding-top:7px;
+border-top:1px solid #25282d
+}
+.comments-list{margin-bottom:8px}
+.comment{
+background:#181b20;border:1px solid #282c32;
+border-radius:11px;padding:8px 10px;margin-bottom:5px
+}
+.comment-top{
+display:flex;justify-content:space-between;
+align-items:center;margin-bottom:3px
+}
+.comment-user{font-size:12px;font-weight:800}
+.comment-text{
+color:#c8ccd1;font-size:13px;line-height:1.4;
+overflow-wrap:anywhere
+}
+.delete-comment{
+border:0;background:none;color:#8e7272;
+font-size:10px;cursor:pointer
+}
+.comment-form{display:flex;gap:7px}
+.comment-input{
+flex:1;min-width:0;padding:9px 11px;
+border:1px solid #2a2e34;border-radius:11px;
+background:#15181d;color:white;outline:none
+}
+.comment-send{
+border:0;padding:0 13px;border-radius:11px;
+background:#f1f1f1;color:#0b0d10;font-weight:700;cursor:pointer
+}
+
 .empty{
-text-align:center;background:transparent;border:0;
-padding:55px 20px;color:#858c95
+text-align:center;background:#111419;border:1px solid #292d33;
+border-radius:18px;padding:45px 20px;color:#858c95
 }
 .empty-icon{
 width:50px;height:50px;margin:0 auto 13px;
+border-radius:15px;background:#191c21;
 display:flex;align-items:center;justify-content:center;color:#d7bd8c
 }
 .empty-icon svg{width:26px;height:26px}
 .empty h3{color:#e7e9ec;margin-bottom:5px;font-size:16px}
 .empty p{font-size:13px}
 
-/* CREATE */
-.create-page-title{
-padding:0 3px 14px
-}
-.create-page-title h1{
+.create-page-title{padding:6px 3px 14px}
+.create-page-title h1,.explore-title h1,.alert-title h1{
 font-size:27px;letter-spacing:-1px
 }
-.create-page-title p{
+.create-page-title p,.explore-title p{
 color:#858c95;font-size:13px;margin-top:4px
 }
-
 .create-card{
-background:transparent;border:0;padding:0
+background:#111419;border:1px solid #292d33;
+border-radius:18px;padding:14px
 }
-
-/* MAIN PHOTO / VIDEO CHOICES */
-.create-media-choice{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-margin:6px 0 18px
-}
-.create-choice{
-border:1px solid #292e35;
-background:#14171c;
-color:#f1f2f4;
-border-radius:16px;
-padding:18px 14px;
-display:flex;
-align-items:center;
-gap:12px;
-text-align:left;
-cursor:pointer
-}
-.create-choice:active{transform:scale(.98)}
-.choice-icon{
-width:42px;height:42px;border-radius:12px;
-background:#20242a;
-display:flex;align-items:center;
-justify-content:center;color:#d7bd8c;
-flex-shrink:0
-}
-.choice-icon svg{width:21px;height:21px}
-.create-choice strong{display:block;font-size:14px}
-.create-choice span{
-display:block;color:#777f89;font-size:11px;margin-top:2px
-}
-
-/* COMPOSER */
 .composer-header{
 display:flex;align-items:center;gap:10px;margin-bottom:7px
 }
@@ -177,17 +238,16 @@ display:flex;align-items:center;gap:10px;margin-bottom:7px
 
 #postText{
 width:100%;min-height:62px;height:62px;resize:vertical;
-border:0;outline:none;padding:10px 0;
-background:transparent;border-bottom:1px solid #30343a;
-color:#f4f4f4;font-family:inherit;font-size:15px;line-height:1.45
+border:0;outline:none;border-radius:12px;padding:10px;
+background:#181b20;color:#f4f4f4;font-family:inherit;
+font-size:15px;line-height:1.45
 }
 #postText::placeholder{color:#6f7680}
 
 .create-media-preview{
 display:none;margin-top:8px;position:relative
 }
-.create-media-preview img,
-.create-media-preview video{
+.create-media-preview img,.create-media-preview video{
 width:100%;max-height:400px;object-fit:cover;
 border-radius:14px;background:#08090b
 }
@@ -203,25 +263,19 @@ align-items:center;gap:10px;margin-top:8px
 }
 .media-buttons{display:flex;gap:6px}
 .media-button{
-border:0;background:transparent;color:#b9bec5;
+border:1px solid #30343a;background:#181b20;color:#b9bec5;
 padding:8px 10px;border-radius:11px;cursor:pointer;
 display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600
 }
 .media-button svg{width:15px;height:15px}
 .post-btn{
 border:0;background:#f1f1f1;color:#0b0d10;
-padding:9px 17px;border-radius:12px;font-weight:800;cursor:pointer
+padding:9px 17px;border-radius:12px;
+font-weight:800;cursor:pointer
 }
-.post-btn:disabled{opacity:.5}
+.post-btn:disabled{opacity:.5;cursor:default}
 
-.hidden-file{display:none}
-
-/* EXPLORE */
 .explore-title{padding:7px 3px 15px}
-.explore-title h1{font-size:27px;letter-spacing:-1px}
-.explore-title p{
-color:#858c95;font-size:13px;margin-top:4px
-}
 .search-box{display:flex;gap:8px;margin-bottom:13px}
 #userSearchInput{
 flex:1;min-width:0;padding:13px 15px;
@@ -234,202 +288,86 @@ background:#f1f1f1;color:#0b0d10;
 display:flex;align-items:center;justify-content:center;cursor:pointer
 }
 .search-button svg{width:20px;height:20px}
+#searchResults{margin-bottom:18px}
 .search-result{
-padding:12px 0;display:flex;
-align-items:center;justify-content:space-between
+background:#15181d;border:1px solid #292d33;
+border-radius:15px;padding:12px;margin-bottom:7px;
+display:flex;align-items:center;justify-content:space-between
 }
 .search-user{
 display:flex;align-items:center;gap:10px;
 cursor:pointer;min-width:0
 }
 .search-avatar{
-width:42px;height:42px;flex-shrink:0;border-radius:50%;
+width:39px;height:39px;flex-shrink:0;border-radius:50%;
 background:#30251f;display:flex;align-items:center;
-justify-content:center;font-weight:800;color:#ead9b8;
-overflow:hidden
+justify-content:center;font-weight:800;color:#ead9b8;overflow:hidden
 }
-.search-avatar img{
-width:100%;height:100%;object-fit:cover
-}
+.search-avatar img{width:100%;height:100%;object-fit:cover}
 .search-username{
-font-size:14px;font-weight:700;
-overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+font-size:13px;font-weight:700;overflow:hidden;
+text-overflow:ellipsis;white-space:nowrap
 }
 .follow-button{
 border:0;padding:8px 15px;border-radius:10px;
 background:#1683ff;color:#fff;font-weight:700;cursor:pointer
 }
-.follow-button:disabled{
-background:#292d33;color:#aaa
-}
+.follow-button:disabled{background:#292d33;color:#aaa}
 
-/* BACK BUTTON */
-.section-back{
-display:flex;align-items:center;gap:6px;
-border:0;background:transparent;color:#b9bec5;
-padding:4px 2px 13px;font-size:13px;
-font-weight:600;cursor:pointer
-}
-.section-back svg{width:19px;height:19px}
-
-/* ALERTS */
-.alert-title{
-padding:0 3px 15px
-}
-.alert-title h1{
-font-size:27px;letter-spacing:-1px
-}
+.alert-title{padding:7px 3px 15px}
 .alert-list{display:flex;flex-direction:column;gap:7px}
 .notification{
 display:flex;align-items:center;gap:11px;
-padding:13px 0;background:transparent;
-border:0;border-radius:0;cursor:pointer
+padding:12px;background:#15181d;border:1px solid #292d33;
+border-radius:15px;cursor:pointer
+}
+.notification.unread{
+background:#15181d;border-color:#3a3f47
 }
 .notification-icon{
-width:42px;height:42px;flex-shrink:0;border-radius:50%;
+width:40px;height:40px;flex-shrink:0;border-radius:50%;
 background:#1b1e23;display:flex;align-items:center;
-justify-content:center;color:#d7bd8c;overflow:hidden
+justify-content:center;color:#d7bd8c
 }
-.notification-icon img{
-width:100%;height:100%;object-fit:cover
-}
-.notification-unread-dot{
-width:7px;height:7px;border-radius:50%;
-background:#ff3040;flex-shrink:0;margin-left:auto
-}
-.notification-text{
-font-size:13px;line-height:1.4;color:#dfe2e6
-}
-.notification-time{
-color:#777f89;font-size:10px;margin-top:3px
-}
-.alert-empty{
-text-align:center;padding:50px 20px;color:#858c95
-}
-.alert-empty svg{
-width:36px;height:36px;color:#d7bd8c;margin-bottom:10px
-}
-.alert-empty h3{
-color:#e7e9ec;margin-bottom:5px
-}
+.notification-icon svg{width:19px;height:19px}
+.notification-text{font-size:13px;line-height:1.4;color:#dfe2e6}
+.notification-time{color:#777f89;font-size:10px;margin-top:3px}
+.alert-empty{text-align:center;padding:50px 20px;color:#858c95}
+.alert-empty svg{width:36px;height:36px;color:#d7bd8c;margin-bottom:10px}
+.alert-empty h3{color:#e7e9ec;margin-bottom:5px}
 .alert-empty p{font-size:13px}
 
-/* REELS */
-.reels-placeholder{
-text-align:center;padding:80px 20px;color:#858c95
-}
-.reels-placeholder-icon{
-width:58px;height:58px;margin:0 auto 14px;
-display:flex;align-items:center;justify-content:center;color:#d7bd8c
-}
-.reels-placeholder-icon svg{width:40px;height:40px}
-.reels-placeholder h2{
-color:#e7e9ec;font-size:21px;margin-bottom:5px
-}
-.reels-placeholder p{font-size:13px}
-
-/* BOTTOM NAV */
 .bottom-nav{
-position:fixed;left:0;right:0;bottom:0;height:72px;
-z-index:200;background:rgba(11,13,16,.96);
-backdrop-filter:blur(20px);
-display:flex;justify-content:center;padding:6px 8px
+position:fixed;left:0;right:0;bottom:0;height:72px;z-index:200;
+background:rgba(11,13,16,.96);backdrop-filter:blur(20px);
+border-top:1px solid #292d33;display:flex;justify-content:center;
+padding:6px 8px;box-shadow:0 -10px 30px rgba(0,0,0,.2)
 }
 .nav-item{
-position:relative;flex:1;max-width:115px;border:0;
-background:none;color:#727983;cursor:pointer;
-display:flex;align-items:center;justify-content:center
+flex:1;max-width:115px;border:0;background:none;color:#727983;
+cursor:pointer;border-radius:13px;display:flex;
+flex-direction:column;align-items:center;justify-content:center;
+gap:4px;transition:.18s
 }
-.nav-item svg{width:24px;height:24px;stroke-width:1.8}
+.nav-item svg{width:21px;height:21px;stroke-width:1.8}
+.nav-item span{font-size:10px}
+.nav-item:hover{color:#dfe2e6;background:#15181d}
 .nav-item.active{color:#fff}
 
-/* COMMENTS */
-.comments-backdrop{
-position:fixed;inset:0;background:rgba(0,0,0,.58);
-opacity:0;visibility:hidden;transition:.25s;z-index:450
-}
-.comments-backdrop.show{
-opacity:1;visibility:visible
-}
-.comments-sheet{
-position:fixed;left:0;right:0;bottom:0;z-index:500;
-height:min(78vh,650px);background:#111419;
-border-radius:24px 24px 0 0;
-transform:translateY(105%);
-transition:transform .28s cubic-bezier(.2,.8,.2,1);
-display:flex;flex-direction:column;
-padding:10px 16px calc(12px + env(safe-area-inset-bottom));
-box-shadow:0 -18px 50px rgba(0,0,0,.35)
-}
-.comments-sheet.open{transform:translateY(0)}
-.sheet-handle{
-width:38px;height:4px;border-radius:99px;
-background:#444a52;margin:0 auto 10px
-}
-.sheet-header{
-display:flex;align-items:center;justify-content:space-between;
-padding:4px 0 12px
-}
-.sheet-header h3{font-size:17px;font-weight:800}
-.sheet-close{
-width:34px;height:34px;border:0;background:transparent;
-color:#aeb3bb;display:flex;align-items:center;
-justify-content:center;cursor:pointer
-}
-.sheet-close svg{width:20px;height:20px}
-.sheet-comments-list{
-flex:1;overflow:auto;padding-right:3px
-}
-.sheet-comment-form{
-display:flex;gap:8px;padding-top:10px
-}
-.sheet-comment-form .comment-input{
-background:#181b20;border:0;border-radius:20px;
-padding:10px 14px
-}
-.sheet-comment-form .comment-send{
-border-radius:20px
-}
-.sheet-open{overflow:hidden}
-
-.comment{
-padding:9px 0;margin-bottom:2px
-}
-.comment-top{
-display:flex;justify-content:space-between;
-align-items:center;margin-bottom:3px
-}
-.comment-user{font-size:12px;font-weight:800}
-.comment-text{
-color:#c8ccd1;font-size:13px;line-height:1.4;
-overflow-wrap:anywhere
-}
-.delete-comment{
-border:0;background:none;color:#8e7272;
-font-size:10px;cursor:pointer
-}
-.comment-input{
-flex:1;min-width:0;padding:9px 11px;
-border:1px solid #2a2e34;border-radius:11px;
-background:#15181d;color:white;outline:none
-}
-.comment-send{
-border:0;padding:0 13px;border-radius:11px;
-background:#f1f1f1;color:#0b0d10;
-font-weight:700;cursor:pointer
-}
+.hidden-file{display:none}
+.profile-link{cursor:pointer}
 
 @media(max-width:500px){
 .container{padding:15px 10px 25px}
 .topbar-inner{height:61px;padding:0 13px}
-.post{padding:16px 0}
-.post-text{font-size:15px}
+.logo{font-size:16px}
+.profile-name{max-width:130px}
+.post{border-radius:16px;padding:11px 12px}
+.post-text{font-size:15px;margin:0;padding:0}
 .action{padding:7px 6px}
 .action span{display:none}
 .action svg{width:19px;height:19px}
-.create-card{padding:0}
-.create-media-choice{gap:8px}
-.create-choice{padding:16px 11px}
+.create-card{border-radius:17px;padding:13px}
 #postText{min-height:62px;height:62px}
 .media-button{padding:8px 9px}
 .post-btn{padding:9px 14px}
@@ -450,7 +388,10 @@ font-weight:700;cursor:pointer
 </svg>
 </button>
 
-<div class="top-actions">
+<div class="logo">
+<span class="logo-dragon">🐉</span>
+<span>JSP TAYSU</span>
+</div>
 
 <button id="alertsTopButton" class="top-icon" type="button" aria-label="Alerts">
 <span id="alertTopDot" class="top-dot"></span>
@@ -461,7 +402,6 @@ font-weight:700;cursor:pointer
 </button>
 
 </div>
-</div>
 </header>
 
 <main class="container">
@@ -471,26 +411,41 @@ font-weight:700;cursor:pointer
 <div class="feed-heading">
 <h2>Community Feed</h2>
 
-<button id="feedSearchButton" class="feed-search-button" type="button">
+<div class="feed-heading-right">
+
+<button id="feedSearchButton" class="feed-search-button" type="button" aria-label="Search posts">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
 <circle cx="11" cy="11" r="7"></circle>
 <path d="m20 20-4-4"></path>
 </svg>
 </button>
+
+</div>
 </div>
 
 <div id="feedSearchBox" class="feed-search-box">
 <input id="feedSearchInput" type="text" placeholder="Search posts or topics..." maxlength="100">
 </div>
 
-<section id="posts"></section>
+<section id="posts">
+<div class="empty">
+<div class="empty-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<circle cx="12" cy="12" r="8"></circle>
+<path d="M8 12h8"></path>
+</svg>
+</div>
+<h3>Loading community...</h3>
+<p>Please wait a moment.</p>
+</div>
+</section>
 
 </section>
 
 
 <section id="createSection" class="page-section">
 
-<button class="section-back" id="createBackButton" type="button">
+<button class="create-back" id="createBackButton" type="button">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
 <path d="m15 18-6-6 6-6"></path>
 </svg>
@@ -499,14 +454,12 @@ Back
 
 <div class="create-page-title">
 <h1>Create</h1>
-<p>Share something with the community.</p>
+<p>Share something with the JSP TAYSU community.</p>
 </div>
 
-<div class="create-card">
+<div class="create-choice-row">
 
-<div class="create-media-choice">
-
-<button class="create-choice" id="choosePhotoButton" type="button">
+<button class="create-choice-top" id="choosePhotoButton" type="button">
 
 <div class="choice-icon">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -517,14 +470,14 @@ Back
 </div>
 
 <div>
-<strong>Photo</strong>
-<span>Share a picture</span>
+<strong>Photos</strong>
+<small>Share a photo</small>
 </div>
 
 </button>
 
 
-<button class="create-choice" id="chooseVideoButton" type="button">
+<button class="create-choice-top" id="chooseVideoButton" type="button">
 
 <div class="choice-icon">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -534,8 +487,8 @@ Back
 </div>
 
 <div>
-<strong>Video</strong>
-<span>Share a video</span>
+<strong>Videos</strong>
+<small>Share a video</small>
 </div>
 
 </button>
@@ -543,20 +496,22 @@ Back
 </div>
 
 
-<div class="composer-header">
+<div class="create-mode-panel active" id="postModePanel">
 
+<div class="create-card">
+
+<div class="composer-header">
 <div class="avatar" id="composerAvatar">M</div>
 
 <div>
 <div class="composer-name" id="composerName">Member</div>
-<div class="composer-sub">Share with the community</div>
+<div class="composer-sub">Create a post</div>
+</div>
 </div>
 
-</div>
+<div class="create-caption-label">Caption</div>
 
-
-<textarea id="postText" maxlength="5000" placeholder="Add a caption..."></textarea>
-
+<textarea id="postText" maxlength="5000" placeholder="What's on your mind?"></textarea>
 
 <div id="createMediaPreview" class="create-media-preview">
 
@@ -566,16 +521,24 @@ Back
 
 </div>
 
-
 <div class="create-options">
 
 <div class="media-buttons">
 
 <button class="media-button" id="photoButton" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<rect x="3" y="4" width="18" height="16" rx="3"></rect>
+<circle cx="8.5" cy="9" r="1.5"></circle>
+<path d="m5 17 4-4 3 3 2-2 5 5"></path>
+</svg>
 Photo
 </button>
 
 <button class="media-button" id="videoButton" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<rect x="3" y="5" width="13" height="14" rx="3"></rect>
+<path d="m16 10-5-3v10l5-3z"></path>
+</svg>
 Video
 </button>
 
@@ -585,6 +548,91 @@ Video
 </div>
 
 <button class="post-btn" id="postButton" type="button">Post</button>
+
+</div>
+</div>
+</div>
+
+
+<div class="create-mode-panel" id="reelModePanel">
+
+<div class="create-card">
+
+<div class="composer-header">
+
+<div class="avatar" id="reelAvatar">M</div>
+
+<div>
+<div class="composer-name" id="reelName">Member</div>
+<div class="composer-sub">Create a reel</div>
+</div>
+
+</div>
+
+<div class="create-choice-row">
+
+<button class="create-choice-top" id="reelVideoButton" type="button">
+
+<div class="choice-icon">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<rect x="3" y="3" width="18" height="18" rx="4"></rect>
+<path d="M9 3l3 5M15 3l3 5M3 9h18"></path>
+<path d="m10 13 5 3-5 3z" fill="currentColor" stroke="none"></path>
+</svg>
+
+</div>
+
+<div>
+<strong>Choose video</strong>
+<small>Create a short reel</small>
+</div>
+
+</button>
+
+</div>
+
+<input type="file" id="reelInput" class="hidden-file" accept="video/*">
+
+<div id="reelPreview" class="create-media-preview">
+<div id="reelPreviewContent"></div>
+</div>
+
+<div class="note-hint">
+Reels will appear in the Reels section after publishing.
+</div>
+
+</div>
+
+</div>
+
+
+<div class="create-mode-panel" id="noteModePanel">
+
+<div class="create-card">
+
+<div class="composer-header">
+
+<div class="avatar" id="noteAvatar">M</div>
+
+<div>
+<div class="composer-name" id="noteName">Member</div>
+<div class="composer-sub">Create a note</div>
+</div>
+
+</div>
+
+<div class="create-caption-label">Note</div>
+
+<textarea id="noteText" maxlength="300" placeholder="Write a short note..."></textarea>
+
+<div class="create-options">
+
+<div class="note-hint">Short thoughts for the community.</div>
+
+<button class="post-btn" id="noteButton" type="button">Post</button>
+
+</div>
 
 </div>
 
@@ -602,9 +650,9 @@ Video
 
 <div class="search-box">
 
-<input type="text" id="userSearchInput" placeholder="Search members..." maxlength="30">
+<input type="text" id="userSearchInput" placeholder="Search members..." maxlength="30" autocomplete="off">
 
-<button id="userSearchButton" class="search-button" type="button">
+<button id="userSearchButton" class="search-button" aria-label="Search" type="button">
 
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
 <circle cx="11" cy="11" r="7"></circle>
@@ -620,44 +668,27 @@ Video
 </section>
 
 
-<section id="reelsSection" class="page-section">
-
-<div class="reels-placeholder">
-
-<div class="reels-placeholder-icon">
-
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-<rect x="3" y="3" width="18" height="18" rx="4"></rect>
-<path d="M9 3l3 5M15 3l3 5M3 9h18"></path>
-<path d="m10 13 5 3-5 3z" fill="currentColor" stroke="none"></path>
-</svg>
-
-</div>
-
-<h2>Reels</h2>
-<p>Short videos will appear here.</p>
-
-</div>
-
-</section>
-
-
 <section id="alertsSection" class="page-section">
-
-<button class="section-back" id="alertsBackButton" type="button">
-
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-<path d="m15 18-6-6 6-6"></path>
-</svg>
-
-Back
-</button>
 
 <div class="alert-title">
 <h1>Alerts</h1>
 </div>
 
-<div id="alertList" class="alert-list"></div>
+<div id="alertList" class="alert-list">
+
+<div class="alert-empty">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M18 8 a6 6 0 0 0-12 0 c0 7-3 7-3 9h18 c0-2-3-2-3-9"></path>
+<path d="M10 21h4"></path>
+</svg>
+
+<h3>No new alerts</h3>
+<p>Your community notifications will appear here.</p>
+
+</div>
+
+</div>
 
 </section>
 
@@ -666,7 +697,7 @@ Back
 
 <nav class="bottom-nav">
 
-<button class="nav-item active" data-section="homeSection" aria-label="Home">
+<button class="nav-item active" data-section="homeSection">
 
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
 <path d="M3 10.5 12 3l9 7.5"></path>
@@ -674,30 +705,36 @@ Back
 <path d="M9 20v-6h6v6"></path>
 </svg>
 
+<span>Home</span>
+
 </button>
 
 
-<button class="nav-item" data-section="exploreSection" aria-label="Explore">
+<button class="nav-item" data-section="exploreSection">
 
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
 <circle cx="11" cy="11" r="7"></circle>
 <path d="m20 20-4-4"></path>
 </svg>
 
+<span>Explore</span>
+
 </button>
 
 
-<button class="nav-item" id="messagesNavButton" aria-label="Messages">
+<button class="nav-item" id="messagesNavButton">
 
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
 <path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 2 1.5-4A7.5 7.5 0 1 1 20 11.5Z"></path>
 <path d="M8 11.5h.01M12 11.5h.01M16 11.5h.01"></path>
 </svg>
 
+<span>Messages</span>
+
 </button>
 
 
-<button class="nav-item" data-section="reelsSection" aria-label="Reels">
+<button class="nav-item" data-section="reelsSection">
 
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
 <rect x="3" y="3" width="18" height="18" rx="4"></rect>
@@ -705,52 +742,65 @@ Back
 <path d="m10 13 5 3-5 3z" fill="currentColor" stroke="none"></path>
 </svg>
 
+<span>Reels</span>
+
 </button>
 
 
-<button class="nav-item" id="profileNavButton" aria-label="Profile">
+<button class="nav-item" id="profileNavButton">
 
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
 <circle cx="12" cy="8" r="4"></circle>
 <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"></path>
 </svg>
 
+<span>Profile</span>
+
 </button>
 
 </nav>
 
 
-<div id="commentsBackdrop" class="comments-backdrop"></div>
+<div class="create-modebar">
 
-<section id="commentsSheet" class="comments-sheet" aria-hidden="true">
-
-<div class="sheet-handle"></div>
-
-<div class="sheet-header">
-
-<h3>Comments</h3>
-
-<button id="closeCommentsButton" class="sheet-close" type="button">
+<button class="create-mode active" data-mode="postModePanel">
 
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-<path d="m6 6 12 12M18 6 6 18"></path>
+<rect x="3" y="4" width="18" height="16" rx="3"></rect>
+<circle cx="8.5" cy="9" r="1.5"></circle>
+<path d="m5 17 4-4 3 3 2-2 5 5"></path>
 </svg>
+
+<span>Post</span>
+
+</button>
+
+
+<button class="create-mode" data-mode="reelModePanel">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<rect x="3" y="3" width="18" height="18" rx="4"></rect>
+<path d="M9 3l3 5M15 3l3 5M3 9h18"></path>
+<path d="m10 13 5 3-5 3z" fill="currentColor" stroke="none"></path>
+</svg>
+
+<span>Reels</span>
+
+</button>
+
+
+<button class="create-mode" data-mode="noteModePanel">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M5 4h14v16H5z"></path>
+<path d="M8 8h8M8 12h8M8 16h5"></path>
+</svg>
+
+<span>Note</span>
 
 </button>
 
 </div>
-
-<div id="sheetCommentsList" class="sheet-comments-list"></div>
-
-<div class="sheet-comment-form">
-
-<input id="sheetCommentInput" class="comment-input" type="text" maxlength="300" placeholder="Add a comment...">
-
-<button id="sheetCommentSend" class="comment-send" type="button">Send</button>
-
-</div>
-
-</section>
 
 
 <script type="module">
@@ -776,8 +826,7 @@ getDoc,
 deleteDoc,
 query,
 where,
-limit,
-onSnapshot
+limit
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
@@ -812,8 +861,13 @@ let selectedMediaType=null;
 let currentUsername="Member";
 let allPosts=[];
 let allMembers=[];
-let notificationsUnsubscribe=null;
-let notificationAvatarCache=new Map();
+
+
+const profileName=document.getElementById("profileName");
+const composerName=document.getElementById("composerName");
+const composerAvatar=document.getElementById("composerAvatar");
+const alertList=document.getElementById("alertList");
+const postsContainer=document.getElementById("posts");
 
 
 const sections={
@@ -825,36 +879,27 @@ alertsSection:document.getElementById("alertsSection")
 };
 
 
-const composerName=document.getElementById("composerName");
-const composerAvatar=document.getElementById("composerAvatar");
-const alertList=document.getElementById("alertList");
-const postsContainer=document.getElementById("posts");
-
-
 function showSection(sectionId){
 
-Object.values(sections).forEach(section=>{
-section.classList.remove("active");
-});
+Object.values(sections).forEach(
+section=>section.classList.remove("active")
+);
 
 if(sections[sectionId]){
 sections[sectionId].classList.add("active");
 }
 
-
-document.querySelectorAll(".nav-item").forEach(button=>{
-button.classList.remove("active");
-});
-
-
-const matchingButton=document.querySelector(
-`[data-section="${sectionId}"]`
+document.querySelectorAll(".nav-item").forEach(
+button=>button.classList.remove("active")
 );
 
-if(matchingButton){
-matchingButton.classList.add("active");
-}
+const button=document.querySelector(
+`.nav-item[data-section="${sectionId}"]`
+);
 
+if(button){
+button.classList.add("active");
+}
 
 window.scrollTo({
 top:0,
@@ -871,12 +916,42 @@ alert("Please sign in first.");
 return;
 }
 
-showSection("createSection");
+document.body.classList.add("create-open");
+
+sections.createSection.classList.add("active");
+sections.createSection.classList.add("create-slide");
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
 
 }
 
 
-function openAlerts(){
+function closeCreate(){
+
+document.body.classList.remove("create-open");
+sections.createSection.classList.remove("create-slide");
+
+showSection("homeSection");
+
+}
+
+
+document
+.getElementById("createTopButton")
+.addEventListener("click",openCreate);
+
+
+document
+.getElementById("createBackButton")
+.addEventListener("click",closeCreate);
+
+
+document
+.getElementById("alertsTopButton")
+.addEventListener("click",()=>{
 
 if(!currentUser){
 alert("Please sign in first.");
@@ -886,38 +961,27 @@ return;
 showSection("alertsSection");
 loadNotifications();
 
-}
-
-
-document.getElementById("createTopButton")
-.addEventListener("click",openCreate);
-
-
-document.getElementById("alertsTopButton")
-.addEventListener("click",openAlerts);
-
-
-document.getElementById("createBackButton")
-.addEventListener("click",()=>{
-showSection("homeSection");
-});
-
-
-document.getElementById("alertsBackButton")
-.addEventListener("click",()=>{
-showSection("homeSection");
 });
 
 
 document.querySelectorAll(".nav-item[data-section]")
 .forEach(button=>{
+
 button.addEventListener("click",()=>{
+
+if(document.body.classList.contains("create-open")){
+return;
+}
+
 showSection(button.dataset.section);
+
 });
+
 });
 
 
-document.getElementById("messagesNavButton")
+document
+.getElementById("messagesNavButton")
 .addEventListener("click",()=>{
 
 if(!currentUser){
@@ -930,7 +994,8 @@ window.location.href="messages.html";
 });
 
 
-document.getElementById("profileNavButton")
+document
+.getElementById("profileNavButton")
 .addEventListener("click",()=>{
 
 if(!currentUser){
@@ -953,20 +1018,45 @@ window.location.href=
 }
 
 
+/* CREATE MODES */
+
+document.querySelectorAll(".create-mode")
+.forEach(button=>{
+
+button.addEventListener("click",()=>{
+
+const mode=button.dataset.mode;
+
+document.querySelectorAll(".create-mode")
+.forEach(item=>
+item.classList.remove("active")
+);
+
+button.classList.add("active");
+
+document.querySelectorAll(".create-mode-panel")
+.forEach(panel=>
+panel.classList.remove("active")
+);
+
+const panel=document.getElementById(mode);
+
+if(panel){
+panel.classList.add("active");
+}
+
+});
+
+});
+
+
 onAuthStateChanged(auth,async user=>{
 
 currentUser=user;
 
 if(!user){
 
-if(notificationsUnsubscribe){
-notificationsUnsubscribe();
-notificationsUnsubscribe=null;
-}
-
-document.getElementById("alertTopDot")
-.classList.remove("show");
-
+profileName.textContent="Please sign in";
 composerName.textContent="Member";
 composerAvatar.textContent="M";
 currentUsername="Member";
@@ -988,24 +1078,39 @@ if(
 profileSnap.exists()&&
 profileSnap.data().username
 ){
-username=profileSnap.data().username;
+
+username=
+profileSnap.data().username;
+
 }
 
 }catch(error){
 
-console.error("Profile error:",error);
+console.error(
+"Profile error:",
+error
+);
 
 }
 
 
 currentUsername=username;
 
+profileName.textContent=username;
 composerName.textContent=username;
 composerAvatar.textContent=
 username.charAt(0).toUpperCase();
 
+document.getElementById("reelName").textContent=username;
+document.getElementById("reelAvatar").textContent=
+username.charAt(0).toUpperCase();
+
+document.getElementById("noteName").textContent=username;
+document.getElementById("noteAvatar").textContent=
+username.charAt(0).toUpperCase();
+
 await loadPosts();
-loadNotifications();
+await loadNotifications();
 
 });
 
@@ -1027,10 +1132,14 @@ feedSearchButton.addEventListener("click",()=>{
 feedSearchBox.classList.toggle("show");
 
 if(feedSearchBox.classList.contains("show")){
+
 feedSearchInput.focus();
+
 }else{
+
 feedSearchInput.value="";
 renderFilteredPosts("");
+
 }
 
 });
@@ -1041,19 +1150,7 @@ renderFilteredPosts(feedSearchInput.value);
 });
 
 
-/* CREATE */
-
-const choosePhotoButton=
-document.getElementById("choosePhotoButton");
-
-const chooseVideoButton=
-document.getElementById("chooseVideoButton");
-
-const photoButton=
-document.getElementById("photoButton");
-
-const videoButton=
-document.getElementById("videoButton");
+/* MEDIA */
 
 const photoInput=
 document.getElementById("photoInput");
@@ -1062,22 +1159,30 @@ const videoInput=
 document.getElementById("videoInput");
 
 
-choosePhotoButton.addEventListener("click",()=>{
+document
+.getElementById("choosePhotoButton")
+.addEventListener("click",()=>{
 photoInput.click();
 });
 
 
-chooseVideoButton.addEventListener("click",()=>{
+document
+.getElementById("chooseVideoButton")
+.addEventListener("click",()=>{
 videoInput.click();
 });
 
 
-photoButton.addEventListener("click",()=>{
+document
+.getElementById("photoButton")
+.addEventListener("click",()=>{
 photoInput.click();
 });
 
 
-videoButton.addEventListener("click",()=>{
+document
+.getElementById("videoButton")
+.addEventListener("click",()=>{
 videoInput.click();
 });
 
@@ -1087,9 +1192,15 @@ photoInput.addEventListener("change",()=>{
 const file=photoInput.files[0];
 
 if(file){
+
 selectedMediaFile=file;
 selectedMediaType="image";
-showMediaPreview(file,"image");
+
+showMediaPreview(
+file,
+"image"
+);
+
 }
 
 });
@@ -1100,9 +1211,15 @@ videoInput.addEventListener("change",()=>{
 const file=videoInput.files[0];
 
 if(file){
+
 selectedMediaFile=file;
 selectedMediaType="video";
-showMediaPreview(file,"video");
+
+showMediaPreview(
+file,
+"video"
+);
+
 }
 
 });
@@ -1116,13 +1233,16 @@ document.getElementById("createMediaPreview");
 const content=
 document.getElementById("mediaPreviewContent");
 
-const url=URL.createObjectURL(file);
+const url=
+URL.createObjectURL(file);
 
 
 content.innerHTML=
 type==="image"
-?`<img src="${url}" alt="Selected photo">`
-:`<video src="${url}" controls></video>`;
+?
+`<img src="${url}" alt="Selected photo">`
+:
+`<video src="${url}" controls></video>`;
 
 
 preview.style.display="block";
@@ -1130,7 +1250,8 @@ preview.style.display="block";
 }
 
 
-document.getElementById("removeMediaButton")
+document
+.getElementById("removeMediaButton")
 .addEventListener("click",()=>{
 
 selectedMediaFile=null;
@@ -1148,7 +1269,10 @@ document.getElementById("mediaPreviewContent")
 });
 
 
-document.getElementById("postButton")
+/* POST */
+
+document
+.getElementById("postButton")
 .addEventListener("click",async()=>{
 
 if(!currentUser){
@@ -1163,8 +1287,11 @@ document.getElementById("postText")
 
 
 if(!text&&!selectedMediaFile){
+
 alert("Write something or select a photo/video.");
+
 return;
+
 }
 
 
@@ -1207,9 +1334,12 @@ file
 
 
 mediaUrl=
-await getDownloadURL(uploadResult.ref);
+await getDownloadURL(
+uploadResult.ref
+);
 
-mediaType=selectedMediaType;
+mediaType=
+selectedMediaType;
 
 }
 
@@ -1244,12 +1374,15 @@ document.getElementById("mediaPreviewContent")
 
 await loadPosts();
 
-showSection("homeSection");
+closeCreate();
 
 
 }catch(error){
 
-console.error("Post error:",error);
+console.error(
+"Post error:",
+error
+);
 
 alert(
 (error.code||"Error")+
@@ -1267,6 +1400,122 @@ button.textContent="Post";
 });
 
 
+/* REELS */
+
+const reelInput=
+document.getElementById("reelInput");
+
+
+document
+.getElementById("reelVideoButton")
+.addEventListener("click",()=>{
+reelInput.click();
+});
+
+
+reelInput.addEventListener("change",()=>{
+
+const file=reelInput.files[0];
+
+if(!file)
+return;
+
+
+const preview=
+document.getElementById("reelPreview");
+
+const content=
+document.getElementById("reelPreviewContent");
+
+const url=
+URL.createObjectURL(file);
+
+
+content.innerHTML=
+`<video src="${url}" controls></video>`;
+
+preview.style.display="block";
+
+});
+
+
+/* NOTES */
+
+document
+.getElementById("noteButton")
+.addEventListener("click",async()=>{
+
+if(!currentUser){
+alert("Please sign in first.");
+return;
+}
+
+
+const text=
+document
+.getElementById("noteText")
+.value.trim();
+
+
+if(!text){
+alert("Write something first.");
+return;
+}
+
+
+const button=
+document.getElementById("noteButton");
+
+button.disabled=true;
+button.textContent="Posting...";
+
+
+try{
+
+await addDoc(
+collection(db,"posts"),
+{
+text,
+authorId:currentUser.uid,
+authorName:currentUsername,
+mediaUrl:"",
+mediaType:"",
+postType:"note",
+createdAt:serverTimestamp()
+}
+);
+
+
+document.getElementById("noteText").value="";
+
+await loadPosts();
+
+closeCreate();
+
+
+}catch(error){
+
+console.error(
+"Note error:",
+error
+);
+
+alert(
+(error.code||"Error")+
+": "+
+error.message
+);
+
+}finally{
+
+button.disabled=false;
+button.textContent="Post";
+
+}
+
+}
+
+
 /* POSTS */
 
 async function loadPosts(){
@@ -1274,15 +1523,19 @@ async function loadPosts(){
 try{
 
 const snapshot=
-await getDocs(collection(db,"posts"));
+await getDocs(
+collection(db,"posts")
+);
 
 allPosts=[];
 
 snapshot.forEach(postDoc=>{
+
 allPosts.push({
 id:postDoc.id,
 ...postDoc.data()
 });
+
 });
 
 
@@ -1293,19 +1546,34 @@ allPosts.sort(
 );
 
 
-renderFilteredPosts(feedSearchInput.value);
+renderFilteredPosts(
+feedSearchInput.value
+);
 
 
 }catch(error){
 
-console.error("Load posts error:",error);
+console.error(
+"Load posts error:",
+error
+);
 
 postsContainer.innerHTML=`
 
 <div class="empty">
 
 <div class="empty-icon">
-!
+
+<svg viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor">
+
+<circle cx="12" cy="12" r="8"></circle>
+
+<path d="M8 12h8"></path>
+
+</svg>
+
 </div>
 
 <h3>Couldn't load posts</h3>
@@ -1313,6 +1581,7 @@ postsContainer.innerHTML=`
 <p>Please refresh the page.</p>
 
 </div>
+
 `;
 
 }
@@ -1330,6 +1599,7 @@ String(searchText||"")
 
 const filtered=
 allPosts.filter(post=>
+
 !queryText||
 String(post.text||"")
 .toLowerCase()
@@ -1337,6 +1607,7 @@ String(post.text||"")
 String(post.authorName||"")
 .toLowerCase()
 .includes(queryText)
+
 );
 
 
@@ -1358,6 +1629,7 @@ postsContainer.innerHTML=`
 <p>Try another topic or keyword.</p>
 
 </div>
+
 `;
 
 return;
@@ -1366,7 +1638,12 @@ return;
 
 
 for(const post of filtered){
-await renderPost(post,postsContainer);
+
+await renderPost(
+post,
+postsContainer
+);
+
 }
 
 }
@@ -1392,10 +1669,17 @@ try{
 
 const likesSnapshot=
 await getDocs(
-collection(db,"posts",post.id,"likes")
+collection(
+db,
+"posts",
+post.id,
+"likes"
+)
 );
 
-likeCount=likesSnapshot.size;
+likeCount=
+likesSnapshot.size;
+
 
 if(currentUser){
 
@@ -1409,7 +1693,10 @@ likeDoc.id===currentUser.uid
 
 }catch(error){
 
-console.error("Like loading error:",error);
+console.error(
+"Like loading error:",
+error
+);
 
 }
 
@@ -1422,13 +1709,23 @@ try{
 commentCount=
 (
 await getDocs(
-collection(db,"posts",post.id,"comments")
+collection(
+db,
+"posts",
+post.id,
+"comments"
 )
-).size;
+)
+).docs.filter(
+doc=>!doc.data().parentId
+).length;
 
 }catch(error){
 
-console.error("Comment loading error:",error);
+console.error(
+"Comment loading error:",
+error
+);
 
 }
 
@@ -1465,7 +1762,8 @@ class="post-video"
 controls
 preload="metadata">
 
-<source src="${escapeAttribute(post.mediaUrl)}">
+<source
+src="${escapeAttribute(post.mediaUrl)}">
 
 </video>
 `;
@@ -1498,13 +1796,7 @@ ${formatTime(post.createdAt)}
 
 </div>
 
-${post.text
-?`<div class="post-text">${escapeHTML(
-String(post.text)
-.replace(/[ \t]+\n/g,"\n")
-.replace(/\n[ \t]+/g,"\n")
-)}</div>`
-:""}
+${post.text?`<div class="post-text">${escapeHTML(String(post.text).replace(/[ \t]+\n/g,"\n").replace(/\n[ \t]+/g,"\n"))}</div>`:""}
 
 ${mediaHTML}
 
@@ -1523,7 +1815,9 @@ stroke="currentColor">
 
 </svg>
 
-<span>${alreadyLiked?"Unlike":"Like"}</span>
+<span>
+${alreadyLiked?"Unlike":"Like"}
+</span>
 
 <b class="like-count">
 ${likeCount}
@@ -1545,7 +1839,9 @@ stroke="currentColor">
 
 </svg>
 
-<span>Comment</span>
+<span>
+Comment
+</span>
 
 <b class="comment-count">
 ${commentCount}
@@ -1569,11 +1865,37 @@ stroke="currentColor">
 
 </svg>
 
-<span>Share</span>
+<span>
+Share
+</span>
 
 </button>
 
 </div>
+
+
+<div class="comments-area">
+
+<div class="comments-list"></div>
+
+<div class="comment-form">
+
+<input
+class="comment-input"
+type="text"
+maxlength="300"
+placeholder="Add a comment...">
+
+<button
+class="comment-send"
+type="button">
+Send
+</button>
+
+</div>
+
+</div>
+
 `;
 
 
@@ -1592,21 +1914,30 @@ openProfile(post.authorId);
 
 
 const likeButton=
-postElement.querySelector(".like-button");
+postElement.querySelector(
+".like-button"
+);
 
 const likeCountElement=
-postElement.querySelector(".like-count");
+postElement.querySelector(
+".like-count"
+);
 
 const likeText=
 likeButton.querySelector("span");
 
 
-likeButton.addEventListener("click",async()=>{
+likeButton.addEventListener(
+"click",
+async()=>{
 
 if(!currentUser){
+
 alert("Please sign in first.");
 return;
+
 }
+
 
 likeButton.disabled=true;
 
@@ -1622,28 +1953,34 @@ post.id,
 currentUser.uid
 );
 
-
 const likeSnap=
 await getDoc(likeRef);
 
-
 let count=
-Number(likeCountElement.textContent)||0;
+Number(
+likeCountElement.textContent
+)||0;
 
 
 if(likeSnap.exists()){
 
 await deleteDoc(likeRef);
 
-count=Math.max(0,count-1);
+count=
+Math.max(0,count-1);
 
 likeText.textContent="Like";
 
-likeButton.classList.remove("liked");
+likeButton.classList.remove(
+"liked"
+);
 
 likeButton
 .querySelector("svg")
-.setAttribute("fill","none");
+.setAttribute(
+"fill",
+"none"
+);
 
 
 }else{
@@ -1660,7 +1997,9 @@ count++;
 
 likeText.textContent="Unlike";
 
-likeButton.classList.add("liked");
+likeButton.classList.add(
+"liked"
+);
 
 likeButton
 .querySelector("svg")
@@ -1695,7 +2034,10 @@ likeCountElement.textContent=count;
 
 }catch(error){
 
-console.error("Like error:",error);
+console.error(
+"Like error:",
+error
+);
 
 alert(
 (error.code||"Error")+
@@ -1712,35 +2054,214 @@ likeButton.disabled=false;
 });
 
 
-postElement
-.querySelector(".comment-button")
-.addEventListener("click",()=>{
+const commentButton=
+postElement.querySelector(
+".comment-button"
+);
+
+const commentsArea=
+postElement.querySelector(
+".comments-area"
+);
+
+const commentsList=
+postElement.querySelector(
+".comments-list"
+);
+
+const commentInput=
+postElement.querySelector(
+".comment-input"
+);
+
+const commentSend=
+postElement.querySelector(
+".comment-send"
+);
+
+const commentCountElement=
+postElement.querySelector(
+".comment-count"
+);
+
+
+commentButton.addEventListener(
+"click",
+async()=>{
 
 if(!currentUser){
+
 alert("Please sign in first.");
 return;
+
 }
 
-openCommentsSheet(
-post,
-postElement.querySelector(".comment-count")
+
+if(
+commentsArea.style.display==="block"
+){
+
+commentsArea.style.display="none";
+
+}else{
+
+commentsArea.style.display="block";
+
+await loadComments(
+post.id,
+commentsList
 );
+
+}
+
+});
+
+
+async function sendComment(){
+
+if(!currentUser){
+
+alert("Please sign in first.");
+return;
+
+}
+
+
+const text=
+commentInput.value.trim();
+
+
+if(!text)
+return;
+
+
+commentSend.disabled=true;
+
+
+try{
+
+await addDoc(
+collection(
+db,
+"posts",
+post.id,
+"comments"
+),
+{
+text,
+userId:currentUser.uid,
+username:currentUsername,
+createdAt:serverTimestamp()
+}
+);
+
+
+commentInput.value="";
+
+commentCountElement.textContent=
+(Number(
+commentCountElement.textContent
+)||0)+1;
+
+
+await loadComments(
+post.id,
+commentsList
+);
+
+
+if(
+post.authorId&&
+post.authorId!==currentUser.uid
+){
+
+await createNotification({
+
+recipientId:
+post.authorId,
+
+senderId:
+currentUser.uid,
+
+senderName:
+currentUsername,
+
+type:"comment",
+
+postId:
+post.id,
+
+commentText:
+text
+
+});
+
+}
+
+
+}catch(error){
+
+console.error(
+"Comment error:",
+error
+);
+
+alert(
+(error.code||"Error")+
+": "+
+error.message
+);
+
+}finally{
+
+commentSend.disabled=false;
+
+}
+
+}
+
+
+commentSend.addEventListener(
+"click",
+sendComment
+);
+
+
+commentInput.addEventListener(
+"keydown",
+event=>{
+
+if(event.key==="Enter"){
+
+event.preventDefault();
+
+sendComment();
+
+}
 
 });
 
 
 postElement
 .querySelector(".share-button")
-.addEventListener("click",async()=>{
+.addEventListener(
+"click",
+async()=>{
 
 try{
 
 if(navigator.share){
 
 await navigator.share({
+
 title:"JSP TAYSU Community",
-text:`${username} shared a post on JSP TAYSU Community`,
-url:window.location.href
+
+text:
+`${username} shared a post on JSP TAYSU Community 🐉`,
+
+url:
+window.location.href
+
 });
 
 }else{
@@ -1749,17 +2270,488 @@ await navigator.clipboard.writeText(
 window.location.href
 );
 
-alert("Community link copied!");
+alert("Community link copied! 🔗");
 
 }
 
 }catch(error){
 
-console.log("Share cancelled.");
+console.log(
+"Share cancelled."
+);
 
 }
 
 });
+
+}
+
+
+/* COMMENTS + REPLIES */
+
+async function loadComments(
+postId,
+commentsList
+){
+
+commentsList.innerHTML="";
+
+
+try{
+
+const snapshot=
+await getDocs(
+collection(
+db,
+"posts",
+postId,
+"comments"
+)
+);
+
+
+if(snapshot.empty){
+
+commentsList.innerHTML=`
+
+<div style="color:#777f89;font-size:12px;padding:4px 2px;">
+No comments yet.
+</div>
+
+`;
+
+return;
+
+}
+
+
+const comments=[];
+
+
+snapshot.forEach(
+commentDoc=>
+comments.push({
+id:commentDoc.id,
+...commentDoc.data()
+})
+);
+
+
+const roots=
+comments
+.filter(
+comment=>!comment.parentId
+)
+.sort(
+(a,b)=>
+(a.createdAt?.seconds||0)-
+(b.createdAt?.seconds||0)
+);
+
+
+if(roots.length===0){
+
+commentsList.innerHTML=`
+
+<div style="color:#777f89;font-size:12px;padding:4px 2px;">
+No comments yet.
+</div>
+
+`;
+
+return;
+
+}
+
+
+roots.forEach(comment=>{
+
+const replies=
+comments
+.filter(
+item=>
+item.parentId===comment.id
+)
+.sort(
+(a,b)=>
+(a.createdAt?.seconds||0)-
+(b.createdAt?.seconds||0)
+);
+
+
+const element=
+document.createElement("div");
+
+element.className="comment";
+
+
+element.innerHTML=`
+
+<div class="comment-top">
+
+<div class="comment-user">
+${escapeHTML(
+comment.username||"Member"
+)}
+</div>
+
+${
+currentUser&&
+comment.userId===currentUser.uid
+?
+`<button
+class="delete-comment"
+type="button">
+Delete
+</button>`
+:
+""
+}
+
+</div>
+
+
+<div class="comment-text">
+${escapeHTML(
+comment.text||""
+)}
+</div>
+
+
+<div>
+
+<button
+class="reply-button"
+type="button">
+Reply
+</button>
+
+${
+replies.length
+?
+`<button
+class="view-replies"
+type="button">
+View ${replies.length} repl${replies.length===1?"y":"ies"}
+</button>`
+:
+""
+}
+
+</div>
+
+
+<div
+class="reply-form"
+style="display:none">
+
+<input
+type="text"
+maxlength="300"
+placeholder="Reply...">
+
+<button type="button">
+Send
+</button>
+
+</div>
+
+
+<div
+class="replies"
+style="display:none">
+</div>
+
+`;
+
+
+commentsList.appendChild(
+element
+);
+
+
+const deleteButton=
+element.querySelector(
+".delete-comment"
+);
+
+
+if(deleteButton){
+
+deleteButton.addEventListener(
+"click",
+async()=>{
+
+try{
+
+await deleteDoc(
+doc(
+db,
+"posts",
+postId,
+"comments",
+comment.id
+)
+);
+
+await loadComments(
+postId,
+commentsList
+);
+
+}catch(error){
+
+console.error(error);
+
+alert(
+(error.code||"Error")+
+": "+
+error.message
+);
+
+}
+
+});
+
+}
+
+
+const replyForm=
+element.querySelector(
+".reply-form"
+);
+
+const replyInput=
+replyForm.querySelector(
+"input"
+);
+
+const replySend=
+replyForm.querySelector(
+"button"
+);
+
+
+element
+.querySelector(".reply-button")
+.addEventListener(
+"click",
+()=>{
+
+replyForm.style.display=
+replyForm.style.display==="flex"
+?
+"none"
+:
+"flex";
+
+
+if(replyForm.style.display==="flex"){
+
+replyInput.focus();
+
+}
+
+});
+
+
+const repliesBox=
+element.querySelector(
+".replies"
+);
+
+const viewReplies=
+element.querySelector(
+".view-replies"
+);
+
+
+function renderReplies(){
+
+repliesBox.innerHTML="";
+
+
+replies.forEach(reply=>{
+
+const replyElement=
+document.createElement("div");
+
+replyElement.className="reply";
+
+
+replyElement.innerHTML=`
+
+<div class="comment-user">
+${escapeHTML(
+reply.username||"Member"
+)}
+</div>
+
+<div class="comment-text">
+${escapeHTML(
+reply.text||""
+)}
+</div>
+
+`;
+
+repliesBox.appendChild(
+replyElement
+);
+
+});
+
+}
+
+
+if(viewReplies){
+
+viewReplies.addEventListener(
+"click",
+()=>{
+
+const open=
+repliesBox.style.display==="block";
+
+
+if(!open){
+
+renderReplies();
+
+repliesBox.style.display=
+"block";
+
+viewReplies.textContent=
+"Hide replies";
+
+}else{
+
+repliesBox.style.display=
+"none";
+
+viewReplies.textContent=
+`View ${replies.length} repl${replies.length===1?"y":"ies"}`;
+
+}
+
+});
+
+}
+
+
+replySend.addEventListener(
+"click",
+async()=>{
+
+const text=
+replyInput.value.trim();
+
+
+if(!text||!currentUser)
+return;
+
+
+replySend.disabled=true;
+
+
+try{
+
+await addDoc(
+collection(
+db,
+"posts",
+postId,
+"comments"
+),
+{
+text,
+userId:currentUser.uid,
+username:currentUsername,
+createdAt:serverTimestamp(),
+parentId:comment.id,
+replyTo:comment.username||"Member"
+}
+);
+
+
+replyInput.value="";
+
+
+await loadComments(
+postId,
+commentsList
+);
+
+
+if(
+comment.userId&&
+comment.userId!==currentUser.uid
+){
+
+await createNotification({
+
+recipientId:
+comment.userId,
+
+senderId:
+currentUser.uid,
+
+senderName:
+currentUsername,
+
+type:"reply",
+
+postId:
+postId,
+
+commentText:
+text
+
+});
+
+}
+
+
+}catch(error){
+
+console.error(
+"Reply error:",
+error
+);
+
+alert(
+(error.code||"Error")+
+": "+
+error.message
+);
+
+}finally{
+
+replySend.disabled=false;
+
+}
+
+});
+
+});
+
+
+}catch(error){
+
+console.error(
+"Comments error:",
+error
+);
+
+commentsList.innerHTML=`
+
+<div style="color:#9c7373;font-size:12px;">
+Couldn't load comments.
+</div>
+
+`;
+
+}
 
 }
 
@@ -1775,16 +2767,20 @@ return;
 try{
 
 const snapshot=
-await getDocs(collection(db,"users"));
+await getDocs(
+collection(db,"users")
+);
 
 allMembers=[];
 
-snapshot.forEach(userDoc=>{
+
+snapshot.forEach(
+userDoc=>
 allMembers.push({
 id:userDoc.id,
 ...userDoc.data()
-});
-});
+})
+);
 
 
 searchMembers();
@@ -1792,7 +2788,10 @@ searchMembers();
 
 }catch(error){
 
-console.error("Members error:",error);
+console.error(
+"Members error:",
+error
+);
 
 }
 
@@ -1800,13 +2799,19 @@ console.error("Members error:",error);
 
 
 const userSearchButton=
-document.getElementById("userSearchButton");
+document.getElementById(
+"userSearchButton"
+);
 
 const userSearchInput=
-document.getElementById("userSearchInput");
+document.getElementById(
+"userSearchInput"
+);
 
 const searchResults=
-document.getElementById("searchResults");
+document.getElementById(
+"searchResults"
+);
 
 
 userSearchButton.addEventListener(
@@ -1814,10 +2819,21 @@ userSearchButton.addEventListener(
 searchMembers
 );
 
+
 userSearchInput.addEventListener(
 "input",
 searchMembers
 );
+
+
+userSearchInput.addEventListener(
+"keydown",
+event=>{
+
+if(event.key==="Enter")
+searchMembers();
+
+});
 
 
 async function searchMembers(){
@@ -1833,6 +2849,7 @@ return;
 if(allMembers.length===0){
 
 await loadMembers();
+
 return;
 
 }
@@ -1844,9 +2861,11 @@ searchResults.innerHTML="";
 if(!searchText){
 
 searchResults.innerHTML=`
+
 <p style="color:#777f89;font-size:13px;padding:5px;">
 Start typing a member's name.
 </p>
+
 `;
 
 return;
@@ -1856,15 +2875,33 @@ return;
 
 const matches=
 allMembers
-.filter(user=>
-user.id!==currentUser.uid
+.filter(
+user=>user.id!==currentUser.uid
 )
-.filter(user=>
+.filter(
+user=>
 String(
-user.username||user.displayName||""
+user.username||
+user.displayName||
+""
 )
 .toLowerCase()
 .includes(searchText)
+)
+.sort(
+(a,b)=>
+String(
+a.username||
+a.displayName||
+""
+)
+.localeCompare(
+String(
+b.username||
+b.displayName||
+""
+)
+)
 )
 .slice(0,20);
 
@@ -1872,9 +2909,11 @@ user.username||user.displayName||""
 if(matches.length===0){
 
 searchResults.innerHTML=`
+
 <p style="color:#777f89;font-size:13px;padding:5px;">
 No members found.
 </p>
+
 `;
 
 return;
@@ -1883,6 +2922,19 @@ return;
 
 
 for(const user of matches){
+
+await renderMemberSearchResult(
+user
+);
+
+}
+
+}
+
+
+async function renderMemberSearchResult(
+user
+){
 
 const result=
 document.createElement("div");
@@ -1896,29 +2948,16 @@ user.displayName||
 "Member";
 
 
-const photo=
-user.photoURL||
-user.profilePhotoURL||
-user.profilePhoto||
-user.photo||
-user.avatarUrl||
-"";
-
-
-const avatar=
-photo
-?`<img src="${escapeAttribute(photo)}" alt="">`
-:`${escapeHTML(
-name.charAt(0).toUpperCase()
-)}`;
-
-
 result.innerHTML=`
 
 <div class="search-user">
 
 <div class="search-avatar">
-${avatar}
+
+${escapeHTML(
+name.charAt(0).toUpperCase()
+)}
+
 </div>
 
 <div class="search-username">
@@ -1927,44 +2966,64 @@ ${escapeHTML(name)}
 
 </div>
 
-<button class="follow-button" type="button">
+
+<button
+class="follow-button"
+type="button">
 Follow
 </button>
+
 `;
 
 
 result
 .querySelector(".search-user")
-.addEventListener("click",()=>{
+.addEventListener(
+"click",
+()=>{
 openProfile(user.id);
-});
+}
+);
 
 
 const followButton=
-result.querySelector(".follow-button");
+result.querySelector(
+".follow-button"
+);
 
 
 const followId=
-currentUser.uid+"_"+user.id;
+currentUser.uid+
+"_"+user.id;
 
 
 try{
 
 const followSnap=
 await getDoc(
-doc(db,"follows",followId)
+doc(
+db,
+"follows",
+followId
+)
 );
+
 
 if(followSnap.exists()){
 
-followButton.textContent="Following";
+followButton.textContent=
+"Following";
+
 followButton.disabled=true;
 
 }
 
 }catch(error){
 
-console.error("Follow check:",error);
+console.error(
+"Follow check:",
+error
+);
 
 }
 
@@ -1975,13 +3034,22 @@ async event=>{
 
 event.stopPropagation();
 
+
+if(!currentUser)
+return;
+
+
 followButton.disabled=true;
 
 
 try{
 
 await setDoc(
-doc(db,"follows",followId),
+doc(
+db,
+"follows",
+followId
+),
 {
 followerId:currentUser.uid,
 followingId:user.id,
@@ -1990,7 +3058,8 @@ createdAt:serverTimestamp()
 );
 
 
-followButton.textContent="Following";
+followButton.textContent=
+"Following";
 
 
 await createNotification({
@@ -2005,7 +3074,10 @@ type:"follow"
 
 }catch(error){
 
-console.error("Follow error:",error);
+console.error(
+"Follow error:",
+error
+);
 
 followButton.disabled=false;
 
@@ -2020,9 +3092,9 @@ error.message
 });
 
 
-searchResults.appendChild(result);
-
-}
+searchResults.appendChild(
+result
+);
 
 }
 
@@ -2033,7 +3105,10 @@ async function createNotification(data){
 
 try{
 
-if(!data.recipientId||!data.senderId)
+if(
+!data.recipientId||
+!data.senderId
+)
 return;
 
 
@@ -2064,275 +3139,13 @@ error
 }
 
 
-async function getSenderProfile(
-senderId,
-fallbackName
-){
-
-if(!senderId){
-
-return {
-name:fallbackName||"Member",
-photo:""
-};
-
-}
-
-
-if(notificationAvatarCache.has(senderId)){
-
-return notificationAvatarCache.get(
-senderId
-);
-
-}
-
-
-let profile={
-name:fallbackName||"Member",
-photo:""
-};
-
-
-try{
-
-const snap=
-await getDoc(
-doc(db,"users",senderId)
-);
-
-
-if(snap.exists()){
-
-const data=snap.data();
-
-profile.name=
-data.username||
-data.displayName||
-profile.name;
-
-profile.photo=
-data.photoURL||
-data.profilePhotoURL||
-data.profilePhoto||
-data.photo||
-data.avatarUrl||
-"";
-
-}
-
-}catch(error){
-
-console.error(
-"Sender profile error:",
-error
-);
-
-}
-
-
-notificationAvatarCache.set(
-senderId,
-profile
-);
-
-return profile;
-
-}
-
-
-function updateAlertDot(notifications){
-
-const hasUnread=
-notifications.some(
-notification=>
-notification.read!==true
-);
-
-
-document
-.getElementById("alertTopDot")
-.classList.toggle(
-"show",
-hasUnread
-);
-
-}
-
-
-async function renderNotifications(
-notifications
-){
-
-if(notifications.length===0){
-
-alertList.innerHTML=`
-
-<div class="alert-empty">
-
-<svg viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor">
-
-<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
-
-<path d="M10 21h4"></path>
-
-</svg>
-
-<h3>No new alerts</h3>
-
-<p>Your community notifications will appear here.</p>
-
-</div>
-`;
-
-return;
-
-}
-
-
-alertList.innerHTML="";
-
-
-for(const notification of notifications){
-
-const sender=
-await getSenderProfile(
-notification.senderId,
-notification.senderName
-);
-
-
-const element=
-document.createElement("div");
-
-element.className="notification";
-
-
-let message="";
-
-
-if(notification.type==="like"){
-
-message=
-`<b>${escapeHTML(sender.name)}</b> liked your post.`;
-
-}else if(notification.type==="comment"){
-
-message=
-`<b>${escapeHTML(sender.name)}</b> commented on your post.`;
-
-}else if(notification.type==="follow"){
-
-message=
-`<b>${escapeHTML(sender.name)}</b> started following you.`;
-
-}else{
-
-message=
-`<b>${escapeHTML(sender.name)}</b> sent you a notification.`;
-
-}
-
-
-const avatar=
-sender.photo
-?`<img src="${escapeAttribute(sender.photo)}" alt="">`
-:`<span>${escapeHTML(
-sender.name.charAt(0).toUpperCase()
-)}</span>`;
-
-
-element.innerHTML=`
-
-<div class="notification-icon">
-${avatar}
-</div>
-
-<div style="flex:1;min-width:0;">
-
-<div class="notification-text">
-${message}
-</div>
-
-<div class="notification-time">
-${formatTime(notification.createdAt)}
-</div>
-
-</div>
-
-${
-notification.read!==true
-?'<span class="notification-unread-dot"></span>'
-:""
-}
-
-`;
-
-
-element.addEventListener(
-"click",
-async()=>{
-
-try{
-
-if(notification.read!==true){
-
-await setDoc(
-doc(
-db,
-"notifications",
-notification.id
-),
-{read:true},
-{merge:true}
-);
-
-notification.read=true;
-
-element
-.querySelector(
-".notification-unread-dot"
-)
-?.remove();
-
-}
-
-
-updateAlertDot(
-notifications
-);
-
-
-}catch(error){
-
-console.error(
-"Read notification error:",
-error
-);
-
-}
-
-});
-
-
-alertList.appendChild(element);
-
-}
-
-}
-
-
-function loadNotifications(){
+async function loadNotifications(){
 
 if(!currentUser)
 return;
 
 
-if(notificationsUnsubscribe)
-return;
-
+try{
 
 const q=
 query(
@@ -2346,21 +3159,20 @@ limit(100)
 );
 
 
-notificationsUnsubscribe=
-onSnapshot(
-q,
-async snapshot=>{
+const snapshot=
+await getDocs(q);
+
 
 const notifications=[];
 
 
 snapshot.forEach(
-notificationDoc=>{
+notificationDoc=>
 notifications.push({
 id:notificationDoc.id,
 ...notificationDoc.data()
-});
-});
+})
+);
 
 
 notifications.sort(
@@ -2370,17 +3182,249 @@ notifications.sort(
 );
 
 
-updateAlertDot(
-notifications
+if(notifications.length===0){
+
+alertList.innerHTML=`
+
+<div class="alert-empty">
+
+<svg viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor">
+
+<path d="M18 8 a6 6 0 0 0-12 0 c0 7-3 7-3 9h18 c0-2-3-2-3-9"></path>
+
+<path d="M10 21h4"></path>
+
+</svg>
+
+<h3>No new alerts</h3>
+
+<p>Your community notifications will appear here.</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+alertList.innerHTML="";
+
+
+notifications.forEach(
+notification=>{
+
+const element=
+document.createElement("div");
+
+element.className=
+"notification"+
+(
+notification.read===true
+?
+""
+:
+" unread"
 );
 
 
-await renderNotifications(
-notifications
-);
+let message="";
+let icon="";
 
+
+if(notification.type==="like"){
+
+message=
+`<b>${escapeHTML(
+notification.senderName||"Member"
+)}</b> liked your post.`;
+
+icon=`
+
+<svg
+viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor">
+
+<path d="M20.8 8.7 C20.8 13.7 12 20 12 20 S3.2 13.7 3.2 8.7 C3.2 5.7 5.4 3.7 8.1 3.7 C9.8 3.7 11.3 4.6 12 5.9 C12.7 4.6 14.2 3.7 15.9 3.7 C18.6 3.7 20.8 5.7 20.8 8.7Z"></path>
+
+</svg>
+
+`;
+
+}else if(
+notification.type==="comment"
+){
+
+message=
+`<b>${escapeHTML(
+notification.senderName||"Member"
+)}</b> commented on your post.`;
+
+icon=`
+
+<svg
+viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor">
+
+<path d="M20 11.5 a7.5 7.5 0 0 1-7.5 7.5 H8l-4 2 1.5-4 A7.5 7.5 0 1 1 20 11.5Z"></path>
+
+</svg>
+
+`;
+
+}else if(
+notification.type==="reply"
+){
+
+message=
+`<b>${escapeHTML(
+notification.senderName||"Member"
+)}</b> replied to your comment.`;
+
+}else if(
+notification.type==="follow"
+){
+
+message=
+`<b>${escapeHTML(
+notification.senderName||"Member"
+)}</b> started following you.`;
+
+icon=`
+
+<svg
+viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor">
+
+<circle cx="12" cy="8" r="4"></circle>
+
+<path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"></path>
+
+</svg>
+
+`;
+
+}else{
+
+message=
+`<b>${escapeHTML(
+notification.senderName||"Member"
+)}</b> sent you a notification.`;
+
+icon=`
+
+<svg
+viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor">
+
+<path d="M18 8 a6 6 0 0 0-12 0 c0 7-3 7-3 9h18 c0-2-3-2-3-9"></path>
+
+<path d="M10 21h4"></path>
+
+</svg>
+
+`;
+
+}
+
+
+element.innerHTML=`
+
+<div class="notification-icon">
+${icon}
+</div>
+
+<div style="flex:1;min-width:0;">
+
+<div class="notification-text">
+${message}
+</div>
+
+<div class="notification-time">
+${formatTime(
+notification.createdAt
+)}
+</div>
+
+</div>
+
+`;
+
+
+element.addEventListener(
+"click",
+async()=>{
+
+try{
+
+if(
+notification.read!==true
+){
+
+await setDoc(
+doc(
+db,
+"notifications",
+notification.id
+),
+{
+read:true
 },
-error=>{
+{
+merge:true
+}
+);
+
+element.classList.remove(
+"unread"
+);
+
+notification.read=true;
+
+}
+
+}catch(error){
+
+console.error(
+"Read notification error:",
+error
+);
+
+}
+
+});
+
+
+alertList.appendChild(
+element
+);
+
+});
+
+
+const unread=
+notifications.some(
+notification=>
+notification.read!==true
+);
+
+
+document
+.getElementById("alertTopDot")
+?.classList.toggle(
+"show",
+unread
+);
+
+
+}catch(error){
 
 console.error(
 "Notifications error:",
@@ -2401,382 +3445,7 @@ alertList.innerHTML=`
 
 }
 
-);
-
 }
-
-
-/* COMMENTS */
-
-let activeCommentPost=null;
-let activeCommentCountElement=null;
-
-
-const commentsSheet=
-document.getElementById("commentsSheet");
-
-const commentsBackdrop=
-document.getElementById("commentsBackdrop");
-
-const sheetCommentsList=
-document.getElementById("sheetCommentsList");
-
-const sheetCommentInput=
-document.getElementById("sheetCommentInput");
-
-const sheetCommentSend=
-document.getElementById("sheetCommentSend");
-
-
-async function openCommentsSheet(
-post,
-countElement
-){
-
-activeCommentPost=post;
-activeCommentCountElement=countElement;
-
-
-commentsSheet.classList.add("open");
-commentsBackdrop.classList.add("show");
-
-commentsSheet.setAttribute(
-"aria-hidden",
-"false"
-);
-
-document.body.classList.add(
-"sheet-open"
-);
-
-sheetCommentInput.value="";
-sheetCommentInput.focus();
-
-
-await loadComments(
-post.id,
-sheetCommentsList
-);
-
-}
-
-
-function closeCommentsSheet(){
-
-commentsSheet.classList.remove("open");
-commentsBackdrop.classList.remove("show");
-
-commentsSheet.setAttribute(
-"aria-hidden",
-"true"
-);
-
-document.body.classList.remove(
-"sheet-open"
-);
-
-activeCommentPost=null;
-activeCommentCountElement=null;
-
-}
-
-
-document
-.getElementById("closeCommentsButton")
-.addEventListener(
-"click",
-closeCommentsSheet
-);
-
-
-commentsBackdrop.addEventListener(
-"click",
-closeCommentsSheet
-);
-
-
-async function loadComments(
-postId,
-commentsList
-){
-
-commentsList.innerHTML="";
-
-
-try{
-
-const snapshot=
-await getDocs(
-collection(
-db,
-"posts",
-postId,
-"comments"
-)
-);
-
-
-if(snapshot.empty){
-
-commentsList.innerHTML=`
-<div style="color:#777f89;font-size:12px;padding:4px 2px;">
-No comments yet.
-</div>
-`;
-
-return;
-
-}
-
-
-const comments=[];
-
-
-snapshot.forEach(commentDoc=>{
-comments.push({
-id:commentDoc.id,
-...commentDoc.data()
-});
-});
-
-
-comments.sort(
-(a,b)=>
-(a.createdAt?.seconds||0)-
-(b.createdAt?.seconds||0)
-);
-
-
-comments.forEach(comment=>{
-
-const element=
-document.createElement("div");
-
-element.className="comment";
-
-
-element.innerHTML=`
-
-<div class="comment-top">
-
-<div class="comment-user">
-${escapeHTML(
-comment.username||"Member"
-)}
-</div>
-
-${
-currentUser&&
-comment.userId===currentUser.uid
-?`<button class="delete-comment" type="button">
-Delete
-</button>`
-:""
-}
-
-</div>
-
-<div class="comment-text">
-${escapeHTML(comment.text||"")}
-</div>
-
-`;
-
-
-commentsList.appendChild(element);
-
-
-const deleteButton=
-element.querySelector(
-".delete-comment"
-);
-
-
-if(deleteButton){
-
-deleteButton.addEventListener(
-"click",
-async()=>{
-
-try{
-
-await deleteDoc(
-doc(
-db,
-"posts",
-postId,
-"comments",
-comment.id
-)
-);
-
-
-await loadComments(
-postId,
-commentsList
-);
-
-
-}catch(error){
-
-console.error(error);
-
-alert(
-(error.code||"Error")+
-": "+
-error.message
-);
-
-}
-
-});
-
-}
-
-});
-
-}catch(error){
-
-console.error(
-"Comments error:",
-error
-);
-
-commentsList.innerHTML=`
-<div style="color:#9c7373;font-size:12px;">
-Couldn't load comments.
-</div>
-`;
-
-}
-
-}
-
-
-async function sendSheetComment(){
-
-if(!currentUser||!activeCommentPost)
-return;
-
-
-const text=
-sheetCommentInput.value.trim();
-
-
-if(!text)
-return;
-
-
-sheetCommentSend.disabled=true;
-
-
-try{
-
-await addDoc(
-collection(
-db,
-"posts",
-activeCommentPost.id,
-"comments"
-),
-{
-text,
-userId:currentUser.uid,
-username:currentUsername,
-createdAt:serverTimestamp()
-}
-);
-
-
-sheetCommentInput.value="";
-
-
-if(activeCommentCountElement){
-
-activeCommentCountElement.textContent=
-(Number(
-activeCommentCountElement.textContent
-)||0)+1;
-
-}
-
-
-await loadComments(
-activeCommentPost.id,
-sheetCommentsList
-);
-
-
-if(
-activeCommentPost.authorId&&
-activeCommentPost.authorId!==currentUser.uid
-){
-
-await createNotification({
-
-recipientId:
-activeCommentPost.authorId,
-
-senderId:
-currentUser.uid,
-
-senderName:
-currentUsername,
-
-type:"comment",
-
-postId:
-activeCommentPost.id,
-
-commentText:text
-
-});
-
-}
-
-
-}catch(error){
-
-console.error(
-"Comment error:",
-error
-);
-
-alert(
-(error.code||"Error")+
-": "+
-error.message
-);
-
-}finally{
-
-sheetCommentSend.disabled=false;
-
-}
-
-}
-
-
-document
-.getElementById("sheetCommentSend")
-.addEventListener(
-"click",
-sendSheetComment
-);
-
-
-sheetCommentInput.addEventListener(
-"keydown",
-event=>{
-
-if(event.key==="Enter"){
-
-event.preventDefault();
-sendSheetComment();
-
-}
-
-});
 
 
 /* HELPERS */
@@ -2786,7 +3455,8 @@ function escapeHTML(text){
 const div=
 document.createElement("div");
 
-div.textContent=String(text);
+div.textContent=
+String(text);
 
 return div.innerHTML;
 
@@ -2806,14 +3476,20 @@ return String(text)
 
 function formatTime(timestamp){
 
-if(!timestamp||!timestamp.seconds)
+if(
+!timestamp||
+!timestamp.seconds
+)
 return "Just now";
 
 
 const date=
-new Date(timestamp.seconds*1000);
+new Date(
+timestamp.seconds*1000
+);
 
-const now=new Date();
+const now=
+new Date();
 
 const diff=
 Math.floor(
@@ -2825,13 +3501,19 @@ if(diff<60)
 return "Just now";
 
 if(diff<3600)
-return Math.floor(diff/60)+"m ago";
+return Math.floor(
+diff/60
+)+"m ago";
 
 if(diff<86400)
-return Math.floor(diff/3600)+"h ago";
+return Math.floor(
+diff/3600
+)+"h ago";
 
 if(diff<604800)
-return Math.floor(diff/86400)+"d ago";
+return Math.floor(
+diff/86400
+)+"d ago";
 
 
 return date.toLocaleDateString(
