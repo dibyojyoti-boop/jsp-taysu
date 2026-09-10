@@ -1,5056 +1,2644 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>JSP TAYSU Community</title>
-
 <style>
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080a0d;--card:#0f1217;--card2:#151920;--line:#252a31;
+  --text:#f5f7fa;--muted:#8d95a1;--blue:#1d9bf0;--blue2:#147dcc;
+  --like:#f04470;--green:#22c55e;--gold:#d7bd8c;
 }
-
-html{
-  scroll-behavior:smooth;
-}
-
+html{scroll-behavior:smooth}
 body{
   font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  background:#0b0d10;
-  color:#f5f5f5;
-  padding-bottom:78px;
+  background:var(--bg);color:var(--text);padding-bottom:82px
 }
+button,input,textarea{font:inherit}
+button{cursor:pointer}
 
 .topbar{
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:rgba(11,13,16,.92);
+  position:sticky;top:0;z-index:100;
+  background:rgba(8,10,13,.91);
   backdrop-filter:blur(18px);
-  border-bottom:1px solid #25282d;
+  border-bottom:1px solid var(--line)
 }
-
 .topbar-inner{
-  max-width:720px;
-  margin:auto;
-  height:64px;
-  padding:0 16px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  max-width:700px;margin:auto;height:62px;padding:0 15px;
+  display:flex;align-items:center;justify-content:space-between
 }
-
 .logo{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  font-size:18px;
-  font-weight:800;
-  letter-spacing:-.4px;
+  display:flex;align-items:center;gap:9px;font-size:17px;
+  font-weight:850;letter-spacing:-.4px
 }
-
-.logo-dragon{
-  font-size:23px;
+.logo-mark{
+  width:34px;height:34px;border-radius:11px;background:#151a21;
+  border:1px solid #303741;display:grid;place-items:center;font-size:19px
 }
-
 .profile-name{
-  max-width:170px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-  color:#aeb3bb;
-  font-size:13px;
+  max-width:160px;color:#aeb5bf;font-size:13px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap
 }
 
-.container{
-  max-width:720px;
-  margin:auto;
-  padding:17px 14px 30px;
-}
-
-.page-section{
-  display:none;
-}
-
-.page-section.active{
-  display:block;
-}
+.container{max-width:700px;margin:auto;padding:13px 10px 28px}
+.page-section{display:none}
+.page-section.active{display:block}
 
 .feed-heading{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  padding:5px 4px 10px;
+  height:45px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 5px
 }
+.feed-heading h2{font-size:21px;letter-spacing:-.6px}
 
-.feed-heading h2{
-  font-size:21px;
-  letter-spacing:-.5px;
+.icon-btn{
+  width:36px;height:36px;border:1px solid var(--line);
+  border-radius:11px;background:#11151a;color:#d7dde5;
+  display:grid;place-items:center
 }
+.icon-btn svg{width:19px;height:19px}
 
-.feed-heading-right{
-  display:flex;
-  align-items:center;
-  gap:7px;
-}
-
-.feed-search-button{
-  width:34px;
-  height:34px;
-  border:0;
-  border-radius:10px;
-  background:#171a1f;
-  color:#d7bd8c;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-}
-
-.feed-search-button svg{
-  width:19px;
-  height:19px;
-}
-
-.feed-search-box{
-  display:none;
-  margin-bottom:9px;
-}
-
-.feed-search-box.show{
-  display:flex;
-}
-
-#feedSearchInput{
-  width:100%;
-  padding:11px 13px;
-  border:1px solid #292d33;
-  border-radius:12px;
-  background:#15181d;
-  color:#fff;
-  outline:none;
-  font-size:14px;
-}
-
-#posts{
-  display:flex;
-  flex-direction:column;
-  gap:0;
+.search-strip{display:none;padding:0 2px 10px}
+.search-strip.show{display:block}
+.search-strip input{
+  width:100%;background:#11151a;border:1px solid #303640;
+  color:#fff;border-radius:13px;padding:11px 13px;outline:none
 }
 
 .post{
-  background:#111419;
-  border:1px solid #292d33;
-  border-radius:18px;
-  padding:12px 14px;
-  margin-bottom:7px;
-  box-shadow:0 8px 24px rgba(0,0,0,.13);
-  scroll-margin-top:80px;
+  background:var(--card);border-bottom:1px solid #20252c;
+  padding:13px 9px 8px
 }
-
-.post.highlighted{
-  border-color:#d7bd8c;
-  box-shadow:0 0 0 1px rgba(215,189,140,.25),
-             0 8px 28px rgba(0,0,0,.2);
-}
+.post:first-child{border-top:1px solid #20252c}
 
 .post-header{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:5px;
-  cursor:pointer;
+  display:flex;gap:10px;align-items:flex-start;cursor:pointer
 }
-
 .avatar{
-  width:42px;
-  height:42px;
-  flex-shrink:0;
-  border-radius:50%;
-  background:#33271f;
-  color:#ead9b8;
-  border:2px solid #554438;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:15px;
-  font-weight:800;
+  width:43px;height:43px;flex:0 0 43px;border-radius:50%;
+  background:linear-gradient(145deg,#26384b,#171b21);
+  border:1px solid #46515e;display:grid;place-items:center;
+  font-weight:850;color:#e9edf2
 }
-
-.post-author{
-  font-size:14px;
-  font-weight:800;
+.author-wrap{min-width:0;flex:1}
+.author-line{
+  display:flex;align-items:center;gap:5px;line-height:1.15
 }
-
-.post-time{
-  color:#777f89;
-  font-size:11px;
-  margin-top:1px;
+.author{
+  font-size:14px;font-weight:800;max-width:210px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+}
+.verified{color:var(--blue);display:inline-flex}
+.verified svg{width:14px;height:14px;fill:currentColor}
+.handle{color:#747d88;font-size:12px;margin-top:3px}
+.post-time{color:#69727e;font-size:11px;margin-top:3px}
+.more{
+  color:#68717c;margin-left:auto;padding:4px;
+  background:none;border:0
 }
 
 .post-text{
-  color:#eceef1;
-  font-size:15px;
-  line-height:1.42;
-  white-space:pre-line;
-  overflow-wrap:anywhere;
-  word-break:normal;
-  margin:0;
-  padding:0;
+  font-size:15.5px;line-height:1.46;white-space:pre-wrap;
+  overflow-wrap:anywhere;margin:7px 2px 7px 53px
 }
-
 .post-media{
-  width:100%;
-  border-radius:14px;
-  margin:4px 0 5px;
-  display:block;
-  max-height:520px;
-  object-fit:cover;
-  background:#08090b;
+  display:block;width:calc(100% - 53px);margin:5px 0 7px 53px;
+  border:1px solid #252b32;border-radius:15px;max-height:560px;
+  object-fit:cover;background:#050608
 }
-
 .post-video{
-  width:100%;
-  border-radius:14px;
-  background:#08090b;
-  margin:4px 0 5px;
-  max-height:520px;
+  display:block;width:calc(100% - 53px);margin:5px 0 7px 53px;
+  border:1px solid #252b32;border-radius:15px;max-height:560px;
+  background:#050608
 }
 
 .actions{
-  border-top:1px solid #25282d;
-  padding-top:4px;
-  display:flex;
-  align-items:center;
-  gap:2px;
+  width:calc(100% - 53px);margin-left:53px;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:2px 0 0
 }
-
 .action{
-  border:0;
-  background:transparent;
-  color:#9299a2;
-  display:flex;
-  align-items:center;
-  gap:5px;
-  padding:6px 8px;
-  border-radius:10px;
-  cursor:pointer;
-  font-size:12px;
-  transition:.18s;
+  border:0;background:none;color:#7e8792;display:flex;
+  align-items:center;gap:5px;min-height:34px;padding:5px 8px;
+  border-radius:10px;font-size:11px;transition:.18s
 }
+.action svg{width:18px;height:18px;stroke-width:1.9}
+.action:hover{background:#171b21;color:#e7ebef}
+.action.like.liked{color:var(--like)}
+.action.comment.open{color:var(--blue)}
+.action.share:hover{color:#22c55e}
+.action b{font-weight:650;color:inherit}
 
-.action:hover{
-  background:#1b1e23;
-  color:#fff;
+.comments{
+  display:none;width:calc(100% - 53px);margin:5px 0 0 53px;
+  padding-top:7px;border-top:1px solid #23282f
 }
-
-.action svg{
-  width:18px;
-  height:18px;
-  stroke-width:1.8;
-}
-
-.action.liked{
-  color:#ff5d6c;
-}
-
-.action b{
-  font-weight:600;
-}
-
-.comments-area{
-  display:none;
-  margin-top:7px;
-  padding-top:7px;
-  border-top:1px solid #25282d;
-}
-
-.comments-list{
-  margin-bottom:8px;
-}
-
-.comment{
-  background:#181b20;
-  border:1px solid #282c32;
-  border-radius:11px;
-  padding:8px 10px;
-  margin-bottom:5px;
-}
-
+.comment{padding:8px 0;border-bottom:1px solid #1f242a}
+.comment:last-child{border-bottom:0}
 .comment-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:3px;
+  display:flex;justify-content:space-between;gap:8px
 }
-
-.comment-user{
-  font-size:12px;
-  font-weight:800;
-}
-
+.comment-user{font-size:12px;font-weight:800}
 .comment-text{
-  color:#c8ccd1;
-  font-size:13px;
-  line-height:1.4;
-  overflow-wrap:anywhere;
+  font-size:13px;color:#c5cbd3;line-height:1.4;margin-top:2px;
+  white-space:pre-wrap;overflow-wrap:anywhere
 }
-
 .delete-comment{
-  border:0;
-  background:none;
-  color:#8e7272;
-  font-size:10px;
-  cursor:pointer;
+  background:none;border:0;color:#7e8792;font-size:10px
 }
-
-.comment-form{
-  display:flex;
-  gap:7px;
-}
-
+.comment-form{display:flex;gap:7px;margin-top:7px}
 .comment-input{
-  flex:1;
-  min-width:0;
-  padding:9px 11px;
-  border:1px solid #2a2e34;
-  border-radius:11px;
-  background:#15181d;
-  color:white;
-  outline:none;
+  min-width:0;flex:1;background:#12161b;border:1px solid #2a3037;
+  border-radius:11px;color:#fff;padding:9px 10px;outline:none
 }
-
 .comment-send{
-  border:0;
-  padding:0 13px;
-  border-radius:11px;
-  background:#f1f1f1;
-  color:#0b0d10;
-  font-weight:700;
-  cursor:pointer;
+  border:0;background:var(--blue);color:#fff;border-radius:11px;
+  padding:0 13px;font-weight:750
 }
 
 .empty{
-  text-align:center;
-  background:#111419;
-  border:1px solid #292d33;
-  border-radius:18px;
-  padding:45px 20px;
-  color:#858c95;
+  margin-top:10px;text-align:center;border:1px solid var(--line);
+  background:var(--card);border-radius:17px;padding:45px 20px;
+  color:var(--muted)
 }
-
 .empty-icon{
-  width:50px;
-  height:50px;
-  margin:0 auto 13px;
-  border-radius:15px;
-  background:#191c21;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#d7bd8c;
+  width:48px;height:48px;margin:0 auto 12px;border-radius:15px;
+  background:#171b21;display:grid;place-items:center;color:var(--blue)
 }
+.empty-icon svg{width:25px;height:25px}
+.empty h3{color:#e9edf1;font-size:16px;margin-bottom:5px}
+.empty p{font-size:13px}
 
-.empty-icon svg{
-  width:26px;
-  height:26px;
+.create-title,.explore-title,.alert-title{
+  padding:7px 4px 14px
 }
-
-.empty h3{
-  color:#e7e9ec;
-  margin-bottom:5px;
-  font-size:16px;
+.create-title h1,.explore-title h1,.alert-title h1{
+  font-size:27px;letter-spacing:-1px
 }
-
-.empty p{
-  font-size:13px;
+.create-title p,.explore-title p{
+  font-size:13px;color:var(--muted);margin-top:4px
 }
-
-.create-page-title{
-  padding:6px 3px 14px;
-}
-
-.create-page-title h1{
-  font-size:27px;
-  letter-spacing:-1px;
-}
-
-.create-page-title p{
-  color:#858c95;
-  font-size:13px;
-  margin-top:4px;
-}
-
 .create-card{
-  background:#111419;
-  border:1px solid #292d33;
-  border-radius:18px;
-  padding:14px;
+  background:var(--card);border:1px solid var(--line);
+  border-radius:17px;padding:14px
 }
-
-.composer-header{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:7px;
+.composer{
+  display:flex;align-items:center;gap:10px;margin-bottom:9px
 }
-
-.composer-name{
-  font-size:15px;
-  font-weight:800;
-}
-
-.composer-sub{
-  color:#777f89;
-  font-size:12px;
-  margin-top:2px;
-}
+.composer-name{font-size:14px;font-weight:800}
+.composer-sub{font-size:11px;color:var(--muted);margin-top:2px}
 
 #postText{
-  width:100%;
-  min-height:62px;
-  height:62px;
-  resize:vertical;
-  border:0;
-  outline:none;
-  border-radius:12px;
-  padding:10px;
-  background:#181b20;
-  color:#f4f4f4;
-  font-family:inherit;
-  font-size:15px;
-  line-height:1.45;
+  width:100%;min-height:125px;resize:vertical;border:0;outline:0;
+  border-radius:13px;background:#14181e;color:#f4f6f8;
+  padding:12px;font-size:15px;line-height:1.48
 }
+#postText::placeholder{color:#6d7580}
 
-#postText::placeholder{
-  color:#6f7680;
+.preview{display:none;position:relative;margin-top:9px}
+.preview img,.preview video{
+  width:100%;max-height:420px;object-fit:cover;
+  border-radius:14px;background:#050608
 }
-
-.create-media-preview{
-  display:none;
-  margin-top:8px;
-  position:relative;
+.remove{
+  position:absolute;right:8px;top:8px;width:31px;height:31px;
+  border:0;border-radius:50%;background:rgba(0,0,0,.78);
+  color:#fff;font-size:19px
 }
-
-.create-media-preview img,
-.create-media-preview video{
-  width:100%;
-  max-height:400px;
-  object-fit:cover;
-  border-radius:14px;
-  background:#08090b;
+.create-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:10px;gap:8px
 }
-
-.remove-media{
-  position:absolute;
-  right:8px;
-  top:8px;
-  width:31px;
-  height:31px;
-  border:0;
-  border-radius:50%;
-  background:rgba(0,0,0,.75);
-  color:#fff;
-  cursor:pointer;
-  font-size:17px;
+.media-row{display:flex;gap:6px}
+.media-btn{
+  border:1px solid #303741;background:#151920;color:#aeb6c0;
+  border-radius:10px;padding:8px 10px;display:flex;
+  align-items:center;gap:5px;font-size:12px;font-weight:650
 }
-
-.create-options{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-top:8px;
-}
-
-.media-buttons{
-  display:flex;
-  gap:6px;
-}
-
-.media-button{
-  border:1px solid #30343a;
-  background:#181b20;
-  color:#b9bec5;
-  padding:8px 10px;
-  border-radius:11px;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  gap:5px;
-  font-size:12px;
-  font-weight:600;
-}
-
-.media-button svg{
-  width:15px;
-  height:15px;
-}
-
+.media-btn svg{width:16px;height:16px;color:var(--blue)}
 .post-btn{
-  border:0;
-  background:#f1f1f1;
-  color:#0b0d10;
-  padding:9px 17px;
-  border-radius:12px;
-  font-weight:800;
-  cursor:pointer;
+  border:0;background:var(--blue);color:#fff;border-radius:11px;
+  padding:9px 17px;font-weight:800
 }
+.post-btn:hover{background:var(--blue2)}
+.post-btn:disabled{opacity:.55;cursor:default}
+.hidden{display:none}
 
-.post-btn:disabled{
-  opacity:.5;
-  cursor:default;
+.search-main{display:flex;gap:8px}
+.search-main input{
+  flex:1;min-width:0;background:#11151a;border:1px solid #303640;
+  color:#fff;border-radius:13px;padding:12px 14px;outline:none
 }
-
-.explore-title{
-  padding:7px 3px 15px;
+.search-main button{
+  width:48px;border:0;border-radius:13px;background:var(--blue);
+  color:#fff;display:grid;place-items:center
 }
+.search-main svg{width:20px;height:20px}
 
-.explore-title h1{
-  font-size:27px;
-  letter-spacing:-1px;
-}
-
-.explore-title p{
-  color:#858c95;
-  font-size:13px;
-  margin-top:4px;
-}
-
-.search-box{
-  display:flex;
-  gap:8px;
-  margin-bottom:13px;
-}
-
-#userSearchInput{
-  flex:1;
-  min-width:0;
-  padding:13px 15px;
-  border:1px solid #292d33;
-  border-radius:14px;
-  background:#15181d;
-  color:#fff;
-  font-size:14px;
-  outline:none;
-}
-
-.search-button{
-  width:48px;
-  border:0;
-  border-radius:14px;
-  background:#f1f1f1;
-  color:#0b0d10;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-}
-
-.search-button svg{
-  width:20px;
-  height:20px;
-}
-
-#searchResults{
-  margin-bottom:18px;
-}
-
+.search-results{margin-top:10px}
 .search-result{
-  background:#15181d;
-  border:1px solid #292d33;
-  border-radius:15px;
-  padding:12px;
-  margin-bottom:7px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:8px;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:10px;margin-bottom:7px
 }
-
 .search-user{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  cursor:pointer;
-  min-width:0;
+  display:flex;align-items:center;gap:9px;min-width:0;cursor:pointer
 }
-
 .search-avatar{
-  width:39px;
-  height:39px;
-  flex-shrink:0;
-  border-radius:50%;
-  background:#30251f;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:800;
-  color:#ead9b8;
-  border:1px solid #5a4739;
+  width:39px;height:39px;border-radius:50%;background:#202833;
+  border:1px solid #414c58;display:grid;place-items:center;
+  font-weight:800
 }
-
 .search-username{
-  font-size:14px;
-  font-weight:700;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+  font-size:13px;font-weight:750;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap
 }
-
-.follow-button{
-  border:0;
-  padding:8px 14px;
-  border-radius:10px;
-  background:#f1f1f1;
-  color:#0b0d10;
-  font-weight:700;
-  cursor:pointer;
+.follow-btn{
+  border:0;background:var(--blue);color:#fff;padding:8px 13px;
+  border-radius:10px;font-size:12px;font-weight:800;min-width:78px
 }
-
-.follow-button:disabled{
-  background:#292d33;
-  color:#aaa;
+.follow-btn.following{
+  background:#315b7b;color:#cfe9ff;opacity:.78
 }
+.follow-btn:disabled{cursor:default}
 
-.alert-title{
-  padding:7px 3px 15px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.explore-feed-title{
+  display:flex;align-items:center;justify-content:space-between;
+  margin:20px 3px 9px
 }
-
-.alert-title h1{
-  font-size:27px;
-  letter-spacing:-1px;
+.explore-feed-title h2{font-size:17px}
+.tabs{display:flex;gap:5px}
+.tab{
+  border:1px solid var(--line);background:#11151a;color:#818a95;
+  border-radius:9px;padding:6px 9px;font-size:11px
 }
-
-.alert-mark-read{
-  border:1px solid #30343a;
-  background:#15181d;
-  color:#aeb3bb;
-  padding:8px 11px;
-  border-radius:10px;
-  font-size:11px;
-  cursor:pointer;
+.tab.active{
+  background:#1b2631;color:#dceeff;border-color:#31566f
 }
-
-.alert-mark-read:hover{
-  background:#1b1e23;
-  color:#fff;
+.explore-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:3px
 }
-
-.alert-list{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
+.tile{
+  aspect-ratio:1/1;background:#101318;overflow:hidden;
+  position:relative;border-radius:2px;cursor:pointer
+}
+.tile img,.tile video{
+  width:100%;height:100%;object-fit:cover;display:block
+}
+.tile .tile-text{
+  padding:11px;font-size:12px;line-height:1.35;color:#d9dde2;
+  display:-webkit-box;-webkit-line-clamp:6;
+  -webkit-box-orient:vertical;overflow:hidden
+}
+.tile.reel:after{
+  content:"▶";position:absolute;right:7px;top:7px;
+  background:rgba(0,0,0,.62);border-radius:7px;
+  padding:4px 6px;font-size:10px
 }
 
 .notification{
-  position:relative;
-  display:flex;
-  align-items:center;
-  gap:11px;
-  padding:12px;
-  background:#111419;
-  border:1px solid #292d33;
-  border-radius:15px;
-  cursor:pointer;
-  transition:.18s;
+  display:flex;align-items:flex-start;gap:11px;background:var(--card);
+  border:1px solid var(--line);border-radius:14px;padding:12px;
+  margin-bottom:7px;cursor:pointer
 }
-
-.notification:hover{
-  background:#181b20;
-}
-
 .notification.unread{
-  background:#15181d;
-  border-color:#343941;
+  border-color:#2f5570;background:#101820
 }
-
-.notification.unread::after{
-  content:"";
-  position:absolute;
-  right:12px;
-  top:14px;
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:#d7bd8c;
-}
-
 .notification-icon{
-  width:40px;
-  height:40px;
-  flex-shrink:0;
-  border-radius:50%;
-  background:#1b1e23;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#d7bd8c;
+  width:40px;height:40px;flex:0 0 40px;border-radius:50%;
+  background:#17202a;display:grid;place-items:center;color:var(--blue)
 }
-
-.notification-icon svg{
-  width:19px;
-  height:19px;
-}
-
+.notification-icon.like{color:var(--like)}
+.notification-icon.follow{color:var(--blue)}
+.notification-icon.comment{color:#a98cff}
+.notification-icon svg{width:19px;height:19px}
 .notification-text{
-  padding-right:12px;
-  font-size:13px;
-  line-height:1.4;
-  color:#dfe2e6;
+  font-size:13px;line-height:1.4;color:#dfe3e8
 }
-
-.notification-text b{
-  color:#fff;
-}
-
+.notification-text b{color:#fff}
 .notification-time{
-  color:#777f89;
-  font-size:10px;
-  margin-top:3px;
+  font-size:10px;color:#707985;margin-top:3px
 }
-
-.alert-empty{
-  text-align:center;
-  padding:50px 20px;
-  color:#858c95;
+.alert-tools{
+  display:flex;justify-content:flex-end;margin-bottom:8px
 }
-
+.read-all{
+  border:1px solid #303640;background:#12161b;color:#aeb6c0;
+  border-radius:9px;padding:7px 10px;font-size:11px
+}
+.alert-empty{text-align:center;padding:50px 20px;color:var(--muted)}
 .alert-empty svg{
-  width:36px;
-  height:36px;
-  color:#d7bd8c;
-  margin-bottom:10px;
+  width:35px;height:35px;color:var(--blue);margin-bottom:10px
 }
-
 .alert-empty h3{
-  color:#e7e9ec;
-  margin-bottom:5px;
+  color:#e9edf1;margin-bottom:5px;font-size:16px
 }
-
-.alert-empty p{
-  font-size:13px;
-}
-
-.alert-loading{
-  text-align:center;
-  padding:35px;
-  color:#777f89;
-  font-size:13px;
-}
-
-.alert-badge{
-  position:absolute;
-  top:7px;
-  right:calc(50% - 17px);
-  min-width:15px;
-  height:15px;
-  padding:0 4px;
-  border-radius:8px;
-  background:#d7bd8c;
-  color:#0b0d10;
-  font-size:9px;
-  font-weight:800;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  border:2px solid #0b0d10;
-}
-
-.nav-item{
-  position:relative;
-  flex:1;
-  max-width:115px;
-  border:0;
-  background:none;
-  color:#727983;
-  cursor:pointer;
-  border-radius:13px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
-  transition:.18s;
-}
-
-.nav-item svg{
-  width:21px;
-  height:21px;
-  stroke-width:1.8;
-}
-
-.nav-item span{
-  font-size:10px;
-}
-
-.nav-item:hover{
-  color:#dfe2e6;
-  background:#15181d;
-}
-
-.nav-item.active{
-  color:#fff;
-}
-
-.nav-item.create-active{
-  color:#d7bd8c;
-}
-
-.create-plus{
-  width:32px;
-  height:32px;
-  border:1px solid #555b63;
-  border-radius:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.create-plus svg{
-  width:18px;
-  height:18px;
-}
+.alert-empty p{font-size:13px}
 
 .bottom-nav{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  height:72px;
-  z-index:200;
-  background:rgba(11,13,16,.96);
-  backdrop-filter:blur(20px);
-  border-top:1px solid #292d33;
-  display:flex;
-  justify-content:center;
-  padding:6px 8px;
-  box-shadow:0 -10px 30px rgba(0,0,0,.2);
+  position:fixed;left:0;right:0;bottom:0;height:73px;z-index:200;
+  background:rgba(8,10,13,.96);backdrop-filter:blur(20px);
+  border-top:1px solid var(--line);display:flex;
+  justify-content:center;padding:5px 7px;
+  box-shadow:0 -10px 28px rgba(0,0,0,.24)
 }
-
-.hidden-file{
-  display:none;
+.nav-item{
+  flex:1;max-width:120px;border:0;background:none;color:#737c88;
+  border-radius:13px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:4px;
+  transition:.18s;position:relative
 }
+.nav-item svg{width:21px;height:21px;stroke-width:1.8}
+.nav-item span{font-size:10px}
+.nav-item:hover{background:#12161b;color:#dfe5eb}
+.nav-item.active{color:#fff}
+.nav-item.active.home{color:#fff}
+.nav-item.explore-active{color:var(--blue)}
+.nav-item.alert-active{color:#b18cff}
+.nav-item.create-active{color:var(--green)}
 
-.profile-link{
-  cursor:pointer;
+.create-plus{
+  width:34px;height:30px;border-radius:10px;background:#16261d;
+  border:1px solid #315c40;display:grid;place-items:center
+}
+.create-plus svg{width:18px;height:18px}
+
+.badge{
+  position:absolute;top:7px;right:calc(50% - 19px);
+  min-width:15px;height:15px;padding:0 4px;border-radius:9px;
+  background:var(--like);color:#fff;font-size:9px;font-weight:800;
+  display:none;place-items:center;border:2px solid var(--bg)
 }
 
 @media(max-width:500px){
-
-  .container{
-    padding:15px 10px 25px;
-  }
-
-  .topbar-inner{
-    height:61px;
-    padding:0 13px;
-  }
-
-  .logo{
-    font-size:16px;
-  }
-
-  .profile-name{
-    max-width:130px;
-  }
-
-  .post{
-    border-radius:16px;
-    padding:11px 12px;
-  }
-
-  .post-text{
-    font-size:15px;
-    margin:0;
-    padding:0;
-  }
-
-  .action{
-    padding:7px 6px;
-  }
-
-  .action span{
-    display:none;
-  }
-
-  .action svg{
-    width:19px;
-    height:19px;
-  }
-
-  .create-card{
-    border-radius:17px;
-    padding:13px;
-  }
-
-  #postText{
-    min-height:62px;
-    height:62px;
-  }
-
-  .media-button{
-    padding:8px 9px;
-  }
-
-  .post-btn{
-    padding:9px 14px;
-  }
-
-  .bottom-nav{
-    height:68px;
-  }
-
+ .container{padding:10px 7px 25px}
+ .topbar-inner{height:60px;padding:0 12px}
+ .logo{font-size:15px}
+ .profile-name{max-width:125px}
+ .post{padding:12px 7px 7px}
+ .post-text,.post-media,.post-video,.actions,.comments{
+   margin-left:49px;width:calc(100% - 49px)
+ }
+ .post-text{font-size:15px}
+ .avatar{width:40px;height:40px;flex-basis:40px}
+ .author{max-width:150px}
+ .action{padding:5px 4px}
+ .action span{display:none}
+ .action svg{width:19px;height:19px}
+ .explore-grid{gap:2px}
+ .tile .tile-text{font-size:11px;padding:8px}
+ .bottom-nav{height:69px}
 }
-
 </style>
 </head>
 
 <body>
 
 <header class="topbar">
-
-  <div class="topbar-inner">
-
-    <div class="logo">
-      <span class="logo-dragon">🐉</span>
-      <span>JSP TAYSU</span>
-    </div>
-
-    <div
-      class="profile-name"
-      id="profileName">
-      Member
-    </div>
-
+ <div class="topbar-inner">
+  <div class="logo">
+   <div class="logo-mark">🐉</div>
+   <span>JSP TAYSU</span>
   </div>
-
+  <div class="profile-name" id="profileName">Member</div>
+ </div>
 </header>
-
 
 <main class="container">
 
+<section id="homeSection" class="page-section active">
 
-<!-- HOME -->
+ <div class="feed-heading">
+  <h2>Community</h2>
 
-<section
-  id="homeSection"
-  class="page-section active">
+  <button class="icon-btn" id="feedSearchButton" aria-label="Search posts">
+   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <circle cx="11" cy="11" r="7"></circle>
+    <path d="m20 20-4-4"></path>
+   </svg>
+  </button>
+ </div>
 
-  <div class="feed-heading">
+ <div class="search-strip" id="feedSearchBox">
+  <input id="feedSearchInput" maxlength="100"
+   placeholder="Search posts, people or topics...">
+ </div>
 
-    <h2>
-      Community Feed
-    </h2>
-
-    <div class="feed-heading-right">
-
-      <button
-        id="feedSearchButton"
-        class="feed-search-button"
-        type="button"
-        aria-label="Search posts">
-
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor">
-
-          <circle
-            cx="11"
-            cy="11"
-            r="7">
-          </circle>
-
-          <path
-            d="m20 20-4-4">
-          </path>
-
-        </svg>
-
-      </button>
-
-    </div>
-
+ <div id="posts">
+  <div class="empty">
+   <div class="empty-icon">⌛</div>
+   <h3>Loading community...</h3>
+   <p>Please wait a moment.</p>
   </div>
-
-
-  <div
-    id="feedSearchBox"
-    class="feed-search-box">
-
-    <input
-      id="feedSearchInput"
-      type="text"
-      placeholder="Search posts or topics..."
-      maxlength="100">
-
-  </div>
-
-
-  <section id="posts">
-
-    <div class="empty">
-
-      <div class="empty-icon">
-
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor">
-
-          <circle
-            cx="12"
-            cy="12"
-            r="8">
-          </circle>
-
-          <path
-            d="M8 12h8">
-          </path>
-
-        </svg>
-
-      </div>
-
-      <h3>
-        Loading community...
-      </h3>
-
-      <p>
-        Please wait a moment.
-      </p>
-
-    </div>
-
-  </section>
+ </div>
 
 </section>
 
 
-<!-- CREATE -->
+<section id="createSection" class="page-section">
 
-<section
-  id="createSection"
-  class="page-section">
+ <div class="create-title">
+  <h1>Create</h1>
+  <p>Share your thoughts, photos or videos with JSP TAYSU.</p>
+ </div>
 
-  <div class="create-page-title">
+ <div class="create-card">
 
-    <h1>
-      Create
-    </h1>
+  <div class="composer">
+   <div class="avatar" id="composerAvatar">M</div>
 
-    <p>
-      Share something with the JSP TAYSU community.
-    </p>
-
+   <div>
+    <div class="composer-name" id="composerName">Member</div>
+    <div class="composer-sub">Public community post</div>
+   </div>
   </div>
 
+  <textarea id="postText" maxlength="5000"
+   placeholder="What are you thinking about?"></textarea>
 
-  <div class="create-card">
-
-    <div class="composer-header">
-
-      <div
-        class="avatar"
-        id="composerAvatar">
-        M
-      </div>
-
-      <div>
-
-        <div
-          class="composer-name"
-          id="composerName">
-          Member
-        </div>
-
-        <div class="composer-sub">
-          Share with the community
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <textarea
-      id="postText"
-      maxlength="5000"
-      placeholder="What's on your mind?"></textarea>
-
-
-    <div
-      id="createMediaPreview"
-      class="create-media-preview">
-
-      <button
-        id="removeMediaButton"
-        class="remove-media"
-        type="button">
-        ×
-      </button>
-
-      <div id="mediaPreviewContent"></div>
-
-    </div>
-
-
-    <div class="create-options">
-
-      <div class="media-buttons">
-
-        <button
-          class="media-button"
-          id="photoButton"
-          type="button">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor">
-
-            <rect
-              x="3"
-              y="4"
-              width="18"
-              height="16"
-              rx="3">
-            </rect>
-
-            <circle
-              cx="8.5"
-              cy="9"
-              r="1.5">
-            </circle>
-
-            <path
-              d="m5 17 4-4 3 3 2-2 5 5">
-            </path>
-
-          </svg>
-
-          Photo
-
-        </button>
-
-
-        <button
-          class="media-button"
-          id="videoButton"
-          type="button">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor">
-
-            <rect
-              x="3"
-              y="5"
-              width="13"
-              height="14"
-              rx="3">
-            </rect>
-
-            <path
-              d="m16 10 5-3v10l-5-3z">
-            </path>
-
-          </svg>
-
-          Video
-
-        </button>
-
-
-        <input
-          type="file"
-          id="photoInput"
-          class="hidden-file"
-          accept="image/*">
-
-        <input
-          type="file"
-          id="videoInput"
-          class="hidden-file"
-          accept="video/*">
-
-      </div>
-
-
-      <button
-        class="post-btn"
-        id="postButton"
-        type="button">
-
-        Post
-
-      </button>
-
-    </div>
-
+  <div class="preview" id="createMediaPreview">
+   <button class="remove" id="removeMediaButton">×</button>
+   <div id="mediaPreviewContent"></div>
   </div>
 
-</section>
+  <div class="create-bottom">
 
+   <div class="media-row">
 
-<!-- EXPLORE -->
-
-<section
-  id="exploreSection"
-  class="page-section">
-
-  <div class="explore-title">
-
-    <h1>
-      Explore
-    </h1>
-
-    <p>
-      Discover members and connect with the community.
-    </p>
-
-  </div>
-
-
-  <div class="search-box">
-
-    <input
-      type="text"
-      id="userSearchInput"
-      placeholder="Search members..."
-      maxlength="30"
-      autocomplete="off">
-
-    <button
-      id="userSearchButton"
-      class="search-button"
-      aria-label="Search"
-      type="button">
-
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor">
-
-        <circle
-          cx="11"
-          cy="11"
-          r="7">
-        </circle>
-
-        <path
-          d="m20 20-4-4">
-        </path>
-
-      </svg>
-
+    <button class="media-btn" id="photoButton">
+     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <rect x="3" y="4" width="18" height="16" rx="3"></rect>
+      <circle cx="8.5" cy="9" r="1.5"></circle>
+      <path d="m5 17 4-4 3 3 2-2 5 5"></path>
+     </svg>
+     Photo
     </button>
 
+    <button class="media-btn" id="videoButton">
+     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <rect x="3" y="5" width="13" height="14" rx="3"></rect>
+      <path d="m16 10 5-3v10l-5-3z"></path>
+     </svg>
+     Video
+    </button>
+
+    <input id="photoInput" class="hidden" type="file" accept="image/*">
+    <input id="videoInput" class="hidden" type="file" accept="video/*">
+
+   </div>
+
+   <button class="post-btn" id="postButton">Post</button>
+
   </div>
-
-
-  <div id="searchResults"></div>
+ </div>
 
 </section>
 
 
-<!-- ALERTS -->
+<section id="exploreSection" class="page-section">
 
-<section
-  id="alertsSection"
-  class="page-section">
+ <div class="explore-title">
+  <h1>Explore</h1>
+  <p>Find members and discover what the community is sharing.</p>
+ </div>
 
-  <div class="alert-title">
+ <div class="search-main">
 
-    <h1>
-      Alerts
-    </h1>
+  <input id="userSearchInput" maxlength="40"
+   autocomplete="off" placeholder="Search members...">
 
-    <button
-      id="markAllReadButton"
-      class="alert-mark-read"
-      type="button">
+  <button id="userSearchButton" aria-label="Search">
+   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <circle cx="11" cy="11" r="7"></circle>
+    <path d="m20 20-4-4"></path>
+   </svg>
+  </button>
 
-      Mark all read
+ </div>
 
-    </button>
+ <div id="searchResults" class="search-results"></div>
 
+ <div class="explore-feed-title">
+  <h2>Discover</h2>
+
+  <div class="tabs">
+   <button class="tab active" data-tab="all">Posts</button>
+   <button class="tab" data-tab="video">Reels</button>
   </div>
+ </div>
+
+ <div id="exploreGrid" class="explore-grid"></div>
+
+</section>
 
 
-  <div
-    id="alertList"
-    class="alert-list">
+<section id="alertsSection" class="page-section">
 
-    <div class="alert-loading">
-      Loading alerts...
-    </div>
+ <div class="alert-title">
+  <h1>Alerts</h1>
+ </div>
 
+ <div class="alert-tools">
+  <button class="read-all" id="readAllButton">
+   Mark all as read
+  </button>
+ </div>
+
+ <div id="alertList">
+  <div class="alert-empty">
+   <h3>Loading alerts...</h3>
+   <p>Your likes, comments and follows will appear here.</p>
   </div>
+ </div>
 
 </section>
 
 </main>
 
 
-<!-- BOTTOM NAV -->
-
 <nav class="bottom-nav">
 
-  <button
-    class="nav-item active"
-    data-section="homeSection">
+ <button class="nav-item active home" data-section="homeSection">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+   <path d="M3 10.5 12 3l9 7.5"></path>
+   <path d="M5 9v11h14V9"></path>
+   <path d="M9 20v-6h6v6"></path>
+  </svg>
+  <span>Home</span>
+ </button>
 
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor">
+ <button class="nav-item" data-section="exploreSection">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+   <circle cx="11" cy="11" r="7"></circle>
+   <path d="m20 20-4-4"></path>
+  </svg>
+  <span>Explore</span>
+ </button>
 
-      <path
-        d="M3 10.5 12 3l9 7.5">
-      </path>
+ <button class="nav-item" id="createNav">
+  <div class="create-plus">
+   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <path d="M12 5v14"></path>
+    <path d="M5 12h14"></path>
+   </svg>
+  </div>
+  <span>Create</span>
+ </button>
 
-      <path
-        d="M5 9v11h14V9">
-      </path>
+ <button class="nav-item" data-section="alertsSection">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+   <path d="M18 8 a6 6 0 0 0-12 0 c0 7-3 7-3 9h18 c0-2-3-2-3-9"></path>
+   <path d="M10 21h4"></path>
+  </svg>
+  <span>Alerts</span>
+  <i class="badge" id="alertBadge">0</i>
+ </button>
 
-      <path
-        d="M9 20v-6h6v6">
-      </path>
-
-    </svg>
-
-    <span>Home</span>
-
-  </button>
-
-
-  <button
-    class="nav-item"
-    data-section="exploreSection">
-
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor">
-
-      <circle
-        cx="11"
-        cy="11"
-        r="7">
-      </circle>
-
-      <path
-        d="m20 20-4-4">
-      </path>
-
-    </svg>
-
-    <span>Explore</span>
-
-  </button>
-
-
-  <button
-    class="nav-item"
-    id="createNav">
-
-    <div class="create-plus">
-
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor">
-
-        <path d="M12 5v14"></path>
-        <path d="M5 12h14"></path>
-
-      </svg>
-
-    </div>
-
-    <span>Create</span>
-
-  </button>
-
-
-  <button
-    class="nav-item"
-    data-section="alertsSection">
-
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor">
-
-      <path
-        d="M18 8
-           a6 6 0 0 0-12 0
-           c0 7-3 7-3 9h18
-           c0-2-3-2-3-9">
-      </path>
-
-      <path d="M10 21h4"></path>
-
-    </svg>
-
-    <span>Alerts</span>
-
-    <div
-      id="alertBadge"
-      class="alert-badge">
-      0
-    </div>
-
-  </button>
-
-
-  <button
-    class="nav-item"
-    id="profileNavButton">
-
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor">
-
-      <circle
-        cx="12"
-        cy="8"
-        r="4">
-      </circle>
-
-      <path
-        d="M4 21
-           c0-4 3.5-7 8-7
-           s8 3 8 7">
-      </path>
-
-    </svg>
-
-    <span>Profile</span>
-
-  </button>
+ <button class="nav-item" id="profileNavButton">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+   <circle cx="12" cy="8" r="4"></circle>
+   <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"></path>
+  </svg>
+  <span>Profile</span>
+ </button>
 
 </nav>
 
 
 <script type="module">
 
-/* FIREBASE */
+import {initializeApp}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
-  initializeApp
+ getAuth,onAuthStateChanged
 }
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import {
-  getAuth,
-  onAuthStateChanged
+ getFirestore,collection,addDoc,getDocs,serverTimestamp,
+ doc,setDoc,getDoc,deleteDoc,query,where,limit,onSnapshot
 }
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  serverTimestamp,
-  doc,
-  setDoc,
-  getDoc,
-  deleteDoc,
-  updateDoc,
-  query,
-  where
+ getStorage,ref,uploadBytes,getDownloadURL
 }
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
 
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL
-}
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
+const firebaseConfig={
+ apiKey:"AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
+ authDomain:"jsp-taysu.firebaseapp.com",
+ projectId:"jsp-taysu",
+ storageBucket:"jsp-taysu.firebasestorage.app",
+ messagingSenderId:"280992025632",
+ appId:"1:280992025632:web:48efa21208a78be9a78045"
+};
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+const storage=getStorage(app);
 
 
-/* CONFIG */
+let currentUser=null;
+let currentUsername="Member";
+let selectedMediaFile=null;
+let selectedMediaType=null;
+let allPosts=[];
+let allMembers=[];
+let notificationUnsubscribe=null;
 
-const firebaseConfig = {
 
-  apiKey:
-    "AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
+const $=id=>document.getElementById(id);
 
-  authDomain:
-    "jsp-taysu.firebaseapp.com",
+const postsContainer=$("posts");
+const alertList=$("alertList");
+const alertBadge=$("alertBadge");
 
-  projectId:
-    "jsp-taysu",
 
-  storageBucket:
-    "jsp-taysu.firebasestorage.app",
+onAuthStateChanged(auth,async user=>{
 
-  messagingSenderId:
-    "280992025632",
+ currentUser=user;
 
-  appId:
-    "1:280992025632:web:48efa21208a78be9a78045"
+ if(!user){
 
+  $("profileName").textContent="Please sign in";
+
+  $("composerName").textContent="Member";
+  $("composerAvatar").textContent="M";
+  currentUsername="Member";
+
+  postsContainer.innerHTML=
+  '<div class="empty"><div class="empty-icon">🔐</div><h3>Sign in to view the community</h3><p>Please sign in first.</p></div>';
+
+  return;
+ }
+
+ let username=user.displayName||"Member";
+
+ try{
+
+  const snap=await getDoc(doc(db,"users",user.uid));
+
+  if(snap.exists()){
+
+   const d=snap.data();
+
+   username=
+   d.username||
+   d.name||
+   d.displayName||
+   username;
+
+  }
+
+ }catch(e){
+
+  console.error("Profile error",e);
+
+ }
+
+ currentUsername=username;
+
+ $("profileName").textContent=username;
+ $("composerName").textContent=username;
+ $("composerAvatar").textContent=username.charAt(0).toUpperCase();
+
+ await loadPosts();
+ await loadMembers();
+
+ subscribeNotifications();
+
+});
+
+
+const sections={
+ homeSection:$("homeSection"),
+ createSection:$("createSection"),
+ exploreSection:$("exploreSection"),
+ alertsSection:$("alertsSection")
 };
 
 
-const app =
-  initializeApp(firebaseConfig);
+function showSection(id){
 
-const auth =
-  getAuth(app);
+ Object.values(sections)
+ .forEach(s=>s.classList.remove("active"));
 
-const db =
-  getFirestore(app);
+ sections[id].classList.add("active");
 
-const storage =
-  getStorage(app);
+ document.querySelectorAll(".nav-item")
+ .forEach(b=>b.classList.remove(
+  "active",
+  "create-active",
+  "explore-active",
+  "alert-active"
+ ));
 
+ const b=document.querySelector(`[data-section="${id}"]`);
 
-let currentUser = null;
-let selectedMediaFile = null;
-let selectedMediaType = null;
-let currentUsername = "Member";
+ if(b)b.classList.add("active");
 
-let allPosts = [];
-let allMembers = [];
+ if(id==="createSection")
+  $("createNav").classList.add("active","create-active");
 
-let notificationCache = [];
+ if(id==="exploreSection")
+  loadExploreGrid("all");
 
+ if(id==="alertsSection")
+  refreshNotifications();
 
-/* ELEMENTS */
-
-const profileName =
-  document.getElementById("profileName");
-
-const composerName =
-  document.getElementById("composerName");
-
-const composerAvatar =
-  document.getElementById("composerAvatar");
-
-const alertList =
-  document.getElementById("alertList");
-
-const postsContainer =
-  document.getElementById("posts");
-
-const alertBadge =
-  document.getElementById("alertBadge");
-
-
-/* AUTH */
-
-onAuthStateChanged(
-  auth,
-  async user => {
-
-    currentUser = user;
-
-    if(!user){
-
-      profileName.textContent =
-        "Please sign in";
-
-      composerName.textContent =
-        "Member";
-
-      composerAvatar.textContent =
-        "M";
-
-      currentUsername =
-        "Member";
-
-      updateAlertBadge(0);
-
-      return;
-
-    }
-
-
-    let username =
-      user.displayName ||
-      "Member";
-
-
-    try{
-
-      const profileSnap =
-        await getDoc(
-          doc(
-            db,
-            "users",
-            user.uid
-          )
-        );
-
-
-      if(
-        profileSnap.exists() &&
-        profileSnap.data().username
-      ){
-
-        username =
-          profileSnap.data().username;
-
-      }
-
-    }catch(error){
-
-      console.error(
-        "Profile error:",
-        error
-      );
-
-    }
-
-
-    currentUsername =
-      username;
-
-    profileName.textContent =
-      username;
-
-    composerName.textContent =
-      username;
-
-    composerAvatar.textContent =
-      username.charAt(0).toUpperCase();
-
-
-    await loadPosts();
-
-    await loadNotifications();
-
-  }
-);
-
-
-/* NAVIGATION */
-
-const sections = {
-
-  homeSection:
-    document.getElementById("homeSection"),
-
-  createSection:
-    document.getElementById("createSection"),
-
-  exploreSection:
-    document.getElementById("exploreSection"),
-
-  alertsSection:
-    document.getElementById("alertsSection")
-
-};
-
-
-async function showSection(sectionId){
-
-  Object.values(sections)
-    .forEach(section => {
-
-      section.classList.remove("active");
-
-    });
-
-
-  if(sections[sectionId]){
-
-    sections[sectionId]
-      .classList.add("active");
-
-  }
-
-
-  document
-    .querySelectorAll(".nav-item")
-    .forEach(button => {
-
-      button.classList.remove("active");
-      button.classList.remove("create-active");
-
-    });
-
-
-  const matchingButton =
-    document.querySelector(
-      `[data-section="${sectionId}"]`
-    );
-
-
-  if(matchingButton){
-
-    matchingButton.classList.add("active");
-
-  }
-
-
-  if(sectionId === "createSection"){
-
-    document
-      .getElementById("createNav")
-      .classList.add("create-active");
-
-  }
-
-
-  if(
-    sectionId === "alertsSection" &&
-    currentUser
-  ){
-
-    await loadNotifications();
-
-    await markNotificationsAsRead();
-
-  }
-
-
-  if(sectionId === "exploreSection"){
-
-    loadMembers();
-
-  }
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
+ window.scrollTo({top:0,behavior:"smooth"});
 }
 
 
 document
-  .querySelectorAll(
-    ".nav-item[data-section]"
-  )
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        showSection(
-          button.dataset.section
-        );
-
-      }
-    );
-
-  });
+.querySelectorAll(".nav-item[data-section]")
+.forEach(b=>{
+ b.addEventListener("click",()=>{
+  showSection(b.dataset.section);
+ });
+});
 
 
-document
-  .getElementById("createNav")
-  .addEventListener(
-    "click",
-    () => {
-
-      showSection(
-        "createSection"
-      );
-
-    }
-  );
+$("createNav").addEventListener("click",()=>{
+ showSection("createSection");
+});
 
 
-/* PROFILE BUTTON */
+$("profileNavButton").addEventListener("click",()=>{
 
-document
-  .getElementById("profileNavButton")
-  .addEventListener(
-    "click",
-    () => {
+ if(!currentUser){
+  alert("Please sign in first.");
+  return;
+ }
 
-      if(!currentUser){
+ window.location.href=
+ "profile.html?uid="+encodeURIComponent(currentUser.uid);
 
-        alert("Please sign in first.");
-
-        return;
-
-      }
-
-      openProfile(
-        currentUser.uid
-      );
-
-    }
-  );
+});
 
 
-/* PROFILE OPEN */
+$("feedSearchButton").addEventListener("click",()=>{
 
-function openProfile(uid){
+ const box=$("feedSearchBox");
 
-  if(!uid){
+ box.classList.toggle("show");
 
-    return;
+ if(box.classList.contains("show"))
+  $("feedSearchInput").focus();
 
-  }
+ else{
+  $("feedSearchInput").value="";
+  renderPosts("");
+ }
 
-  window.location.href =
-    "profile.html?uid=" +
-    encodeURIComponent(uid);
+});
+
+
+$("feedSearchInput").addEventListener(
+ "input",
+ e=>renderPosts(e.target.value)
+);
+
+
+$("photoButton").addEventListener("click",()=>{
+
+ if(!currentUser){
+  alert("Please sign in first.");
+  return;
+ }
+
+ $("photoInput").click();
+
+});
+
+
+$("videoButton").addEventListener("click",()=>{
+
+ if(!currentUser){
+  alert("Please sign in first.");
+  return;
+ }
+
+ $("videoInput").click();
+
+});
+
+
+$("photoInput").addEventListener("change",e=>{
+
+ if(e.target.files[0])
+  selectMedia(e.target.files[0],"image");
+
+});
+
+
+$("videoInput").addEventListener("change",e=>{
+
+ if(e.target.files[0])
+  selectMedia(e.target.files[0],"video");
+
+});
+
+
+function selectMedia(file,type){
+
+ selectedMediaFile=file;
+ selectedMediaType=type;
+
+ const url=URL.createObjectURL(file);
+
+ $("mediaPreviewContent").innerHTML=
+ type==="image"
+ ?
+ `<img src="${url}" alt="Selected photo">`
+ :
+ `<video src="${url}" controls></video>`;
+
+ $("createMediaPreview").style.display="block";
 
 }
 
 
-/* FEED SEARCH */
-
-const feedSearchButton =
-  document.getElementById(
-    "feedSearchButton"
-  );
-
-const feedSearchBox =
-  document.getElementById(
-    "feedSearchBox"
-  );
-
-const feedSearchInput =
-  document.getElementById(
-    "feedSearchInput"
-  );
-
-
-feedSearchButton.addEventListener(
-  "click",
-  () => {
-
-    feedSearchBox.classList.toggle(
-      "show"
-    );
-
-    if(
-      feedSearchBox.classList.contains(
-        "show"
-      )
-    ){
-
-      feedSearchInput.focus();
-
-    }else{
-
-      feedSearchInput.value =
-        "";
-
-      renderFilteredPosts("");
-
-    }
-
-  }
+$("removeMediaButton").addEventListener(
+ "click",
+ clearMedia
 );
 
 
-feedSearchInput.addEventListener(
-  "input",
-  () => {
+function clearMedia(){
 
-    renderFilteredPosts(
-      feedSearchInput.value
-    );
+ selectedMediaFile=null;
+ selectedMediaType=null;
 
-  }
-);
+ $("photoInput").value="";
+ $("videoInput").value="";
 
-
-/* MEDIA */
-
-const photoButton =
-  document.getElementById("photoButton");
-
-const videoButton =
-  document.getElementById("videoButton");
-
-const photoInput =
-  document.getElementById("photoInput");
-
-const videoInput =
-  document.getElementById("videoInput");
-
-
-photoButton.addEventListener(
-  "click",
-  () => {
-
-    if(!currentUser){
-
-      alert("Please sign in first.");
-
-      return;
-
-    }
-
-    photoInput.click();
-
-  }
-);
-
-
-videoButton.addEventListener(
-  "click",
-  () => {
-
-    if(!currentUser){
-
-      alert("Please sign in first.");
-
-      return;
-
-    }
-
-    videoInput.click();
-
-  }
-);
-
-
-photoInput.addEventListener(
-  "change",
-  () => {
-
-    const file =
-      photoInput.files[0];
-
-    if(file){
-
-      selectedMediaFile =
-        file;
-
-      selectedMediaType =
-        "image";
-
-      showMediaPreview(
-        file,
-        "image"
-      );
-
-    }
-
-  }
-);
-
-
-videoInput.addEventListener(
-  "change",
-  () => {
-
-    const file =
-      videoInput.files[0];
-
-    if(file){
-
-      selectedMediaFile =
-        file;
-
-      selectedMediaType =
-        "video";
-
-      showMediaPreview(
-        file,
-        "video"
-      );
-
-    }
-
-  }
-);
-
-
-/* MEDIA PREVIEW */
-
-function showMediaPreview(
-  file,
-  type
-){
-
-  const preview =
-    document.getElementById(
-      "createMediaPreview"
-    );
-
-  const content =
-    document.getElementById(
-      "mediaPreviewContent"
-    );
-
-
-  const url =
-    URL.createObjectURL(file);
-
-
-  if(type === "image"){
-
-    content.innerHTML = `
-      <img
-        src="${url}"
-        alt="Selected photo">
-    `;
-
-  }else{
-
-    content.innerHTML = `
-      <video
-        src="${url}"
-        controls>
-      </video>
-    `;
-
-  }
-
-
-  preview.style.display =
-    "block";
+ $("createMediaPreview").style.display="none";
+ $("mediaPreviewContent").innerHTML="";
 
 }
 
 
-document
-  .getElementById(
-    "removeMediaButton"
-  )
-  .addEventListener(
-    "click",
-    () => {
-
-      selectedMediaFile = null;
-      selectedMediaType = null;
-
-      photoInput.value = "";
-      videoInput.value = "";
-
-      document
-        .getElementById(
-          "createMediaPreview"
-        )
-        .style.display =
-        "none";
-
-      document
-        .getElementById(
-          "mediaPreviewContent"
-        )
-        .innerHTML =
-        "";
-
-    }
-  );
-
-
-/* CREATE POST */
-
-document
-  .getElementById("postButton")
-  .addEventListener(
-    "click",
-    async () => {
-
-      if(!currentUser){
-
-        alert("Please sign in first.");
-
-        return;
-
-      }
-
-
-      const text =
-        document
-          .getElementById("postText")
-          .value
-          .trim();
-
-
-      if(
-        !text &&
-        !selectedMediaFile
-      ){
-
-        alert(
-          "Write something or select a photo/video."
-        );
-
-        return;
-
-      }
-
-
-      const button =
-        document.getElementById(
-          "postButton"
-        );
-
-
-      button.disabled = true;
-      button.textContent = "Posting...";
-
-
-      try{
-
-        let mediaUrl = "";
-        let mediaType = "";
-
-
-        if(selectedMediaFile){
-
-          const file =
-            selectedMediaFile;
-
-
-          const safeName =
-            file.name.replace(
-              /[^a-zA-Z0-9._-]/g,
-              "_"
-            );
-
-
-          const filePath =
-            "posts/" +
-            currentUser.uid +
-            "/" +
-            Date.now() +
-            "_" +
-            safeName;
-
-
-          const storageRef =
-            ref(
-              storage,
-              filePath
-            );
-
-
-          const uploadResult =
-            await uploadBytes(
-              storageRef,
-              file
-            );
-
-
-          mediaUrl =
-            await getDownloadURL(
-              uploadResult.ref
-            );
-
-
-          mediaType =
-            selectedMediaType;
-
-        }
-
-
-        const postRef =
-          await addDoc(
-            collection(
-              db,
-              "posts"
-            ),
-            {
-
-              text:
-                text,
-
-              authorId:
-                currentUser.uid,
-
-              authorName:
-                currentUsername,
-
-              mediaUrl:
-                mediaUrl,
-
-              mediaType:
-                mediaType,
-
-              createdAt:
-                serverTimestamp()
-
-            }
-          );
-
-
-        /*
-         * NEW:
-         * Notify everyone who follows
-         * the person creating this post.
-         */
-
-        await notifyFollowersAboutPost(
-          postRef.id
-        );
-
-
-        document
-          .getElementById("postText")
-          .value =
-          "";
-
-
-        selectedMediaFile = null;
-        selectedMediaType = null;
-
-        photoInput.value = "";
-        videoInput.value = "";
-
-
-        document
-          .getElementById(
-            "createMediaPreview"
-          )
-          .style.display =
-          "none";
-
-
-        document
-          .getElementById(
-            "mediaPreviewContent"
-          )
-          .innerHTML =
-          "";
-
-
-        await loadPosts();
-
-        showSection("homeSection");
-
-
-      }catch(error){
-
-        console.error(
-          "Post error:",
-          error
-        );
-
-        alert(
-          error.code +
-          ": " +
-          error.message
-        );
-
-      }finally{
-
-        button.disabled = false;
-        button.textContent = "Post";
-
-      }
-
-    }
-  );
-
-
-/*
- * NOTIFY FOLLOWERS
- *
- * Finds every document in:
- *
- * follows
- *
- * where:
- * followingId == current user's UID
- *
- * Then creates an alert for each follower.
- */
-
-async function notifyFollowersAboutPost(
-  postId
-){
+$("postButton").addEventListener(
+ "click",
+ async()=>{
 
   if(!currentUser){
-
-    return;
-
+   alert("Please sign in first.");
+   return;
   }
 
+  const text=$("postText").value.trim();
+
+  if(!text&&!selectedMediaFile){
+   alert("Write something or choose a photo/video.");
+   return;
+  }
+
+  const btn=$("postButton");
+
+  btn.disabled=true;
+  btn.textContent="Posting...";
 
   try{
 
-    const followersQuery =
-      query(
-        collection(
-          db,
-          "follows"
-        ),
-        where(
-          "followingId",
-          "==",
-          currentUser.uid
-        )
-      );
+   let mediaUrl="";
+   let mediaType="";
 
+   if(selectedMediaFile){
 
-    const snapshot =
-      await getDocs(
-        followersQuery
-      );
+    const file=selectedMediaFile;
 
+    const safe=file.name.replace(
+     /[^a-zA-Z0-9._-]/g,
+     "_"
+    );
 
-    if(snapshot.empty){
+    const path=
+    `posts/${currentUser.uid}/${Date.now()}_${safe}`;
 
-      return;
+    const up=
+    await uploadBytes(
+     ref(storage,path),
+     file
+    );
 
+    mediaUrl=
+    await getDownloadURL(up.ref);
+
+    mediaType=selectedMediaType;
+
+   }
+
+   await addDoc(
+    collection(db,"posts"),
+    {
+     text,
+     authorId:currentUser.uid,
+     authorName:currentUsername,
+     mediaUrl,
+     mediaType,
+     createdAt:serverTimestamp()
     }
+   );
 
+   $("postText").value="";
 
-    const notificationPromises = [];
+   clearMedia();
 
+   await loadPosts();
 
-    snapshot.forEach(
-      followDoc => {
+   showSection("homeSection");
 
-        const data =
-          followDoc.data();
+  }catch(e){
 
+   console.error(e);
 
-        const followerId =
-          data.followerId;
+   alert(
+    (e.code||"Error")+": "+e.message
+   );
 
+  }finally{
 
-        if(
-          !followerId ||
-          followerId ===
-          currentUser.uid
-        ){
-
-          return;
-
-        }
-
-
-        notificationPromises.push(
-          addDoc(
-            collection(
-              db,
-              "notifications"
-            ),
-            {
-
-              recipientId:
-                followerId,
-
-              senderId:
-                currentUser.uid,
-
-              senderName:
-                currentUsername,
-
-              type:
-                "new_post",
-
-              postId:
-                postId,
-
-              commentText:
-                "",
-
-              createdAt:
-                serverTimestamp(),
-
-              read:
-                false
-
-            }
-          )
-        );
-
-      }
-    );
-
-
-    await Promise.all(
-      notificationPromises
-    );
-
-
-  }catch(error){
-
-    console.error(
-      "Follower post notification error:",
-      error
-    );
+   btn.disabled=false;
+   btn.textContent="Post";
 
   }
 
-}
+ }
+);
 
-
-/* LOAD POSTS */
 
 async function loadPosts(){
 
-  try{
+ try{
 
-    const snapshot =
-      await getDocs(
-        collection(
-          db,
-          "posts"
-        )
-      );
+  const snap=
+  await getDocs(collection(db,"posts"));
 
+  allPosts=[];
 
-    allPosts = [];
+  snap.forEach(d=>{
+   allPosts.push({
+    id:d.id,
+    ...d.data()
+   });
+  });
 
+  allPosts.sort(
+   (a,b)=>
+   (b.createdAt?.seconds||0)-
+   (a.createdAt?.seconds||0)
+  );
 
-    snapshot.forEach(
-      postDoc => {
+  renderPosts(
+   $("feedSearchInput").value||""
+  );
 
-        allPosts.push({
+ }catch(e){
 
-          id:
-            postDoc.id,
+  console.error("Posts",e);
 
-          ...postDoc.data()
+  postsContainer.innerHTML=
+  '<div class="empty"><div class="empty-icon">⚠️</div><h3>Couldn’t load posts</h3><p>Check your Firebase rules and refresh.</p></div>';
 
-        });
-
-      }
-    );
-
-
-    allPosts.sort(
-      (a,b) => {
-
-        const aTime =
-          a.createdAt?.seconds || 0;
-
-        const bTime =
-          b.createdAt?.seconds || 0;
-
-        return bTime - aTime;
-
-      }
-    );
-
-
-    renderFilteredPosts(
-      feedSearchInput.value
-    );
-
-
-  }catch(error){
-
-    console.error(
-      "Load posts error:",
-      error
-    );
-
-
-    postsContainer.innerHTML = `
-
-      <div class="empty">
-
-        <div class="empty-icon">
-          ⚠️
-        </div>
-
-        <h3>
-          Couldn't load posts
-        </h3>
-
-        <p>
-          Please refresh the page.
-        </p>
-
-      </div>
-
-    `;
-
-  }
+ }
 
 }
 
 
-/* FILTER POSTS */
+function renderPosts(search=""){
 
-async function renderFilteredPosts(
-  searchText
-){
+ const q=
+ String(search)
+ .trim()
+ .toLowerCase();
 
-  const queryText =
-    String(searchText || "")
-      .trim()
-      .toLowerCase();
+ const list=
+ allPosts.filter(p=>
+  !q||
+  String(p.text||"")
+  .toLowerCase()
+  .includes(q)||
+  String(p.authorName||"")
+  .toLowerCase()
+  .includes(q)
+ );
+
+ postsContainer.innerHTML="";
+
+ if(!list.length){
+
+  postsContainer.innerHTML=
+  '<div class="empty"><div class="empty-icon">🔎</div><h3>No posts found</h3><p>Try another word or topic.</p></div>';
+
+  return;
+ }
+
+ list.forEach(p=>{
+  renderPost(p,postsContainer);
+ });
+
+}
 
 
-  const filtered =
-    allPosts.filter(post => {
+async function renderPost(post,container){
 
-      if(!queryText){
+ const el=document.createElement("article");
 
-        return true;
+ el.className="post";
 
+ let likeCount=0;
+ let liked=false;
+ let commentCount=0;
+
+ try{
+
+  const ls=
+  await getDocs(
+   collection(db,"posts",post.id,"likes")
+  );
+
+  likeCount=ls.size;
+
+  liked=
+   !!currentUser&&
+   ls.docs.some(
+    d=>d.id===currentUser.uid
+   );
+
+  commentCount=
+   (
+    await getDocs(
+     collection(
+      db,
+      "posts",
+      post.id,
+      "comments"
+     )
+    )
+   ).size;
+
+ }catch(e){
+
+  console.error("Counts",e);
+
+ }
+
+
+ const name=
+ post.authorName||"Member";
+
+ const initial=
+ name.charAt(0).toUpperCase();
+
+ const handle=
+ "@"+
+ name
+ .toLowerCase()
+ .replace(/\s+/g,"")
+ .slice(0,20);
+
+
+ let media="";
+
+ if(
+  post.mediaUrl&&
+  post.mediaType==="image"
+ ){
+
+  media=
+  `<img class="post-media"
+   src="${escapeAttr(post.mediaUrl)}"
+   alt="Community photo"
+   loading="lazy">`;
+
+ }
+
+ if(
+  post.mediaUrl&&
+  post.mediaType==="video"
+ ){
+
+  media=
+  `<video class="post-video"
+   controls
+   preload="metadata">
+   <source src="${escapeAttr(post.mediaUrl)}">
+  </video>`;
+
+ }
+
+
+ el.innerHTML=`
+
+ <div class="post-header"
+  data-uid="${escapeAttr(post.authorId||"")}">
+
+  <div class="avatar">
+   ${escapeHTML(initial)}
+  </div>
+
+  <div class="author-wrap">
+
+   <div class="author-line">
+
+    <span class="author">
+     ${escapeHTML(name)}
+    </span>
+
+    <span class="verified">
+
+     <svg viewBox="0 0 24 24">
+
+      <path d="
+       M12 2l2.1 2.1
+       3-.2.9 2.9
+       2.6 1.6-1 2.8
+       1 2.8-2.6 1.6
+       -.9 2.9-3-.2
+       L12 22l-2.1-2.1
+       -3 .2-.9-2.9
+       -2.6-1.6 1-2.8
+       -1-2.8 2.6-1.6
+       .9-2.9 3 .2L12 2z">
+      </path>
+
+      <path
+       d="m8.5 12 2.2 2.2 4.8-5"
+       fill="none"
+       stroke="#fff"
+       stroke-width="1.8">
+      </path>
+
+     </svg>
+
+    </span>
+
+    <button class="more">•••</button>
+
+   </div>
+
+   <div class="handle">
+    ${escapeHTML(handle)} · ${formatTime(post.createdAt)}
+   </div>
+
+  </div>
+
+ </div>
+
+ ${
+  post.text
+  ?
+  `<div class="post-text">
+    ${escapeHTML(post.text)}
+   </div>`
+  :
+  ""
+ }
+
+ ${media}
+
+ <div class="actions">
+
+  <button class="action comment">
+
+   <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor">
+
+    <path d="
+     M20 11.5
+     a7.5 7.5 0 0 1-7.5 7.5H8
+     l-4 2 1.5-4
+     A7.5 7.5 0 1 1 20 11.5Z">
+    </path>
+
+   </svg>
+
+   <span>Comment</span>
+   <b class="comment-count">
+    ${commentCount}
+   </b>
+
+  </button>
+
+
+  <button class="action like ${liked?"liked":""}">
+
+   <svg
+    viewBox="0 0 24 24"
+    fill="${liked?"currentColor":"none"}"
+    stroke="currentColor">
+
+    <path d="
+     M20.8 8.7
+     C20.8 13.7 12 20 12 20
+     S3.2 13.7 3.2 8.7
+     C3.2 5.7 5.4 3.7
+     8.1 3.7
+     c1.7 0 3.2.9 3.9 2.2
+     .7-1.3 2.2-2.2
+     3.9-2.2
+     2.7 0 4.9 2 4.9 5Z">
+    </path>
+
+   </svg>
+
+   <span>Like</span>
+
+   <b class="like-count">
+    ${likeCount}
+   </b>
+
+  </button>
+
+
+  <button class="action share">
+
+   <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor">
+
+    <path d="M12 16V4"></path>
+    <path d="m7 9 5-5 5 5"></path>
+    <path d="M5 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"></path>
+
+   </svg>
+
+   <span>Share</span>
+
+  </button>
+
+ </div>
+
+
+ <div class="comments">
+
+  <div class="comment-list"></div>
+
+  <div class="comment-form">
+
+   <input
+    class="comment-input"
+    maxlength="300"
+    placeholder="Write a reply...">
+
+   <button class="comment-send">
+    Send
+   </button>
+
+  </div>
+
+ </div>
+
+ `;
+
+
+ container.appendChild(el);
+
+
+ el.querySelector(".post-header")
+ .addEventListener("click",()=>{
+
+  if(post.authorId){
+
+   window.location.href=
+   "profile.html?uid="+
+   encodeURIComponent(post.authorId);
+
+  }
+
+ });
+
+
+ const likeBtn=
+ el.querySelector(".like");
+
+ const likeNum=
+ el.querySelector(".like-count");
+
+
+ likeBtn.addEventListener(
+  "click",
+  async()=>{
+
+   if(!currentUser){
+
+    alert("Please sign in first.");
+    return;
+
+   }
+
+   likeBtn.disabled=true;
+
+   try{
+
+    const r=
+    doc(
+     db,
+     "posts",
+     post.id,
+     "likes",
+     currentUser.uid
+    );
+
+    const s=await getDoc(r);
+
+    let n=
+    Number(likeNum.textContent)||0;
+
+
+    if(s.exists()){
+
+     await deleteDoc(r);
+
+     n=Math.max(0,n-1);
+
+     likeBtn.classList.remove("liked");
+
+     likeBtn
+     .querySelector("svg")
+     .setAttribute("fill","none");
+
+    }else{
+
+     await setDoc(
+      r,
+      {
+       userId:currentUser.uid,
+       createdAt:serverTimestamp()
       }
+     );
+
+     n++;
+
+     likeBtn.classList.add("liked");
+
+     likeBtn
+     .querySelector("svg")
+     .setAttribute(
+      "fill",
+      "currentColor"
+     );
 
 
-      const text =
-        String(
-          post.text || ""
-        ).toLowerCase();
+     if(
+      post.authorId&&
+      post.authorId!==currentUser.uid
+     ){
+
+      await createNotification({
+
+       recipientId:post.authorId,
+       senderId:currentUser.uid,
+       senderName:currentUsername,
+       type:"like",
+       postId:post.id
+
+      });
+
+     }
+
+    }
+
+    likeNum.textContent=n;
+
+   }catch(e){
+
+    console.error(e);
+
+    alert(
+     (e.code||"Error")+
+     ": "+
+     e.message
+    );
+
+   }finally{
+
+    likeBtn.disabled=false;
+
+   }
+
+  }
+ );
 
 
-      const author =
-        String(
-          post.authorName || ""
-        ).toLowerCase();
+ const comments=
+ el.querySelector(".comments");
+
+ const commentBtn=
+ el.querySelector(".comment");
+
+ const list=
+ el.querySelector(".comment-list");
+
+ const input=
+ el.querySelector(".comment-input");
+
+ const send=
+ el.querySelector(".comment-send");
+
+ const cc=
+ el.querySelector(".comment-count");
 
 
-      return (
-        text.includes(queryText) ||
-        author.includes(queryText)
-      );
+ commentBtn.addEventListener(
+  "click",
+  async()=>{
+
+   comments.style.display=
+   comments.style.display==="block"
+   ?"none"
+   :"block";
+
+   commentBtn.classList.toggle("open");
+
+   if(comments.style.display==="block")
+    await loadComments(
+     post.id,
+     list
+    );
+
+  }
+ );
+
+
+ async function sendComment(){
+
+  if(!currentUser){
+
+   alert("Please sign in first.");
+   return;
+
+  }
+
+  const text=input.value.trim();
+
+  if(!text)return;
+
+  send.disabled=true;
+
+  try{
+
+   await addDoc(
+    collection(
+     db,
+     "posts",
+     post.id,
+     "comments"
+    ),
+    {
+     text,
+     userId:currentUser.uid,
+     username:currentUsername,
+     createdAt:serverTimestamp()
+    }
+   );
+
+   input.value="";
+
+   cc.textContent=
+   (Number(cc.textContent)||0)+1;
+
+   await loadComments(
+    post.id,
+    list
+   );
+
+
+   if(
+    post.authorId&&
+    post.authorId!==currentUser.uid
+   ){
+
+    await createNotification({
+
+     recipientId:post.authorId,
+     senderId:currentUser.uid,
+     senderName:currentUsername,
+     type:"comment",
+     postId:post.id
 
     });
 
+   }
 
-  postsContainer.innerHTML = "";
+  }catch(e){
 
+   console.error(e);
 
-  if(filtered.length === 0){
+   alert(
+    (e.code||"Error")+
+    ": "+
+    e.message
+   );
 
-    postsContainer.innerHTML = `
+  }finally{
 
-      <div class="empty">
-
-        <div class="empty-icon">
-          🔍
-        </div>
-
-        <h3>
-          No matching posts
-        </h3>
-
-        <p>
-          Try another topic or keyword.
-        </p>
-
-      </div>
-
-    `;
-
-    return;
+   send.disabled=false;
 
   }
 
+ }
 
-  for(
-    const post of filtered
-  ){
 
-    await renderPost(
-      post,
-      postsContainer
-    );
+ send.addEventListener(
+  "click",
+  sendComment
+ );
+
+
+ input.addEventListener(
+  "keydown",
+  e=>{
+
+   if(e.key==="Enter"){
+
+    e.preventDefault();
+    sendComment();
+
+   }
 
   }
+ );
+
+
+ el.querySelector(".share")
+ .addEventListener(
+  "click",
+  async()=>{
+
+   const url=
+   location.href.split("#")[0]+
+   "#post-"+post.id;
+
+   try{
+
+    if(navigator.share){
+
+     await navigator.share({
+
+      title:
+      "JSP TAYSU Community",
+
+      text:
+      `${name} shared a post on JSP TAYSU`,
+
+      url
+
+     });
+
+    }else{
+
+     await navigator.clipboard
+     .writeText(url);
+
+     alert("Post link copied 🔗");
+
+    }
+
+   }catch(e){}
+
+  }
+ );
 
 }
 
 
-/* RENDER POST */
+async function loadComments(postId,list){
 
-async function renderPost(
-  post,
-  postsContainer
-){
+ list.innerHTML="";
 
-  const postElement =
-    document.createElement("article");
+ try{
 
+  const snap=
+  await getDocs(
+   collection(
+    db,
+    "posts",
+    postId,
+    "comments"
+   )
+  );
 
-  postElement.className =
-    "post";
+  if(snap.empty){
 
-  postElement.dataset.postId =
-    post.id;
+   list.innerHTML=
+   '<div style="color:#737c88;font-size:12px;padding:5px 0">No replies yet.</div>';
 
-
-  const username =
-    post.authorName ||
-    "Member";
-
-
-  let likeCount = 0;
-  let alreadyLiked = false;
-
-
-  try{
-
-    const likesSnapshot =
-      await getDocs(
-        collection(
-          db,
-          "posts",
-          post.id,
-          "likes"
-        )
-      );
-
-
-    likeCount =
-      likesSnapshot.size;
-
-
-    if(currentUser){
-
-      alreadyLiked =
-        likesSnapshot.docs.some(
-          likeDoc =>
-            likeDoc.id ===
-            currentUser.uid
-        );
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "Like loading error:",
-      error
-    );
+   return;
 
   }
 
+  const arr=[];
 
-  let commentCount = 0;
+  snap.forEach(d=>{
+   arr.push({
+    id:d.id,
+    ...d.data()
+   });
+  });
 
-
-  try{
-
-    const commentsSnapshot =
-      await getDocs(
-        collection(
-          db,
-          "posts",
-          post.id,
-          "comments"
-        )
-      );
-
-
-    commentCount =
-      commentsSnapshot.size;
-
-  }catch(error){
-
-    console.error(
-      "Comment loading error:",
-      error
-    );
-
-  }
+  arr.sort(
+   (a,b)=>
+   (a.createdAt?.seconds||0)-
+   (b.createdAt?.seconds||0)
+  );
 
 
-  let mediaHTML = "";
+  arr.forEach(c=>{
 
+   const e=document.createElement("div");
 
-  if(
-    post.mediaUrl &&
-    post.mediaType === "image"
-  ){
+   e.className="comment";
 
-    mediaHTML = `
+   e.innerHTML=
+   `<div class="comment-top">
+     <span class="comment-user">
+      ${escapeHTML(c.username||"Member")}
+     </span>
 
-      <img
-        class="post-media"
-        src="${escapeAttribute(post.mediaUrl)}"
-        alt="Community post image"
-        loading="lazy">
-
-    `;
-
-  }
-
-
-  if(
-    post.mediaUrl &&
-    post.mediaType === "video"
-  ){
-
-    mediaHTML = `
-
-      <video
-        class="post-video"
-        controls
-        preload="metadata">
-
-        <source
-          src="${escapeAttribute(post.mediaUrl)}">
-
-      </video>
-
-    `;
-
-  }
-
-
-  postElement.innerHTML = `
-
-    <div
-      class="post-header"
-      data-profile-id="${escapeAttribute(
-        post.authorId || ""
-      )}">
-
-      <div class="avatar">
-
-        ${escapeHTML(
-          username
-            .charAt(0)
-            .toUpperCase()
-        )}
-
-      </div>
-
-      <div>
-
-        <div class="post-author">
-          ${escapeHTML(username)}
-        </div>
-
-        <div class="post-time">
-          ${formatTime(post.createdAt)}
-        </div>
-
-      </div>
-
-    </div>
-
-
-    ${
-      post.text
+     ${
+      currentUser&&
+      c.userId===currentUser.uid
       ?
-      `<div class="post-text">${escapeHTML(
-        String(post.text)
-          .replace(/[ \t]+\n/g, "\n")
-          .replace(/\n[ \t]+/g, "\n")
-      )}</div>`
+      '<button class="delete-comment">Delete</button>'
       :
       ""
-    }
-
-
-    ${mediaHTML}
-
-
-    <div class="actions">
-
-      <button
-        class="action like-button ${alreadyLiked ? "liked" : ""}"
-        type="button">
-
-        <svg
-          viewBox="0 0 24 24"
-          fill="${alreadyLiked ? "currentColor" : "none"}"
-          stroke="currentColor">
-
-          <path
-            d="M20.8 8.7
-               C20.8 13.7 12 20 12 20
-               S3.2 13.7 3.2 8.7
-               C3.2 5.7 5.4 3.7 8.1 3.7
-               C9.8 3.7 11.3 4.6 12 5.9
-               C12.7 4.6 14.2 3.7 15.9 3.7
-               C18.6 3.7 20.8 5.7 20.8 8.7Z">
-          </path>
-
-        </svg>
-
-        <span>
-          ${alreadyLiked ? "Unlike" : "Like"}
-        </span>
-
-        <b class="like-count">
-          ${likeCount}
-        </b>
-
-      </button>
-
-
-      <button
-        class="action comment-button"
-        type="button">
-
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor">
-
-          <path
-            d="M20 11.5
-               a7.5 7.5 0 0 1-7.5 7.5
-               H8l-4 2 1.5-4
-               A7.5 7.5 0 1 1 20 11.5Z">
-          </path>
-
-        </svg>
-
-        <span>
-          Comment
-        </span>
-
-        <b class="comment-count">
-          ${commentCount}
-        </b>
-
-      </button>
-
-
-      <button
-        class="action share-button"
-        type="button">
-
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor">
-
-          <path d="M12 16V4"></path>
-          <path d="m7 9 5-5 5 5"></path>
-
-          <path
-            d="M5 13v5
-               a2 2 0 0 0 2 2h10
-               a2 2 0 0 0 2-2v-5">
-          </path>
-
-        </svg>
-
-        <span>
-          Share
-        </span>
-
-      </button>
+     }
 
     </div>
 
-
-    <div class="comments-area">
-
-      <div class="comments-list"></div>
-
-      <div class="comment-form">
-
-        <input
-          class="comment-input"
-          type="text"
-          maxlength="300"
-          placeholder="Write a comment...">
-
-        <button
-          class="comment-send"
-          type="button">
-          Send
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
+    <div class="comment-text">
+     ${escapeHTML(c.text||"")}
+    </div>`;
 
 
-  postsContainer.appendChild(
-    postElement
-  );
+   list.appendChild(e);
 
 
-  /* PROFILE CLICK */
-
-  const postHeader =
-    postElement.querySelector(
-      ".post-header"
-    );
+   const del=
+   e.querySelector(".delete-comment");
 
 
-  postHeader.addEventListener(
-    "click",
-    () => {
+   if(del){
 
-      if(post.authorId){
-
-        openProfile(
-          post.authorId
-        );
-
-      }
-
-    }
-  );
-
-
-  /* LIKE */
-
-  const likeButton =
-    postElement.querySelector(
-      ".like-button"
-    );
-
-  const likeCountElement =
-    postElement.querySelector(
-      ".like-count"
-    );
-
-  const likeText =
-    likeButton.querySelector(
-      "span"
-    );
-
-
-  likeButton.addEventListener(
-    "click",
-    async () => {
-
-      if(!currentUser){
-
-        alert(
-          "Please sign in first."
-        );
-
-        return;
-
-      }
-
-
-      likeButton.disabled = true;
-
+    del.addEventListener(
+     "click",
+     async()=>{
 
       try{
 
-        const likeRef =
-          doc(
-            db,
-            "posts",
-            post.id,
-            "likes",
-            currentUser.uid
-          );
-
-
-        const likeSnap =
-          await getDoc(
-            likeRef
-          );
-
-
-        let count =
-          Number(
-            likeCountElement.textContent
-          ) || 0;
-
-
-        if(likeSnap.exists()){
-
-          await deleteDoc(
-            likeRef
-          );
-
-          count =
-            Math.max(
-              0,
-              count - 1
-            );
-
-          likeText.textContent =
-            "Like";
-
-          likeButton.classList
-            .remove("liked");
-
-          likeButton
-            .querySelector("svg")
-            .setAttribute(
-              "fill",
-              "none"
-            );
-
-        }else{
-
-          await setDoc(
-            likeRef,
-            {
-
-              userId:
-                currentUser.uid,
-
-              createdAt:
-                serverTimestamp()
-
-            }
-          );
-
-          count++;
-
-          likeText.textContent =
-            "Unlike";
-
-          likeButton.classList
-            .add("liked");
-
-          likeButton
-            .querySelector("svg")
-            .setAttribute(
-              "fill",
-              "currentColor"
-            );
-
-
-          if(
-            post.authorId &&
-            post.authorId !==
-            currentUser.uid
-          ){
-
-            await createNotification({
-
-              recipientId:
-                post.authorId,
-
-              senderId:
-                currentUser.uid,
-
-              senderName:
-                currentUsername,
-
-              type:
-                "like",
-
-              postId:
-                post.id
-
-            });
-
-          }
-
-        }
-
-
-        likeCountElement.textContent =
-          count;
-
-
-      }catch(error){
-
-        console.error(
-          "Like error:",
-          error
-        );
-
-        alert(
-          error.code +
-          ": " +
-          error.message
-        );
-
-      }finally{
-
-        likeButton.disabled =
-          false;
-
-      }
-
-    }
-  );
-
-
-  /* COMMENTS */
-
-  const commentButton =
-    postElement.querySelector(
-      ".comment-button"
-    );
-
-  const commentsArea =
-    postElement.querySelector(
-      ".comments-area"
-    );
-
-  const commentsList =
-    postElement.querySelector(
-      ".comments-list"
-    );
-
-  const commentInput =
-    postElement.querySelector(
-      ".comment-input"
-    );
-
-  const commentSend =
-    postElement.querySelector(
-      ".comment-send"
-    );
-
-  const commentCountElement =
-    postElement.querySelector(
-      ".comment-count"
-    );
-
-
-  commentButton.addEventListener(
-    "click",
-    async () => {
-
-      if(!currentUser){
-
-        alert(
-          "Please sign in first."
-        );
-
-        return;
-
-      }
-
-
-      const open =
-        commentsArea.style.display ===
-        "block";
-
-
-      if(open){
-
-        commentsArea.style.display =
-          "none";
-
-      }else{
-
-        commentsArea.style.display =
-          "block";
-
-        await loadComments(
-          post.id,
-          commentsList
-        );
-
-      }
-
-    }
-  );
-
-
-  async function sendComment(){
-
-    if(!currentUser){
-
-      alert(
-        "Please sign in first."
-      );
-
-      return;
-
-    }
-
-
-    const text =
-      commentInput.value.trim();
-
-
-    if(!text){
-
-      return;
-
-    }
-
-
-    commentSend.disabled =
-      true;
-
-
-    try{
-
-      await addDoc(
-        collection(
-          db,
-          "posts",
-          post.id,
-          "comments"
-        ),
-        {
-
-          text:
-            text,
-
-          userId:
-            currentUser.uid,
-
-          username:
-            currentUsername,
-
-          createdAt:
-            serverTimestamp()
-
-        }
-      );
-
-
-      commentInput.value = "";
-
-
-      let count =
-        Number(
-          commentCountElement.textContent
-        ) || 0;
-
-
-      count++;
-
-      commentCountElement.textContent =
-        count;
-
-
-      await loadComments(
-        post.id,
-        commentsList
-      );
-
-
-      if(
-        post.authorId &&
-        post.authorId !==
-        currentUser.uid
-      ){
-
-        await createNotification({
-
-          recipientId:
-            post.authorId,
-
-          senderId:
-            currentUser.uid,
-
-          senderName:
-            currentUsername,
-
-          type:
-            "comment",
-
-          postId:
-            post.id,
-
-          commentText:
-            text
-
-        });
-
-      }
-
-
-    }catch(error){
-
-      console.error(
-        "Comment error:",
-        error
-      );
-
-      alert(
-        error.code +
-        ": " +
-        error.message
-      );
-
-    }finally{
-
-      commentSend.disabled =
-        false;
-
-    }
-
-  }
-
-
-  commentSend.addEventListener(
-    "click",
-    sendComment
-  );
-
-
-  commentInput.addEventListener(
-    "keydown",
-    event => {
-
-      if(event.key === "Enter"){
-
-        event.preventDefault();
-
-        sendComment();
-
-      }
-
-    }
-  );
-
-
-  /* SHARE */
-
-  const shareButton =
-    postElement.querySelector(
-      ".share-button"
-    );
-
-
-  shareButton.addEventListener(
-    "click",
-    async () => {
-
-      try{
-
-        if(navigator.share){
-
-          await navigator.share({
-
-            title:
-              "JSP TAYSU Community",
-
-            text:
-              `${username} shared a post on JSP TAYSU Community 🐉`,
-
-            url:
-              window.location.href
-
-          });
-
-        }else{
-
-          await navigator.clipboard
-            .writeText(
-              window.location.href
-            );
-
-          alert(
-            "Community link copied! 🔗"
-          );
-
-        }
-
-      }catch(error){
-
-        console.log(
-          "Share cancelled."
-        );
-
-      }
-
-    }
-  );
-
-}
-
-
-/* COMMENTS */
-
-async function loadComments(
-  postId,
-  commentsList
-){
-
-  commentsList.innerHTML = "";
-
-
-  try{
-
-    const snapshot =
-      await getDocs(
-        collection(
-          db,
-          "posts",
-          postId,
-          "comments"
+       await deleteDoc(
+        doc(
+         db,
+         "posts",
+         postId,
+         "comments",
+         c.id
         )
-      );
+       );
 
+       await loadComments(
+        postId,
+        list
+       );
 
-    if(snapshot.empty){
+      }catch(err){
 
-      commentsList.innerHTML = `
-
-        <div
-          style="
-            color:#777f89;
-            font-size:12px;
-            padding:4px 2px;
-          ">
-
-          No comments yet.
-
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    const comments = [];
-
-
-    snapshot.forEach(
-      commentDoc => {
-
-        comments.push({
-
-          id:
-            commentDoc.id,
-
-          ...commentDoc.data()
-
-        });
+       alert(
+        (err.code||"Error")+
+        ": "+
+        err.message
+       );
 
       }
+
+     }
     );
 
+   }
 
-    comments.sort(
-      (a,b) => {
+  });
 
-        const aTime =
-          a.createdAt?.seconds || 0;
+ }catch(e){
 
-        const bTime =
-          b.createdAt?.seconds || 0;
+  console.error(e);
 
-        return aTime - bTime;
+  list.innerHTML=
+  '<div style="color:#a77a7a;font-size:12px">Couldn’t load replies.</div>';
 
-      }
-    );
-
-
-    comments.forEach(
-      comment => {
-
-        const element =
-          document.createElement("div");
-
-
-        element.className =
-          "comment";
-
-
-        element.innerHTML = `
-
-          <div class="comment-top">
-
-            <div class="comment-user">
-              ${escapeHTML(
-                comment.username ||
-                "Member"
-              )}
-            </div>
-
-            ${
-              currentUser &&
-              comment.userId ===
-              currentUser.uid
-              ?
-              `
-                <button
-                  class="delete-comment"
-                  type="button">
-                  Delete
-                </button>
-              `
-              :
-              ""
-            }
-
-          </div>
-
-
-          <div class="comment-text">
-            ${escapeHTML(
-              comment.text ||
-              ""
-            )}
-          </div>
-
-        `;
-
-
-        commentsList.appendChild(
-          element
-        );
-
-
-        const deleteButton =
-          element.querySelector(
-            ".delete-comment"
-          );
-
-
-        if(deleteButton){
-
-          deleteButton.addEventListener(
-            "click",
-            async () => {
-
-              try{
-
-                await deleteDoc(
-                  doc(
-                    db,
-                    "posts",
-                    postId,
-                    "comments",
-                    comment.id
-                  )
-                );
-
-
-                await loadComments(
-                  postId,
-                  commentsList
-                );
-
-
-              }catch(error){
-
-                console.error(
-                  error
-                );
-
-                alert(
-                  error.code +
-                  ": " +
-                  error.message
-                );
-
-              }
-
-            }
-          );
-
-        }
-
-      }
-    );
-
-
-  }catch(error){
-
-    console.error(
-      "Comments error:",
-      error
-    );
-
-
-    commentsList.innerHTML = `
-
-      <div
-        style="
-          color:#9c7373;
-          font-size:12px;
-        ">
-
-        Couldn't load comments.
-
-      </div>
-
-    `;
-
-  }
+ }
 
 }
 
-
-/* LOAD MEMBERS */
 
 async function loadMembers(){
 
-  if(
-    allMembers.length > 0
-  ){
+ try{
 
-    searchMembers();
+  const snap=
+  await getDocs(
+   collection(db,"users")
+  );
 
-    return;
+  allMembers=[];
 
-  }
+  snap.forEach(d=>{
+   allMembers.push({
+    id:d.id,
+    ...d.data()
+   });
+  });
 
+  searchMembers();
 
-  try{
+ }catch(e){
 
-    const snapshot =
-      await getDocs(
-        collection(
-          db,
-          "users"
-        )
-      );
+  console.error(
+   "Members",
+   e
+  );
 
-
-    allMembers = [];
-
-
-    snapshot.forEach(
-      userDoc => {
-
-        const data =
-          userDoc.data();
-
-
-        allMembers.push({
-
-          id:
-            userDoc.id,
-
-          ...data
-
-        });
-
-      }
-    );
-
-
-    searchMembers();
-
-  }catch(error){
-
-    console.error(
-      "Members error:",
-      error
-    );
-
-  }
+ }
 
 }
 
 
-/* MEMBER SEARCH */
-
-const userSearchButton =
-  document.getElementById(
-    "userSearchButton"
-  );
-
-const userSearchInput =
-  document.getElementById(
-    "userSearchInput"
-  );
-
-const searchResults =
-  document.getElementById(
-    "searchResults"
-  );
-
-
-userSearchButton.addEventListener(
-  "click",
-  searchMembers
+$("userSearchButton")
+.addEventListener(
+ "click",
+ searchMembers
 );
 
-
-userSearchInput.addEventListener(
-  "input",
-  searchMembers
+$("userSearchInput")
+.addEventListener(
+ "input",
+ searchMembers
 );
 
+$("userSearchInput")
+.addEventListener(
+ "keydown",
+ e=>{
 
-userSearchInput.addEventListener(
-  "keydown",
-  event => {
+  if(e.key==="Enter")
+   searchMembers();
 
-    if(event.key === "Enter"){
-
-      searchMembers();
-
-    }
-
-  }
+ }
 );
 
 
 async function searchMembers(){
 
-  const searchText =
-    userSearchInput.value
-      .trim()
-      .toLowerCase();
+ if(!currentUser)return;
+
+ const q=
+ String(
+  $("userSearchInput").value||""
+ )
+ .trim()
+ .toLowerCase();
+
+ const box=$("searchResults");
+
+ box.innerHTML="";
 
 
-  if(!currentUser){
+ if(!q){
 
-    return;
+  loadExploreGrid("all");
 
-  }
+  return;
 
-
-  if(
-    allMembers.length === 0
-  ){
-
-    await loadMembers();
-
-    return;
-
-  }
+ }
 
 
-  searchResults.innerHTML = "";
+ const matches=
+ allMembers
+ .filter(
+  u=>u.id!==currentUser.uid
+ )
+ .filter(
+  u=>
+   String(
+    u.username||
+    u.name||
+    u.displayName||
+    ""
+   )
+   .toLowerCase()
+   .includes(q)
+ )
+ .slice(0,20);
 
 
-  if(!searchText){
+ if(!matches.length){
 
-    searchResults.innerHTML = `
+  box.innerHTML=
+  '<p style="color:#737c88;font-size:13px;padding:5px">No members found.</p>';
 
-      <p
-        style="
-          color:#777f89;
-          font-size:13px;
-          padding:5px;
-        ">
+  return;
 
-        Start typing a member's name.
-
-      </p>
-
-    `;
-
-    return;
-
-  }
+ }
 
 
-  const matches =
-    allMembers
-      .filter(user => {
-
-        if(
-          user.id ===
-          currentUser.uid
-        ){
-
-          return false;
-
-        }
-
-
-        const username =
-          String(
-            user.username ||
-            user.displayName ||
-            ""
-          ).toLowerCase();
-
-
-        return username.includes(
-          searchText
-        );
-
-      })
-      .sort(
-        (a,b) => {
-
-          const aName =
-            String(
-              a.username ||
-              a.displayName ||
-              ""
-            ).toLowerCase();
-
-          const bName =
-            String(
-              b.username ||
-              b.displayName ||
-              ""
-            ).toLowerCase();
-
-
-          const aStarts =
-            aName.startsWith(
-              searchText
-            );
-
-          const bStarts =
-            bName.startsWith(
-              searchText
-            );
-
-
-          if(
-            aStarts !==
-            bStarts
-          ){
-
-            return aStarts
-              ? -1
-              : 1;
-
-          }
-
-
-          return aName.localeCompare(
-            bName
-          );
-
-        }
-      )
-      .slice(
-        0,
-        20
-      );
-
-
-  if(matches.length === 0){
-
-    searchResults.innerHTML = `
-
-      <p
-        style="
-          color:#777f89;
-          font-size:13px;
-          padding:5px;
-        ">
-
-        No members found.
-
-      </p>
-
-    `;
-
-    return;
-
-  }
-
-
-  for(
-    const user of matches
-  ){
-
-    await renderMemberSearchResult(
-      user
-    );
-
-  }
+ for(const u of matches)
+  await renderMember(u);
 
 }
 
 
-/* MEMBER RESULT */
+async function renderMember(u){
 
-async function renderMemberSearchResult(
-  user
-){
-
-  const result =
-    document.createElement(
-      "div"
-    );
+ const name=
+ u.username||
+ u.name||
+ u.displayName||
+ "Member";
 
 
-  result.className =
-    "search-result";
+ const e=
+ document.createElement("div");
+
+ e.className="search-result";
 
 
-  const name =
-    user.username ||
-    user.displayName ||
-    "Member";
+ e.innerHTML=
+ `<div class="search-user">
+
+   <div class="search-avatar">
+    ${escapeHTML(name.charAt(0).toUpperCase())}
+   </div>
+
+   <div class="search-username">
+    ${escapeHTML(name)}
+   </div>
+
+  </div>
+
+  <button class="follow-btn">
+   Follow
+  </button>`;
 
 
-  result.innerHTML = `
-
-    <div
-      class="search-user"
-      data-profile-id="${escapeAttribute(
-        user.id
-      )}">
-
-      <div class="search-avatar">
-
-        ${escapeHTML(
-          name
-            .charAt(0)
-            .toUpperCase()
-        )}
-
-      </div>
-
-      <div class="search-username">
-
-        ${escapeHTML(name)}
-
-      </div>
-
-    </div>
+ $("searchResults")
+ .appendChild(e);
 
 
-    <button
-      class="follow-button"
-      type="button">
-
-      Follow
-
-    </button>
-
-  `;
-
-
-  const profileElement =
-    result.querySelector(
-      ".search-user"
-    );
+ e.querySelector(".search-user")
+ .addEventListener(
+  "click",
+  ()=>{
+   window.location.href=
+   "profile.html?uid="+
+   encodeURIComponent(u.id);
+  }
+ );
 
 
-  profileElement.addEventListener(
-    "click",
-    () => {
+ const btn=
+ e.querySelector(".follow-btn");
 
-      openProfile(
-        user.id
-      );
+ const fid=
+ currentUser.uid+"_"+u.id;
 
-    }
+
+ try{
+
+  const s=
+  await getDoc(
+   doc(db,"follows",fid)
   );
 
+  if(s.exists()){
 
-  const followButton =
-    result.querySelector(
-      ".follow-button"
-    );
+   btn.textContent="Following";
 
-
-  const followId =
-    currentUser.uid +
-    "_" +
-    user.id;
-
-
-  try{
-
-    const followSnap =
-      await getDoc(
-        doc(
-          db,
-          "follows",
-          followId
-        )
-      );
-
-
-    if(followSnap.exists()){
-
-      followButton.textContent =
-        "Following";
-
-      followButton.disabled =
-        true;
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "Follow check:",
-      error
-    );
+   btn.classList.add("following");
 
   }
 
+ }catch(err){
 
-  followButton.addEventListener(
-    "click",
-    async event => {
+  console.error(err);
 
-      event.stopPropagation();
+ }
 
 
-      if(!currentUser){
+ btn.addEventListener(
+  "click",
+  async ev=>{
 
-        return;
+   ev.stopPropagation();
 
+   if(!currentUser)return;
+
+   btn.disabled=true;
+
+   try{
+
+    const r=
+    doc(
+     db,
+     "follows",
+     fid
+    );
+
+    const s=
+    await getDoc(r);
+
+
+    if(s.exists()){
+
+     await deleteDoc(r);
+
+     btn.textContent="Follow";
+
+     btn.classList.remove(
+      "following"
+     );
+
+    }else{
+
+     await setDoc(
+      r,
+      {
+       followerId:currentUser.uid,
+       followingId:u.id,
+       createdAt:serverTimestamp()
       }
+     );
+
+     btn.textContent="Following";
+
+     btn.classList.add(
+      "following"
+     );
 
 
-      followButton.disabled =
-        true;
+     await createNotification({
 
+      recipientId:u.id,
+      senderId:currentUser.uid,
+      senderName:currentUsername,
+      type:"follow"
 
-      try{
-
-        await setDoc(
-          doc(
-            db,
-            "follows",
-            followId
-          ),
-          {
-
-            followerId:
-              currentUser.uid,
-
-            followingId:
-              user.id,
-
-            createdAt:
-              serverTimestamp()
-
-          }
-        );
-
-
-        followButton.textContent =
-          "Following";
-
-
-        await createNotification({
-
-          recipientId:
-            user.id,
-
-          senderId:
-            currentUser.uid,
-
-          senderName:
-            currentUsername,
-
-          type:
-            "follow"
-
-        });
-
-
-      }catch(error){
-
-        console.error(
-          "Follow error:",
-          error
-        );
-
-        followButton.disabled =
-          false;
-
-        alert(
-          error.code +
-          ": " +
-          error.message
-        );
-
-      }
+     });
 
     }
-  );
 
+   }catch(err){
 
-  searchResults.appendChild(
-    result
-  );
+    console.error(err);
+
+    alert(
+     (err.code||"Error")+
+     ": "+
+     err.message
+    );
+
+   }finally{
+
+    btn.disabled=false;
+
+   }
+
+  }
+ );
 
 }
 
 
-/* CREATE NOTIFICATION */
+document.querySelectorAll(".tab")
+.forEach(t=>
+
+ t.addEventListener(
+  "click",
+  ()=>{
+
+   document
+   .querySelectorAll(".tab")
+   .forEach(x=>
+    x.classList.remove("active")
+   );
+
+   t.classList.add("active");
+
+   loadExploreGrid(
+    t.dataset.tab
+   );
+
+  }
+ )
+
+);
+
+
+function loadExploreGrid(mode="all"){
+
+ const grid=$("exploreGrid");
+
+ grid.innerHTML="";
+
+ const list=
+ allPosts.filter(
+  p=>
+  mode==="video"
+  ?
+  p.mediaType==="video"
+  :
+  true
+ );
+
+
+ if(!list.length){
+
+  grid.innerHTML=
+  '<div class="empty" style="grid-column:1/-1"><h3>No content yet</h3><p>When members upload, it will appear here.</p></div>';
+
+  return;
+
+ }
+
+
+ list.forEach(p=>{
+
+  const tile=
+  document.createElement("div");
+
+  tile.className=
+  "tile"+
+  (p.mediaType==="video"
+   ?" reel"
+   :
+   "");
+
+
+  if(p.mediaType==="image"){
+
+   tile.innerHTML=
+   `<img
+    src="${escapeAttr(p.mediaUrl)}"
+    alt=""
+    loading="lazy">`;
+
+  }else if(
+   p.mediaType==="video"
+  ){
+
+   tile.innerHTML=
+   `<video
+    src="${escapeAttr(p.mediaUrl)}"
+    muted
+    preload="metadata">
+   </video>`;
+
+  }else{
+
+   tile.innerHTML=
+   `<div class="tile-text">
+    ${escapeHTML(p.text||"")}
+   </div>`;
+
+  }
+
+
+  tile.addEventListener(
+   "click",
+   ()=>{
+
+    showSection("homeSection");
+
+    $("feedSearchInput").value=
+    p.authorName||"";
+
+    renderPosts(
+     p.authorName||""
+    );
+
+   }
+  );
+
+
+  grid.appendChild(tile);
+
+ });
+
+}
+
 
 async function createNotification(data){
 
-  try{
-
-    if(
-      !data.recipientId ||
-      !data.senderId
-    ){
-
-      return;
-
-    }
-
-
-    await addDoc(
-      collection(
-        db,
-        "notifications"
-      ),
-      {
-
-        recipientId:
-          data.recipientId,
-
-        senderId:
-          data.senderId,
-
-        senderName:
-          data.senderName ||
-          "Member",
-
-        type:
-          data.type,
-
-        postId:
-          data.postId ||
-          "",
-
-        commentText:
-          data.commentText ||
-          "",
-
-        createdAt:
-          serverTimestamp(),
-
-        read:
-          false
-
-      }
-    );
-
-
-    /*
-     * If the current user is the recipient,
-     * refresh the badge immediately.
-     */
-
-    if(
-      currentUser &&
-      data.recipientId ===
-      currentUser.uid
-    ){
-
-      await loadNotifications();
-
-    }
-
-
-  }catch(error){
-
-    console.error(
-      "Notification error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* LOAD NOTIFICATIONS */
-
-async function loadNotifications(){
-
-  if(!currentUser){
-
-    return;
-
-  }
-
-
-  try{
-
-    const snapshot =
-      await getDocs(
-        collection(
-          db,
-          "notifications"
-        )
-      );
-
-
-    const notifications = [];
-
-
-    snapshot.forEach(
-      notificationDoc => {
-
-        const data =
-          notificationDoc.data();
-
-
-        if(
-          data.recipientId ===
-          currentUser.uid
-        ){
-
-          notifications.push({
-
-            id:
-              notificationDoc.id,
-
-            ...data
-
-          });
-
-        }
-
-      }
-    );
-
-
-    notifications.sort(
-      (a,b) => {
-
-        const aTime =
-          a.createdAt?.seconds || 0;
-
-        const bTime =
-          b.createdAt?.seconds || 0;
-
-        return bTime - aTime;
-
-      }
-    );
-
-
-    notificationCache =
-      notifications;
-
-
-    const unreadCount =
-      notifications.filter(
-        notification =>
-          notification.read !== true
-      ).length;
-
-
-    updateAlertBadge(
-      unreadCount
-    );
-
-
-    renderNotifications(
-      notifications
-    );
-
-
-  }catch(error){
-
-    console.error(
-      "Notifications error:",
-      error
-    );
-
-
-    alertList.innerHTML = `
-
-      <div class="alert-empty">
-
-        <h3>
-          Couldn't load alerts
-        </h3>
-
-        <p>
-          Please refresh the page.
-        </p>
-
-      </div>
-
-    `;
-
-  }
-
-}
-
-
-/* RENDER NOTIFICATIONS */
-
-function renderNotifications(
-  notifications
-){
+ try{
 
   if(
-    notifications.length === 0
-  ){
-
-    alertList.innerHTML = `
-
-      <div class="alert-empty">
-
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor">
-
-          <path
-            d="M18 8
-               a6 6 0 0 0-12 0
-               c0 7-3 7-3 9h18
-               c0-2-3-2-3-9">
-          </path>
-
-          <path d="M10 21h4"></path>
-
-        </svg>
-
-        <h3>
-          No new alerts
-        </h3>
-
-        <p>
-          Your community notifications will appear here.
-        </p>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  alertList.innerHTML = "";
-
-
-  notifications.forEach(
-    notification => {
-
-      const element =
-        document.createElement(
-          "div"
-        );
-
-
-      element.className =
-        "notification";
-
-
-      if(
-        notification.read !== true
-      ){
-
-        element.classList.add(
-          "unread"
-        );
-
-      }
-
-
-      let message = "";
-      let icon = "";
-
-
-      if(
-        notification.type ===
-        "like"
-      ){
-
-        message =
-          `<b>${escapeHTML(
-            notification.senderName ||
-            "Member"
-          )}</b> liked your post.`;
-
-        icon = `
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor">
-
-            <path
-              d="M20.8 8.7
-                 C20.8 13.7 12 20 12 20
-                 S3.2 13.7 3.2 8.7
-                 C3.2 5.7 5.4 3.7 8.1 3.7
-                 C9.8 3.7 11.3 4.6 12 5.9
-                 C12.7 4.6 14.2 3.7 15.9 3.7
-                 C18.6 3.7 20.8 5.7 20.8 8.7Z">
-            </path>
-
-          </svg>
-        `;
-
-      }
-
-
-      if(
-        notification.type ===
-        "comment"
-      ){
-
-        message =
-          `<b>${escapeHTML(
-            notification.senderName ||
-            "Member"
-          )}</b> commented on your post.`;
-
-        icon = `
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor">
-
-            <path
-              d="M20 11.5
-                 a7.5 7.5 0 0 1-7.5 7.5
-                 H8l-4 2 1.5-4
-                 A7.5 7.5 0 1 1 20 11.5Z">
-            </path>
-
-          </svg>
-        `;
-
-      }
-
-
-      if(
-        notification.type ===
-        "follow"
-      ){
-
-        message =
-          `<b>${escapeHTML(
-            notification.senderName ||
-            "Member"
-          )}</b> started following you.`;
-
-        icon = `
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor">
-
-            <circle
-              cx="12"
-              cy="8"
-              r="4">
-            </circle>
-
-            <path
-              d="M4 21
-                 c0-4 3.5-7 8-7
-                 s8 3 8 7">
-            </path>
-
-          </svg>
-        `;
-
-      }
-
-
-      if(
-        notification.type ===
-        "new_post"
-      ){
-
-        message =
-          `<b>${escapeHTML(
-            notification.senderName ||
-            "Member"
-          )}</b> shared a new post.`;
-
-        icon = `
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor">
-
-            <path
-              d="M4 5
-                 a2 2 0 0 1 2-2h8l6 6v10
-                 a2 2 0 0 1-2 2H6
-                 a2 2 0 0 1-2-2Z">
-            </path>
-
-            <path
-              d="M14 3v6h6">
-            </path>
-
-            <path
-              d="M8 13h8">
-            </path>
-
-            <path
-              d="M8 17h5">
-            </path>
-
-          </svg>
-        `;
-
-      }
-
-
-      /*
-       * Fallback in case an old/unknown
-       * notification type exists.
-       */
-
-      if(!message){
-
-        message =
-          `<b>${escapeHTML(
-            notification.senderName ||
-            "Member"
-          )}</b> sent you a notification.`;
-
-        icon = `
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor">
-
-            <path
-              d="M18 8
-                 a6 6 0 0 0-12 0
-                 c0 7-3 7-3 9h18
-                 c0-2-3-2-3-9">
-            </path>
-
-            <path d="M10 21h4"></path>
-
-          </svg>
-        `;
-
-      }
-
-
-      element.innerHTML = `
-
-        <div class="notification-icon">
-          ${icon}
-        </div>
-
-        <div>
-
-          <div class="notification-text">
-            ${message}
-          </div>
-
-          <div class="notification-time">
-            ${formatTime(
-              notification.createdAt
-            )}
-          </div>
-
-        </div>
-
-      `;
-
-
-      element.addEventListener(
-        "click",
-        async () => {
-
-          await markSingleNotificationRead(
-            notification.id
-          );
-
-
-          /*
-           * If notification is from a post,
-           * open the post in Home.
-           */
-
-          if(
-            notification.postId
-          ){
-
-            await openPostFromNotification(
-              notification.postId
-            );
-
-            return;
-
-          }
-
-
-          /*
-           * Follow notification:
-           * open sender's profile.
-           */
-
-          if(
-            notification.senderId
-          ){
-
-            openProfile(
-              notification.senderId
-            );
-
-          }
-
-        }
-      );
-
-
-      alertList.appendChild(
-        element
-      );
-
-    }
-  );
-
-}
-
-
-/* UPDATE BADGE */
-
-function updateAlertBadge(
-  count
-){
-
-  const safeCount =
-    Math.max(
-      0,
-      Number(count) || 0
-    );
-
-
-  if(safeCount === 0){
-
-    alertBadge.style.display =
-      "none";
-
-    alertBadge.textContent =
-      "0";
-
-    return;
-
-  }
-
-
-  alertBadge.style.display =
-    "flex";
-
-
-  alertBadge.textContent =
-    safeCount > 99
-      ? "99+"
-      : String(safeCount);
-
-}
-
-
-/* MARK ONE READ */
-
-async function markSingleNotificationRead(
-  notificationId
-){
-
-  if(!currentUser){
-
-    return;
-
-  }
-
-
-  try{
-
-    await updateDoc(
-      doc(
-        db,
-        "notifications",
-        notificationId
-      ),
-      {
-
-        read:
-          true
-
-      }
-    );
-
-
-    const cached =
-      notificationCache.find(
-        item =>
-          item.id ===
-          notificationId
-      );
-
-
-    if(cached){
-
-      cached.read =
-        true;
-
-    }
-
-
-    const unreadCount =
-      notificationCache.filter(
-        notification =>
-          notification.read !== true
-      ).length;
-
-
-    updateAlertBadge(
-      unreadCount
-    );
-
-
-  }catch(error){
-
-    console.error(
-      "Mark notification read error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* MARK ALL READ */
-
-async function markNotificationsAsRead(){
-
-  if(!currentUser){
-
-    return;
-
-  }
-
-
-  try{
-
-    const unread =
-      notificationCache.filter(
-        notification =>
-          notification.read !== true
-      );
-
-
-    if(unread.length === 0){
-
-      updateAlertBadge(0);
-
-      return;
-
-    }
-
-
-    const promises =
-      unread.map(
-        notification =>
-          updateDoc(
-            doc(
-              db,
-              "notifications",
-              notification.id
-            ),
-            {
-
-              read:
-                true
-
-            }
-          )
-      );
-
-
-    await Promise.all(
-      promises
-    );
-
-
-    notificationCache.forEach(
-      notification => {
-
-        notification.read =
-          true;
-
-      }
-    );
-
-
-    updateAlertBadge(0);
-
-
-    renderNotifications(
-      notificationCache
-    );
-
-
-  }catch(error){
-
-    console.error(
-      "Mark all notifications read error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* MARK ALL READ BUTTON */
-
-document
-  .getElementById(
-    "markAllReadButton"
+   !data.recipientId||
+   !data.senderId||
+   data.recipientId===
+   data.senderId
   )
-  .addEventListener(
-    "click",
-    async event => {
+   return;
 
-      event.stopPropagation();
 
-      await markNotificationsAsRead();
-
-    }
+  await addDoc(
+   collection(
+    db,
+    "notifications"
+   ),
+   {
+    recipientId:data.recipientId,
+    senderId:data.senderId,
+    senderName:
+     data.senderName||"Member",
+    type:data.type,
+    postId:data.postId||"",
+    createdAt:serverTimestamp(),
+    read:false
+   }
   );
 
+ }catch(e){
 
-/* OPEN POST FROM ALERT */
-
-async function openPostFromNotification(
-  postId
-){
-
-  if(!postId){
-
-    return;
-
-  }
-
-
-  /*
-   * Make sure posts are available.
-   */
-
-  if(
-    allPosts.length === 0
-  ){
-
-    await loadPosts();
-
-  }
-
-
-  showSection(
-    "homeSection"
+  console.error(
+   "Notification write failed:",
+   e
   );
 
-
-  /*
-   * Give the DOM a moment to render.
-   */
-
-  setTimeout(
-    () => {
-
-      const postElement =
-        document.querySelector(
-          `[data-post-id="${CSS.escape(postId)}"]`
-        );
-
-
-      if(!postElement){
-
-        /*
-         * Post may not be present because
-         * the feed was filtered.
-         */
-
-        feedSearchInput.value =
-          "";
-
-        renderFilteredPosts("");
-
-
-        setTimeout(
-          () => {
-
-            const retryElement =
-              document.querySelector(
-                `[data-post-id="${CSS.escape(postId)}"]`
-              );
-
-
-            if(retryElement){
-
-              highlightPost(
-                retryElement
-              );
-
-            }else{
-
-              alert(
-                "This post is no longer available."
-              );
-
-            }
-
-          },
-          150
-        );
-
-        return;
-
-      }
-
-
-      highlightPost(
-        postElement
-      );
-
-    },
-    150
-  );
+ }
 
 }
 
 
-/* HIGHLIGHT POST */
+function subscribeNotifications(){
 
-function highlightPost(
-  postElement
-){
+ if(notificationUnsubscribe)
+  notificationUnsubscribe();
 
-  postElement.scrollIntoView({
-    behavior:"smooth",
-    block:"center"
+
+ const q=
+ query(
+  collection(db,"notifications"),
+  where(
+   "recipientId",
+   "==",
+   currentUser.uid
+  ),
+  limit(100)
+ );
+
+
+ notificationUnsubscribe=
+ onSnapshot(
+  q,
+  snap=>{
+
+   const arr=[];
+
+   snap.forEach(d=>{
+
+    arr.push({
+     id:d.id,
+     ...d.data()
+    });
+
+   });
+
+
+   arr.sort(
+    (a,b)=>
+    (b.createdAt?.seconds||0)-
+    (a.createdAt?.seconds||0)
+   );
+
+
+   renderNotifications(arr);
+
+  },
+  e=>{
+
+   console.error(
+    "Notification listener failed",
+    e
+   );
+
+   alertList.innerHTML=
+   '<div class="alert-empty"><h3>Alerts couldn’t load</h3><p>Check your Firestore rules for the notifications collection.</p></div>';
+
+  }
+ );
+
+}
+
+
+async function refreshNotifications(){
+
+ if(!currentUser)return;
+
+ try{
+
+  const q=
+  query(
+   collection(db,"notifications"),
+   where(
+    "recipientId",
+    "==",
+    currentUser.uid
+   ),
+   limit(100)
+  );
+
+  const snap=
+  await getDocs(q);
+
+  const arr=[];
+
+  snap.forEach(d=>{
+
+   arr.push({
+    id:d.id,
+    ...d.data()
+   });
+
   });
 
 
-  postElement.classList.add(
-    "highlighted"
+  arr.sort(
+   (a,b)=>
+   (b.createdAt?.seconds||0)-
+   (a.createdAt?.seconds||0)
   );
 
+  renderNotifications(arr);
 
-  setTimeout(
-    () => {
+ }catch(e){
 
-      postElement.classList.remove(
-        "highlighted"
-      );
+  console.error(e);
 
-    },
-    2200
-  );
+ }
 
 }
 
 
-/* HELPERS */
+function renderNotifications(arr){
 
-function escapeHTML(text){
-
-  const div =
-    document.createElement(
-      "div"
-    );
-
-  div.textContent =
-    String(text);
-
-  return div.innerHTML;
-
-}
+ const unread=
+ arr.filter(
+  n=>n.read!==true
+ ).length;
 
 
-function escapeAttribute(text){
+ alertBadge.textContent=
+ unread>99
+ ?"99+"
+ :String(unread);
 
-  return String(text)
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    );
-
-}
+ alertBadge.style.display=
+ unread
+ ?"grid"
+ :"none";
 
 
-function formatTime(timestamp){
+ alertList.innerHTML="";
 
-  if(
-    !timestamp ||
-    !timestamp.seconds
+
+ if(!arr.length){
+
+  alertList.innerHTML=
+  `<div class="alert-empty">
+
+   <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor">
+
+    <path d="
+     M18 8a6 6 0 0 0-12 0
+     c0 7-3 7-3 9h18
+     c0-2-3-2-3-9">
+    </path>
+
+    <path d="M10 21h4"></path>
+
+   </svg>
+
+   <h3>No alerts yet</h3>
+
+   <p>
+    Likes, comments and follows
+    will appear here.
+   </p>
+
+  </div>`;
+
+  return;
+
+ }
+
+
+ arr.forEach(n=>{
+
+  const e=
+  document.createElement("div");
+
+  e.className=
+  "notification"+
+  (n.read===true
+   ?""
+   :" unread");
+
+
+  let icon="bell";
+
+  let msg=
+  `<b>${escapeHTML(
+   n.senderName||"Member"
+  )}</b> sent you a notification.`;
+
+  let cls="";
+
+
+  if(n.type==="like"){
+
+   icon="heart";
+   cls="like";
+
+   msg=
+   `<b>${escapeHTML(
+    n.senderName||"Member"
+   )}</b> liked your post.`;
+
+  }else if(
+   n.type==="comment"
   ){
 
-    return "Just now";
+   icon="comment";
+   cls="comment";
+
+   msg=
+   `<b>${escapeHTML(
+    n.senderName||"Member"
+   )}</b> commented on your post.`;
+
+  }else if(
+   n.type==="follow"
+  ){
+
+   icon="user";
+   cls="follow";
+
+   msg=
+   `<b>${escapeHTML(
+    n.senderName||"Member"
+   )}</b> started following you.`;
 
   }
 
 
-  const date =
-    new Date(
-      timestamp.seconds *
-      1000
-    );
+  e.innerHTML=
+  `<div class="notification-icon ${cls}">
+    ${iconSVG(icon)}
+   </div>
+
+   <div
+    style="flex:1;min-width:0">
+
+    <div class="notification-text">
+     ${msg}
+    </div>
+
+    <div class="notification-time">
+     ${formatTime(n.createdAt)}
+    </div>
+
+   </div>`;
 
 
-  const now =
-    new Date();
+  e.addEventListener(
+   "click",
+   async()=>{
+
+    try{
+
+     if(n.read!==true){
+
+      await setDoc(
+       doc(
+        db,
+        "notifications",
+        n.id
+       ),
+       {read:true},
+       {merge:true}
+      );
+
+      e.classList.remove(
+       "unread"
+      );
+
+     }
 
 
-  const diff =
-    Math.floor(
-      (now - date) /
-      1000
-    );
+     if(n.postId){
 
+      showSection(
+       "homeSection"
+      );
 
-  if(diff < 60){
+      const p=
+      allPosts.find(
+       x=>x.id===n.postId
+      );
 
-    return "Just now";
+      if(p){
 
-  }
+       $("feedSearchInput")
+       .value="";
 
+       renderPosts("");
 
-  if(diff < 3600){
+      }
 
-    return (
-      Math.floor(
-        diff / 60
-      ) +
-      "m ago"
-    );
+     }
 
-  }
+    }catch(err){
 
+     console.error(err);
 
-  if(diff < 86400){
-
-    return (
-      Math.floor(
-        diff / 3600
-      ) +
-      "h ago"
-    );
-
-  }
-
-
-  if(diff < 604800){
-
-    return (
-      Math.floor(
-        diff / 86400
-      ) +
-      "d ago"
-    );
-
-  }
-
-
-  return date.toLocaleDateString(
-    "en-IN",
-    {
-      day:"numeric",
-      month:"short"
     }
+
+   }
   );
+
+
+  alertList.appendChild(e);
+
+ });
+
+}
+
+
+$("readAllButton")
+.addEventListener(
+ "click",
+ async()=>{
+
+  if(!currentUser)return;
+
+  try{
+
+   const q=
+   query(
+    collection(db,"notifications"),
+    where(
+     "recipientId",
+     "==",
+     currentUser.uid
+    ),
+    limit(100)
+   );
+
+   const snap=
+   await getDocs(q);
+
+
+   await Promise.all(
+
+    snap.docs
+    .filter(
+     d=>d.data().read!==true
+    )
+    .map(
+     d=>
+      setDoc(
+       doc(
+        db,
+        "notifications",
+        d.id
+       ),
+       {read:true},
+       {merge:true}
+      )
+    )
+
+   );
+
+
+   await refreshNotifications();
+
+  }catch(e){
+
+   console.error(e);
+
+   alert(
+    (e.code||"Error")+
+    ": "+
+    e.message
+   );
+
+  }
+
+ }
+);
+
+
+function iconSVG(type){
+
+ const p={
+
+  heart:
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.8 8.7C20.8 13.7 12 20 12 20S3.2 13.7 3.2 8.7C3.2 5.7 5.4 3.7 8.1 3.7c1.7 0 3.2.9 3.9 2.2.7-1.3 2.2-2.2 3.9-2.2 2.7 0 4.9 2 4.9 5Z"/></svg>',
+
+  comment:
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 2 1.5-4A7.5 7.5 0 1 1 20 11.5Z"/></svg>',
+
+  user:
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg>',
+
+  bell:
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>'
+
+ };
+
+ return p[type]||p.bell;
+
+}
+
+
+function escapeHTML(v){
+
+ const d=
+ document.createElement("div");
+
+ d.textContent=
+ String(v??"");
+
+ return d.innerHTML;
+
+}
+
+
+function escapeAttr(v){
+
+ return String(v??"")
+ .replace(/&/g,"&amp;")
+ .replace(/"/g,"&quot;")
+ .replace(/</g,"&lt;")
+ .replace(/>/g,"&gt;");
+
+}
+
+
+function formatTime(ts){
+
+ if(!ts||!ts.seconds)
+  return "Just now";
+
+ const d=
+ new Date(
+  ts.seconds*1000
+ );
+
+ const diff=
+ Math.floor(
+  (Date.now()-d.getTime())/
+  1000
+ );
+
+
+ if(diff<60)
+  return "Just now";
+
+ if(diff<3600)
+  return Math.floor(
+   diff/60
+  )+"m";
+
+ if(diff<86400)
+  return Math.floor(
+   diff/3600
+  )+"h";
+
+ if(diff<604800)
+  return Math.floor(
+   diff/86400
+  )+"d";
+
+ return d.toLocaleDateString(
+  "en-IN",
+  {
+   day:"numeric",
+   month:"short"
+  }
+ );
 
 }
 
