@@ -11,3276 +11,3428 @@
 html{scroll-behavior:smooth}
 
 body{
-  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  background:#0b0d10;
-  color:#f5f5f5;
-  padding-bottom:78px
+font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+background:#0b0d10;
+color:#f5f5f5;
+padding-bottom:78px
 }
 
+/* ================= TOP BAR ================= */
+
 .topbar{
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:rgba(11,13,16,.92);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid #25282d
+position:sticky;
+top:0;
+z-index:100;
+background:rgba(11,13,16,.88);
+backdrop-filter:blur(18px)
 }
 
 .topbar-inner{
-  max-width:720px;
-  margin:auto;
-  height:64px;
-  padding:0 16px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between
+max-width:720px;
+margin:auto;
+height:58px;
+padding:0 16px;
+display:flex;
+align-items:center;
+justify-content:flex-end;
+position:relative
 }
 
+/* Instagram-style centered logo */
 .logo{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  font-size:18px;
-  font-weight:800;
-  letter-spacing:-.4px
+position:absolute;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%);
+display:flex;
+align-items:center;
+gap:9px;
+font-size:18px;
+font-weight:800;
+letter-spacing:-.4px;
+white-space:nowrap
 }
 
 .logo-dragon{font-size:23px}
 
-.profile-name{
-  max-width:170px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-  color:#aeb3bb;
-  font-size:13px
+.top-actions{
+display:flex;
+align-items:center;
+gap:12px
 }
 
+.top-icon{
+position:relative;
+width:38px;
+height:38px;
+border:0;
+background:transparent;
+color:#f1f2f4;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer
+}
+
+.top-icon svg{
+width:22px;
+height:22px;
+stroke-width:1.9
+}
+
+.profile-name{
+max-width:170px;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap;
+color:#aeb3bb;
+font-size:13px
+}
+
+/* ================= MAIN ================= */
+
 .container{
-  max-width:720px;
-  margin:auto;
-  padding:17px 14px 30px
+max-width:720px;
+margin:auto;
+padding:17px 14px 30px
 }
 
 .page-section{display:none}
 .page-section.active{display:block}
 
+/* ================= HOME ================= */
+
 .feed-heading{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  padding:5px 4px 10px
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+padding:5px 4px 10px
 }
 
 .feed-heading h2{
-  font-size:21px;
-  letter-spacing:-.5px
+font-size:21px;
+letter-spacing:-.5px;
+font-weight:800
 }
 
 .feed-heading-right{
-  display:flex;
-  align-items:center;
-  gap:7px
+display:flex;
+align-items:center;
+gap:7px
 }
 
 .feed-search-button{
-  width:34px;
-  height:34px;
-  border:0;
-  border-radius:10px;
-  background:#171a1f;
-  color:#d7bd8c;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer
+width:34px;
+height:34px;
+border:0;
+border-radius:50%;
+background:transparent;
+color:#d7bd8c;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer
 }
 
-.feed-search-button svg{width:19px;height:19px}
+.feed-search-button svg{
+width:19px;
+height:19px
+}
 
 .feed-search-box{
-  display:none;
-  margin-bottom:9px
+display:none;
+margin-bottom:9px
 }
 
-.feed-search-box.show{display:flex}
+.feed-search-box.show{
+display:flex
+}
 
 #feedSearchInput{
-  width:100%;
-  padding:11px 13px;
-  border:1px solid #292d33;
-  border-radius:12px;
-  background:#15181d;
-  color:#fff;
-  outline:none;
-  font-size:14px
+width:100%;
+padding:11px 13px;
+border:0;
+border-radius:12px;
+background:#15181d;
+color:#fff;
+outline:none;
+font-size:14px
 }
-
-/* =========================
-   COMMUNITY POSTS
-   ========================= */
 
 #posts{
-  display:flex;
-  flex-direction:column;
-  gap:0
+display:flex;
+flex-direction:column;
+gap:0
 }
 
+/* Clean Instagram-style post */
 .post{
-  background:#111419;
-  border:1px solid #292d33;
-  border-radius:18px;
-  padding:12px 14px;
-  margin-bottom:7px;
-  box-shadow:0 8px 24px rgba(0,0,0,.13)
-}
-
-.post-layout{
-  display:grid;
-  grid-template-columns:42px minmax(0,1fr);
-  gap:10px;
-  min-width:0
-}
-
-.post-avatar{
-  width:42px;
-  height:42px;
-  flex-shrink:0;
-  border-radius:50%;
-  background:#33271f;
-  color:#ead9b8;
-  border:2px solid #554438;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:15px;
-  font-weight:800
-}
-
-.post-main{
-  min-width:0
+background:transparent;
+border:0;
+border-radius:0;
+padding:16px 0;
+margin-bottom:0;
+box-shadow:none
 }
 
 .post-header{
-  cursor:pointer;
-  min-width:0;
-  margin-bottom:0
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:5px;
+cursor:pointer
 }
 
-.author-line{
-  display:flex;
-  align-items:center;
-  gap:5px;
-  min-width:0;
-  line-height:1.2
+.avatar{
+width:42px;
+height:42px;
+flex-shrink:0;
+border-radius:50%;
+background:#33271f;
+color:#ead9b8;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:15px;
+font-weight:800
 }
 
 .post-author{
-  font-size:14px;
-  font-weight:800;
-  white-space:normal;
-  overflow-wrap:anywhere;
-  word-break:break-word
+font-size:14px;
+font-weight:800
 }
 
 .post-time{
-  color:#777f89;
-  font-size:11px;
-  margin-top:2px
+color:#777f89;
+font-size:11px;
+margin-top:1px
 }
 
-/*
-  IMPORTANT:
-  Text begins EXACTLY under username.
-  No extra left margin/padding.
-*/
 .post-text{
-  color:#eceef1;
-  font-size:14px;
-  line-height:1.42;
-  white-space:pre-line;
-  overflow-wrap:anywhere;
-  word-break:normal;
-  margin:4px 0 0;
-  padding:0
+color:#eceef1;
+font-size:15px;
+line-height:1.42;
+white-space:pre-line;
+overflow-wrap:anywhere;
+word-break:normal;
+margin:0;
+padding:0
 }
 
 .post-media{
-  width:100%;
-  border-radius:14px;
-  margin:6px 0 5px;
-  display:block;
-  max-height:520px;
-  object-fit:cover;
-  background:#08090b
+width:100%;
+border-radius:14px;
+margin:4px 0 5px;
+display:block;
+max-height:520px;
+object-fit:cover;
+background:#08090b
 }
 
 .post-video{
-  width:100%;
-  border-radius:14px;
-  background:#08090b;
-  margin:6px 0 5px;
-  max-height:520px
+width:100%;
+border-radius:14px;
+background:#08090b;
+margin:4px 0 5px;
+max-height:520px
 }
 
 .actions{
-  border-top:1px solid #25282d;
-  padding-top:4px;
-  display:flex;
-  align-items:center;
-  gap:2px
+padding-top:6px;
+display:flex;
+align-items:center;
+gap:2px
 }
 
 .action{
-  border:0;
-  background:transparent;
-  color:#9299a2;
-  display:flex;
-  align-items:center;
-  gap:5px;
-  padding:6px 8px;
-  border-radius:10px;
-  cursor:pointer;
-  font-size:12px;
-  transition:.18s
+border:0;
+background:transparent;
+color:#9299a2;
+display:flex;
+align-items:center;
+gap:5px;
+padding:6px 8px;
+border-radius:10px;
+cursor:pointer;
+font-size:12px;
+transition:.18s
 }
 
 .action:hover{
-  background:#1b1e23;
-  color:#fff
+color:#fff
 }
 
 .action svg{
-  width:18px;
-  height:18px;
-  stroke-width:1.8
+width:18px;
+height:18px;
+stroke-width:1.8
 }
 
-.action.liked{color:#ff5d6c}
-.action b{font-weight:600}
-
-.comments-area{
-  display:none;
-  margin-top:7px;
-  padding-top:7px;
-  border-top:1px solid #25282d
+.action.liked{
+color:#ff5d6c
 }
 
-.comments-list{margin-bottom:8px}
-
-.comment{
-  background:#181b20;
-  border:1px solid #282c32;
-  border-radius:11px;
-  padding:8px 10px;
-  margin-bottom:5px
+.action b{
+font-weight:600
 }
 
-.comment-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:3px
-}
-
-.comment-user{
-  font-size:12px;
-  font-weight:800
-}
-
-.comment-text{
-  color:#c8ccd1;
-  font-size:13px;
-  line-height:1.4;
-  overflow-wrap:anywhere
-}
-
-.delete-comment{
-  border:0;
-  background:none;
-  color:#8e7272;
-  font-size:10px;
-  cursor:pointer
-}
-
-.comment-form{
-  display:flex;
-  gap:7px
-}
-
-.comment-input{
-  flex:1;
-  min-width:0;
-  padding:9px 11px;
-  border:1px solid #2a2e34;
-  border-radius:11px;
-  background:#15181d;
-  color:white;
-  outline:none
-}
-
-.comment-send{
-  border:0;
-  padding:0 13px;
-  border-radius:11px;
-  background:#f1f1f1;
-  color:#0b0d10;
-  font-weight:700;
-  cursor:pointer
-}
-
-/* =========================
-   EMPTY
-   ========================= */
+/* ================= EMPTY ================= */
 
 .empty{
-  text-align:center;
-  background:#111419;
-  border:1px solid #292d33;
-  border-radius:18px;
-  padding:45px 20px;
-  color:#858c95
+text-align:center;
+background:transparent;
+border:0;
+border-radius:0;
+padding:45px 20px;
+color:#858c95
 }
 
 .empty-icon{
-  width:50px;
-  height:50px;
-  margin:0 auto 13px;
-  border-radius:15px;
-  background:#191c21;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#d7bd8c
+width:50px;
+height:50px;
+margin:0 auto 13px;
+border-radius:15px;
+background:#191c21;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#d7bd8c
 }
 
-.empty-icon svg{width:26px;height:26px}
+.empty-icon svg{
+width:26px;
+height:26px
+}
 
 .empty h3{
-  color:#e7e9ec;
-  margin-bottom:5px;
-  font-size:16px
+color:#e7e9ec;
+margin-bottom:5px;
+font-size:16px
 }
 
-.empty p{font-size:13px}
+.empty p{
+font-size:13px
+}
 
-/* =========================
-   CREATE
-   ========================= */
+/* ================= CREATE ================= */
 
 .create-page-title{
-  padding:6px 3px 14px
+padding:6px 3px 14px
 }
 
 .create-page-title h1,
 .explore-title h1,
 .alert-title h1{
-  font-size:27px;
-  letter-spacing:-1px
+font-size:27px;
+letter-spacing:-1px;
+font-weight:850
 }
 
 .create-page-title p,
 .explore-title p{
-  color:#858c95;
-  font-size:13px;
-  margin-top:4px
+color:#858c95;
+font-size:13px;
+margin-top:4px
 }
 
 .create-card{
-  background:#111419;
-  border:1px solid #292d33;
-  border-radius:18px;
-  padding:14px
+background:transparent;
+border:0;
+border-radius:0;
+padding:0
 }
 
 .composer-header{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:7px
-}
-
-.avatar{
-  width:42px;
-  height:42px;
-  flex-shrink:0;
-  border-radius:50%;
-  background:#33271f;
-  color:#ead9b8;
-  border:2px solid #554438;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:15px;
-  font-weight:800
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:7px
 }
 
 .composer-name{
-  font-size:15px;
-  font-weight:800
+font-size:15px;
+font-weight:800
 }
 
 .composer-sub{
-  color:#777f89;
-  font-size:12px;
-  margin-top:2px
+color:#777f89;
+font-size:12px;
+margin-top:2px
 }
 
 #postText{
-  width:100%;
-  min-height:62px;
-  height:62px;
-  resize:vertical;
-  border:0;
-  outline:none;
-  border-radius:12px;
-  padding:10px;
-  background:#181b20;
-  color:#f4f4f4;
-  font-family:inherit;
-  font-size:15px;
-  line-height:1.45
+width:100%;
+min-height:62px;
+height:62px;
+resize:vertical;
+border:0;
+outline:none;
+border-radius:12px;
+padding:10px;
+background:#181b20;
+color:#f4f4f4;
+font-family:inherit;
+font-size:15px;
+line-height:1.45
 }
 
-#postText::placeholder{color:#6f7680}
+#postText::placeholder{
+color:#6f7680
+}
 
 .create-media-preview{
-  display:none;
-  margin-top:8px;
-  position:relative
+display:none;
+margin-top:8px;
+position:relative
 }
 
 .create-media-preview img,
 .create-media-preview video{
-  width:100%;
-  max-height:400px;
-  object-fit:cover;
-  border-radius:14px;
-  background:#08090b
+width:100%;
+max-height:400px;
+object-fit:cover;
+border-radius:14px;
+background:#08090b
 }
 
 .remove-media{
-  position:absolute;
-  right:8px;
-  top:8px;
-  width:31px;
-  height:31px;
-  border:0;
-  border-radius:50%;
-  background:rgba(0,0,0,.75);
-  color:#fff;
-  cursor:pointer;
-  font-size:17px
+position:absolute;
+right:8px;
+top:8px;
+width:31px;
+height:31px;
+border:0;
+border-radius:50%;
+background:rgba(0,0,0,.75);
+color:#fff;
+cursor:pointer;
+font-size:17px
 }
 
 .create-options{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-top:8px
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+margin-top:8px
 }
 
 .media-buttons{
-  display:flex;
-  gap:6px
+display:flex;
+gap:6px
 }
 
 .media-button{
-  border:1px solid #30343a;
-  background:#181b20;
-  color:#b9bec5;
-  padding:8px 10px;
-  border-radius:11px;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  gap:5px;
-  font-size:12px;
-  font-weight:600
+border:0;
+background:#181b20;
+color:#b9bec5;
+padding:8px 10px;
+border-radius:999px;
+cursor:pointer;
+display:flex;
+align-items:center;
+gap:5px;
+font-size:12px;
+font-weight:600
 }
 
 .media-button svg{
-  width:15px;
-  height:15px
+width:15px;
+height:15px
 }
 
 .post-btn{
-  border:0;
-  background:#f1f1f1;
-  color:#0b0d10;
-  padding:9px 17px;
-  border-radius:12px;
-  font-weight:800;
-  cursor:pointer
+border:0;
+background:#f1f1f1;
+color:#0b0d10;
+padding:9px 17px;
+border-radius:999px;
+font-weight:800;
+cursor:pointer
 }
 
 .post-btn:disabled{
-  opacity:.5;
-  cursor:default
+opacity:.5;
+cursor:default
 }
 
-/* =========================
-   EXPLORE
-   Photos + Reels ONLY
-   One single grid
-   ========================= */
+/* ================= EXPLORE ================= */
 
 .explore-title{
-  padding:7px 3px 15px
+padding:7px 3px 15px
 }
 
 .search-box{
-  display:flex;
-  gap:8px;
-  margin-bottom:13px
+display:flex;
+gap:8px;
+margin-bottom:13px
 }
 
 #userSearchInput{
-  flex:1;
-  min-width:0;
-  padding:13px 15px;
-  border:1px solid #292d33;
-  border-radius:14px;
-  background:#15181d;
-  color:#fff;
-  font-size:14px;
-  outline:none
+flex:1;
+min-width:0;
+padding:13px 15px;
+border:0;
+border-radius:14px;
+background:#15181d;
+color:#fff;
+font-size:14px;
+outline:none
 }
 
 .search-button{
-  width:48px;
-  border:0;
-  border-radius:14px;
-  background:#f1f1f1;
-  color:#0b0d10;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer
+width:48px;
+border:0;
+border-radius:14px;
+background:#f1f1f1;
+color:#0b0d10;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer
 }
 
 .search-button svg{
-  width:20px;
-  height:20px
+width:20px;
+height:20px
 }
 
-#searchResults{margin-bottom:18px}
+#searchResults{
+margin-bottom:18px
+}
 
+/* Clean member row — no card */
 .search-result{
-  background:#15181d;
-  border:1px solid #292d33;
-  border-radius:15px;
-  padding:12px;
-  margin-bottom:7px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between
+background:transparent;
+border:0;
+border-radius:0;
+padding:12px 2px;
+margin-bottom:0;
+display:flex;
+align-items:center;
+justify-content:space-between
 }
 
 .search-user{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  cursor:pointer;
-  min-width:0
+display:flex;
+align-items:center;
+gap:10px;
+cursor:pointer;
+min-width:0
 }
 
 .search-avatar{
-  width:39px;
-  height:39px;
-  flex-shrink:0;
-  border-radius:50%;
-  background:#30251f;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:800;
-  color:#ead9b8;
-  border:1px solid #5a4739
+width:39px;
+height:39px;
+flex-shrink:0;
+border-radius:50%;
+background:#30251f;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:800;
+color:#ead9b8
 }
 
 .search-username{
-  font-size:14px;
-  font-weight:700;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap
+font-size:14px;
+font-weight:700;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap
 }
 
 .follow-button{
-  border:0;
-  padding:8px 14px;
-  border-radius:10px;
-  background:#2d8cff;
-  color:#fff;
-  font-weight:700;
-  cursor:pointer
+border:0;
+padding:8px 15px;
+border-radius:999px;
+background:#0095f6;
+color:#fff;
+font-weight:700;
+cursor:pointer
 }
 
 .follow-button:disabled{
-  background:#263d59;
-  color:#a9c9ed
+background:#292d33;
+color:#aaa
 }
 
-/* The actual media grid */
-#exploreMediaGrid{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:4px;
-  margin-top:8px
-}
-
-.explore-media-tile{
-  aspect-ratio:1/1;
-  background:#101318;
-  overflow:hidden;
-  position:relative;
-  cursor:pointer;
-  border-radius:4px
-}
-
-.explore-media-tile img,
-.explore-media-tile video{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block
-}
-
-.explore-video-badge{
-  position:absolute;
-  right:7px;
-  top:7px;
-  width:27px;
-  height:27px;
-  border-radius:50%;
-  background:rgba(0,0,0,.65);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  pointer-events:none
-}
-
-.explore-video-badge svg{
-  width:14px;
-  height:14px;
-  fill:white;
-  stroke:white
-}
-
-/* =========================
-   ALERTS
-   ========================= */
+/* ================= ALERTS ================= */
 
 .alert-title{
-  padding:7px 3px 15px
+padding:7px 3px 15px
 }
 
 .alert-list{
-  display:flex;
-  flex-direction:column;
-  gap:7px
+display:flex;
+flex-direction:column;
+gap:0
 }
 
+/* Clean notification row */
 .notification{
-  display:flex;
-  align-items:center;
-  gap:11px;
-  padding:12px;
-  background:#111419;
-  border:1px solid #292d33;
-  border-radius:15px;
-  cursor:pointer;
-  transition:.18s
+position:relative;
+display:flex;
+align-items:center;
+gap:11px;
+padding:14px 2px;
+background:transparent;
+border:0;
+border-radius:0;
+cursor:pointer;
+transition:.18s
 }
 
-.notification:hover{background:#191c21}
+.notification:hover{
+background:transparent
+}
 
 .notification.unread{
-  background:#15181d;
-  border-color:#3a3f47
+background:transparent
 }
 
-.notification-icon{
-  width:40px;
-  height:40px;
-  flex-shrink:0;
-  border-radius:50%;
-  background:#1b1e23;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#d7bd8c
+.notification-avatar{
+width:40px;
+height:40px;
+flex-shrink:0;
+border-radius:50%;
+background:#1b1e23;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#d7bd8c;
+font-size:14px;
+font-weight:800;
+overflow:hidden
 }
 
-.notification-icon svg{
-  width:19px;
-  height:19px
+.notification-avatar img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block
 }
 
 .notification-text{
-  font-size:13px;
-  line-height:1.4;
-  color:#dfe2e6
+font-size:13px;
+line-height:1.4;
+color:#dfe2e6;
+padding-right:20px
 }
 
 .notification-time{
-  color:#777f89;
-  font-size:10px;
-  margin-top:3px
+color:#777f89;
+font-size:10px;
+margin-top:3px
+}
+
+/* unread red dot */
+.notification-dot{
+position:absolute;
+right:4px;
+top:50%;
+transform:translateY(-50%);
+width:7px;
+height:7px;
+border-radius:50%;
+background:#ff3040
 }
 
 .alert-empty{
-  text-align:center;
-  padding:50px 20px;
-  color:#858c95
+text-align:center;
+padding:50px 20px;
+color:#858c95
 }
 
 .alert-empty svg{
-  width:36px;
-  height:36px;
-  color:#d7bd8c;
-  margin-bottom:10px
+width:36px;
+height:36px;
+color:#d7bd8c;
+margin-bottom:10px
 }
 
 .alert-empty h3{
-  color:#e7e9ec;
-  margin-bottom:5px
+color:#e7e9ec;
+margin-bottom:5px
 }
 
-.alert-empty p{font-size:13px}
+.alert-empty p{
+font-size:13px
+}
 
-/* =========================
-   BOTTOM NAV
-   ========================= */
+/* Bottom-nav alert unread dot */
+.nav-alert-wrap{
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center
+}
+
+.alert-nav-dot{
+position:absolute;
+width:7px;
+height:7px;
+border-radius:50%;
+background:#ff3040;
+right:-5px;
+top:-2px;
+display:none
+}
+
+/* ================= BOTTOM NAV ================= */
 
 .bottom-nav{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  height:72px;
-  z-index:200;
-  background:rgba(11,13,16,.96);
-  backdrop-filter:blur(20px);
-  border-top:1px solid #292d33;
-  display:flex;
-  justify-content:center;
-  padding:6px 8px;
-  box-shadow:0 -10px 30px rgba(0,0,0,.2)
+position:fixed;
+left:0;
+right:0;
+bottom:0;
+height:72px;
+z-index:200;
+background:rgba(11,13,16,.96);
+backdrop-filter:blur(20px);
+border-top:0;
+display:flex;
+justify-content:center;
+padding:6px 8px;
+box-shadow:0 -10px 30px rgba(0,0,0,.2)
 }
 
 .nav-item{
-  flex:1;
-  max-width:115px;
-  border:0;
-  background:none;
-  color:#727983;
-  cursor:pointer;
-  border-radius:13px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
-  transition:.18s
+flex:1;
+max-width:115px;
+border:0;
+background:none;
+color:#727983;
+cursor:pointer;
+border-radius:13px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:4px;
+transition:.18s
 }
 
 .nav-item svg{
-  width:21px;
-  height:21px;
-  stroke-width:1.8
+width:21px;
+height:21px;
+stroke-width:1.8
 }
 
-.nav-item span{font-size:10px}
+.nav-item span{
+font-size:10px
+}
 
 .nav-item:hover{
-  color:#dfe2e6;
-  background:#15181d
+color:#dfe2e6;
+background:transparent
 }
 
-.nav-item.active{color:#fff}
-.nav-item.create-active{color:#d7bd8c}
+.nav-item.active{
+color:#fff
+}
+
+.nav-item.create-active{
+color:#d7bd8c
+}
 
 .create-plus{
-  width:32px;
-  height:32px;
-  border:1px solid #555b63;
-  border-radius:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center
+width:32px;
+height:32px;
+border:0;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center
 }
 
 .create-plus svg{
-  width:18px;
-  height:18px
+width:18px;
+height:18px
 }
 
-.hidden-file{display:none}
-.profile-link{cursor:pointer}
+.hidden-file{
+display:none
+}
 
-/* =========================
-   MOBILE
-   ========================= */
+.profile-link{
+cursor:pointer
+}
+
+/* ================= COMMENTS BOTTOM SHEET ================= */
+
+.comments-backdrop{
+position:fixed;
+inset:0;
+z-index:450;
+background:rgba(0,0,0,.58);
+opacity:0;
+visibility:hidden;
+transition:.25s ease
+}
+
+.comments-backdrop.open{
+opacity:1;
+visibility:visible
+}
+
+.comments-sheet{
+position:fixed;
+left:50%;
+bottom:0;
+z-index:460;
+width:min(720px,100%);
+max-height:78vh;
+transform:translate(-50%,100%);
+background:#111419;
+border:0;
+border-radius:24px 24px 0 0;
+display:flex;
+flex-direction:column;
+padding:8px 14px calc(12px + env(safe-area-inset-bottom));
+box-shadow:0 -20px 60px rgba(0,0,0,.45);
+transition:transform .28s cubic-bezier(.22,.61,.36,1)
+}
+
+.comments-sheet.open{
+transform:translate(-50%,0)
+}
+
+.comments-handle{
+width:42px;
+height:4px;
+border-radius:999px;
+background:#444a52;
+margin:3px auto 10px
+}
+
+.comments-sheet-header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:4px 2px 12px
+}
+
+.comments-sheet-header h3{
+font-size:16px;
+font-weight:800
+}
+
+.close-comments{
+width:34px;
+height:34px;
+border:0;
+background:transparent;
+color:#c8ccd1;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer
+}
+
+.close-comments svg{
+width:20px;
+height:20px
+}
+
+.sheet-comments-list{
+flex:1;
+overflow-y:auto;
+min-height:120px;
+padding:4px 2px 12px
+}
+
+.sheet-comments-list .comment{
+background:transparent;
+border:0;
+border-radius:0;
+padding:10px 0;
+margin-bottom:2px
+}
+
+.sheet-comments-list .comment-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:3px
+}
+
+.comment-user{
+font-size:12px;
+font-weight:800
+}
+
+.comment-text{
+color:#c8ccd1;
+font-size:13px;
+line-height:1.4;
+overflow-wrap:anywhere
+}
+
+.delete-comment{
+border:0;
+background:none;
+color:#8e7272;
+font-size:10px;
+cursor:pointer
+}
+
+.sheet-comment-form{
+display:flex;
+gap:7px;
+padding-top:8px
+}
+
+.sheet-comment-input{
+flex:1;
+min-width:0;
+padding:11px 13px;
+border:0;
+border-radius:999px;
+background:#1a1d22;
+color:white;
+outline:none
+}
+
+.sheet-comment-send{
+border:0;
+padding:0 15px;
+border-radius:999px;
+background:#0095f6;
+color:#fff;
+font-weight:700;
+cursor:pointer
+}
+
+/* ================= RESPONSIVE ================= */
 
 @media(max-width:500px){
 
-  .container{
-    padding:15px 10px 25px
-  }
+.topbar-inner{
+height:56px;
+padding:0 12px
+}
 
-  .topbar-inner{
-    height:61px;
-    padding:0 13px
-  }
+.logo{
+font-size:17px
+}
 
-  .logo{font-size:16px}
+.logo-dragon{
+font-size:21px
+}
 
-  .profile-name{max-width:130px}
+.top-actions{
+gap:7px
+}
 
-  .post{
-    border-radius:16px;
-    padding:11px 12px
-  }
+.profile-name{
+max-width:105px
+}
 
-  .post-layout{
-    grid-template-columns:40px minmax(0,1fr);
-    gap:9px
-  }
+.container{
+padding-left:12px;
+padding-right:12px
+}
 
-  .post-avatar{
-    width:40px;
-    height:40px
-  }
+.post{
+padding:14px 0
+}
 
-  .post-author{
-    font-size:14px
-  }
+.post-text{
+font-size:15px
+}
 
-  .post-text{
-    font-size:14px;
-    line-height:1.42;
-    margin:4px 0 0
-  }
+.comments-sheet{
+max-height:82vh;
+border-radius:22px 22px 0 0
+}
 
-  .post-media,
-  .post-video{
-    width:100%;
-    margin:6px 0 5px;
-    border-radius:13px
-  }
-
-  .action{
-    padding:7px 6px
-  }
-
-  .action span{
-    display:none
-  }
-
-  .action svg{
-    width:19px;
-    height:19px
-  }
-
-  #exploreMediaGrid{
-    gap:2px
-  }
-
-  .create-card{
-    border-radius:17px;
-    padding:13px
-  }
-
-  #postText{
-    min-height:62px;
-    height:62px
-  }
-
-  .media-button{
-    padding:8px 9px
-  }
-
-  .post-btn{
-    padding:9px 14px
-  }
-
-  .bottom-nav{
-    height:68px
-  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- ================= TOP BAR ================= -->
+
 <header class="topbar">
-  <div class="topbar-inner">
-    <div class="logo">
-      <span class="logo-dragon">🐉</span>
-      <span>JSP TAYSU</span>
-    </div>
-    <div class="profile-name" id="profileName">Member</div>
-  </div>
+
+<div class="topbar-inner">
+
+<div class="logo">
+<span class="logo-dragon">🐉</span>
+<span>JSP TAYSU</span>
+</div>
+
+<div class="top-actions">
+
+<div class="profile-name" id="profileName">Member</div>
+
+<button class="top-icon" id="messagesButton" type="button" aria-label="Messages" title="Messages">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9.2 9.2 0 0 1-4.1-1L3 20l1.8-4.1A8.2 8.2 0 0 1 3 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/>
+</svg>
+
+</button>
+
+</div>
+
+</div>
 </header>
+
+
+<!-- ================= MAIN ================= -->
 
 <main class="container">
 
 <!-- HOME -->
+
 <section id="homeSection" class="page-section active">
 
-  <div class="feed-heading">
-    <h2>Community Feed</h2>
+<div class="feed-heading">
 
-    <div class="feed-heading-right">
-      <button id="feedSearchButton" class="feed-search-button" type="button" aria-label="Search posts">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <circle cx="11" cy="11" r="7"></circle>
-          <path d="m20 20-4-4"></path>
-        </svg>
-      </button>
-    </div>
-  </div>
+<h2>Community</h2>
 
-  <div id="feedSearchBox" class="feed-search-box">
-    <input id="feedSearchInput" type="text" placeholder="Search posts or topics..." maxlength="100">
-  </div>
+<div class="feed-heading-right">
 
-  <section id="posts">
-    <div class="empty">
-      <div class="empty-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <circle cx="12" cy="12" r="8"></circle>
-          <path d="M8 12h8"></path>
-        </svg>
-      </div>
-      <h3>Loading community...</h3>
-      <p>Please wait a moment.</p>
-    </div>
-  </section>
+<button class="feed-search-button" id="feedSearchButton" aria-label="Search posts">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<circle cx="11" cy="11" r="7"/>
+<path d="m20 20-4-4"/>
+</svg>
+
+</button>
+
+</div>
+</div>
+
+<div class="feed-search-box" id="feedSearchBox">
+
+<input
+id="feedSearchInput"
+type="search"
+placeholder="Search posts..."
+autocomplete="off"
+>
+
+</div>
+
+<div id="posts"></div>
 
 </section>
 
 
 <!-- CREATE -->
+
 <section id="createSection" class="page-section">
 
-  <div class="create-page-title">
-    <h1>Create</h1>
-    <p>Share something with the JSP TAYSU community.</p>
-  </div>
+<div class="create-page-title">
 
-  <div class="create-card">
+<h1>Create</h1>
 
-    <div class="composer-header">
-      <div class="avatar" id="composerAvatar">M</div>
+<p>Share your thoughts with the community.</p>
 
-      <div>
-        <div class="composer-name" id="composerName">Member</div>
-        <div class="composer-sub">Share with the community</div>
-      </div>
-    </div>
+</div>
 
-    <textarea id="postText" maxlength="5000" placeholder="What's on your mind?"></textarea>
+<div class="create-card">
 
-    <div id="createMediaPreview" class="create-media-preview">
-      <button id="removeMediaButton" class="remove-media" type="button">×</button>
-      <div id="mediaPreviewContent"></div>
-    </div>
+<div class="composer-header">
 
-    <div class="create-options">
+<div class="avatar" id="composerAvatar">M</div>
 
-      <div class="media-buttons">
+<div>
 
-        <button class="media-button" id="photoButton" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <rect x="3" y="4" width="18" height="16" rx="3"></rect>
-            <circle cx="8.5" cy="9" r="1.5"></circle>
-            <path d="m5 17 4-4 3 3 2-2 5 5"></path>
-          </svg>
-          Photo
-        </button>
+<div class="composer-name" id="composerName">Member</div>
 
-        <button class="media-button" id="videoButton" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <rect x="3" y="5" width="13" height="14" rx="3"></rect>
-            <path d="m16 10 5-3v10l-5-3z"></path>
-          </svg>
-          Video
-        </button>
+<div class="composer-sub">Create a post</div>
 
-        <input type="file" id="photoInput" class="hidden-file" accept="image/*">
-        <input type="file" id="videoInput" class="hidden-file" accept="video/*">
+</div>
 
-      </div>
+</div>
 
-      <button class="post-btn" id="postButton" type="button">Post</button>
+<textarea
+id="postText"
+placeholder="What's on your mind?"
+></textarea>
 
-    </div>
+<div class="create-media-preview" id="createMediaPreview">
 
-  </div>
+<img id="previewImage" alt="" style="display:none">
+
+<video id="previewVideo" controls style="display:none"></video>
+
+<button class="remove-media" id="removeMedia" type="button">×</button>
+
+</div>
+
+<div class="create-options">
+
+<div class="media-buttons">
+
+<button class="media-button" id="photoButton" type="button">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<rect x="3" y="3" width="18" height="18" rx="3"/>
+<circle cx="8.5" cy="8.5" r="1.5"/>
+<path d="m21 15-5-5L5 21"/>
+</svg>
+
+Photo
+
+</button>
+
+<button class="media-button" id="videoButton" type="button">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<rect x="3" y="4" width="18" height="16" rx="3"/>
+<path d="m10 9 5 3-5 3V9Z"/>
+</svg>
+
+Video
+
+</button>
+
+<input
+class="hidden-file"
+type="file"
+id="photoInput"
+accept="image/*"
+>
+
+<input
+class="hidden-file"
+type="file"
+id="videoInput"
+accept="video/*"
+>
+
+</div>
+
+<button class="post-btn" id="postButton" type="button">
+Post
+</button>
+
+</div>
+
+</div>
 
 </section>
 
 
 <!-- EXPLORE -->
+
 <section id="exploreSection" class="page-section">
 
-  <div class="explore-title">
-    <h1>Explore</h1>
-    <p>Discover members and connect with the community.</p>
-  </div>
+<div class="explore-title">
 
-  <div class="search-box">
+<h1>Explore</h1>
 
-    <input
-      type="text"
-      id="userSearchInput"
-      placeholder="Search members..."
-      maxlength="30"
-      autocomplete="off"
-    >
+<p>Discover members and connect with the community.</p>
 
-    <button id="userSearchButton" class="search-button" aria-label="Search" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <circle cx="11" cy="11" r="7"></circle>
-        <path d="m20 20-4-4"></path>
-      </svg>
-    </button>
+</div>
 
-  </div>
+<div class="search-box">
 
-  <div id="searchResults"></div>
+<input
+id="userSearchInput"
+type="search"
+placeholder="Search members..."
+autocomplete="off"
+>
 
-  <!-- ONLY PHOTOS + REELS -->
-  <div id="exploreMediaGrid"></div>
+<button class="search-button" id="userSearchButton" type="button">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<circle cx="11" cy="11" r="7"/>
+<path d="m20 20-4-4"/>
+</svg>
+
+</button>
+
+</div>
+
+<div id="searchResults"></div>
 
 </section>
 
 
 <!-- ALERTS -->
+
 <section id="alertsSection" class="page-section">
 
-  <div class="alert-title">
-    <h1>Alerts</h1>
-  </div>
+<div class="alert-title">
 
-  <div id="alertList" class="alert-list">
+<h1>Alerts</h1>
 
-    <div class="alert-empty">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path d="M18 8 a6 6 0 0 0-12 0 c0 7-3 7-3 9h18 c0-2-3-2-3-9"></path>
-        <path d="M10 21h4"></path>
-      </svg>
+</div>
 
-      <h3>No new alerts</h3>
-      <p>Your community notifications will appear here.</p>
-    </div>
-
-  </div>
+<div class="alert-list" id="alertList"></div>
 
 </section>
 
 </main>
 
 
-<!-- BOTTOM NAV -->
+<!-- ================= COMMENTS SHEET ================= -->
+
+<div class="comments-backdrop" id="commentsBackdrop"></div>
+
+<section class="comments-sheet" id="commentsSheet" aria-hidden="true">
+
+<div class="comments-handle"></div>
+
+<div class="comments-sheet-header">
+
+<h3>Comments</h3>
+
+<button class="close-comments" id="closeCommentsButton" type="button">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M6 6l12 12M18 6 6 18"/>
+</svg>
+
+</button>
+
+</div>
+
+<div class="sheet-comments-list" id="sheetCommentsList"></div>
+
+<div class="sheet-comment-form">
+
+<input
+class="sheet-comment-input"
+id="sheetCommentInput"
+type="text"
+placeholder="Add a comment..."
+autocomplete="off"
+>
+
+<button
+class="sheet-comment-send"
+id="sheetCommentSend"
+type="button"
+>
+Send
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= BOTTOM NAV ================= -->
+
 <nav class="bottom-nav">
 
-  <button class="nav-item active" data-section="homeSection">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-      <path d="M3 10.5 12 3l9 7.5"></path>
-      <path d="M5 9v11h14V9"></path>
-      <path d="M9 20v-6h6v6"></path>
-    </svg>
-    <span>Home</span>
-  </button>
+<button class="nav-item active" data-section="homeSection">
 
-  <button class="nav-item" data-section="exploreSection">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-      <circle cx="11" cy="11" r="7"></circle>
-      <path d="m20 20-4-4"></path>
-    </svg>
-    <span>Explore</span>
-  </button>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V10Z"/>
+</svg>
 
-  <button class="nav-item" id="createNav">
-    <div class="create-plus">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path d="M12 5v14"></path>
-        <path d="M5 12h14"></path>
-      </svg>
-    </div>
-    <span>Create</span>
-  </button>
+<span>Home</span>
 
-  <button class="nav-item" data-section="alertsSection">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-      <path d="M18 8 a6 6 0 0 0-12 0 c0 7-3 7-3 9h18 c0-2-3-2-3-9"></path>
-      <path d="M10 21h4"></path>
-    </svg>
-    <span>Alerts</span>
-  </button>
+</button>
 
-  <button class="nav-item" id="profileNavButton">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-      <circle cx="12" cy="8" r="4"></circle>
-      <path d="M4 21 c0-4 3.5-7 8-7 s8 3 8 7"></path>
-    </svg>
-    <span>Profile</span>
-  </button>
+
+<button class="nav-item" data-section="exploreSection">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<circle cx="11" cy="11" r="7"/>
+<path d="m20 20-4-4"/>
+</svg>
+
+<span>Explore</span>
+
+</button>
+
+
+<button class="nav-item create-active" data-section="createSection">
+
+<div class="create-plus">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M12 5v14M5 12h14"/>
+</svg>
+
+</div>
+
+<span>Create</span>
+
+</button>
+
+
+<button class="nav-item" data-section="alertsSection">
+
+<div class="nav-alert-wrap">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+<path d="M10 21h4"/>
+</svg>
+
+<span class="alert-nav-dot" id="alertNavDot"></span>
+
+</div>
+
+<span>Alerts</span>
+
+</button>
+
+
+<button class="nav-item" id="profileNav">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<circle cx="12" cy="8" r="4"/>
+<path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/>
+</svg>
+
+<span>Profile</span>
+
+</button>
 
 </nav>
 
 
+<!-- ================= FIREBASE ================= -->
+
 <script type="module">
 
-import {initializeApp}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import {
+initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
-  getAuth,
-  onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+getAuth,
+onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  serverTimestamp,
-  doc,
-  setDoc,
-  getDoc,
-  deleteDoc,
-  query,
-  where,
-  limit
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+getFirestore,
+collection,
+addDoc,
+getDocs,
+serverTimestamp,
+doc,
+setDoc,
+getDoc,
+deleteDoc,
+query,
+where,
+limit,
+onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
+getStorage,
+ref,
+uploadBytes,
+getDownloadURL
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
 
 const firebaseConfig={
-  apiKey:"AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
-  authDomain:"jsp-taysu.firebaseapp.com",
-  projectId:"jsp-taysu",
-  storageBucket:"jsp-taysu.firebasestorage.app",
-  messagingSenderId:"280992025632",
-  appId:"1:280992025632:web:48efa21208a78be9a78045"
+apiKey:"AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
+authDomain:"jsp-taysu.firebaseapp.com",
+projectId:"jsp-taysu",
+storageBucket:"jsp-taysu.firebasestorage.app",
+messagingSenderId:"280992025632",
+appId:"1:280992025632:web:48efa21208a78be9a78045"
 };
 
+
 const app=initializeApp(firebaseConfig);
+
 const auth=getAuth(app);
+
 const db=getFirestore(app);
+
 const storage=getStorage(app);
 
+
 let currentUser=null;
+
 let selectedMediaFile=null;
+
 let selectedMediaType=null;
+
 let currentUsername="Member";
+
 let allPosts=[];
+
 let allMembers=[];
 
+let notificationsUnsubscribe=null;
+
+let notificationsCache=[];
+
+let activeCommentPost=null;
+
+let activeCommentCountElement=null;
+
+const avatarCache=new Map();
+
+
 const profileName=document.getElementById("profileName");
+
 const composerName=document.getElementById("composerName");
+
 const composerAvatar=document.getElementById("composerAvatar");
+
 const alertList=document.getElementById("alertList");
+
 const postsContainer=document.getElementById("posts");
-const exploreMediaGrid=document.getElementById("exploreMediaGrid");
+
+const alertNavDot=document.getElementById("alertNavDot");
+
+const commentsSheet=document.getElementById("commentsSheet");
+
+const commentsBackdrop=document.getElementById("commentsBackdrop");
+
+const sheetCommentsList=document.getElementById("sheetCommentsList");
+
+const sheetCommentInput=document.getElementById("sheetCommentInput");
+
+const sheetCommentSend=document.getElementById("sheetCommentSend");
 
 
-/* =========================
-   AUTH
-   ========================= */
+/* ================= AUTH ================= */
 
 onAuthStateChanged(auth,async user=>{
 
-  currentUser=user;
+currentUser=user;
 
-  if(!user){
-    profileName.textContent="Please sign in";
-    composerName.textContent="Member";
-    composerAvatar.textContent="M";
-    currentUsername="Member";
-    return;
-  }
+if(!user){
 
-  let username=user.displayName||"Member";
+if(notificationsUnsubscribe){
+notificationsUnsubscribe();
+notificationsUnsubscribe=null;
+}
 
-  try{
-    const profileSnap=await getDoc(doc(db,"users",user.uid));
+profileName.textContent="Please sign in";
 
-    if(
-      profileSnap.exists() &&
-      profileSnap.data().username
-    ){
-      username=profileSnap.data().username;
-    }
+composerName.textContent="Member";
 
-  }catch(error){
-    console.error("Profile error:",error);
-  }
+composerAvatar.textContent="M";
 
-  currentUsername=username;
+currentUsername="Member";
 
-  profileName.textContent=username;
-  composerName.textContent=username;
-  composerAvatar.textContent=username.charAt(0).toUpperCase();
+alertNavDot.style.display="none";
 
-  await loadPosts();
-  await loadNotifications();
+return;
+
+}
+
+
+let username=user.displayName||"Member";
+
+
+try{
+
+const profileSnap=await getDoc(
+doc(db,"users",user.uid)
+);
+
+if(
+profileSnap.exists() &&
+profileSnap.data().username
+){
+
+username=profileSnap.data().username;
+
+}
+
+}catch(error){
+
+console.error(error);
+
+}
+
+
+currentUsername=username;
+
+profileName.textContent=username;
+
+composerName.textContent=username;
+
+composerAvatar.textContent=
+username.charAt(0).toUpperCase();
+
+
+await loadPosts();
+
+startNotificationsListener();
 
 });
 
 
-/* =========================
-   NAVIGATION
-   ========================= */
+/* ================= NAVIGATION ================= */
 
 const sections={
-  homeSection:document.getElementById("homeSection"),
-  createSection:document.getElementById("createSection"),
-  exploreSection:document.getElementById("exploreSection"),
-  alertsSection:document.getElementById("alertsSection")
+homeSection:document.getElementById("homeSection"),
+createSection:document.getElementById("createSection"),
+exploreSection:document.getElementById("exploreSection"),
+alertsSection:document.getElementById("alertsSection")
 };
+
 
 function showSection(sectionId){
 
-  Object.values(sections).forEach(section=>{
-    section.classList.remove("active");
-  });
-
-  if(sections[sectionId]){
-    sections[sectionId].classList.add("active");
-  }
-
-  document.querySelectorAll(".nav-item").forEach(button=>{
-    button.classList.remove("active");
-    button.classList.remove("create-active");
-  });
-
-  const matchingButton=document.querySelector(
-    `[data-section="${sectionId}"]`
-  );
-
-  if(matchingButton){
-    matchingButton.classList.add("active");
-  }
-
-  if(sectionId==="createSection"){
-    document.getElementById("createNav")
-      .classList.add("create-active");
-  }
-
-  if(sectionId==="alertsSection"&&currentUser){
-    loadNotifications();
-  }
-
-  if(sectionId==="exploreSection"){
-    loadMembers();
-    loadExploreMedia();
-  }
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-}
-
-document
-.querySelectorAll(".nav-item[data-section]")
-.forEach(button=>{
-  button.addEventListener(
-    "click",
-    ()=>showSection(button.dataset.section)
-  );
+Object.values(sections).forEach(section=>{
+section.classList.remove("active");
 });
 
-document
-.getElementById("createNav")
-.addEventListener(
-  "click",
-  ()=>showSection("createSection")
+if(sections[sectionId]){
+sections[sectionId].classList.add("active");
+}
+
+
+document.querySelectorAll(".nav-item").forEach(item=>{
+item.classList.remove("active");
+});
+
+
+const activeNav=document.querySelector(
+`.nav-item[data-section="${sectionId}"]`
 );
 
-document
-.getElementById("profileNavButton")
-.addEventListener("click",()=>{
-  if(!currentUser){
-    alert("Please sign in first.");
-    return;
-  }
-
-  openProfile(currentUser.uid);
-});
-
-function openProfile(uid){
-  if(uid){
-    window.location.href=
-      "profile.html?uid="+encodeURIComponent(uid);
-  }
+if(activeNav){
+activeNav.classList.add("active");
 }
 
 
-/* =========================
-   FEED SEARCH
-   ========================= */
+if(sectionId==="createSection"){
+
+composerName.textContent=currentUsername;
+
+composerAvatar.textContent=
+currentUsername.charAt(0).toUpperCase();
+
+}
+
+
+if(sectionId==="alertsSection"){
+
+loadNotifications();
+
+}
+
+
+if(sectionId==="exploreSection"){
+
+loadMembers();
+
+}
+
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+document.querySelectorAll(".nav-item[data-section]")
+.forEach(item=>{
+
+item.addEventListener("click",()=>{
+
+showSection(item.dataset.section);
+
+});
+
+});
+
+
+document.getElementById("profileNav")
+.addEventListener("click",()=>{
+
+if(currentUser){
+
+window.location.href=
+"profile.html?uid="+
+encodeURIComponent(currentUser.uid);
+
+}
+
+});
+
+
+/* ================= MESSAGES ================= */
+
+document.getElementById("messagesButton")
+.addEventListener("click",()=>{
+
+window.location.href="messages.html";
+
+});
+
+
+/* ================= FEED SEARCH ================= */
 
 const feedSearchButton=
-  document.getElementById("feedSearchButton");
+document.getElementById("feedSearchButton");
 
 const feedSearchBox=
-  document.getElementById("feedSearchBox");
+document.getElementById("feedSearchBox");
 
 const feedSearchInput=
-  document.getElementById("feedSearchInput");
+document.getElementById("feedSearchInput");
+
 
 feedSearchButton.addEventListener("click",()=>{
 
-  feedSearchBox.classList.toggle("show");
+feedSearchBox.classList.toggle("show");
 
-  if(feedSearchBox.classList.contains("show")){
-    feedSearchInput.focus();
-  }else{
-    feedSearchInput.value="";
-    renderFilteredPosts("");
-  }
+if(feedSearchBox.classList.contains("show")){
+
+feedSearchInput.focus();
+
+}
 
 });
 
-feedSearchInput.addEventListener(
-  "input",
-  ()=>renderFilteredPosts(feedSearchInput.value)
-);
+
+feedSearchInput.addEventListener("input",()=>{
+
+renderFilteredPosts(feedSearchInput.value.trim());
+
+});
 
 
-/* =========================
-   CREATE MEDIA
-   ========================= */
+/* ================= MEDIA ================= */
 
 const photoButton=
-  document.getElementById("photoButton");
+document.getElementById("photoButton");
 
 const videoButton=
-  document.getElementById("videoButton");
+document.getElementById("videoButton");
 
 const photoInput=
-  document.getElementById("photoInput");
+document.getElementById("photoInput");
 
 const videoInput=
-  document.getElementById("videoInput");
+document.getElementById("videoInput");
+
+const createMediaPreview=
+document.getElementById("createMediaPreview");
+
+const previewImage=
+document.getElementById("previewImage");
+
+const previewVideo=
+document.getElementById("previewVideo");
+
+const removeMedia=
+document.getElementById("removeMedia");
 
 
 photoButton.addEventListener("click",()=>{
-  if(!currentUser){
-    alert("Please sign in first.");
-    return;
-  }
-
-  photoInput.click();
+photoInput.click();
 });
 
 
 videoButton.addEventListener("click",()=>{
-  if(!currentUser){
-    alert("Please sign in first.");
-    return;
-  }
-
-  videoInput.click();
+videoInput.click();
 });
 
 
 photoInput.addEventListener("change",()=>{
 
-  const file=photoInput.files[0];
+if(!photoInput.files.length)return;
 
-  if(file){
-    selectedMediaFile=file;
-    selectedMediaType="image";
-    showMediaPreview(file,"image");
-  }
+selectedMediaFile=photoInput.files[0];
+
+selectedMediaType="image";
+
+const url=URL.createObjectURL(selectedMediaFile);
+
+previewImage.src=url;
+
+previewImage.style.display="block";
+
+previewVideo.style.display="none";
+
+createMediaPreview.style.display="block";
 
 });
 
 
 videoInput.addEventListener("change",()=>{
 
-  const file=videoInput.files[0];
+if(!videoInput.files.length)return;
 
-  if(file){
-    selectedMediaFile=file;
-    selectedMediaType="video";
-    showMediaPreview(file,"video");
-  }
+selectedMediaFile=videoInput.files[0];
+
+selectedMediaType="video";
+
+const url=URL.createObjectURL(selectedMediaFile);
+
+previewVideo.src=url;
+
+previewVideo.style.display="block";
+
+previewImage.style.display="none";
+
+createMediaPreview.style.display="block";
 
 });
 
 
-function showMediaPreview(file,type){
+removeMedia.addEventListener("click",()=>{
 
-  const preview=
-    document.getElementById("createMediaPreview");
+selectedMediaFile=null;
 
-  const content=
-    document.getElementById("mediaPreviewContent");
+selectedMediaType=null;
 
-  const url=URL.createObjectURL(file);
+photoInput.value="";
 
-  content.innerHTML=
-    type==="image"
-    ?`<img src="${url}" alt="Selected photo">`
-    :`<video src="${url}" controls></video>`;
+videoInput.value="";
 
-  preview.style.display="block";
+previewImage.src="";
+
+previewVideo.src="";
+
+previewImage.style.display="none";
+
+previewVideo.style.display="none";
+
+createMediaPreview.style.display="none";
+
+});
+
+
+/* ================= POST ================= */
+
+document.getElementById("postButton")
+.addEventListener("click",async()=>{
+
+if(!currentUser){
+
+alert("Please sign in first.");
+
+return;
+
 }
 
 
-document
-.getElementById("removeMediaButton")
-.addEventListener("click",()=>{
-
-  selectedMediaFile=null;
-  selectedMediaType=null;
-
-  photoInput.value="";
-  videoInput.value="";
-
-  document
-    .getElementById("createMediaPreview")
-    .style.display="none";
-
-  document
-    .getElementById("mediaPreviewContent")
-    .innerHTML="";
-});
+const text=
+document.getElementById("postText")
+.value.trim();
 
 
-/* =========================
-   CREATE POST
-   ========================= */
+if(!text && !selectedMediaFile){
 
-document
-.getElementById("postButton")
-.addEventListener("click",async()=>{
+alert("Write something or add media.");
 
-  if(!currentUser){
-    alert("Please sign in first.");
-    return;
-  }
+return;
 
-  const text=
-    document.getElementById("postText")
-    .value
-    .trim();
+}
 
-  if(!text&&!selectedMediaFile){
-    alert("Write something or select a photo/video.");
-    return;
-  }
 
-  const button=
-    document.getElementById("postButton");
+const postButton=
+document.getElementById("postButton");
 
-  button.disabled=true;
-  button.textContent="Posting...";
+postButton.disabled=true;
 
-  try{
+try{
 
-    let mediaUrl="";
-    let mediaType="";
+let mediaUrl="";
 
-    if(selectedMediaFile){
+if(selectedMediaFile){
 
-      const file=selectedMediaFile;
+const safeName=
+selectedMediaFile.name
+.replace(/[^a-zA-Z0-9._-]/g,"_");
 
-      const safeName=
-        file.name.replace(
-          /[^a-zA-Z0-9._-]/g,
-          "_"
-        );
+const storageRef=ref(
+storage,
+`posts/${currentUser.uid}/${Date.now()}_${safeName}`
+);
 
-      const filePath=
-        "posts/"
-        +currentUser.uid
-        +"/"
-        +Date.now()
-        +"_"
-        +safeName;
+await uploadBytes(
+storageRef,
+selectedMediaFile
+);
 
-      const uploadResult=
-        await uploadBytes(
-          ref(storage,filePath),
-          file
-        );
+mediaUrl=await getDownloadURL(storageRef);
 
-      mediaUrl=
-        await getDownloadURL(uploadResult.ref);
+}
 
-      mediaType=selectedMediaType;
-    }
 
-    await addDoc(
-      collection(db,"posts"),
-      {
-        text,
-        authorId:currentUser.uid,
-        authorName:currentUsername,
-        mediaUrl,
-        mediaType,
-        createdAt:serverTimestamp()
-      }
-    );
+await addDoc(
+collection(db,"posts"),
+{
+text:text,
+authorId:currentUser.uid,
+authorName:currentUsername,
+mediaUrl:mediaUrl,
+mediaType:selectedMediaType||"",
+createdAt:serverTimestamp()
+}
+);
 
-    document.getElementById("postText").value="";
 
-    selectedMediaFile=null;
-    selectedMediaType=null;
+document.getElementById("postText").value="";
 
-    photoInput.value="";
-    videoInput.value="";
+removeMedia.click();
 
-    document
-      .getElementById("createMediaPreview")
-      .style.display="none";
+await loadPosts();
 
-    document
-      .getElementById("mediaPreviewContent")
-      .innerHTML="";
+showSection("homeSection");
 
-    await loadPosts();
+}catch(error){
 
-    showSection("homeSection");
+console.error(error);
 
-  }catch(error){
+alert("Could not create post.");
 
-    console.error("Post error:",error);
+}finally{
 
-    alert(
-      (error.code||"Error")
-      +": "
-      +error.message
-    );
+postButton.disabled=false;
 
-  }finally{
-
-    button.disabled=false;
-    button.textContent="Post";
-
-  }
+}
 
 });
 
 
-/* =========================
-   LOAD POSTS
-   ========================= */
+/* ================= LOAD POSTS ================= */
 
 async function loadPosts(){
 
-  try{
+if(!currentUser)return;
 
-    const snapshot=
-      await getDocs(
-        collection(db,"posts")
-      );
+try{
 
-    allPosts=[];
+const snapshot=
+await getDocs(collection(db,"posts"));
 
-    snapshot.forEach(postDoc=>{
-      allPosts.push({
-        id:postDoc.id,
-        ...postDoc.data()
-      });
-    });
+allPosts=[];
 
-    allPosts.sort(
-      (a,b)=>
-        (b.createdAt?.seconds||0)
-        -
-        (a.createdAt?.seconds||0)
-    );
+snapshot.forEach(item=>{
 
-    renderFilteredPosts(
-      feedSearchInput.value
-    );
+allPosts.push({
+id:item.id,
+...item.data()
+});
 
-  }catch(error){
+});
 
-    console.error(
-      "Load posts error:",
-      error
-    );
 
-    postsContainer.innerHTML=`
-      <div class="empty">
-        <div class="empty-icon">⚠️</div>
-        <h3>Couldn't load posts</h3>
-        <p>Please refresh the page.</p>
-      </div>
-    `;
-  }
+allPosts.sort((a,b)=>{
+
+const aTime=a.createdAt?.seconds||0;
+
+const bTime=b.createdAt?.seconds||0;
+
+return bTime-aTime;
+
+});
+
+
+renderFilteredPosts("");
+
+}catch(error){
+
+console.error(error);
+
+postsContainer.innerHTML=`
+<div class="empty">
+
+<div class="empty-icon">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M4 5h16v14H4z"/>
+<path d="m7 9 3 3 2-2 5 5"/>
+</svg>
+
+</div>
+
+<h3>Unable to load posts</h3>
+
+<p>Please try again later.</p>
+
+</div>
+`;
+
+}
 
 }
 
 
-async function renderFilteredPosts(searchText){
+/* ================= RENDER POSTS ================= */
 
-  const queryText=
-    String(searchText||"")
-    .trim()
-    .toLowerCase();
+function renderFilteredPosts(search=""){
 
-  const filtered=
-    allPosts.filter(post=>
-      !queryText
-      ||
-      String(post.text||"")
-        .toLowerCase()
-        .includes(queryText)
-      ||
-      String(post.authorName||"")
-        .toLowerCase()
-        .includes(queryText)
-    );
+const value=search.toLowerCase();
 
-  postsContainer.innerHTML="";
+const filtered=allPosts.filter(post=>{
 
-  if(filtered.length===0){
+return(
+(post.text||"").toLowerCase().includes(value) ||
+(post.authorName||"").toLowerCase().includes(value)
+);
 
-    postsContainer.innerHTML=`
-      <div class="empty">
-        <div class="empty-icon">🔍</div>
-        <h3>No matching posts</h3>
-        <p>Try another topic or keyword.</p>
-      </div>
-    `;
+});
 
-    return;
-  }
 
-  for(const post of filtered){
-    await renderPost(
-      post,
-      postsContainer
-    );
-  }
+if(!filtered.length){
+
+postsContainer.innerHTML=`
+<div class="empty">
+
+<div class="empty-icon">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M4 5h16v14H4z"/>
+<path d="m7 9 3 3 2-2 5 5"/>
+</svg>
+
+</div>
+
+<h3>No posts yet</h3>
+
+<p>Be the first to share something with the community.</p>
+
+</div>
+`;
+
+return;
 
 }
 
 
-/* =========================
-   RENDER COMMUNITY POST
-   ========================= */
+postsContainer.innerHTML="";
 
-async function renderPost(post,container){
+filtered.forEach(post=>{
 
-  const postElement=
-    document.createElement("article");
+postsContainer.appendChild(
+renderPost(post)
+);
 
-  postElement.className="post";
-
-  const username=
-    post.authorName||"Member";
-
-  let likeCount=0;
-  let alreadyLiked=false;
-
-  try{
-
-    const likesSnapshot=
-      await getDocs(
-        collection(
-          db,
-          "posts",
-          post.id,
-          "likes"
-        )
-      );
-
-    likeCount=likesSnapshot.size;
-
-    if(currentUser){
-      alreadyLiked=
-        likesSnapshot.docs.some(
-          likeDoc=>
-            likeDoc.id===currentUser.uid
-        );
-    }
-
-  }catch(error){
-    console.error(
-      "Like loading error:",
-      error
-    );
-  }
-
-  let commentCount=0;
-
-  try{
-
-    commentCount=
-      (
-        await getDocs(
-          collection(
-            db,
-            "posts",
-            post.id,
-            "comments"
-          )
-        )
-      ).size;
-
-  }catch(error){
-    console.error(
-      "Comment loading error:",
-      error
-    );
-  }
-
-
-  let mediaHTML="";
-
-  if(
-    post.mediaUrl &&
-    post.mediaType==="image"
-  ){
-    mediaHTML=`
-      <img
-        class="post-media"
-        src="${escapeAttribute(post.mediaUrl)}"
-        alt="Community post image"
-        loading="lazy"
-      >
-    `;
-  }
-
-  if(
-    post.mediaUrl &&
-    post.mediaType==="video"
-  ){
-    mediaHTML=`
-      <video
-        class="post-video"
-        controls
-        preload="metadata"
-      >
-        <source src="${escapeAttribute(post.mediaUrl)}">
-      </video>
-    `;
-  }
-
-
-  const cleanText=
-    String(post.text||"")
-    .replace(/[ \t]+\n/g,"\n")
-    .replace(/\n[ \t]+/g,"\n");
-
-
-  /*
-    IMPORTANT STRUCTURE:
-
-    DP = left
-    username = right of DP
-    text = EXACT SAME LEFT EDGE AS USERNAME
-  */
-
-  postElement.innerHTML=`
-
-    <div class="post-layout">
-
-      <div class="post-avatar">
-        ${escapeHTML(
-          username.charAt(0).toUpperCase()
-        )}
-      </div>
-
-      <div class="post-main">
-
-        <div
-          class="post-header"
-          data-profile-id="${escapeAttribute(
-            post.authorId||""
-          )}"
-        >
-
-          <div class="author-line">
-            <div class="post-author">
-              ${escapeHTML(username)}
-            </div>
-          </div>
-
-          <div class="post-time">
-            ${formatTime(post.createdAt)}
-          </div>
-
-        </div>
-
-        ${
-          post.text
-          ?
-          `<div class="post-text">
-            ${escapeHTML(cleanText)}
-          </div>`
-          :
-          ""
-        }
-
-        ${mediaHTML}
-
-        <div class="actions">
-
-          <button
-            class="action like-button ${alreadyLiked?"liked":""}"
-            type="button"
-          >
-
-            <svg
-              viewBox="0 0 24 24"
-              fill="${alreadyLiked?"currentColor":"none"}"
-              stroke="currentColor"
-            >
-              <path d="M20.8 8.7 C20.8 13.7 12 20 12 20 S3.2 13.7 3.2 8.7 C3.2 5.7 5.4 3.7 8.1 3.7 C9.8 3.7 11.3 4.6 12 5.9 C12.7 4.6 14.2 3.7 15.9 3.7 C18.6 3.7 20.8 5.7 20.8 8.7Z"></path>
-            </svg>
-
-            <span>
-              ${alreadyLiked?"Unlike":"Like"}
-            </span>
-
-            <b class="like-count">
-              ${likeCount}
-            </b>
-
-          </button>
-
-
-          <button
-            class="action comment-button"
-            type="button"
-          >
-
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path d="M20 11.5 a7.5 7.5 0 0 1-7.5 7.5 H8l-4 2 1.5-4 A7.5 7.5 0 1 1 20 11.5Z"></path>
-            </svg>
-
-            <span>Comment</span>
-
-            <b class="comment-count">
-              ${commentCount}
-            </b>
-
-          </button>
-
-
-          <button
-            class="action share-button"
-            type="button"
-          >
-
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path d="M12 16V4"></path>
-              <path d="m7 9 5-5 5 5"></path>
-              <path d="M5 13v5 a2 2 0 0 0 2 2h10 a2 2 0 0 0 2-2v-5"></path>
-            </svg>
-
-            <span>Share</span>
-
-          </button>
-
-        </div>
-
-
-        <div class="comments-area">
-
-          <div class="comments-list"></div>
-
-          <div class="comment-form">
-
-            <input
-              class="comment-input"
-              type="text"
-              maxlength="300"
-              placeholder="Write a comment..."
-            >
-
-            <button
-              class="comment-send"
-              type="button"
-            >
-              Send
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-  `;
-
-
-  container.appendChild(postElement);
-
-
-  /* PROFILE */
-
-  postElement
-    .querySelector(".post-header")
-    .addEventListener("click",()=>{
-      if(post.authorId){
-        openProfile(post.authorId);
-      }
-    });
-
-
-  /* LIKE */
-
-  const likeButton=
-    postElement.querySelector(
-      ".like-button"
-    );
-
-  const likeCountElement=
-    postElement.querySelector(
-      ".like-count"
-    );
-
-  const likeText=
-    likeButton.querySelector("span");
-
-
-  likeButton.addEventListener(
-    "click",
-    async()=>{
-
-      if(!currentUser){
-        alert("Please sign in first.");
-        return;
-      }
-
-      likeButton.disabled=true;
-
-      try{
-
-        const likeRef=
-          doc(
-            db,
-            "posts",
-            post.id,
-            "likes",
-            currentUser.uid
-          );
-
-        const likeSnap=
-          await getDoc(likeRef);
-
-        let count=
-          Number(
-            likeCountElement.textContent
-          )||0;
-
-        if(likeSnap.exists()){
-
-          await deleteDoc(likeRef);
-
-          count=Math.max(0,count-1);
-
-          likeText.textContent="Like";
-
-          likeButton.classList.remove(
-            "liked"
-          );
-
-          likeButton
-            .querySelector("svg")
-            .setAttribute(
-              "fill",
-              "none"
-            );
-
-        }else{
-
-          await setDoc(
-            likeRef,
-            {
-              userId:currentUser.uid,
-              createdAt:serverTimestamp()
-            }
-          );
-
-          count++;
-
-          likeText.textContent="Unlike";
-
-          likeButton.classList.add(
-            "liked"
-          );
-
-          likeButton
-            .querySelector("svg")
-            .setAttribute(
-              "fill",
-              "currentColor"
-            );
-
-          if(
-            post.authorId &&
-            post.authorId!==currentUser.uid
-          ){
-
-            await createNotification({
-              recipientId:post.authorId,
-              senderId:currentUser.uid,
-              senderName:currentUsername,
-              type:"like",
-              postId:post.id
-            });
-
-          }
-
-        }
-
-        likeCountElement.textContent=count;
-
-      }catch(error){
-
-        console.error(
-          "Like error:",
-          error
-        );
-
-        alert(
-          (error.code||"Error")
-          +": "
-          +error.message
-        );
-
-      }finally{
-
-        likeButton.disabled=false;
-
-      }
-
-    }
-  );
-
-
-  /* COMMENTS */
-
-  const commentButton=
-    postElement.querySelector(
-      ".comment-button"
-    );
-
-  const commentsArea=
-    postElement.querySelector(
-      ".comments-area"
-    );
-
-  const commentsList=
-    postElement.querySelector(
-      ".comments-list"
-    );
-
-  const commentInput=
-    postElement.querySelector(
-      ".comment-input"
-    );
-
-  const commentSend=
-    postElement.querySelector(
-      ".comment-send"
-    );
-
-  const commentCountElement=
-    postElement.querySelector(
-      ".comment-count"
-    );
-
-
-  commentButton.addEventListener(
-    "click",
-    async()=>{
-
-      if(!currentUser){
-        alert("Please sign in first.");
-        return;
-      }
-
-      if(
-        commentsArea.style.display==="block"
-      ){
-
-        commentsArea.style.display="none";
-
-      }else{
-
-        commentsArea.style.display="block";
-
-        await loadComments(
-          post.id,
-          commentsList
-        );
-
-      }
-
-    }
-  );
-
-
-  async function sendComment(){
-
-    if(!currentUser){
-      alert("Please sign in first.");
-      return;
-    }
-
-    const text=
-      commentInput.value.trim();
-
-    if(!text)return;
-
-    commentSend.disabled=true;
-
-    try{
-
-      await addDoc(
-        collection(
-          db,
-          "posts",
-          post.id,
-          "comments"
-        ),
-        {
-          text,
-          userId:currentUser.uid,
-          username:currentUsername,
-          createdAt:serverTimestamp()
-        }
-      );
-
-      commentInput.value="";
-
-      commentCountElement.textContent=
-        (
-          Number(
-            commentCountElement.textContent
-          )||0
-        )+1;
-
-      await loadComments(
-        post.id,
-        commentsList
-      );
-
-      if(
-        post.authorId &&
-        post.authorId!==currentUser.uid
-      ){
-
-        await createNotification({
-          recipientId:post.authorId,
-          senderId:currentUser.uid,
-          senderName:currentUsername,
-          type:"comment",
-          postId:post.id,
-          commentText:text
-        });
-
-      }
-
-    }catch(error){
-
-      console.error(
-        "Comment error:",
-        error
-      );
-
-      alert(
-        (error.code||"Error")
-        +": "
-        +error.message
-      );
-
-    }finally{
-
-      commentSend.disabled=false;
-
-    }
-
-  }
-
-
-  commentSend.addEventListener(
-    "click",
-    sendComment
-  );
-
-  commentInput.addEventListener(
-    "keydown",
-    event=>{
-      if(event.key==="Enter"){
-        event.preventDefault();
-        sendComment();
-      }
-    }
-  );
-
-
-  /* SHARE */
-
-  postElement
-    .querySelector(".share-button")
-    .addEventListener(
-      "click",
-      async()=>{
-
-        try{
-
-          if(navigator.share){
-
-            await navigator.share({
-              title:"JSP TAYSU Community",
-              text:
-                `${username} shared a post on JSP TAYSU Community 🐉`,
-              url:window.location.href
-            });
-
-          }else{
-
-            await navigator.clipboard.writeText(
-              window.location.href
-            );
-
-            alert(
-              "Community link copied! 🔗"
-            );
-
-          }
-
-        }catch(error){
-
-          console.log(
-            "Share cancelled."
-          );
-
-        }
-
-      }
-    );
+});
 
 }
 
 
-/* =========================
-   COMMENTS
-   ========================= */
+/* ================= ESCAPE ================= */
 
-async function loadComments(
-  postId,
-  commentsList
+function escapeHTML(value){
+
+return String(value||"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttribute(value){
+
+return escapeHTML(value);
+
+}
+
+
+/* ================= POST RENDER ================= */
+
+function renderPost(post){
+
+const article=document.createElement("article");
+
+article.className="post";
+
+
+const authorName=
+post.authorName||"Member";
+
+const initial=
+authorName.charAt(0).toUpperCase();
+
+
+let mediaHTML="";
+
+
+if(post.mediaUrl){
+
+if(post.mediaType==="video"){
+
+mediaHTML=`
+<video
+class="post-video"
+src="${escapeAttribute(post.mediaUrl)}"
+controls
+playsinline
+></video>
+`;
+
+}else{
+
+mediaHTML=`
+<img
+class="post-media"
+src="${escapeAttribute(post.mediaUrl)}"
+alt=""
+loading="lazy"
+>
+`;
+
+}
+
+}
+
+
+article.innerHTML=`
+
+<div class="post-header" data-profile-id="${escapeAttribute(post.authorId||"")}">
+
+<div class="avatar">${escapeHTML(initial)}</div>
+
+<div>
+
+<div class="post-author">
+${escapeHTML(authorName)}
+</div>
+
+<div class="post-time">
+${formatTime(post.createdAt)}
+</div>
+
+</div>
+
+</div>
+
+${post.text ? `
+<div class="post-text">
+${escapeHTML(post.text)}
+</div>
+` : ""}
+
+${mediaHTML}
+
+<div class="actions">
+
+<button class="action like-button" type="button">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M20.8 8.7c0 5.5-8.8 10.3-8.8 10.3S3.2 14.2 3.2 8.7A4.7 4.7 0 0 1 12 6.1a4.7 4.7 0 0 1 8.8 2.6Z"/>
+</svg>
+
+<b class="like-count">0</b>
+
+</button>
+
+
+<button class="action comment-button" type="button">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 8.4 8.4 0 0 1-4-.9L4 20l1.6-3.6A7.4 7.4 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/>
+</svg>
+
+<b class="comment-count">0</b>
+
+</button>
+
+
+<button class="action share-button" type="button">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="m22 2-7 20-4-9-9-4 20-7Z"/>
+<path d="M22 2 11 13"/>
+</svg>
+
+</button>
+
+</div>
+`;
+
+
+const postHeader=
+article.querySelector(".post-header");
+
+
+postHeader.addEventListener("click",()=>{
+
+if(post.authorId){
+
+window.location.href=
+"profile.html?uid="+
+encodeURIComponent(post.authorId);
+
+}
+
+});
+
+
+const likeButton=
+article.querySelector(".like-button");
+
+const likeCount=
+article.querySelector(".like-count");
+
+
+loadLikeState(
+post.id,
+likeButton,
+likeCount
+);
+
+
+likeButton.addEventListener("click",async()=>{
+
+if(!currentUser)return;
+
+const likeRef=doc(
+db,
+"posts",
+post.id,
+"likes",
+currentUser.uid
+);
+
+const existing=await getDoc(likeRef);
+
+
+if(existing.exists()){
+
+await deleteDoc(likeRef);
+
+likeButton.classList.remove("liked");
+
+likeCount.textContent=
+Math.max(
+0,
+Number(likeCount.textContent)-1
+);
+
+}else{
+
+await setDoc(likeRef,{
+userId:currentUser.uid,
+createdAt:serverTimestamp()
+});
+
+likeButton.classList.add("liked");
+
+likeCount.textContent=
+Number(likeCount.textContent)+1;
+
+
+if(post.authorId &&
+post.authorId!==currentUser.uid){
+
+await createNotification({
+recipientId:post.authorId,
+senderId:currentUser.uid,
+senderName:currentUsername,
+type:"like",
+postId:post.id
+});
+
+}
+
+}
+
+});
+
+
+const commentButton=
+article.querySelector(".comment-button");
+
+const commentCount=
+article.querySelector(".comment-count");
+
+
+loadCommentCount(
+post.id,
+commentCount
+);
+
+
+commentButton.addEventListener("click",()=>{
+
+openCommentsSheet(
+post,
+commentCount
+);
+
+});
+
+
+const shareButton=
+article.querySelector(".share-button");
+
+
+shareButton.addEventListener("click",async()=>{
+
+const shareUrl=
+location.origin+
+location.pathname+
+"?post="+
+encodeURIComponent(post.id);
+
+
+try{
+
+if(navigator.share){
+
+await navigator.share({
+title:"JSP TAYSU Community",
+text:post.text||"JSP TAYSU post",
+url:shareUrl
+});
+
+}else{
+
+await navigator.clipboard.writeText(
+shareUrl
+);
+
+alert("Post link copied.");
+
+}
+
+}catch(error){
+
+console.log(error);
+
+}
+
+});
+
+
+return article;
+
+}
+
+
+/* ================= LIKE STATE ================= */
+
+async function loadLikeState(
+postId,
+button,
+countElement
 ){
 
-  commentsList.innerHTML="";
+if(!currentUser)return;
 
-  try{
+try{
 
-    const snapshot=
-      await getDocs(
-        collection(
-          db,
-          "posts",
-          postId,
-          "comments"
-        )
-      );
+const likesSnapshot=
+await getDocs(
+collection(
+db,
+"posts",
+postId,
+"likes"
+)
+);
 
-    if(snapshot.empty){
-
-      commentsList.innerHTML=`
-        <div
-          style="
-            color:#777f89;
-            font-size:12px;
-            padding:4px 2px;
-          "
-        >
-          No comments yet.
-        </div>
-      `;
-
-      return;
-    }
-
-    const comments=[];
-
-    snapshot.forEach(commentDoc=>{
-      comments.push({
-        id:commentDoc.id,
-        ...commentDoc.data()
-      });
-    });
-
-    comments.sort(
-      (a,b)=>
-        (a.createdAt?.seconds||0)
-        -
-        (b.createdAt?.seconds||0)
-    );
+countElement.textContent=
+likesSnapshot.size;
 
 
-    comments.forEach(comment=>{
+const mine=likesSnapshot.docs.some(
+item=>item.id===currentUser.uid
+);
 
-      const element=
-        document.createElement("div");
 
-      element.className="comment";
+if(mine){
 
-      element.innerHTML=`
+button.classList.add("liked");
 
-        <div class="comment-top">
+}
 
-          <div class="comment-user">
-            ${escapeHTML(
-              comment.username||"Member"
-            )}
-          </div>
+}catch(error){
 
-          ${
-            currentUser &&
-            comment.userId===currentUser.uid
-            ?
-            `
-              <button
-                class="delete-comment"
-                type="button"
-              >
-                Delete
-              </button>
-            `
-            :
-            ""
-          }
+console.error(error);
 
-        </div>
-
-        <div class="comment-text">
-          ${escapeHTML(
-            comment.text||""
-          )}
-        </div>
-      `;
-
-      commentsList.appendChild(element);
-
-      const deleteButton=
-        element.querySelector(
-          ".delete-comment"
-        );
-
-      if(deleteButton){
-
-        deleteButton.addEventListener(
-          "click",
-          async()=>{
-
-            try{
-
-              await deleteDoc(
-                doc(
-                  db,
-                  "posts",
-                  postId,
-                  "comments",
-                  comment.id
-                )
-              );
-
-              await loadComments(
-                postId,
-                commentsList
-              );
-
-            }catch(error){
-
-              console.error(error);
-
-              alert(
-                (error.code||"Error")
-                +": "
-                +error.message
-              );
-
-            }
-
-          }
-        );
-
-      }
-
-    });
-
-  }catch(error){
-
-    console.error(
-      "Comments error:",
-      error
-    );
-
-    commentsList.innerHTML=`
-      <div
-        style="
-          color:#9c7373;
-          font-size:12px;
-        "
-      >
-        Couldn't load comments.
-      </div>
-    `;
-
-  }
+}
 
 }
 
 
-/* =========================
-   EXPLORE MEDIA
-   ONLY PHOTOS + REELS
-   ========================= */
+/* ================= COMMENT COUNT ================= */
 
-async function loadExploreMedia(){
+async function loadCommentCount(
+postId,
+element
+){
 
-  if(!exploreMediaGrid)return;
+try{
 
-  exploreMediaGrid.innerHTML="";
+const snapshot=
+await getDocs(
+collection(
+db,
+"posts",
+postId,
+"comments"
+)
+);
 
-  try{
+element.textContent=snapshot.size;
 
-    /*
-      Use already loaded posts.
-      Only posts containing media are shown.
-      Text-only posts are completely ignored.
-    */
+}catch(error){
 
-    const mediaPosts=
-      allPosts.filter(post=>
-        post.mediaUrl &&
-        (
-          post.mediaType==="image" ||
-          post.mediaType==="video"
-        )
-      );
+console.error(error);
 
-    if(mediaPosts.length===0){
-      return;
-    }
-
-
-    for(const post of mediaPosts){
-
-      const tile=
-        document.createElement("div");
-
-      tile.className=
-        "explore-media-tile";
-
-
-      if(post.mediaType==="image"){
-
-        tile.innerHTML=`
-          <img
-            src="${escapeAttribute(post.mediaUrl)}"
-            alt="Community photo"
-            loading="lazy"
-          >
-        `;
-
-      }else{
-
-        tile.innerHTML=`
-
-          <video
-            src="${escapeAttribute(post.mediaUrl)}"
-            preload="metadata"
-            muted
-            playsinline
-          ></video>
-
-          <div class="explore-video-badge">
-
-            <svg
-              viewBox="0 0 24 24"
-              stroke-width="1.8"
-            >
-              <path d="M8 5v14l11-7z"></path>
-            </svg>
-
-          </div>
-        `;
-
-      }
-
-
-      /*
-        Clicking an Explore item takes the user
-        to the corresponding author's profile.
-      */
-
-      tile.addEventListener(
-        "click",
-        ()=>{
-          if(post.authorId){
-            openProfile(post.authorId);
-          }
-        }
-      );
-
-
-      exploreMediaGrid.appendChild(tile);
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "Explore media error:",
-      error
-    );
-
-  }
+}
 
 }
 
 
-/* =========================
-   MEMBERS
-   ========================= */
+/* ================= COMMENTS SHEET ================= */
+
+async function openCommentsSheet(
+post,
+countElement
+){
+
+activeCommentPost=post;
+
+activeCommentCountElement=countElement;
+
+commentsSheet.classList.add("open");
+
+commentsBackdrop.classList.add("open");
+
+commentsSheet.setAttribute(
+"aria-hidden",
+"false"
+);
+
+sheetCommentInput.value="";
+
+sheetCommentsList.innerHTML=`
+<div class="alert-empty">
+<p>Loading comments...</p>
+</div>
+`;
+
+await loadComments(
+post.id,
+sheetCommentsList
+);
+
+setTimeout(()=>{
+sheetCommentInput.focus();
+},250);
+
+}
+
+
+function closeCommentsSheet(){
+
+commentsSheet.classList.remove("open");
+
+commentsBackdrop.classList.remove("open");
+
+commentsSheet.setAttribute(
+"aria-hidden",
+"true"
+);
+
+activeCommentPost=null;
+
+activeCommentCountElement=null;
+
+}
+
+
+document.getElementById("closeCommentsButton")
+.addEventListener(
+"click",
+closeCommentsSheet
+);
+
+
+commentsBackdrop.addEventListener(
+"click",
+closeCommentsSheet
+);
+
+
+document.addEventListener("keydown",event=>{
+
+if(event.key==="Escape"){
+
+closeCommentsSheet();
+
+}
+
+});
+
+
+/* ================= SEND COMMENT ================= */
+
+async function sendSheetComment(){
+
+if(!currentUser ||
+!activeCommentPost
+)return;
+
+
+const text=
+sheetCommentInput.value.trim();
+
+
+if(!text)return;
+
+
+sheetCommentSend.disabled=true;
+
+
+try{
+
+await addDoc(
+collection(
+db,
+"posts",
+activeCommentPost.id,
+"comments"
+),
+{
+userId:currentUser.uid,
+username:currentUsername,
+text:text,
+createdAt:serverTimestamp()
+}
+);
+
+
+if(
+activeCommentPost.authorId &&
+activeCommentPost.authorId!==currentUser.uid
+){
+
+await createNotification({
+recipientId:activeCommentPost.authorId,
+senderId:currentUser.uid,
+senderName:currentUsername,
+type:"comment",
+postId:activeCommentPost.id,
+commentText:text
+});
+
+}
+
+
+sheetCommentInput.value="";
+
+
+if(activeCommentCountElement){
+
+activeCommentCountElement.textContent=
+Number(
+activeCommentCountElement.textContent
+)+1;
+
+}
+
+
+await loadComments(
+activeCommentPost.id,
+sheetCommentsList
+);
+
+}catch(error){
+
+console.error(error);
+
+alert("Could not add comment.");
+
+}finally{
+
+sheetCommentSend.disabled=false;
+
+}
+
+}
+
+
+sheetCommentSend.addEventListener(
+"click",
+sendSheetComment
+);
+
+
+sheetCommentInput.addEventListener(
+"keydown",
+event=>{
+
+if(event.key==="Enter"){
+
+event.preventDefault();
+
+sendSheetComment();
+
+}
+
+});
+
+
+/* ================= LOAD COMMENTS ================= */
+
+async function loadComments(
+postId,
+container
+){
+
+try{
+
+const snapshot=
+await getDocs(
+collection(
+db,
+"posts",
+postId,
+"comments"
+)
+);
+
+
+const comments=[];
+
+
+snapshot.forEach(item=>{
+
+comments.push({
+id:item.id,
+...item.data()
+});
+
+});
+
+
+comments.sort((a,b)=>{
+
+const aTime=a.createdAt?.seconds||0;
+
+const bTime=b.createdAt?.seconds||0;
+
+return aTime-bTime;
+
+});
+
+
+if(!comments.length){
+
+container.innerHTML=`
+<div class="alert-empty">
+<p>No comments yet.</p>
+</div>
+`;
+
+return;
+
+}
+
+
+container.innerHTML="";
+
+
+comments.forEach(comment=>{
+
+const div=document.createElement("div");
+
+div.className="comment";
+
+
+div.innerHTML=`
+
+<div class="comment-top">
+
+<div class="comment-user">
+${escapeHTML(comment.username||"Member")}
+</div>
+
+${
+currentUser &&
+comment.userId===currentUser.uid
+?
+`<button class="delete-comment" type="button">Delete</button>`
+:
+""
+}
+
+</div>
+
+<div class="comment-text">
+${escapeHTML(comment.text||"")}
+</div>
+
+`;
+
+
+const deleteButton=
+div.querySelector(".delete-comment");
+
+
+if(deleteButton){
+
+deleteButton.addEventListener(
+"click",
+async()=>{
+
+try{
+
+await deleteDoc(
+doc(
+db,
+"posts",
+postId,
+"comments",
+comment.id
+)
+);
+
+
+div.remove();
+
+
+if(activeCommentCountElement){
+
+activeCommentCountElement.textContent=
+Math.max(
+0,
+Number(
+activeCommentCountElement.textContent
+)-1
+);
+
+}
+
+}catch(error){
+
+console.error(error);
+
+}
+
+});
+
+}
+
+
+container.appendChild(div);
+
+});
+
+}catch(error){
+
+console.error(error);
+
+container.innerHTML=`
+<div class="alert-empty">
+<p>Could not load comments.</p>
+</div>
+`;
+
+}
+
+}
+
+
+/* ================= MEMBERS ================= */
 
 async function loadMembers(){
 
-  if(allMembers.length>0)return;
+if(allMembers.length){
 
-  try{
+renderMemberSearchResults(
+document.getElementById(
+"userSearchInput"
+).value.trim()
+);
 
-    const snapshot=
-      await getDocs(
-        collection(db,"users")
-      );
-
-    allMembers=[];
-
-    snapshot.forEach(userDoc=>{
-      allMembers.push({
-        id:userDoc.id,
-        ...userDoc.data()
-      });
-    });
-
-    searchMembers();
-
-  }catch(error){
-
-    console.error(
-      "Members error:",
-      error
-    );
-
-  }
+return;
 
 }
 
 
-const userSearchButton=
-  document.getElementById(
-    "userSearchButton"
-  );
+try{
+
+const snapshot=
+await getDocs(
+collection(db,"users")
+);
+
+
+allMembers=[];
+
+snapshot.forEach(item=>{
+
+allMembers.push({
+id:item.id,
+...item.data()
+});
+
+});
+
+
+renderMemberSearchResults("");
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
 
 const userSearchInput=
-  document.getElementById(
-    "userSearchInput"
-  );
+document.getElementById("userSearchInput");
 
-const searchResults=
-  document.getElementById(
-    "searchResults"
-  );
+const userSearchButton=
+document.getElementById("userSearchButton");
 
 
-userSearchButton.addEventListener(
-  "click",
-  searchMembers
+userSearchButton.addEventListener("click",()=>{
+
+renderMemberSearchResults(
+userSearchInput.value.trim()
 );
+
+});
+
 
 userSearchInput.addEventListener(
-  "input",
-  searchMembers
+"input",
+()=>{
+
+renderMemberSearchResults(
+userSearchInput.value.trim()
 );
 
-userSearchInput.addEventListener(
-  "keydown",
-  event=>{
-    if(event.key==="Enter"){
-      searchMembers();
-    }
-  }
+}
 );
 
 
-async function searchMembers(){
+/* ================= MEMBER SEARCH ================= */
 
-  const searchText=
-    userSearchInput.value
-    .trim()
-    .toLowerCase();
+function renderMemberSearchResults(search=""){
 
-  if(!currentUser)return;
-
-  if(allMembers.length===0){
-    await loadMembers();
-    return;
-  }
-
-  searchResults.innerHTML="";
-
-  if(!searchText){
-
-    searchResults.innerHTML=`
-      <p
-        style="
-          color:#777f89;
-          font-size:13px;
-          padding:5px;
-        "
-      >
-        Start typing a member's name.
-      </p>
-    `;
-
-    return;
-  }
+const results=
+document.getElementById("searchResults");
 
 
-  const matches=
-    allMembers
-      .filter(
-        user=>
-          user.id!==currentUser.uid
-      )
-      .filter(
-        user=>
-          String(
-            user.username||
-            user.displayName||
-            ""
-          )
-          .toLowerCase()
-          .includes(searchText)
-      )
-      .sort(
-        (a,b)=>
-          String(
-            a.username||
-            a.displayName||
-            ""
-          )
-          .localeCompare(
-            String(
-              b.username||
-              b.displayName||
-              ""
-            )
-          )
-      )
-      .slice(0,20);
+const value=search.toLowerCase();
 
 
-  if(matches.length===0){
+if(!value){
 
-    searchResults.innerHTML=`
-      <p
-        style="
-          color:#777f89;
-          font-size:13px;
-          padding:5px;
-        "
-      >
-        No members found.
-      </p>
-    `;
+results.innerHTML="";
 
-    return;
-  }
-
-
-  for(const user of matches){
-    await renderMemberSearchResult(user);
-  }
+return;
 
 }
 
 
-async function renderMemberSearchResult(user){
+const filtered=allMembers
+.filter(user=>{
 
-  const result=
-    document.createElement("div");
+if(currentUser &&
+user.id===currentUser.uid){
 
-  result.className="search-result";
-
-  const name=
-    user.username||
-    user.displayName||
-    "Member";
-
-
-  result.innerHTML=`
-
-    <div class="search-user">
-
-      <div class="search-avatar">
-        ${escapeHTML(
-          name.charAt(0).toUpperCase()
-        )}
-      </div>
-
-      <div class="search-username">
-        ${escapeHTML(name)}
-      </div>
-
-    </div>
-
-    <button
-      class="follow-button"
-      type="button"
-    >
-      Follow
-    </button>
-  `;
-
-
-  result
-    .querySelector(".search-user")
-    .addEventListener(
-      "click",
-      ()=>openProfile(user.id)
-    );
-
-
-  const followButton=
-    result.querySelector(
-      ".follow-button"
-    );
-
-  const followId=
-    currentUser.uid+"_"+user.id;
-
-
-  try{
-
-    const followSnap=
-      await getDoc(
-        doc(
-          db,
-          "follows",
-          followId
-        )
-      );
-
-    if(followSnap.exists()){
-
-      followButton.textContent=
-        "Following";
-
-      followButton.disabled=true;
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "Follow check:",
-      error
-    );
-
-  }
-
-
-  followButton.addEventListener(
-    "click",
-    async event=>{
-
-      event.stopPropagation();
-
-      if(!currentUser)return;
-
-      followButton.disabled=true;
-
-      try{
-
-        await setDoc(
-          doc(
-            db,
-            "follows",
-            followId
-          ),
-          {
-            followerId:currentUser.uid,
-            followingId:user.id,
-            createdAt:serverTimestamp()
-          }
-        );
-
-        followButton.textContent=
-          "Following";
-
-        await createNotification({
-          recipientId:user.id,
-          senderId:currentUser.uid,
-          senderName:currentUsername,
-          type:"follow"
-        });
-
-      }catch(error){
-
-        console.error(
-          "Follow error:",
-          error
-        );
-
-        followButton.disabled=false;
-
-        alert(
-          (error.code||"Error")
-          +": "
-          +error.message
-        );
-
-      }
-
-    }
-  );
-
-
-  searchResults.appendChild(result);
+return false;
 
 }
 
 
-/* =========================
-   NOTIFICATIONS
-   ========================= */
+const username=
+user.username||
+user.displayName||
+"Member";
+
+
+return username
+.toLowerCase()
+.includes(value);
+
+})
+.slice(0,20);
+
+
+if(!filtered.length){
+
+results.innerHTML=`
+<div class="alert-empty">
+<p>No members found.</p>
+</div>
+`;
+
+return;
+
+}
+
+
+results.innerHTML="";
+
+
+filtered.forEach(user=>{
+
+results.appendChild(
+renderMemberSearchResult(user)
+);
+
+});
+
+}
+
+
+/* ================= MEMBER RESULT ================= */
+
+function renderMemberSearchResult(user){
+
+const row=document.createElement("div");
+
+row.className="search-result";
+
+
+const username=
+user.username||
+user.displayName||
+"Member";
+
+
+const initial=
+username.charAt(0).toUpperCase();
+
+
+row.innerHTML=`
+
+<div class="search-user">
+
+<div class="search-avatar">
+${escapeHTML(initial)}
+</div>
+
+<div class="search-username">
+${escapeHTML(username)}
+</div>
+
+</div>
+
+<button
+class="follow-button"
+type="button"
+>
+Follow
+</button>
+
+`;
+
+
+const searchUser=
+row.querySelector(".search-user");
+
+
+searchUser.addEventListener(
+"click",
+()=>{
+
+window.location.href=
+"profile.html?uid="+
+encodeURIComponent(user.id);
+
+}
+);
+
+
+const followButton=
+row.querySelector(".follow-button");
+
+
+checkFollowState(
+user.id,
+followButton
+);
+
+
+followButton.addEventListener(
+"click",
+async()=>{
+
+if(!currentUser)return;
+
+
+const followId=
+`${currentUser.uid}_${user.id}`;
+
+
+const followRef=
+doc(db,"follows",followId);
+
+
+const existing=
+await getDoc(followRef);
+
+
+if(existing.exists()){
+
+await deleteDoc(followRef);
+
+followButton.textContent="Follow";
+
+}else{
+
+await setDoc(
+followRef,
+{
+followerId:currentUser.uid,
+followingId:user.id,
+createdAt:serverTimestamp()
+}
+);
+
+followButton.textContent="Following";
+
+
+await createNotification({
+recipientId:user.id,
+senderId:currentUser.uid,
+senderName:currentUsername,
+type:"follow"
+});
+
+}
+
+});
+
+
+return row;
+
+}
+
+
+/* ================= FOLLOW STATE ================= */
+
+async function checkFollowState(
+userId,
+button
+){
+
+if(!currentUser)return;
+
+try{
+
+const followId=
+`${currentUser.uid}_${userId}`;
+
+const snap=
+await getDoc(
+doc(db,"follows",followId)
+);
+
+if(snap.exists()){
+
+button.textContent="Following";
+
+}
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+
+/* ================= NOTIFICATIONS ================= */
 
 async function createNotification(data){
 
-  try{
+try{
 
-    if(
-      !data.recipientId||
-      !data.senderId
-    ){
-      return;
-    }
+await addDoc(
+collection(db,"notifications"),
+{
+...data,
+createdAt:serverTimestamp(),
+read:false
+}
+);
 
-    await addDoc(
-      collection(db,"notifications"),
-      {
-        recipientId:data.recipientId,
-        senderId:data.senderId,
-        senderName:
-          data.senderName||"Member",
-        type:data.type,
-        postId:data.postId||"",
-        commentText:
-          data.commentText||"",
-        createdAt:serverTimestamp(),
-        read:false
-      }
-    );
+}catch(error){
 
-  }catch(error){
+console.error(error);
 
-    console.error(
-      "Notification error:",
-      error
-    );
-
-  }
+}
 
 }
 
 
-/* =========================
-   ALERTS
-   ========================= */
+/* ================= NOTIFICATION LISTENER ================= */
+
+function startNotificationsListener(){
+
+if(!currentUser)return;
+
+
+if(notificationsUnsubscribe){
+
+notificationsUnsubscribe();
+
+}
+
+
+const notificationsQuery=
+query(
+collection(db,"notifications"),
+where(
+"recipientId",
+"==",
+currentUser.uid
+),
+limit(100)
+);
+
+
+notificationsUnsubscribe=
+onSnapshot(
+notificationsQuery,
+async snapshot=>{
+
+const notifications=[];
+
+
+snapshot.forEach(item=>{
+
+notifications.push({
+id:item.id,
+...item.data()
+});
+
+});
+
+
+notifications.sort((a,b)=>{
+
+const aTime=a.createdAt?.seconds||0;
+
+const bTime=b.createdAt?.seconds||0;
+
+return bTime-aTime;
+
+});
+
+
+notificationsCache=notifications;
+
+updateUnreadAlertDot(
+notifications
+);
+
+await renderNotifications(
+notifications
+);
+
+},
+error=>{
+
+console.error(error);
+
+}
+);
+
+}
+
 
 async function loadNotifications(){
 
-  if(!currentUser)return;
+if(!currentUser)return;
 
-  try{
+if(!notificationsUnsubscribe){
 
-    const q=
-      query(
-        collection(db,"notifications"),
-        where(
-          "recipientId",
-          "==",
-          currentUser.uid
-        ),
-        limit(100)
-      );
+startNotificationsListener();
 
-    const snapshot=
-      await getDocs(q);
-
-    const notifications=[];
-
-    snapshot.forEach(
-      notificationDoc=>{
-        notifications.push({
-          id:notificationDoc.id,
-          ...notificationDoc.data()
-        });
-      }
-    );
-
-    notifications.sort(
-      (a,b)=>
-        (b.createdAt?.seconds||0)
-        -
-        (a.createdAt?.seconds||0)
-    );
-
-
-    if(notifications.length===0){
-
-      alertList.innerHTML=`
-
-        <div class="alert-empty">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path d="M18 8 a6 6 0 0 0-12 0 c0 7-3 7-3 9h18 c0-2-3-2-3-9"></path>
-            <path d="M10 21h4"></path>
-          </svg>
-
-          <h3>No new alerts</h3>
-
-          <p>
-            Your community notifications will appear here.
-          </p>
-
-        </div>
-      `;
-
-      return;
-    }
-
-
-    alertList.innerHTML="";
-
-
-    notifications.forEach(notification=>{
-
-      const element=
-        document.createElement("div");
-
-      element.className=
-        "notification"+
-        (
-          notification.read===true
-          ?""
-          :" unread"
-        );
-
-
-      let message="";
-      let icon="";
-
-
-      if(notification.type==="like"){
-
-        message=`
-          <b>
-            ${escapeHTML(
-              notification.senderName||
-              "Member"
-            )}
-          </b>
-          liked your post.
-        `;
-
-        icon=`
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path d="M20.8 8.7 C20.8 13.7 12 20 12 20 S3.2 13.7 3.2 8.7 C3.2 5.7 5.4 3.7 8.1 3.7 C9.8 3.7 11.3 4.6 12 5.9 C12.7 4.6 14.2 3.7 15.9 3.7 C18.6 3.7 20.8 5.7 20.8 8.7Z"></path>
-          </svg>
-        `;
-
-      }else if(notification.type==="comment"){
-
-        message=`
-          <b>
-            ${escapeHTML(
-              notification.senderName||
-              "Member"
-            )}
-          </b>
-          commented on your post.
-        `;
-
-        icon=`
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path d="M20 11.5 a7.5 7.5 0 0 1-7.5 7.5 H8l-4 2 1.5-4 A7.5 7.5 0 1 1 20 11.5Z"></path>
-          </svg>
-        `;
-
-      }else if(notification.type==="follow"){
-
-        message=`
-          <b>
-            ${escapeHTML(
-              notification.senderName||
-              "Member"
-            )}
-          </b>
-          started following you.
-        `;
-
-        icon=`
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <circle cx="12" cy="8" r="4"></circle>
-            <path d="M4 21 c0-4 3.5-7 8-7 s8 3 8 7"></path>
-          </svg>
-        `;
-
-      }else{
-
-        message=`
-          <b>
-            ${escapeHTML(
-              notification.senderName||
-              "Member"
-            )}
-          </b>
-          sent you a notification.
-        `;
-
-        icon=`
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path d="M18 8 a6 6 0 0 0-12 0 c0 7-3 7-3 9h18 c0-2-3-2-3-9"></path>
-            <path d="M10 21h4"></path>
-          </svg>
-        `;
-      }
-
-
-      element.innerHTML=`
-
-        <div class="notification-icon">
-          ${icon}
-        </div>
-
-        <div
-          style="
-            flex:1;
-            min-width:0;
-          "
-        >
-
-          <div class="notification-text">
-            ${message}
-          </div>
-
-          <div class="notification-time">
-            ${formatTime(
-              notification.createdAt
-            )}
-          </div>
-
-        </div>
-      `;
-
-
-      element.addEventListener(
-        "click",
-        async()=>{
-
-          try{
-
-            if(
-              notification.read!==true
-            ){
-
-              await setDoc(
-                doc(
-                  db,
-                  "notifications",
-                  notification.id
-                ),
-                {
-                  read:true
-                },
-                {
-                  merge:true
-                }
-              );
-
-              element.classList.remove(
-                "unread"
-              );
-
-              notification.read=true;
-            }
-
-            if(notification.postId){
-              showSection("homeSection");
-            }
-
-          }catch(error){
-
-            console.error(
-              "Read notification error:",
-              error
-            );
-
-          }
-
-        }
-      );
-
-
-      alertList.appendChild(element);
-
-    });
-
-
-  }catch(error){
-
-    console.error(
-      "Notifications error:",
-      error
-    );
-
-    alertList.innerHTML=`
-
-      <div class="alert-empty">
-
-        <h3>Couldn't load alerts</h3>
-
-        <p>Please try again later.</p>
-
-      </div>
-    `;
-
-  }
+}
 
 }
 
 
-/* =========================
-   HELPERS
-   ========================= */
+/* ================= ALERT DOT ================= */
 
-function escapeHTML(text){
+function updateUnreadAlertDot(
+notifications
+){
 
-  const div=
-    document.createElement("div");
+const unread=
+notifications.some(
+item=>item.read!==true
+);
 
-  div.textContent=
-    String(text??"");
 
-  return div.innerHTML;
+alertNavDot.style.display=
+unread ? "block" : "none";
+
 }
 
 
-function escapeAttribute(text){
+/* ================= MEMBER PROFILE / DP ================= */
 
-  return String(text)
-    .replace(/&/g,"&amp;")
-    .replace(/"/g,"&quot;")
-    .replace(/</g,"&lt;");
+async function getMemberProfile(
+userId,
+fallbackName
+){
+
+if(!userId){
+
+return{
+name:fallbackName||"Member",
+photoURL:""
+};
+
 }
 
+
+if(avatarCache.has(userId)){
+
+return avatarCache.get(userId);
+
+}
+
+
+let profile={
+name:fallbackName||"Member",
+photoURL:""
+};
+
+
+try{
+
+const snap=
+await getDoc(
+doc(db,"users",userId)
+);
+
+
+if(snap.exists()){
+
+const data=snap.data();
+
+
+profile.name=
+data.username||
+data.displayName||
+profile.name;
+
+
+profile.photoURL=
+data.photoURL||
+data.profilePhotoURL||
+data.profilePhoto||
+data.photo||
+data.avatarUrl||
+"";
+
+}
+
+}catch(error){
+
+console.error(error);
+
+}
+
+
+avatarCache.set(
+userId,
+profile
+);
+
+
+return profile;
+
+}
+
+
+/* ================= RENDER NOTIFICATIONS ================= */
+
+async function renderNotifications(
+notifications
+){
+
+if(!notifications.length){
+
+alertList.innerHTML=`
+<div class="alert-empty">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+<path d="M10 21h4"/>
+</svg>
+
+<h3>No alerts yet</h3>
+
+<p>Your notifications will appear here.</p>
+
+</div>
+`;
+
+return;
+
+}
+
+
+alertList.innerHTML="";
+
+
+for(const notification of notifications){
+
+const profile=
+await getMemberProfile(
+notification.senderId,
+notification.senderName
+);
+
+
+const row=
+document.createElement("div");
+
+
+row.className=
+"notification"+
+(
+notification.read!==true
+?
+" unread"
+:
+""
+);
+
+
+const fallbackInitial=
+(
+notification.senderName||
+profile.name||
+"Member"
+)
+.charAt(0)
+.toUpperCase();
+
+
+const avatarHTML=
+profile.photoURL
+?
+`
+<img
+src="${escapeAttribute(profile.photoURL)}"
+alt=""
+>
+`
+:
+escapeHTML(fallbackInitial);
+
+
+let message="";
+
+
+if(notification.type==="like"){
+
+message=`
+<b>${escapeHTML(notification.senderName||"Someone")}</b>
+liked your post.
+`;
+
+}else if(notification.type==="comment"){
+
+message=`
+<b>${escapeHTML(notification.senderName||"Someone")}</b>
+commented on your post.
+`;
+
+}else if(notification.type==="follow"){
+
+message=`
+<b>${escapeHTML(notification.senderName||"Someone")}</b>
+started following you.
+`;
+
+}else{
+
+message=`
+<b>${escapeHTML(notification.senderName||"Someone")}</b>
+sent you a notification.
+`;
+
+}
+
+
+row.innerHTML=`
+
+<div class="notification-avatar">
+${avatarHTML}
+</div>
+
+<div class="notification-text">
+
+<div>
+${message}
+</div>
+
+<div class="notification-time">
+${formatTime(notification.createdAt)}
+</div>
+
+</div>
+
+${
+notification.read!==true
+?
+`<span class="notification-dot"></span>`
+:
+""
+}
+
+`;
+
+
+row.addEventListener(
+"click",
+async()=>{
+
+try{
+
+await setDoc(
+doc(
+db,
+"notifications",
+notification.id
+),
+{
+read:true
+},
+{
+merge:true
+}
+);
+
+
+notification.read=true;
+
+
+row.classList.remove("unread");
+
+
+const dot=
+row.querySelector(
+".notification-dot"
+);
+
+
+if(dot){
+
+dot.remove();
+
+}
+
+
+updateUnreadAlertDot(
+notificationsCache
+);
+
+
+if(notification.postId){
+
+showSection("homeSection");
+
+}
+
+}catch(error){
+
+console.error(error);
+
+}
+
+});
+
+
+alertList.appendChild(row);
+
+}
+
+}
+
+
+/* ================= TIME ================= */
 
 function formatTime(timestamp){
 
-  if(
-    !timestamp||
-    !timestamp.seconds
-  ){
-    return "Just now";
-  }
+if(!timestamp)return"Just now";
 
-  const date=
-    new Date(
-      timestamp.seconds*1000
-    );
 
-  const now=new Date();
+const date=
+timestamp.toDate
+?
+timestamp.toDate()
+:
+new Date(timestamp);
 
-  const diff=
-    Math.floor(
-      (now-date)/1000
-    );
 
-  if(diff<60)
-    return "Just now";
+const diff=
+Date.now()-date.getTime();
 
-  if(diff<3600)
-    return Math.floor(diff/60)+"m ago";
 
-  if(diff<86400)
-    return Math.floor(diff/3600)+"h ago";
+const seconds=
+Math.floor(diff/1000);
 
-  if(diff<604800)
-    return Math.floor(diff/86400)+"d ago";
 
-  return date.toLocaleDateString(
-    "en-IN",
-    {
-      day:"numeric",
-      month:"short"
-    }
-  );
+if(seconds<60){
+
+return"Just now";
+
+}
+
+
+const minutes=
+Math.floor(seconds/60);
+
+
+if(minutes<60){
+
+return`${minutes}m`;
+
+}
+
+
+const hours=
+Math.floor(minutes/60);
+
+
+if(hours<24){
+
+return`${hours}h`;
+
+}
+
+
+const days=
+Math.floor(hours/24);
+
+
+if(days<7){
+
+return`${days}d`;
+
+}
+
+
+return date.toLocaleDateString(
+undefined,
+{
+day:"numeric",
+month:"short"
+}
+);
+
 }
 
 </script>
