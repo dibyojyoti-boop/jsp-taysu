@@ -4,391 +4,1061 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>JSP TAYSU Community</title>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+
 :root{
-  --bg:#080a0d;--card:#0f1217;--card2:#151920;--line:#252a31;
-  --text:#f5f7fa;--muted:#8d95a1;--blue:#1d9bf0;--blue2:#147dcc;
-  --like:#f04470;--green:#22c55e;--gold:#d7bd8c;
+  --bg:#080a0d;
+  --card:#0f1217;
+  --card2:#151920;
+  --line:#252a31;
+  --text:#f5f7fa;
+  --muted:#8d95a1;
+  --blue:#1d9bf0;
+  --blue2:#147dcc;
+  --like:#f04470;
+  --green:#22c55e;
+  --gold:#d7bd8c;
 }
+
 html{scroll-behavior:smooth}
+
 body{
   font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  background:var(--bg);color:var(--text);padding-bottom:82px
+  background:var(--bg);
+  color:var(--text);
+  padding-bottom:82px;
 }
+
 button,input,textarea{font:inherit}
 button{cursor:pointer}
 
 .topbar{
-  position:sticky;top:0;z-index:100;
+  position:sticky;
+  top:0;
+  z-index:100;
   background:rgba(8,10,13,.91);
   backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--line)
-}
-.topbar-inner{
-  max-width:700px;margin:auto;height:62px;padding:0 15px;
-  display:flex;align-items:center;justify-content:space-between
-}
-.logo{
-  display:flex;align-items:center;gap:9px;font-size:17px;
-  font-weight:850;letter-spacing:-.4px
-}
-.logo-mark{
-  width:34px;height:34px;border-radius:11px;background:#151a21;
-  border:1px solid #303741;display:grid;place-items:center;font-size:19px
-}
-.profile-name{
-  max-width:160px;color:#aeb5bf;font-size:13px;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+  border-bottom:1px solid var(--line);
 }
 
-.container{max-width:700px;margin:auto;padding:13px 10px 28px}
+.topbar-inner{
+  max-width:700px;
+  margin:auto;
+  height:62px;
+  padding:0 15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-size:17px;
+  font-weight:850;
+  letter-spacing:-.4px;
+}
+
+.logo-mark{
+  width:34px;
+  height:34px;
+  border-radius:11px;
+  background:#151a21;
+  border:1px solid #303741;
+  display:grid;
+  place-items:center;
+  font-size:19px;
+}
+
+.profile-name{
+  max-width:160px;
+  color:#aeb5bf;
+  font-size:13px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:13px 10px 28px;
+}
+
 .page-section{display:none}
 .page-section.active{display:block}
 
+/* ================= COMMUNITY ================= */
+
 .feed-heading{
-  height:45px;display:flex;align-items:center;
-  justify-content:space-between;padding:0 5px
+  height:45px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 5px;
 }
-.feed-heading h2{font-size:21px;letter-spacing:-.6px}
+
+.feed-heading h2{
+  font-size:21px;
+  letter-spacing:-.6px;
+}
 
 .icon-btn{
-  width:36px;height:36px;border:1px solid var(--line);
-  border-radius:11px;background:#11151a;color:#d7dde5;
-  display:grid;place-items:center
+  width:36px;
+  height:36px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:#11151a;
+  color:#d7dde5;
+  display:grid;
+  place-items:center;
 }
-.icon-btn svg{width:19px;height:19px}
 
-.search-strip{display:none;padding:0 2px 10px}
+.icon-btn svg{
+  width:19px;
+  height:19px;
+}
+
+.search-strip{
+  display:none;
+  padding:0 2px 10px;
+}
+
 .search-strip.show{display:block}
+
 .search-strip input{
-  width:100%;background:#11151a;border:1px solid #303640;
-  color:#fff;border-radius:13px;padding:11px 13px;outline:none
+  width:100%;
+  background:#11151a;
+  border:1px solid #303640;
+  color:#fff;
+  border-radius:13px;
+  padding:11px 13px;
+  outline:none;
+}
+
+/* IMPORTANT: natural post height */
+#posts{
+  display:flex;
+  flex-direction:column;
+  gap:0;
 }
 
 .post{
-  background:var(--card);border-bottom:1px solid #20252c;
-  padding:13px 9px 8px
+  background:var(--card);
+  border-bottom:1px solid #20252c;
+  padding:13px 9px 9px;
+  overflow:hidden;
 }
-.post:first-child{border-top:1px solid #20252c}
+
+.post:first-child{
+  border-top:1px solid #20252c;
+}
 
 .post-header{
-  display:flex;gap:10px;align-items:flex-start;cursor:pointer
-}
-.avatar{
-  width:43px;height:43px;flex:0 0 43px;border-radius:50%;
-  background:linear-gradient(145deg,#26384b,#171b21);
-  border:1px solid #46515e;display:grid;place-items:center;
-  font-weight:850;color:#e9edf2
-}
-.author-wrap{min-width:0;flex:1}
-.author-line{
-  display:flex;align-items:center;gap:5px;line-height:1.15
-}
-.author{
-  font-size:14px;font-weight:800;max-width:210px;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap
-}
-.verified{color:var(--blue);display:inline-flex}
-.verified svg{width:14px;height:14px;fill:currentColor}
-.handle{color:#747d88;font-size:12px;margin-top:3px}
-.post-time{color:#69727e;font-size:11px;margin-top:3px}
-.more{
-  color:#68717c;margin-left:auto;padding:4px;
-  background:none;border:0
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  cursor:pointer;
 }
 
+.avatar{
+  width:43px;
+  height:43px;
+  flex:0 0 43px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#26384b,#171b21);
+  border:1px solid #46515e;
+  display:grid;
+  place-items:center;
+  font-weight:850;
+  color:#e9edf2;
+}
+
+.author-wrap{
+  min-width:0;
+  flex:1;
+}
+
+.author-line{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  line-height:1.15;
+  width:100%;
+}
+
+.author{
+  font-size:14px;
+  font-weight:800;
+  max-width:210px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.verified{
+  color:var(--blue);
+  display:inline-flex;
+}
+
+.verified svg{
+  width:14px;
+  height:14px;
+  fill:currentColor;
+}
+
+.handle{
+  color:#747d88;
+  font-size:12px;
+  margin-top:3px;
+}
+
+.more{
+  color:#68717c;
+  margin-left:auto;
+  padding:4px;
+  background:none;
+  border:0;
+}
+
+/*
+  FIX:
+  Text is no longer vertically centered or given
+  unnecessary height. It grows only as much as needed.
+*/
 .post-text{
-  font-size:15.5px;line-height:1.46;white-space:pre-wrap;
-  overflow-wrap:anywhere;margin:7px 2px 7px 53px
+  display:block;
+  width:calc(100% - 53px);
+  margin:8px 0 8px 53px;
+  padding:0;
+  font-size:15.5px;
+  line-height:1.46;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  word-break:normal;
+  min-height:0;
+  height:auto;
 }
+
 .post-media{
-  display:block;width:calc(100% - 53px);margin:5px 0 7px 53px;
-  border:1px solid #252b32;border-radius:15px;max-height:560px;
-  object-fit:cover;background:#050608
+  display:block;
+  width:calc(100% - 53px);
+  margin:6px 0 8px 53px;
+  border:1px solid #252b32;
+  border-radius:15px;
+  max-height:560px;
+  object-fit:cover;
+  background:#050608;
 }
+
 .post-video{
-  display:block;width:calc(100% - 53px);margin:5px 0 7px 53px;
-  border:1px solid #252b32;border-radius:15px;max-height:560px;
-  background:#050608
+  display:block;
+  width:calc(100% - 53px);
+  margin:6px 0 8px 53px;
+  border:1px solid #252b32;
+  border-radius:15px;
+  max-height:560px;
+  background:#050608;
 }
 
 .actions{
-  width:calc(100% - 53px);margin-left:53px;
-  display:flex;justify-content:space-between;align-items:center;
-  padding:2px 0 0
+  width:calc(100% - 53px);
+  margin-left:53px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:1px 0 0;
 }
+
 .action{
-  border:0;background:none;color:#7e8792;display:flex;
-  align-items:center;gap:5px;min-height:34px;padding:5px 8px;
-  border-radius:10px;font-size:11px;transition:.18s
+  border:0;
+  background:none;
+  color:#7e8792;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  min-height:34px;
+  padding:5px 8px;
+  border-radius:10px;
+  font-size:11px;
+  transition:.18s;
 }
-.action svg{width:18px;height:18px;stroke-width:1.9}
-.action:hover{background:#171b21;color:#e7ebef}
-.action.like.liked{color:var(--like)}
-.action.comment.open{color:var(--blue)}
-.action.share:hover{color:#22c55e}
-.action b{font-weight:650;color:inherit}
+
+.action svg{
+  width:18px;
+  height:18px;
+  stroke-width:1.9;
+}
+
+.action:hover{
+  background:#171b21;
+  color:#e7ebef;
+}
+
+.action.like.liked{
+  color:var(--like);
+}
+
+.action.comment.open{
+  color:var(--blue);
+}
+
+.action.share:hover{
+  color:#22c55e;
+}
+
+.action b{
+  font-weight:650;
+  color:inherit;
+}
 
 .comments{
-  display:none;width:calc(100% - 53px);margin:5px 0 0 53px;
-  padding-top:7px;border-top:1px solid #23282f
+  display:none;
+  width:calc(100% - 53px);
+  margin:5px 0 0 53px;
+  padding-top:7px;
+  border-top:1px solid #23282f;
 }
-.comment{padding:8px 0;border-bottom:1px solid #1f242a}
-.comment:last-child{border-bottom:0}
+
+.comment{
+  padding:8px 0;
+  border-bottom:1px solid #1f242a;
+}
+
+.comment:last-child{
+  border-bottom:0;
+}
+
 .comment-top{
-  display:flex;justify-content:space-between;gap:8px
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
 }
-.comment-user{font-size:12px;font-weight:800}
+
+.comment-user{
+  font-size:12px;
+  font-weight:800;
+}
+
 .comment-text{
-  font-size:13px;color:#c5cbd3;line-height:1.4;margin-top:2px;
-  white-space:pre-wrap;overflow-wrap:anywhere
+  font-size:13px;
+  color:#c5cbd3;
+  line-height:1.4;
+  margin-top:2px;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
 }
+
 .delete-comment{
-  background:none;border:0;color:#7e8792;font-size:10px
+  background:none;
+  border:0;
+  color:#7e8792;
+  font-size:10px;
 }
-.comment-form{display:flex;gap:7px;margin-top:7px}
+
+.comment-form{
+  display:flex;
+  gap:7px;
+  margin-top:7px;
+}
+
 .comment-input{
-  min-width:0;flex:1;background:#12161b;border:1px solid #2a3037;
-  border-radius:11px;color:#fff;padding:9px 10px;outline:none
+  min-width:0;
+  flex:1;
+  background:#12161b;
+  border:1px solid #2a3037;
+  border-radius:11px;
+  color:#fff;
+  padding:9px 10px;
+  outline:none;
 }
+
 .comment-send{
-  border:0;background:var(--blue);color:#fff;border-radius:11px;
-  padding:0 13px;font-weight:750
+  border:0;
+  background:var(--blue);
+  color:#fff;
+  border-radius:11px;
+  padding:0 13px;
+  font-weight:750;
 }
 
 .empty{
-  margin-top:10px;text-align:center;border:1px solid var(--line);
-  background:var(--card);border-radius:17px;padding:45px 20px;
-  color:var(--muted)
+  margin-top:10px;
+  text-align:center;
+  border:1px solid var(--line);
+  background:var(--card);
+  border-radius:17px;
+  padding:45px 20px;
+  color:var(--muted);
 }
-.empty-icon{
-  width:48px;height:48px;margin:0 auto 12px;border-radius:15px;
-  background:#171b21;display:grid;place-items:center;color:var(--blue)
-}
-.empty-icon svg{width:25px;height:25px}
-.empty h3{color:#e9edf1;font-size:16px;margin-bottom:5px}
-.empty p{font-size:13px}
 
-.create-title,.explore-title,.alert-title{
-  padding:7px 4px 14px
+.empty-icon{
+  width:48px;
+  height:48px;
+  margin:0 auto 12px;
+  border-radius:15px;
+  background:#171b21;
+  display:grid;
+  place-items:center;
+  color:var(--blue);
 }
-.create-title h1,.explore-title h1,.alert-title h1{
-  font-size:27px;letter-spacing:-1px
+
+.empty h3{
+  color:#e9edf1;
+  font-size:16px;
+  margin-bottom:5px;
 }
-.create-title p,.explore-title p{
-  font-size:13px;color:var(--muted);margin-top:4px
+
+.empty p{
+  font-size:13px;
 }
+
+/* ================= CREATE ================= */
+
+.create-title,
+.explore-title,
+.alert-title{
+  padding:7px 4px 14px;
+}
+
+.create-title h1,
+.explore-title h1,
+.alert-title h1{
+  font-size:27px;
+  letter-spacing:-1px;
+}
+
+.create-title p,
+.explore-title p{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
 .create-card{
-  background:var(--card);border:1px solid var(--line);
-  border-radius:17px;padding:14px
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:17px;
+  padding:14px;
 }
+
 .composer{
-  display:flex;align-items:center;gap:10px;margin-bottom:9px
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:9px;
 }
-.composer-name{font-size:14px;font-weight:800}
-.composer-sub{font-size:11px;color:var(--muted);margin-top:2px}
+
+.composer-name{
+  font-size:14px;
+  font-weight:800;
+}
+
+.composer-sub{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:2px;
+}
 
 #postText{
-  width:100%;min-height:125px;resize:vertical;border:0;outline:0;
-  border-radius:13px;background:#14181e;color:#f4f6f8;
-  padding:12px;font-size:15px;line-height:1.48
+  width:100%;
+  min-height:125px;
+  resize:vertical;
+  border:0;
+  outline:0;
+  border-radius:13px;
+  background:#14181e;
+  color:#f4f6f8;
+  padding:12px;
+  font-size:15px;
+  line-height:1.48;
 }
-#postText::placeholder{color:#6d7580}
 
-.preview{display:none;position:relative;margin-top:9px}
-.preview img,.preview video{
-  width:100%;max-height:420px;object-fit:cover;
-  border-radius:14px;background:#050608
+#postText::placeholder{
+  color:#6d7580;
 }
+
+.preview{
+  display:none;
+  position:relative;
+  margin-top:9px;
+}
+
+.preview img,
+.preview video{
+  width:100%;
+  max-height:420px;
+  object-fit:cover;
+  border-radius:14px;
+  background:#050608;
+}
+
 .remove{
-  position:absolute;right:8px;top:8px;width:31px;height:31px;
-  border:0;border-radius:50%;background:rgba(0,0,0,.78);
-  color:#fff;font-size:19px
+  position:absolute;
+  right:8px;
+  top:8px;
+  width:31px;
+  height:31px;
+  border:0;
+  border-radius:50%;
+  background:rgba(0,0,0,.78);
+  color:#fff;
+  font-size:19px;
 }
+
 .create-bottom{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-top:10px;gap:8px
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:10px;
+  gap:8px;
 }
-.media-row{display:flex;gap:6px}
+
+.media-row{
+  display:flex;
+  gap:6px;
+}
+
 .media-btn{
-  border:1px solid #303741;background:#151920;color:#aeb6c0;
-  border-radius:10px;padding:8px 10px;display:flex;
-  align-items:center;gap:5px;font-size:12px;font-weight:650
+  border:1px solid #303741;
+  background:#151920;
+  color:#aeb6c0;
+  border-radius:10px;
+  padding:8px 10px;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  font-size:12px;
+  font-weight:650;
 }
-.media-btn svg{width:16px;height:16px;color:var(--blue)}
+
+.media-btn svg{
+  width:16px;
+  height:16px;
+  color:var(--blue);
+}
+
 .post-btn{
-  border:0;background:var(--blue);color:#fff;border-radius:11px;
-  padding:9px 17px;font-weight:800
+  border:0;
+  background:var(--blue);
+  color:#fff;
+  border-radius:11px;
+  padding:9px 17px;
+  font-weight:800;
 }
-.post-btn:hover{background:var(--blue2)}
-.post-btn:disabled{opacity:.55;cursor:default}
-.hidden{display:none}
 
-.search-main{display:flex;gap:8px}
+.post-btn:hover{
+  background:var(--blue2);
+}
+
+.post-btn:disabled{
+  opacity:.55;
+  cursor:default;
+}
+
+.hidden{
+  display:none;
+}
+
+/* ================= EXPLORE ================= */
+
+.search-main{
+  display:flex;
+  gap:8px;
+}
+
 .search-main input{
-  flex:1;min-width:0;background:#11151a;border:1px solid #303640;
-  color:#fff;border-radius:13px;padding:12px 14px;outline:none
+  flex:1;
+  min-width:0;
+  background:#11151a;
+  border:1px solid #303640;
+  color:#fff;
+  border-radius:13px;
+  padding:12px 14px;
+  outline:none;
 }
-.search-main button{
-  width:48px;border:0;border-radius:13px;background:var(--blue);
-  color:#fff;display:grid;place-items:center
-}
-.search-main svg{width:20px;height:20px}
 
-.search-results{margin-top:10px}
+.search-main button{
+  width:48px;
+  border:0;
+  border-radius:13px;
+  background:var(--blue);
+  color:#fff;
+  display:grid;
+  place-items:center;
+}
+
+.search-main svg{
+  width:20px;
+  height:20px;
+}
+
+.search-results{
+  margin-top:10px;
+}
+
 .search-result{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:8px;background:var(--card);border:1px solid var(--line);
-  border-radius:14px;padding:10px;margin-bottom:7px
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:10px;
+  margin-bottom:7px;
 }
+
 .search-user{
-  display:flex;align-items:center;gap:9px;min-width:0;cursor:pointer
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-width:0;
+  cursor:pointer;
 }
+
 .search-avatar{
-  width:39px;height:39px;border-radius:50%;background:#202833;
-  border:1px solid #414c58;display:grid;place-items:center;
-  font-weight:800
+  width:39px;
+  height:39px;
+  border-radius:50%;
+  background:#202833;
+  border:1px solid #414c58;
+  display:grid;
+  place-items:center;
+  font-weight:800;
 }
+
 .search-username{
-  font-size:13px;font-weight:750;overflow:hidden;
-  text-overflow:ellipsis;white-space:nowrap
+  font-size:13px;
+  font-weight:750;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
+
 .follow-btn{
-  border:0;background:var(--blue);color:#fff;padding:8px 13px;
-  border-radius:10px;font-size:12px;font-weight:800;min-width:78px
+  border:0;
+  background:var(--blue);
+  color:#fff;
+  padding:8px 13px;
+  border-radius:10px;
+  font-size:12px;
+  font-weight:800;
+  min-width:78px;
 }
+
 .follow-btn.following{
-  background:#315b7b;color:#cfe9ff;opacity:.78
+  background:#315b7b;
+  color:#cfe9ff;
+  opacity:.78;
 }
-.follow-btn:disabled{cursor:default}
+
+.follow-btn:disabled{
+  cursor:default;
+}
 
 .explore-feed-title{
-  display:flex;align-items:center;justify-content:space-between;
-  margin:20px 3px 9px
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin:20px 3px 9px;
 }
-.explore-feed-title h2{font-size:17px}
-.tabs{display:flex;gap:5px}
+
+.explore-feed-title h2{
+  font-size:17px;
+}
+
+.tabs{
+  display:flex;
+  gap:5px;
+}
+
 .tab{
-  border:1px solid var(--line);background:#11151a;color:#818a95;
-  border-radius:9px;padding:6px 9px;font-size:11px
+  border:1px solid var(--line);
+  background:#11151a;
+  color:#818a95;
+  border-radius:9px;
+  padding:6px 9px;
+  font-size:11px;
 }
+
 .tab.active{
-  background:#1b2631;color:#dceeff;border-color:#31566f
+  background:#1b2631;
+  color:#dceeff;
+  border-color:#31566f;
 }
-.explore-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:3px
+
+/*
+  EXPLORE MEDIA:
+  Real photo/video posts stay in a grid.
+*/
+.explore-media-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:3px;
 }
-.tile{
-  aspect-ratio:1/1;background:#101318;overflow:hidden;
-  position:relative;border-radius:2px;cursor:pointer
+
+.media-tile{
+  aspect-ratio:1/1;
+  background:#101318;
+  overflow:hidden;
+  position:relative;
+  border-radius:3px;
+  cursor:pointer;
 }
-.tile img,.tile video{
-  width:100%;height:100%;object-fit:cover;display:block
+
+.media-tile img,
+.media-tile video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
 }
-.tile .tile-text{
-  padding:11px;font-size:12px;line-height:1.35;color:#d9dde2;
-  display:-webkit-box;-webkit-line-clamp:6;
-  -webkit-box-orient:vertical;overflow:hidden
+
+.media-tile.reel:after{
+  content:"▶";
+  position:absolute;
+  right:7px;
+  top:7px;
+  background:rgba(0,0,0,.62);
+  border-radius:7px;
+  padding:4px 6px;
+  font-size:10px;
 }
-.tile.reel:after{
-  content:"▶";position:absolute;right:7px;top:7px;
-  background:rgba(0,0,0,.62);border-radius:7px;
-  padding:4px 6px;font-size:10px
+
+/*
+  EXPLORE TEXT POSTS:
+  No square boxes.
+  Each bubble is only as tall as its text.
+*/
+.explore-text-feed{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:8px;
+  margin-top:10px;
 }
+
+.text-bubble{
+  width:fit-content;
+  max-width:100%;
+  background:#11151a;
+  border:1px solid #292f36;
+  border-radius:16px;
+  padding:10px 13px;
+  color:#e3e7ec;
+  font-size:14px;
+  line-height:1.42;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  cursor:pointer;
+  transition:.18s;
+}
+
+.text-bubble:hover{
+  background:#151a20;
+  border-color:#39424c;
+}
+
+.text-bubble-author{
+  display:block;
+  color:#7f8994;
+  font-size:10px;
+  margin-top:6px;
+}
+
+.text-bubble-author b{
+  color:#aeb6c0;
+  font-weight:700;
+}
+
+.explore-empty{
+  width:100%;
+  text-align:center;
+  color:var(--muted);
+  padding:28px 10px;
+  font-size:13px;
+}
+
+/* ================= ALERTS ================= */
 
 .notification{
-  display:flex;align-items:flex-start;gap:11px;background:var(--card);
-  border:1px solid var(--line);border-radius:14px;padding:12px;
-  margin-bottom:7px;cursor:pointer
+  display:flex;
+  align-items:flex-start;
+  gap:11px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px;
+  margin-bottom:7px;
+  cursor:pointer;
 }
+
 .notification.unread{
-  border-color:#2f5570;background:#101820
+  border-color:#2f5570;
+  background:#101820;
 }
+
 .notification-icon{
-  width:40px;height:40px;flex:0 0 40px;border-radius:50%;
-  background:#17202a;display:grid;place-items:center;color:var(--blue)
+  width:40px;
+  height:40px;
+  flex:0 0 40px;
+  border-radius:50%;
+  background:#17202a;
+  display:grid;
+  place-items:center;
+  color:var(--blue);
 }
-.notification-icon.like{color:var(--like)}
-.notification-icon.follow{color:var(--blue)}
-.notification-icon.comment{color:#a98cff}
-.notification-icon svg{width:19px;height:19px}
+
+.notification-icon.like{
+  color:var(--like);
+}
+
+.notification-icon.follow{
+  color:var(--blue);
+}
+
+.notification-icon.comment{
+  color:#a98cff;
+}
+
+.notification-icon svg{
+  width:19px;
+  height:19px;
+}
+
 .notification-text{
-  font-size:13px;line-height:1.4;color:#dfe3e8
+  font-size:13px;
+  line-height:1.4;
+  color:#dfe3e8;
 }
-.notification-text b{color:#fff}
+
+.notification-text b{
+  color:#fff;
+}
+
 .notification-time{
-  font-size:10px;color:#707985;margin-top:3px
+  font-size:10px;
+  color:#707985;
+  margin-top:3px;
 }
+
 .alert-tools{
-  display:flex;justify-content:flex-end;margin-bottom:8px
+  display:flex;
+  justify-content:flex-end;
+  margin-bottom:8px;
 }
+
 .read-all{
-  border:1px solid #303640;background:#12161b;color:#aeb6c0;
-  border-radius:9px;padding:7px 10px;font-size:11px
+  border:1px solid #303640;
+  background:#12161b;
+  color:#aeb6c0;
+  border-radius:9px;
+  padding:7px 10px;
+  font-size:11px;
 }
-.alert-empty{text-align:center;padding:50px 20px;color:var(--muted)}
+
+.alert-empty{
+  text-align:center;
+  padding:50px 20px;
+  color:var(--muted);
+}
+
 .alert-empty svg{
-  width:35px;height:35px;color:var(--blue);margin-bottom:10px
+  width:35px;
+  height:35px;
+  color:var(--blue);
+  margin-bottom:10px;
 }
+
 .alert-empty h3{
-  color:#e9edf1;margin-bottom:5px;font-size:16px
+  color:#e9edf1;
+  margin-bottom:5px;
+  font-size:16px;
 }
-.alert-empty p{font-size:13px}
+
+.alert-empty p{
+  font-size:13px;
+}
+
+/* ================= BOTTOM NAV ================= */
 
 .bottom-nav{
-  position:fixed;left:0;right:0;bottom:0;height:73px;z-index:200;
-  background:rgba(8,10,13,.96);backdrop-filter:blur(20px);
-  border-top:1px solid var(--line);display:flex;
-  justify-content:center;padding:5px 7px;
-  box-shadow:0 -10px 28px rgba(0,0,0,.24)
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:73px;
+  z-index:200;
+  background:rgba(8,10,13,.96);
+  backdrop-filter:blur(20px);
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:center;
+  padding:5px 7px;
+  box-shadow:0 -10px 28px rgba(0,0,0,.24);
 }
+
 .nav-item{
-  flex:1;max-width:120px;border:0;background:none;color:#737c88;
-  border-radius:13px;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:4px;
-  transition:.18s;position:relative
+  flex:1;
+  max-width:120px;
+  border:0;
+  background:none;
+  color:#737c88;
+  border-radius:13px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  transition:.18s;
+  position:relative;
 }
-.nav-item svg{width:21px;height:21px;stroke-width:1.8}
-.nav-item span{font-size:10px}
-.nav-item:hover{background:#12161b;color:#dfe5eb}
-.nav-item.active{color:#fff}
-.nav-item.active.home{color:#fff}
-.nav-item.explore-active{color:var(--blue)}
-.nav-item.alert-active{color:#b18cff}
-.nav-item.create-active{color:var(--green)}
+
+.nav-item svg{
+  width:21px;
+  height:21px;
+  stroke-width:1.8;
+}
+
+.nav-item span{
+  font-size:10px;
+}
+
+.nav-item:hover{
+  background:#12161b;
+  color:#dfe5eb;
+}
+
+.nav-item.active{
+  color:#fff;
+}
+
+.nav-item.explore-active{
+  color:var(--blue);
+}
+
+.nav-item.alert-active{
+  color:#b18cff;
+}
+
+.nav-item.create-active{
+  color:var(--green);
+}
 
 .create-plus{
-  width:34px;height:30px;border-radius:10px;background:#16261d;
-  border:1px solid #315c40;display:grid;place-items:center
+  width:34px;
+  height:30px;
+  border-radius:10px;
+  background:#16261d;
+  border:1px solid #315c40;
+  display:grid;
+  place-items:center;
 }
-.create-plus svg{width:18px;height:18px}
+
+.create-plus svg{
+  width:18px;
+  height:18px;
+}
 
 .badge{
-  position:absolute;top:7px;right:calc(50% - 19px);
-  min-width:15px;height:15px;padding:0 4px;border-radius:9px;
-  background:var(--like);color:#fff;font-size:9px;font-weight:800;
-  display:none;place-items:center;border:2px solid var(--bg)
+  position:absolute;
+  top:7px;
+  right:calc(50% - 19px);
+  min-width:15px;
+  height:15px;
+  padding:0 4px;
+  border-radius:9px;
+  background:var(--like);
+  color:#fff;
+  font-size:9px;
+  font-weight:800;
+  display:none;
+  place-items:center;
+  border:2px solid var(--bg);
 }
 
+/* ================= MOBILE ================= */
+
 @media(max-width:500px){
- .container{padding:10px 7px 25px}
- .topbar-inner{height:60px;padding:0 12px}
- .logo{font-size:15px}
- .profile-name{max-width:125px}
- .post{padding:12px 7px 7px}
- .post-text,.post-media,.post-video,.actions,.comments{
-   margin-left:49px;width:calc(100% - 49px)
- }
- .post-text{font-size:15px}
- .avatar{width:40px;height:40px;flex-basis:40px}
- .author{max-width:150px}
- .action{padding:5px 4px}
- .action span{display:none}
- .action svg{width:19px;height:19px}
- .explore-grid{gap:2px}
- .tile .tile-text{font-size:11px;padding:8px}
- .bottom-nav{height:69px}
+
+  .container{
+    padding:10px 7px 25px;
+  }
+
+  .topbar-inner{
+    height:60px;
+    padding:0 12px;
+  }
+
+  .logo{
+    font-size:15px;
+  }
+
+  .profile-name{
+    max-width:125px;
+  }
+
+  .post{
+    padding:12px 7px 7px;
+  }
+
+  .post-text{
+    width:calc(100% - 49px);
+    margin-left:49px;
+    font-size:15px;
+    line-height:1.46;
+    margin-top:8px;
+    margin-bottom:8px;
+  }
+
+  .post-media,
+  .post-video,
+  .actions,
+  .comments{
+    margin-left:49px;
+    width:calc(100% - 49px);
+  }
+
+  .avatar{
+    width:40px;
+    height:40px;
+    flex-basis:40px;
+  }
+
+  .author{
+    max-width:150px;
+  }
+
+  .action{
+    padding:5px 4px;
+  }
+
+  .action span{
+    display:none;
+  }
+
+  .action svg{
+    width:19px;
+    height:19px;
+  }
+
+  .explore-media-grid{
+    gap:2px;
+  }
+
+  .text-bubble{
+    font-size:14px;
+    border-radius:15px;
+    padding:9px 12px;
+  }
+
+  .bottom-nav{
+    height:69px;
+  }
 }
 </style>
 </head>
@@ -396,212 +1066,265 @@ button{cursor:pointer}
 <body>
 
 <header class="topbar">
- <div class="topbar-inner">
-  <div class="logo">
-   <div class="logo-mark">🐉</div>
-   <span>JSP TAYSU</span>
+  <div class="topbar-inner">
+    <div class="logo">
+      <div class="logo-mark">🐉</div>
+      <span>JSP TAYSU</span>
+    </div>
+    <div class="profile-name" id="profileName">Member</div>
   </div>
-  <div class="profile-name" id="profileName">Member</div>
- </div>
 </header>
 
 <main class="container">
 
+<!-- ================= HOME ================= -->
+
 <section id="homeSection" class="page-section active">
 
- <div class="feed-heading">
-  <h2>Community</h2>
+  <div class="feed-heading">
+    <h2>Community</h2>
 
-  <button class="icon-btn" id="feedSearchButton" aria-label="Search posts">
-   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-    <circle cx="11" cy="11" r="7"></circle>
-    <path d="m20 20-4-4"></path>
-   </svg>
-  </button>
- </div>
-
- <div class="search-strip" id="feedSearchBox">
-  <input id="feedSearchInput" maxlength="100"
-   placeholder="Search posts, people or topics...">
- </div>
-
- <div id="posts">
-  <div class="empty">
-   <div class="empty-icon">⌛</div>
-   <h3>Loading community...</h3>
-   <p>Please wait a moment.</p>
+    <button class="icon-btn" id="feedSearchButton" aria-label="Search posts">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <circle cx="11" cy="11" r="7"></circle>
+        <path d="m20 20-4-4"></path>
+      </svg>
+    </button>
   </div>
- </div>
+
+  <div class="search-strip" id="feedSearchBox">
+    <input
+      id="feedSearchInput"
+      maxlength="100"
+      placeholder="Search posts, people or topics..."
+    >
+  </div>
+
+  <div id="posts">
+    <div class="empty">
+      <div class="empty-icon">⌛</div>
+      <h3>Loading community...</h3>
+      <p>Please wait a moment.</p>
+    </div>
+  </div>
 
 </section>
 
+
+<!-- ================= CREATE ================= -->
 
 <section id="createSection" class="page-section">
 
- <div class="create-title">
-  <h1>Create</h1>
-  <p>Share your thoughts, photos or videos with JSP TAYSU.</p>
- </div>
-
- <div class="create-card">
-
-  <div class="composer">
-   <div class="avatar" id="composerAvatar">M</div>
-
-   <div>
-    <div class="composer-name" id="composerName">Member</div>
-    <div class="composer-sub">Public community post</div>
-   </div>
+  <div class="create-title">
+    <h1>Create</h1>
+    <p>Share your thoughts, photos or videos with JSP TAYSU.</p>
   </div>
 
-  <textarea id="postText" maxlength="5000"
-   placeholder="What are you thinking about?"></textarea>
+  <div class="create-card">
 
-  <div class="preview" id="createMediaPreview">
-   <button class="remove" id="removeMediaButton">×</button>
-   <div id="mediaPreviewContent"></div>
+    <div class="composer">
+      <div class="avatar" id="composerAvatar">M</div>
+
+      <div>
+        <div class="composer-name" id="composerName">Member</div>
+        <div class="composer-sub">Public community post</div>
+      </div>
+    </div>
+
+    <textarea
+      id="postText"
+      maxlength="5000"
+      placeholder="What are you thinking about?"
+    ></textarea>
+
+    <div class="preview" id="createMediaPreview">
+      <button class="remove" id="removeMediaButton">×</button>
+      <div id="mediaPreviewContent"></div>
+    </div>
+
+    <div class="create-bottom">
+
+      <div class="media-row">
+
+        <button class="media-btn" id="photoButton">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="4" width="18" height="16" rx="3"></rect>
+            <circle cx="8.5" cy="9" r="1.5"></circle>
+            <path d="m5 17 4-4 3 3 2-2 5 5"></path>
+          </svg>
+          Photo
+        </button>
+
+        <button class="media-btn" id="videoButton">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="5" width="13" height="14" rx="3"></rect>
+            <path d="m16 10 5-3v10l-5-3z"></path>
+          </svg>
+          Video
+        </button>
+
+        <input id="photoInput" class="hidden" type="file" accept="image/*">
+        <input id="videoInput" class="hidden" type="file" accept="video/*">
+
+      </div>
+
+      <button class="post-btn" id="postButton">Post</button>
+
+    </div>
+
   </div>
-
-  <div class="create-bottom">
-
-   <div class="media-row">
-
-    <button class="media-btn" id="photoButton">
-     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-      <rect x="3" y="4" width="18" height="16" rx="3"></rect>
-      <circle cx="8.5" cy="9" r="1.5"></circle>
-      <path d="m5 17 4-4 3 3 2-2 5 5"></path>
-     </svg>
-     Photo
-    </button>
-
-    <button class="media-btn" id="videoButton">
-     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-      <rect x="3" y="5" width="13" height="14" rx="3"></rect>
-      <path d="m16 10 5-3v10l-5-3z"></path>
-     </svg>
-     Video
-    </button>
-
-    <input id="photoInput" class="hidden" type="file" accept="image/*">
-    <input id="videoInput" class="hidden" type="file" accept="video/*">
-
-   </div>
-
-   <button class="post-btn" id="postButton">Post</button>
-
-  </div>
- </div>
 
 </section>
 
+
+<!-- ================= EXPLORE ================= -->
 
 <section id="exploreSection" class="page-section">
 
- <div class="explore-title">
-  <h1>Explore</h1>
-  <p>Find members and discover what the community is sharing.</p>
- </div>
-
- <div class="search-main">
-
-  <input id="userSearchInput" maxlength="40"
-   autocomplete="off" placeholder="Search members...">
-
-  <button id="userSearchButton" aria-label="Search">
-   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-    <circle cx="11" cy="11" r="7"></circle>
-    <path d="m20 20-4-4"></path>
-   </svg>
-  </button>
-
- </div>
-
- <div id="searchResults" class="search-results"></div>
-
- <div class="explore-feed-title">
-  <h2>Discover</h2>
-
-  <div class="tabs">
-   <button class="tab active" data-tab="all">Posts</button>
-   <button class="tab" data-tab="video">Reels</button>
+  <div class="explore-title">
+    <h1>Explore</h1>
+    <p>Find members and discover what the community is sharing.</p>
   </div>
- </div>
 
- <div id="exploreGrid" class="explore-grid"></div>
+  <div class="search-main">
+
+    <input
+      id="userSearchInput"
+      maxlength="40"
+      autocomplete="off"
+      placeholder="Search members..."
+    >
+
+    <button id="userSearchButton" aria-label="Search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <circle cx="11" cy="11" r="7"></circle>
+        <path d="m20 20-4-4"></path>
+      </svg>
+    </button>
+
+  </div>
+
+  <div id="searchResults" class="search-results"></div>
+
+  <div class="explore-feed-title">
+
+    <h2>Discover</h2>
+
+    <div class="tabs">
+
+      <button class="tab active" data-tab="all">
+        Posts
+      </button>
+
+      <button class="tab" data-tab="video">
+        Reels
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- REAL MEDIA GRID -->
+  <div id="exploreMediaGrid" class="explore-media-grid"></div>
+
+  <!-- TEXT BUBBLES -->
+  <div id="exploreTextFeed" class="explore-text-feed"></div>
 
 </section>
 
 
+<!-- ================= ALERTS ================= -->
+
 <section id="alertsSection" class="page-section">
 
- <div class="alert-title">
-  <h1>Alerts</h1>
- </div>
-
- <div class="alert-tools">
-  <button class="read-all" id="readAllButton">
-   Mark all as read
-  </button>
- </div>
-
- <div id="alertList">
-  <div class="alert-empty">
-   <h3>Loading alerts...</h3>
-   <p>Your likes, comments and follows will appear here.</p>
+  <div class="alert-title">
+    <h1>Alerts</h1>
   </div>
- </div>
+
+  <div class="alert-tools">
+    <button class="read-all" id="readAllButton">
+      Mark all as read
+    </button>
+  </div>
+
+  <div id="alertList">
+
+    <div class="alert-empty">
+      <h3>Loading alerts...</h3>
+      <p>Your likes, comments and follows will appear here.</p>
+    </div>
+
+  </div>
 
 </section>
 
 </main>
 
 
+<!-- ================= BOTTOM NAV ================= -->
+
 <nav class="bottom-nav">
 
- <button class="nav-item active home" data-section="homeSection">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-   <path d="M3 10.5 12 3l9 7.5"></path>
-   <path d="M5 9v11h14V9"></path>
-   <path d="M9 20v-6h6v6"></path>
-  </svg>
-  <span>Home</span>
- </button>
+  <button class="nav-item active home" data-section="homeSection">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M3 10.5 12 3l9 7.5"></path>
+      <path d="M5 9v11h14V9"></path>
+      <path d="M9 20v-6h6v6"></path>
+    </svg>
+    <span>Home</span>
+  </button>
 
- <button class="nav-item" data-section="exploreSection">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-   <circle cx="11" cy="11" r="7"></circle>
-   <path d="m20 20-4-4"></path>
-  </svg>
-  <span>Explore</span>
- </button>
 
- <button class="nav-item" id="createNav">
-  <div class="create-plus">
-   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-    <path d="M12 5v14"></path>
-    <path d="M5 12h14"></path>
-   </svg>
-  </div>
-  <span>Create</span>
- </button>
+  <button class="nav-item" data-section="exploreSection">
 
- <button class="nav-item" data-section="alertsSection">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-   <path d="M18 8 a6 6 0 0 0-12 0 c0 7-3 7-3 9h18 c0-2-3-2-3-9"></path>
-   <path d="M10 21h4"></path>
-  </svg>
-  <span>Alerts</span>
-  <i class="badge" id="alertBadge">0</i>
- </button>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <circle cx="11" cy="11" r="7"></circle>
+      <path d="m20 20-4-4"></path>
+    </svg>
 
- <button class="nav-item" id="profileNavButton">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-   <circle cx="12" cy="8" r="4"></circle>
-   <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"></path>
-  </svg>
-  <span>Profile</span>
- </button>
+    <span>Explore</span>
+
+  </button>
+
+
+  <button class="nav-item" id="createNav">
+
+    <div class="create-plus">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M12 5v14"></path>
+        <path d="M5 12h14"></path>
+      </svg>
+    </div>
+
+    <span>Create</span>
+
+  </button>
+
+
+  <button class="nav-item" data-section="alertsSection">
+
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+      <path d="M10 21h4"></path>
+    </svg>
+
+    <span>Alerts</span>
+
+    <i class="badge" id="alertBadge">0</i>
+
+  </button>
+
+
+  <button class="nav-item" id="profileNavButton">
+
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <circle cx="12" cy="8" r="4"></circle>
+      <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"></path>
+    </svg>
+
+    <span>Profile</span>
+
+  </button>
 
 </nav>
 
@@ -612,29 +1335,46 @@ import {initializeApp}
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
- getAuth,onAuthStateChanged
+  getAuth,
+  onAuthStateChanged
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import {
- getFirestore,collection,addDoc,getDocs,serverTimestamp,
- doc,setDoc,getDoc,deleteDoc,query,where,limit,onSnapshot
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  serverTimestamp,
+  doc,
+  setDoc,
+  getDoc,
+  deleteDoc,
+  query,
+  where,
+  limit,
+  onSnapshot
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 import {
- getStorage,ref,uploadBytes,getDownloadURL
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
 
+/* ================= FIREBASE ================= */
+
 const firebaseConfig={
- apiKey:"AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
- authDomain:"jsp-taysu.firebaseapp.com",
- projectId:"jsp-taysu",
- storageBucket:"jsp-taysu.firebasestorage.app",
- messagingSenderId:"280992025632",
- appId:"1:280992025632:web:48efa21208a78be9a78045"
+  apiKey:"AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
+  authDomain:"jsp-taysu.firebaseapp.com",
+  projectId:"jsp-taysu",
+  storageBucket:"jsp-taysu.firebasestorage.app",
+  messagingSenderId:"280992025632",
+  appId:"1:280992025632:web:48efa21208a78be9a78045"
 };
 
 const app=initializeApp(firebaseConfig);
@@ -643,14 +1383,16 @@ const db=getFirestore(app);
 const storage=getStorage(app);
 
 
+/* ================= VARIABLES ================= */
+
 let currentUser=null;
 let currentUsername="Member";
 let selectedMediaFile=null;
 let selectedMediaType=null;
+
 let allPosts=[];
 let allMembers=[];
 let notificationUnsubscribe=null;
-
 
 const $=id=>document.getElementById(id);
 
@@ -659,1986 +1401,2608 @@ const alertList=$("alertList");
 const alertBadge=$("alertBadge");
 
 
+/* ================= AUTH ================= */
+
 onAuthStateChanged(auth,async user=>{
 
- currentUser=user;
+  currentUser=user;
 
- if(!user){
+  if(!user){
 
-  $("profileName").textContent="Please sign in";
+    $("profileName").textContent="Please sign in";
 
-  $("composerName").textContent="Member";
-  $("composerAvatar").textContent="M";
-  currentUsername="Member";
+    $("composerName").textContent="Member";
+    $("composerAvatar").textContent="M";
 
-  postsContainer.innerHTML=
-  '<div class="empty"><div class="empty-icon">🔐</div><h3>Sign in to view the community</h3><p>Please sign in first.</p></div>';
+    currentUsername="Member";
 
-  return;
- }
+    postsContainer.innerHTML=`
+      <div class="empty">
+        <div class="empty-icon">🔐</div>
+        <h3>Sign in to view the community</h3>
+        <p>Please sign in first.</p>
+      </div>
+    `;
 
- let username=user.displayName||"Member";
-
- try{
-
-  const snap=await getDoc(doc(db,"users",user.uid));
-
-  if(snap.exists()){
-
-   const d=snap.data();
-
-   username=
-   d.username||
-   d.name||
-   d.displayName||
-   username;
-
+    return;
   }
 
- }catch(e){
 
-  console.error("Profile error",e);
+  let username=user.displayName||"Member";
 
- }
+  try{
 
- currentUsername=username;
+    const snap=await getDoc(
+      doc(db,"users",user.uid)
+    );
 
- $("profileName").textContent=username;
- $("composerName").textContent=username;
- $("composerAvatar").textContent=username.charAt(0).toUpperCase();
+    if(snap.exists()){
 
- await loadPosts();
- await loadMembers();
+      const d=snap.data();
 
- subscribeNotifications();
+      username=
+        d.username||
+        d.name||
+        d.displayName||
+        username;
+    }
+
+  }catch(e){
+    console.error("Profile error",e);
+  }
+
+
+  currentUsername=username;
+
+  $("profileName").textContent=username;
+  $("composerName").textContent=username;
+  $("composerAvatar").textContent=
+    username.charAt(0).toUpperCase();
+
+
+  await loadPosts();
+  await loadMembers();
+
+  subscribeNotifications();
 
 });
 
 
+/* ================= NAVIGATION ================= */
+
 const sections={
- homeSection:$("homeSection"),
- createSection:$("createSection"),
- exploreSection:$("exploreSection"),
- alertsSection:$("alertsSection")
+  homeSection:$("homeSection"),
+  createSection:$("createSection"),
+  exploreSection:$("exploreSection"),
+  alertsSection:$("alertsSection")
 };
 
 
 function showSection(id){
 
- Object.values(sections)
- .forEach(s=>s.classList.remove("active"));
+  Object.values(sections)
+    .forEach(s=>s.classList.remove("active"));
 
- sections[id].classList.add("active");
+  sections[id].classList.add("active");
 
- document.querySelectorAll(".nav-item")
- .forEach(b=>b.classList.remove(
-  "active",
-  "create-active",
-  "explore-active",
-  "alert-active"
- ));
 
- const b=document.querySelector(`[data-section="${id}"]`);
+  document
+    .querySelectorAll(".nav-item")
+    .forEach(b=>{
+      b.classList.remove(
+        "active",
+        "create-active",
+        "explore-active",
+        "alert-active"
+      );
+    });
 
- if(b)b.classList.add("active");
 
- if(id==="createSection")
-  $("createNav").classList.add("active","create-active");
+  const b=
+    document.querySelector(
+      `[data-section="${id}"]`
+    );
 
- if(id==="exploreSection")
-  loadExploreGrid("all");
+  if(b)b.classList.add("active");
 
- if(id==="alertsSection")
-  refreshNotifications();
 
- window.scrollTo({top:0,behavior:"smooth"});
+  if(id==="createSection"){
+    $("createNav")
+      .classList.add("active","create-active");
+  }
+
+
+  if(id==="exploreSection"){
+    loadExploreGrid(
+      document.querySelector(".tab.active")?.dataset.tab||"all"
+    );
+  }
+
+
+  if(id==="alertsSection"){
+    refreshNotifications();
+  }
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
 }
 
 
 document
-.querySelectorAll(".nav-item[data-section]")
-.forEach(b=>{
- b.addEventListener("click",()=>{
-  showSection(b.dataset.section);
- });
-});
+  .querySelectorAll(".nav-item[data-section]")
+  .forEach(b=>{
+    b.addEventListener(
+      "click",
+      ()=>showSection(b.dataset.section)
+    );
+  });
 
 
-$("createNav").addEventListener("click",()=>{
- showSection("createSection");
-});
-
-
-$("profileNavButton").addEventListener("click",()=>{
-
- if(!currentUser){
-  alert("Please sign in first.");
-  return;
- }
-
- window.location.href=
- "profile.html?uid="+encodeURIComponent(currentUser.uid);
-
-});
-
-
-$("feedSearchButton").addEventListener("click",()=>{
-
- const box=$("feedSearchBox");
-
- box.classList.toggle("show");
-
- if(box.classList.contains("show"))
-  $("feedSearchInput").focus();
-
- else{
-  $("feedSearchInput").value="";
-  renderPosts("");
- }
-
-});
-
-
-$("feedSearchInput").addEventListener(
- "input",
- e=>renderPosts(e.target.value)
+$("createNav").addEventListener(
+  "click",
+  ()=>showSection("createSection")
 );
 
 
-$("photoButton").addEventListener("click",()=>{
+$("profileNavButton").addEventListener(
+  "click",
+  ()=>{
 
- if(!currentUser){
-  alert("Please sign in first.");
-  return;
- }
+    if(!currentUser){
+      alert("Please sign in first.");
+      return;
+    }
 
- $("photoInput").click();
+    window.location.href=
+      "profile.html?uid="+
+      encodeURIComponent(currentUser.uid);
 
-});
-
-
-$("videoButton").addEventListener("click",()=>{
-
- if(!currentUser){
-  alert("Please sign in first.");
-  return;
- }
-
- $("videoInput").click();
-
-});
+  }
+);
 
 
-$("photoInput").addEventListener("change",e=>{
+/* ================= COMMUNITY SEARCH ================= */
 
- if(e.target.files[0])
-  selectMedia(e.target.files[0],"image");
+$("feedSearchButton").addEventListener(
+  "click",
+  ()=>{
 
-});
+    const box=$("feedSearchBox");
+
+    box.classList.toggle("show");
+
+    if(box.classList.contains("show")){
+
+      $("feedSearchInput").focus();
+
+    }else{
+
+      $("feedSearchInput").value="";
+
+      renderPosts("");
+
+    }
+
+  }
+);
 
 
-$("videoInput").addEventListener("change",e=>{
+$("feedSearchInput").addEventListener(
+  "input",
+  e=>renderPosts(e.target.value)
+);
 
- if(e.target.files[0])
-  selectMedia(e.target.files[0],"video");
 
-});
+/* ================= MEDIA SELECTION ================= */
+
+$("photoButton").addEventListener(
+  "click",
+  ()=>{
+
+    if(!currentUser){
+      alert("Please sign in first.");
+      return;
+    }
+
+    $("photoInput").click();
+
+  }
+);
+
+
+$("videoButton").addEventListener(
+  "click",
+  ()=>{
+
+    if(!currentUser){
+      alert("Please sign in first.");
+      return;
+    }
+
+    $("videoInput").click();
+
+  }
+);
+
+
+$("photoInput").addEventListener(
+  "change",
+  e=>{
+    if(e.target.files[0]){
+      selectMedia(
+        e.target.files[0],
+        "image"
+      );
+    }
+  }
+);
+
+
+$("videoInput").addEventListener(
+  "change",
+  e=>{
+    if(e.target.files[0]){
+      selectMedia(
+        e.target.files[0],
+        "video"
+      );
+    }
+  }
+);
 
 
 function selectMedia(file,type){
 
- selectedMediaFile=file;
- selectedMediaType=type;
+  selectedMediaFile=file;
+  selectedMediaType=type;
 
- const url=URL.createObjectURL(file);
+  const url=
+    URL.createObjectURL(file);
 
- $("mediaPreviewContent").innerHTML=
- type==="image"
- ?
- `<img src="${url}" alt="Selected photo">`
- :
- `<video src="${url}" controls></video>`;
 
- $("createMediaPreview").style.display="block";
+  $("mediaPreviewContent").innerHTML=
+    type==="image"
+    ?
+    `<img src="${url}" alt="Selected photo">`
+    :
+    `<video src="${url}" controls></video>`;
+
+
+  $("createMediaPreview")
+    .style.display="block";
 
 }
 
 
-$("removeMediaButton").addEventListener(
- "click",
- clearMedia
-);
+$("removeMediaButton")
+  .addEventListener(
+    "click",
+    clearMedia
+  );
 
 
 function clearMedia(){
 
- selectedMediaFile=null;
- selectedMediaType=null;
+  selectedMediaFile=null;
+  selectedMediaType=null;
 
- $("photoInput").value="";
- $("videoInput").value="";
+  $("photoInput").value="";
+  $("videoInput").value="";
 
- $("createMediaPreview").style.display="none";
- $("mediaPreviewContent").innerHTML="";
+  $("createMediaPreview")
+    .style.display="none";
+
+  $("mediaPreviewContent").innerHTML="";
 
 }
 
 
+/* ================= CREATE POST ================= */
+
 $("postButton").addEventListener(
- "click",
- async()=>{
+  "click",
+  async()=>{
 
-  if(!currentUser){
-   alert("Please sign in first.");
-   return;
-  }
-
-  const text=$("postText").value.trim();
-
-  if(!text&&!selectedMediaFile){
-   alert("Write something or choose a photo/video.");
-   return;
-  }
-
-  const btn=$("postButton");
-
-  btn.disabled=true;
-  btn.textContent="Posting...";
-
-  try{
-
-   let mediaUrl="";
-   let mediaType="";
-
-   if(selectedMediaFile){
-
-    const file=selectedMediaFile;
-
-    const safe=file.name.replace(
-     /[^a-zA-Z0-9._-]/g,
-     "_"
-    );
-
-    const path=
-    `posts/${currentUser.uid}/${Date.now()}_${safe}`;
-
-    const up=
-    await uploadBytes(
-     ref(storage,path),
-     file
-    );
-
-    mediaUrl=
-    await getDownloadURL(up.ref);
-
-    mediaType=selectedMediaType;
-
-   }
-
-   await addDoc(
-    collection(db,"posts"),
-    {
-     text,
-     authorId:currentUser.uid,
-     authorName:currentUsername,
-     mediaUrl,
-     mediaType,
-     createdAt:serverTimestamp()
+    if(!currentUser){
+      alert("Please sign in first.");
+      return;
     }
-   );
 
-   $("postText").value="";
 
-   clearMedia();
+    const text=
+      $("postText").value.trim();
 
-   await loadPosts();
 
-   showSection("homeSection");
+    if(!text&&!selectedMediaFile){
 
-  }catch(e){
+      alert(
+        "Write something or choose a photo/video."
+      );
 
-   console.error(e);
+      return;
+    }
 
-   alert(
-    (e.code||"Error")+": "+e.message
-   );
 
-  }finally{
+    const btn=$("postButton");
 
-   btn.disabled=false;
-   btn.textContent="Post";
+    btn.disabled=true;
+    btn.textContent="Posting...";
+
+
+    try{
+
+      let mediaUrl="";
+      let mediaType="";
+
+
+      if(selectedMediaFile){
+
+        const file=selectedMediaFile;
+
+        const safe=
+          file.name.replace(
+            /[^a-zA-Z0-9._-]/g,
+            "_"
+          );
+
+
+        const path=
+          `posts/${currentUser.uid}/${Date.now()}_${safe}`;
+
+
+        const up=
+          await uploadBytes(
+            ref(storage,path),
+            file
+          );
+
+
+        mediaUrl=
+          await getDownloadURL(up.ref);
+
+        mediaType=
+          selectedMediaType;
+
+      }
+
+
+      await addDoc(
+        collection(db,"posts"),
+        {
+          text,
+          authorId:currentUser.uid,
+          authorName:currentUsername,
+          mediaUrl,
+          mediaType,
+          createdAt:serverTimestamp()
+        }
+      );
+
+
+      $("postText").value="";
+
+      clearMedia();
+
+      await loadPosts();
+
+      showSection("homeSection");
+
+
+    }catch(e){
+
+      console.error(e);
+
+      alert(
+        (e.code||"Error")+
+        ": "+
+        e.message
+      );
+
+    }finally{
+
+      btn.disabled=false;
+      btn.textContent="Post";
+
+    }
 
   }
-
- }
 );
 
 
+/* ================= LOAD POSTS ================= */
+
 async function loadPosts(){
-
- try{
-
-  const snap=
-  await getDocs(collection(db,"posts"));
-
-  allPosts=[];
-
-  snap.forEach(d=>{
-   allPosts.push({
-    id:d.id,
-    ...d.data()
-   });
-  });
-
-  allPosts.sort(
-   (a,b)=>
-   (b.createdAt?.seconds||0)-
-   (a.createdAt?.seconds||0)
-  );
-
-  renderPosts(
-   $("feedSearchInput").value||""
-  );
-
- }catch(e){
-
-  console.error("Posts",e);
-
-  postsContainer.innerHTML=
-  '<div class="empty"><div class="empty-icon">⚠️</div><h3>Couldn’t load posts</h3><p>Check your Firebase rules and refresh.</p></div>';
-
- }
-
-}
-
-
-function renderPosts(search=""){
-
- const q=
- String(search)
- .trim()
- .toLowerCase();
-
- const list=
- allPosts.filter(p=>
-  !q||
-  String(p.text||"")
-  .toLowerCase()
-  .includes(q)||
-  String(p.authorName||"")
-  .toLowerCase()
-  .includes(q)
- );
-
- postsContainer.innerHTML="";
-
- if(!list.length){
-
-  postsContainer.innerHTML=
-  '<div class="empty"><div class="empty-icon">🔎</div><h3>No posts found</h3><p>Try another word or topic.</p></div>';
-
-  return;
- }
-
- list.forEach(p=>{
-  renderPost(p,postsContainer);
- });
-
-}
-
-
-async function renderPost(post,container){
-
- const el=document.createElement("article");
-
- el.className="post";
-
- let likeCount=0;
- let liked=false;
- let commentCount=0;
-
- try{
-
-  const ls=
-  await getDocs(
-   collection(db,"posts",post.id,"likes")
-  );
-
-  likeCount=ls.size;
-
-  liked=
-   !!currentUser&&
-   ls.docs.some(
-    d=>d.id===currentUser.uid
-   );
-
-  commentCount=
-   (
-    await getDocs(
-     collection(
-      db,
-      "posts",
-      post.id,
-      "comments"
-     )
-    )
-   ).size;
-
- }catch(e){
-
-  console.error("Counts",e);
-
- }
-
-
- const name=
- post.authorName||"Member";
-
- const initial=
- name.charAt(0).toUpperCase();
-
- const handle=
- "@"+
- name
- .toLowerCase()
- .replace(/\s+/g,"")
- .slice(0,20);
-
-
- let media="";
-
- if(
-  post.mediaUrl&&
-  post.mediaType==="image"
- ){
-
-  media=
-  `<img class="post-media"
-   src="${escapeAttr(post.mediaUrl)}"
-   alt="Community photo"
-   loading="lazy">`;
-
- }
-
- if(
-  post.mediaUrl&&
-  post.mediaType==="video"
- ){
-
-  media=
-  `<video class="post-video"
-   controls
-   preload="metadata">
-   <source src="${escapeAttr(post.mediaUrl)}">
-  </video>`;
-
- }
-
-
- el.innerHTML=`
-
- <div class="post-header"
-  data-uid="${escapeAttr(post.authorId||"")}">
-
-  <div class="avatar">
-   ${escapeHTML(initial)}
-  </div>
-
-  <div class="author-wrap">
-
-   <div class="author-line">
-
-    <span class="author">
-     ${escapeHTML(name)}
-    </span>
-
-    <span class="verified">
-
-     <svg viewBox="0 0 24 24">
-
-      <path d="
-       M12 2l2.1 2.1
-       3-.2.9 2.9
-       2.6 1.6-1 2.8
-       1 2.8-2.6 1.6
-       -.9 2.9-3-.2
-       L12 22l-2.1-2.1
-       -3 .2-.9-2.9
-       -2.6-1.6 1-2.8
-       -1-2.8 2.6-1.6
-       .9-2.9 3 .2L12 2z">
-      </path>
-
-      <path
-       d="m8.5 12 2.2 2.2 4.8-5"
-       fill="none"
-       stroke="#fff"
-       stroke-width="1.8">
-      </path>
-
-     </svg>
-
-    </span>
-
-    <button class="more">•••</button>
-
-   </div>
-
-   <div class="handle">
-    ${escapeHTML(handle)} · ${formatTime(post.createdAt)}
-   </div>
-
-  </div>
-
- </div>
-
- ${
-  post.text
-  ?
-  `<div class="post-text">
-    ${escapeHTML(post.text)}
-   </div>`
-  :
-  ""
- }
-
- ${media}
-
- <div class="actions">
-
-  <button class="action comment">
-
-   <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor">
-
-    <path d="
-     M20 11.5
-     a7.5 7.5 0 0 1-7.5 7.5H8
-     l-4 2 1.5-4
-     A7.5 7.5 0 1 1 20 11.5Z">
-    </path>
-
-   </svg>
-
-   <span>Comment</span>
-   <b class="comment-count">
-    ${commentCount}
-   </b>
-
-  </button>
-
-
-  <button class="action like ${liked?"liked":""}">
-
-   <svg
-    viewBox="0 0 24 24"
-    fill="${liked?"currentColor":"none"}"
-    stroke="currentColor">
-
-    <path d="
-     M20.8 8.7
-     C20.8 13.7 12 20 12 20
-     S3.2 13.7 3.2 8.7
-     C3.2 5.7 5.4 3.7
-     8.1 3.7
-     c1.7 0 3.2.9 3.9 2.2
-     .7-1.3 2.2-2.2
-     3.9-2.2
-     2.7 0 4.9 2 4.9 5Z">
-    </path>
-
-   </svg>
-
-   <span>Like</span>
-
-   <b class="like-count">
-    ${likeCount}
-   </b>
-
-  </button>
-
-
-  <button class="action share">
-
-   <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor">
-
-    <path d="M12 16V4"></path>
-    <path d="m7 9 5-5 5 5"></path>
-    <path d="M5 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"></path>
-
-   </svg>
-
-   <span>Share</span>
-
-  </button>
-
- </div>
-
-
- <div class="comments">
-
-  <div class="comment-list"></div>
-
-  <div class="comment-form">
-
-   <input
-    class="comment-input"
-    maxlength="300"
-    placeholder="Write a reply...">
-
-   <button class="comment-send">
-    Send
-   </button>
-
-  </div>
-
- </div>
-
- `;
-
-
- container.appendChild(el);
-
-
- el.querySelector(".post-header")
- .addEventListener("click",()=>{
-
-  if(post.authorId){
-
-   window.location.href=
-   "profile.html?uid="+
-   encodeURIComponent(post.authorId);
-
-  }
-
- });
-
-
- const likeBtn=
- el.querySelector(".like");
-
- const likeNum=
- el.querySelector(".like-count");
-
-
- likeBtn.addEventListener(
-  "click",
-  async()=>{
-
-   if(!currentUser){
-
-    alert("Please sign in first.");
-    return;
-
-   }
-
-   likeBtn.disabled=true;
-
-   try{
-
-    const r=
-    doc(
-     db,
-     "posts",
-     post.id,
-     "likes",
-     currentUser.uid
-    );
-
-    const s=await getDoc(r);
-
-    let n=
-    Number(likeNum.textContent)||0;
-
-
-    if(s.exists()){
-
-     await deleteDoc(r);
-
-     n=Math.max(0,n-1);
-
-     likeBtn.classList.remove("liked");
-
-     likeBtn
-     .querySelector("svg")
-     .setAttribute("fill","none");
-
-    }else{
-
-     await setDoc(
-      r,
-      {
-       userId:currentUser.uid,
-       createdAt:serverTimestamp()
-      }
-     );
-
-     n++;
-
-     likeBtn.classList.add("liked");
-
-     likeBtn
-     .querySelector("svg")
-     .setAttribute(
-      "fill",
-      "currentColor"
-     );
-
-
-     if(
-      post.authorId&&
-      post.authorId!==currentUser.uid
-     ){
-
-      await createNotification({
-
-       recipientId:post.authorId,
-       senderId:currentUser.uid,
-       senderName:currentUsername,
-       type:"like",
-       postId:post.id
-
-      });
-
-     }
-
-    }
-
-    likeNum.textContent=n;
-
-   }catch(e){
-
-    console.error(e);
-
-    alert(
-     (e.code||"Error")+
-     ": "+
-     e.message
-    );
-
-   }finally{
-
-    likeBtn.disabled=false;
-
-   }
-
-  }
- );
-
-
- const comments=
- el.querySelector(".comments");
-
- const commentBtn=
- el.querySelector(".comment");
-
- const list=
- el.querySelector(".comment-list");
-
- const input=
- el.querySelector(".comment-input");
-
- const send=
- el.querySelector(".comment-send");
-
- const cc=
- el.querySelector(".comment-count");
-
-
- commentBtn.addEventListener(
-  "click",
-  async()=>{
-
-   comments.style.display=
-   comments.style.display==="block"
-   ?"none"
-   :"block";
-
-   commentBtn.classList.toggle("open");
-
-   if(comments.style.display==="block")
-    await loadComments(
-     post.id,
-     list
-    );
-
-  }
- );
-
-
- async function sendComment(){
-
-  if(!currentUser){
-
-   alert("Please sign in first.");
-   return;
-
-  }
-
-  const text=input.value.trim();
-
-  if(!text)return;
-
-  send.disabled=true;
 
   try{
 
-   await addDoc(
-    collection(
-     db,
-     "posts",
-     post.id,
-     "comments"
-    ),
-    {
-     text,
-     userId:currentUser.uid,
-     username:currentUsername,
-     createdAt:serverTimestamp()
-    }
-   );
-
-   input.value="";
-
-   cc.textContent=
-   (Number(cc.textContent)||0)+1;
-
-   await loadComments(
-    post.id,
-    list
-   );
+    const snap=
+      await getDocs(
+        collection(db,"posts")
+      );
 
 
-   if(
-    post.authorId&&
-    post.authorId!==currentUser.uid
-   ){
+    allPosts=[];
 
-    await createNotification({
-
-     recipientId:post.authorId,
-     senderId:currentUser.uid,
-     senderName:currentUsername,
-     type:"comment",
-     postId:post.id
-
+    snap.forEach(d=>{
+      allPosts.push({
+        id:d.id,
+        ...d.data()
+      });
     });
 
-   }
+
+    allPosts.sort(
+      (a,b)=>
+        (b.createdAt?.seconds||0)-
+        (a.createdAt?.seconds||0)
+    );
+
+
+    renderPosts(
+      $("feedSearchInput").value||""
+    );
+
+
+    if(
+      $("exploreSection").classList.contains("active")
+    ){
+
+      loadExploreGrid(
+        document.querySelector(".tab.active")?.dataset.tab||"all"
+      );
+
+    }
+
 
   }catch(e){
 
-   console.error(e);
+    console.error("Posts",e);
 
-   alert(
-    (e.code||"Error")+
-    ": "+
-    e.message
-   );
-
-  }finally{
-
-   send.disabled=false;
+    postsContainer.innerHTML=`
+      <div class="empty">
+        <div class="empty-icon">⚠️</div>
+        <h3>Couldn’t load posts</h3>
+        <p>Check your Firebase rules and refresh.</p>
+      </div>
+    `;
 
   }
-
- }
-
-
- send.addEventListener(
-  "click",
-  sendComment
- );
-
-
- input.addEventListener(
-  "keydown",
-  e=>{
-
-   if(e.key==="Enter"){
-
-    e.preventDefault();
-    sendComment();
-
-   }
-
-  }
- );
-
-
- el.querySelector(".share")
- .addEventListener(
-  "click",
-  async()=>{
-
-   const url=
-   location.href.split("#")[0]+
-   "#post-"+post.id;
-
-   try{
-
-    if(navigator.share){
-
-     await navigator.share({
-
-      title:
-      "JSP TAYSU Community",
-
-      text:
-      `${name} shared a post on JSP TAYSU`,
-
-      url
-
-     });
-
-    }else{
-
-     await navigator.clipboard
-     .writeText(url);
-
-     alert("Post link copied 🔗");
-
-    }
-
-   }catch(e){}
-
-  }
- );
 
 }
 
 
-async function loadComments(postId,list){
+/* ================= RENDER COMMUNITY ================= */
 
- list.innerHTML="";
+function renderPosts(search=""){
 
- try{
+  const q=
+    String(search)
+      .trim()
+      .toLowerCase();
 
-  const snap=
-  await getDocs(
-   collection(
-    db,
-    "posts",
-    postId,
-    "comments"
-   )
+
+  const list=
+    allPosts.filter(
+      p=>
+        !q||
+        String(p.text||"")
+          .toLowerCase()
+          .includes(q)||
+        String(p.authorName||"")
+          .toLowerCase()
+          .includes(q)
+    );
+
+
+  postsContainer.innerHTML="";
+
+
+  if(!list.length){
+
+    postsContainer.innerHTML=`
+      <div class="empty">
+        <div class="empty-icon">🔎</div>
+        <h3>No posts found</h3>
+        <p>Try another word or topic.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  list.forEach(
+    p=>renderPost(p,postsContainer)
   );
 
-  if(snap.empty){
+}
 
-   list.innerHTML=
-   '<div style="color:#737c88;font-size:12px;padding:5px 0">No replies yet.</div>';
 
-   return;
+/* ================= SINGLE POST ================= */
+
+async function renderPost(post,container){
+
+  const el=
+    document.createElement("article");
+
+  el.className="post";
+
+
+  let likeCount=0;
+  let liked=false;
+  let commentCount=0;
+
+
+  try{
+
+    const ls=
+      await getDocs(
+        collection(
+          db,
+          "posts",
+          post.id,
+          "likes"
+        )
+      );
+
+
+    likeCount=ls.size;
+
+    liked=
+      !!currentUser&&
+      ls.docs.some(
+        d=>d.id===currentUser.uid
+      );
+
+
+    commentCount=
+      (
+        await getDocs(
+          collection(
+            db,
+            "posts",
+            post.id,
+            "comments"
+          )
+        )
+      ).size;
+
+
+  }catch(e){
+
+    console.error("Counts",e);
 
   }
 
-  const arr=[];
 
-  snap.forEach(d=>{
-   arr.push({
-    id:d.id,
-    ...d.data()
-   });
-  });
-
-  arr.sort(
-   (a,b)=>
-   (a.createdAt?.seconds||0)-
-   (b.createdAt?.seconds||0)
-  );
+  const name=
+    post.authorName||"Member";
 
 
-  arr.forEach(c=>{
+  const initial=
+    name.charAt(0).toUpperCase();
 
-   const e=document.createElement("div");
 
-   e.className="comment";
+  const handle=
+    "@"+
+    name
+      .toLowerCase()
+      .replace(/\s+/g,"")
+      .slice(0,20);
 
-   e.innerHTML=
-   `<div class="comment-top">
-     <span class="comment-user">
-      ${escapeHTML(c.username||"Member")}
-     </span>
 
-     ${
-      currentUser&&
-      c.userId===currentUser.uid
-      ?
-      '<button class="delete-comment">Delete</button>'
-      :
-      ""
-     }
+  let media="";
+
+
+  if(
+    post.mediaUrl&&
+    post.mediaType==="image"
+  ){
+
+    media=`
+      <img
+        class="post-media"
+        src="${escapeAttr(post.mediaUrl)}"
+        alt="Community photo"
+        loading="lazy"
+      >
+    `;
+
+  }
+
+
+  if(
+    post.mediaUrl&&
+    post.mediaType==="video"
+  ){
+
+    media=`
+      <video
+        class="post-video"
+        controls
+        preload="metadata"
+      >
+        <source src="${escapeAttr(post.mediaUrl)}">
+      </video>
+    `;
+
+  }
+
+
+  /*
+    IMPORTANT:
+    No fixed-height wrapper around text.
+    The text naturally controls the post height.
+  */
+
+  el.innerHTML=`
+
+    <div
+      class="post-header"
+      data-uid="${escapeAttr(post.authorId||"")}"
+    >
+
+      <div class="avatar">
+        ${escapeHTML(initial)}
+      </div>
+
+
+      <div class="author-wrap">
+
+        <div class="author-line">
+
+          <span class="author">
+            ${escapeHTML(name)}
+          </span>
+
+
+          <span class="verified">
+
+            <svg viewBox="0 0 24 24">
+
+              <path d="
+                M12 2
+                l2.1 2.1
+                3-.2
+                .9 2.9
+                2.6 1.6
+                -1 2.8
+                1 2.8
+                -2.6 1.6
+                -.9 2.9
+                -3-.2
+                L12 22
+                l-2.1-2.1
+                -3 .2
+                -.9-2.9
+                -2.6-1.6
+                1-2.8
+                -1-2.8
+                2.6-1.6
+                .9-2.9
+                3 .2
+                L12 2z
+              "></path>
+
+              <path
+                d="m8.5 12 2.2 2.2 4.8-5"
+                fill="none"
+                stroke="#fff"
+                stroke-width="1.8"
+              ></path>
+
+            </svg>
+
+          </span>
+
+
+          <button
+            class="more"
+            type="button"
+          >
+            •••
+          </button>
+
+        </div>
+
+
+        <div class="handle">
+          ${escapeHTML(handle)}
+          ·
+          ${formatTime(post.createdAt)}
+        </div>
+
+      </div>
 
     </div>
 
-    <div class="comment-text">
-     ${escapeHTML(c.text||"")}
-    </div>`;
+
+    ${
+      post.text
+      ?
+      `
+      <div class="post-text">
+        ${escapeHTML(post.text)}
+      </div>
+      `
+      :
+      ""
+    }
 
 
-   list.appendChild(e);
+    ${media}
 
 
-   const del=
-   e.querySelector(".delete-comment");
+    <div class="actions">
+
+      <button
+        class="action comment"
+        type="button"
+      >
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+        >
+          <path d="
+            M20 11.5
+            a7.5 7.5 0 0 1-7.5 7.5
+            H8
+            l-4 2
+            1.5-4
+            A7.5 7.5 0 1 1 20 11.5Z
+          "/>
+        </svg>
+
+        <span>Comment</span>
+
+        <b class="comment-count">
+          ${commentCount}
+        </b>
+
+      </button>
 
 
-   if(del){
+      <button
+        class="action like ${liked?"liked":""}"
+        type="button"
+      >
 
-    del.addEventListener(
-     "click",
-     async()=>{
+        <svg
+          viewBox="0 0 24 24"
+          fill="${liked?"currentColor":"none"}"
+          stroke="currentColor"
+        >
+
+          <path d="
+            M20.8 8.7
+            C20.8 13.7 12 20 12 20
+            S3.2 13.7 3.2 8.7
+            C3.2 5.7 5.4 3.7 8.1 3.7
+            c1.7 0 3.2.9 3.9 2.2
+            .7-1.3 2.2-2.2 3.9-2.2
+            2.7 0 4.9 2 4.9 5Z
+          "/>
+
+        </svg>
+
+        <span>Like</span>
+
+        <b class="like-count">
+          ${likeCount}
+        </b>
+
+      </button>
+
+
+      <button
+        class="action share"
+        type="button"
+      >
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+        >
+
+          <path d="M12 16V4"/>
+          <path d="m7 9 5-5 5 5"/>
+          <path d="
+            M5 13v5
+            a2 2 0 0 0 2 2
+            h10
+            a2 2 0 0 0 2-2
+            v-5
+          "/>
+
+        </svg>
+
+        <span>Share</span>
+
+      </button>
+
+    </div>
+
+
+    <div class="comments">
+
+      <div class="comment-list"></div>
+
+      <div class="comment-form">
+
+        <input
+          class="comment-input"
+          maxlength="300"
+          placeholder="Write a reply..."
+        >
+
+        <button
+          class="comment-send"
+          type="button"
+        >
+          Send
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  container.appendChild(el);
+
+
+  /* PROFILE */
+
+  el
+    .querySelector(".post-header")
+    .addEventListener(
+      "click",
+      ()=>{
+        if(post.authorId){
+
+          window.location.href=
+            "profile.html?uid="+
+            encodeURIComponent(post.authorId);
+
+        }
+      }
+    );
+
+
+  /* LIKE */
+
+  const likeBtn=
+    el.querySelector(".like");
+
+  const likeNum=
+    el.querySelector(".like-count");
+
+
+  likeBtn.addEventListener(
+    "click",
+    async()=>{
+
+      if(!currentUser){
+        alert("Please sign in first.");
+        return;
+      }
+
+
+      likeBtn.disabled=true;
+
 
       try{
 
-       await deleteDoc(
-        doc(
-         db,
-         "posts",
-         postId,
-         "comments",
-         c.id
-        )
-       );
+        const r=
+          doc(
+            db,
+            "posts",
+            post.id,
+            "likes",
+            currentUser.uid
+          );
 
-       await loadComments(
-        postId,
-        list
-       );
 
-      }catch(err){
+        const s=
+          await getDoc(r);
 
-       alert(
-        (err.code||"Error")+
-        ": "+
-        err.message
-       );
+
+        let n=
+          Number(
+            likeNum.textContent
+          )||0;
+
+
+        if(s.exists()){
+
+          await deleteDoc(r);
+
+          n=Math.max(0,n-1);
+
+          likeBtn
+            .classList
+            .remove("liked");
+
+          likeBtn
+            .querySelector("svg")
+            .setAttribute(
+              "fill",
+              "none"
+            );
+
+        }else{
+
+          await setDoc(
+            r,
+            {
+              userId:currentUser.uid,
+              createdAt:serverTimestamp()
+            }
+          );
+
+          n++;
+
+          likeBtn
+            .classList
+            .add("liked");
+
+          likeBtn
+            .querySelector("svg")
+            .setAttribute(
+              "fill",
+              "currentColor"
+            );
+
+
+          if(
+            post.authorId&&
+            post.authorId!==currentUser.uid
+          ){
+
+            await createNotification({
+              recipientId:post.authorId,
+              senderId:currentUser.uid,
+              senderName:currentUsername,
+              type:"like",
+              postId:post.id
+            });
+
+          }
+
+        }
+
+
+        likeNum.textContent=n;
+
+
+      }catch(e){
+
+        console.error(e);
+
+        alert(
+          (e.code||"Error")+
+          ": "+
+          e.message
+        );
+
+      }finally{
+
+        likeBtn.disabled=false;
 
       }
 
-     }
+    }
+  );
+
+
+  /* COMMENTS */
+
+  const comments=
+    el.querySelector(".comments");
+
+  const commentBtn=
+    el.querySelector(".comment");
+
+  const list=
+    el.querySelector(".comment-list");
+
+  const input=
+    el.querySelector(".comment-input");
+
+  const send=
+    el.querySelector(".comment-send");
+
+  const cc=
+    el.querySelector(".comment-count");
+
+
+  commentBtn.addEventListener(
+    "click",
+    async()=>{
+
+      comments.style.display=
+        comments.style.display==="block"
+        ?
+        "none"
+        :
+        "block";
+
+
+      commentBtn.classList.toggle(
+        "open"
+      );
+
+
+      if(
+        comments.style.display==="block"
+      ){
+
+        await loadComments(
+          post.id,
+          list
+        );
+
+      }
+
+    }
+  );
+
+
+  async function sendComment(){
+
+    if(!currentUser){
+      alert("Please sign in first.");
+      return;
+    }
+
+
+    const text=
+      input.value.trim();
+
+
+    if(!text)return;
+
+
+    send.disabled=true;
+
+
+    try{
+
+      await addDoc(
+        collection(
+          db,
+          "posts",
+          post.id,
+          "comments"
+        ),
+        {
+          text,
+          userId:currentUser.uid,
+          username:currentUsername,
+          createdAt:serverTimestamp()
+        }
+      );
+
+
+      input.value="";
+
+      cc.textContent=
+        (Number(cc.textContent)||0)+1;
+
+
+      await loadComments(
+        post.id,
+        list
+      );
+
+
+      if(
+        post.authorId&&
+        post.authorId!==currentUser.uid
+      ){
+
+        await createNotification({
+          recipientId:post.authorId,
+          senderId:currentUser.uid,
+          senderName:currentUsername,
+          type:"comment",
+          postId:post.id
+        });
+
+      }
+
+
+    }catch(e){
+
+      console.error(e);
+
+      alert(
+        (e.code||"Error")+
+        ": "+
+        e.message
+      );
+
+    }finally{
+
+      send.disabled=false;
+
+    }
+
+  }
+
+
+  send.addEventListener(
+    "click",
+    sendComment
+  );
+
+
+  input.addEventListener(
+    "keydown",
+    e=>{
+
+      if(e.key==="Enter"){
+
+        e.preventDefault();
+
+        sendComment();
+
+      }
+
+    }
+  );
+
+
+  /* SHARE */
+
+  el
+    .querySelector(".share")
+    .addEventListener(
+      "click",
+      async()=>{
+
+        const url=
+          location.href.split("#")[0]+
+          "#post-"+post.id;
+
+
+        try{
+
+          if(navigator.share){
+
+            await navigator.share({
+              title:"JSP TAYSU Community",
+              text:
+                `${name} shared a post on JSP TAYSU`,
+              url
+            });
+
+          }else{
+
+            await navigator.clipboard.writeText(
+              url
+            );
+
+            alert(
+              "Post link copied 🔗"
+            );
+
+          }
+
+        }catch(e){}
+
+      }
     );
-
-   }
-
-  });
-
- }catch(e){
-
-  console.error(e);
-
-  list.innerHTML=
-  '<div style="color:#a77a7a;font-size:12px">Couldn’t load replies.</div>';
-
- }
 
 }
 
 
+/* ================= LOAD COMMENTS ================= */
+
+async function loadComments(
+  postId,
+  list
+){
+
+  list.innerHTML="";
+
+
+  try{
+
+    const snap=
+      await getDocs(
+        collection(
+          db,
+          "posts",
+          postId,
+          "comments"
+        )
+      );
+
+
+    if(snap.empty){
+
+      list.innerHTML=
+        `
+        <div
+          style="
+            color:#737c88;
+            font-size:12px;
+            padding:5px 0
+          "
+        >
+          No replies yet.
+        </div>
+        `;
+
+      return;
+    }
+
+
+    const arr=[];
+
+
+    snap.forEach(
+      d=>
+        arr.push({
+          id:d.id,
+          ...d.data()
+        })
+    );
+
+
+    arr.sort(
+      (a,b)=>
+        (a.createdAt?.seconds||0)-
+        (b.createdAt?.seconds||0)
+    );
+
+
+    arr.forEach(c=>{
+
+      const e=
+        document.createElement("div");
+
+
+      e.className="comment";
+
+
+      e.innerHTML=`
+
+        <div class="comment-top">
+
+          <span class="comment-user">
+            ${escapeHTML(c.username||"Member")}
+          </span>
+
+          ${
+            currentUser&&
+            c.userId===currentUser.uid
+            ?
+            `
+            <button
+              class="delete-comment"
+              type="button"
+            >
+              Delete
+            </button>
+            `
+            :
+            ""
+          }
+
+        </div>
+
+
+        <div class="comment-text">
+          ${escapeHTML(c.text||"")}
+        </div>
+
+      `;
+
+
+      list.appendChild(e);
+
+
+      const del=
+        e.querySelector(
+          ".delete-comment"
+        );
+
+
+      if(del){
+
+        del.addEventListener(
+          "click",
+          async()=>{
+
+            try{
+
+              await deleteDoc(
+                doc(
+                  db,
+                  "posts",
+                  postId,
+                  "comments",
+                  c.id
+                )
+              );
+
+
+              await loadComments(
+                postId,
+                list
+              );
+
+
+            }catch(err){
+
+              alert(
+                (err.code||"Error")+
+                ": "+
+                err.message
+              );
+
+            }
+
+          }
+        );
+
+      }
+
+    });
+
+
+  }catch(e){
+
+    console.error(e);
+
+    list.innerHTML=
+      `
+      <div
+        style="
+          color:#a77a7a;
+          font-size:12px
+        "
+      >
+        Couldn’t load replies.
+      </div>
+      `;
+
+  }
+
+}
+
+
+/* ================= MEMBERS ================= */
+
 async function loadMembers(){
 
- try{
+  try{
 
-  const snap=
-  await getDocs(
-   collection(db,"users")
-  );
+    const snap=
+      await getDocs(
+        collection(db,"users")
+      );
 
-  allMembers=[];
 
-  snap.forEach(d=>{
-   allMembers.push({
-    id:d.id,
-    ...d.data()
-   });
-  });
+    allMembers=[];
 
-  searchMembers();
 
- }catch(e){
+    snap.forEach(
+      d=>
+        allMembers.push({
+          id:d.id,
+          ...d.data()
+        })
+    );
 
-  console.error(
-   "Members",
-   e
-  );
 
- }
+    searchMembers();
+
+
+  }catch(e){
+
+    console.error("Members",e);
+
+  }
 
 }
 
 
 $("userSearchButton")
-.addEventListener(
- "click",
- searchMembers
-);
+  .addEventListener(
+    "click",
+    searchMembers
+  );
+
 
 $("userSearchInput")
-.addEventListener(
- "input",
- searchMembers
-);
+  .addEventListener(
+    "input",
+    searchMembers
+  );
+
 
 $("userSearchInput")
-.addEventListener(
- "keydown",
- e=>{
-
-  if(e.key==="Enter")
-   searchMembers();
-
- }
-);
+  .addEventListener(
+    "keydown",
+    e=>{
+      if(e.key==="Enter"){
+        searchMembers();
+      }
+    }
+  );
 
 
 async function searchMembers(){
 
- if(!currentUser)return;
-
- const q=
- String(
-  $("userSearchInput").value||""
- )
- .trim()
- .toLowerCase();
-
- const box=$("searchResults");
-
- box.innerHTML="";
+  if(!currentUser)return;
 
 
- if(!q){
-
-  loadExploreGrid("all");
-
-  return;
-
- }
-
-
- const matches=
- allMembers
- .filter(
-  u=>u.id!==currentUser.uid
- )
- .filter(
-  u=>
-   String(
-    u.username||
-    u.name||
-    u.displayName||
-    ""
-   )
-   .toLowerCase()
-   .includes(q)
- )
- .slice(0,20);
+  const q=
+    String(
+      $("userSearchInput").value||""
+    )
+    .trim()
+    .toLowerCase();
 
 
- if(!matches.length){
-
-  box.innerHTML=
-  '<p style="color:#737c88;font-size:13px;padding:5px">No members found.</p>';
-
-  return;
-
- }
+  const box=
+    $("searchResults");
 
 
- for(const u of matches)
-  await renderMember(u);
+  box.innerHTML="";
+
+
+  if(!q){
+
+    loadExploreGrid(
+      document.querySelector(".tab.active")?.dataset.tab||"all"
+    );
+
+    return;
+  }
+
+
+  const matches=
+    allMembers
+      .filter(
+        u=>u.id!==currentUser.uid
+      )
+      .filter(
+        u=>
+          String(
+            u.username||
+            u.name||
+            u.displayName||
+            ""
+          )
+          .toLowerCase()
+          .includes(q)
+      )
+      .slice(0,20);
+
+
+  if(!matches.length){
+
+    box.innerHTML=
+      `
+      <p
+        style="
+          color:#737c88;
+          font-size:13px;
+          padding:5px
+        "
+      >
+        No members found.
+      </p>
+      `;
+
+    return;
+  }
+
+
+  for(const u of matches){
+
+    await renderMember(u);
+
+  }
 
 }
 
 
 async function renderMember(u){
 
- const name=
- u.username||
- u.name||
- u.displayName||
- "Member";
+  const name=
+    u.username||
+    u.name||
+    u.displayName||
+    "Member";
 
 
- const e=
- document.createElement("div");
-
- e.className="search-result";
+  const e=
+    document.createElement("div");
 
 
- e.innerHTML=
- `<div class="search-user">
-
-   <div class="search-avatar">
-    ${escapeHTML(name.charAt(0).toUpperCase())}
-   </div>
-
-   <div class="search-username">
-    ${escapeHTML(name)}
-   </div>
-
-  </div>
-
-  <button class="follow-btn">
-   Follow
-  </button>`;
+  e.className="search-result";
 
 
- $("searchResults")
- .appendChild(e);
+  e.innerHTML=`
+
+    <div class="search-user">
+
+      <div class="search-avatar">
+        ${escapeHTML(
+          name.charAt(0).toUpperCase()
+        )}
+      </div>
+
+      <div class="search-username">
+        ${escapeHTML(name)}
+      </div>
+
+    </div>
 
 
- e.querySelector(".search-user")
- .addEventListener(
-  "click",
-  ()=>{
-   window.location.href=
-   "profile.html?uid="+
-   encodeURIComponent(u.id);
-  }
- );
+    <button class="follow-btn">
+      Follow
+    </button>
+
+  `;
 
 
- const btn=
- e.querySelector(".follow-btn");
-
- const fid=
- currentUser.uid+"_"+u.id;
+  $("searchResults")
+    .appendChild(e);
 
 
- try{
-
-  const s=
-  await getDoc(
-   doc(db,"follows",fid)
-  );
-
-  if(s.exists()){
-
-   btn.textContent="Following";
-
-   btn.classList.add("following");
-
-  }
-
- }catch(err){
-
-  console.error(err);
-
- }
-
-
- btn.addEventListener(
-  "click",
-  async ev=>{
-
-   ev.stopPropagation();
-
-   if(!currentUser)return;
-
-   btn.disabled=true;
-
-   try{
-
-    const r=
-    doc(
-     db,
-     "follows",
-     fid
+  e
+    .querySelector(".search-user")
+    .addEventListener(
+      "click",
+      ()=>
+        window.location.href=
+          "profile.html?uid="+
+          encodeURIComponent(u.id)
     );
 
+
+  const btn=
+    e.querySelector(".follow-btn");
+
+
+  const fid=
+    currentUser.uid+
+    "_"+
+    u.id;
+
+
+  try{
+
     const s=
-    await getDoc(r);
+      await getDoc(
+        doc(db,"follows",fid)
+      );
 
 
     if(s.exists()){
 
-     await deleteDoc(r);
+      btn.textContent="Following";
 
-     btn.textContent="Follow";
-
-     btn.classList.remove(
-      "following"
-     );
-
-    }else{
-
-     await setDoc(
-      r,
-      {
-       followerId:currentUser.uid,
-       followingId:u.id,
-       createdAt:serverTimestamp()
-      }
-     );
-
-     btn.textContent="Following";
-
-     btn.classList.add(
-      "following"
-     );
-
-
-     await createNotification({
-
-      recipientId:u.id,
-      senderId:currentUser.uid,
-      senderName:currentUsername,
-      type:"follow"
-
-     });
+      btn.classList.add(
+        "following"
+      );
 
     }
 
-   }catch(err){
+  }catch(err){
 
     console.error(err);
 
-    alert(
-     (err.code||"Error")+
-     ": "+
-     err.message
+  }
+
+
+  btn.addEventListener(
+    "click",
+    async ev=>{
+
+      ev.stopPropagation();
+
+
+      if(!currentUser)return;
+
+
+      btn.disabled=true;
+
+
+      try{
+
+        const r=
+          doc(
+            db,
+            "follows",
+            fid
+          );
+
+
+        const s=
+          await getDoc(r);
+
+
+        if(s.exists()){
+
+          await deleteDoc(r);
+
+          btn.textContent="Follow";
+
+          btn.classList.remove(
+            "following"
+          );
+
+        }else{
+
+          await setDoc(
+            r,
+            {
+              followerId:currentUser.uid,
+              followingId:u.id,
+              createdAt:serverTimestamp()
+            }
+          );
+
+
+          btn.textContent="Following";
+
+          btn.classList.add(
+            "following"
+          );
+
+
+          await createNotification({
+
+            recipientId:u.id,
+
+            senderId:currentUser.uid,
+
+            senderName:currentUsername,
+
+            type:"follow"
+
+          });
+
+        }
+
+
+      }catch(err){
+
+        console.error(err);
+
+        alert(
+          (err.code||"Error")+
+          ": "+
+          err.message
+        );
+
+      }finally{
+
+        btn.disabled=false;
+
+      }
+
+    }
+  );
+
+}
+
+
+/* ================= EXPLORE TABS ================= */
+
+document
+  .querySelectorAll(".tab")
+  .forEach(t=>{
+
+    t.addEventListener(
+      "click",
+      ()=>{
+
+        document
+          .querySelectorAll(".tab")
+          .forEach(
+            x=>x.classList.remove("active")
+          );
+
+
+        t.classList.add("active");
+
+
+        loadExploreGrid(
+          t.dataset.tab
+        );
+
+      }
     );
-
-   }finally{
-
-    btn.disabled=false;
-
-   }
-
-  }
- );
-
-}
-
-
-document.querySelectorAll(".tab")
-.forEach(t=>
-
- t.addEventListener(
-  "click",
-  ()=>{
-
-   document
-   .querySelectorAll(".tab")
-   .forEach(x=>
-    x.classList.remove("active")
-   );
-
-   t.classList.add("active");
-
-   loadExploreGrid(
-    t.dataset.tab
-   );
-
-  }
- )
-
-);
-
-
-function loadExploreGrid(mode="all"){
-
- const grid=$("exploreGrid");
-
- grid.innerHTML="";
-
- const list=
- allPosts.filter(
-  p=>
-  mode==="video"
-  ?
-  p.mediaType==="video"
-  :
-  true
- );
-
-
- if(!list.length){
-
-  grid.innerHTML=
-  '<div class="empty" style="grid-column:1/-1"><h3>No content yet</h3><p>When members upload, it will appear here.</p></div>';
-
-  return;
-
- }
-
-
- list.forEach(p=>{
-
-  const tile=
-  document.createElement("div");
-
-  tile.className=
-  "tile"+
-  (p.mediaType==="video"
-   ?" reel"
-   :
-   "");
-
-
-  if(p.mediaType==="image"){
-
-   tile.innerHTML=
-   `<img
-    src="${escapeAttr(p.mediaUrl)}"
-    alt=""
-    loading="lazy">`;
-
-  }else if(
-   p.mediaType==="video"
-  ){
-
-   tile.innerHTML=
-   `<video
-    src="${escapeAttr(p.mediaUrl)}"
-    muted
-    preload="metadata">
-   </video>`;
-
-  }else{
-
-   tile.innerHTML=
-   `<div class="tile-text">
-    ${escapeHTML(p.text||"")}
-   </div>`;
-
-  }
-
-
-  tile.addEventListener(
-   "click",
-   ()=>{
-
-    showSection("homeSection");
-
-    $("feedSearchInput").value=
-    p.authorName||"";
-
-    renderPosts(
-     p.authorName||""
-    );
-
-   }
-  );
-
-
-  grid.appendChild(tile);
-
- });
-
-}
-
-
-async function createNotification(data){
-
- try{
-
-  if(
-   !data.recipientId||
-   !data.senderId||
-   data.recipientId===
-   data.senderId
-  )
-   return;
-
-
-  await addDoc(
-   collection(
-    db,
-    "notifications"
-   ),
-   {
-    recipientId:data.recipientId,
-    senderId:data.senderId,
-    senderName:
-     data.senderName||"Member",
-    type:data.type,
-    postId:data.postId||"",
-    createdAt:serverTimestamp(),
-    read:false
-   }
-  );
-
- }catch(e){
-
-  console.error(
-   "Notification write failed:",
-   e
-  );
-
- }
-
-}
-
-
-function subscribeNotifications(){
-
- if(notificationUnsubscribe)
-  notificationUnsubscribe();
-
-
- const q=
- query(
-  collection(db,"notifications"),
-  where(
-   "recipientId",
-   "==",
-   currentUser.uid
-  ),
-  limit(100)
- );
-
-
- notificationUnsubscribe=
- onSnapshot(
-  q,
-  snap=>{
-
-   const arr=[];
-
-   snap.forEach(d=>{
-
-    arr.push({
-     id:d.id,
-     ...d.data()
-    });
-
-   });
-
-
-   arr.sort(
-    (a,b)=>
-    (b.createdAt?.seconds||0)-
-    (a.createdAt?.seconds||0)
-   );
-
-
-   renderNotifications(arr);
-
-  },
-  e=>{
-
-   console.error(
-    "Notification listener failed",
-    e
-   );
-
-   alertList.innerHTML=
-   '<div class="alert-empty"><h3>Alerts couldn’t load</h3><p>Check your Firestore rules for the notifications collection.</p></div>';
-
-  }
- );
-
-}
-
-
-async function refreshNotifications(){
-
- if(!currentUser)return;
-
- try{
-
-  const q=
-  query(
-   collection(db,"notifications"),
-   where(
-    "recipientId",
-    "==",
-    currentUser.uid
-   ),
-   limit(100)
-  );
-
-  const snap=
-  await getDocs(q);
-
-  const arr=[];
-
-  snap.forEach(d=>{
-
-   arr.push({
-    id:d.id,
-    ...d.data()
-   });
 
   });
 
 
-  arr.sort(
-   (a,b)=>
-   (b.createdAt?.seconds||0)-
-   (a.createdAt?.seconds||0)
-  );
+/* ================= EXPLORE DISCOVER ================= */
 
-  renderNotifications(arr);
+function loadExploreGrid(mode="all"){
 
- }catch(e){
+  const mediaGrid=
+    $("exploreMediaGrid");
 
-  console.error(e);
-
- }
-
-}
+  const textFeed=
+    $("exploreTextFeed");
 
 
-function renderNotifications(arr){
-
- const unread=
- arr.filter(
-  n=>n.read!==true
- ).length;
+  mediaGrid.innerHTML="";
+  textFeed.innerHTML="";
 
 
- alertBadge.textContent=
- unread>99
- ?"99+"
- :String(unread);
+  /*
+    POSTS:
+    Images = grid
+    Text = compact bubbles
+  */
 
- alertBadge.style.display=
- unread
- ?"grid"
- :"none";
+  if(mode==="all"){
 
-
- alertList.innerHTML="";
-
-
- if(!arr.length){
-
-  alertList.innerHTML=
-  `<div class="alert-empty">
-
-   <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor">
-
-    <path d="
-     M18 8a6 6 0 0 0-12 0
-     c0 7-3 7-3 9h18
-     c0-2-3-2-3-9">
-    </path>
-
-    <path d="M10 21h4"></path>
-
-   </svg>
-
-   <h3>No alerts yet</h3>
-
-   <p>
-    Likes, comments and follows
-    will appear here.
-   </p>
-
-  </div>`;
-
-  return;
-
- }
-
-
- arr.forEach(n=>{
-
-  const e=
-  document.createElement("div");
-
-  e.className=
-  "notification"+
-  (n.read===true
-   ?""
-   :" unread");
-
-
-  let icon="bell";
-
-  let msg=
-  `<b>${escapeHTML(
-   n.senderName||"Member"
-  )}</b> sent you a notification.`;
-
-  let cls="";
-
-
-  if(n.type==="like"){
-
-   icon="heart";
-   cls="like";
-
-   msg=
-   `<b>${escapeHTML(
-    n.senderName||"Member"
-   )}</b> liked your post.`;
-
-  }else if(
-   n.type==="comment"
-  ){
-
-   icon="comment";
-   cls="comment";
-
-   msg=
-   `<b>${escapeHTML(
-    n.senderName||"Member"
-   )}</b> commented on your post.`;
-
-  }else if(
-   n.type==="follow"
-  ){
-
-   icon="user";
-   cls="follow";
-
-   msg=
-   `<b>${escapeHTML(
-    n.senderName||"Member"
-   )}</b> started following you.`;
-
-  }
-
-
-  e.innerHTML=
-  `<div class="notification-icon ${cls}">
-    ${iconSVG(icon)}
-   </div>
-
-   <div
-    style="flex:1;min-width:0">
-
-    <div class="notification-text">
-     ${msg}
-    </div>
-
-    <div class="notification-time">
-     ${formatTime(n.createdAt)}
-    </div>
-
-   </div>`;
-
-
-  e.addEventListener(
-   "click",
-   async()=>{
-
-    try{
-
-     if(n.read!==true){
-
-      await setDoc(
-       doc(
-        db,
-        "notifications",
-        n.id
-       ),
-       {read:true},
-       {merge:true}
+    const mediaPosts=
+      allPosts.filter(
+        p=>
+          p.mediaType==="image"
       );
 
-      e.classList.remove(
-       "unread"
+
+    const textPosts=
+      allPosts.filter(
+        p=>
+          !p.mediaUrl||
+          !p.mediaType
       );
 
-     }
+
+    /* PHOTO GRID */
+
+    mediaPosts.forEach(p=>{
+
+      const tile=
+        document.createElement("div");
 
 
-     if(n.postId){
+      tile.className="media-tile";
 
-      showSection(
-       "homeSection"
+
+      tile.innerHTML=`
+
+        <img
+          src="${escapeAttr(p.mediaUrl)}"
+          alt=""
+          loading="lazy"
+        >
+
+      `;
+
+
+      tile.addEventListener(
+        "click",
+        ()=>{
+          showSection("homeSection");
+
+          $("feedSearchInput").value=
+            p.authorName||"";
+
+          renderPosts(
+            p.authorName||""
+          );
+        }
       );
 
-      const p=
-      allPosts.find(
-       x=>x.id===n.postId
+
+      mediaGrid.appendChild(tile);
+
+    });
+
+
+    /* TEXT BUBBLES */
+
+    textPosts.forEach(p=>{
+
+      const bubble=
+        document.createElement("div");
+
+
+      bubble.className="text-bubble";
+
+
+      bubble.innerHTML=`
+
+        <div>
+          ${escapeHTML(p.text||"")}
+        </div>
+
+        <span class="text-bubble-author">
+          <b>
+            ${escapeHTML(p.authorName||"Member")}
+          </b>
+          ·
+          ${formatTime(p.createdAt)}
+        </span>
+
+      `;
+
+
+      bubble.addEventListener(
+        "click",
+        ()=>{
+          showSection("homeSection");
+
+          $("feedSearchInput").value=
+            p.authorName||"";
+
+          renderPosts(
+            p.authorName||""
+          );
+        }
       );
 
-      if(p){
 
-       $("feedSearchInput")
-       .value="";
+      textFeed.appendChild(bubble);
 
-       renderPosts("");
+    });
 
-      }
 
-     }
+    if(
+      !mediaPosts.length&&
+      !textPosts.length
+    ){
 
-    }catch(err){
-
-     console.error(err);
+      textFeed.innerHTML=
+        `
+        <div class="explore-empty">
+          No content yet.<br>
+          When members post, it will appear here.
+        </div>
+        `;
 
     }
 
-   }
-  );
-
-
-  alertList.appendChild(e);
-
- });
-
-}
-
-
-$("readAllButton")
-.addEventListener(
- "click",
- async()=>{
-
-  if(!currentUser)return;
-
-  try{
-
-   const q=
-   query(
-    collection(db,"notifications"),
-    where(
-     "recipientId",
-     "==",
-     currentUser.uid
-    ),
-    limit(100)
-   );
-
-   const snap=
-   await getDocs(q);
-
-
-   await Promise.all(
-
-    snap.docs
-    .filter(
-     d=>d.data().read!==true
-    )
-    .map(
-     d=>
-      setDoc(
-       doc(
-        db,
-        "notifications",
-        d.id
-       ),
-       {read:true},
-       {merge:true}
-      )
-    )
-
-   );
-
-
-   await refreshNotifications();
-
-  }catch(e){
-
-   console.error(e);
-
-   alert(
-    (e.code||"Error")+
-    ": "+
-    e.message
-   );
+    return;
 
   }
 
- }
-);
+
+  /* ================= REELS ================= */
+
+  const reels=
+    allPosts.filter(
+      p=>p.mediaType==="video"
+    );
 
 
-function iconSVG(type){
+  if(!reels.length){
 
- const p={
+    mediaGrid.innerHTML=
+      `
+      <div
+        class="explore-empty"
+        style="grid-column:1/-1"
+      >
+        No reels yet.<br>
+        Upload a video to see it here.
+      </div>
+      `;
 
-  heart:
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.8 8.7C20.8 13.7 12 20 12 20S3.2 13.7 3.2 8.7C3.2 5.7 5.4 3.7 8.1 3.7c1.7 0 3.2.9 3.9 2.2.7-1.3 2.2-2.2 3.9-2.2 2.7 0 4.9 2 4.9 5Z"/></svg>',
+    return;
+  }
 
-  comment:
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 2 1.5-4A7.5 7.5 0 1 1 20 11.5Z"/></svg>',
 
-  user:
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg>',
+  reels.forEach(p=>{
 
-  bell:
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>'
+    const tile=
+      document.createElement("div");
 
- };
 
- return p[type]||p.bell;
+    tile.className=
+      "media-tile reel";
+
+
+    tile.innerHTML=`
+
+      <video
+        src="${escapeAttr(p.mediaUrl)}"
+        muted
+        preload="metadata"
+      ></video>
+
+    `;
+
+
+    tile.addEventListener(
+      "click",
+      ()=>{
+        showSection("homeSection");
+
+        $("feedSearchInput").value=
+          p.authorName||"";
+
+        renderPosts(
+          p.authorName||""
+        );
+      }
+    );
+
+
+    mediaGrid.appendChild(tile);
+
+  });
 
 }
 
 
+/* ================= NOTIFICATIONS ================= */
+
+async function createNotification(data){
+
+  try{
+
+    if(
+      !data.recipientId||
+      !data.senderId||
+      data.recipientId===
+      data.senderId
+    ){
+
+      return;
+
+    }
+
+
+    await addDoc(
+      collection(db,"notifications"),
+      {
+        recipientId:data.recipientId,
+        senderId:data.senderId,
+        senderName:data.senderName||"Member",
+        type:data.type,
+        postId:data.postId||"",
+        createdAt:serverTimestamp(),
+        read:false
+      }
+    );
+
+
+  }catch(e){
+
+    console.error(
+      "Notification write failed:",
+      e
+    );
+
+  }
+
+}
+
+
+/* ================= REALTIME ALERTS ================= */
+
+function subscribeNotifications(){
+
+  if(notificationUnsubscribe){
+
+    notificationUnsubscribe();
+
+  }
+
+
+  const q=
+    query(
+      collection(db,"notifications"),
+      where(
+        "recipientId",
+        "==",
+        currentUser.uid
+      ),
+      limit(100)
+    );
+
+
+  notificationUnsubscribe=
+    onSnapshot(
+      q,
+      snap=>{
+
+        const arr=[];
+
+
+        snap.forEach(
+          d=>
+            arr.push({
+              id:d.id,
+              ...d.data()
+            })
+        );
+
+
+        arr.sort(
+          (a,b)=>
+            (b.createdAt?.seconds||0)-
+            (a.createdAt?.seconds||0)
+        );
+
+
+        renderNotifications(arr);
+
+      },
+      e=>{
+
+        console.error(
+          "Notification listener failed",
+          e
+        );
+
+
+        alertList.innerHTML=
+          `
+          <div class="alert-empty">
+
+            <h3>Alerts couldn’t load</h3>
+
+            <p>
+              Check your Firestore rules
+              for the notifications collection.
+            </p>
+
+          </div>
+          `;
+
+      }
+    );
+
+}
+
+
+/* ================= REFRESH ALERTS ================= */
+
+async function refreshNotifications(){
+
+  if(!currentUser)return;
+
+
+  try{
+
+    const q=
+      query(
+        collection(db,"notifications"),
+        where(
+          "recipientId",
+          "==",
+          currentUser.uid
+        ),
+        limit(100)
+      );
+
+
+    const snap=
+      await getDocs(q);
+
+
+    const arr=[];
+
+
+    snap.forEach(
+      d=>
+        arr.push({
+          id:d.id,
+          ...d.data()
+        })
+    );
+
+
+    arr.sort(
+      (a,b)=>
+        (b.createdAt?.seconds||0)-
+        (a.createdAt?.seconds||0)
+    );
+
+
+    renderNotifications(arr);
+
+
+  }catch(e){
+
+    console.error(e);
+
+  }
+
+}
+
+
+/* ================= RENDER ALERTS ================= */
+
+function renderNotifications(arr){
+
+  const unread=
+    arr.filter(
+      n=>n.read!==true
+    ).length;
+
+
+  alertBadge.textContent=
+    unread>99
+    ?
+    "99+"
+    :
+    String(unread);
+
+
+  alertBadge.style.display=
+    unread
+    ?
+    "grid"
+    :
+    "none";
+
+
+  alertList.innerHTML="";
+
+
+  if(!arr.length){
+
+    alertList.innerHTML=
+      `
+      <div class="alert-empty">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+        >
+          <path d="
+            M18 8
+            a6 6 0 0 0-12 0
+            c0 7-3 7-3 9
+            h18
+            c0-2-3-2-3-9
+          "></path>
+
+          <path d="M10 21h4"></path>
+
+        </svg>
+
+        <h3>No alerts yet</h3>
+
+        <p>
+          Likes, comments and follows
+          will appear here.
+        </p>
+
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  arr.forEach(n=>{
+
+    const e=
+      document.createElement("div");
+
+
+    e.className=
+      "notification"+
+      (n.read===true
+        ?
+        ""
+        :
+        " unread");
+
+
+    let icon="bell";
+
+    let msg=
+      `<b>${escapeHTML(
+        n.senderName||"Member"
+      )}</b> sent you a notification.`;
+
+    let cls="";
+
+
+    if(n.type==="like"){
+
+      icon="heart";
+      cls="like";
+
+      msg=
+        `<b>${escapeHTML(
+          n.senderName||"Member"
+        )}</b> liked your post.`;
+
+    }
+
+
+    else if(n.type==="comment"){
+
+      icon="comment";
+      cls="comment";
+
+      msg=
+        `<b>${escapeHTML(
+          n.senderName||"Member"
+        )}</b> commented on your post.`;
+
+    }
+
+
+    else if(n.type==="follow"){
+
+      icon="user";
+      cls="follow";
+
+      msg=
+        `<b>${escapeHTML(
+          n.senderName||"Member"
+        )}</b> started following you.`;
+
+    }
+
+
+    e.innerHTML=`
+
+      <div class="notification-icon ${cls}">
+        ${iconSVG(icon)}
+      </div>
+
+
+      <div
+        style="
+          flex:1;
+          min-width:0
+        "
+      >
+
+        <div class="notification-text">
+          ${msg}
+        </div>
+
+        <div class="notification-time">
+          ${formatTime(n.createdAt)}
+        </div>
+
+      </div>
+
+    `;
+
+
+    e.addEventListener(
+      "click",
+      async()=>{
+
+        try{
+
+          if(n.read!==true){
+
+            await setDoc(
+              doc(
+                db,
+                "notifications",
+                n.id
+              ),
+              {
+                read:true
+              },
+              {
+                merge:true
+              }
+            );
+
+
+            e.classList.remove(
+              "unread"
+            );
+
+          }
+
+
+          if(n.postId){
+
+            showSection(
+              "homeSection"
+            );
+
+
+            const p=
+              allPosts.find(
+                x=>x.id===n.postId
+              );
+
+
+            if(p){
+
+              $("feedSearchInput")
+                .value="";
+
+              renderPosts("");
+
+            }
+
+          }
+
+
+        }catch(err){
+
+          console.error(err);
+
+        }
+
+      }
+    );
+
+
+    alertList.appendChild(e);
+
+  });
+
+}
+
+
+/* ================= MARK ALL READ ================= */
+
+$("readAllButton").addEventListener(
+  "click",
+  async()=>{
+
+    if(!currentUser)return;
+
+
+    try{
+
+      const q=
+        query(
+          collection(db,"notifications"),
+          where(
+            "recipientId",
+            "==",
+            currentUser.uid
+          ),
+          limit(100)
+        );
+
+
+      const snap=
+        await getDocs(q);
+
+
+      await Promise.all(
+
+        snap.docs
+          .filter(
+            d=>d.data().read!==true
+          )
+          .map(
+            d=>
+              setDoc(
+                doc(
+                  db,
+                  "notifications",
+                  d.id
+                ),
+                {
+                  read:true
+                },
+                {
+                  merge:true
+                }
+              )
+          )
+
+      );
+
+
+      await refreshNotifications();
+
+
+    }catch(e){
+
+      console.error(e);
+
+      alert(
+        (e.code||"Error")+
+        ": "+
+        e.message
+      );
+
+    }
+
+  }
+);
+
+
+/* ================= ICONS ================= */
+
+function iconSVG(type){
+
+  const p={
+
+    heart:
+    `
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+    >
+      <path d="
+        M20.8 8.7
+        C20.8 13.7 12 20 12 20
+        S3.2 13.7 3.2 8.7
+        C3.2 5.7 5.4 3.7 8.1 3.7
+        c1.7 0 3.2.9 3.9 2.2
+        .7-1.3 2.2-2.2 3.9-2.2
+        2.7 0 4.9 2 4.9 5Z
+      "/>
+    </svg>
+    `,
+
+    comment:
+    `
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+    >
+      <path d="
+        M20 11.5
+        a7.5 7.5 0 0 1-7.5 7.5
+        H8
+        l-4 2
+        1.5-4
+        A7.5 7.5 0 1 1 20 11.5Z
+      "/>
+    </svg>
+    `,
+
+    user:
+    `
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+    >
+      <circle cx="12" cy="8" r="4"/>
+      <path d="
+        M4 21
+        c0-4 3.5-7 8-7
+        s8 3 8 7
+      "/>
+    </svg>
+    `,
+
+    bell:
+    `
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+    >
+      <path d="
+        M18 8
+        a6 6 0 0 0-12 0
+        c0 7-3 7-3 9
+        h18
+        c0-2-3-2-3-9
+      "/>
+
+      <path d="M10 21h4"/>
+
+    </svg>
+    `
+
+  };
+
+
+  return p[type]||p.bell;
+
+}
+
+
+/* ================= SECURITY HELPERS ================= */
+
 function escapeHTML(v){
 
- const d=
- document.createElement("div");
+  const d=
+    document.createElement("div");
 
- d.textContent=
- String(v??"");
+  d.textContent=
+    String(v??"");
 
- return d.innerHTML;
+  return d.innerHTML;
 
 }
 
 
 function escapeAttr(v){
 
- return String(v??"")
- .replace(/&/g,"&amp;")
- .replace(/"/g,"&quot;")
- .replace(/</g,"&lt;")
- .replace(/>/g,"&gt;");
+  return String(v??"")
+    .replace(/&/g,"&amp;")
+    .replace(/"/g,"&quot;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
 
 }
 
 
+/* ================= TIME ================= */
+
 function formatTime(ts){
 
- if(!ts||!ts.seconds)
-  return "Just now";
+  if(
+    !ts||
+    !ts.seconds
+  ){
 
- const d=
- new Date(
-  ts.seconds*1000
- );
+    return "Just now";
 
- const diff=
- Math.floor(
-  (Date.now()-d.getTime())/
-  1000
- );
-
-
- if(diff<60)
-  return "Just now";
-
- if(diff<3600)
-  return Math.floor(
-   diff/60
-  )+"m";
-
- if(diff<86400)
-  return Math.floor(
-   diff/3600
-  )+"h";
-
- if(diff<604800)
-  return Math.floor(
-   diff/86400
-  )+"d";
-
- return d.toLocaleDateString(
-  "en-IN",
-  {
-   day:"numeric",
-   month:"short"
   }
- );
+
+
+  const d=
+    new Date(
+      ts.seconds*1000
+    );
+
+
+  const diff=
+    Math.floor(
+      (Date.now()-d.getTime())/1000
+    );
+
+
+  if(diff<60){
+
+    return "Just now";
+
+  }
+
+
+  if(diff<3600){
+
+    return Math.floor(diff/60)+"m";
+
+  }
+
+
+  if(diff<86400){
+
+    return Math.floor(diff/3600)+"h";
+
+  }
+
+
+  if(diff<604800){
+
+    return Math.floor(diff/86400)+"d";
+
+  }
+
+
+  return d.toLocaleDateString(
+    "en-IN",
+    {
+      day:"numeric",
+      month:"short"
+    }
+  );
 
 }
 
