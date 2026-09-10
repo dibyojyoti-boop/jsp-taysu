@@ -6,31 +6,24 @@
 <title>JSP TAYSU Community</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 :root{
   --bg:#080a0d;
   --card:#0f1217;
-  --card2:#14181e;
+  --card2:#151920;
   --line:#252a31;
   --text:#f5f7fa;
   --muted:#8d95a1;
-
   --blue:#1d9bf0;
   --blue2:#147dcc;
-
   --like:#f04470;
   --green:#22c55e;
   --purple:#a98cff;
+  --gold:#d7bd8c;
 }
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
   font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
@@ -39,21 +32,15 @@ body{
   padding-bottom:82px;
 }
 
-button,input,textarea{
-  font:inherit;
-}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
 
-button{
-  cursor:pointer;
-}
-
-/* ================= TOP BAR ================= */
-
+/* TOP BAR */
 .topbar{
   position:sticky;
   top:0;
   z-index:100;
-  background:rgba(8,10,13,.94);
+  background:rgba(8,10,13,.92);
   backdrop-filter:blur(18px);
   border-bottom:1px solid var(--line);
 }
@@ -97,26 +84,18 @@ button{
   white-space:nowrap;
 }
 
-/* ================= CONTAINER ================= */
-
 .container{
   max-width:700px;
   margin:auto;
   padding:13px 10px 28px;
 }
 
-.page-section{
-  display:none;
-}
+.page-section{display:none}
+.page-section.active{display:block}
 
-.page-section.active{
-  display:block;
-}
-
-/* ================= HOME ================= */
-
+/* HOME */
 .feed-heading{
-  height:52px;
+  height:45px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -124,36 +103,29 @@ button{
 }
 
 .feed-heading h2{
-  font-size:27px;
-  letter-spacing:-1.1px;
+  font-size:21px;
+  letter-spacing:-.6px;
 }
 
 .icon-btn{
-  width:42px;
-  height:42px;
+  width:36px;
+  height:36px;
   border:1px solid var(--line);
-  border-radius:13px;
+  border-radius:11px;
   background:#11151a;
   color:#d7dde5;
   display:grid;
   place-items:center;
 }
 
-.icon-btn svg{
-  width:21px;
-  height:21px;
-}
-
-/* Search */
+.icon-btn svg{width:19px;height:19px}
 
 .search-strip{
   display:none;
   padding:0 2px 10px;
 }
 
-.search-strip.show{
-  display:block;
-}
+.search-strip.show{display:block}
 
 .search-strip input{
   width:100%;
@@ -165,23 +137,21 @@ button{
   outline:none;
 }
 
-/* ================= POST ================= */
-
+/* TWITTER STYLE POST */
 .post{
   background:var(--card);
   border-bottom:1px solid #20252c;
-  padding:15px 9px 8px;
+  padding:13px 9px 9px;
 }
 
 .post:first-child{
   border-top:1px solid #20252c;
 }
 
-.post-header{
-  display:flex;
+.post-layout{
+  display:grid;
+  grid-template-columns:43px minmax(0,1fr);
   gap:10px;
-  align-items:flex-start;
-  cursor:pointer;
 }
 
 .avatar{
@@ -189,6 +159,7 @@ button{
   height:43px;
   flex:0 0 43px;
   border-radius:50%;
+  overflow:hidden;
   background:linear-gradient(145deg,#26384b,#171b21);
   border:1px solid #46515e;
   display:grid;
@@ -197,123 +168,132 @@ button{
   color:#e9edf2;
 }
 
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.post-main{
+  min-width:0;
+}
+
+.post-header{
+  display:flex;
+  align-items:flex-start;
+  min-width:0;
+  cursor:pointer;
+}
+
 .author-wrap{
   min-width:0;
-  flex:1;
+  width:100%;
 }
 
 .author-line{
   display:flex;
   align-items:center;
   gap:5px;
+  min-width:0;
   line-height:1.15;
 }
 
 .author{
-  font-size:16px;
+  font-size:14px;
   font-weight:800;
-  max-width:230px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+  color:#f5f7fa;
+  min-width:0;
+  max-width:none;
+  overflow:visible;
+  text-overflow:clip;
+  white-space:normal;
+  overflow-wrap:anywhere;
 }
 
 .verified{
   color:var(--blue);
   display:inline-flex;
+  flex:0 0 auto;
 }
 
 .verified svg{
-  width:15px;
-  height:15px;
+  width:14px;
+  height:14px;
   fill:currentColor;
-}
-
-.handle{
-  color:#747d88;
-  font-size:13px;
-  margin-top:4px;
 }
 
 .more{
   color:#68717c;
   margin-left:auto;
-  padding:4px;
+  padding:2px 4px;
   background:none;
   border:0;
-  letter-spacing:2px;
+  flex:0 0 auto;
 }
 
-/*
-  IMPORTANT:
-  Text starts directly under the username/header.
-  No unnecessary giant gap.
-*/
+.handle{
+  color:#747d88;
+  font-size:11.5px;
+  margin-top:3px;
+  line-height:1.2;
+}
+
+.post-body{
+  min-width:0;
+}
 
 .post-text{
-  font-size:15px;
-  line-height:1.48;
+  color:#edf0f3;
+  font-size:14px;
+  line-height:1.45;
   white-space:pre-wrap;
   overflow-wrap:anywhere;
-
-  margin:11px 3px 10px 53px;
-  color:#f1f3f5;
+  margin:6px 0 7px;
 }
-
-/* Media */
 
 .post-media,
 .post-video{
   display:block;
-  width:calc(100% - 53px);
-  margin:8px 0 10px 53px;
-
+  width:100%;
+  margin:6px 0 8px;
   border:1px solid #252b32;
   border-radius:15px;
-
   max-height:560px;
   object-fit:cover;
   background:#050608;
 }
 
-/* Actions */
+.post-video{
+  object-fit:contain;
+}
 
+/* ACTIONS */
 .actions{
-  width:calc(100% - 53px);
-  margin-left:53px;
-
+  width:100%;
   display:flex;
   justify-content:space-between;
   align-items:center;
-
   padding:1px 0 0;
 }
 
 .action{
   border:0;
   background:none;
-
   color:#7e8792;
-
   display:flex;
   align-items:center;
-  justify-content:center;
-
   gap:5px;
-
   min-height:34px;
-  min-width:48px;
-
   padding:5px 7px;
   border-radius:10px;
-
   font-size:11px;
   transition:.18s;
 }
 
 .action svg{
-  width:19px;
-  height:19px;
+  width:18px;
+  height:18px;
   stroke-width:1.9;
 }
 
@@ -335,19 +315,16 @@ button{
 }
 
 .action b{
-  font-weight:700;
+  font-weight:650;
   color:inherit;
 }
 
-/* ================= COMMENTS ================= */
-
+/* COMMENTS */
 .comments{
   display:none;
-
-  width:calc(100% - 53px);
-  margin:6px 0 0 53px;
-
-  padding-top:8px;
+  width:100%;
+  margin-top:5px;
+  padding-top:7px;
   border-top:1px solid #23282f;
 }
 
@@ -396,13 +373,10 @@ button{
 .comment-input{
   min-width:0;
   flex:1;
-
   background:#12161b;
   border:1px solid #2a3037;
-
   border-radius:11px;
   color:#fff;
-
   padding:9px 10px;
   outline:none;
 }
@@ -411,41 +385,36 @@ button{
   border:0;
   background:var(--blue);
   color:#fff;
-
   border-radius:11px;
   padding:0 13px;
-
   font-weight:750;
 }
 
-/* ================= EMPTY ================= */
-
+/* EMPTY */
 .empty{
   margin-top:10px;
   text-align:center;
-
   border:1px solid var(--line);
   background:var(--card);
-
   border-radius:17px;
   padding:45px 20px;
-
   color:var(--muted);
 }
 
 .empty-icon{
   width:48px;
   height:48px;
-
   margin:0 auto 12px;
-
   border-radius:15px;
   background:#171b21;
-
   display:grid;
   place-items:center;
-
   color:var(--blue);
+}
+
+.empty-icon svg{
+  width:25px;
+  height:25px;
 }
 
 .empty h3{
@@ -458,8 +427,7 @@ button{
   font-size:13px;
 }
 
-/* ================= TITLES ================= */
-
+/* CREATE */
 .create-title,
 .explore-title,
 .alert-title{
@@ -469,18 +437,16 @@ button{
 .create-title h1,
 .explore-title h1,
 .alert-title h1{
-  font-size:30px;
-  letter-spacing:-1.2px;
+  font-size:27px;
+  letter-spacing:-1px;
 }
 
 .create-title p,
 .explore-title p{
-  font-size:14px;
+  font-size:13px;
   color:var(--muted);
-  margin-top:5px;
+  margin-top:4px;
 }
-
-/* ================= CREATE ================= */
 
 .create-card{
   background:var(--card);
@@ -510,19 +476,13 @@ button{
 #postText{
   width:100%;
   min-height:125px;
-
   resize:vertical;
-
   border:0;
   outline:0;
-
   border-radius:13px;
-
   background:#14181e;
   color:#f4f6f8;
-
   padding:12px;
-
   font-size:15px;
   line-height:1.48;
 }
@@ -541,10 +501,8 @@ button{
 .preview video{
   width:100%;
   max-height:420px;
-
   object-fit:cover;
   border-radius:14px;
-
   background:#050608;
 }
 
@@ -552,16 +510,12 @@ button{
   position:absolute;
   right:8px;
   top:8px;
-
   width:31px;
   height:31px;
-
   border:0;
   border-radius:50%;
-
   background:rgba(0,0,0,.78);
   color:#fff;
-
   font-size:19px;
 }
 
@@ -569,7 +523,6 @@ button{
   display:flex;
   justify-content:space-between;
   align-items:center;
-
   margin-top:10px;
   gap:8px;
 }
@@ -581,17 +534,13 @@ button{
 
 .media-btn{
   border:1px solid #303741;
-
   background:#151920;
   color:#aeb6c0;
-
   border-radius:10px;
   padding:8px 10px;
-
   display:flex;
   align-items:center;
   gap:5px;
-
   font-size:12px;
   font-weight:650;
 }
@@ -606,10 +555,8 @@ button{
   border:0;
   background:var(--blue);
   color:#fff;
-
   border-radius:11px;
   padding:9px 17px;
-
   font-weight:800;
 }
 
@@ -626,8 +573,7 @@ button{
   display:none;
 }
 
-/* ================= EXPLORE SEARCH ================= */
-
+/* SEARCH MEMBERS */
 .search-main{
   display:flex;
   gap:8px;
@@ -636,27 +582,20 @@ button{
 .search-main input{
   flex:1;
   min-width:0;
-
   background:#11151a;
   border:1px solid #303640;
-
   color:#fff;
-
   border-radius:13px;
   padding:12px 14px;
-
   outline:none;
 }
 
 .search-main button{
   width:48px;
-
   border:0;
   border-radius:13px;
-
   background:var(--blue);
   color:#fff;
-
   display:grid;
   place-items:center;
 }
@@ -666,8 +605,6 @@ button{
   height:20px;
 }
 
-/* Search members */
-
 .search-results{
   margin-top:10px;
 }
@@ -676,14 +613,10 @@ button{
   display:flex;
   align-items:center;
   justify-content:space-between;
-
   gap:8px;
-
   background:var(--card);
   border:1px solid var(--line);
-
   border-radius:14px;
-
   padding:10px;
   margin-bottom:7px;
 }
@@ -692,7 +625,6 @@ button{
   display:flex;
   align-items:center;
   gap:9px;
-
   min-width:0;
   cursor:pointer;
 }
@@ -700,48 +632,39 @@ button{
 .search-avatar{
   width:39px;
   height:39px;
-
   border-radius:50%;
-
+  overflow:hidden;
   background:#202833;
   border:1px solid #414c58;
-
   display:grid;
   place-items:center;
-
   font-weight:800;
+  flex:0 0 39px;
+}
+
+.search-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 .search-username{
   font-size:13px;
   font-weight:750;
-
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
 }
 
-/* Follow */
-
 .follow-btn{
   border:0;
-
   background:var(--blue);
   color:#fff;
-
   padding:8px 13px;
   border-radius:10px;
-
   font-size:12px;
   font-weight:800;
-
   min-width:78px;
-
-  transition:.18s;
-}
-
-.follow-btn:hover{
-  background:var(--blue2);
 }
 
 .follow-btn.following{
@@ -754,19 +677,16 @@ button{
   cursor:default;
 }
 
-/* ================= DISCOVER ================= */
-
+/* EXPLORE */
 .explore-feed-title{
   display:flex;
   align-items:center;
   justify-content:space-between;
-
-  margin:20px 3px 10px;
+  margin:20px 3px 9px;
 }
 
 .explore-feed-title h2{
-  font-size:20px;
-  letter-spacing:-.5px;
+  font-size:17px;
 }
 
 .tabs{
@@ -776,16 +696,12 @@ button{
 
 .tab{
   border:1px solid var(--line);
-
   background:#11151a;
   color:#818a95;
-
   border-radius:9px;
-
-  padding:6px 10px;
-
+  padding:7px 12px;
   font-size:11px;
-  font-weight:650;
+  font-weight:700;
 }
 
 .tab.active{
@@ -794,137 +710,147 @@ button{
   border-color:#31566f;
 }
 
-/*
-  Discover:
-  Media = Instagram-like 3 columns.
-  Text = compact natural-height bubbles.
-*/
-
-.explore-grid{
+/* PHOTO GRID ONLY */
+.explore-media-grid{
   display:grid;
-
   grid-template-columns:repeat(3,minmax(0,1fr));
-
-  gap:4px;
-
-  align-items:start;
+  gap:3px;
 }
 
-/* Image / Reel tile */
-
-.tile{
-  background:#101318;
-
-  overflow:hidden;
-
-  position:relative;
-
-  cursor:pointer;
-
-  border-radius:4px;
-}
-
-.tile.media-tile{
+.media-tile{
   aspect-ratio:1/1;
+  background:#101318;
+  overflow:hidden;
+  position:relative;
+  border-radius:3px;
+  cursor:pointer;
 }
 
-.tile img,
-.tile video{
+.media-tile img,
+.media-tile video{
   width:100%;
   height:100%;
-
   object-fit:cover;
-
   display:block;
 }
 
-/* TEXT POST */
+.media-tile.reel:after{
+  content:"▶";
+  position:absolute;
+  right:7px;
+  top:7px;
+  background:rgba(0,0,0,.65);
+  border-radius:7px;
+  padding:4px 6px;
+  font-size:10px;
+}
 
-.tile.text-tile{
-  aspect-ratio:auto;
-
-  min-height:0;
-
-  padding:12px;
-
-  background:#11151a;
-
-  border:1px solid #222831;
-
-  border-radius:10px;
-
+/* TEXT POSTS — FULL WIDTH, NO BOXES */
+.explore-text-feed{
   display:flex;
   flex-direction:column;
-  justify-content:flex-start;
-
-  transition:.18s;
+  width:100%;
+  margin-top:2px;
 }
 
-.tile.text-tile:hover{
-  border-color:#35404c;
-  background:#14181e;
+.explore-text-post{
+  width:100%;
+  display:grid;
+  grid-template-columns:43px minmax(0,1fr);
+  gap:10px;
+  padding:13px 9px 10px;
+  border-bottom:1px solid #20252c;
+  background:var(--card);
+  cursor:pointer;
 }
 
-.tile-text{
-  font-size:13px;
-  line-height:1.42;
+.explore-text-post:first-child{
+  border-top:1px solid #20252c;
+}
 
-  color:#e1e5e9;
+.explore-text-avatar{
+  width:43px;
+  height:43px;
+  border-radius:50%;
+  overflow:hidden;
+  background:linear-gradient(145deg,#26384b,#171b21);
+  border:1px solid #46515e;
+  display:grid;
+  place-items:center;
+  color:#e9edf2;
+  font-size:14px;
+  font-weight:850;
+}
 
-  white-space:pre-wrap;
+.explore-text-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.explore-text-main{
+  min-width:0;
+}
+
+.explore-text-head{
+  display:flex;
+  align-items:flex-start;
+  gap:5px;
+  min-width:0;
+}
+
+.explore-text-name{
+  font-size:14px;
+  font-weight:800;
+  line-height:1.2;
   overflow-wrap:anywhere;
 }
 
-.tile-author{
-  margin-top:10px;
-
-  color:#818a95;
-
-  font-size:10px;
-  font-weight:700;
-
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+.explore-text-verified{
+  color:var(--blue);
+  display:inline-flex;
+  flex:0 0 auto;
 }
 
-/* Reel indicator */
-
-.tile.reel:after{
-  content:"▶";
-
-  position:absolute;
-
-  right:7px;
-  top:7px;
-
-  background:rgba(0,0,0,.62);
-
-  border-radius:7px;
-
-  padding:4px 6px;
-
-  font-size:10px;
+.explore-text-verified svg{
+  width:14px;
+  height:14px;
+  fill:currentColor;
 }
 
-/* ================= ALERTS ================= */
+.explore-text-meta{
+  color:#747d88;
+  font-size:11.5px;
+  margin-top:3px;
+}
 
+.explore-text-content{
+  color:#edf0f3;
+  font-size:14px;
+  line-height:1.45;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  margin-top:6px;
+}
+
+/* REELS EMPTY / TEXT EMPTY */
+.explore-empty{
+  padding:30px 15px;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* ALERTS */
 .notification{
   display:flex;
   align-items:flex-start;
-
   gap:11px;
-
   background:var(--card);
-
   border:1px solid var(--line);
-
   border-radius:14px;
-
   padding:12px;
-
   margin-bottom:7px;
-
   cursor:pointer;
 }
 
@@ -936,16 +862,11 @@ button{
 .notification-icon{
   width:40px;
   height:40px;
-
   flex:0 0 40px;
-
   border-radius:50%;
-
   background:#17202a;
-
   display:grid;
   place-items:center;
-
   color:var(--blue);
 }
 
@@ -990,39 +911,29 @@ button{
 
 .read-all{
   border:1px solid #303640;
-
   background:#12161b;
   color:#aeb6c0;
-
   border-radius:9px;
-
   padding:7px 10px;
-
   font-size:11px;
 }
 
 .alert-empty{
   text-align:center;
-
   padding:50px 20px;
-
   color:var(--muted);
 }
 
 .alert-empty svg{
   width:35px;
   height:35px;
-
   color:var(--blue);
-
   margin-bottom:10px;
 }
 
 .alert-empty h3{
   color:#e9edf1;
-
   margin-bottom:5px;
-
   font-size:16px;
 }
 
@@ -1030,62 +941,42 @@ button{
   font-size:13px;
 }
 
-/* ================= BOTTOM NAV ================= */
-
+/* BOTTOM NAV */
 .bottom-nav{
   position:fixed;
-
   left:0;
   right:0;
   bottom:0;
-
   height:73px;
-
   z-index:200;
-
   background:rgba(8,10,13,.96);
-
   backdrop-filter:blur(20px);
-
   border-top:1px solid var(--line);
-
   display:flex;
   justify-content:center;
-
   padding:5px 7px;
-
   box-shadow:0 -10px 28px rgba(0,0,0,.24);
 }
 
 .nav-item{
   flex:1;
-
   max-width:120px;
-
   border:0;
   background:none;
-
   color:#737c88;
-
   border-radius:13px;
-
   display:flex;
   flex-direction:column;
-
   align-items:center;
   justify-content:center;
-
   gap:4px;
-
   transition:.18s;
-
   position:relative;
 }
 
 .nav-item svg{
   width:21px;
   height:21px;
-
   stroke-width:1.8;
 }
 
@@ -1117,13 +1008,9 @@ button{
 .create-plus{
   width:34px;
   height:30px;
-
   border-radius:10px;
-
   background:#16261d;
-
   border:1px solid #315c40;
-
   display:grid;
   place-items:center;
 }
@@ -1135,36 +1022,26 @@ button{
 
 .badge{
   position:absolute;
-
   top:7px;
-
   right:calc(50% - 19px);
-
   min-width:15px;
   height:15px;
-
   padding:0 4px;
-
   border-radius:9px;
-
   background:var(--like);
   color:#fff;
-
   font-size:9px;
   font-weight:800;
-
   display:none;
   place-items:center;
-
   border:2px solid var(--bg);
 }
 
-/* ================= MOBILE ================= */
-
+/* MOBILE */
 @media(max-width:500px){
 
   .container{
-    padding:10px 7px 25px;
+    padding:10px 0 25px;
   }
 
   .topbar-inner{
@@ -1180,16 +1057,26 @@ button{
     max-width:125px;
   }
 
-  .feed-heading{
-    height:54px;
+  .feed-heading,
+  .explore-title,
+  .create-title,
+  .alert-title{
+    padding-left:12px;
+    padding-right:12px;
   }
 
-  .feed-heading h2{
-    font-size:27px;
+  .search-strip{
+    padding-left:9px;
+    padding-right:9px;
   }
 
   .post{
-    padding:13px 7px 8px;
+    padding:12px 9px 8px;
+  }
+
+  .post-layout{
+    grid-template-columns:40px minmax(0,1fr);
+    gap:9px;
   }
 
   .avatar{
@@ -1199,41 +1086,17 @@ button{
   }
 
   .author{
-    font-size:15.5px;
-    max-width:150px;
+    font-size:13.5px;
   }
 
   .handle{
-    font-size:12px;
+    font-size:11px;
   }
 
   .post-text{
-    font-size:15px;
-    line-height:1.48;
-
-    margin-left:49px;
-    margin-right:2px;
-
-    margin-top:10px;
-    margin-bottom:9px;
-  }
-
-  .post-media,
-  .post-video{
-    width:calc(100% - 49px);
-    margin-left:49px;
-
-    border-radius:14px;
-  }
-
-  .actions{
-    width:calc(100% - 49px);
-    margin-left:49px;
-  }
-
-  .comments{
-    width:calc(100% - 49px);
-    margin-left:49px;
+    font-size:14px;
+    line-height:1.45;
+    margin-top:6px;
   }
 
   .action{
@@ -1249,29 +1112,47 @@ button{
     height:19px;
   }
 
-  /*
-    Discover remains 3 columns,
-    but text cards are compact.
-  */
-
-  .explore-grid{
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:3px;
+  .create-card{
+    margin:0 9px;
   }
 
-  .tile.text-tile{
-    padding:9px;
-    border-radius:8px;
+  .explore-title{
+    padding-top:7px;
   }
 
-  .tile-text{
-    font-size:11.5px;
-    line-height:1.4;
+  .search-main{
+    padding:0 9px;
   }
 
-  .tile-author{
-    font-size:9px;
-    margin-top:8px;
+  .search-results{
+    padding:0 9px;
+  }
+
+  .explore-feed-title{
+    padding:0 9px;
+  }
+
+  .explore-media-grid{
+    gap:2px;
+  }
+
+  .explore-text-post{
+    grid-template-columns:40px minmax(0,1fr);
+    gap:9px;
+    padding:12px 9px 9px;
+  }
+
+  .explore-text-avatar{
+    width:40px;
+    height:40px;
+  }
+
+  .explore-text-name{
+    font-size:13.5px;
+  }
+
+  .explore-text-content{
+    font-size:14px;
   }
 
   .bottom-nav{
@@ -1283,46 +1164,130 @@ button{
 
 <body>
 
-<!-- ================= TOP BAR ================= -->
-
 <header class="topbar">
   <div class="topbar-inner">
-
     <div class="logo">
       <div class="logo-mark">🐉</div>
       <span>JSP TAYSU</span>
     </div>
-
-    <div class="profile-name" id="profileName">
-      Member
-    </div>
-
+    <div class="profile-name" id="profileName">Member</div>
   </div>
 </header>
 
-
-<!-- ================= MAIN ================= -->
-
 <main class="container">
 
-<!-- ================= HOME ================= -->
-
+<!-- HOME -->
 <section id="homeSection" class="page-section active">
 
   <div class="feed-heading">
-
     <h2>Community</h2>
 
-    <button
-      class="icon-btn"
-      id="feedSearchButton"
-      aria-label="Search posts"
-    >
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-      >
+    <button class="icon-btn" id="feedSearchButton" aria-label="Search posts" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <circle cx="11" cy="11" r="7"></circle>
+        <path d="m20 20-4-4"></path>
+      </svg>
+    </button>
+  </div>
+
+  <div class="search-strip" id="feedSearchBox">
+    <input id="feedSearchInput"
+           maxlength="100"
+           placeholder="Search posts, people or topics..."
+           autocomplete="off">
+  </div>
+
+  <div id="posts">
+    <div class="empty">
+      <div class="empty-icon">⌛</div>
+      <h3>Loading community...</h3>
+      <p>Please wait a moment.</p>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- CREATE -->
+<section id="createSection" class="page-section">
+
+  <div class="create-title">
+    <h1>Create</h1>
+    <p>Share your thoughts, photos or videos with JSP TAYSU.</p>
+  </div>
+
+  <div class="create-card">
+
+    <div class="composer">
+      <div class="avatar" id="composerAvatar">M</div>
+
+      <div>
+        <div class="composer-name" id="composerName">Member</div>
+        <div class="composer-sub">Public community post</div>
+      </div>
+    </div>
+
+    <textarea id="postText"
+              maxlength="5000"
+              placeholder="What are you thinking about?"></textarea>
+
+    <div class="preview" id="createMediaPreview">
+      <button class="remove" id="removeMediaButton" type="button">×</button>
+      <div id="mediaPreviewContent"></div>
+    </div>
+
+    <div class="create-bottom">
+
+      <div class="media-row">
+
+        <button class="media-btn" id="photoButton" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="4" width="18" height="16" rx="3"></rect>
+            <circle cx="8.5" cy="9" r="1.5"></circle>
+            <path d="m5 17 4-4 3 3 2-2 5 5"></path>
+          </svg>
+          Photo
+        </button>
+
+        <button class="media-btn" id="videoButton" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="5" width="13" height="14" rx="3"></rect>
+            <path d="m16 10 5-3v10l-5-3z"></path>
+          </svg>
+          Video
+        </button>
+
+        <input id="photoInput" class="hidden" type="file" accept="image/*">
+        <input id="videoInput" class="hidden" type="file" accept="video/*">
+
+      </div>
+
+      <button class="post-btn" id="postButton" type="button">
+        Post
+      </button>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- EXPLORE -->
+<section id="exploreSection" class="page-section">
+
+  <div class="explore-title">
+    <h1>Explore</h1>
+    <p>Find members and discover what the community is sharing.</p>
+  </div>
+
+  <div class="search-main">
+
+    <input id="userSearchInput"
+           maxlength="40"
+           autocomplete="off"
+           placeholder="Search members...">
+
+    <button id="userSearchButton" aria-label="Search" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
         <circle cx="11" cy="11" r="7"></circle>
         <path d="m20 20-4-4"></path>
       </svg>
@@ -1330,329 +1295,49 @@ button{
 
   </div>
 
-
-  <div
-    class="search-strip"
-    id="feedSearchBox"
-  >
-    <input
-      id="feedSearchInput"
-      maxlength="100"
-      placeholder="Search posts, people or topics..."
-    >
-  </div>
-
-
-  <div id="posts">
-
-    <div class="empty">
-
-      <div class="empty-icon">
-        ⌛
-      </div>
-
-      <h3>Loading community...</h3>
-
-      <p>Please wait a moment.</p>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= CREATE ================= -->
-
-<section id="createSection" class="page-section">
-
-  <div class="create-title">
-
-    <h1>Create</h1>
-
-    <p>
-      Share your thoughts, photos or videos with JSP TAYSU.
-    </p>
-
-  </div>
-
-
-  <div class="create-card">
-
-    <div class="composer">
-
-      <div
-        class="avatar"
-        id="composerAvatar"
-      >
-        M
-      </div>
-
-      <div>
-
-        <div
-          class="composer-name"
-          id="composerName"
-        >
-          Member
-        </div>
-
-        <div class="composer-sub">
-          Public community post
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <textarea
-      id="postText"
-      maxlength="5000"
-      placeholder="What are you thinking about?"
-    ></textarea>
-
-
-    <div
-      class="preview"
-      id="createMediaPreview"
-    >
-
-      <button
-        class="remove"
-        id="removeMediaButton"
-      >
-        ×
-      </button>
-
-      <div id="mediaPreviewContent"></div>
-
-    </div>
-
-
-    <div class="create-bottom">
-
-      <div class="media-row">
-
-        <button
-          class="media-btn"
-          id="photoButton"
-        >
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <rect
-              x="3"
-              y="4"
-              width="18"
-              height="16"
-              rx="3"
-            ></rect>
-
-            <circle
-              cx="8.5"
-              cy="9"
-              r="1.5"
-            ></circle>
-
-            <path
-              d="m5 17 4-4 3 3 2-2 5 5"
-            ></path>
-
-          </svg>
-
-          Photo
-
-        </button>
-
-
-        <button
-          class="media-btn"
-          id="videoButton"
-        >
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-
-            <rect
-              x="3"
-              y="5"
-              width="13"
-              height="14"
-              rx="3"
-            ></rect>
-
-            <path
-              d="m16 10 5-3v10l-5-3z"
-            ></path>
-
-          </svg>
-
-          Video
-
-        </button>
-
-
-        <input
-          id="photoInput"
-          class="hidden"
-          type="file"
-          accept="image/*"
-        >
-
-        <input
-          id="videoInput"
-          class="hidden"
-          type="file"
-          accept="video/*"
-        >
-
-      </div>
-
-
-      <button
-        class="post-btn"
-        id="postButton"
-      >
-        Post
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= EXPLORE ================= -->
-
-<section id="exploreSection" class="page-section">
-
-  <div class="explore-title">
-
-    <h1>Explore</h1>
-
-    <p>
-      Find members and discover what the community is sharing.
-    </p>
-
-  </div>
-
-
-  <div class="search-main">
-
-    <input
-      id="userSearchInput"
-      maxlength="40"
-      autocomplete="off"
-      placeholder="Search members..."
-    >
-
-    <button
-      id="userSearchButton"
-      aria-label="Search"
-    >
-
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-      >
-
-        <circle
-          cx="11"
-          cy="11"
-          r="7"
-        ></circle>
-
-        <path
-          d="m20 20-4-4"
-        ></path>
-
-      </svg>
-
-    </button>
-
-  </div>
-
-
-  <div
-    id="searchResults"
-    class="search-results"
-  ></div>
-
+  <div id="searchResults" class="search-results"></div>
 
   <div class="explore-feed-title">
-
     <h2>Discover</h2>
 
     <div class="tabs">
-
-      <button
-        class="tab active"
-        data-tab="all"
-      >
+      <button class="tab active" data-tab="all" type="button">
         Posts
       </button>
 
-      <button
-        class="tab"
-        data-tab="video"
-      >
+      <button class="tab" data-tab="video" type="button">
         Reels
       </button>
-
     </div>
-
   </div>
 
+  <!-- Photos -->
+  <div id="exploreMediaGrid" class="explore-media-grid"></div>
 
-  <div id="exploreGrid" class="explore-grid"></div>
+  <!-- Text posts -->
+  <div id="exploreTextFeed" class="explore-text-feed"></div>
 
 </section>
 
 
-<!-- ================= ALERTS ================= -->
-
+<!-- ALERTS -->
 <section id="alertsSection" class="page-section">
 
   <div class="alert-title">
-
     <h1>Alerts</h1>
-
   </div>
-
 
   <div class="alert-tools">
-
-    <button
-      class="read-all"
-      id="readAllButton"
-    >
+    <button class="read-all" id="readAllButton" type="button">
       Mark all as read
     </button>
-
   </div>
 
-
   <div id="alertList">
-
     <div class="alert-empty">
-
       <h3>Loading alerts...</h3>
-
-      <p>
-        Your likes, comments and follows will appear here.
-      </p>
-
+      <p>Your likes, comments and follows will appear here.</p>
     </div>
-
   </div>
 
 </section>
@@ -1660,165 +1345,66 @@ button{
 </main>
 
 
-<!-- ================= BOTTOM NAV ================= -->
-
+<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
 
-  <button
-    class="nav-item active"
-    data-section="homeSection"
-  >
-
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-    >
-
+  <button class="nav-item active" data-section="homeSection" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
       <path d="M3 10.5 12 3l9 7.5"></path>
-
       <path d="M5 9v11h14V9"></path>
-
       <path d="M9 20v-6h6v6"></path>
-
     </svg>
-
     <span>Home</span>
-
   </button>
 
-
-  <button
-    class="nav-item"
-    data-section="exploreSection"
-  >
-
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-    >
-
-      <circle
-        cx="11"
-        cy="11"
-        r="7"
-      ></circle>
-
-      <path
-        d="m20 20-4-4"
-      ></path>
-
+  <button class="nav-item" data-section="exploreSection" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <circle cx="11" cy="11" r="7"></circle>
+      <path d="m20 20-4-4"></path>
     </svg>
-
     <span>Explore</span>
-
   </button>
 
-
-  <button
-    class="nav-item"
-    id="createNav"
-  >
-
+  <button class="nav-item" id="createNav" type="button">
     <div class="create-plus">
-
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-      >
-
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
         <path d="M12 5v14"></path>
-
         <path d="M5 12h14"></path>
-
       </svg>
-
     </div>
-
     <span>Create</span>
-
   </button>
 
-
-  <button
-    class="nav-item"
-    data-section="alertsSection"
-  >
-
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-    >
-
-      <path
-        d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"
-      ></path>
-
+  <button class="nav-item" data-section="alertsSection" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
       <path d="M10 21h4"></path>
-
     </svg>
-
     <span>Alerts</span>
-
-    <i
-      class="badge"
-      id="alertBadge"
-    >
-      0
-    </i>
-
+    <i class="badge" id="alertBadge">0</i>
   </button>
 
-
-  <button
-    class="nav-item"
-    id="profileNavButton"
-  >
-
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-    >
-
-      <circle
-        cx="12"
-        cy="8"
-        r="4"
-      ></circle>
-
-      <path
-        d="M4 21c0-4 3.5-7 8-7s8 3 8 7"
-      ></path>
-
+  <button class="nav-item" id="profileNavButton" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <circle cx="12" cy="8" r="4"></circle>
+      <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"></path>
     </svg>
-
     <span>Profile</span>
-
   </button>
 
 </nav>
 
 
-<!-- ================= FIREBASE ================= -->
-
 <script type="module">
 
-import {
-  initializeApp
-}
+import {initializeApp}
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
 
 import {
   getAuth,
   onAuthStateChanged
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
 
 import {
   getFirestore,
@@ -1837,7 +1423,6 @@ import {
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-
 import {
   getStorage,
   ref,
@@ -1847,1287 +1432,891 @@ import {
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
 
-/* ================= FIREBASE CONFIG ================= */
-
-const firebaseConfig = {
-
-  apiKey:
-    "AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
-
-  authDomain:
-    "jsp-taysu.firebaseapp.com",
-
-  projectId:
-    "jsp-taysu",
-
-  storageBucket:
-    "jsp-taysu.firebasestorage.app",
-
-  messagingSenderId:
-    "280992025632",
-
-  appId:
-    "1:280992025632:web:48efa21208a78be9a78045"
-
+const firebaseConfig={
+  apiKey:"AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
+  authDomain:"jsp-taysu.firebaseapp.com",
+  projectId:"jsp-taysu",
+  storageBucket:"jsp-taysu.firebasestorage.app",
+  messagingSenderId:"280992025632",
+  appId:"1:280992025632:web:48efa21208a78be9a78045"
 };
 
 
-const app =
-  initializeApp(firebaseConfig);
-
-const auth =
-  getAuth(app);
-
-const db =
-  getFirestore(app);
-
-const storage =
-  getStorage(app);
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+const storage=getStorage(app);
 
 
-/* ================= STATE ================= */
+let currentUser=null;
+let currentUsername="Member";
+let selectedMediaFile=null;
+let selectedMediaType=null;
 
-let currentUser = null;
+let allPosts=[];
+let allMembers=[];
+let notificationUnsubscribe=null;
 
-let currentUsername = "Member";
-
-let selectedMediaFile = null;
-
-let selectedMediaType = null;
-
-let allPosts = [];
-
-let allMembers = [];
-
-let notificationUnsubscribe = null;
+const authorCache={};
 
 
-/* ================= HELPERS ================= */
+const $=id=>document.getElementById(id);
 
-const $ =
-  id => document.getElementById(id);
-
-
-const postsContainer =
-  $("posts");
-
-const alertList =
-  $("alertList");
-
-const alertBadge =
-  $("alertBadge");
+const postsContainer=$("posts");
+const alertList=$("alertList");
+const alertBadge=$("alertBadge");
 
 
-/* ================= AUTH ================= */
+/* AUTH */
+onAuthStateChanged(auth,async user=>{
 
-onAuthStateChanged(
-  auth,
-  async user => {
+  currentUser=user;
 
-    currentUser = user;
+  if(!user){
 
+    $("profileName").textContent="Please sign in";
+    $("composerName").textContent="Member";
+    $("composerAvatar").textContent="M";
+    currentUsername="Member";
 
-    if(!user){
+    postsContainer.innerHTML=`
+      <div class="empty">
+        <div class="empty-icon">🔐</div>
+        <h3>Sign in to view the community</h3>
+        <p>Please sign in first.</p>
+      </div>
+    `;
 
-      $("profileName").textContent =
-        "Please sign in";
-
-      $("composerName").textContent =
-        "Member";
-
-      $("composerAvatar").textContent =
-        "M";
-
-      currentUsername =
-        "Member";
-
-
-      postsContainer.innerHTML = `
-
-        <div class="empty">
-
-          <div class="empty-icon">
-            🔐
-          </div>
-
-          <h3>
-            Sign in to view the community
-          </h3>
-
-          <p>
-            Please sign in first.
-          </p>
-
-        </div>
-
-      `;
-
-      return;
-    }
-
-
-    let username =
-      user.displayName || "Member";
-
-
-    try{
-
-      const snap =
-        await getDoc(
-          doc(db,"users",user.uid)
-        );
-
-
-      if(snap.exists()){
-
-        const d =
-          snap.data();
-
-        username =
-          d.username ||
-          d.name ||
-          d.displayName ||
-          username;
-
-      }
-
-    }catch(e){
-
-      console.error(
-        "Profile error",
-        e
-      );
-
-    }
-
-
-    currentUsername =
-      username;
-
-
-    $("profileName").textContent =
-      username;
-
-    $("composerName").textContent =
-      username;
-
-    $("composerAvatar").textContent =
-      username
-        .charAt(0)
-        .toUpperCase();
-
-
-    await loadPosts();
-
-    await loadMembers();
-
-    subscribeNotifications();
-
+    return;
   }
-);
 
 
-/* ================= NAVIGATION ================= */
+  let username=user.displayName||"Member";
+  let photo=user.photoURL||"";
 
-const sections = {
 
-  homeSection:
-    $("homeSection"),
+  try{
 
-  createSection:
-    $("createSection"),
+    const snap=await getDoc(doc(db,"users",user.uid));
 
-  exploreSection:
-    $("exploreSection"),
+    if(snap.exists()){
 
-  alertsSection:
-    $("alertsSection")
+      const d=snap.data();
 
+      username=d.username||d.name||d.displayName||username;
+      photo=d.photoURL||d.photoUrl||photo;
+
+      authorCache[user.uid]={
+        username,
+        photo
+      };
+    }
+
+  }catch(e){
+    console.error("Profile error",e);
+  }
+
+
+  currentUsername=username;
+
+  $("profileName").textContent=username;
+  $("composerName").textContent=username;
+
+  if(photo){
+    $("composerAvatar").innerHTML=
+      `<img src="${escapeAttr(photo)}" alt="">`;
+  }else{
+    $("composerAvatar").textContent=
+      username.charAt(0).toUpperCase();
+  }
+
+
+  await loadPosts();
+  await loadMembers();
+  subscribeNotifications();
+
+});
+
+
+/* NAVIGATION */
+const sections={
+  homeSection:$("homeSection"),
+  createSection:$("createSection"),
+  exploreSection:$("exploreSection"),
+  alertsSection:$("alertsSection")
 };
 
 
 function showSection(id){
 
-  Object
-    .values(sections)
-    .forEach(
-      s => s.classList.remove("active")
-    );
+  Object.values(sections)
+    .forEach(s=>s.classList.remove("active"));
+
+  sections[id].classList.add("active");
 
 
-  sections[id]
-    .classList.add("active");
-
-
-  document
-    .querySelectorAll(".nav-item")
-    .forEach(
-      b =>
-        b.classList.remove(
-          "active",
-          "create-active",
-          "explore-active",
-          "alert-active"
-        )
-    );
-
-
-  const button =
-    document.querySelector(
-      `[data-section="${id}"]`
-    );
-
-
-  if(button)
-    button.classList.add("active");
-
-
-  if(id === "createSection"){
-
-    $("createNav")
-      .classList.add(
+  document.querySelectorAll(".nav-item")
+    .forEach(b=>{
+      b.classList.remove(
         "active",
-        "create-active"
+        "create-active",
+        "explore-active",
+        "alert-active"
       );
+    });
 
+
+  const b=document.querySelector(
+    `[data-section="${id}"]`
+  );
+
+  if(b)b.classList.add("active");
+
+
+  if(id==="createSection"){
+    $("createNav").classList.add("active","create-active");
   }
 
-
-  if(id === "exploreSection"){
-
+  if(id==="exploreSection"){
     loadExploreGrid(
-      document
-        .querySelector(".tab.active")
-        ?.dataset.tab || "all"
+      document.querySelector(".tab.active")?.dataset.tab||"all"
     );
-
   }
 
-
-  if(id === "alertsSection"){
-
+  if(id==="alertsSection"){
     refreshNotifications();
-
   }
-
 
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
-
 }
 
 
 document
-  .querySelectorAll(
-    ".nav-item[data-section]"
-  )
-  .forEach(
-    b =>
-      b.addEventListener(
-        "click",
-        () =>
-          showSection(
-            b.dataset.section
-          )
-      )
-  );
-
-
-$("createNav")
-  .addEventListener(
+.querySelectorAll(".nav-item[data-section]")
+.forEach(b=>{
+  b.addEventListener(
     "click",
-    () =>
-      showSection("createSection")
+    ()=>showSection(b.dataset.section)
   );
+});
 
 
-$("profileNavButton")
-  .addEventListener(
-    "click",
-    () => {
-
-      if(!currentUser){
-
-        alert(
-          "Please sign in first."
-        );
-
-        return;
-      }
+$("createNav").addEventListener(
+  "click",
+  ()=>showSection("createSection")
+);
 
 
-      window.location.href =
-        "profile.html?uid=" +
-        encodeURIComponent(
-          currentUser.uid
-        );
-
+$("profileNavButton").addEventListener(
+  "click",
+  ()=>{
+    if(!currentUser){
+      alert("Please sign in first.");
+      return;
     }
-  );
+
+    window.location.href=
+      "profile.html?uid="+
+      encodeURIComponent(currentUser.uid);
+  }
+);
 
 
-/* ================= HOME SEARCH ================= */
+/* HOME SEARCH */
+$("feedSearchButton").addEventListener(
+  "click",
+  ()=>{
 
-$("feedSearchButton")
-  .addEventListener(
-    "click",
-    () => {
+    const box=$("feedSearchBox");
 
-      const box =
-        $("feedSearchBox");
+    box.classList.toggle("show");
 
-
-      box.classList.toggle("show");
-
-
-      if(
-        box.classList.contains("show")
-      ){
-
-        $("feedSearchInput")
-          .focus();
-
-      }else{
-
-        $("feedSearchInput")
-          .value = "";
-
-        renderPosts("");
-
-      }
-
+    if(box.classList.contains("show")){
+      $("feedSearchInput").focus();
+    }else{
+      $("feedSearchInput").value="";
+      renderPosts("");
     }
-  );
+
+  }
+);
 
 
-$("feedSearchInput")
-  .addEventListener(
-    "input",
-    e =>
-      renderPosts(
-        e.target.value
-      )
-  );
+$("feedSearchInput").addEventListener(
+  "input",
+  e=>renderPosts(e.target.value)
+);
 
 
-/* ================= MEDIA ================= */
-
-$("photoButton")
-  .addEventListener(
-    "click",
-    () => {
-
-      if(!currentUser){
-
-        alert(
-          "Please sign in first."
-        );
-
-        return;
-      }
-
-      $("photoInput").click();
-
+/* MEDIA */
+$("photoButton").addEventListener(
+  "click",
+  ()=>{
+    if(!currentUser){
+      alert("Please sign in first.");
+      return;
     }
-  );
+
+    $("photoInput").click();
+  }
+);
 
 
-$("videoButton")
-  .addEventListener(
-    "click",
-    () => {
-
-      if(!currentUser){
-
-        alert(
-          "Please sign in first."
-        );
-
-        return;
-      }
-
-      $("videoInput").click();
-
+$("videoButton").addEventListener(
+  "click",
+  ()=>{
+    if(!currentUser){
+      alert("Please sign in first.");
+      return;
     }
-  );
+
+    $("videoInput").click();
+  }
+);
 
 
-$("photoInput")
-  .addEventListener(
-    "change",
-    e => {
-
-      if(e.target.files[0]){
-
-        selectMedia(
-          e.target.files[0],
-          "image"
-        );
-
-      }
-
-    }
-  );
+$("photoInput").addEventListener(
+  "change",
+  e=>{
+    if(e.target.files[0])
+      selectMedia(e.target.files[0],"image");
+  }
+);
 
 
-$("videoInput")
-  .addEventListener(
-    "change",
-    e => {
-
-      if(e.target.files[0]){
-
-        selectMedia(
-          e.target.files[0],
-          "video"
-        );
-
-      }
-
-    }
-  );
+$("videoInput").addEventListener(
+  "change",
+  e=>{
+    if(e.target.files[0])
+      selectMedia(e.target.files[0],"video");
+  }
+);
 
 
-function selectMedia(
-  file,
-  type
-){
+function selectMedia(file,type){
 
-  selectedMediaFile =
-    file;
+  selectedMediaFile=file;
+  selectedMediaType=type;
 
-  selectedMediaType =
-    type;
+  const url=URL.createObjectURL(file);
 
+  $("mediaPreviewContent").innerHTML=
+    type==="image"
+      ? `<img src="${url}" alt="Selected photo">`
+      : `<video src="${url}" controls></video>`;
 
-  const url =
-    URL.createObjectURL(file);
-
-
-  $("mediaPreviewContent")
-    .innerHTML =
-      type === "image"
-
-        ? `
-          <img
-            src="${url}"
-            alt="Selected photo"
-          >
-        `
-
-        : `
-          <video
-            src="${url}"
-            controls
-          ></video>
-        `;
-
-
-  $("createMediaPreview")
-    .style.display =
-      "block";
-
+  $("createMediaPreview").style.display="block";
 }
 
 
-$("removeMediaButton")
-  .addEventListener(
-    "click",
-    clearMedia
-  );
+$("removeMediaButton").addEventListener(
+  "click",
+  clearMedia
+);
 
 
 function clearMedia(){
 
-  selectedMediaFile =
-    null;
+  selectedMediaFile=null;
+  selectedMediaType=null;
 
-  selectedMediaType =
-    null;
+  $("photoInput").value="";
+  $("videoInput").value="";
 
-
-  $("photoInput")
-    .value = "";
-
-  $("videoInput")
-    .value = "";
-
-
-  $("createMediaPreview")
-    .style.display =
-      "none";
-
-  $("mediaPreviewContent")
-    .innerHTML =
-      "";
-
+  $("createMediaPreview").style.display="none";
+  $("mediaPreviewContent").innerHTML="";
 }
 
 
-/* ================= CREATE POST ================= */
+/* CREATE POST */
+$("postButton").addEventListener(
+  "click",
+  async()=>{
 
-$("postButton")
-  .addEventListener(
-    "click",
-    async () => {
+    if(!currentUser){
+      alert("Please sign in first.");
+      return;
+    }
 
-      if(!currentUser){
 
-        alert(
-          "Please sign in first."
+    const text=$("postText").value.trim();
+
+    if(!text&&!selectedMediaFile){
+      alert("Write something or choose a photo/video.");
+      return;
+    }
+
+
+    const btn=$("postButton");
+
+    btn.disabled=true;
+    btn.textContent="Posting...";
+
+
+    try{
+
+      let mediaUrl="";
+      let mediaType="";
+
+
+      if(selectedMediaFile){
+
+        const file=selectedMediaFile;
+
+        const safe=file.name.replace(
+          /[^a-zA-Z0-9._-]/g,
+          "_"
         );
 
-        return;
+        const path=
+          `posts/${currentUser.uid}/${Date.now()}_${safe}`;
+
+
+        const up=await uploadBytes(
+          ref(storage,path),
+          file
+        );
+
+        mediaUrl=await getDownloadURL(up.ref);
+        mediaType=selectedMediaType;
       }
 
 
-      const text =
-        $("postText")
-          .value
-          .trim();
-
-
-      if(
-        !text &&
-        !selectedMediaFile
-      ){
-
-        alert(
-          "Write something or choose a photo/video."
-        );
-
-        return;
-      }
-
-
-      const btn =
-        $("postButton");
-
-
-      btn.disabled =
-        true;
-
-      btn.textContent =
-        "Posting...";
-
-
-      try{
-
-        let mediaUrl = "";
-
-        let mediaType = "";
-
-
-        if(selectedMediaFile){
-
-          const file =
-            selectedMediaFile;
-
-
-          const safe =
-            file.name.replace(
-              /[^a-zA-Z0-9._-]/g,
-              "_"
-            );
-
-
-          const path =
-            `posts/${currentUser.uid}/${Date.now()}_${safe}`;
-
-
-          const up =
-            await uploadBytes(
-              ref(storage,path),
-              file
-            );
-
-
-          mediaUrl =
-            await getDownloadURL(
-              up.ref
-            );
-
-
-          mediaType =
-            selectedMediaType;
-
+      await addDoc(
+        collection(db,"posts"),
+        {
+          text,
+          authorId:currentUser.uid,
+          authorName:currentUsername,
+          mediaUrl,
+          mediaType,
+          createdAt:serverTimestamp()
         }
+      );
 
 
-        await addDoc(
-          collection(db,"posts"),
-          {
+      $("postText").value="";
+      clearMedia();
 
-            text,
+      await loadPosts();
 
-            authorId:
-              currentUser.uid,
+      showSection("homeSection");
 
-            authorName:
-              currentUsername,
+    }catch(e){
 
-            mediaUrl,
+      console.error(e);
 
-            mediaType,
+      alert(
+        (e.code||"Error")+
+        ": "+
+        e.message
+      );
 
-            createdAt:
-              serverTimestamp()
+    }finally{
 
-          }
-        );
-
-
-        $("postText")
-          .value = "";
-
-
-        clearMedia();
-
-
-        await loadPosts();
-
-
-        showSection(
-          "homeSection"
-        );
-
-
-      }catch(e){
-
-        console.error(e);
-
-        alert(
-          (e.code || "Error") +
-          ": " +
-          e.message
-        );
-
-      }finally{
-
-        btn.disabled =
-          false;
-
-        btn.textContent =
-          "Post";
-
-      }
+      btn.disabled=false;
+      btn.textContent="Post";
 
     }
-  );
+
+  }
+);
 
 
-/* ================= LOAD POSTS ================= */
-
+/* LOAD POSTS */
 async function loadPosts(){
 
   try{
 
-    const snap =
-      await getDocs(
-        collection(db,"posts")
-      );
-
-
-    allPosts = [];
-
-
-    snap.forEach(
-      d =>
-        allPosts.push({
-          id:d.id,
-          ...d.data()
-        })
+    const snap=await getDocs(
+      collection(db,"posts")
     );
+
+    allPosts=[];
+
+    snap.forEach(d=>{
+      allPosts.push({
+        id:d.id,
+        ...d.data()
+      });
+    });
 
 
     allPosts.sort(
-      (a,b) =>
-        (b.createdAt?.seconds || 0) -
-        (a.createdAt?.seconds || 0)
+      (a,b)=>
+        (b.createdAt?.seconds||0)-
+        (a.createdAt?.seconds||0)
     );
 
 
     renderPosts(
-      $("feedSearchInput")
-        .value || ""
+      $("feedSearchInput").value||""
     );
-
 
     loadExploreGrid(
-      document
-        .querySelector(".tab.active")
-        ?.dataset.tab || "all"
+      document.querySelector(".tab.active")?.dataset.tab||"all"
     );
-
 
   }catch(e){
 
-    console.error(
-      "Posts",
-      e
-    );
+    console.error("Posts",e);
 
-
-    postsContainer.innerHTML = `
-
+    postsContainer.innerHTML=`
       <div class="empty">
-
-        <div class="empty-icon">
-          ⚠️
-        </div>
-
-        <h3>
-          Couldn’t load posts
-        </h3>
-
-        <p>
-          Check your Firebase rules and refresh.
-        </p>
-
+        <div class="empty-icon">⚠️</div>
+        <h3>Couldn’t load posts</h3>
+        <p>Check your Firebase rules and refresh.</p>
       </div>
-
     `;
 
   }
-
 }
 
 
-/* ================= RENDER POSTS ================= */
+/* HOME POST FILTER */
+function renderPosts(search=""){
 
-function renderPosts(
-  search = ""
-){
-
-  const q =
-    String(search)
-      .trim()
-      .toLowerCase();
+  const q=String(search)
+    .trim()
+    .toLowerCase();
 
 
-  const list =
-    allPosts.filter(
-      p =>
-        !q ||
-
-        String(
-          p.text || ""
-        )
+  const list=allPosts.filter(
+    p=>
+      !q||
+      String(p.text||"")
         .toLowerCase()
-        .includes(q) ||
-
-        String(
-          p.authorName || ""
-        )
+        .includes(q)||
+      String(p.authorName||"")
         .toLowerCase()
         .includes(q)
-    );
+  );
 
 
-  postsContainer.innerHTML =
-    "";
+  postsContainer.innerHTML="";
 
 
   if(!list.length){
 
-    postsContainer.innerHTML = `
-
+    postsContainer.innerHTML=`
       <div class="empty">
-
-        <div class="empty-icon">
-          🔎
-        </div>
-
-        <h3>
-          No posts found
-        </h3>
-
-        <p>
-          Try another word or topic.
-        </p>
-
+        <div class="empty-icon">🔎</div>
+        <h3>No posts found</h3>
+        <p>Try another word or topic.</p>
       </div>
-
     `;
 
     return;
-
   }
 
 
   list.forEach(
-    p =>
-      renderPost(
-        p,
-        postsContainer
-      )
+    p=>renderPost(p,postsContainer)
   );
-
 }
 
 
-/* ================= SINGLE POST ================= */
+/* AUTHOR PROFILE / DP */
+async function getAuthorProfile(post){
 
-async function renderPost(
-  post,
-  container
-){
-
-  const el =
-    document.createElement(
-      "article"
-    );
+  if(!post.authorId){
+    return {
+      username:post.authorName||"Member",
+      photo:""
+    };
+  }
 
 
-  el.className =
-    "post";
+  if(authorCache[post.authorId]){
+    return authorCache[post.authorId];
+  }
 
 
-  let likeCount = 0;
-
-  let liked = false;
-
-  let commentCount = 0;
+  let username=post.authorName||"Member";
+  let photo="";
 
 
   try{
 
-    const ls =
-      await getDocs(
-        collection(
-          db,
-          "posts",
-          post.id,
-          "likes"
-        )
-      );
-
-
-    likeCount =
-      ls.size;
-
-
-    liked =
-      !!currentUser &&
-      ls.docs.some(
-        d =>
-          d.id ===
-          currentUser.uid
-      );
-
-
-    const cs =
-      await getDocs(
-        collection(
-          db,
-          "posts",
-          post.id,
-          "comments"
-        )
-      );
-
-
-    commentCount =
-      cs.size;
-
-
-  }catch(e){
-
-    console.error(
-      "Counts",
-      e
+    const snap=await getDoc(
+      doc(db,"users",post.authorId)
     );
 
+    if(snap.exists()){
+
+      const d=snap.data();
+
+      username=
+        d.username||
+        d.name||
+        d.displayName||
+        username;
+
+      photo=
+        d.photoURL||
+        d.photoUrl||
+        "";
+    }
+
+  }catch(e){
+    console.error("Author profile",e);
   }
 
 
-  const name =
-    post.authorName ||
-    "Member";
+  authorCache[post.authorId]={
+    username,
+    photo
+  };
+
+  return authorCache[post.authorId];
+}
 
 
-  const initial =
-    name
-      .charAt(0)
-      .toUpperCase();
+/* HOME POST RENDER */
+async function renderPost(post,container){
+
+  const el=document.createElement("article");
+
+  el.className="post";
 
 
-  const handle =
-    "@" +
-    name
-      .toLowerCase()
-      .replace(
-        /\s+/g,
-        ""
-      )
-      .slice(
-        0,
-        20
+  let likeCount=0;
+  let liked=false;
+  let commentCount=0;
+
+
+  try{
+
+    const ls=await getDocs(
+      collection(db,"posts",post.id,"likes")
+    );
+
+    likeCount=ls.size;
+
+    liked=
+      !!currentUser &&
+      ls.docs.some(
+        d=>d.id===currentUser.uid
       );
 
 
-  let media = "";
+    commentCount=
+      (
+        await getDocs(
+          collection(
+            db,
+            "posts",
+            post.id,
+            "comments"
+          )
+        )
+      ).size;
+
+  }catch(e){
+    console.error("Counts",e);
+  }
 
 
-  if(
-    post.mediaUrl &&
-    post.mediaType === "image"
-  ){
+  const author=await getAuthorProfile(post);
 
-    media = `
+  const name=author.username||post.authorName||"Member";
 
+  const initial=
+    name.trim().charAt(0).toUpperCase()||"M";
+
+  const handle=
+    "@"+
+    name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g,"")
+      .slice(0,20);
+
+
+  let avatarHTML=
+    author.photo
+      ? `<img src="${escapeAttr(author.photo)}" alt="">`
+      : escapeHTML(initial);
+
+
+  let media="";
+
+
+  if(post.mediaUrl&&post.mediaType==="image"){
+
+    media=`
       <img
         class="post-media"
         src="${escapeAttr(post.mediaUrl)}"
         alt="Community photo"
-        loading="lazy"
-      >
-
+        loading="lazy">
     `;
 
   }
 
 
-  if(
-    post.mediaUrl &&
-    post.mediaType === "video"
-  ){
+  if(post.mediaUrl&&post.mediaType==="video"){
 
-    media = `
-
+    media=`
       <video
         class="post-video"
         controls
-        preload="metadata"
-      >
-
-        <source
-          src="${escapeAttr(post.mediaUrl)}"
-        >
-
+        preload="metadata">
+        <source src="${escapeAttr(post.mediaUrl)}">
       </video>
-
     `;
 
   }
 
 
-  el.innerHTML = `
+  el.innerHTML=`
 
-    <div
-      class="post-header"
-      data-uid="${escapeAttr(
-        post.authorId || ""
-      )}"
-    >
+    <div class="post-layout">
 
       <div class="avatar">
-        ${escapeHTML(initial)}
+        ${avatarHTML}
       </div>
 
 
-      <div class="author-wrap">
+      <div class="post-main">
 
-        <div class="author-line">
+        <div class="post-header">
 
-          <span class="author">
-            ${escapeHTML(name)}
-          </span>
+          <div class="author-wrap">
 
+            <div class="author-line">
 
-          <span class="verified">
+              <span class="author">
+                ${escapeHTML(name)}
+              </span>
 
-            <svg
-              viewBox="0 0 24 24"
-            >
+              <span class="verified">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2l2.1 2.1 3-.2.9 2.9 2.6 1.6-1 2.8 1 2.8-2.6 1.6-.9 2.9-3-.2L12 22l-2.1-2.1-3 .2-.9-2.9-2.6-1.6 1-2.8-1 2.8 2.6 1.6.9 2.9 3-.2L12 22l2.1-2.1 3 .2.9-2.9 2.6-1.6-1-2.8 1-2.8-2.6-1.6-.9-2.9-3 .2L12 2z"></path>
+                  <path
+                    d="m8.5 12 2.2 2.2 4.8-5"
+                    fill="none"
+                    stroke="#fff"
+                    stroke-width="1.8">
+                  </path>
+                </svg>
+              </span>
 
-              <path
-                d="M12 2l2.1 2.1 3-.2.9 2.9 2.6 1.6-1 2.8 1 2.8-2.6 1.6-.9 2.9-3-.2L12 22l-2.1-2.1-3 .2-.9-2.9-2.6-1.6 1-2.8-1-2.8 2.6-1.6.9-2.9 3 .2L12 2z"
-              ></path>
+              <button
+                class="more"
+                type="button"
+                aria-label="More">
+                •••
+              </button>
 
-              <path
-                d="m8.5 12 2.2 2.2 4.8-5"
-                fill="none"
-                stroke="#fff"
-                stroke-width="1.8"
-              ></path>
+            </div>
 
-            </svg>
+            <div class="handle">
+              ${escapeHTML(handle)}
+              ·
+              ${formatTime(post.createdAt)}
+            </div>
 
-          </span>
-
-
-          <button class="more">
-            •••
-          </button>
-
-        </div>
-
-
-        <div class="handle">
-
-          ${escapeHTML(handle)}
-
-          ·
-
-          ${formatTime(
-            post.createdAt
-          )}
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    ${
-      post.text
-        ? `
-          <div class="post-text">
-            ${escapeHTML(post.text)}
           </div>
-        `
-        : ""
-    }
+
+        </div>
 
 
-    ${media}
+        <div class="post-body">
+
+          ${
+            post.text
+              ? `
+                <div class="post-text">
+                  ${escapeHTML(
+                    String(post.text)
+                  )}
+                </div>
+              `
+              :""
+          }
+
+          ${media}
 
 
-    <div class="actions">
+          <div class="actions">
 
-      <button
-        class="action comment"
-      >
+            <button
+              class="action comment"
+              type="button">
 
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-        >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor">
+                <path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 2 1.5-4A7.5 7.5 0 1 1 20 11.5Z"/>
+              </svg>
 
-          <path
-            d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 2 1.5-4A7.5 7.5 0 1 1 20 11.5Z"
-          ></path>
+              <span>Comment</span>
+              <b class="comment-count">${commentCount}</b>
 
-        </svg>
-
-        <span>Comment</span>
-
-        <b class="comment-count">
-          ${commentCount}
-        </b>
-
-      </button>
+            </button>
 
 
-      <button
-        class="action like ${
-          liked ? "liked" : ""
-        }"
-      >
+            <button
+              class="action like ${liked?"liked":""}"
+              type="button">
 
-        <svg
-          viewBox="0 0 24 24"
-          fill="${
-            liked
-              ? "currentColor"
-              : "none"
-          }"
-          stroke="currentColor"
-        >
+              <svg
+                viewBox="0 0 24 24"
+                fill="${liked?"currentColor":"none"}"
+                stroke="currentColor">
 
-          <path
-            d="M20.8 8.7C20.8 13.7 12 20 12 20S3.2 13.7 3.2 8.7C3.2 5.7 5.4 3.7 8.1 3.7c1.7 0 3.2.9 3.9 2.2.7-1.3 2.2-2.2 3.9-2.2 2.7 0 4.9 2 4.9 5Z"
-          ></path>
+                <path d="M20.8 8.7C20.8 13.7 12 20 12 20S3.2 13.7 3.2 8.7C3.2 5.7 5.4 3.7 8.1 3.7c1.7 0 3.2.9 3.9 2.2.7-1.3 2.2-2.2 3.9-2.2 2.7 0 4.9 2 4.9 5Z"/>
+              </svg>
 
-        </svg>
+              <span>${liked?"Unlike":"Like"}</span>
+              <b class="like-count">${likeCount}</b>
 
-        <span>Like</span>
-
-        <b class="like-count">
-          ${likeCount}
-        </b>
-
-      </button>
+            </button>
 
 
-      <button
-        class="action share"
-      >
+            <button
+              class="action share"
+              type="button">
 
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-        >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor">
 
-          <path d="M12 16V4"></path>
+                <path d="M12 16V4"/>
+                <path d="m7 9 5-5 5 5"/>
+                <path d="M5 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/>
 
-          <path d="m7 9 5-5 5 5"></path>
+              </svg>
 
-          <path
-            d="M5 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"
-          ></path>
+              <span>Share</span>
 
-        </svg>
+            </button>
 
-        <span>Share</span>
-
-      </button>
-
-    </div>
+          </div>
 
 
-    <div class="comments">
+          <div class="comments">
 
-      <div class="comment-list"></div>
+            <div class="comment-list"></div>
 
+            <div class="comment-form">
 
-      <div class="comment-form">
+              <input
+                class="comment-input"
+                maxlength="300"
+                placeholder="Write a reply..."
+                autocomplete="off">
 
-        <input
-          class="comment-input"
-          maxlength="300"
-          placeholder="Write a reply..."
-        >
+              <button
+                class="comment-send"
+                type="button">
+                Send
+              </button>
 
+            </div>
 
-        <button class="comment-send">
-          Send
-        </button>
+          </div>
+
+        </div>
 
       </div>
 
     </div>
-
   `;
 
 
   container.appendChild(el);
 
 
-  /* Profile */
-
-  el.querySelector(
-    ".post-header"
-  )
-  .addEventListener(
-    "click",
-    () => {
-
-      if(post.authorId){
-
-        window.location.href =
-          "profile.html?uid=" +
-          encodeURIComponent(
-            post.authorId
-          );
-
+  /* PROFILE CLICK */
+  el.querySelector(".post-header")
+    .addEventListener(
+      "click",
+      ()=>{
+        if(post.authorId){
+          window.location.href=
+            "profile.html?uid="+
+            encodeURIComponent(post.authorId);
+        }
       }
-
-    }
-  );
-
-
-  /* Like */
-
-  const likeBtn =
-    el.querySelector(".like");
-
-  const likeNum =
-    el.querySelector(
-      ".like-count"
     );
+
+
+  /* MORE BUTTON */
+  el.querySelector(".more")
+    .addEventListener(
+      "click",
+      e=>e.stopPropagation()
+    );
+
+
+  /* LIKE */
+  const likeBtn=el.querySelector(".like");
+  const likeNum=el.querySelector(".like-count");
 
 
   likeBtn.addEventListener(
     "click",
-    async () => {
+    async()=>{
 
       if(!currentUser){
-
-        alert(
-          "Please sign in first."
-        );
-
+        alert("Please sign in first.");
         return;
       }
 
-
-      likeBtn.disabled =
-        true;
+      likeBtn.disabled=true;
 
 
       try{
 
-        const r =
-          doc(
-            db,
-            "posts",
-            post.id,
-            "likes",
-            currentUser.uid
-          );
+        const r=doc(
+          db,
+          "posts",
+          post.id,
+          "likes",
+          currentUser.uid
+        );
 
+        const s=await getDoc(r);
 
-        const s =
-          await getDoc(r);
-
-
-        let n =
-          Number(
-            likeNum.textContent
-          ) || 0;
+        let n=
+          Number(likeNum.textContent)||0;
 
 
         if(s.exists()){
 
           await deleteDoc(r);
 
-          n =
-            Math.max(
-              0,
-              n - 1
-            );
+          n=Math.max(0,n-1);
 
-
-          likeBtn
-            .classList
-            .remove("liked");
-
+          likeBtn.classList.remove("liked");
 
           likeBtn
             .querySelector("svg")
-            .setAttribute(
-              "fill",
-              "none"
-            );
+            .setAttribute("fill","none");
+
+          likeBtn
+            .querySelector("span")
+            .textContent="Like";
 
         }else{
 
           await setDoc(
             r,
             {
-              userId:
-                currentUser.uid,
-
-              createdAt:
-                serverTimestamp()
+              userId:currentUser.uid,
+              createdAt:serverTimestamp()
             }
           );
 
-
           n++;
 
-
-          likeBtn
-            .classList
-            .add("liked");
-
+          likeBtn.classList.add("liked");
 
           likeBtn
             .querySelector("svg")
@@ -3136,29 +2325,22 @@ async function renderPost(
               "currentColor"
             );
 
+          likeBtn
+            .querySelector("span")
+            .textContent="Unlike";
+
 
           if(
             post.authorId &&
-            post.authorId !==
-              currentUser.uid
+            post.authorId!==currentUser.uid
           ){
 
             await createNotification({
-
-              recipientId:
-                post.authorId,
-
-              senderId:
-                currentUser.uid,
-
-              senderName:
-                currentUsername,
-
+              recipientId:post.authorId,
+              senderId:currentUser.uid,
+              senderName:currentUsername,
               type:"like",
-
-              postId:
-                post.id
-
+              postId:post.id
             });
 
           }
@@ -3166,27 +2348,21 @@ async function renderPost(
         }
 
 
-        likeNum.textContent =
-          n;
-
+        likeNum.textContent=n;
 
       }catch(e){
 
-        console.error(
-          e
-        );
+        console.error(e);
 
         alert(
-          (e.code ||
-            "Error") +
-          ": " +
+          (e.code||"Error")+
+          ": "+
           e.message
         );
 
       }finally{
 
-        likeBtn.disabled =
-          false;
+        likeBtn.disabled=false;
 
       }
 
@@ -3194,75 +2370,36 @@ async function renderPost(
   );
 
 
-  /* Comments */
-
-  const comments =
-    el.querySelector(
-      ".comments"
-    );
-
-  const commentBtn =
-    el.querySelector(
-      ".comment"
-    );
-
-  const list =
-    el.querySelector(
-      ".comment-list"
-    );
-
-  const input =
-    el.querySelector(
-      ".comment-input"
-    );
-
-  const send =
-    el.querySelector(
-      ".comment-send"
-    );
-
-  const cc =
-    el.querySelector(
-      ".comment-count"
-    );
+  /* COMMENTS */
+  const comments=el.querySelector(".comments");
+  const commentBtn=el.querySelector(".comment");
+  const list=el.querySelector(".comment-list");
+  const input=el.querySelector(".comment-input");
+  const send=el.querySelector(".comment-send");
+  const cc=el.querySelector(".comment-count");
 
 
   commentBtn.addEventListener(
     "click",
-    async () => {
+    async()=>{
 
       if(!currentUser){
-
-        alert(
-          "Please sign in first."
-        );
-
+        alert("Please sign in first.");
         return;
       }
 
 
-      comments.style.display =
-        comments.style.display ===
-        "block"
-          ? "none"
-          : "block";
+      comments.style.display=
+        comments.style.display==="block"
+          ?"none"
+          :"block";
 
 
-      commentBtn
-        .classList
-        .toggle("open");
+      commentBtn.classList.toggle("open");
 
 
-      if(
-        comments.style.display ===
-        "block"
-      ){
-
-        await loadComments(
-          post.id,
-          list
-        );
-
+      if(comments.style.display==="block"){
+        await loadComments(post.id,list);
       }
 
     }
@@ -3272,25 +2409,16 @@ async function renderPost(
   async function sendComment(){
 
     if(!currentUser){
-
-      alert(
-        "Please sign in first."
-      );
-
+      alert("Please sign in first.");
       return;
     }
 
 
-    const text =
-      input.value.trim();
+    const text=input.value.trim();
 
+    if(!text)return;
 
-    if(!text)
-      return;
-
-
-    send.disabled =
-      true;
+    send.disabled=true;
 
 
     try{
@@ -3303,32 +2431,18 @@ async function renderPost(
           "comments"
         ),
         {
-
           text,
-
-          userId:
-            currentUser.uid,
-
-          username:
-            currentUsername,
-
-          createdAt:
-            serverTimestamp()
-
+          userId:currentUser.uid,
+          username:currentUsername,
+          createdAt:serverTimestamp()
         }
       );
 
 
-      input.value =
-        "";
+      input.value="";
 
-
-      cc.textContent =
-        (
-          Number(
-            cc.textContent
-          ) || 0
-        ) + 1;
+      cc.textContent=
+        (Number(cc.textContent)||0)+1;
 
 
       await loadComments(
@@ -3339,46 +2453,32 @@ async function renderPost(
 
       if(
         post.authorId &&
-        post.authorId !==
-          currentUser.uid
+        post.authorId!==currentUser.uid
       ){
 
         await createNotification({
-
-          recipientId:
-            post.authorId,
-
-          senderId:
-            currentUser.uid,
-
-          senderName:
-            currentUsername,
-
+          recipientId:post.authorId,
+          senderId:currentUser.uid,
+          senderName:currentUsername,
           type:"comment",
-
-          postId:
-            post.id
-
+          postId:post.id
         });
 
       }
-
 
     }catch(e){
 
       console.error(e);
 
       alert(
-        (e.code ||
-          "Error") +
-        ": " +
+        (e.code||"Error")+
+        ": "+
         e.message
       );
 
     }finally{
 
-      send.disabled =
-        false;
+      send.disabled=false;
 
     }
 
@@ -3393,306 +2493,209 @@ async function renderPost(
 
   input.addEventListener(
     "keydown",
-    e => {
-
-      if(
-        e.key ===
-        "Enter"
-      ){
-
+    e=>{
+      if(e.key==="Enter"){
         e.preventDefault();
-
         sendComment();
+      }
+    }
+  );
+
+
+  /* SHARE */
+  el.querySelector(".share")
+    .addEventListener(
+      "click",
+      async()=>{
+
+        const url=
+          location.href.split("#")[0]+
+          "#post-"+post.id;
+
+
+        try{
+
+          if(navigator.share){
+
+            await navigator.share({
+              title:"JSP TAYSU Community",
+              text:`${name} shared a post on JSP TAYSU`,
+              url
+            });
+
+          }else{
+
+            await navigator.clipboard.writeText(url);
+
+            alert("Post link copied 🔗");
+
+          }
+
+        }catch(e){}
 
       }
-
-    }
-  );
-
-
-  /* Share */
-
-  el.querySelector(
-    ".share"
-  )
-  .addEventListener(
-    "click",
-    async () => {
-
-      const url =
-        location.href.split(
-          "#"
-        )[0] +
-        "#post-" +
-        post.id;
-
-
-      try{
-
-        if(navigator.share){
-
-          await navigator.share({
-
-            title:
-              "JSP TAYSU Community",
-
-            text:
-              `${name} shared a post on JSP TAYSU`,
-
-            url
-
-          });
-
-        }else{
-
-          await navigator.clipboard
-            .writeText(url);
-
-          alert(
-            "Post link copied 🔗"
-          );
-
-        }
-
-      }catch(e){}
-
-    }
-  );
+    );
 
 }
 
 
-/* ================= COMMENTS ================= */
+/* COMMENTS LOAD */
+async function loadComments(postId,list){
 
-async function loadComments(
-  postId,
-  list
-){
-
-  list.innerHTML =
-    "";
+  list.innerHTML="";
 
 
   try{
 
-    const snap =
-      await getDocs(
-        collection(
-          db,
-          "posts",
-          postId,
-          "comments"
-        )
-      );
+    const snap=await getDocs(
+      collection(
+        db,
+        "posts",
+        postId,
+        "comments"
+      )
+    );
 
 
     if(snap.empty){
 
-      list.innerHTML = `
-
-        <div
-          style="
-            color:#737c88;
-            font-size:12px;
-            padding:5px 0
-          "
-        >
-          No replies yet.
-        </div>
-
-      `;
+      list.innerHTML=
+        '<div style="color:#737c88;font-size:12px;padding:5px 0">No replies yet.</div>';
 
       return;
-
     }
 
 
-    const arr = [];
-
+    const arr=[];
 
     snap.forEach(
-      d =>
-        arr.push({
-          id:d.id,
-          ...d.data()
-        })
+      d=>arr.push({
+        id:d.id,
+        ...d.data()
+      })
     );
 
 
     arr.sort(
-      (a,b) =>
-        (a.createdAt?.seconds || 0) -
-        (b.createdAt?.seconds || 0)
+      (a,b)=>
+        (a.createdAt?.seconds||0)-
+        (b.createdAt?.seconds||0)
     );
 
 
-    arr.forEach(
-      c => {
+    arr.forEach(c=>{
 
-        const e =
-          document.createElement(
-            "div"
-          );
+      const e=document.createElement("div");
+
+      e.className="comment";
 
 
-        e.className =
-          "comment";
+      e.innerHTML=`
+        <div class="comment-top">
+
+          <span class="comment-user">
+            ${escapeHTML(c.username||"Member")}
+          </span>
+
+          ${
+            currentUser &&
+            c.userId===currentUser.uid
+              ? '<button class="delete-comment" type="button">Delete</button>'
+              :""
+          }
+
+        </div>
+
+        <div class="comment-text">
+          ${escapeHTML(c.text||"")}
+        </div>
+      `;
 
 
-        e.innerHTML = `
-
-          <div class="comment-top">
-
-            <span class="comment-user">
-
-              ${escapeHTML(
-                c.username ||
-                "Member"
-              )}
-
-            </span>
-
-            ${
-              currentUser &&
-              c.userId ===
-                currentUser.uid
-
-              ? `
-                <button
-                  class="delete-comment"
-                >
-                  Delete
-                </button>
-              `
-              : ""
-            }
-
-          </div>
+      list.appendChild(e);
 
 
-          <div class="comment-text">
-
-            ${escapeHTML(
-              c.text || ""
-            )}
-
-          </div>
-
-        `;
+      const del=
+        e.querySelector(".delete-comment");
 
 
-        list.appendChild(e);
+      if(del){
 
+        del.addEventListener(
+          "click",
+          async()=>{
 
-        const del =
-          e.querySelector(
-            ".delete-comment"
-          );
+            try{
 
-
-        if(del){
-
-          del.addEventListener(
-            "click",
-            async () => {
-
-              try{
-
-                await deleteDoc(
-                  doc(
-                    db,
-                    "posts",
-                    postId,
-                    "comments",
-                    c.id
-                  )
-                );
-
-
-                await loadComments(
+              await deleteDoc(
+                doc(
+                  db,
+                  "posts",
                   postId,
-                  list
-                );
+                  "comments",
+                  c.id
+                )
+              );
 
+              await loadComments(
+                postId,
+                list
+              );
 
-              }catch(err){
+            }catch(err){
 
-                alert(
-                  (err.code ||
-                    "Error") +
-                  ": " +
-                  err.message
-                );
-
-              }
+              alert(
+                (err.code||"Error")+
+                ": "+
+                err.message
+              );
 
             }
-          );
 
-        }
+          }
+        );
 
       }
-    );
+
+    });
 
 
   }catch(e){
 
     console.error(e);
 
-    list.innerHTML = `
-
-      <div
-        style="
-          color:#a77a7a;
-          font-size:12px
-        "
-      >
-        Couldn’t load replies.
-      </div>
-
-    `;
+    list.innerHTML=
+      '<div style="color:#a77a7a;font-size:12px">Couldn’t load replies.</div>';
 
   }
 
 }
 
 
-/* ================= MEMBERS ================= */
-
+/* MEMBERS */
 async function loadMembers(){
 
   try{
 
-    const snap =
-      await getDocs(
-        collection(
-          db,
-          "users"
-        )
-      );
-
-
-    allMembers = [];
-
-
-    snap.forEach(
-      d =>
-        allMembers.push({
-          id:d.id,
-          ...d.data()
-        })
+    const snap=await getDocs(
+      collection(db,"users")
     );
+
+    allMembers=[];
+
+    snap.forEach(d=>{
+      allMembers.push({
+        id:d.id,
+        ...d.data()
+      });
+    });
 
 
     searchMembers();
 
-
   }catch(e){
 
-    console.error(
-      "Members",
-      e
-    );
+    console.error("Members",e);
 
   }
 
@@ -3716,111 +2719,70 @@ $("userSearchInput")
 $("userSearchInput")
   .addEventListener(
     "keydown",
-    e => {
-
-      if(
-        e.key ===
-        "Enter"
-      ){
-
+    e=>{
+      if(e.key==="Enter")
         searchMembers();
-
-      }
-
     }
   );
 
 
 async function searchMembers(){
 
-  if(!currentUser)
-    return;
+  if(!currentUser)return;
 
 
-  const q =
-    String(
-      $("userSearchInput")
-        .value || ""
-    )
-    .trim()
-    .toLowerCase();
+  const q=String(
+    $("userSearchInput").value||""
+  )
+  .trim()
+  .toLowerCase();
 
 
-  const box =
-    $("searchResults");
+  const box=$("searchResults");
 
-
-  box.innerHTML =
-    "";
+  box.innerHTML="";
 
 
   if(!q){
 
     loadExploreGrid(
-      document
-        .querySelector(".tab.active")
-        ?.dataset.tab || "all"
+      document.querySelector(".tab.active")?.dataset.tab||"all"
     );
 
     return;
-
   }
 
 
-  const matches =
+  const matches=
     allMembers
-
       .filter(
-        u =>
-          u.id !==
-          currentUser.uid
+        u=>u.id!==currentUser.uid
       )
-
       .filter(
-        u =>
+        u=>
           String(
-            u.username ||
-            u.name ||
-            u.displayName ||
+            u.username||
+            u.name||
+            u.displayName||
             ""
           )
           .toLowerCase()
           .includes(q)
       )
-
-      .slice(
-        0,
-        20
-      );
+      .slice(0,20);
 
 
   if(!matches.length){
 
-    box.innerHTML = `
-
-      <p
-        style="
-          color:#737c88;
-          font-size:13px;
-          padding:5px
-        "
-      >
-        No members found.
-      </p>
-
-    `;
+    box.innerHTML=
+      '<p style="color:#737c88;font-size:13px;padding:5px">No members found.</p>';
 
     return;
-
   }
 
 
-  for(
-    const u of matches
-  ){
-
+  for(const u of matches){
     await renderMember(u);
-
   }
 
 }
@@ -3828,50 +2790,49 @@ async function searchMembers(){
 
 async function renderMember(u){
 
-  const name =
-    u.username ||
-    u.name ||
-    u.displayName ||
+  const name=
+    u.username||
+    u.name||
+    u.displayName||
     "Member";
 
 
-  const e =
-    document.createElement(
-      "div"
-    );
+  const photo=
+    u.photoURL||
+    u.photoUrl||
+    "";
 
 
-  e.className =
-    "search-result";
+  const avatar=
+    photo
+      ? `<img src="${escapeAttr(photo)}" alt="">`
+      : escapeHTML(
+          name.charAt(0).toUpperCase()
+        );
 
 
-  e.innerHTML = `
+  const e=document.createElement("div");
+
+  e.className="search-result";
+
+
+  e.innerHTML=`
 
     <div class="search-user">
 
       <div class="search-avatar">
-
-        ${escapeHTML(
-          name
-            .charAt(0)
-            .toUpperCase()
-        )}
-
+        ${avatar}
       </div>
 
-
       <div class="search-username">
-
         ${escapeHTML(name)}
-
       </div>
 
     </div>
 
-
     <button
       class="follow-btn"
-    >
+      type="button">
       Follow
     </button>
 
@@ -3882,52 +2843,35 @@ async function renderMember(u){
     .appendChild(e);
 
 
-  e.querySelector(
-    ".search-user"
-  )
-  .addEventListener(
-    "click",
-    () =>
-      window.location.href =
-        "profile.html?uid=" +
-        encodeURIComponent(
-          u.id
-        )
-  );
-
-
-  const btn =
-    e.querySelector(
-      ".follow-btn"
+  e.querySelector(".search-user")
+    .addEventListener(
+      "click",
+      ()=>{
+        window.location.href=
+          "profile.html?uid="+
+          encodeURIComponent(u.id);
+      }
     );
 
 
-  const fid =
-    currentUser.uid +
-    "_" +
-    u.id;
+  const btn=e.querySelector(".follow-btn");
+
+  const fid=
+    currentUser.uid+"_"+u.id;
 
 
   try{
 
-    const s =
-      await getDoc(
-        doc(
-          db,
-          "follows",
-          fid
-        )
-      );
+    const s=await getDoc(
+      doc(db,"follows",fid)
+    );
 
 
     if(s.exists()){
 
-      btn.textContent =
-        "Following";
+      btn.textContent="Following";
 
-      btn.classList.add(
-        "following"
-      );
+      btn.classList.add("following");
 
     }
 
@@ -3940,69 +2884,49 @@ async function renderMember(u){
 
   btn.addEventListener(
     "click",
-    async ev => {
+    async ev=>{
 
       ev.stopPropagation();
 
+      if(!currentUser)return;
 
-      if(!currentUser)
-        return;
-
-
-      btn.disabled =
-        true;
+      btn.disabled=true;
 
 
       try{
 
-        const r =
-          doc(
-            db,
-            "follows",
-            fid
-          );
+        const r=doc(
+          db,
+          "follows",
+          fid
+        );
 
-
-        const s =
-          await getDoc(r);
+        const s=await getDoc(r);
 
 
         if(s.exists()){
 
           await deleteDoc(r);
 
-
-          btn.textContent =
-            "Follow";
-
+          btn.textContent="Follow";
 
           btn.classList.remove(
             "following"
           );
-
 
         }else{
 
           await setDoc(
             r,
             {
-
-              followerId:
-                currentUser.uid,
-
-              followingId:
-                u.id,
-
-              createdAt:
-                serverTimestamp()
-
+              followerId:currentUser.uid,
+              followingId:u.id,
+              createdAt:serverTimestamp()
             }
           );
 
 
-          btn.textContent =
-            "Following";
-
+          btn.textContent="Following";
 
           btn.classList.add(
             "following"
@@ -4010,38 +2934,27 @@ async function renderMember(u){
 
 
           await createNotification({
-
-            recipientId:
-              u.id,
-
-            senderId:
-              currentUser.uid,
-
-            senderName:
-              currentUsername,
-
+            recipientId:u.id,
+            senderId:currentUser.uid,
+            senderName:currentUsername,
             type:"follow"
-
           });
 
         }
-
 
       }catch(err){
 
         console.error(err);
 
         alert(
-          (err.code ||
-            "Error") +
-          ": " +
+          (err.code||"Error")+
+          ": "+
           err.message
         );
 
       }finally{
 
-        btn.disabled =
-          false;
+        btn.disabled=false;
 
       }
 
@@ -4051,294 +2964,313 @@ async function renderMember(u){
 }
 
 
-/* ================= DISCOVER TABS ================= */
-
+/* EXPLORE TABS */
 document
-  .querySelectorAll(".tab")
-  .forEach(
-    t =>
-      t.addEventListener(
-        "click",
-        () => {
+.querySelectorAll(".tab")
+.forEach(t=>{
 
-          document
-            .querySelectorAll(".tab")
-            .forEach(
-              x =>
-                x.classList.remove(
-                  "active"
-                )
-            );
+  t.addEventListener(
+    "click",
+    ()=>{
 
-
-          t.classList.add(
-            "active"
-          );
-
-
-          loadExploreGrid(
-            t.dataset.tab
-          );
-
-        }
-      )
-  );
-
-
-/* ================= DISCOVER GRID ================= */
-
-function loadExploreGrid(
-  mode = "all"
-){
-
-  const grid =
-    $("exploreGrid");
-
-
-  grid.innerHTML =
-    "";
-
-
-  let list;
-
-
-  if(mode === "video"){
-
-    list =
-      allPosts.filter(
-        p =>
-          p.mediaType ===
-          "video"
-      );
-
-  }else{
-
-    /*
-      Posts tab:
-      show everything —
-      photos + text + videos.
-    */
-
-    list =
-      allPosts.slice();
-
-  }
-
-
-  if(!list.length){
-
-    grid.innerHTML = `
-
-      <div
-        class="empty"
-        style="
-          grid-column:1/-1;
-        "
-      >
-
-        <h3>
-          No content yet
-        </h3>
-
-        <p>
-          When members upload,
-          it will appear here.
-        </p>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  list.forEach(
-    p => {
-
-      const tile =
-        document.createElement(
-          "div"
+      document
+        .querySelectorAll(".tab")
+        .forEach(x=>
+          x.classList.remove("active")
         );
 
+      t.classList.add("active");
 
-      /*
-        PHOTO
-      */
+      loadExploreGrid(
+        t.dataset.tab
+      );
 
-      if(
-        p.mediaType ===
-        "image"
-      ){
+    }
+  );
 
-        tile.className =
-          "tile media-tile";
+});
 
 
-        tile.innerHTML = `
+/* EXPLORE CONTENT */
+async function loadExploreGrid(mode="all"){
 
-          <img
-            src="${escapeAttr(
-              p.mediaUrl
-            )}"
-            alt=""
-            loading="lazy"
-          >
-
-        `;
-
-      }
+  const mediaGrid=$("exploreMediaGrid");
+  const textFeed=$("exploreTextFeed");
 
 
-      /*
-        VIDEO / REEL
-      */
-
-      else if(
-        p.mediaType ===
-        "video"
-      ){
-
-        tile.className =
-          "tile media-tile reel";
+  mediaGrid.innerHTML="";
+  textFeed.innerHTML="";
 
 
-        tile.innerHTML = `
+  if(mode==="video"){
 
-          <video
-            src="${escapeAttr(
-              p.mediaUrl
-            )}"
-            muted
-            preload="metadata"
-          ></video>
-
-        `;
-
-      }
+    const videos=
+      allPosts.filter(
+        p=>p.mediaType==="video" &&
+           p.mediaUrl
+      );
 
 
-      /*
-        TEXT POST
-        NO aspect ratio.
-        Natural compact bubble.
-      */
+    if(!videos.length){
 
-      else{
+      mediaGrid.innerHTML=`
+        <div
+          class="explore-empty"
+          style="grid-column:1/-1">
+          No reels yet.
+        </div>
+      `;
 
-        tile.className =
-          "tile text-tile";
-
-
-        tile.innerHTML = `
-
-          <div class="tile-text">
-
-            ${escapeHTML(
-              p.text || ""
-            )}
-
-          </div>
+      return;
+    }
 
 
-          <div class="tile-author">
+    videos.forEach(p=>{
 
-            ${escapeHTML(
-              p.authorName ||
-              "Member"
-            )}
+      const tile=document.createElement("div");
 
-          </div>
+      tile.className="media-tile reel";
 
-        `;
 
-      }
+      tile.innerHTML=`
+        <video
+          src="${escapeAttr(p.mediaUrl)}"
+          muted
+          preload="metadata">
+        </video>
+      `;
 
 
       tile.addEventListener(
         "click",
-        () => {
+        ()=>{
+          showSection("homeSection");
 
-          showSection(
-            "homeSection"
-          );
-
-
-          $("feedSearchInput")
-            .value =
-              p.authorName || "";
-
+          $("feedSearchInput").value=
+            p.authorName||"";
 
           renderPosts(
-            p.authorName || ""
+            p.authorName||""
           );
-
         }
       );
 
 
-      grid.appendChild(
-        tile
-      );
+      mediaGrid.appendChild(tile);
 
-    }
-  );
+    });
+
+
+    return;
+  }
+
+
+  /*
+    POSTS TAB:
+    - photos only -> media grid
+    - text only -> Twitter-style feed
+    - videos excluded because they belong in Reels
+  */
+
+  const photos=
+    allPosts.filter(
+      p=>
+        p.mediaType==="image" &&
+        p.mediaUrl
+    );
+
+
+  const textPosts=
+    allPosts.filter(
+      p=>
+        !p.mediaUrl &&
+        String(p.text||"").trim()
+    );
+
+
+  /* PHOTO GRID */
+  photos.forEach(p=>{
+
+    const tile=document.createElement("div");
+
+    tile.className="media-tile";
+
+
+    tile.innerHTML=`
+      <img
+        src="${escapeAttr(p.mediaUrl)}"
+        alt="Community photo"
+        loading="lazy">
+    `;
+
+
+    tile.addEventListener(
+      "click",
+      ()=>{
+        showSection("homeSection");
+
+        $("feedSearchInput").value=
+          p.authorName||"";
+
+        renderPosts(
+          p.authorName||""
+        );
+      }
+    );
+
+
+    mediaGrid.appendChild(tile);
+
+  });
+
+
+  /* TEXT FEED */
+  for(const p of textPosts){
+
+    const author=
+      await getAuthorProfile(p);
+
+
+    const name=
+      author.username||
+      p.authorName||
+      "Member";
+
+
+    const initial=
+      name.trim().charAt(0).toUpperCase()||"M";
+
+
+    const avatar=
+      author.photo
+        ? `<img src="${escapeAttr(author.photo)}" alt="">`
+        : escapeHTML(initial);
+
+
+    const handle=
+      "@"+
+      name
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g,"")
+        .slice(0,20);
+
+
+    const row=document.createElement("article");
+
+    row.className="explore-text-post";
+
+
+    row.innerHTML=`
+
+      <div class="explore-text-avatar">
+        ${avatar}
+      </div>
+
+      <div class="explore-text-main">
+
+        <div class="explore-text-head">
+
+          <span class="explore-text-name">
+            ${escapeHTML(name)}
+          </span>
+
+          <span class="explore-text-verified">
+
+            <svg viewBox="0 0 24 24">
+
+              <path d="M12 2l2.1 2.1 3-.2.9 2.9 2.6 1.6-1 2.8 1 2.8-2.6 1.6-.9 2.9-3-.2L12 22l-2.1-2.1-3 .2-.9-2.9-2.6-1.6 1-2.8-1 2.8 2.6 1.6.9 2.9 3-.2L12 2z"></path>
+
+              <path
+                d="m8.5 12 2.2 2.2 4.8-5"
+                fill="none"
+                stroke="#fff"
+                stroke-width="1.8">
+              </path>
+
+            </svg>
+
+          </span>
+
+        </div>
+
+        <div class="explore-text-meta">
+          ${escapeHTML(handle)}
+          ·
+          ${formatTime(p.createdAt)}
+        </div>
+
+        <div class="explore-text-content">
+          ${escapeHTML(String(p.text))}
+        </div>
+
+      </div>
+    `;
+
+
+    row.addEventListener(
+      "click",
+      ()=>{
+        showSection("homeSection");
+
+        $("feedSearchInput").value=
+          p.authorName||"";
+
+        renderPosts(
+          p.authorName||""
+        );
+      }
+    );
+
+
+    textFeed.appendChild(row);
+
+  }
+
+
+  if(
+    !photos.length &&
+    !textPosts.length
+  ){
+
+    mediaGrid.innerHTML=`
+      <div
+        class="explore-empty"
+        style="grid-column:1/-1">
+        No posts yet.
+      </div>
+    `;
+
+  }
 
 }
 
 
-/* ================= NOTIFICATIONS ================= */
-
-async function createNotification(
-  data
-){
+/* NOTIFICATIONS */
+async function createNotification(data){
 
   try{
 
     if(
-      !data.recipientId ||
-      !data.senderId ||
-      data.recipientId ===
-        data.senderId
+      !data.recipientId||
+      !data.senderId||
+      data.recipientId===data.senderId
     ){
-
       return;
-
     }
 
 
     await addDoc(
-      collection(
-        db,
-        "notifications"
-      ),
+      collection(db,"notifications"),
       {
-
-        recipientId:
-          data.recipientId,
-
-        senderId:
-          data.senderId,
-
-        senderName:
-          data.senderName ||
-          "Member",
-
-        type:
-          data.type,
-
-        postId:
-          data.postId || "",
-
-        createdAt:
-          serverTimestamp(),
-
+        recipientId:data.recipientId,
+        senderId:data.senderId,
+        senderName:data.senderName||"Member",
+        type:data.type,
+        postId:data.postId||"",
+        createdAt:serverTimestamp(),
         read:false
-
       }
     );
-
 
   }catch(e){
 
@@ -4352,69 +3284,53 @@ async function createNotification(
 }
 
 
-/* ================= REALTIME ALERTS ================= */
-
+/* REALTIME ALERTS */
 function subscribeNotifications(){
 
-  if(
-    notificationUnsubscribe
-  ){
-
+  if(notificationUnsubscribe)
     notificationUnsubscribe();
 
-  }
+
+  const q=query(
+    collection(db,"notifications"),
+    where(
+      "recipientId",
+      "==",
+      currentUser.uid
+    ),
+    limit(100)
+  );
 
 
-  const q =
-    query(
-      collection(
-        db,
-        "notifications"
-      ),
-
-      where(
-        "recipientId",
-        "==",
-        currentUser.uid
-      ),
-
-      limit(100)
-    );
-
-
-  notificationUnsubscribe =
+  notificationUnsubscribe=
     onSnapshot(
       q,
+      snap=>{
 
-      snap => {
-
-        const arr = [];
+        const arr=[];
 
 
         snap.forEach(
-          d =>
+          d=>{
             arr.push({
               id:d.id,
               ...d.data()
-            })
+            });
+          }
         );
 
 
         arr.sort(
-          (a,b) =>
-            (b.createdAt?.seconds || 0) -
-            (a.createdAt?.seconds || 0)
+          (a,b)=>
+            (b.createdAt?.seconds||0)-
+            (a.createdAt?.seconds||0)
         );
 
 
-        renderNotifications(
-          arr
-        );
+        renderNotifications(arr);
 
       },
-
-
-      e => {
+      e=>{
 
         console.error(
           "Notification listener failed",
@@ -4422,21 +3338,11 @@ function subscribeNotifications(){
         );
 
 
-        alertList.innerHTML = `
-
+        alertList.innerHTML=`
           <div class="alert-empty">
-
-            <h3>
-              Alerts couldn’t load
-            </h3>
-
-            <p>
-              Check your Firestore rules
-              for the notifications collection.
-            </p>
-
+            <h3>Alerts couldn’t load</h3>
+            <p>Check your Firestore rules for the notifications collection.</p>
           </div>
-
         `;
 
       }
@@ -4445,562 +3351,370 @@ function subscribeNotifications(){
 }
 
 
-/* ================= REFRESH ALERTS ================= */
-
+/* REFRESH ALERTS */
 async function refreshNotifications(){
 
-  if(!currentUser)
-    return;
+  if(!currentUser)return;
 
 
   try{
 
-    const q =
-      query(
-        collection(
-          db,
-          "notifications"
-        ),
-
-        where(
-          "recipientId",
-          "==",
-          currentUser.uid
-        ),
-
-        limit(100)
-      );
+    const q=query(
+      collection(db,"notifications"),
+      where(
+        "recipientId",
+        "==",
+        currentUser.uid
+      ),
+      limit(100)
+    );
 
 
-    const snap =
-      await getDocs(q);
+    const snap=await getDocs(q);
 
-
-    const arr = [];
+    const arr=[];
 
 
     snap.forEach(
-      d =>
+      d=>{
         arr.push({
           id:d.id,
           ...d.data()
-        })
+        });
+      }
     );
 
 
     arr.sort(
-      (a,b) =>
-        (b.createdAt?.seconds || 0) -
-        (a.createdAt?.seconds || 0)
+      (a,b)=>
+        (b.createdAt?.seconds||0)-
+        (a.createdAt?.seconds||0)
     );
 
 
-    renderNotifications(
-      arr
-    );
-
+    renderNotifications(arr);
 
   }catch(e){
 
-    console.error(
-      e
-    );
+    console.error(e);
 
   }
 
 }
 
 
-/* ================= RENDER ALERTS ================= */
+/* RENDER ALERTS */
+function renderNotifications(arr){
 
-function renderNotifications(
-  arr
-){
-
-  const unread =
+  const unread=
     arr.filter(
-      n =>
-        n.read !== true
+      n=>n.read!==true
     ).length;
 
 
-  alertBadge.textContent =
-    unread > 99
-      ? "99+"
-      : String(unread);
+  alertBadge.textContent=
+    unread>99
+      ?"99+"
+      :String(unread);
 
 
-  alertBadge.style.display =
+  alertBadge.style.display=
     unread
-      ? "grid"
-      : "none";
+      ?"grid"
+      :"none";
 
 
-  alertList.innerHTML =
-    "";
+  alertList.innerHTML="";
 
 
   if(!arr.length){
 
-    alertList.innerHTML = `
-
+    alertList.innerHTML=`
       <div class="alert-empty">
 
         <svg
           viewBox="0 0 24 24"
           fill="none"
-          stroke="currentColor"
-        >
+          stroke="currentColor">
 
-          <path
-            d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"
-          ></path>
-
+          <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
           <path d="M10 21h4"></path>
 
         </svg>
 
-
-        <h3>
-          No alerts yet
-        </h3>
-
-
-        <p>
-          Likes, comments and follows
-          will appear here.
-        </p>
+        <h3>No alerts yet</h3>
+        <p>Likes, comments and follows will appear here.</p>
 
       </div>
-
     `;
 
     return;
-
   }
 
 
-  arr.forEach(
-    n => {
+  arr.forEach(n=>{
 
-      const e =
-        document.createElement(
-          "div"
-        );
+    const e=document.createElement("div");
 
-
-      e.className =
-        "notification" +
-        (
-          n.read === true
-            ? ""
-            : " unread"
-        );
+    e.className=
+      "notification"+
+      (n.read===true?"":" unread");
 
 
-      let icon =
-        "bell";
-
-      let msg =
-        `
-          <b>
-            ${escapeHTML(
-              n.senderName ||
-              "Member"
-            )}
-          </b>
-
-          sent you a notification.
-        `;
-
-      let cls =
-        "";
+    let icon="bell";
+    let msg=
+      `<b>${escapeHTML(n.senderName||"Member")}</b> sent you a notification.`;
+    let cls="";
 
 
-      if(
-        n.type ===
-        "like"
-      ){
+    if(n.type==="like"){
 
-        icon =
-          "heart";
+      icon="heart";
+      cls="like";
 
-        cls =
-          "like";
+      msg=
+        `<b>${escapeHTML(n.senderName||"Member")}</b> liked your post.`;
 
-        msg =
-          `
-            <b>
-              ${escapeHTML(
-                n.senderName ||
-                "Member"
-              )}
-            </b>
-
-            liked your post.
-          `;
-
-      }
+    }
 
 
-      else if(
-        n.type ===
-        "comment"
-      ){
+    else if(n.type==="comment"){
 
-        icon =
-          "comment";
+      icon="comment";
+      cls="comment";
 
-        cls =
-          "comment";
+      msg=
+        `<b>${escapeHTML(n.senderName||"Member")}</b> commented on your post.`;
 
-        msg =
-          `
-            <b>
-              ${escapeHTML(
-                n.senderName ||
-                "Member"
-              )}
-            </b>
-
-            commented on your post.
-          `;
-
-      }
+    }
 
 
-      else if(
-        n.type ===
-        "follow"
-      ){
+    else if(n.type==="follow"){
 
-        icon =
-          "user";
+      icon="user";
+      cls="follow";
 
-        cls =
-          "follow";
+      msg=
+        `<b>${escapeHTML(n.senderName||"Member")}</b> started following you.`;
 
-        msg =
-          `
-            <b>
-              ${escapeHTML(
-                n.senderName ||
-                "Member"
-              )}
-            </b>
-
-            started following you.
-          `;
-
-      }
+    }
 
 
-      e.innerHTML = `
+    e.innerHTML=`
 
-        <div
-          class="notification-icon ${cls}"
-        >
+      <div class="notification-icon ${cls}">
+        ${iconSVG(icon)}
+      </div>
 
-          ${iconSVG(icon)}
+      <div style="flex:1;min-width:0">
 
+        <div class="notification-text">
+          ${msg}
         </div>
 
-
-        <div
-          style="
-            flex:1;
-            min-width:0;
-          "
-        >
-
-          <div
-            class="notification-text"
-          >
-
-            ${msg}
-
-          </div>
-
-
-          <div
-            class="notification-time"
-          >
-
-            ${formatTime(
-              n.createdAt
-            )}
-
-          </div>
-
+        <div class="notification-time">
+          ${formatTime(n.createdAt)}
         </div>
 
-      `;
+      </div>
+    `;
 
 
-      e.addEventListener(
-        "click",
-        async () => {
+    e.addEventListener(
+      "click",
+      async()=>{
 
-          try{
+        try{
 
-            if(
-              n.read !== true
-            ){
+          if(n.read!==true){
 
-              await setDoc(
-                doc(
-                  db,
-                  "notifications",
-                  n.id
-                ),
+            await setDoc(
+              doc(
+                db,
+                "notifications",
+                n.id
+              ),
+              {
+                read:true
+              },
+              {
+                merge:true
+              }
+            );
 
-                {
-                  read:true
-                },
+            e.classList.remove(
+              "unread"
+            );
 
-                {
-                  merge:true
-                }
+          }
+
+
+          if(n.postId){
+
+            showSection(
+              "homeSection"
+            );
+
+            const p=
+              allPosts.find(
+                x=>x.id===n.postId
               );
 
 
-              e.classList
-                .remove(
-                  "unread"
-                );
+            if(p){
 
-            }
-
-
-            if(n.postId){
-
-              showSection(
-                "homeSection"
-              );
-
-
-              $("feedSearchInput")
-                .value = "";
-
+              $("feedSearchInput").value="";
 
               renderPosts("");
 
             }
 
-
-          }catch(err){
-
-            console.error(
-              err
-            );
-
           }
 
+        }catch(err){
+
+          console.error(err);
+
         }
-      );
+
+      }
+    );
 
 
-      alertList.appendChild(
-        e
-      );
+    alertList.appendChild(e);
 
-    }
-  );
+  });
 
 }
 
 
-/* ================= MARK ALL READ ================= */
+/* MARK ALL READ */
+$("readAllButton").addEventListener(
+  "click",
+  async()=>{
 
-$("readAllButton")
-  .addEventListener(
-    "click",
-    async () => {
-
-      if(!currentUser)
-        return;
+    if(!currentUser)return;
 
 
-      try{
+    try{
 
-        const q =
-          query(
-            collection(
-              db,
-              "notifications"
-            ),
-
-            where(
-              "recipientId",
-              "==",
-              currentUser.uid
-            ),
-
-            limit(100)
-          );
+      const q=query(
+        collection(db,"notifications"),
+        where(
+          "recipientId",
+          "==",
+          currentUser.uid
+        ),
+        limit(100)
+      );
 
 
-        const snap =
-          await getDocs(q);
+      const snap=await getDocs(q);
 
 
-        await Promise.all(
+      await Promise.all(
 
-          snap.docs
+        snap.docs
 
-            .filter(
-              d =>
-                d.data().read !== true
-            )
+          .filter(
+            d=>d.data().read!==true
+          )
 
-            .map(
-              d =>
-                setDoc(
-                  doc(
-                    db,
-                    "notifications",
-                    d.id
-                  ),
+          .map(
+            d=>
+              setDoc(
+                doc(
+                  db,
+                  "notifications",
+                  d.id
+                ),
+                {
+                  read:true
+                },
+                {
+                  merge:true
+                }
+              )
+          )
 
-                  {
-                    read:true
-                  },
-
-                  {
-                    merge:true
-                  }
-                )
-            )
-
-        );
+      );
 
 
-        await refreshNotifications();
+      await refreshNotifications();
 
+    }catch(e){
 
-      }catch(e){
+      console.error(e);
 
-        console.error(e);
-
-        alert(
-          (e.code ||
-            "Error") +
-          ": " +
-          e.message
-        );
-
-      }
+      alert(
+        (e.code||"Error")+
+        ": "+
+        e.message
+      );
 
     }
-  );
+
+  }
+);
 
 
-/* ================= ICONS ================= */
-
+/* ICONS */
 function iconSVG(type){
 
-  const p = {
+  const p={
 
     heart:`
-
       <svg
         viewBox="0 0 24 24"
         fill="none"
-        stroke="currentColor"
-      >
-
-        <path
-          d="M20.8 8.7C20.8 13.7 12 20 12 20S3.2 13.7 3.2 8.7C3.2 5.7 5.4 3.7 8.1 3.7c1.7 0 3.2.9 3.9 2.2.7-1.3 2.2-2.2 3.9-2.2 2.7 0 4.9 2 4.9 5Z"
-        ></path>
-
+        stroke="currentColor">
+        <path d="M20.8 8.7C20.8 13.7 12 20 12 20S3.2 13.7 3.2 8.7C3.2 5.7 5.4 3.7 8.1 3.7c1.7 0 3.2.9 3.9 2.2.7-1.3 2.2-2.2 3.9-2.2 2.7 0 4.9 2 4.9 5Z"/>
       </svg>
-
     `,
-
 
     comment:`
-
       <svg
         viewBox="0 0 24 24"
         fill="none"
-        stroke="currentColor"
-      >
-
-        <path
-          d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 2 1.5-4A7.5 7.5 0 1 1 20 11.5Z"
-        ></path>
-
+        stroke="currentColor">
+        <path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 2 1.5-4A7.5 7.5 0 1 1 20 11.5Z"/>
       </svg>
-
     `,
-
 
     user:`
-
       <svg
         viewBox="0 0 24 24"
         fill="none"
-        stroke="currentColor"
-      >
-
-        <circle
-          cx="12"
-          cy="8"
-          r="4"
-        />
-
-        <path
-          d="M4 21c0-4 3.5-7 8-7s8 3 8 7"
-        />
-
+        stroke="currentColor">
+        <circle cx="12" cy="8" r="4"/>
+        <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/>
       </svg>
-
     `,
 
-
     bell:`
-
       <svg
         viewBox="0 0 24 24"
         fill="none"
-        stroke="currentColor"
-      >
-
-        <path
-          d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"
-        />
-
-        <path
-          d="M10 21h4"
-        />
-
+        stroke="currentColor">
+        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+        <path d="M10 21h4"/>
       </svg>
-
     `
 
   };
 
 
-  return (
-    p[type] ||
-    p.bell
-  );
+  return p[type]||p.bell;
 
 }
 
 
-/* ================= SECURITY ================= */
-
+/* HELPERS */
 function escapeHTML(v){
 
-  const d =
-    document.createElement(
-      "div"
-    );
+  const d=document.createElement("div");
 
-  d.textContent =
-    String(v ?? "");
-
+  d.textContent=String(v??"");
 
   return d.innerHTML;
 
@@ -5009,82 +3723,41 @@ function escapeHTML(v){
 
 function escapeAttr(v){
 
-  return String(v ?? "")
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    );
+  return String(v??"")
+    .replace(/&/g,"&amp;")
+    .replace(/"/g,"&quot;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
 
 }
 
 
-/* ================= TIME ================= */
-
 function formatTime(ts){
 
-  if(
-    !ts ||
-    !ts.seconds
-  ){
-
+  if(!ts||!ts.seconds)
     return "Just now";
 
-  }
 
+  const d=
+    new Date(ts.seconds*1000);
 
-  const d =
-    new Date(
-      ts.seconds * 1000
-    );
-
-
-  const diff =
+  const diff=
     Math.floor(
-      (
-        Date.now() -
-        d.getTime()
-      ) / 1000
+      (Date.now()-d.getTime())/1000
     );
 
 
-  if(diff < 60)
+  if(diff<60)
     return "Just now";
 
+  if(diff<3600)
+    return Math.floor(diff/60)+"m";
 
-  if(diff < 3600)
-    return (
-      Math.floor(
-        diff / 60
-      ) + "m"
-    );
+  if(diff<86400)
+    return Math.floor(diff/3600)+"h";
 
-
-  if(diff < 86400)
-    return (
-      Math.floor(
-        diff / 3600
-      ) + "h"
-    );
-
-
-  if(diff < 604800)
-    return (
-      Math.floor(
-        diff / 86400
-      ) + "d"
-    );
+  if(diff<604800)
+    return Math.floor(diff/86400)+"d";
 
 
   return d.toLocaleDateString(
