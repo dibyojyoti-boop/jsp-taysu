@@ -1,1 +1,6876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSP TAYSU Community</title>
 
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body{
+font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+background:#0b0d10;
+color:#f5f5f5;
+padding-bottom:78px
+}
+
+body.viewer-open,
+body.comment-sheet-open{
+overflow:hidden
+}
+
+.topbar{
+position:sticky;
+top:0;
+z-index:100;
+background:rgba(11,13,16,.92);
+backdrop-filter:blur(18px);
+border-bottom:1px solid #25282d
+}
+
+.topbar-inner{
+max-width:720px;
+margin:auto;
+height:60px;
+padding:0 12px;
+display:flex;
+align-items:center;
+justify-content:space-between
+}
+
+.top-icon{
+width:40px;
+height:40px;
+border:0;
+background:transparent;
+color:#f1f2f4;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+cursor:pointer
+}
+
+.top-icon svg{
+width:22px;
+height:22px;
+stroke-width:1.8
+}
+
+.top-title{
+font-size:17px;
+font-weight:800;
+letter-spacing:-.4px
+}
+
+.top-dot{
+display:none;
+position:absolute;
+top:5px;
+right:5px;
+width:7px;
+height:7px;
+border-radius:50%;
+background:#ff3040
+}
+
+.top-dot.show{display:block}
+
+.container{
+max-width:720px;
+margin:auto;
+padding:17px 14px 30px
+}
+
+.page-section{display:none}
+.page-section.active{display:block}
+
+.page-section.create-slide{
+animation:createSlideIn .28s cubic-bezier(.2,.8,.2,1)
+}
+
+@keyframes createSlideIn{
+from{transform:translateX(100%);opacity:.8}
+to{transform:translateX(0);opacity:1}
+}
+
+body.create-open{overflow:hidden}
+
+.create-open .topbar,
+.create-open .bottom-nav{
+display:none
+}
+
+.create-open .container{
+padding:0;
+max-width:none
+}
+
+.create-open #createSection{
+min-height:100vh;
+padding:18px 16px 28px
+}
+
+.create-back{
+border:0;
+background:transparent;
+color:#bfc4ca;
+display:flex;
+align-items:center;
+gap:5px;
+font-size:13px;
+font-weight:700;
+padding:4px 0 18px;
+cursor:pointer
+}
+
+.create-back svg{
+width:19px;
+height:19px
+}
+
+.create-page-title{
+padding:6px 3px 14px
+}
+
+.create-page-title h1,
+.explore-title h1,
+.alert-title h1{
+font-size:27px;
+letter-spacing:-1px
+}
+
+.create-page-title p,
+.explore-title p{
+color:#858c95;
+font-size:13px;
+margin-top:4px
+}
+
+.create-tabs{
+display:flex;
+gap:6px;
+margin-bottom:10px;
+padding:4px;
+background:#111419;
+border:1px solid #292d33;
+border-radius:14px
+}
+
+.create-tab{
+flex:1;
+border:0;
+background:transparent;
+color:#777f89;
+padding:9px 8px;
+border-radius:10px;
+font-size:12px;
+font-weight:800;
+cursor:pointer;
+transition:.18s
+}
+
+.create-tab.active{
+background:#1d2127;
+color:#fff
+}
+
+.create-card{
+background:#111419;
+border:1px solid #292d33;
+border-radius:18px;
+padding:14px
+}
+
+.composer-header{
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:7px
+}
+
+.composer-name{
+font-size:15px;
+font-weight:800
+}
+
+.composer-sub{
+color:#777f89;
+font-size:12px;
+margin-top:2px
+}
+
+.avatar{
+width:42px;
+height:42px;
+flex-shrink:0;
+border-radius:50%;
+background:#33271f;
+color:#ead9b8;
+border:2px solid #554438;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:15px;
+font-weight:800
+}
+
+.create-caption-label{
+font-size:11px;
+color:#777f89;
+margin:13px 0 2px
+}
+
+.create-title-input,
+.create-hashtags-input{
+width:100%;
+border:1px solid #292d33;
+outline:none;
+border-radius:12px;
+padding:11px 12px;
+background:#181b20;
+color:#f4f4f4;
+font-family:inherit;
+font-size:14px;
+margin-bottom:7px
+}
+
+.create-title-input::placeholder,
+.create-hashtags-input::placeholder{
+color:#6f7680
+}
+
+#postText,
+#photoCaption,
+#reelCaption{
+width:100%;
+min-height:90px;
+resize:vertical;
+border:0;
+outline:none;
+border-radius:12px;
+padding:10px;
+background:#181b20;
+color:#f4f4f4;
+font-family:inherit;
+font-size:15px;
+line-height:1.45
+}
+
+#postText::placeholder,
+#photoCaption::placeholder,
+#reelCaption::placeholder{
+color:#6f7680
+}
+
+.create-media-preview{
+display:none;
+margin-top:8px;
+position:relative
+}
+
+.create-media-preview img,
+.create-media-preview video{
+width:100%;
+max-height:400px;
+object-fit:cover;
+border-radius:14px;
+background:#08090b
+}
+
+.remove-media{
+position:absolute;
+right:8px;
+top:8px;
+z-index:5;
+width:31px;
+height:31px;
+border:0;
+border-radius:50%;
+background:rgba(0,0,0,.75);
+color:#fff;
+cursor:pointer;
+font-size:17px
+}
+
+.create-options{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+margin-top:8px
+}
+
+.media-buttons{
+display:flex;
+gap:6px
+}
+
+.media-button{
+border:1px solid #30343a;
+background:#181b20;
+color:#b9bec5;
+padding:8px 10px;
+border-radius:11px;
+cursor:pointer;
+display:flex;
+align-items:center;
+gap:5px;
+font-size:12px;
+font-weight:600
+}
+
+.post-btn{
+border:0;
+background:#1683ff;
+color:#fff;
+padding:9px 17px;
+border-radius:12px;
+font-weight:800;
+cursor:pointer;
+min-width:70px
+}
+
+.post-btn:disabled{
+opacity:.5;
+cursor:default
+}
+
+.hidden-file{display:none}
+
+.create-upload-info{
+color:#777f89;
+font-size:10px;
+margin-top:8px;
+line-height:1.4
+}
+
+.upload-progress{
+display:none;
+margin-top:10px
+}
+
+.upload-progress.show{display:block}
+
+.upload-progress-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:11px;
+color:#858c95;
+margin-bottom:5px
+}
+
+.upload-progress-percent{
+color:#dfe2e6;
+font-weight:800
+}
+
+.upload-progress-track{
+height:5px;
+border-radius:999px;
+background:#25292f;
+overflow:hidden
+}
+
+.upload-progress-bar{
+height:100%;
+width:0%;
+border-radius:999px;
+background:#1683ff;
+transition:width .12s linear
+}
+
+#createPhotoPanel,
+#createReelPanel{
+display:none
+}
+
+#createPostPanel.active,
+#createPhotoPanel.active,
+#createReelPanel.active{
+display:block
+}
+
+#posts{
+display:flex;
+flex-direction:column;
+gap:0
+}
+
+.feed-heading{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+padding:5px 4px 10px
+}
+
+.feed-heading h2{
+font-size:21px;
+letter-spacing:-.5px
+}
+
+.feed-heading-right{
+display:flex;
+align-items:center;
+gap:7px
+}
+
+.feed-search-button{
+width:34px;
+height:34px;
+border:0;
+border-radius:10px;
+background:#171a1f;
+color:#d7bd8c;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer
+}
+
+.feed-search-button svg{
+width:19px;
+height:19px
+}
+
+.feed-search-box{
+display:none;
+margin-bottom:9px
+}
+
+.feed-search-box.show{
+display:flex
+}
+
+#feedSearchInput{
+width:100%;
+padding:11px 13px;
+border:1px solid #292d33;
+border-radius:12px;
+background:#15181d;
+color:#fff;
+outline:none;
+font-size:14px
+}
+
+.post{
+background:#111419;
+border:1px solid #292d33;
+border-radius:18px;
+padding:12px 14px;
+margin-bottom:7px;
+box-shadow:0 8px 24px rgba(0,0,0,.13)
+}
+
+.post-header{
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:5px;
+cursor:pointer
+}
+
+.post-author{
+font-size:14px;
+font-weight:800
+}
+
+.post-time{
+color:#777f89;
+font-size:11px;
+margin-top:1px
+}
+
+.post-title{
+font-size:17px;
+font-weight:800;
+line-height:1.3;
+margin:3px 0 5px;
+letter-spacing:-.25px
+}
+
+/* ORIGINAL POST TEXT FORMATTING KEPT */
+.post-text{
+color:#eceef1;
+font-size:15px;
+line-height:1.42;
+white-space:pre-line;
+overflow-wrap:anywhere;
+word-break:normal;
+margin:0;
+padding:0
+}
+
+.post-hashtags{
+display:flex;
+flex-wrap:wrap;
+gap:5px;
+margin:7px 0 4px
+}
+
+.post-hashtag{
+color:#6eaeff;
+font-size:12px;
+font-weight:700
+}
+
+.post-media{
+width:100%;
+border-radius:14px;
+margin:4px 0 5px;
+display:block;
+max-height:520px;
+object-fit:cover;
+background:#08090b
+}
+
+.post-video{
+width:100%;
+border-radius:14px;
+background:#08090b;
+margin:4px 0 5px;
+max-height:520px
+}
+
+.post-type-label{
+display:inline-flex;
+font-size:9px;
+font-weight:800;
+letter-spacing:.5px;
+text-transform:uppercase;
+color:#858c95;
+background:#181b20;
+border:1px solid #292d33;
+padding:4px 7px;
+border-radius:7px;
+margin-bottom:4px
+}
+
+.actions{
+border-top:1px solid #25282d;
+padding-top:4px;
+display:flex;
+align-items:center;
+gap:2px
+}
+
+.action{
+border:0;
+background:transparent;
+color:#9299a2;
+display:flex;
+align-items:center;
+gap:5px;
+padding:6px 8px;
+border-radius:10px;
+cursor:pointer;
+font-size:12px;
+transition:.18s
+}
+
+.action:hover{
+background:#1b1e23;
+color:#fff
+}
+
+.action svg{
+width:18px;
+height:18px;
+stroke-width:1.8
+}
+
+.action.liked{
+color:#ff5d6c
+}
+
+.action b{font-weight:600}
+
+.comments-area{
+display:none;
+margin-top:7px;
+padding-top:7px;
+border-top:1px solid #25282d;
+max-height:42vh;
+overflow:auto;
+overscroll-behavior:contain
+}
+
+.comments-list{margin-bottom:8px}
+
+.comment{
+background:#181b20;
+border:1px solid #282c32;
+border-radius:11px;
+padding:8px 10px;
+margin-bottom:5px
+}
+
+.comment-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:3px
+}
+
+.comment-user{
+font-size:12px;
+font-weight:800
+}
+
+.comment-text{
+color:#c8ccd1;
+font-size:13px;
+line-height:1.4;
+overflow-wrap:anywhere
+}
+
+.delete-comment{
+border:0;
+background:none;
+color:#8e7272;
+font-size:10px;
+cursor:pointer
+}
+
+.comment-form{
+display:flex;
+gap:7px;
+position:sticky;
+bottom:0;
+padding-top:5px;
+background:#111419
+}
+
+.comment-input{
+flex:1;
+min-width:0;
+padding:9px 11px;
+border:1px solid #2a2e34;
+border-radius:11px;
+background:#15181d;
+color:white;
+outline:none
+}
+
+.comment-send{
+border:0;
+padding:0 13px;
+border-radius:11px;
+background:#f1f1f1;
+color:#0b0d10;
+font-weight:700;
+cursor:pointer
+}
+
+.reply-button,
+.view-replies{
+border:0;
+background:none;
+color:#8eaed0;
+font-size:10px;
+font-weight:700;
+cursor:pointer;
+margin-top:5px;
+margin-right:10px
+}
+
+.reply-form{
+display:flex;
+gap:6px;
+margin-top:7px
+}
+
+.reply-form input{
+flex:1;
+min-width:0;
+padding:8px 10px;
+border:1px solid #2a2e34;
+border-radius:10px;
+background:#15181d;
+color:#fff;
+outline:none;
+font-size:12px
+}
+
+.reply-form button{
+border:0;
+border-radius:10px;
+padding:0 11px;
+background:#f1f1f1;
+color:#0b0d10;
+font-weight:700
+}
+
+.replies{
+margin:6px 0 0 18px;
+border-left:1px solid #30343a;
+padding-left:9px
+}
+
+.reply{padding:6px 0}
+
+.reply .comment-user{font-size:11px}
+
+.reply .comment-text{
+font-size:12px
+}
+
+.empty{
+text-align:center;
+background:#111419;
+border:1px solid #292d33;
+border-radius:18px;
+padding:45px 20px;
+color:#858c95
+}
+
+.empty-icon{
+width:50px;
+height:50px;
+margin:0 auto 13px;
+border-radius:15px;
+background:#191c21;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#d7bd8c
+}
+
+.empty-icon svg{
+width:26px;
+height:26px
+}
+
+.empty h3{
+color:#e7e9ec;
+margin-bottom:5px;
+font-size:16px
+}
+
+.empty p{font-size:13px}
+
+
+/* EXPLORE */
+
+.explore-section-inner{
+display:flex;
+flex-direction:column
+}
+
+.explore-member-search{
+order:1;
+margin-bottom:14px
+}
+
+.explore-discover{
+order:2
+}
+
+.explore-results{
+order:3;
+margin-top:16px
+}
+
+.explore-title{
+display:none
+}
+
+.discover-heading{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin:0 2px 9px
+}
+
+.discover-heading h2{
+font-size:19px;
+letter-spacing:-.3px
+}
+
+.discover-heading span{
+font-size:11px;
+color:#777f89
+}
+
+.discover-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:3px;
+margin:0 -10px
+}
+
+.discover-tile{
+position:relative;
+aspect-ratio:1/1;
+background:#15181d;
+overflow:hidden;
+cursor:pointer
+}
+
+.discover-tile img,
+.discover-tile video{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block
+}
+
+.discover-tile video{
+pointer-events:none
+}
+
+.discover-overlay{
+position:absolute;
+left:7px;
+right:7px;
+bottom:6px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:5px
+}
+
+.discover-author{
+font-size:10px;
+font-weight:800;
+background:rgba(0,0,0,.65);
+backdrop-filter:blur(7px);
+padding:4px 6px;
+border-radius:7px;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+max-width:75%
+}
+
+.discover-reel{
+font-size:9px;
+font-weight:800;
+background:rgba(0,0,0,.65);
+backdrop-filter:blur(7px);
+padding:4px 6px;
+border-radius:7px
+}
+
+.search-box{
+display:flex;
+gap:8px;
+margin-bottom:0
+}
+
+#userSearchInput{
+flex:1;
+min-width:0;
+padding:13px 15px;
+border:1px solid #292d33;
+border-radius:14px;
+background:#15181d;
+color:#fff;
+font-size:14px;
+outline:none
+}
+
+.search-button{
+width:48px;
+border:0;
+border-radius:14px;
+background:#1683ff;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer
+}
+
+.search-button svg{
+width:20px;
+height:20px
+}
+
+#searchResults{
+margin-bottom:0
+}
+
+.search-result{
+background:#15181d;
+border:1px solid #292d33;
+border-radius:15px;
+padding:12px;
+margin-bottom:7px;
+display:flex;
+align-items:center;
+justify-content:space-between
+}
+
+.search-user{
+display:flex;
+align-items:center;
+gap:10px;
+cursor:pointer;
+min-width:0
+}
+
+.search-avatar{
+width:39px;
+height:39px;
+flex-shrink:0;
+border-radius:50%;
+background:#30251f;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:800;
+color:#ead9b8;
+border:1px solid #5a4739
+}
+
+.search-username{
+font-size:14px;
+font-weight:700;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap
+}
+
+.follow-button{
+border:0;
+padding:8px 14px;
+border-radius:10px;
+background:#1683ff;
+color:#fff;
+font-weight:700;
+cursor:pointer
+}
+
+.follow-button:disabled{
+background:#292d33;
+color:#aaa
+}
+
+.explore-search-hint{
+font-size:11px;
+color:#777f89;
+margin-top:7px;
+padding-left:2px
+}
+
+
+/* REELS */
+
+.reels-title{
+padding:7px 3px 12px
+}
+
+.reels-title h1{
+font-size:27px;
+letter-spacing:-1px
+}
+
+.reels-title p{
+color:#858c95;
+font-size:13px;
+margin-top:4px
+}
+
+.reels-list{
+display:flex;
+flex-direction:column;
+gap:8px
+}
+
+.reel-card{
+background:#111419;
+border:1px solid #292d33;
+border-radius:18px;
+padding:10px;
+cursor:pointer
+}
+
+.reel-card video{
+width:100%;
+max-height:650px;
+aspect-ratio:9/16;
+object-fit:cover;
+border-radius:14px;
+background:#08090b;
+display:block;
+pointer-events:none
+}
+
+.reel-card-info{
+padding:8px 3px 2px
+}
+
+.reel-card-title{
+font-size:15px;
+font-weight:800
+}
+
+.reel-card-caption{
+font-size:13px;
+color:#c7cbd0;
+margin-top:4px;
+white-space:pre-line
+}
+
+.reel-card-meta{
+font-size:10px;
+color:#777f89;
+margin-top:5px
+}
+
+
+/* ALERTS */
+
+.alert-title{
+padding:7px 3px 15px
+}
+
+.alert-list{
+display:flex;
+flex-direction:column;
+gap:2px
+}
+
+.notification{
+display:flex;
+align-items:center;
+gap:11px;
+padding:11px 4px 11px 3px;
+background:transparent;
+border:0;
+border-radius:12px;
+cursor:pointer;
+transition:.18s;
+min-height:68px
+}
+
+.notification:hover{
+background:#15181d
+}
+
+.notification.unread{
+background:#15181d
+}
+
+.notification-avatar{
+width:46px;
+height:46px;
+flex-shrink:0;
+border-radius:50%;
+overflow:hidden;
+background:#30251f;
+border:1px solid #4b4037;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#ead9b8;
+font-size:15px;
+font-weight:800
+}
+
+.notification-avatar img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block
+}
+
+.notification-main{
+flex:1;
+min-width:0;
+padding-top:1px
+}
+
+.notification-text{
+font-size:13.5px;
+line-height:1.35;
+color:#e5e7ea;
+overflow-wrap:anywhere
+}
+
+.notification-text b{
+font-weight:800;
+color:#fff
+}
+
+.notification-comment{
+color:#aeb5bd
+}
+
+.notification-preview{
+width:46px;
+height:46px;
+flex:0 0 46px;
+border-radius:8px;
+overflow:hidden;
+background:#171a1f;
+position:relative;
+border:1px solid #292d33
+}
+
+.notification-preview img,
+.notification-preview video{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block
+}
+
+.notification-preview .preview-reel{
+position:absolute;
+right:4px;
+bottom:4px;
+width:18px;
+height:18px;
+border-radius:50%;
+background:rgba(0,0,0,.72);
+display:flex;
+align-items:center;
+justify-content:center;
+color:#fff
+}
+
+.notification-preview .preview-reel svg{
+width:9px;
+height:9px;
+fill:currentColor;
+stroke:none
+}
+
+.notification-follow{
+border:0;
+background:#1683ff;
+color:#fff;
+padding:7px 12px;
+border-radius:9px;
+font-size:11px;
+font-weight:800;
+flex:0 0 auto
+}
+
+.notification-follow.following{
+background:#292d33;
+color:#aaa
+}
+
+.notification-time{
+color:#777f89;
+font-size:10px;
+margin-top:3px
+}
+
+.alert-empty{
+text-align:center;
+padding:50px 20px;
+color:#858c95
+}
+
+.alert-empty svg{
+width:36px;
+height:36px;
+color:#d7bd8c;
+margin-bottom:10px
+}
+
+.alert-empty h3{
+color:#e7e9ec;
+margin-bottom:5px
+}
+
+.alert-empty p{
+font-size:13px
+}
+
+
+/* VIEWER */
+
+.viewer{
+display:none;
+position:fixed;
+inset:0;
+z-index:1000;
+background:#000;
+overflow:hidden
+}
+  .viewer.open{
+display:block
+}
+
+.viewer-header{
+position:absolute;
+top:0;
+left:0;
+right:0;
+height:65px;
+z-index:20;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 14px;
+background:linear-gradient(to bottom,rgba(0,0,0,.65),transparent)
+}
+
+.viewer-close{
+width:40px;
+height:40px;
+border:0;
+border-radius:50%;
+background:rgba(0,0,0,.45);
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer
+}
+
+.viewer-close svg{
+width:22px;
+height:22px
+}
+
+.viewer-title{
+font-size:14px;
+font-weight:800;
+letter-spacing:.2px
+}
+
+.viewer-spacer{
+width:40px
+}
+
+.viewer-track{
+height:100%;
+width:100%;
+overflow-y:auto;
+scroll-snap-type:y mandatory;
+overscroll-behavior-y:contain;
+-webkit-overflow-scrolling:touch
+}
+
+.viewer-item{
+height:100vh;
+min-height:100vh;
+width:100%;
+position:relative;
+scroll-snap-align:start;
+scroll-snap-stop:always;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#000;
+overflow:hidden
+}
+
+.viewer-media{
+width:100%;
+height:100%;
+object-fit:contain;
+display:block;
+background:#000
+}
+
+.viewer-item video{
+width:100%;
+height:100%;
+object-fit:contain;
+display:block;
+background:#000
+}
+
+.viewer-gradient{
+position:absolute;
+left:0;
+right:0;
+bottom:0;
+height:42%;
+background:linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,.55) 35%,transparent);
+pointer-events:none;
+z-index:2
+}
+
+.viewer-info{
+position:absolute;
+left:16px;
+right:76px;
+bottom:22px;
+z-index:5
+}
+
+.viewer-author-row{
+display:flex;
+align-items:center;
+gap:9px;
+margin-bottom:8px
+}
+
+.viewer-author-avatar{
+width:38px;
+height:38px;
+border-radius:50%;
+overflow:hidden;
+background:#30251f;
+border:1px solid rgba(255,255,255,.35);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:13px;
+font-weight:800;
+color:#ead9b8;
+flex-shrink:0
+}
+
+.viewer-author-avatar img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block
+}
+
+.viewer-author-name{
+font-size:14px;
+font-weight:800;
+color:#fff;
+max-width:155px;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap
+}
+
+.viewer-follow{
+border:1px solid rgba(255,255,255,.7);
+background:transparent;
+color:#fff;
+border-radius:8px;
+padding:6px 10px;
+font-size:10px;
+font-weight:800;
+cursor:pointer
+}
+
+.viewer-follow.following{
+background:rgba(255,255,255,.15);
+border-color:rgba(255,255,255,.2);
+color:#c7cbd0
+}
+
+.viewer-caption{
+font-size:13px;
+line-height:1.4;
+color:#f2f3f5;
+white-space:pre-line;
+overflow-wrap:anywhere;
+max-width:100%
+}
+
+.viewer-actions{
+position:absolute;
+right:12px;
+bottom:76px;
+z-index:8;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:13px
+}
+
+.viewer-action-wrap{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:3px
+}
+
+.viewer-action{
+width:44px;
+height:44px;
+border:0;
+border-radius:50%;
+background:rgba(0,0,0,.42);
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+backdrop-filter:blur(5px)
+}
+
+.viewer-action svg{
+width:23px;
+height:23px;
+stroke-width:1.8
+}
+
+.viewer-action.liked{
+color:#ff5d6c
+}
+
+.viewer-action-count{
+font-size:10px;
+font-weight:700;
+color:#fff;
+text-shadow:0 1px 4px #000
+}
+
+.viewer-comment-button{
+border:0;
+background:none;
+color:#fff;
+cursor:pointer;
+font-size:10px
+}
+
+.viewer-share-menu{
+display:none;
+position:absolute;
+right:12px;
+bottom:128px;
+z-index:15;
+background:#181b20;
+border:1px solid #30343a;
+border-radius:13px;
+padding:6px;
+min-width:145px;
+box-shadow:0 12px 35px rgba(0,0,0,.45)
+}
+
+.viewer-share-menu.show{
+display:block
+}
+
+.viewer-share-menu button{
+display:flex;
+width:100%;
+align-items:center;
+gap:8px;
+border:0;
+background:transparent;
+color:#eee;
+padding:9px 10px;
+border-radius:8px;
+font-size:12px;
+cursor:pointer;
+text-align:left
+}
+
+.viewer-share-menu button:hover{
+background:#24282e
+}
+
+.viewer-share-menu svg{
+width:17px;
+height:17px
+}
+
+.viewer-loading{
+position:absolute;
+inset:0;
+z-index:30;
+display:flex;
+align-items:center;
+justify-content:center;
+pointer-events:none
+}
+
+.viewer-spinner{
+width:31px;
+height:31px;
+border:3px solid rgba(255,255,255,.2);
+border-top-color:#fff;
+border-radius:50%;
+animation:spin .7s linear infinite
+}
+
+@keyframes spin{
+to{transform:rotate(360deg)}
+}
+
+
+/* COMMENT SHEET */
+
+.comment-sheet{
+position:fixed;
+inset:0;
+z-index:1500;
+display:none;
+background:rgba(0,0,0,.55)
+}
+
+.comment-sheet.open{
+display:block
+}
+
+.comment-sheet-panel{
+position:absolute;
+left:0;
+right:0;
+bottom:0;
+height:min(72vh,650px);
+background:#111419;
+border-radius:20px 20px 0 0;
+border-top:1px solid #30343a;
+display:flex;
+flex-direction:column;
+animation:sheetUp .24s cubic-bezier(.2,.8,.2,1)
+}
+
+@keyframes sheetUp{
+from{transform:translateY(100%)}
+to{transform:translateY(0)}
+}
+
+.comment-sheet-handle{
+width:38px;
+height:4px;
+border-radius:99px;
+background:#4b5057;
+margin:8px auto 3px
+}
+
+.comment-sheet-head{
+height:48px;
+padding:0 15px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border-bottom:1px solid #25282d;
+flex-shrink:0
+}
+
+.comment-sheet-head h3{
+font-size:15px;
+font-weight:800
+}
+
+.comment-sheet-close{
+border:0;
+background:transparent;
+color:#9ba1a8;
+cursor:pointer;
+width:35px;
+height:35px;
+display:flex;
+align-items:center;
+justify-content:center
+}
+
+.comment-sheet-close svg{
+width:20px;
+height:20px
+}
+
+.comment-sheet-list{
+flex:1;
+overflow-y:auto;
+padding:10px 14px 14px;
+overscroll-behavior:contain
+}
+
+.sheet-comment{
+display:flex;
+gap:9px;
+padding:9px 1px
+}
+
+.sheet-comment-avatar{
+width:34px;
+height:34px;
+border-radius:50%;
+background:#30251f;
+color:#ead9b8;
+border:1px solid #4b4037;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:11px;
+font-weight:800;
+flex-shrink:0;
+overflow:hidden
+}
+
+.sheet-comment-avatar img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block
+}
+
+.sheet-comment-body{
+flex:1;
+min-width:0
+}
+
+.sheet-comment-line{
+font-size:13px;
+line-height:1.4;
+color:#e3e5e8;
+overflow-wrap:anywhere
+}
+
+.sheet-comment-line b{
+font-weight:800;
+color:#fff;
+margin-right:4px
+}
+
+.sheet-comment-time{
+font-size:9px;
+color:#6f7680;
+margin-top:3px
+}
+
+.sheet-comment-tools{
+display:flex;
+align-items:center;
+gap:11px;
+margin-top:4px
+}
+
+.sheet-comment-tools button{
+border:0;
+background:none;
+color:#7d858e;
+font-size:10px;
+font-weight:700;
+cursor:pointer;
+padding:0
+}
+
+.sheet-comment-tools button:hover{
+color:#fff
+}
+
+.sheet-replies{
+margin-top:5px;
+margin-left:3px;
+padding-left:12px;
+border-left:1px solid #30343a
+}
+
+.sheet-reply{
+padding:6px 0;
+display:flex;
+gap:7px
+}
+
+.sheet-reply-avatar{
+width:27px;
+height:27px;
+border-radius:50%;
+background:#30251f;
+border:1px solid #4b4037;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:9px;
+font-weight:800;
+color:#ead9b8;
+flex-shrink:0;
+overflow:hidden
+}
+
+.sheet-reply-avatar img{
+width:100%;
+height:100%;
+object-fit:cover
+}
+
+.sheet-reply-body{
+min-width:0;
+flex:1
+}
+
+.sheet-reply-line{
+font-size:11px;
+line-height:1.4;
+color:#c8ccd1
+}
+
+.sheet-reply-line b{
+color:#fff
+}
+
+.sheet-reply-time{
+font-size:8px;
+color:#6f7680;
+margin-top:2px
+}
+
+.sheet-reply-form{
+display:none;
+gap:6px;
+margin-top:7px
+}
+
+.sheet-reply-form.show{
+display:flex
+}
+
+.sheet-reply-form input{
+flex:1;
+min-width:0;
+background:#171a1f;
+border:1px solid #30343a;
+border-radius:9px;
+color:#fff;
+padding:7px 9px;
+outline:none;
+font-size:11px
+}
+
+.sheet-reply-form button{
+border:0;
+border-radius:9px;
+background:#1683ff;
+color:#fff;
+padding:0 10px;
+font-size:10px;
+font-weight:800
+}
+
+.comment-sheet-form{
+border-top:1px solid #25282d;
+padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+display:flex;
+gap:7px;
+background:#111419;
+flex-shrink:0
+}
+
+.comment-sheet-input{
+flex:1;
+min-width:0;
+height:40px;
+border:1px solid #30343a;
+border-radius:20px;
+background:#181b20;
+color:#fff;
+outline:none;
+padding:0 14px;
+font-size:13px
+}
+
+.comment-sheet-input::placeholder{
+color:#6f7680
+}
+
+.comment-sheet-send{
+width:40px;
+height:40px;
+border:0;
+border-radius:50%;
+background:#1683ff;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer
+}
+
+.comment-sheet-send svg{
+width:18px;
+height:18px
+}
+
+.sheet-empty{
+text-align:center;
+color:#777f89;
+padding:45px 15px;
+font-size:13px
+}
+
+
+/* PROFILE */
+
+.profile-card{
+background:#111419;
+border:1px solid #292d33;
+border-radius:18px;
+padding:18px 16px;
+margin-bottom:10px
+}
+
+.profile-top{
+display:flex;
+align-items:center;
+gap:14px
+}
+
+.profile-avatar{
+width:76px;
+height:76px;
+border-radius:50%;
+background:#30251f;
+border:2px solid #5b4738;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+font-weight:800;
+color:#ead9b8;
+overflow:hidden;
+flex-shrink:0
+}
+
+.profile-avatar img{
+width:100%;
+height:100%;
+object-fit:cover
+}
+
+.profile-details{
+flex:1;
+min-width:0
+}
+
+.profile-name{
+font-size:20px;
+font-weight:800;
+letter-spacing:-.4px;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap
+}
+
+.profile-district{
+font-size:12px;
+color:#858c95;
+margin-top:3px
+}
+
+.profile-actions{
+display:flex;
+gap:7px;
+margin-top:12px
+}
+
+.profile-action{
+flex:1;
+height:36px;
+border:1px solid #30343a;
+border-radius:10px;
+background:#181b20;
+color:#dfe2e6;
+font-size:11px;
+font-weight:700;
+cursor:pointer
+}
+
+.profile-action.primary{
+background:#1683ff;
+border-color:#1683ff;
+color:#fff
+}
+
+.profile-stats{
+display:flex;
+gap:24px;
+margin-top:14px
+}
+
+.profile-stat{
+text-align:center
+}
+
+.profile-stat strong{
+display:block;
+font-size:15px
+}
+
+.profile-stat span{
+font-size:10px;
+color:#777f89
+}
+
+.profile-bio{
+margin-top:13px;
+font-size:13px;
+line-height:1.4;
+color:#c8ccd1;
+white-space:pre-line
+}
+
+.profile-posts-heading{
+font-size:17px;
+font-weight:800;
+margin:13px 3px 8px
+}
+
+.profile-post-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:3px;
+margin:0 -10px
+}
+
+.profile-grid-item{
+aspect-ratio:1/1;
+background:#15181d;
+overflow:hidden;
+cursor:pointer;
+position:relative
+}
+
+.profile-grid-item img,
+.profile-grid-item video{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block
+}
+
+.profile-grid-reel{
+position:absolute;
+right:6px;
+top:6px;
+width:23px;
+height:23px;
+border-radius:50%;
+background:rgba(0,0,0,.62);
+display:flex;
+align-items:center;
+justify-content:center
+}
+
+.profile-grid-reel svg{
+width:10px;
+height:10px;
+fill:#fff;
+stroke:none
+}
+
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+position:fixed;
+left:0;
+right:0;
+bottom:0;
+height:64px;
+z-index:900;
+background:rgba(11,13,16,.95);
+backdrop-filter:blur(18px);
+border-top:1px solid #25282d;
+display:flex;
+justify-content:center
+}
+
+.bottom-nav-inner{
+width:100%;
+max-width:720px;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+align-items:center
+}
+
+.nav-item{
+height:64px;
+border:0;
+background:transparent;
+color:#737b84;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:3px;
+cursor:pointer;
+position:relative
+}
+
+.nav-item svg{
+width:22px;
+height:22px;
+stroke-width:1.8
+}
+
+.nav-item span{
+font-size:9px;
+font-weight:700
+}
+
+.nav-item.active{
+color:#f1f2f4
+}
+
+.nav-item.active svg{
+stroke-width:2.2
+}
+
+.message-badge{
+display:none;
+position:absolute;
+top:7px;
+right:calc(50% - 18px);
+min-width:17px;
+height:17px;
+padding:0 4px;
+border-radius:99px;
+background:#ff3040;
+color:#fff;
+font-size:9px;
+font-weight:800;
+align-items:center;
+justify-content:center;
+border:2px solid #0b0d10
+}
+
+.message-badge.show{
+display:flex
+}
+
+
+/* TOAST */
+
+.toast{
+position:fixed;
+left:50%;
+bottom:78px;
+transform:translate(-50%,15px);
+z-index:2500;
+background:#f2f3f4;
+color:#101216;
+border-radius:12px;
+padding:10px 14px;
+font-size:12px;
+font-weight:700;
+box-shadow:0 10px 30px rgba(0,0,0,.35);
+opacity:0;
+pointer-events:none;
+transition:.22s;
+max-width:calc(100% - 30px);
+text-align:center
+}
+
+.toast.show{
+opacity:1;
+transform:translate(-50%,0)
+}
+
+
+/* AUTH / LOADING */
+
+#loadingScreen{
+position:fixed;
+inset:0;
+z-index:5000;
+background:#0b0d10;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+gap:12px
+}
+
+.loading-logo{
+width:55px;
+height:55px;
+border-radius:17px;
+background:#191c21;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#d7bd8c;
+font-size:21px;
+font-weight:900;
+border:1px solid #302f2a
+}
+
+.loading-spinner{
+width:26px;
+height:26px;
+border:3px solid #292d33;
+border-top-color:#d7bd8c;
+border-radius:50%;
+animation:spin .8s linear infinite
+}
+
+#app{
+display:none
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:520px){
+.container{
+padding-left:11px;
+padding-right:11px
+}
+
+.post{
+border-radius:15px;
+padding:11px 12px
+}
+
+.discover-grid,
+.profile-post-grid{
+margin-left:-11px;
+margin-right:-11px
+}
+
+.viewer-info{
+left:13px;
+right:68px;
+bottom:19px
+}
+
+.viewer-actions{
+right:8px;
+bottom:67px
+}
+
+.viewer-action{
+width:42px;
+height:42px
+}
+}
+
+@media(min-width:721px){
+.bottom-nav{
+border-left:1px solid #25282d;
+border-right:1px solid #25282d
+}
+
+.comment-sheet-panel{
+left:50%;
+right:auto;
+width:min(720px,100%);
+transform:translateX(-50%)
+}
+
+.comment-sheet.open .comment-sheet-panel{
+animation:sheetUpDesktop .24s cubic-bezier(.2,.8,.2,1)
+}
+
+@keyframes sheetUpDesktop{
+from{transform:translate(-50%,100%)}
+to{transform:translate(-50%,0)}
+}
+}
+</style>
+</head>
+
+<body>
+
+<div id="loadingScreen">
+<div class="loading-logo">JSP</div>
+<div class="loading-spinner"></div>
+</div>
+
+<div id="app">
+
+<header class="topbar">
+<div class="topbar-inner">
+
+<button
+id="createTopButton"
+class="top-icon"
+type="button"
+aria-label="Create"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M12 5v14M5 12h14"></path>
+</svg>
+</button>
+
+<div class="top-title">JSP TAYSU</div>
+
+<button
+id="alertsTopButton"
+class="top-icon"
+type="button"
+aria-label="Alerts"
+>
+<span id="alertTopDot" class="top-dot"></span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+<path d="M10 21h4"></path>
+</svg>
+</button>
+
+</div>
+</header>
+
+<main class="container">
+
+<section id="homeSection" class="page-section active">
+
+<div class="feed-heading">
+<div>
+<h2>Let’s Discover</h2>
+</div>
+
+<div class="feed-heading-right">
+<button
+id="feedSearchButton"
+class="feed-search-button"
+type="button"
+aria-label="Search posts"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<circle cx="11" cy="11" r="6.5"></circle>
+<path d="m16 16 5 5"></path>
+</svg>
+</button>
+</div>
+</div>
+
+<div id="feedSearchBox" class="feed-search-box">
+<input
+id="feedSearchInput"
+type="search"
+placeholder="Search posts..."
+autocomplete="off"
+>
+</div>
+
+<div id="posts"></div>
+
+</section>
+
+
+<section id="exploreSection" class="page-section">
+
+<div class="explore-section-inner">
+
+<div class="explore-member-search">
+
+<div class="search-box">
+<input
+id="userSearchInput"
+type="search"
+placeholder="Search members..."
+autocomplete="off"
+>
+<button
+id="userSearchButton"
+class="search-button"
+type="button"
+aria-label="Search members"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<circle cx="11" cy="11" r="6.5"></circle>
+<path d="m16 16 5 5"></path>
+</svg>
+</button>
+</div>
+
+<div class="explore-search-hint">
+Search JSP TAYSU members by name.
+</div>
+
+</div>
+
+<div class="explore-discover">
+
+<div class="discover-heading">
+<h2>Discover</h2>
+<span>Photos & Reels</span>
+</div>
+
+<div id="discoverGrid" class="discover-grid"></div>
+
+</div>
+
+<div id="searchResults" class="explore-results"></div>
+
+</div>
+
+</section>
+
+
+<section id="reelsSection" class="page-section">
+
+<div class="reels-title">
+<h1>Reels</h1>
+<p>Discover short videos from the JSP TAYSU community.</p>
+</div>
+
+<div id="reelsList" class="reels-list"></div>
+
+</section>
+
+
+<section id="alertsSection" class="page-section">
+
+<div class="alert-title">
+<h1>Notifications</h1>
+</div>
+
+<div id="alertList" class="alert-list"></div>
+
+</section>
+
+
+<section id="profileSection" class="page-section">
+
+<div id="profileContent"></div>
+
+</section>
+
+
+<section id="createSection" class="page-section">
+
+<button
+id="createBackButton"
+class="create-back"
+type="button"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="m15 18-6-6 6-6"></path>
+</svg>
+Back
+</button>
+
+<div class="create-page-title">
+<h1>Create</h1>
+<p>Share something with the JSP TAYSU community.</p>
+</div>
+
+<div class="create-tabs">
+<button
+id="createPostTab"
+class="create-tab active"
+type="button"
+>
+POST
+</button>
+
+<button
+id="createReelTab"
+class="create-tab"
+type="button"
+>
+REEL
+</button>
+</div>
+
+
+<div id="createPostPanel" class="create-card active">
+
+<div class="composer-header">
+<div id="composerAvatar" class="avatar">J</div>
+<div>
+<div id="composerName" class="composer-name">JSP TAYSU Member</div>
+<div class="composer-sub">Create a community post</div>
+</div>
+</div>
+
+<textarea
+id="postText"
+placeholder="What's on your mind?"
+></textarea>
+
+<div class="create-options">
+
+<div class="media-buttons">
+<button
+id="postPhotoButton"
+class="media-button"
+type="button"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<rect x="3" y="4" width="18" height="16" rx="2"></rect>
+<circle cx="8.5" cy="9" r="1.5"></circle>
+<path d="m4 17 5-5 3 3 2-2 6 6"></path>
+</svg>
+Photo
+</button>
+
+<input
+id="postPhotoInput"
+class="hidden-file"
+type="file"
+accept="image/*"
+>
+
+</div>
+
+<button
+id="publishPostButton"
+class="post-btn"
+type="button"
+>
+Post
+</button>
+
+</div>
+
+<div
+id="postUploadProgress"
+class="upload-progress"
+>
+<div class="upload-progress-head">
+<span>Uploading</span>
+<span
+id="postUploadPercent"
+class="upload-progress-percent"
+>
+0%
+</span>
+</div>
+<div class="upload-progress-track">
+<div
+id="postUploadBar"
+class="upload-progress-bar"
+></div>
+</div>
+</div>
+
+<div id="postCreateMediaPreview" class="create-media-preview"></div>
+
+<div class="create-upload-info">
+You can share text posts or add a photo to your post.
+</div>
+
+</div>
+
+
+<div id="createPhotoPanel" class="create-card">
+
+<div class="composer-header">
+<div id="photoComposerAvatar" class="avatar">J</div>
+<div>
+<div id="photoComposerName" class="composer-name">JSP TAYSU Member</div>
+<div class="composer-sub">Share a photo</div>
+</div>
+</div>
+
+<div class="create-media-preview" id="photoCreatePreview"></div>
+
+<textarea
+id="photoCaption"
+placeholder="Write a caption and add hashtags…"
+></textarea>
+
+<div class="create-options">
+
+<div class="media-buttons">
+<button
+id="photoChooseButton"
+class="media-button"
+type="button"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<rect x="3" y="4" width="18" height="16" rx="2"></rect>
+<circle cx="8.5" cy="9" r="1.5"></circle>
+<path d="m4 17 5-5 3 3 2-2 6 6"></path>
+</svg>
+Choose photo
+</button>
+
+<input
+id="photoInput"
+class="hidden-file"
+type="file"
+accept="image/*"
+>
+</div>
+
+<button
+id="publishPhotoButton"
+class="post-btn"
+type="button"
+>
+Post
+</button>
+
+</div>
+
+<div
+id="photoUploadProgress"
+class="upload-progress"
+>
+<div class="upload-progress-head">
+<span>Uploading</span>
+<span
+id="photoUploadPercent"
+class="upload-progress-percent"
+>
+0%
+</span>
+</div>
+<div class="upload-progress-track">
+<div
+id="photoUploadBar"
+class="upload-progress-bar"
+></div>
+</div>
+</div>
+
+</div>
+
+
+<div id="createReelPanel" class="create-card">
+
+<div class="composer-header">
+<div id="reelComposerAvatar" class="avatar">J</div>
+<div>
+<div id="reelComposerName" class="composer-name">JSP TAYSU Member</div>
+<div class="composer-sub">Create a reel</div>
+</div>
+</div>
+
+<div
+id="reelCreatePreview"
+class="create-media-preview"
+></div>
+
+<div class="create-options" style="margin-top:9px">
+<div class="media-buttons">
+<button
+id="reelChooseButton"
+class="media-button"
+type="button"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<rect x="3" y="4" width="18" height="16" rx="2"></rect>
+<path d="m9 8 6 4-6 4V8Z"></path>
+</svg>
+Choose video
+</button>
+
+<input
+id="reelInput"
+class="hidden-file"
+type="file"
+accept="video/*"
+>
+</div>
+
+<button
+id="reelEditCoverButton"
+class="media-button"
+type="button"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M4 5h16v14H4z"></path>
+<path d="m7 15 3-3 2 2 2-2 3 3"></path>
+</svg>
+Edit cover
+</button>
+</div>
+
+<textarea
+id="reelCaption"
+placeholder="Write a caption and add hashtags…"
+></textarea>
+
+<div class="create-options">
+
+<div></div>
+
+<button
+id="publishReelButton"
+class="post-btn"
+type="button"
+>
+Post
+</button>
+
+</div>
+
+<div
+id="reelUploadProgress"
+class="upload-progress"
+>
+<div class="upload-progress-head">
+<span>Uploading</span>
+<span
+id="reelUploadPercent"
+class="upload-progress-percent"
+>
+0%
+</span>
+</div>
+
+<div class="upload-progress-track">
+<div
+id="reelUploadBar"
+class="upload-progress-bar"
+></div>
+</div>
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<nav class="bottom-nav">
+<div class="bottom-nav-inner">
+
+<button
+class="nav-item active"
+data-page="homeSection"
+type="button"
+aria-label="Home"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V10Z"></path>
+<path d="M9 21v-6h6v6"></path>
+</svg>
+<span>Home</span>
+</button>
+
+<button
+class="nav-item"
+data-page="exploreSection"
+type="button"
+aria-label="Explore"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<circle cx="11" cy="11" r="7"></circle>
+<path d="m16.5 16.5 4 4"></path>
+</svg>
+<span>Explore</span>
+</button>
+
+<button
+class="nav-item"
+id="messagesNavButton"
+aria-label="Messages"
+type="button"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 2 1.5-4A7.5 7.5 0 1 1 20 11.5Z"></path>
+</svg>
+<span>Messages</span>
+<span id="messageBadge" class="message-badge">0</span>
+</button>
+
+<button
+class="nav-item"
+data-page="reelsSection"
+type="button"
+aria-label="Reels"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<rect x="3" y="4" width="18" height="16" rx="2"></rect>
+<path d="m9 8 6 4-6 4V8Z"></path>
+</svg>
+<span>Reels</span>
+</button>
+
+<button
+class="nav-item"
+data-page="profileSection"
+type="button"
+aria-label="Profile"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<circle cx="12" cy="8" r="3.5"></circle>
+<path d="M5 20c.8-3.3 3.2-5 7-5s6.2 1.7 7 5"></path>
+</svg>
+<span>Profile</span>
+</button>
+
+</div>
+</nav>
+
+
+<div id="toast" class="toast"></div>
+
+
+<div id="viewer" class="viewer">
+
+<div class="viewer-header">
+<button
+id="viewerClose"
+class="viewer-close"
+type="button"
+aria-label="Close viewer"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="m15 6-6 6 6 6"></path>
+</svg>
+</button>
+
+<div id="viewerTitle" class="viewer-title">Media</div>
+
+<div class="viewer-spacer"></div>
+</div>
+
+<div id="viewerTrack" class="viewer-track"></div>
+
+</div>
+
+
+<div id="commentSheet" class="comment-sheet">
+
+<div
+id="commentSheetPanel"
+class="comment-sheet-panel"
+>
+
+<div class="comment-sheet-handle"></div>
+
+<div class="comment-sheet-head">
+<h3>Comments</h3>
+
+<button
+id="commentSheetClose"
+class="comment-sheet-close"
+type="button"
+aria-label="Close comments"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M6 6l12 12M18 6 6 18"></path>
+</svg>
+</button>
+</div>
+
+<div
+id="commentSheetList"
+class="comment-sheet-list"
+></div>
+
+<form
+id="commentSheetForm"
+class="comment-sheet-form"
+>
+<input
+id="commentSheetInput"
+class="comment-sheet-input"
+type="text"
+placeholder="Add a comment..."
+autocomplete="off"
+>
+<button
+class="comment-sheet-send"
+type="submit"
+aria-label="Send comment"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="m4 12 16-8-4 16-4-6-8-2Z"></path>
+<path d="m12 14 4-6"></path>
+</svg>
+</button>
+</form>
+
+</div>
+</div>
+
+</div>
+
+
+<script type="module">
+
+import{
+initializeApp
+}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import{
+getAuth,
+onAuthStateChanged,
+signInWithPopup,
+GoogleAuthProvider
+}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import{
+getFirestore,
+collection,
+doc,
+getDoc,
+getDocs,
+addDoc,
+setDoc,
+updateDoc,
+deleteDoc,
+query,
+where,
+orderBy,
+limit,
+onSnapshot,
+serverTimestamp,
+increment
+}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* FIREBASE */
+
+const firebaseConfig={
+apiKey:"AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
+authDomain:"jsp-taysu.firebaseapp.com",
+projectId:"jsp-taysu",
+storageBucket:"jsp-taysu.firebasestorage.app",
+messagingSenderId:"280992025632",
+appId:"1:280992025632:web:48efa21208a78be9a78045"
+};
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+
+
+/* IMAGEKIT */
+
+const IMAGEKIT_PUBLIC_KEY="public_3h6iOJBuIST7Aphxt+20NsXp4q4=";
+const IMAGEKIT_AUTH_URL="https://jsp-taysu.vercel.app/api/imagekit-auth";
+const IMAGEKIT_UPLOAD_URL="https://upload.imagekit.io/api/v1/files/upload";
+
+
+/* GLOBALS */
+
+let currentUser=null;
+let currentProfile=null;
+
+let allPosts=[];
+let allMembers=[];
+let allReels=[];
+
+let activeViewerPosts=[];
+let activeViewerIndex=0;
+let activeCommentPostId=null;
+
+let unsubscribePosts=null;
+let unsubscribeMessages=null;
+let unsubscribeAlerts=null;
+
+let currentCreateMode="POST";
+let selectedPostImageFile=null;
+let selectedPhotoFile=null;
+let selectedReelFile=null;
+
+let viewerObserver=null;
+
+const $=id=>document.getElementById(id);
+
+
+/* BASIC HELPERS */
+
+function escapeHTML(value){
+return String(value??"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+}
+
+function initials(name){
+const text=String(name||"J").trim();
+if(!text)return"J";
+return text
+.split(/\s+/)
+.slice(0,2)
+.map(x=>x[0]||"")
+.join("")
+.toUpperCase();
+}
+
+function safeURL(url){
+if(!url)return"";
+try{
+const parsed=new URL(url,location.href);
+if(["http:","https:","blob:","data:"].includes(parsed.protocol)){
+return parsed.href;
+}
+}catch(e){}
+return"";
+}
+
+function formatTime(timestamp){
+if(!timestamp)return"now";
+
+let date;
+
+if(timestamp?.toDate){
+date=timestamp.toDate();
+}else if(timestamp instanceof Date){
+date=timestamp;
+}else{
+date=new Date(timestamp);
+}
+
+if(Number.isNaN(date.getTime()))return"now";
+
+const diff=Date.now()-date.getTime();
+const sec=Math.floor(diff/1000);
+
+if(sec<10)return"now";
+if(sec<60)return`${sec}s`;
+if(sec<3600)return`${Math.floor(sec/60)}m`;
+if(sec<86400)return`${Math.floor(sec/3600)}h`;
+if(sec<604800)return`${Math.floor(sec/86400)}d`;
+
+return date.toLocaleDateString("en-IN",{
+day:"numeric",
+month:"short",
+year:date.getFullYear()!==new Date().getFullYear()?"numeric":undefined
+});
+}
+
+function showToast(message){
+const toast=$("toast");
+if(!toast)return;
+
+toast.textContent=message;
+toast.classList.add("show");
+
+clearTimeout(window.__toastTimer);
+
+window.__toastTimer=setTimeout(()=>{
+toast.classList.remove("show");
+},2400);
+}
+
+function setLoading(show){
+const screen=$("loadingScreen");
+if(screen){
+screen.style.display=show?"flex":"none";
+}
+}
+
+function showApp(){
+$("app").style.display="block";
+setLoading(false);
+}
+
+function getDisplayName(){
+return currentProfile?.name||
+currentUser?.displayName||
+"JSP TAYSU Member";
+}
+
+function getPhotoURL(){
+return currentProfile?.photoURL||
+currentProfile?.photoUrl||
+currentUser?.photoURL||
+"";
+}
+
+function avatarHTML(profile,sizeClass=""){
+const name=profile?.name||
+profile?.displayName||
+"JSP TAYSU";
+
+const photo=safeURL(
+profile?.photoURL||
+profile?.photoUrl||
+profile?.photo||
+""
+);
+
+if(photo){
+return`
+<div class="${sizeClass}">
+<img src="${escapeHTML(photo)}" alt="">
+</div>`;
+}
+
+return`
+<div class="${sizeClass}">
+${escapeHTML(initials(name))}
+</div>`;
+}
+
+function normalizeTimestamp(data){
+return data?.createdAt||
+data?.timestamp||
+data?.updatedAt||
+null;
+}
+
+function postDateValue(post){
+const value=normalizeTimestamp(post);
+
+if(value?.toDate)return value.toDate().getTime();
+
+if(value instanceof Date)return value.getTime();
+
+const parsed=new Date(value).getTime();
+
+return Number.isNaN(parsed)?0:parsed;
+}
+
+function isVideoPost(post){
+return(
+post?.type==="reel"||
+post?.mediaType==="video"||
+post?.contentType==="video"||
+post?.videoURL||
+post?.videoUrl
+);
+}
+
+function isPhotoPost(post){
+return(
+post?.type==="photo"||
+post?.mediaType==="image"||
+post?.contentType==="image"||
+post?.imageURL||
+post?.imageUrl
+);
+}
+
+function postMediaURL(post){
+return safeURL(
+post?.mediaURL||
+post?.mediaUrl||
+post?.imageURL||
+post?.imageUrl||
+post?.videoURL||
+post?.videoUrl||
+""
+);
+}
+
+function postAuthorName(post){
+return post?.authorName||
+post?.senderName||
+post?.userName||
+post?.username||
+"JSP TAYSU Member";
+}
+
+function postAuthorId(post){
+return post?.authorId||
+post?.senderId||
+post?.userId||
+post?.uid||
+"";
+}
+
+function postCaption(post){
+return post?.caption||
+post?.text||
+"";
+}
+
+function postType(post){
+if(isVideoPost(post))return"reel";
+if(isPhotoPost(post))return"photo";
+return"text";
+}
+
+function postHashtags(post){
+if(Array.isArray(post?.hashtags))return post.hashtags;
+
+const text=String(post?.hashtags||"").trim();
+
+if(!text)return[];
+
+return text
+.split(/[\s,]+/)
+.filter(Boolean)
+.map(x=>x.startsWith("#")?x:`#${x}`);
+}
+
+async function getMemberProfile(uid){
+if(!uid)return null;
+
+const local=allMembers.find(
+m=>m.id===uid||
+m.uid===uid||
+m.userId===uid
+);
+
+if(local)return local;
+
+try{
+const snap=await getDoc(doc(db,"members",uid));
+
+if(snap.exists()){
+return{
+id:snap.id,
+...snap.data()
+};
+}
+}catch(error){
+console.warn("Profile lookup failed",error);
+}
+
+return null;
+}
+
+async function getPostById(postId){
+if(!postId)return null;
+
+const local=allPosts.find(p=>p.id===postId);
+if(local)return local;
+
+try{
+const snap=await getDoc(doc(db,"posts",postId));
+
+if(snap.exists()){
+return{
+id:snap.id,
+...snap.data()
+};
+}
+}catch(error){
+console.warn("Post lookup failed",error);
+}
+
+return null;
+}
+
+
+/* AUTH */
+
+const googleProvider=new GoogleAuthProvider();
+
+async function ensureProfile(user){
+if(!user)return null;
+
+try{
+const ref=doc(db,"members",user.uid);
+const snap=await getDoc(ref);
+
+if(snap.exists()){
+return{
+id:snap.id,
+...snap.data()
+};
+}
+
+const profile={
+uid:user.uid,
+name:user.displayName||"JSP TAYSU Member",
+email:user.email||"",
+photoURL:user.photoURL||"",
+createdAt:serverTimestamp()
+};
+
+await setDoc(ref,profile);
+
+return{
+id:user.uid,
+...profile
+};
+
+}catch(error){
+console.error("Profile error",error);
+return{
+uid:user.uid,
+name:user.displayName||"JSP TAYSU Member",
+photoURL:user.photoURL||""
+};
+}
+}
+
+onAuthStateChanged(auth,async user=>{
+if(!user){
+window.location.href="index.html";
+return;
+}
+
+currentUser=user;
+currentProfile=await ensureProfile(user);
+
+await loadMembers();
+await loadPosts();
+await loadReels();
+await loadNotifications();
+listenMessageCount();
+
+updateComposerProfile();
+showApp();
+});
+
+
+/* MEMBER LOADING */
+
+async function loadMembers(){
+try{
+const snap=await getDocs(collection(db,"members"));
+
+allMembers=snap.docs.map(item=>({
+id:item.id,
+...item.data()
+}));
+
+}catch(error){
+console.error("Members loading error",error);
+allMembers=[];
+}
+}
+
+
+/* POST LOADING */
+
+async function loadPosts(){
+try{
+
+const q=query(
+collection(db,"posts"),
+orderBy("createdAt","desc"),
+limit(100)
+);
+
+if(unsubscribePosts){
+unsubscribePosts();
+}
+
+unsubscribePosts=onSnapshot(q,snap=>{
+allPosts=snap.docs.map(item=>({
+id:item.id,
+...item.data()
+}));
+
+renderPosts(allPosts);
+renderDiscover();
+renderReels();
+renderProfile();
+});
+
+}catch(error){
+console.error("Posts loading error",error);
+
+try{
+const snap=await getDocs(collection(db,"posts"));
+
+allPosts=snap.docs
+.map(item=>({
+id:item.id,
+...item.data()
+}))
+.sort((a,b)=>postDateValue(b)-postDateValue(a));
+
+renderPosts(allPosts);
+renderDiscover();
+renderReels();
+renderProfile();
+
+}catch(inner){
+console.error(inner);
+}
+}
+}
+
+
+/* RENDER POSTS */
+
+function renderPosts(posts){
+const container=$("posts");
+if(!container)return;
+
+const search=String(
+$("feedSearchInput")?.value||""
+).trim().toLowerCase();
+
+let list=posts.filter(post=>{
+if(!search)return true;
+
+const text=[
+postAuthorName(post),
+postCaption(post),
+post?.title||"",
+postHashtags(post).join(" ")
+].join(" ").toLowerCase();
+
+return text.includes(search);
+});
+
+if(!list.length){
+container.innerHTML=`
+<div class="empty">
+<div class="empty-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M5 7h14M5 12h9M5 17h14"></path>
+</svg>
+</div>
+<h3>No posts found</h3>
+<p>There are no community posts matching your search.</p>
+</div>`;
+return;
+}
+
+container.innerHTML=list.map(post=>postHTML(post)).join("");
+
+attachPostEvents(container);
+}
+
+function postHTML(post){
+const type=postType(post);
+const name=postAuthorName(post);
+const uid=postAuthorId(post);
+
+const photo=safeURL(
+post?.authorPhoto||
+post?.authorPhotoURL||
+post?.authorPhotoUrl||
+""
+);
+
+const media=postMediaURL(post);
+const caption=postCaption(post);
+
+const title=post?.title||
+post?.heading||
+"";
+
+const likes=Number(post?.likesCount||post?.likeCount||0);
+
+const comments=Number(
+post?.commentsCount||
+post?.commentCount||
+0
+);
+
+let mediaHTML="";
+
+if(type==="photo"&&media){
+mediaHTML=`
+<img
+class="post-media"
+src="${escapeHTML(media)}"
+alt=""
+loading="lazy"
+data-open-viewer="${escapeHTML(post.id)}"
+>`;
+}
+
+if(type==="reel"&&media){
+mediaHTML=`
+<video
+class="post-video"
+src="${escapeHTML(media)}"
+muted
+autoplay
+loop
+playsinline
+preload="metadata"
+data-open-viewer="${escapeHTML(post.id)}"
+></video>`;
+}
+
+const hashtags=postHashtags(post);
+
+return`
+<article
+class="post"
+data-post-id="${escapeHTML(post.id)}"
+>
+
+<div
+class="post-header"
+data-profile-id="${escapeHTML(uid)}"
+>
+
+<div class="avatar">
+${photo?
+`<img
+src="${escapeHTML(photo)}"
+alt=""
+style="width:100%;height:100%;object-fit:cover;border-radius:50%"
+>`:
+escapeHTML(initials(name))}
+</div>
+
+<div style="min-width:0">
+<div class="post-author">
+${escapeHTML(name)}
+</div>
+<div class="post-time">
+${escapeHTML(formatTime(normalizeTimestamp(post)))}
+</div>
+</div>
+
+</div>
+
+${type!=="text"?
+`<div class="post-type-label">${type==="reel"?"REEL":"PHOTO"}</div>`:""}
+
+${title?
+`<div class="post-title">${escapeHTML(title)}</div>`:""}
+
+${post.text?`<div class="post-text">${escapeHTML(String(post.text).replace(/[ \t]+\n/g,"\n").replace(/\n[ \t]+/g,"\n"))}</div>`:""}
+
+${type!=="text"&&caption&&caption!==post.text?
+`<div class="post-text">${escapeHTML(caption)}</div>`:""}
+
+${hashtags.length?
+`<div class="post-hashtags">
+${hashtags.map(tag=>`
+<span class="post-hashtag">
+${escapeHTML(tag)}
+</span>`).join("")}
+</div>`:""}
+
+${mediaHTML}
+
+<div class="actions">
+
+<button
+class="action like-action"
+data-action="like"
+data-post-id="${escapeHTML(post.id)}"
+type="button"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M20.8 8.7c0 5-8.8 10.2-8.8 10.2S3.2 13.7 3.2 8.7A4.7 4.7 0 0 1 12 6.2a4.7 4.7 0 0 1 8.8 2.5Z"></path>
+</svg>
+<b>${likes}</b>
+</button>
+
+<button
+class="action comment-action"
+data-action="comment"
+data-post-id="${escapeHTML(post.id)}"
+type="button"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 2 1.5-4A7.5 7.5 0 1 1 20 11.5Z"></path>
+</svg>
+<b>${comments}</b>
+</button>
+
+<button
+class="action share-action"
+data-action="share"
+data-post-id="${escapeHTML(post.id)}"
+type="button"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="m4 12 16-8-4 16-4-6-8-2Z"></path>
+<path d="m12 14 4-6"></path>
+</svg>
+</button>
+
+</div>
+
+<div
+class="comments-area"
+data-comments-for="${escapeHTML(post.id)}"
+>
+<div class="comments-list"></div>
+
+<form class="comment-form">
+<input
+class="comment-input"
+type="text"
+placeholder="Write a comment..."
+autocomplete="off"
+>
+<button
+class="comment-send"
+type="submit"
+>
+Send
+</button>
+</form>
+</div>
+
+</article>`;
+}
+
+function attachPostEvents(container){
+container.querySelectorAll("[data-open-viewer]").forEach(element=>{
+element.addEventListener("click",event=>{
+event.stopPropagation();
+
+const id=element.dataset.openViewer;
+const index=allPosts.findIndex(p=>p.id===id);
+
+if(index>=0){
+openViewer(allPosts,index);
+}
+});
+});
+
+container.querySelectorAll(".post-header").forEach(header=>{
+header.addEventListener("click",()=>{
+const uid=header.dataset.profileId;
+openMemberProfile(uid);
+});
+});
+
+container.querySelectorAll(".like-action").forEach(button=>{
+button.addEventListener("click",()=>{
+toggleLike(button.dataset.postId);
+});
+});
+
+container.querySelectorAll(".comment-action").forEach(button=>{
+button.addEventListener("click",()=>{
+openCommentSheet(button.dataset.postId);
+});
+});
+
+container.querySelectorAll(".share-action").forEach(button=>{
+button.addEventListener("click",()=>{
+sharePost(button.dataset.postId);
+});
+});
+}
+  /* LIKE SYSTEM */
+
+async function toggleLike(postId){
+if(!currentUser||!postId)return;
+
+const post=allPosts.find(p=>p.id===postId);
+if(!post)return;
+
+const likeRef=doc(
+db,
+"posts",
+postId,
+"likes",
+currentUser.uid
+);
+
+try{
+const snap=await getDoc(likeRef);
+
+if(snap.exists()){
+await deleteDoc(likeRef);
+
+await updateDoc(
+doc(db,"posts",postId),
+{
+likesCount:increment(-1)
+}
+);
+
+}else{
+
+await setDoc(likeRef,{
+uid:currentUser.uid,
+createdAt:serverTimestamp()
+});
+
+await updateDoc(
+doc(db,"posts",postId),
+{
+likesCount:increment(1)
+}
+);
+
+if(postAuthorId(post)!==currentUser.uid){
+await createNotification({
+recipientId:postAuthorId(post),
+senderId:currentUser.uid,
+type:"like",
+postId,
+});
+}
+
+}
+
+}catch(error){
+console.error("Like error",error);
+showToast("Couldn't update like");
+}
+}
+
+
+/* SHARE */
+
+async function sharePost(postId){
+const post=await getPostById(postId);
+
+if(!post)return;
+
+const url=`${location.origin}${location.pathname}?post=${encodeURIComponent(postId)}`;
+
+try{
+
+if(navigator.share){
+await navigator.share({
+title:"JSP TAYSU",
+text:`${postAuthorName(post)} shared a post`,
+url
+});
+
+}else if(navigator.clipboard){
+
+await navigator.clipboard.writeText(url);
+showToast("Post link copied");
+
+}else{
+showToast("Share is not available");
+}
+
+}catch(error){
+if(error?.name!=="AbortError"){
+console.warn("Share failed",error);
+}
+}
+}
+
+
+/* CREATE UI */
+
+function updateComposerProfile(){
+
+const name=getDisplayName();
+const photo=getPhotoURL();
+const avatarIds=[
+"composerAvatar",
+"photoComposerAvatar",
+"reelComposerAvatar"
+];
+
+const nameIds=[
+"composerName",
+"photoComposerName",
+"reelComposerName"
+];
+
+nameIds.forEach(id=>{
+const el=$(id);
+if(el)el.textContent=name;
+});
+
+avatarIds.forEach(id=>{
+const el=$(id);
+if(!el)return;
+
+if(photo){
+el.innerHTML=`
+<img
+src="${escapeHTML(photo)}"
+alt=""
+style="width:100%;height:100%;object-fit:cover;border-radius:50%"
+>`;
+}else{
+el.textContent=initials(name);
+}
+});
+}
+
+function openCreate(){
+
+currentCreateMode="POST";
+
+document.body.classList.add("create-open");
+
+$("createSection").classList.add("active");
+
+$("createPostTab").classList.add("active");
+$("createReelTab").classList.remove("active");
+
+$("createPostPanel").classList.add("active");
+$("createPhotoPanel").classList.remove("active");
+$("createReelPanel").classList.remove("active");
+
+updateComposerProfile();
+
+}
+
+function closeCreate(){
+
+document.body.classList.remove("create-open");
+
+$("createSection").classList.remove("active");
+
+clearCreateMedia();
+
+}
+
+function setCreateMode(mode){
+
+currentCreateMode=mode;
+
+$("createPostTab").classList.toggle(
+"active",
+mode==="POST"
+);
+
+$("createReelTab").classList.toggle(
+"active",
+mode==="REEL"
+);
+
+$("createPostPanel").classList.toggle(
+"active",
+mode==="POST"
+);
+
+$("createPhotoPanel").classList.remove("active");
+
+$("createReelPanel").classList.toggle(
+"active",
+mode==="REEL"
+);
+
+if(mode==="POST"){
+$("postText")?.focus();
+}
+
+if(mode==="REEL"){
+$("reelCaption")?.focus();
+}
+}
+
+function clearCreateMedia(){
+
+selectedPostImageFile=null;
+selectedPhotoFile=null;
+selectedReelFile=null;
+
+const postPreview=$("postCreateMediaPreview");
+const photoPreview=$("photoCreatePreview");
+const reelPreview=$("reelCreatePreview");
+
+if(postPreview){
+postPreview.innerHTML="";
+postPreview.style.display="none";
+}
+
+if(photoPreview){
+photoPreview.innerHTML="";
+photoPreview.style.display="none";
+}
+
+if(reelPreview){
+reelPreview.innerHTML="";
+reelPreview.style.display="none";
+}
+
+if($("postPhotoInput"))$("postPhotoInput").value="";
+if($("photoInput"))$("photoInput").value="";
+if($("reelInput"))$("reelInput").value="";
+}
+
+function previewImageFile(file,targetId){
+
+const target=$(targetId);
+if(!target||!file)return;
+
+const url=URL.createObjectURL(file);
+
+target.innerHTML=`
+<img
+src="${escapeHTML(url)}"
+alt=""
+style="width:100%;max-height:400px;object-fit:cover;border-radius:14px"
+>
+<button
+type="button"
+class="remove-media"
+data-remove-preview="${escapeHTML(targetId)}"
+>
+×
+</button>
+`;
+
+target.style.display="block";
+
+target.querySelector(".remove-media")?.addEventListener(
+"click",
+()=>{
+target.innerHTML="";
+target.style.display="none";
+
+if(targetId==="postCreateMediaPreview"){
+selectedPostImageFile=null;
+if($("postPhotoInput"))$("postPhotoInput").value="";
+}
+
+if(targetId==="photoCreatePreview"){
+selectedPhotoFile=null;
+if($("photoInput"))$("photoInput").value="";
+}
+}
+);
+}
+
+function previewVideoFile(file,targetId){
+
+const target=$(targetId);
+if(!target||!file)return;
+
+const url=URL.createObjectURL(file);
+
+target.innerHTML=`
+<video
+src="${escapeHTML(url)}"
+controls
+playsinline
+style="width:100%;max-height:500px;border-radius:14px;background:#000"
+></video>
+
+<button
+type="button"
+class="remove-media"
+data-remove-preview="${escapeHTML(targetId)}"
+>
+×
+</button>
+`;
+
+target.style.display="block";
+
+target.querySelector(".remove-media")?.addEventListener(
+"click",
+()=>{
+target.innerHTML="";
+target.style.display="none";
+selectedReelFile=null;
+
+if($("reelInput"))$("reelInput").value="";
+}
+);
+}
+
+
+/* IMAGEKIT UPLOAD */
+
+async function getImageKitAuth(){
+
+const response=await fetch(IMAGEKIT_AUTH_URL);
+
+if(!response.ok){
+throw new Error("ImageKit authentication failed");
+}
+
+return response.json();
+}
+
+async function uploadToImageKit(file,onProgress){
+
+if(!file){
+throw new Error("No file selected");
+}
+
+const authData=await getImageKitAuth();
+
+const formData=new FormData();
+
+formData.append("file",file);
+formData.append("fileName",file.name);
+formData.append("publicKey",IMAGEKIT_PUBLIC_KEY);
+formData.append("signature",authData.signature);
+formData.append("expire",authData.expire);
+formData.append("token",authData.token);
+
+return new Promise((resolve,reject)=>{
+
+const xhr=new XMLHttpRequest();
+
+xhr.open(
+"POST",
+IMAGEKIT_UPLOAD_URL
+);
+
+xhr.upload.addEventListener(
+"progress",
+event=>{
+if(event.lengthComputable&&onProgress){
+onProgress(
+Math.round(
+(event.loaded/event.total)*100
+)
+);
+}
+}
+);
+
+xhr.onload=()=>{
+
+if(xhr.status>=200&&xhr.status<300){
+
+try{
+const result=JSON.parse(xhr.responseText);
+resolve(result);
+}catch(error){
+reject(error);
+}
+
+}else{
+reject(
+new Error(
+`Upload failed (${xhr.status})`
+)
+);
+}
+};
+
+xhr.onerror=()=>{
+reject(new Error("Upload network error"));
+};
+
+xhr.onabort=()=>{
+reject(new Error("Upload cancelled"));
+};
+
+xhr.send(formData);
+
+});
+}
+
+function setProgress(prefix,value){
+
+const percent=$(prefix+"UploadPercent");
+const bar=$(prefix+"UploadBar");
+const box=$(prefix+"UploadProgress");
+
+if(percent){
+percent.textContent=`${value}%`;
+}
+
+if(bar){
+bar.style.width=`${value}%`;
+}
+
+if(box){
+box.classList.add("show");
+}
+}
+
+function hideProgress(prefix){
+
+const box=$(prefix+"UploadProgress");
+
+if(box){
+box.classList.remove("show");
+}
+}
+
+
+/* CREATE POST */
+
+async function publishTextPost(){
+
+if(!currentUser)return;
+
+const text=String(
+$("postText")?.value||""
+).trim();
+
+if(!text&& !selectedPostImageFile){
+showToast("Write something first");
+return;
+}
+
+const button=$("publishPostButton");
+
+if(button){
+button.disabled=true;
+button.textContent="Posting...";
+}
+
+try{
+
+let mediaURL="";
+let mediaType="";
+
+if(selectedPostImageFile){
+
+setProgress("post",0);
+
+const result=await uploadToImageKit(
+selectedPostImageFile,
+percent=>setProgress("post",percent)
+);
+
+mediaURL=
+result.url||
+result.filePath||
+"";
+
+mediaType="image";
+}
+
+const postData={
+authorId:currentUser.uid,
+authorName:getDisplayName(),
+authorPhoto:getPhotoURL(),
+text,
+type:mediaType?"photo":"text",
+mediaType:mediaType||"text",
+mediaURL,
+createdAt:serverTimestamp(),
+likesCount:0,
+commentsCount:0
+};
+
+await addDoc(
+collection(db,"posts"),
+postData
+);
+
+$("postText").value="";
+
+clearCreateMedia();
+
+hideProgress("post");
+
+showToast("Post published");
+
+closeCreate();
+
+}catch(error){
+
+console.error("Publish post error",error);
+
+showToast("Couldn't publish post");
+
+}finally{
+
+if(button){
+button.disabled=false;
+button.textContent="Post";
+}
+
+}
+}
+
+
+/* PHOTO POST */
+
+async function publishPhotoPost(){
+
+if(!currentUser)return;
+
+if(!selectedPhotoFile){
+showToast("Choose a photo first");
+return;
+}
+
+const button=$("publishPhotoButton");
+
+if(button){
+button.disabled=true;
+button.textContent="Posting...";
+}
+
+try{
+
+setProgress("photo",0);
+
+const result=await uploadToImageKit(
+selectedPhotoFile,
+percent=>setProgress("photo",percent)
+);
+
+const mediaURL=
+result.url||
+result.filePath||
+"";
+
+const caption=String(
+$("photoCaption")?.value||""
+).trim();
+
+await addDoc(
+collection(db,"posts"),
+{
+authorId:currentUser.uid,
+authorName:getDisplayName(),
+authorPhoto:getPhotoURL(),
+text:"",
+caption,
+type:"photo",
+mediaType:"image",
+mediaURL,
+createdAt:serverTimestamp(),
+likesCount:0,
+commentsCount:0
+}
+);
+
+$("photoCaption").value="";
+
+clearCreateMedia();
+
+hideProgress("photo");
+
+showToast("Photo posted");
+
+closeCreate();
+
+}catch(error){
+
+console.error("Photo post error",error);
+
+showToast("Couldn't upload photo");
+
+}finally{
+
+if(button){
+button.disabled=false;
+button.textContent="Post";
+}
+
+}
+}
+
+
+/* REEL POST */
+
+async function publishReel(){
+
+if(!currentUser)return;
+
+if(!selectedReelFile){
+showToast("Choose a video first");
+return;
+}
+
+const button=$("publishReelButton");
+
+if(button){
+button.disabled=true;
+button.textContent="Posting...";
+}
+
+try{
+
+setProgress("reel",0);
+
+const result=await uploadToImageKit(
+selectedReelFile,
+percent=>setProgress("reel",percent)
+);
+
+const mediaURL=
+result.url||
+result.filePath||
+"";
+
+const caption=String(
+$("reelCaption")?.value||""
+).trim();
+
+await addDoc(
+collection(db,"posts"),
+{
+authorId:currentUser.uid,
+authorName:getDisplayName(),
+authorPhoto:getPhotoURL(),
+text:"",
+caption,
+type:"reel",
+mediaType:"video",
+mediaURL,
+videoURL:mediaURL,
+createdAt:serverTimestamp(),
+likesCount:0,
+commentsCount:0
+}
+);
+
+$("reelCaption").value="";
+
+clearCreateMedia();
+
+hideProgress("reel");
+
+showToast("Reel posted");
+
+closeCreate();
+
+}catch(error){
+
+console.error("Reel upload error",error);
+
+showToast("Couldn't upload reel");
+
+}finally{
+
+if(button){
+button.disabled=false;
+button.textContent="Post";
+}
+
+}
+}
+
+
+/* REEL COVER */
+
+$("reelEditCoverButton")?.addEventListener(
+"click",
+()=>{
+if(!selectedReelFile){
+showToast("Choose a video first");
+return;
+}
+
+showToast("Cover editing will use the selected video preview");
+}
+);
+
+
+/* CREATE FILE EVENTS */
+
+$("postPhotoButton")?.addEventListener(
+"click",
+()=>{
+$("postPhotoInput")?.click();
+}
+);
+
+$("postPhotoInput")?.addEventListener(
+"change",
+event=>{
+const file=event.target.files?.[0];
+
+if(!file)return;
+
+selectedPostImageFile=file;
+
+previewImageFile(
+file,
+"postCreateMediaPreview"
+);
+}
+);
+
+$("photoChooseButton")?.addEventListener(
+"click",
+()=>{
+$("photoInput")?.click();
+}
+);
+
+$("photoInput")?.addEventListener(
+"change",
+event=>{
+const file=event.target.files?.[0];
+
+if(!file)return;
+
+selectedPhotoFile=file;
+
+previewImageFile(
+file,
+"photoCreatePreview"
+);
+}
+);
+
+$("reelChooseButton")?.addEventListener(
+"click",
+()=>{
+$("reelInput")?.click();
+}
+);
+
+$("reelInput")?.addEventListener(
+"change",
+event=>{
+const file=event.target.files?.[0];
+
+if(!file)return;
+
+selectedReelFile=file;
+
+previewVideoFile(
+file,
+"reelCreatePreview"
+);
+}
+);
+
+$("publishPostButton")?.addEventListener(
+"click",
+publishTextPost
+);
+
+$("publishPhotoButton")?.addEventListener(
+"click",
+publishPhotoPost
+);
+
+$("publishReelButton")?.addEventListener(
+"click",
+publishReel
+);
+
+$("createPostTab")?.addEventListener(
+"click",
+()=>{
+setCreateMode("POST");
+}
+);
+
+$("createReelTab")?.addEventListener(
+"click",
+()=>{
+setCreateMode("REEL");
+}
+);
+
+$("createTopButton")?.addEventListener(
+"click",
+openCreate
+);
+
+$("createBackButton")?.addEventListener(
+"click",
+closeCreate
+);
+
+
+/* NAVIGATION */
+
+function switchPage(pageId){
+
+if(document.body.classList.contains("create-open")){
+closeCreate();
+}
+
+document.querySelectorAll(".page-section")
+.forEach(section=>{
+section.classList.remove("active");
+});
+
+const page=$(pageId);
+
+if(page){
+page.classList.add("active");
+}
+
+document.querySelectorAll(".nav-item")
+.forEach(item=>{
+item.classList.toggle(
+"active",
+item.dataset.page===pageId
+);
+});
+
+if(pageId==="exploreSection"){
+renderDiscover();
+}
+
+if(pageId==="reelsSection"){
+renderReels();
+}
+
+if(pageId==="profileSection"){
+renderProfile();
+}
+
+if(pageId==="alertsSection"){
+loadNotifications();
+}
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+}
+
+document.querySelectorAll(".nav-item[data-page]")
+.forEach(button=>{
+button.addEventListener(
+"click",
+()=>{
+switchPage(button.dataset.page);
+}
+);
+});
+
+
+/* TOP ALERTS */
+
+$("alertsTopButton")?.addEventListener(
+"click",
+()=>{
+switchPage("alertsSection");
+}
+);
+
+
+/* MESSAGES */
+
+$("messagesNavButton")?.addEventListener(
+"click",
+()=>{
+window.location.href="message.html";
+}
+);
+
+
+/* FEED SEARCH */
+
+$("feedSearchButton")?.addEventListener(
+"click",
+()=>{
+$("feedSearchBox")?.classList.toggle("show");
+
+if($("feedSearchBox")?.classList.contains("show")){
+$("feedSearchInput")?.focus();
+}
+}
+);
+
+$("feedSearchInput")?.addEventListener(
+"input",
+()=>{
+renderPosts(allPosts);
+}
+);
+
+
+/* DISCOVER */
+
+function renderDiscover(){
+
+const grid=$("discoverGrid");
+if(!grid)return;
+
+const mediaPosts=allPosts
+.filter(post=>isPhotoPost(post)||isVideoPost(post))
+.filter(post=>postMediaURL(post))
+.sort((a,b)=>postDateValue(b)-postDateValue(a));
+
+if(!mediaPosts.length){
+
+grid.innerHTML=`
+<div
+style="
+grid-column:1/-1;
+padding:45px 15px;
+text-align:center;
+color:#777f89;
+font-size:13px;
+"
+>
+No photos or reels to discover yet.
+</div>`;
+
+return;
+}
+
+grid.innerHTML=mediaPosts
+.map(post=>{
+
+const url=postMediaURL(post);
+const name=postAuthorName(post);
+const type=postType(post);
+
+return`
+<div
+class="discover-tile"
+data-discover-id="${escapeHTML(post.id)}"
+>
+
+${type==="reel"?
+`<video
+src="${escapeHTML(url)}"
+muted
+playsinline
+preload="metadata"
+></video>`:
+`<img
+src="${escapeHTML(url)}"
+alt=""
+loading="lazy"
+>`}
+
+<div class="discover-overlay">
+
+<div class="discover-author">
+${escapeHTML(name)}
+</div>
+
+${type==="reel"?
+`<div class="discover-reel">
+<svg
+viewBox="0 0 24 24"
+width="10"
+height="10"
+fill="white"
+>
+<path d="m9 7 9 5-9 5V7Z"></path>
+</svg>
+</div>`:""}
+
+</div>
+
+</div>`;
+})
+.join("");
+
+grid.querySelectorAll(
+"[data-discover-id]"
+).forEach(tile=>{
+tile.addEventListener(
+"click",
+()=>{
+const id=tile.dataset.discoverId;
+
+const index=mediaPosts.findIndex(
+post=>post.id===id
+);
+
+if(index>=0){
+openViewer(mediaPosts,index);
+}
+}
+);
+});
+}
+
+
+/* MEMBER SEARCH */
+
+$("userSearchButton")?.addEventListener(
+"click",
+searchMembers
+);
+
+$("userSearchInput")?.addEventListener(
+"input",
+event=>{
+if(!String(event.target.value||"").trim()){
+$("searchResults").innerHTML="";
+return;
+}
+
+searchMembers();
+}
+);
+
+async function searchMembers(){
+
+const input=$("userSearchInput");
+
+if(!input)return;
+
+const search=String(
+input.value||""
+).trim().toLowerCase();
+
+const result=$("searchResults");
+
+if(!search){
+result.innerHTML="";
+return;
+}
+
+const members=allMembers.filter(member=>{
+
+const name=String(
+member.name||
+member.displayName||
+""
+).toLowerCase();
+
+const district=String(
+member.district||
+member.address||
+""
+).toLowerCase();
+
+return(
+name.includes(search)||
+district.includes(search)
+);
+});
+
+if(!members.length){
+
+result.innerHTML=`
+<div class="empty" style="padding:30px 15px">
+<h3>No members found</h3>
+<p>Try another name or district.</p>
+</div>`;
+
+return;
+}
+
+result.innerHTML=members
+.map(member=>{
+
+const uid=member.id||
+member.uid||
+member.userId||
+"";
+
+const name=member.name||
+member.displayName||
+"JSP TAYSU Member";
+
+const photo=safeURL(
+member.photoURL||
+member.photoUrl||
+member.photo||
+""
+);
+
+return`
+<div
+class="search-result"
+data-member-id="${escapeHTML(uid)}"
+>
+
+<div
+class="search-user"
+data-profile-id="${escapeHTML(uid)}"
+>
+
+<div class="search-avatar">
+${photo?
+`<img
+src="${escapeHTML(photo)}"
+alt=""
+style="width:100%;height:100%;object-fit:cover"
+>`:
+escapeHTML(initials(name))}
+</div>
+
+<div style="min-width:0">
+<div class="search-username">
+${escapeHTML(name)}
+</div>
+
+<div
+style="
+font-size:10px;
+color:#777f89;
+margin-top:2px
+"
+>
+${escapeHTML(member.district||"")}
+</div>
+</div>
+
+</div>
+
+<button
+class="follow-button"
+data-follow-id="${escapeHTML(uid)}"
+type="button"
+>
+Follow
+</button>
+
+</div>`;
+})
+.join("");
+
+result.querySelectorAll(
+"[data-profile-id]"
+).forEach(element=>{
+element.addEventListener(
+"click",
+()=>{
+openMemberProfile(
+element.dataset.profileId
+);
+}
+);
+});
+
+result.querySelectorAll(
+"[data-follow-id]"
+).forEach(button=>{
+button.addEventListener(
+"click",
+event=>{
+event.stopPropagation();
+toggleFollow(
+button.dataset.followId,
+button
+);
+}
+);
+});
+
+await refreshFollowButtons();
+}
+
+
+/* FOLLOW SYSTEM */
+
+async function isFollowing(uid){
+
+if(!currentUser||!uid)return false;
+
+try{
+
+const snap=await getDoc(
+doc(
+db,
+"members",
+uid,
+"followers",
+currentUser.uid
+)
+);
+
+return snap.exists();
+
+}catch(error){
+console.warn("Follow check failed",error);
+return false;
+}
+}
+
+async function toggleFollow(uid,button=null){
+
+if(!currentUser||!uid||uid===currentUser.uid){
+return;
+}
+
+try{
+
+const followRef=doc(
+db,
+"members",
+uid,
+"followers",
+currentUser.uid
+);
+
+const followingRef=doc(
+db,
+"members",
+currentUser.uid,
+"following",
+uid
+);
+
+const snap=await getDoc(followRef);
+
+if(snap.exists()){
+
+await deleteDoc(followRef);
+await deleteDoc(followingRef);
+
+if(button){
+button.textContent="Follow";
+button.classList.remove("following");
+}
+
+}else{
+
+await setDoc(followRef,{
+uid:currentUser.uid,
+createdAt:serverTimestamp()
+});
+
+await setDoc(followingRef,{
+uid,
+createdAt:serverTimestamp()
+});
+
+if(button){
+button.textContent="Following";
+button.classList.add("following");
+}
+
+await createNotification({
+recipientId:uid,
+senderId:currentUser.uid,
+type:"follow"
+});
+
+}
+
+}catch(error){
+
+console.error("Follow error",error);
+
+showToast("Couldn't update follow");
+
+}
+}
+
+async function refreshFollowButtons(){
+
+if(!currentUser)return;
+
+const buttons=document.querySelectorAll(
+"[data-follow-id]"
+);
+
+for(const button of buttons){
+
+const uid=button.dataset.followId;
+
+if(!uid||uid===currentUser.uid){
+button.style.display="none";
+continue;
+}
+
+const following=await isFollowing(uid);
+
+button.textContent=
+following?"Following":"Follow";
+
+button.classList.toggle(
+"following",
+following
+);
+}
+}
+  /* PROFILE */
+
+async function openMemberProfile(uid){
+
+if(!uid)return;
+
+const member=await getMemberProfile(uid);
+
+if(!member){
+showToast("Member profile not found");
+return;
+}
+
+renderMemberProfile(member);
+
+switchPage("profileSection");
+}
+
+function renderMemberProfile(member){
+
+const container=$("profileContent");
+
+if(!container)return;
+
+const uid=member.id||
+member.uid||
+member.userId||
+"";
+
+const name=member.name||
+member.displayName||
+"JSP TAYSU Member";
+
+const photo=safeURL(
+member.photoURL||
+member.photoUrl||
+member.photo||
+""
+);
+
+const district=member.district||
+member.address||
+"";
+
+const bio=member.bio||
+member.about||
+"";
+
+const memberPosts=allPosts
+.filter(post=>postAuthorId(post)===uid)
+.sort((a,b)=>postDateValue(b)-postDateValue(a));
+
+const mediaPosts=memberPosts
+.filter(post=>isPhotoPost(post)||isVideoPost(post))
+.filter(post=>postMediaURL(post));
+
+const isSelf=
+currentUser&&
+(uid===currentUser.uid);
+
+container.innerHTML=`
+
+<div class="profile-card">
+
+<div class="profile-top">
+
+<div class="profile-avatar">
+
+${photo?
+`<img
+src="${escapeHTML(photo)}"
+alt=""
+>`:
+escapeHTML(initials(name))}
+
+</div>
+
+<div class="profile-details">
+
+<div class="profile-name">
+${escapeHTML(name)}
+</div>
+
+<div class="profile-district">
+${escapeHTML(district||"JSP TAYSU Member")}
+</div>
+
+</div>
+
+</div>
+
+<div class="profile-stats">
+
+<div class="profile-stat">
+<strong>${memberPosts.length}</strong>
+<span>Posts</span>
+</div>
+
+<div class="profile-stat">
+<strong id="profileFollowersCount">0</strong>
+<span>Followers</span>
+</div>
+
+<div class="profile-stat">
+<strong id="profileFollowingCount">0</strong>
+<span>Following</span>
+</div>
+
+</div>
+
+${bio?
+`<div class="profile-bio">
+${escapeHTML(bio)}
+</div>`:""}
+
+<div class="profile-actions">
+
+${!isSelf?
+`<button
+id="profileFollowButton"
+class="profile-action primary"
+type="button"
+>
+Follow
+</button>`:
+`<button
+class="profile-action primary"
+type="button"
+disabled
+>
+Your profile
+</button>`}
+
+<button
+id="profileMessageButton"
+class="profile-action"
+type="button"
+>
+Message
+</button>
+
+</div>
+
+</div>
+
+<div class="profile-posts-heading">
+Posts
+</div>
+
+${mediaPosts.length?
+`<div class="profile-post-grid">
+
+${mediaPosts.map(post=>{
+
+const url=postMediaURL(post);
+const type=postType(post);
+
+return`
+<div
+class="profile-grid-item"
+data-profile-post="${escapeHTML(post.id)}"
+>
+
+${type==="reel"?
+`<video
+src="${escapeHTML(url)}"
+muted
+playsinline
+preload="metadata"
+></video>`:
+`<img
+src="${escapeHTML(url)}"
+alt=""
+loading="lazy"
+>`}
+
+${type==="reel"?
+`<div class="profile-grid-reel">
+<svg
+viewBox="0 0 24 24"
+fill="white"
+>
+<path d="m9 7 9 5-9 5V7Z"></path>
+</svg>
+</div>`:""}
+
+</div>`;
+}).join("")}
+
+</div>`:
+`<div class="empty" style="padding:35px 15px">
+<h3>No posts yet</h3>
+<p>This member hasn't shared any media yet.</p>
+</div>`}
+
+`;
+
+if(!isSelf){
+
+const followButton=$("profileFollowButton");
+
+if(followButton){
+
+isFollowing(uid).then(following=>{
+followButton.textContent=
+following?"Following":"Follow";
+
+followButton.classList.toggle(
+"following",
+following
+);
+});
+
+followButton.addEventListener(
+"click",
+async()=>{
+await toggleFollow(uid,followButton);
+}
+);
+
+}
+
+}
+
+$("profileMessageButton")?.addEventListener(
+"click",
+()=>{
+if(!uid)return;
+
+window.location.href=
+`message.html?uid=${encodeURIComponent(uid)}`;
+}
+);
+
+container.querySelectorAll(
+"[data-profile-post]"
+).forEach(tile=>{
+tile.addEventListener(
+"click",
+()=>{
+const id=tile.dataset.profilePost;
+
+const index=allPosts.findIndex(
+post=>post.id===id
+);
+
+if(index>=0){
+openViewer(allPosts,index);
+}
+}
+);
+});
+
+loadProfileCounts(uid);
+}
+
+async function loadProfileCounts(uid){
+
+if(!uid)return;
+
+try{
+
+const followersSnap=await getDocs(
+collection(db,"members",uid,"followers")
+);
+
+const followingSnap=await getDocs(
+collection(db,"members",uid,"following")
+);
+
+const followers=$("profileFollowersCount");
+const following=$("profileFollowingCount");
+
+if(followers){
+followers.textContent=
+String(followersSnap.size);
+}
+
+if(following){
+following.textContent=
+String(followingSnap.size);
+}
+
+}catch(error){
+console.warn("Profile count error",error);
+}
+}
+
+function renderProfile(){
+
+if(!currentUser||!currentProfile)return;
+
+renderMemberProfile({
+id:currentUser.uid,
+...currentProfile
+});
+}
+
+
+/* REELS */
+
+function renderReels(){
+
+const container=$("reelsList");
+
+if(!container)return;
+
+const reels=allPosts
+.filter(post=>postType(post)==="reel")
+.filter(post=>postMediaURL(post))
+.sort((a,b)=>postDateValue(b)-postDateValue(a));
+
+allReels=reels;
+
+if(!reels.length){
+
+container.innerHTML=`
+<div class="empty">
+<div class="empty-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<rect x="3" y="4" width="18" height="16" rx="2"></rect>
+<path d="m9 8 6 4-6 4V8Z"></path>
+</svg>
+</div>
+<h3>No reels yet</h3>
+<p>Be the first to share a reel with the community.</p>
+</div>`;
+
+return;
+}
+
+container.innerHTML=reels
+.map(post=>{
+
+const url=postMediaURL(post);
+const caption=postCaption(post);
+
+return`
+<div
+class="reel-card"
+data-reel-id="${escapeHTML(post.id)}"
+>
+
+<video
+src="${escapeHTML(url)}"
+muted
+autoplay
+loop
+playsinline
+preload="metadata"
+></video>
+
+<div class="reel-card-info">
+
+<div class="reel-card-title">
+${escapeHTML(postAuthorName(post))}
+</div>
+
+${caption?
+`<div class="reel-card-caption">
+${escapeHTML(caption)}
+</div>`:""}
+
+<div class="reel-card-meta">
+${escapeHTML(formatTime(normalizeTimestamp(post)))}
+</div>
+
+</div>
+
+</div>`;
+})
+.join("");
+
+container.querySelectorAll(
+"[data-reel-id]"
+).forEach(card=>{
+card.addEventListener(
+"click",
+()=>{
+const id=card.dataset.reelId;
+
+const index=reels.findIndex(
+post=>post.id===id
+);
+
+if(index>=0){
+openViewer(reels,index);
+}
+}
+);
+});
+}
+
+
+/* VIEWER */
+
+function openViewer(posts,index=0){
+
+if(!posts?.length)return;
+
+activeViewerPosts=posts.filter(
+post=>isPhotoPost(post)||isVideoPost(post)
+);
+
+activeViewerIndex=Math.max(
+0,
+Math.min(index,activeViewerPosts.length-1)
+);
+
+const viewer=$("viewer");
+const track=$("viewerTrack");
+
+if(!viewer||!track)return;
+
+track.innerHTML=
+activeViewerPosts
+.map((post,i)=>viewerItemHTML(post,i))
+.join("");
+
+viewer.classList.add("open");
+document.body.classList.add("viewer-open");
+
+requestAnimationFrame(()=>{
+const target=track.children[activeViewerIndex];
+
+if(target){
+target.scrollIntoView({
+block:"start",
+behavior:"instant"
+});
+}
+});
+
+attachViewerEvents(track);
+
+setupViewerObserver();
+
+}
+
+function closeViewer(){
+
+const viewer=$("viewer");
+
+if(viewer){
+viewer.classList.remove("open");
+}
+
+document.body.classList.remove("viewer-open");
+
+if(viewerObserver){
+viewerObserver.disconnect();
+viewerObserver=null;
+}
+
+const track=$("viewerTrack");
+
+if(track){
+track.querySelectorAll("video")
+.forEach(video=>{
+video.pause();
+});
+}
+
+activeViewerPosts=[];
+activeViewerIndex=0;
+}
+
+function viewerItemHTML(post,index){
+
+const type=postType(post);
+const url=postMediaURL(post);
+const name=postAuthorName(post);
+const uid=postAuthorId(post);
+const photo=safeURL(
+post?.authorPhoto||
+post?.authorPhotoURL||
+post?.authorPhotoUrl||
+""
+);
+
+const caption=postCaption(post);
+const likes=Number(
+post?.likesCount||
+post?.likeCount||
+0
+);
+
+const comments=Number(
+post?.commentsCount||
+post?.commentCount||
+0
+);
+
+return`
+<div
+class="viewer-item"
+data-viewer-post="${escapeHTML(post.id)}"
+data-viewer-index="${index}"
+>
+
+${type==="reel"?
+`<video
+class="viewer-media"
+src="${escapeHTML(url)}"
+muted
+autoplay
+loop
+playsinline
+preload="auto"
+></video>`:
+`<img
+class="viewer-media"
+src="${escapeHTML(url)}"
+alt=""
+>`}
+
+<div class="viewer-gradient"></div>
+
+<div class="viewer-info">
+
+<div class="viewer-author-row">
+
+<div
+class="viewer-author-avatar"
+data-viewer-profile="${escapeHTML(uid)}"
+>
+
+${photo?
+`<img
+src="${escapeHTML(photo)}"
+alt=""
+>`:
+escapeHTML(initials(name))}
+
+</div>
+
+<div
+class="viewer-author-name"
+data-viewer-profile="${escapeHTML(uid)}"
+>
+${escapeHTML(name)}
+</div>
+
+${uid&&uid!==currentUser?.uid?
+`<button
+class="viewer-follow"
+data-viewer-follow="${escapeHTML(uid)}"
+type="button"
+>
+Follow
+</button>`:""}
+
+</div>
+
+${caption?
+`<div class="viewer-caption">
+${escapeHTML(caption)}
+</div>`:""}
+
+</div>
+
+<div class="viewer-actions">
+
+<div class="viewer-action-wrap">
+
+<button
+class="viewer-action like-action"
+data-viewer-like="${escapeHTML(post.id)}"
+type="button"
+aria-label="Like"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M20.8 8.7c0 5-8.8 10.2-8.8 10.2S3.2 13.7 3.2 8.7A4.7 4.7 0 0 1 12 6.2a4.7 4.7 0 0 1 8.8 2.5Z"></path>
+</svg>
+</button>
+
+<span
+class="viewer-action-count"
+data-viewer-like-count="${escapeHTML(post.id)}"
+>
+${likes}
+</span>
+
+</div>
+
+<div class="viewer-action-wrap">
+
+<button
+class="viewer-action"
+data-viewer-comment="${escapeHTML(post.id)}"
+type="button"
+aria-label="Comments"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 2 1.5-4A7.5 7.5 0 1 1 20 11.5Z"></path>
+</svg>
+</button>
+
+<span
+class="viewer-action-count"
+data-viewer-comment-count="${escapeHTML(post.id)}"
+>
+${comments}
+</span>
+
+</div>
+
+<div class="viewer-action-wrap">
+
+<button
+class="viewer-action"
+data-viewer-share="${escapeHTML(post.id)}"
+type="button"
+aria-label="Share"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="m4 12 16-8-4 16-4-6-8-2Z"></path>
+<path d="m12 14 4-6"></path>
+</svg>
+</button>
+
+</div>
+
+</div>
+
+<div
+class="viewer-share-menu"
+data-share-menu="${escapeHTML(post.id)}"
+>
+
+<button
+data-copy-post="${escapeHTML(post.id)}"
+type="button"
+>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="M8 8h11v12H8z"></path>
+<path d="M16 8V4H5v12h3"></path>
+</svg>
+Copy link
+</button>
+
+</div>
+
+</div>`;
+}
+
+function attachViewerEvents(track){
+
+track.querySelectorAll(
+"[data-viewer-profile]"
+).forEach(element=>{
+element.addEventListener(
+"click",
+event=>{
+event.stopPropagation();
+
+const uid=element.dataset.viewerProfile;
+
+if(uid){
+openMemberProfile(uid);
+}
+}
+);
+});
+
+track.querySelectorAll(
+"[data-viewer-follow]"
+).forEach(button=>{
+
+const uid=button.dataset.viewerFollow;
+
+isFollowing(uid).then(following=>{
+button.textContent=
+following?"Following":"Follow";
+
+button.classList.toggle(
+"following",
+following
+);
+});
+
+button.addEventListener(
+"click",
+async event=>{
+event.stopPropagation();
+
+await toggleFollow(uid,button);
+}
+);
+});
+
+track.querySelectorAll(
+"[data-viewer-like]"
+).forEach(button=>{
+button.addEventListener(
+"click",
+async event=>{
+event.stopPropagation();
+
+const id=button.dataset.viewerLike;
+
+await toggleLike(id);
+
+const post=allPosts.find(
+item=>item.id===id
+);
+
+if(post){
+
+const count=track.querySelector(
+`[data-viewer-like-count="${CSS.escape(id)}"]`
+);
+
+if(count){
+count.textContent=
+String(
+post.likesCount||
+post.likeCount||
+0
+);
+}
+
+}
+
+}
+);
+});
+
+track.querySelectorAll(
+"[data-viewer-comment]"
+).forEach(button=>{
+button.addEventListener(
+"click",
+event=>{
+event.stopPropagation();
+
+openCommentSheet(
+button.dataset.viewerComment
+);
+}
+);
+});
+
+track.querySelectorAll(
+"[data-viewer-share]"
+).forEach(button=>{
+button.addEventListener(
+"click",
+event=>{
+event.stopPropagation();
+
+const id=button.dataset.viewerShare;
+
+const menu=track.querySelector(
+`[data-share-menu="${CSS.escape(id)}"]`
+);
+
+if(menu){
+menu.classList.toggle("show");
+}
+}
+);
+});
+
+track.querySelectorAll(
+"[data-copy-post]"
+).forEach(button=>{
+button.addEventListener(
+"click",
+async event=>{
+event.stopPropagation();
+
+const id=button.dataset.copyPost;
+
+const url=
+`${location.origin}${location.pathname}?post=${encodeURIComponent(id)}`;
+
+try{
+
+await navigator.clipboard.writeText(url);
+
+showToast("Post link copied");
+
+}catch(error){
+
+showToast("Couldn't copy link");
+
+}
+
+const menu=button.closest(
+".viewer-share-menu"
+);
+
+menu?.classList.remove("show");
+}
+);
+});
+
+track.querySelectorAll(
+"video"
+).forEach(video=>{
+
+video.addEventListener(
+"click",
+event=>{
+event.stopPropagation();
+
+if(video.paused){
+video.play().catch(()=>{});
+}else{
+video.pause();
+}
+}
+);
+
+});
+
+}
+
+function setupViewerObserver(){
+
+const track=$("viewerTrack");
+
+if(!track)return;
+
+if(viewerObserver){
+viewerObserver.disconnect();
+}
+
+viewerObserver=new IntersectionObserver(
+entries=>{
+
+entries.forEach(entry=>{
+
+if(!entry.isIntersecting)return;
+
+const item=entry.target;
+
+activeViewerIndex=
+Number(item.dataset.viewerIndex)||0;
+
+track.querySelectorAll(
+".viewer-item video"
+).forEach(video=>{
+
+if(video.closest(".viewer-item")===item){
+
+video.play().catch(()=>{});
+
+}else{
+
+video.pause();
+
+}
+
+});
+
+});
+
+},
+{
+root:track,
+threshold:.72
+}
+);
+
+track.querySelectorAll(
+".viewer-item"
+).forEach(item=>{
+viewerObserver.observe(item);
+});
+}
+
+$("viewerClose")?.addEventListener(
+"click",
+closeViewer
+);
+
+
+/* COMMENTS */
+
+async function getComments(postId){
+
+if(!postId)return[];
+
+try{
+
+const snap=await getDocs(
+collection(
+db,
+"posts",
+postId,
+"comments"
+)
+);
+
+return snap.docs
+.map(item=>({
+id:item.id,
+...item.data()
+}))
+.sort(
+(a,b)=>
+postDateValue(b)-postDateValue(a)
+);
+
+}catch(error){
+
+console.error("Comments loading error",error);
+
+return[];
+}
+}
+
+function commentAvatarHTML(comment){
+
+const photo=safeURL(
+comment?.authorPhoto||
+comment?.photoURL||
+comment?.photoUrl||
+""
+);
+
+const name=
+comment?.authorName||
+comment?.userName||
+"Member";
+
+return photo?
+`<img
+src="${escapeHTML(photo)}"
+alt=""
+>`:
+escapeHTML(initials(name));
+}
+
+function commentHTML(comment,replies=[]){
+
+const name=
+comment?.authorName||
+comment?.userName||
+"Member";
+
+const text=
+comment?.text||
+comment?.comment||
+"";
+
+const canDelete=
+currentUser&&
+(comment.authorId===currentUser.uid||
+comment.userId===currentUser.uid);
+
+return`
+<div
+class="sheet-comment"
+data-comment-id="${escapeHTML(comment.id)}"
+>
+
+<div class="sheet-comment-avatar">
+${commentAvatarHTML(comment)}
+</div>
+
+<div class="sheet-comment-body">
+
+<div class="sheet-comment-line">
+<b>${escapeHTML(name)}</b>
+${escapeHTML(text)}
+</div>
+
+<div class="sheet-comment-time">
+${escapeHTML(formatTime(normalizeTimestamp(comment)))}
+</div>
+
+<div class="sheet-comment-tools">
+
+<button
+type="button"
+data-reply-comment="${escapeHTML(comment.id)}"
+>
+Reply
+</button>
+
+${replies.length?
+`<button
+type="button"
+data-view-replies="${escapeHTML(comment.id)}"
+>
+View ${replies.length} ${replies.length===1?"reply":"replies"}
+</button>`:""}
+
+${canDelete?
+`<button
+type="button"
+data-delete-comment="${escapeHTML(comment.id)}"
+>
+Delete
+</button>`:""}
+
+</div>
+
+<div
+class="sheet-reply-form"
+data-reply-form="${escapeHTML(comment.id)}"
+>
+<input
+type="text"
+placeholder="Write a reply..."
+autocomplete="off"
+>
+<button
+type="button"
+data-send-reply="${escapeHTML(comment.id)}"
+>
+Send
+</button>
+</div>
+
+<div
+class="sheet-replies"
+data-replies="${escapeHTML(comment.id)}"
+style="display:none"
+>
+${replies.map(reply=>`
+<div class="sheet-reply">
+
+<div class="sheet-reply-avatar">
+${commentAvatarHTML(reply)}
+</div>
+
+<div class="sheet-reply-body">
+
+<div class="sheet-reply-line">
+<b>${escapeHTML(
+reply.authorName||
+reply.userName||
+"Member"
+)}</b>
+${escapeHTML(
+reply.text||
+reply.comment||
+""
+)}
+</div>
+
+<div class="sheet-reply-time">
+${escapeHTML(
+formatTime(normalizeTimestamp(reply))
+)}
+</div>
+
+</div>
+
+</div>
+`).join("")}
+</div>
+
+</div>
+
+</div>`;
+}
+
+async function openCommentSheet(postId){
+
+if(!postId)return;
+
+activeCommentPostId=postId;
+
+const sheet=$("commentSheet");
+const list=$("commentSheetList");
+
+if(!sheet||!list)return;
+
+sheet.classList.add("open");
+document.body.classList.add("comment-sheet-open");
+
+list.innerHTML=`
+<div class="sheet-empty">
+Loading comments...
+</div>`;
+
+const comments=await getComments(postId);
+
+const topLevel=comments.filter(
+comment=>!comment.parentId
+);
+
+const repliesByParent={};
+
+comments
+.filter(comment=>comment.parentId)
+.forEach(reply=>{
+
+if(!repliesByParent[reply.parentId]){
+repliesByParent[reply.parentId]=[];
+}
+
+repliesByParent[reply.parentId].push(reply);
+
+});
+
+if(!topLevel.length){
+
+list.innerHTML=`
+<div class="sheet-empty">
+No comments yet.<br>
+Be the first to comment.
+</div>`;
+
+return;
+}
+
+list.innerHTML=topLevel
+.map(comment=>
+commentHTML(
+comment,
+repliesByParent[comment.id]||[]
+)
+)
+.join("");
+
+attachCommentSheetEvents();
+
+}
+
+function closeCommentSheet(){
+
+const sheet=$("commentSheet");
+
+if(sheet){
+sheet.classList.remove("open");
+}
+
+document.body.classList.remove(
+"comment-sheet-open"
+);
+
+activeCommentPostId=null;
+
+}
+
+$("commentSheetClose")?.addEventListener(
+"click",
+closeCommentSheet
+);
+
+$("commentSheet")?.addEventListener(
+"click",
+event=>{
+if(event.target===$("commentSheet")){
+closeCommentSheet();
+}
+});
+
+async function addComment(postId,text,parentId=null,replyToUserId="",replyToName=""){
+
+if(!currentUser||!postId||!text.trim()){
+return false;
+}
+
+try{
+
+const post=await getPostById(postId);
+
+await addDoc(
+collection(
+db,
+"posts",
+postId,
+"comments"
+),
+{
+authorId:currentUser.uid,
+authorName:getDisplayName(),
+authorPhoto:getPhotoURL(),
+text:text.trim(),
+parentId:parentId||null,
+replyToUserId:replyToUserId||null,
+replyToName:replyToName||null,
+createdAt:serverTimestamp()
+}
+);
+
+await updateDoc(
+doc(db,"posts",postId),
+{
+commentsCount:increment(1)
+}
+);
+
+if(post){
+
+const recipientId=
+parentId?
+(replyToUserId||postAuthorId(post)):
+postAuthorId(post);
+
+if(recipientId&&recipientId!==currentUser.uid){
+
+await createNotification({
+recipientId,
+senderId:currentUser.uid,
+type:parentId?"reply":"comment",
+postId,
+commentText:text.trim()
+});
+
+}
+
+}
+
+return true;
+
+}catch(error){
+
+console.error("Comment error",error);
+
+showToast("Couldn't add comment");
+
+return false;
+
+}
+}
+
+function attachCommentSheetEvents(){
+
+const list=$("commentSheetList");
+
+if(!list)return;
+
+list.querySelectorAll(
+"[data-reply-comment]"
+).forEach(button=>{
+
+button.addEventListener(
+"click",
+()=>{
+const id=button.dataset.replyComment;
+
+const form=list.querySelector(
+`[data-reply-form="${CSS.escape(id)}"]`
+);
+
+if(form){
+form.classList.toggle("show");
+
+if(form.classList.contains("show")){
+form.querySelector("input")?.focus();
+}
+}
+}
+);
+});
+
+list.querySelectorAll(
+"[data-view-replies]"
+).forEach(button=>{
+
+button.addEventListener(
+"click",
+()=>{
+const id=button.dataset.viewReplies;
+
+const replies=list.querySelector(
+`[data-replies="${CSS.escape(id)}"]`
+);
+
+if(!replies)return;
+
+const hidden=
+replies.style.display==="none";
+
+replies.style.display=
+hidden?"block":"none";
+
+button.textContent=
+hidden?
+"Hide replies":
+"View replies";
+
+}
+);
+});
+
+list.querySelectorAll(
+"[data-send-reply]"
+).forEach(button=>{
+
+button.addEventListener(
+"click",
+async()=>{
+const id=button.dataset.sendReply;
+
+const form=list.querySelector(
+`[data-reply-form="${CSS.escape(id)}"]`
+);
+
+const input=form?.querySelector("input");
+
+if(!input||!input.value.trim())return;
+
+const comments=await getComments(
+activeCommentPostId
+);
+
+const parent=comments.find(
+comment=>comment.id===id
+);
+
+const success=await addComment(
+activeCommentPostId,
+input.value,
+id,
+parent?.authorId||
+parent?.userId||
+"",
+parent?.authorName||
+parent?.userName||
+""
+);
+
+if(success){
+input.value="";
+await openCommentSheet(
+activeCommentPostId
+);
+}
+}
+);
+});
+
+list.querySelectorAll(
+"[data-delete-comment]"
+).forEach(button=>{
+
+button.addEventListener(
+"click",
+async()=>{
+const id=button.dataset.deleteComment;
+
+if(!activeCommentPostId||!id)return;
+
+try{
+
+await deleteDoc(
+doc(
+db,
+"posts",
+activeCommentPostId,
+"comments",
+id
+)
+);
+
+await updateDoc(
+doc(db,"posts",activeCommentPostId),
+{
+commentsCount:increment(-1)
+}
+);
+
+showToast("Comment deleted");
+
+await openCommentSheet(
+activeCommentPostId
+);
+
+}catch(error){
+
+console.error("Delete comment error",error);
+
+showToast("Couldn't delete comment");
+
+}
+}
+);
+});
+
+}
+
+$("commentSheetForm")?.addEventListener(
+"submit",
+async event=>{
+
+event.preventDefault();
+
+if(!activeCommentPostId)return;
+
+const input=$("commentSheetInput");
+
+if(!input||!input.value.trim())return;
+
+const text=input.value.trim();
+
+const success=await addComment(
+activeCommentPostId,
+text
+);
+
+if(success){
+
+input.value="";
+
+await openCommentSheet(
+activeCommentPostId
+);
+
+}
+
+}
+);
+
+
+/* NOTIFICATIONS */
+
+async function createNotification(data){
+
+if(!data?.recipientId||!currentUser)return;
+
+if(data.recipientId===currentUser.uid)return;
+
+try{
+
+const senderProfile=
+await getMemberProfile(
+data.senderId||currentUser.uid
+);
+
+await addDoc(
+collection(
+db,
+"users",
+data.recipientId,
+"notifications"
+),
+{
+recipientId:data.recipientId,
+senderId:data.senderId||currentUser.uid,
+senderName:
+senderProfile?.name||
+data.senderName||
+getDisplayName(),
+senderPhoto:
+senderProfile?.photoURL||
+senderProfile?.photoUrl||
+data.senderPhoto||
+getPhotoURL(),
+type:data.type||"notification",
+postId:data.postId||null,
+commentText:data.commentText||"",
+createdAt:serverTimestamp(),
+read:false
+}
+);
+
+}catch(error){
+
+console.warn(
+"Notification creation failed",
+error
+);
+
+}
+}
+
+async function getNotificationPost(postId){
+
+if(!postId)return null;
+
+const local=allPosts.find(
+post=>post.id===postId
+);
+
+if(local)return local;
+
+try{
+
+const snap=await getDoc(
+doc(db,"posts",postId)
+);
+
+if(snap.exists()){
+return{
+id:snap.id,
+...snap.data()
+};
+}
+
+}catch(error){
+
+console.warn(
+"Notification post lookup failed",
+error
+);
+
+}
+
+return null;
+}
+
+function notificationPreviewHTML(post){
+
+if(!post)return"";
+
+const url=postMediaURL(post);
+
+if(!url)return"";
+
+if(postType(post)==="reel"){
+
+return`
+<div class="notification-preview">
+
+<video
+src="${escapeHTML(url)}"
+muted
+playsinline
+preload="metadata"
+></video>
+
+<div class="preview-reel">
+
+<svg
+viewBox="0 0 24 24"
+>
+<path d="m9 7 9 5-9 5V7Z"></path>
+</svg>
+
+</div>
+
+</div>`;
+}
+
+return`
+<div class="notification-preview">
+<img
+src="${escapeHTML(url)}"
+alt=""
+>
+</div>`;
+}
+
+async function loadNotifications(){
+
+const list=$("alertList");
+
+if(!list||!currentUser)return;
+
+try{
+
+const q=query(
+collection(
+db,
+"users",
+currentUser.uid,
+"notifications"
+),
+orderBy("createdAt","desc"),
+limit(100)
+);
+
+if(unsubscribeAlerts){
+unsubscribeAlerts();
+}
+
+unsubscribeAlerts=onSnapshot(
+q,
+async snap=>{
+
+const notifications=snap.docs
+.map(item=>({
+id:item.id,
+...item.data()
+}))
+.sort(
+(a,b)=>
+postDateValue(b)-
+postDateValue(a)
+);
+
+let unread=false;
+
+if(!notifications.length){
+
+list.innerHTML=`
+<div class="alert-empty">
+
+<svg
+viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+>
+<path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+<path d="M10 21h4"></path>
+</svg>
+
+<h3>All caught up</h3>
+<p>You don't have any notifications yet.</p>
+
+</div>`;
+
+$("alertTopDot")?.classList.remove("show");
+
+return;
+
+}
+
+const htmlParts=[];
+
+for(const notification of notifications){
+
+if(!notification.read){
+unread=true;
+}
+
+const sender=
+await getMemberProfile(
+notification.senderId
+);
+
+const senderName=
+sender?.name||
+notification.senderName||
+"JSP TAYSU Member";
+
+const senderPhoto=safeURL(
+sender?.photoURL||
+sender?.photoUrl||
+notification.senderPhoto||
+""
+);
+
+const post=
+await getNotificationPost(
+notification.postId
+);
+
+let text="sent you a notification.";
+
+if(notification.type==="like"){
+text="liked your post.";
+}
+
+if(notification.type==="comment"){
+text="commented on your post.";
+}
+
+if(notification.type==="reply"){
+text="replied to your comment.";
+}
+
+if(notification.type==="follow"){
+text="started following you.";
+}
+
+const commentText=
+notification.commentText||
+"";
+
+const preview=
+post?
+notificationPreviewHTML(post):
+"";
+
+const followAction=
+notification.type==="follow"&&
+notification.senderId?
+`
+<button
+class="notification-follow"
+data-notification-follow="${escapeHTML(notification.senderId)}"
+type="button"
+>
+Follow back
+</button>
+`:"";
+
+htmlParts.push(`
+<div
+class="notification ${notification.read?"":"unread"}"
+data-notification-id="${escapeHTML(notification.id)}"
+data-notification-type="${escapeHTML(notification.type||"notification")}"
+data-notification-sender="${escapeHTML(notification.senderId||"")}"
+data-notification-post="${escapeHTML(notification.postId||"")}"
+>
+
+<div class="notification-avatar">
+
+${senderPhoto?
+`<img
+src="${escapeHTML(senderPhoto)}"
+alt=""
+>`:
+escapeHTML(initials(senderName))}
+
+</div>
+
+<div class="notification-main">
+
+<div class="notification-text">
+<b>${escapeHTML(senderName)}</b>
+${escapeHTML(text)}
+${commentText?
+` <span class="notification-comment">"${escapeHTML(commentText)}"</span>`:""}
+</div>
+
+<div class="notification-time">
+${escapeHTML(
+formatTime(
+normalizeTimestamp(notification)
+)
+)}
+</div>
+
+</div>
+
+${followAction}
+
+${preview}
+
+</div>
+`);
+}
+
+list.innerHTML=htmlParts.join("");
+
+$("alertTopDot")?.classList.toggle(
+"show",
+unread
+);
+
+list.querySelectorAll(
+".notification"
+).forEach(item=>{
+
+item.addEventListener(
+"click",
+async event=>{
+
+if(
+event.target.closest(
+"[data-notification-follow]"
+)
+){
+return;
+}
+
+const id=item.dataset.notificationId;
+const type=item.dataset.notificationType;
+const sender=item.dataset.notificationSender;
+const postId=item.dataset.notificationPost;
+
+try{
+
+await updateDoc(
+doc(
+db,
+"users",
+currentUser.uid,
+"notifications",
+id
+),
+{
+read:true
+}
+);
+
+}catch(error){
+console.warn(
+"Notification read update failed",
+error
+);
+}
+
+if(type==="follow"&&sender){
+
+openMemberProfile(sender);
+return;
+
+}
+
+if(postId){
+
+const post=
+await getNotificationPost(postId);
+
+if(post){
+
+const mediaPosts=
+allPosts.filter(
+item=>isPhotoPost(item)||
+isVideoPost(item)
+);
+
+const index=
+mediaPosts.findIndex(
+item=>item.id===post.id
+);
+
+if(index>=0){
+openViewer(mediaPosts,index);
+return;
+}
+
+}
+
+}
+
+if(sender){
+openMemberProfile(sender);
+}
+
+}
+);
+});
+
+list.querySelectorAll(
+"[data-notification-follow]"
+).forEach(button=>{
+
+button.addEventListener(
+"click",
+async event=>{
+
+event.stopPropagation();
+
+const uid=
+button.dataset.notificationFollow;
+
+if(!uid)return;
+
+await toggleFollow(
+uid,
+button
+);
+
+}
+);
+});
+
+},
+error=>{
+console.error(
+"Notification listener error",
+error
+);
+
+list.innerHTML=`
+<div class="alert-empty">
+<h3>Notifications unavailable</h3>
+<p>Please try again later.</p>
+</div>`;
+}
+);
+
+}catch(error){
+
+console.error(
+"Notifications loading error",
+error
+);
+
+list.innerHTML=`
+<div class="alert-empty">
+<h3>Notifications unavailable</h3>
+<p>Please try again later.</p>
+</div>`;
+
+}
+}
+
+
+/* MESSAGE UNREAD COUNT */
+
+function listenMessageCount(){
+
+if(!currentUser)return;
+
+try{
+
+const q=query(
+collection(
+db,
+"users",
+currentUser.uid,
+"messages"
+),
+where("read","==",false)
+);
+
+if(unsubscribeMessages){
+unsubscribeMessages();
+}
+
+unsubscribeMessages=onSnapshot(
+q,
+snap=>{
+
+let count=0;
+
+snap.forEach(item=>{
+const data=item.data();
+
+if(
+data.recipientId===currentUser.uid||
+!data.recipientId
+){
+count++;
+}
+});
+
+updateMessageBadge(count);
+
+},
+error=>{
+console.warn(
+"Message count listener error",
+error
+);
+}
+);
+
+}catch(error){
+
+console.warn(
+"Message count error",
+error
+);
+
+}
+}
+
+function updateMessageBadge(count){
+
+const badge=$("messageBadge");
+
+if(!badge)return;
+
+const value=Number(count)||0;
+
+if(value<=0){
+
+badge.classList.remove("show");
+badge.textContent="";
+
+return;
+
+}
+
+badge.textContent=
+value>99?"99+":String(value);
+
+badge.classList.add("show");
+}
+
+
+/* URL POST OPEN */
+
+async function openPostFromURL(){
+
+const params=
+new URLSearchParams(
+location.search
+);
+
+const postId=params.get("post");
+
+if(!postId)return;
+
+const post=
+await getPostById(postId);
+
+if(!post)return;
+
+if(isPhotoPost(post)||isVideoPost(post)){
+
+const mediaPosts=
+allPosts.filter(
+item=>isPhotoPost(item)||
+isVideoPost(item)
+);
+
+const index=
+mediaPosts.findIndex(
+item=>item.id===post.id
+);
+
+if(index>=0){
+openViewer(mediaPosts,index);
+}
+
+}
+
+}
+
+
+/* GLOBAL EVENTS */
+
+window.addEventListener(
+"keydown",
+event=>{
+
+if(event.key==="Escape"){
+
+if(
+$("commentSheet")?.classList.contains("open")
+){
+closeCommentSheet();
+return;
+}
+
+if(
+$("viewer")?.classList.contains("open")
+){
+closeViewer();
+return;
+}
+
+if(
+document.body.classList.contains("create-open")
+){
+closeCreate();
+return;
+}
+
+}
+
+}
+);
+
+window.addEventListener(
+"popstate",
+()=>{
+if(
+$("viewer")?.classList.contains("open")
+){
+closeViewer();
+}
+}
+);
+
+
+/* INITIAL UI */
+
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+const createSection=$("createSection");
+
+if(createSection){
+createSection.classList.remove("active");
+}
+
+const alertDot=$("alertTopDot");
+
+if(alertDot){
+alertDot.classList.remove("show");
+}
+
+}
+);
+
+
+/* URL HANDLER AFTER AUTH */
+
+setTimeout(
+openPostFromURL,
+1800
+);
+
+</script>
+
+</body>
+</html>
