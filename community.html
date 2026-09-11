@@ -242,7 +242,9 @@ margin-bottom:7px
 color:#6f7680
 }
 
-#postText{
+#postText,
+#photoCaption,
+#reelCaption{
 width:100%;
 min-height:90px;
 resize:vertical;
@@ -257,7 +259,9 @@ font-size:15px;
 line-height:1.45
 }
 
-#postText::placeholder{
+#postText::placeholder,
+#photoCaption::placeholder,
+#reelCaption::placeholder{
 color:#6f7680
 }
 
@@ -318,11 +322,6 @@ font-size:12px;
 font-weight:600
 }
 
-.media-button svg{
-width:15px;
-height:15px
-}
-
 .post-btn{
 border:0;
 background:#1683ff;
@@ -339,9 +338,7 @@ opacity:.5;
 cursor:default
 }
 
-.hidden-file{
-display:none
-}
+.hidden-file{display:none}
 
 .create-upload-info{
 color:#777f89;
@@ -355,9 +352,7 @@ display:none;
 margin-top:10px
 }
 
-.upload-progress.show{
-display:block
-}
+.upload-progress.show{display:block}
 
 .upload-progress-head{
 display:flex;
@@ -592,11 +587,8 @@ stroke-width:1.8
 color:#ff5d6c
 }
 
-.action b{
-font-weight:600
-}
+.action b{font-weight:600}
 
-/* Compact comment area fallback */
 .comments-area{
 display:none;
 margin-top:7px;
@@ -607,9 +599,7 @@ overflow:auto;
 overscroll-behavior:contain
 }
 
-.comments-list{
-margin-bottom:8px
-}
+.comments-list{margin-bottom:8px}
 
 .comment{
 background:#181b20;
@@ -721,13 +711,9 @@ border-left:1px solid #30343a;
 padding-left:9px
 }
 
-.reply{
-padding:6px 0
-}
+.reply{padding:6px 0}
 
-.reply .comment-user{
-font-size:11px
-}
+.reply .comment-user{font-size:11px}
 
 .reply .comment-text{
 font-size:12px
@@ -765,50 +751,43 @@ margin-bottom:5px;
 font-size:16px
 }
 
-.empty p{
-font-size:13px
-}
+.empty p{font-size:13px}
+
 
 /* EXPLORE */
 
+.explore-section-inner{
+display:flex;
+flex-direction:column
+}
+
+.explore-member-search{
+order:1;
+margin-bottom:14px
+}
+
+.explore-discover{
+order:2
+}
+
+.explore-results{
+order:3;
+margin-top:16px
+}
+
 .explore-title{
-padding:7px 3px 15px
-}
-
-.explore-top{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:10px
-}
-
-.explore-search-button{
-width:40px;
-height:40px;
-border:0;
-border-radius:11px;
-background:#171a1f;
-color:#d7bd8c;
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer
-}
-
-.explore-search-button svg{
-width:20px;
-height:20px
+display:none
 }
 
 .discover-heading{
 display:flex;
 align-items:center;
 justify-content:space-between;
-margin:12px 2px 9px
+margin:0 2px 9px
 }
 
 .discover-heading h2{
-font-size:18px;
+font-size:19px;
 letter-spacing:-.3px
 }
 
@@ -840,17 +819,8 @@ object-fit:cover;
 display:block
 }
 
-.discover-tile-text{
-height:100%;
-padding:15px;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:left;
-font-size:13px;
-line-height:1.35;
-color:#e2e5e9;
-background:#15181d
+.discover-tile video{
+pointer-events:none
 }
 
 .discover-overlay{
@@ -873,7 +843,8 @@ padding:4px 6px;
 border-radius:7px;
 white-space:nowrap;
 overflow:hidden;
-text-overflow:ellipsis
+text-overflow:ellipsis;
+max-width:75%
 }
 
 .discover-reel{
@@ -888,7 +859,7 @@ border-radius:7px
 .search-box{
 display:flex;
 gap:8px;
-margin-bottom:13px
+margin-bottom:0
 }
 
 #userSearchInput{
@@ -907,8 +878,8 @@ outline:none
 width:48px;
 border:0;
 border-radius:14px;
-background:#f1f1f1;
-color:#0b0d10;
+background:#1683ff;
+color:#fff;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -921,7 +892,7 @@ height:20px
 }
 
 #searchResults{
-margin-bottom:18px
+margin-bottom:0
 }
 
 .search-result{
@@ -980,6 +951,14 @@ background:#292d33;
 color:#aaa
 }
 
+.explore-search-hint{
+font-size:11px;
+color:#777f89;
+margin-top:7px;
+padding-left:2px
+}
+
+
 /* REELS */
 
 .reels-title{
@@ -1007,7 +986,8 @@ gap:8px
 background:#111419;
 border:1px solid #292d33;
 border-radius:18px;
-padding:10px
+padding:10px;
+cursor:pointer
 }
 
 .reel-card video{
@@ -1017,7 +997,8 @@ aspect-ratio:9/16;
 object-fit:cover;
 border-radius:14px;
 background:#08090b;
-display:block
+display:block;
+pointer-events:none
 }
 
 .reel-card-info{
@@ -1041,6 +1022,7 @@ font-size:10px;
 color:#777f89;
 margin-top:5px
 }
+
 
 /* ALERTS */
 
@@ -1126,6 +1108,7 @@ margin-bottom:5px
 font-size:13px
 }
 
+
 /* VIEWER */
 
 .viewer{
@@ -1146,13 +1129,13 @@ position:absolute;
 top:0;
 left:0;
 right:0;
-z-index:20;
+z-index:40;
 height:58px;
 display:flex;
 align-items:center;
 justify-content:space-between;
 padding:0 14px;
-background:linear-gradient(rgba(0,0,0,.72),transparent)
+background:linear-gradient(rgba(0,0,0,.78),transparent)
 }
 
 .viewer-close{
@@ -1193,7 +1176,8 @@ scroll-snap-stop:always;
 display:flex;
 align-items:center;
 justify-content:center;
-background:#050505
+background:#050505;
+overflow:hidden
 }
 
 .viewer-media{
@@ -1209,80 +1193,129 @@ object-fit:contain;
 background:#000
 }
 
-.viewer-text-post{
-width:min(76%,600px);
-max-height:70vh;
-overflow:auto;
-padding:24px;
-border-radius:20px;
-background:#111419;
-border:1px solid #292d33
-}
 
-.viewer-post-title{
-font-size:22px;
-font-weight:800;
-margin-bottom:10px
-}
+/* VIEWER AUTHOR */
 
-.viewer-post-text{
-font-size:17px;
-line-height:1.5;
-white-space:pre-line;
-overflow-wrap:anywhere
-}
-
-.viewer-post-author{
+.viewer-author{
 position:absolute;
-left:16px;
-bottom:24px;
-z-index:10;
-font-size:13px;
-font-weight:800;
-background:rgba(0,0,0,.58);
-backdrop-filter:blur(8px);
-padding:8px 10px;
-border-radius:10px
+left:14px;
+top:68px;
+z-index:30;
+display:flex;
+align-items:center;
+gap:8px;
+max-width:65%;
+cursor:pointer;
+padding:4px 8px 4px 4px;
+border-radius:999px;
+background:rgba(0,0,0,.48);
+backdrop-filter:blur(9px)
 }
+
+.viewer-author-avatar{
+width:34px;
+height:34px;
+border-radius:50%;
+overflow:hidden;
+flex-shrink:0;
+background:#33271f;
+border:1px solid rgba(255,255,255,.22);
+display:flex;
+align-items:center;
+justify-content:center;
+color:#ead9b8;
+font-size:12px;
+font-weight:800
+}
+
+.viewer-author-avatar img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block
+}
+
+.viewer-author-name{
+font-size:12px;
+font-weight:800;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis
+}
+
+
+/* VIEWER CAPTION */
+
+.viewer-caption{
+position:absolute;
+left:15px;
+right:70px;
+bottom:28px;
+z-index:25;
+color:#fff;
+font-size:14px;
+line-height:1.42;
+text-shadow:0 2px 8px rgba(0,0,0,.7);
+white-space:pre-line;
+overflow-wrap:anywhere;
+max-height:24vh;
+overflow:auto
+}
+
+.viewer-caption:empty{
+display:none
+}
+
+
+/* VIEWER ACTIONS */
 
 .viewer-actions{
 position:absolute;
-right:12px;
-bottom:82px;
-z-index:15;
+right:11px;
+bottom:84px;
+z-index:35;
 display:flex;
 flex-direction:column;
-gap:12px;
+gap:14px;
 align-items:center
 }
 
 .viewer-action{
-width:44px;
-height:44px;
+width:46px;
+min-height:46px;
 border:0;
 border-radius:50%;
-background:rgba(0,0,0,.55);
+background:rgba(0,0,0,.52);
 color:#fff;
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-cursor:pointer
+cursor:pointer;
+backdrop-filter:blur(5px)
 }
 
 .viewer-action svg{
-width:22px;
-height:22px
+width:23px;
+height:23px
 }
 
 .viewer-action small{
 font-size:9px;
+margin-top:2px
+}
+
+.viewer-action em{
+font-style:normal;
+font-size:9px;
+font-weight:700;
 margin-top:1px
 }
 
 .viewer-action.liked{
 color:#ff5d6c
 }
+
 
 /* COMMENT SHEET */
 
@@ -1523,6 +1556,7 @@ font-weight:800;
 cursor:pointer
 }
 
+
 /* BOTTOM NAV */
 
 .bottom-nav{
@@ -1561,10 +1595,6 @@ transition:.18s
 width:21px;
 height:21px;
 stroke-width:1.8
-}
-
-.nav-item span{
-font-size:10px
 }
 
 .nav-item:hover{
@@ -1620,7 +1650,9 @@ border-radius:17px;
 padding:13px
 }
 
-#postText{
+#postText,
+#photoCaption,
+#reelCaption{
 min-height:90px
 }
 
@@ -1653,12 +1685,19 @@ bottom:78px
 
 .viewer-action{
 width:42px;
-height:42px
+min-height:42px
 }
 
-.viewer-text-post{
-width:80%;
-padding:20px
+.viewer-author{
+top:67px;
+left:10px
+}
+
+.viewer-caption{
+left:12px;
+right:62px;
+bottom:23px;
+font-size:13px
 }
 }
 </style>
@@ -1685,7 +1724,6 @@ padding:20px
 <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
 <path d="M10 21h4"></path>
 </svg>
-
 </button>
 
 </div>
@@ -2117,38 +2155,14 @@ class="upload-progress-bar"
 
 <section id="exploreSection" class="page-section">
 
-<div class="explore-title">
+<div class="explore-section-inner">
 
-<div class="explore-top">
+<!-- SEARCH IS NOW AT THE VERY TOP -->
 
-<div>
-
-<h1>Explore</h1>
-
-<p>Discover members and community posts.</p>
-
-</div>
-
-<button
-id="exploreSearchButton"
-class="explore-search-button"
-type="button"
-aria-label="Search members"
+<div
+id="exploreMemberSearch"
+class="explore-member-search"
 >
-
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-<circle cx="11" cy="11" r="7"></circle>
-<path d="m20 20-4-4"></path>
-</svg>
-
-</button>
-
-</div>
-
-</div>
-
-
-<div id="exploreMemberSearch" style="display:none">
 
 <div class="search-box">
 
@@ -2163,7 +2177,7 @@ autocomplete="off"
 <button
 id="userSearchButton"
 class="search-button"
-aria-label="Search"
+aria-label="Search members"
 type="button"
 >
 
@@ -2176,10 +2190,16 @@ type="button"
 
 </div>
 
-<div id="searchResults"></div>
+<div class="explore-search-hint">
+Search by member username or name.
+</div>
 
 </div>
 
+
+<!-- DISCOVER DIRECTLY UNDER SEARCH -->
+
+<div class="explore-discover">
 
 <div class="discover-heading">
 
@@ -2192,7 +2212,17 @@ type="button"
 <div
 id="discoverGrid"
 class="discover-grid"
->
+></div>
+
+</div>
+
+
+<!-- SEARCH RESULTS BELOW DISCOVER -->
+
+<div
+id="searchResults"
+class="explore-results"
+></div>
 
 </div>
 
@@ -2287,7 +2317,7 @@ Your community notifications will appear here.
 </main>
 
 
-<!-- DISCOVER VIEWER -->
+<!-- VIEWER -->
 
 <div
 id="postViewer"
@@ -2392,6 +2422,8 @@ Send
 </div>
 
 
+<!-- BOTTOM NAV -->
+
 <nav class="bottom-nav">
 
 <button
@@ -2475,14 +2507,12 @@ initializeApp
 from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-
 import {
 getAuth,
 onAuthStateChanged
 }
 from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
 
 import {
 getFirestore,
@@ -2526,15 +2556,6 @@ const auth=getAuth(app);
 const db=getFirestore(app);
 
 
-/*
-IMPORTANT:
-
-Replace only YOUR_IMAGEKIT_PUBLIC_KEY
-with your actual ImageKit Public Key.
-
-DO NOT put your ImageKit Private Key here.
-*/
-
 const IMAGEKIT_PUBLIC_KEY="public_3h6iOJBuIST7Aphxt+20NsXp4q4=";
 
 const IMAGEKIT_AUTH_URL=
@@ -2564,6 +2585,8 @@ let currentUsername="Member";
 let allPosts=[];
 
 let allMembers=[];
+
+let memberProfileCache={};
 
 let activeCreateTab="post";
 
@@ -2634,6 +2657,15 @@ profileSnap.data().username
 
 username=
 profileSnap.data().username;
+
+}
+
+if(profileSnap.exists()){
+
+memberProfileCache[user.uid]={
+id:user.uid,
+...profileSnap.data()
+};
 
 }
 
@@ -2832,6 +2864,8 @@ showSection("homeSection");
 );
 
 
+/* MESSAGES */
+
 document
 .getElementById("messagesNavButton")
 .addEventListener(
@@ -2846,12 +2880,16 @@ return;
 
 }
 
+/* CONNECTED TO message.html */
+
 window.location.href=
-"messages.html";
+"message.html";
 
 }
 );
 
+
+/* PROFILE */
 
 document
 .getElementById("profileNavButton")
@@ -3499,7 +3537,7 @@ safeValue+"%";
 }
 
 
-/* IMAGEKIT UPLOAD WITH LIVE PROGRESS */
+/* IMAGEKIT UPLOAD */
 
 async function uploadToImageKit(
 file
@@ -3517,11 +3555,6 @@ throw new Error(
 
 }
 
-
-/*
-Get temporary authentication parameters
-from our Vercel backend.
-*/
 
 const authResponse=
 await fetch(
@@ -4336,9 +4369,7 @@ document
 
 await loadPosts();
 
-
 renderReels();
-
 
 showSection(
 "reelsSection"
@@ -5128,16 +5159,6 @@ postElement.querySelector(
 ".comment-button"
 );
 
-const commentsArea=
-postElement.querySelector(
-".comments-area"
-);
-
-const commentsList=
-postElement.querySelector(
-".comments-list"
-);
-
 const commentInput=
 postElement.querySelector(
 ".comment-input"
@@ -5377,12 +5398,20 @@ if(!discoverGrid)
 return;
 
 
+/*
+ONLY PHOTO + REEL POSTS.
+Text-only posts and normal video/photo posts
+are excluded unless they are explicitly postType photo/reel.
+*/
+
 const discoverPosts=
 allPosts.filter(
 post=>
-post.mediaUrl||
-post.text||
-post.title
+post.mediaUrl&&
+(
+post.postType==="photo"||
+post.postType==="reel"
+)
 );
 
 
@@ -5419,7 +5448,7 @@ color:#777f89;
 "
 >
 
-No community posts yet.
+No photos or reels yet.
 
 </div>
 
@@ -5447,7 +5476,7 @@ let content="";
 
 
 if(
-post.mediaUrl&&
+post.postType==="photo"&&
 post.mediaType==="image"
 ){
 
@@ -5455,13 +5484,13 @@ content=
 `
 <img
 src="${escapeAttribute(post.mediaUrl)}"
-alt="Community post"
+alt="Community photo"
 loading="lazy"
 >
 `;
 
 }else if(
-post.mediaUrl&&
+post.postType==="reel"&&
 post.mediaType==="video"
 ){
 
@@ -5477,18 +5506,7 @@ preload="metadata"
 
 }else{
 
-content=
-`
-<div class="discover-tile-text">
-
-${escapeHTML(
-post.title||
-post.text||
-"Community post"
-).slice(0,180)}
-
-</div>
-`;
+return;
 
 }
 
@@ -5527,7 +5545,8 @@ tile.addEventListener(
 
 openViewer(
 discoverPosts,
-discoverPosts.indexOf(post)
+discoverPosts.indexOf(post),
+"Discover"
 );
 
 }
@@ -5540,6 +5559,52 @@ tile
 
 }
 );
+
+}
+
+
+/* AUTHOR PROFILE CACHE */
+
+async function getMemberProfile(uid){
+
+if(!uid)
+return null;
+
+
+if(memberProfileCache[uid])
+return memberProfileCache[uid];
+
+
+try{
+
+const snap=
+await getDoc(
+doc(db,"users",uid)
+);
+
+
+if(snap.exists()){
+
+memberProfileCache[uid]={
+id:uid,
+...snap.data()
+};
+
+return memberProfileCache[uid];
+
+}
+
+}catch(error){
+
+console.error(
+"Member profile error:",
+error
+);
+
+}
+
+
+return null;
 
 }
 
@@ -5557,9 +5622,10 @@ document.getElementById(
 );
 
 
-function openViewer(
+async function openViewer(
 posts,
-index
+index,
+viewerTitle="Discover"
 ){
 
 if(!posts.length)
@@ -5574,8 +5640,15 @@ activeViewerIndex=index;
 viewerScroll.innerHTML="";
 
 
-posts.forEach(
-(post,postIndex)=>{
+for(
+let postIndex=0;
+postIndex<posts.length;
+postIndex++
+){
+
+const post=
+posts[postIndex];
+
 
 const item=
 document.createElement(
@@ -5626,44 +5699,84 @@ loop
 
 }else{
 
-media=
+continue;
+
+}
+
+
+const authorProfile=
+await getMemberProfile(
+post.authorId
+);
+
+
+const authorName=
+authorProfile?.username||
+authorProfile?.displayName||
+post.authorName||
+"Member";
+
+
+const authorPhoto=
+authorProfile?.photoURL||
+authorProfile?.photoUrl||
+authorProfile?.profilePhoto||
+"";
+
+
+const caption=
+[
+post.text||"",
+post.hashtags||""
+]
+.filter(Boolean)
+.join("\n");
+
+
+const authorAvatarHTML=
+authorPhoto
+?
 `
-<div class="viewer-text-post">
-
-${
-post.title
-?
-`<div class="viewer-post-title">${escapeHTML(post.title)}</div>`
-:""
-}
-
-<div class="viewer-post-text">
-${escapeHTML(String(post.text||"").replace(/[ \t]+\n/g,"\n").replace(/\n[ \t]+/g,"\n"))}
-</div>
-
-${
-post.hashtags
-?
-`<div class="post-hashtags">${hashtagsArray(post.hashtags).map(tag=>`<span class="post-hashtag">${escapeHTML(tag)}</span>`).join("")}</div>`
-:""
-}
-
-</div>
-`;
-
-}
+<img
+src="${escapeAttribute(authorPhoto)}"
+alt="${escapeAttribute(authorName)}"
+>
+`
+:
+escapeHTML(
+authorName.charAt(0).toUpperCase()
+);
 
 
 item.innerHTML=
 media+
 `
 
-<div class="viewer-post-author">
+<div
+class="viewer-author"
+data-author-id="${escapeAttribute(
+post.authorId||""
+)}"
+>
 
-${escapeHTML(
-post.authorName||
-"Member"
-)}
+<div class="viewer-author-avatar">
+
+${authorAvatarHTML}
+
+</div>
+
+<div class="viewer-author-name">
+
+${escapeHTML(authorName)}
+
+</div>
+
+</div>
+
+
+<div class="viewer-caption">
+
+${escapeHTML(caption)}
 
 </div>
 
@@ -5690,6 +5803,8 @@ d="M20.8 8.7 C20.8 13.7 12 20 12 20 S3.2 13.7 3.2 8.7 C3.2 5.7 5.4 3.7 8.1 3.7 C
 
 <small>Like</small>
 
+<em class="viewer-like-count">0</em>
+
 </button>
 
 
@@ -5712,6 +5827,8 @@ d="M20 11.5 a7.5 7.5 0 0 1-7.5 7.5 H8l-4 2 1.5-4 A7.5 7.5 0 1 1 20 11.5Z"
 </svg>
 
 <small>Comment</small>
+
+<em class="viewer-comment-count">0</em>
 
 </button>
 
@@ -5752,18 +5869,42 @@ item
 );
 
 
-setupViewerActions(
-item,
-post
+item
+.querySelector(".viewer-author")
+.addEventListener(
+"click",
+()=>{
+
+if(post.authorId){
+
+openProfile(
+post.authorId
 );
+
+}
 
 }
 );
 
 
+await setupViewerActions(
+item,
+post
+);
+
+}
+
+
+postViewer
+.querySelector(".viewer-title")
+.textContent=
+viewerTitle;
+
+
 postViewer.classList.add("show");
 
 document.body.classList.add("viewer-open");
+
 
 requestAnimationFrame(
 ()=>{
@@ -5813,7 +5954,9 @@ closeCommentSheet();
 }
 
 
-function setupViewerActions(
+/* INDEPENDENT VIEWER ACTIONS */
+
+async function setupViewerActions(
 item,
 post
 ){
@@ -5833,11 +5976,50 @@ item.querySelector(
 ".viewer-share"
 );
 
-
-updateViewerLikeState(
-post,
-likeButton
+const likeCount=
+item.querySelector(
+".viewer-like-count"
 );
+
+const commentCount=
+item.querySelector(
+".viewer-comment-count"
+);
+
+
+try{
+
+const counts=
+await getPostCounts(post);
+
+
+likeCount.textContent=
+counts.likeCount;
+
+commentCount.textContent=
+counts.commentCount;
+
+
+if(counts.alreadyLiked){
+
+likeButton.classList.add(
+"liked"
+);
+
+likeButton.querySelector(
+"small"
+).textContent="Liked";
+
+}
+
+}catch(error){
+
+console.error(
+"Viewer counts:",
+error
+);
+
+}
 
 
 likeButton.addEventListener(
@@ -5853,6 +6035,9 @@ alert(
 return;
 
 }
+
+
+likeButton.disabled=true;
 
 
 try{
@@ -5871,10 +6056,22 @@ const likeSnap=
 await getDoc(likeRef);
 
 
+let count=
+Number(
+likeCount.textContent
+)||0;
+
+
 if(likeSnap.exists()){
 
 await deleteDoc(
 likeRef
+);
+
+count=
+Math.max(
+0,
+count-1
 );
 
 likeButton.classList.remove(
@@ -5884,6 +6081,7 @@ likeButton.classList.remove(
 likeButton.querySelector(
 "small"
 ).textContent="Like";
+
 
 }else{
 
@@ -5899,6 +6097,8 @@ serverTimestamp()
 
 }
 );
+
+count++;
 
 likeButton.classList.add(
 "liked"
@@ -5938,13 +6138,29 @@ post.id
 
 }
 
+
+likeCount.textContent=
+count;
+
+
 }catch(error){
+
+console.error(
+"Viewer like error:",
+error
+);
+
 
 alert(
 (error.code||"Error")+
 ": "+
 error.message
 );
+
+
+}finally{
+
+likeButton.disabled=false;
 
 }
 
@@ -6016,52 +6232,6 @@ console.log(
 
 }
 );
-
-}
-
-
-async function updateViewerLikeState(
-post,
-button
-){
-
-if(!currentUser)
-return;
-
-
-try{
-
-const snap=
-await getDoc(
-doc(
-db,
-"posts",
-post.id,
-"likes",
-currentUser.uid
-)
-);
-
-
-if(snap.exists()){
-
-button.classList.add("liked");
-
-button.querySelector(
-"small"
-).textContent=
-"Liked";
-
-}
-
-}catch(error){
-
-console.error(
-"Viewer like state:",
-error
-);
-
-}
 
 }
 
@@ -6628,7 +6798,8 @@ replyInput.value.trim();
 
 if(!text||
 !currentUser
-)return;
+)
+return;
 
 
 replySend.disabled=true;
@@ -6905,7 +7076,8 @@ const reels=
 allPosts.filter(
 post=>
 post.postType==="reel"&&
-post.mediaUrl
+post.mediaUrl&&
+post.mediaType==="video"
 );
 
 
@@ -6961,9 +7133,8 @@ return;
 }
 
 
-for(
-const post of reels
-){
+reels.forEach(
+(post,index)=>{
 
 const card=
 document.createElement(
@@ -6979,7 +7150,7 @@ card.innerHTML=`
 
 <video
 src="${escapeAttribute(post.mediaUrl)}"
-controls
+muted
 playsinline
 preload="metadata"
 ></video>
@@ -7041,11 +7212,25 @@ ${formatTime(post.createdAt)}
 `;
 
 
+card.addEventListener(
+"click",
+()=>{
+
+openViewer(
+reels,
+index,
+"Reels"
+);
+
+}
+);
+
+
 reelsList.appendChild(
 card
 );
 
-}
+});
 
 }
 
@@ -7075,14 +7260,18 @@ allMembers=[];
 snapshot.forEach(
 userDoc=>{
 
-allMembers.push({
-
-id:
-userDoc.id,
-
+const member={
+id:userDoc.id,
 ...userDoc.data()
+};
 
-});
+allMembers.push(
+member
+);
+
+memberProfileCache[
+userDoc.id
+]=member;
 
 }
 );
@@ -7116,32 +7305,6 @@ document.getElementById(
 const searchResults=
 document.getElementById(
 "searchResults"
-);
-
-
-document
-.getElementById("exploreSearchButton")
-.addEventListener(
-"click",
-()=>{
-
-const box=
-document.getElementById(
-"exploreMemberSearch"
-);
-
-box.style.display=
-box.style.display==="none"
-?"block"
-:"none";
-
-if(box.style.display==="block"){
-
-userSearchInput.focus();
-
-}
-
-}
 );
 
 
@@ -7194,15 +7357,6 @@ searchResults.innerHTML="";
 
 if(!searchText){
 
-searchResults.innerHTML=
-`
-<p
-style="color:#777f89;font-size:13px;padding:5px;"
->
-Start typing a member's name.
-</p>
-`;
-
 return;
 
 }
@@ -7222,6 +7376,7 @@ user=>
 String(
 user.username||
 user.displayName||
+user.name||
 ""
 )
 .toLowerCase()
@@ -7235,12 +7390,14 @@ searchText
 String(
 a.username||
 a.displayName||
+a.name||
 ""
 )
 .localeCompare(
 String(
 b.username||
 b.displayName||
+b.name||
 ""
 )
 )
@@ -7298,7 +7455,31 @@ result.className=
 const name=
 user.username||
 user.displayName||
+user.name||
 "Member";
+
+
+const photo=
+user.photoURL||
+user.photoUrl||
+user.profilePhoto||
+"";
+
+
+const avatarHTML=
+photo
+?
+`
+<img
+src="${escapeAttribute(photo)}"
+alt="${escapeAttribute(name)}"
+style="width:100%;height:100%;object-fit:cover;border-radius:50%;"
+>
+`
+:
+escapeHTML(
+name.charAt(0).toUpperCase()
+);
 
 
 result.innerHTML=`
@@ -7307,9 +7488,7 @@ result.innerHTML=`
 
 <div class="search-avatar">
 
-${escapeHTML(
-name.charAt(0).toUpperCase()
-)}
+${avatarHTML}
 
 </div>
 
