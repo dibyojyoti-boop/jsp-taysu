@@ -589,171 +589,160 @@ button{
 
 <div class="app">
 
-  <!-- =========================
-       INBOX
-  ========================== -->
+<section class="inbox" id="inbox">
 
-  <section class="inbox" id="inbox">
+<header class="inbox-header">
 
-    <header class="inbox-header">
+<button class="back-home" id="homeBackBtn" aria-label="Back">
 
-      <button class="back-home" id="homeBackBtn" aria-label="Back">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M15 18l-6-6 6-6"/>
+</svg>
 
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M15 18l-6-6 6-6"/>
-        </svg>
+</button>
 
-      </button>
+<h1>Messages</h1>
 
-      <h1>Messages</h1>
+</header>
 
-    </header>
+<div class="search-wrap">
 
-    <div class="search-wrap">
+<div class="search-box">
 
-      <div class="search-box">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<circle cx="11" cy="11" r="7"/>
+<path d="M20 20l-4-4"/>
+</svg>
 
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="7"/>
-          <path d="M20 20l-4-4"/>
-        </svg>
+<input
+id="userSearch"
+type="text"
+placeholder="Search members"
+autocomplete="off"
+>
 
-        <input
-          id="userSearch"
-          type="text"
-          placeholder="Search members"
-          autocomplete="off"
-        >
+</div>
 
-      </div>
+</div>
 
-    </div>
+<div class="content" id="inboxContent">
 
-    <div class="content" id="inboxContent">
+<div id="conversationSection">
 
-      <div id="conversationSection">
+<div class="section-title">Messages</div>
 
-        <div class="section-title">Messages</div>
+<div id="conversationList">
+<div class="loading">Loading messages...</div>
+</div>
 
-        <div id="conversationList">
-          <div class="loading">Loading messages...</div>
-        </div>
+</div>
 
-      </div>
+<div class="search-results" id="searchResults">
 
-      <div class="search-results" id="searchResults">
+<div class="section-title">Members</div>
 
-        <div class="section-title">Members</div>
+<div id="memberResults"></div>
 
-        <div id="memberResults"></div>
+</div>
 
-      </div>
+</div>
 
-    </div>
-
-  </section>
+</section>
 
 
-  <!-- =========================
-       CHAT
-  ========================== -->
+<section class="chat" id="chat">
 
-  <section class="chat" id="chat">
+<header class="chat-header">
 
-    <header class="chat-header">
+<button class="chat-back" id="chatBackBtn" aria-label="Back">
 
-      <button class="chat-back" id="chatBackBtn" aria-label="Back">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M15 18l-6-6 6-6"/>
+</svg>
 
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M15 18l-6-6 6-6"/>
-        </svg>
+</button>
 
-      </button>
+<div class="chat-user">
 
-      <div class="chat-user">
+<div class="avatar" id="chatAvatar"></div>
 
-        <div class="avatar" id="chatAvatar"></div>
+<div class="chat-user-name" id="chatUserName">
+Member
+</div>
 
-        <div class="chat-user-name" id="chatUserName">
-          Member
-        </div>
+</div>
 
-      </div>
+</header>
 
-    </header>
+<div class="messages" id="messages">
 
+<div class="loading">
+Loading conversation...
+</div>
 
-    <div class="messages" id="messages">
+</div>
 
-      <div class="loading">
-        Loading conversation...
-      </div>
+<div class="upload-status" id="uploadStatus">
 
-    </div>
+Sending photo...
 
+<div class="progress-line">
+<div class="progress-bar" id="progressBar"></div>
+</div>
 
-    <div class="upload-status" id="uploadStatus">
+</div>
 
-      Sending photo...
+<form class="composer" id="messageForm">
 
-      <div class="progress-line">
-        <div class="progress-bar" id="progressBar"></div>
-      </div>
+<button
+type="button"
+class="photo-button"
+id="photoButton"
+aria-label="Send photo"
+>
 
-    </div>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+<rect x="3" y="4" width="18" height="16" rx="3"/>
+<circle cx="8.5" cy="9" r="1.5"/>
+<path d="M3 16l5-5 4 4 2.5-2.5L21 18"/>
+</svg>
 
+</button>
 
-    <form class="composer" id="messageForm">
+<input
+type="file"
+id="photoInput"
+accept="image/*"
+hidden
+>
 
-      <button
-        type="button"
-        class="photo-button"
-        id="photoButton"
-        aria-label="Send photo"
-      >
+<input
+class="message-input"
+id="messageInput"
+type="text"
+placeholder="Message..."
+autocomplete="off"
+maxlength="2000"
+>
 
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <rect x="3" y="4" width="18" height="16" rx="3"/>
-          <circle cx="8.5" cy="9" r="1.5"/>
-          <path d="M3 16l5-5 4 4 2.5-2.5L21 18"/>
-        </svg>
+<button
+type="submit"
+class="send-button"
+id="sendButton"
+disabled
+aria-label="Send"
+>
 
-      </button>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M22 2L11 13"/>
+<path d="M22 2l-7 20-4-9-9-4z"/>
+</svg>
 
-      <input
-        type="file"
-        id="photoInput"
-        accept="image/*"
-        hidden
-      >
+</button>
 
-      <input
-        class="message-input"
-        id="messageInput"
-        type="text"
-        placeholder="Message..."
-        autocomplete="off"
-        maxlength="2000"
-      >
+</form>
 
-      <button
-        type="submit"
-        class="send-button"
-        id="sendButton"
-        disabled
-        aria-label="Send"
-      >
-
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M22 2L11 13"/>
-          <path d="M22 2l-7 20-4-9-9-4z"/>
-        </svg>
-
-      </button>
-
-    </form>
-
-  </section>
+</section>
 
 </div>
 
@@ -761,6 +750,7 @@ button{
 
 
 <script>
+
 /* =========================================================
    FIREBASE
 ========================================================= */
@@ -774,7 +764,9 @@ const firebaseConfig = {
   appId: "1:280992025632:web:48efa21208a78be9a78045"
 };
 
-firebase.initializeApp(firebaseConfig);
+if(!firebase.apps.length){
+  firebase.initializeApp(firebaseConfig);
+}
 
 const auth = firebase.auth();
 const db = firebase.firestore();
@@ -798,7 +790,8 @@ const IMAGEKIT_UPLOAD_URL =
    ELEMENTS
 ========================================================= */
 
-const chat = document.getElementById("chat");
+const chat =
+  document.getElementById("chat");
 
 const homeBackBtn =
   document.getElementById("homeBackBtn");
@@ -877,12 +870,15 @@ function showToast(text){
 
   clearTimeout(toastTimer);
 
-  toast.textContent = text;
+  toast.textContent =
+    String(text || "Something went wrong.");
+
   toast.classList.add("show");
 
-  toastTimer = setTimeout(() => {
-    toast.classList.remove("show");
-  }, 2400);
+  toastTimer =
+    setTimeout(() => {
+      toast.classList.remove("show");
+    }, 3000);
 
 }
 
@@ -895,12 +891,23 @@ auth.onAuthStateChanged(async user => {
 
   if(!user){
 
-    window.location.href = "index.html";
-    return;
+    currentUser = null;
 
+    showToast("Please sign in again.");
+
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 800);
+
+    return;
   }
 
   currentUser = user;
+
+  console.log(
+    "Authenticated user:",
+    currentUser.uid
+  );
 
   await loadConversations();
 
@@ -910,18 +917,45 @@ auth.onAuthStateChanged(async user => {
 
 
 /* =========================================================
+   GET CURRENT USER SAFELY
+========================================================= */
+
+function getCurrentUser(){
+
+  const user =
+    auth.currentUser || currentUser;
+
+  if(!user){
+    return null;
+  }
+
+  return user;
+
+}
+
+
+/* =========================================================
    URL PROFILE
 ========================================================= */
 
 function handleIncomingProfile(){
 
+  const user =
+    getCurrentUser();
+
+  if(!user){
+    return;
+  }
+
   const params =
-    new URLSearchParams(window.location.search);
+    new URLSearchParams(
+      window.location.search
+    );
 
   const uid =
     params.get("uid");
 
-  if(!uid || uid === currentUser.uid){
+  if(!uid || uid === user.uid){
     return;
   }
 
@@ -950,7 +984,10 @@ function avatarHTML(userData){
 
   const letter =
     escapeHTML(
-      String(name).trim().charAt(0).toUpperCase() || "M"
+      String(name)
+        .trim()
+        .charAt(0)
+        .toUpperCase() || "M"
     );
 
   if(photo){
@@ -994,7 +1031,10 @@ async function getUserData(uid){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "GET USER ERROR:",
+      error
+    );
 
   }
 
@@ -1025,19 +1065,31 @@ function conversationId(uid1,uid2){
 
 async function loadConversations(){
 
-  if(!currentUser) return;
+  const user =
+    getCurrentUser();
+
+  if(!user){
+    return;
+  }
 
   conversationList.innerHTML =
     `<div class="loading">Loading messages...</div>`;
 
   try{
 
+    if(conversationUnsubscribe){
+
+      conversationUnsubscribe();
+      conversationUnsubscribe = null;
+
+    }
+
     conversationUnsubscribe =
       db.collection("conversations")
         .where(
           "participants",
           "array-contains",
-          currentUser.uid
+          user.uid
         )
         .orderBy(
           "lastMessageAt",
@@ -1077,10 +1129,12 @@ async function loadConversations(){
               const otherUid =
                 (data.participants || [])
                   .find(
-                    uid => uid !== currentUser.uid
+                    uid => uid !== user.uid
                   );
 
-              if(!otherUid) continue;
+              if(!otherUid){
+                continue;
+              }
 
               const userData =
                 await getUserData(otherUid);
@@ -1163,7 +1217,10 @@ async function loadConversations(){
           },
           error => {
 
-            console.error(error);
+            console.error(
+              "CONVERSATION LIST ERROR:",
+              error
+            );
 
             conversationList.innerHTML = `
               <div class="empty">
@@ -1173,7 +1230,10 @@ async function loadConversations(){
                 </div>
 
                 <div class="empty-text">
-                  Please try again.
+                  ${escapeHTML(
+                    error.message ||
+                    "Please try again."
+                  )}
                 </div>
 
               </div>
@@ -1184,16 +1244,25 @@ async function loadConversations(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "LOAD CONVERSATIONS ERROR:",
+      error
+    );
 
     conversationList.innerHTML = `
       <div class="empty">
+
         <div class="empty-title">
           Couldn't load messages
         </div>
+
         <div class="empty-text">
-          Please try again.
+          ${escapeHTML(
+            error.message ||
+            "Please try again."
+          )}
         </div>
+
       </div>
     `;
 
@@ -1217,7 +1286,9 @@ userSearch.addEventListener(
 
     if(!value){
 
-      searchResults.classList.remove("active");
+      searchResults.classList.remove(
+        "active"
+      );
 
       conversationSection.style.display =
         "block";
@@ -1228,7 +1299,9 @@ userSearch.addEventListener(
 
     }
 
-    searchResults.classList.add("active");
+    searchResults.classList.add(
+      "active"
+    );
 
     conversationSection.style.display =
       "none";
@@ -1249,6 +1322,19 @@ userSearch.addEventListener(
 
 async function searchMembers(query){
 
+  const user =
+    getCurrentUser();
+
+  if(!user){
+
+    showToast(
+      "Please sign in again."
+    );
+
+    return;
+
+  }
+
   memberResults.innerHTML =
     `<div class="loading">Searching...</div>`;
 
@@ -1266,7 +1352,7 @@ async function searchMembers(query){
 
     snapshot.forEach(doc => {
 
-      if(doc.id === currentUser.uid){
+      if(doc.id === user.uid){
         return;
       }
 
@@ -1305,11 +1391,19 @@ async function searchMembers(query){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "SEARCH MEMBERS ERROR:",
+      error
+    );
 
     memberResults.innerHTML = `
       <div class="empty">
-        Couldn't search members.
+        <div class="empty-text">
+          ${escapeHTML(
+            error.message ||
+            "Couldn't search members."
+          )}
+        </div>
       </div>
     `;
 
@@ -1403,6 +1497,14 @@ function renderMemberResults(users){
 
 async function openChatByUid(uid){
 
+  const user =
+    getCurrentUser();
+
+  if(!user){
+    showToast("Please sign in again.");
+    return;
+  }
+
   const userData =
     await getUserData(uid);
 
@@ -1413,11 +1515,21 @@ async function openChatByUid(uid){
 
 function openChat(userData){
 
+  const user =
+    getCurrentUser();
+
   if(
-    !currentUser ||
-    !userData?.uid
+    !user ||
+    !userData?.uid ||
+    userData.uid === user.uid
   ){
+
+    showToast(
+      "Unable to open this chat."
+    );
+
     return;
+
   }
 
   activeChatUser =
@@ -1445,11 +1557,16 @@ function openChat(userData){
 
 function loadMessages(){
 
+  const user =
+    getCurrentUser();
+
   if(
     !activeChatUser ||
-    !currentUser
+    !user
   ){
+
     return;
+
   }
 
   if(messagesUnsubscribe){
@@ -1464,7 +1581,7 @@ function loadMessages(){
 
   const cid =
     conversationId(
-      currentUser.uid,
+      user.uid,
       activeChatUser.uid
     );
 
@@ -1525,16 +1642,25 @@ function loadMessages(){
         },
         error => {
 
-          console.error(error);
+          console.error(
+            "LOAD CHAT ERROR:",
+            error
+          );
 
           messages.innerHTML = `
             <div class="empty">
+
               <div class="empty-title">
                 Couldn't load messages
               </div>
+
               <div class="empty-text">
-                Please try again.
+                ${escapeHTML(
+                  error.message ||
+                  "Please try again."
+                )}
               </div>
+
             </div>
           `;
 
@@ -1550,8 +1676,15 @@ function loadMessages(){
 
 function renderMessage(data){
 
+  const user =
+    getCurrentUser();
+
+  if(!user){
+    return;
+  }
+
   const mine =
-    data.senderId === currentUser.uid;
+    data.senderId === user.uid;
 
   const row =
     document.createElement("div");
@@ -1610,7 +1743,7 @@ function renderMessage(data){
 
 
 /* =========================================================
-   SEND TEXT
+   INPUT
 ========================================================= */
 
 messageInput.addEventListener(
@@ -1618,11 +1751,17 @@ messageInput.addEventListener(
   () => {
 
     sendButton.disabled =
-      !messageInput.value.trim();
+      !messageInput.value.trim() ||
+      !getCurrentUser() ||
+      !activeChatUser;
 
   }
 );
 
+
+/* =========================================================
+   SEND FORM
+========================================================= */
 
 messageForm.addEventListener(
   "submit",
@@ -1633,10 +1772,7 @@ messageForm.addEventListener(
     const text =
       messageInput.value.trim();
 
-    if(
-      !text ||
-      !activeChatUser
-    ){
+    if(!text){
       return;
     }
 
@@ -1646,7 +1782,44 @@ messageForm.addEventListener(
 );
 
 
+/* =========================================================
+   SEND TEXT MESSAGE
+========================================================= */
+
 async function sendTextMessage(text){
+
+  const user =
+    getCurrentUser();
+
+  if(!user){
+
+    showToast(
+      "Your login session expired. Please sign in again."
+    );
+
+    return;
+
+  }
+
+  if(!activeChatUser?.uid){
+
+    showToast(
+      "Chat user not found."
+    );
+
+    return;
+
+  }
+
+  if(activeChatUser.uid === user.uid){
+
+    showToast(
+      "You can't message yourself."
+    );
+
+    return;
+
+  }
 
   sendButton.disabled = true;
 
@@ -1654,7 +1827,7 @@ async function sendTextMessage(text){
 
     const cid =
       conversationId(
-        currentUser.uid,
+        user.uid,
         activeChatUser.uid
       );
 
@@ -1672,16 +1845,13 @@ async function sendTextMessage(text){
         .serverTimestamp();
 
     /*
-      IMPORTANT:
-      The conversation document must exist BEFORE
-      the message is created because Firestore rules
-      use get() on the parent conversation.
+      First make sure the parent conversation exists.
     */
 
     await conversationRef.set({
 
       participants:[
-        currentUser.uid,
+        user.uid,
         activeChatUser.uid
       ],
 
@@ -1689,8 +1859,7 @@ async function sendTextMessage(text){
 
       lastMessageType:"text",
 
-      lastSenderId:
-        currentUser.uid,
+      lastSenderId:user.uid,
 
       lastMessageAt:now,
 
@@ -1701,16 +1870,14 @@ async function sendTextMessage(text){
     });
 
     /*
-      Now create the actual message.
+      Then create the message.
     */
 
     await messageRef.set({
 
-      senderId:
-        currentUser.uid,
+      senderId:user.uid,
 
-      receiverId:
-        activeChatUser.uid,
+      receiverId:activeChatUser.uid,
 
       text:text,
 
@@ -1722,7 +1889,11 @@ async function sendTextMessage(text){
 
     messageInput.value = "";
 
-    showToast("Message sent.");
+    sendButton.disabled = true;
+
+    showToast(
+      "Message sent."
+    );
 
   }catch(error){
 
@@ -1731,28 +1902,67 @@ async function sendTextMessage(text){
       error
     );
 
-    showToast(
-      error.message ||
-      "Couldn't send message."
-    );
+    let errorText =
+      "Couldn't send message.";
+
+    if(error?.code){
+
+      errorText =
+        error.code +
+        ": " +
+        (error.message || "");
+
+    }else if(error?.message){
+
+      errorText =
+        error.message;
+
+    }
+
+    showToast(errorText);
 
   }
-
-  sendButton.disabled =
-    !messageInput.value.trim();
 
 }
 
 
 /* =========================================================
-   PHOTO
+   PHOTO BUTTON
 ========================================================= */
 
 photoButton.addEventListener(
   "click",
-  () => photoInput.click()
+  () => {
+
+    if(!getCurrentUser()){
+
+      showToast(
+        "Please sign in again."
+      );
+
+      return;
+
+    }
+
+    if(!activeChatUser){
+
+      showToast(
+        "Open a chat first."
+      );
+
+      return;
+
+    }
+
+    photoInput.click();
+
+  }
 );
 
+
+/* =========================================================
+   PHOTO INPUT
+========================================================= */
 
 photoInput.addEventListener(
   "change",
@@ -1837,6 +2047,21 @@ function uploadToImageKit(
 
       try{
 
+        const user =
+          getCurrentUser();
+
+        if(!user){
+
+          reject(
+            new Error(
+              "Please sign in again."
+            )
+          );
+
+          return;
+
+        }
+
         const authData =
           await getImageKitAuth();
 
@@ -1889,7 +2114,7 @@ function uploadToImageKit(
         formData.append(
           "folder",
           "messages/" +
-          currentUser.uid
+          user.uid
         );
 
         const xhr =
@@ -1954,10 +2179,25 @@ function uploadToImageKit(
 
           }else{
 
+            let message =
+              "Image upload failed.";
+
+            try{
+
+              const result =
+                JSON.parse(
+                  xhr.responseText
+                );
+
+              message =
+                result.message ||
+                result.error ||
+                message;
+
+            }catch(error){}
+
             reject(
-              new Error(
-                "Image upload failed."
-              )
+              new Error(message)
             );
 
           }
@@ -1989,16 +2229,47 @@ function uploadToImageKit(
 
 
 /* =========================================================
-   SEND PHOTO
+   SEND PHOTO MESSAGE
 ========================================================= */
 
 async function sendPhotoMessage(file){
 
-  if(!activeChatUser){
+  const user =
+    getCurrentUser();
+
+  if(!user){
+
+    showToast(
+      "Your login session expired. Please sign in again."
+    );
+
     return;
+
   }
 
-  uploadStatus.classList.add("active");
+  if(!activeChatUser?.uid){
+
+    showToast(
+      "Chat user not found."
+    );
+
+    return;
+
+  }
+
+  if(activeChatUser.uid === user.uid){
+
+    showToast(
+      "You can't message yourself."
+    );
+
+    return;
+
+  }
+
+  uploadStatus.classList.add(
+    "active"
+  );
 
   progressBar.style.width =
     "0%";
@@ -2018,7 +2289,7 @@ async function sendPhotoMessage(file){
 
     const cid =
       conversationId(
-        currentUser.uid,
+        user.uid,
         activeChatUser.uid
       );
 
@@ -2036,14 +2307,13 @@ async function sendPhotoMessage(file){
         .serverTimestamp();
 
     /*
-      IMPORTANT:
-      Create/update parent conversation FIRST.
+      Parent conversation first.
     */
 
     await conversationRef.set({
 
       participants:[
-        currentUser.uid,
+        user.uid,
         activeChatUser.uid
       ],
 
@@ -2051,8 +2321,7 @@ async function sendPhotoMessage(file){
 
       lastMessageType:"image",
 
-      lastSenderId:
-        currentUser.uid,
+      lastSenderId:user.uid,
 
       lastMessageAt:now,
 
@@ -2063,16 +2332,14 @@ async function sendPhotoMessage(file){
     });
 
     /*
-      Then create the image message.
+      Then image message.
     */
 
     await messageRef.set({
 
-      senderId:
-        currentUser.uid,
+      senderId:user.uid,
 
-      receiverId:
-        activeChatUser.uid,
+      receiverId:activeChatUser.uid,
 
       type:"image",
 
@@ -2082,7 +2349,9 @@ async function sendPhotoMessage(file){
 
     });
 
-    showToast("Photo sent.");
+    showToast(
+      "Photo sent."
+    );
 
   }catch(error){
 
@@ -2091,10 +2360,24 @@ async function sendPhotoMessage(file){
       error
     );
 
-    showToast(
-      error.message ||
-      "Couldn't send photo."
-    );
+    let errorText =
+      "Couldn't send photo.";
+
+    if(error?.code){
+
+      errorText =
+        error.code +
+        ": " +
+        (error.message || "");
+
+    }else if(error?.message){
+
+      errorText =
+        error.message;
+
+    }
+
+    showToast(errorText);
 
   }finally{
 
@@ -2129,9 +2412,13 @@ chatBackBtn.addEventListener(
 
 function closeChat(){
 
-  chat.classList.remove("open");
+  chat.classList.remove(
+    "open"
+  );
 
   activeChatUser = null;
+
+  sendButton.disabled = true;
 
   if(messagesUnsubscribe){
 
@@ -2256,6 +2543,7 @@ window.addEventListener(
 
   }
 );
+
 </script>
 
 </body>
