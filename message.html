@@ -17,7 +17,8 @@
   -webkit-tap-highlight-color:transparent;
 }
 
-html,body{
+html,
+body{
   width:100%;
   height:100%;
   background:#08090c;
@@ -29,7 +30,8 @@ body{
   overflow:hidden;
 }
 
-button,input{
+button,
+input{
   font:inherit;
 }
 
@@ -161,7 +163,7 @@ button{
   align-items:center;
   gap:13px;
   padding:10px 16px;
-  transition:background .15s;
+  transition:background .12s ease;
 }
 
 .conversation:active{
@@ -247,11 +249,8 @@ button{
 .empty-text{
   font-size:14px;
   line-height:1.5;
+  overflow-wrap:anywhere;
 }
-
-/* =========================
-   SEARCH RESULTS
-========================= */
 
 .search-results{
   display:none;
@@ -272,7 +271,7 @@ button{
   flex-direction:column;
   background:#08090c;
   transform:translateX(100%);
-  transition:transform .28s cubic-bezier(.2,.8,.2,1);
+  transition:transform .24s cubic-bezier(.2,.8,.2,1);
   z-index:20;
 }
 
@@ -333,6 +332,7 @@ button{
 
 .messages{
   flex:1;
+  min-height:0;
   overflow-y:auto;
   padding:18px 13px 13px;
   display:flex;
@@ -372,6 +372,19 @@ button{
   width:100%;
   display:flex;
   align-items:flex-end;
+  gap:2px;
+  animation:messageIn .12s ease-out;
+}
+
+@keyframes messageIn{
+  from{
+    opacity:0;
+    transform:translateY(3px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 .message-row.mine{
@@ -382,13 +395,23 @@ button{
   justify-content:flex-start;
 }
 
+.message-content{
+  display:block;
+  min-width:0;
+  max-width:78%;
+}
+
 .message-bubble{
-  max-width:76%;
+  display:block;
+  width:max-content;
+  max-width:100%;
   padding:10px 13px;
   border-radius:19px;
   font-size:15px;
   line-height:1.4;
-  word-break:break-word;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  word-break:normal;
 }
 
 .mine .message-bubble{
@@ -423,9 +446,11 @@ button{
 }
 
 .message-time{
+  flex:none;
   font-size:9px;
   color:#6f727a;
-  margin:0 5px 2px;
+  margin:0 4px 2px;
+  white-space:nowrap;
 }
 
 /* Composer */
@@ -487,10 +512,11 @@ button{
   justify-content:center;
   background:#1677e8;
   color:#fff;
+  transition:transform .1s ease,opacity .15s ease;
 }
 
 .send-button:active{
-  transform:scale(.95);
+  transform:scale(.94);
 }
 
 .send-button:disabled{
@@ -534,7 +560,7 @@ button{
   width:0;
   height:100%;
   background:#2387ff;
-  transition:width .1s linear;
+  transition:width .08s linear;
 }
 
 /* Toast */
@@ -551,10 +577,11 @@ button{
   font-size:13px;
   opacity:0;
   pointer-events:none;
-  transition:.2s ease;
+  transition:.18s ease;
   z-index:100;
-  max-width:85%;
+  max-width:90%;
   text-align:center;
+  overflow-wrap:anywhere;
 }
 
 .toast.show{
@@ -756,12 +783,12 @@ aria-label="Send"
 ========================================================= */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
-  authDomain: "jsp-taysu.firebaseapp.com",
-  projectId: "jsp-taysu",
-  storageBucket: "jsp-taysu.firebasestorage.app",
-  messagingSenderId: "280992025632",
-  appId: "1:280992025632:web:48efa21208a78be9a78045"
+  apiKey:"AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
+  authDomain:"jsp-taysu.firebaseapp.com",
+  projectId:"jsp-taysu",
+  storageBucket:"jsp-taysu.firebasestorage.app",
+  messagingSenderId:"280992025632",
+  appId:"1:280992025632:web:48efa21208a78be9a78045"
 };
 
 if(!firebase.apps.length){
@@ -861,6 +888,8 @@ let conversationUnsubscribe = null;
 let searchTimer = null;
 let toastTimer = null;
 
+let optimisticMessageIds = new Set();
+
 
 /* =========================================================
    TOAST
@@ -878,7 +907,7 @@ function showToast(text){
   toastTimer =
     setTimeout(() => {
       toast.classList.remove("show");
-    }, 3000);
+    },3000);
 
 }
 
@@ -893,11 +922,13 @@ auth.onAuthStateChanged(async user => {
 
     currentUser = null;
 
-    showToast("Please sign in again.");
+    showToast(
+      "Please sign in again."
+    );
 
     setTimeout(() => {
       window.location.href = "index.html";
-    }, 800);
+    },800);
 
     return;
   }
@@ -905,7 +936,7 @@ auth.onAuthStateChanged(async user => {
   currentUser = user;
 
   console.log(
-    "Authenticated user:",
+    "Authenticated:",
     currentUser.uid
   );
 
@@ -917,19 +948,12 @@ auth.onAuthStateChanged(async user => {
 
 
 /* =========================================================
-   GET CURRENT USER SAFELY
+   SAFE CURRENT USER
 ========================================================= */
 
 function getCurrentUser(){
 
-  const user =
-    auth.currentUser || currentUser;
-
-  if(!user){
-    return null;
-  }
-
-  return user;
+  return auth.currentUser || currentUser || null;
 
 }
 
@@ -1061,6 +1085,7 @@ function conversationId(uid1,uid2){
 
 /* =========================================================
    LOAD CONVERSATIONS
+   No orderBy = no composite index required.
 ========================================================= */
 
 async function loadConversations(){
@@ -1072,17 +1097,17 @@ async function loadConversations(){
     return;
   }
 
+  if(conversationUnsubscribe){
+
+    conversationUnsubscribe();
+    conversationUnsubscribe = null;
+
+  }
+
   conversationList.innerHTML =
     `<div class="loading">Loading messages...</div>`;
 
   try{
-
-    if(conversationUnsubscribe){
-
-      conversationUnsubscribe();
-      conversationUnsubscribe = null;
-
-    }
 
     conversationUnsubscribe =
       db.collection("conversations")
@@ -1090,10 +1115,6 @@ async function loadConversations(){
           "participants",
           "array-contains",
           user.uid
-        )
-        .orderBy(
-          "lastMessageAt",
-          "desc"
         )
         .onSnapshot(
           async snapshot => {
@@ -1118,8 +1139,7 @@ async function loadConversations(){
 
             }
 
-            const fragment =
-              document.createDocumentFragment();
+            const conversations = [];
 
             for(const doc of snapshot.docs){
 
@@ -1135,6 +1155,44 @@ async function loadConversations(){
               if(!otherUid){
                 continue;
               }
+
+              conversations.push({
+                doc,
+                data,
+                otherUid
+              });
+
+            }
+
+            /* Client-side sorting */
+            conversations.sort(
+              (a,b) => {
+
+                const aTime =
+                  a.data.lastMessageAt?.toMillis
+                    ? a.data.lastMessageAt.toMillis()
+                    : 0;
+
+                const bTime =
+                  b.data.lastMessageAt?.toMillis
+                    ? b.data.lastMessageAt.toMillis()
+                    : 0;
+
+                return bTime - aTime;
+
+              }
+            );
+
+            const fragment =
+              document.createDocumentFragment();
+
+            for(const itemData of conversations){
+
+              const data =
+                itemData.data;
+
+              const otherUid =
+                itemData.otherUid;
 
               const userData =
                 await getUserData(otherUid);
@@ -1180,7 +1238,8 @@ async function loadConversations(){
 
                   <div class="last-message">
                     ${escapeHTML(
-                      preview || "Start a conversation"
+                      preview ||
+                      "Start a conversation"
                     )}
                   </div>
 
@@ -1212,7 +1271,9 @@ async function loadConversations(){
 
             conversationList.innerHTML = "";
 
-            conversationList.appendChild(fragment);
+            conversationList.appendChild(
+              fragment
+            );
 
           },
           error => {
@@ -1309,7 +1370,7 @@ userSearch.addEventListener(
     searchTimer =
       setTimeout(
         () => searchMembers(value),
-        300
+        250
       );
 
   }
@@ -1398,12 +1459,14 @@ async function searchMembers(query){
 
     memberResults.innerHTML = `
       <div class="empty">
+
         <div class="empty-text">
           ${escapeHTML(
             error.message ||
             "Couldn't search members."
           )}
         </div>
+
       </div>
     `;
 
@@ -1501,7 +1564,16 @@ async function openChatByUid(uid){
     getCurrentUser();
 
   if(!user){
-    showToast("Please sign in again.");
+
+    showToast(
+      "Please sign in again."
+    );
+
+    return;
+
+  }
+
+  if(uid === user.uid){
     return;
   }
 
@@ -1631,6 +1703,15 @@ function loadMessages(){
 
           snapshot.forEach(doc => {
 
+            /*
+              Remove optimistic duplicate once
+              the real Firestore document appears.
+            */
+
+            optimisticMessageIds.delete(
+              doc.id
+            );
+
             renderMessage(
               doc.data()
             );
@@ -1693,15 +1774,18 @@ function renderMessage(data){
     "message-row " +
     (mine ? "mine" : "theirs");
 
-  const wrapper =
+  const content =
     document.createElement("div");
+
+  content.className =
+    "message-content";
 
   if(
     data.type === "image" &&
     data.imageUrl
   ){
 
-    wrapper.innerHTML = `
+    content.innerHTML = `
       <img
         class="message-image"
         src="${escapeAttribute(data.imageUrl)}"
@@ -1712,7 +1796,7 @@ function renderMessage(data){
 
   }else{
 
-    wrapper.innerHTML = `
+    content.innerHTML = `
       <div class="message-bubble">
         ${escapeHTML(data.text || "")}
       </div>
@@ -1720,7 +1804,7 @@ function renderMessage(data){
 
   }
 
-  row.appendChild(wrapper);
+  row.appendChild(content);
 
   if(data.createdAt){
 
@@ -1743,20 +1827,77 @@ function renderMessage(data){
 
 
 /* =========================================================
+   OPTIMISTIC TEXT MESSAGE
+========================================================= */
+
+function renderOptimisticText(
+  text,
+  user
+){
+
+  const row =
+    document.createElement("div");
+
+  row.className =
+    "message-row mine";
+
+  row.dataset.optimistic = "true";
+
+  const content =
+    document.createElement("div");
+
+  content.className =
+    "message-content";
+
+  content.innerHTML = `
+    <div class="message-bubble">
+      ${escapeHTML(text)}
+    </div>
+  `;
+
+  row.appendChild(content);
+
+  const time =
+    document.createElement("div");
+
+  time.className =
+    "message-time";
+
+  time.textContent =
+    "Sending";
+
+  row.appendChild(time);
+
+  messages.appendChild(row);
+
+  scrollMessages();
+
+  return row;
+
+}
+
+
+/* =========================================================
    INPUT
 ========================================================= */
 
 messageInput.addEventListener(
   "input",
-  () => {
-
-    sendButton.disabled =
-      !messageInput.value.trim() ||
-      !getCurrentUser() ||
-      !activeChatUser;
-
-  }
+  updateSendButton
 );
+
+
+function updateSendButton(){
+
+  const user =
+    getCurrentUser();
+
+  sendButton.disabled =
+    !messageInput.value.trim() ||
+    !user ||
+    !activeChatUser;
+
+}
 
 
 /* =========================================================
@@ -1821,7 +1962,23 @@ async function sendTextMessage(text){
 
   }
 
-  sendButton.disabled = true;
+  /*
+    Save the input before clearing it.
+  */
+
+  messageInput.value = "";
+
+  updateSendButton();
+
+  /*
+    Show immediately.
+  */
+
+  const optimisticRow =
+    renderOptimisticText(
+      text,
+      user
+    );
 
   try{
 
@@ -1845,7 +2002,7 @@ async function sendTextMessage(text){
         .serverTimestamp();
 
     /*
-      First make sure the parent conversation exists.
+      Parent conversation first.
     */
 
     await conversationRef.set({
@@ -1870,7 +2027,7 @@ async function sendTextMessage(text){
     });
 
     /*
-      Then create the message.
+      Then actual message.
     */
 
     await messageRef.set({
@@ -1887,13 +2044,19 @@ async function sendTextMessage(text){
 
     });
 
-    messageInput.value = "";
+    /*
+      Firestore listener will now render
+      the real message. Remove optimistic row.
+    */
 
-    sendButton.disabled = true;
+    if(
+      optimisticRow &&
+      optimisticRow.parentNode
+    ){
 
-    showToast(
-      "Message sent."
-    );
+      optimisticRow.remove();
+
+    }
 
   }catch(error){
 
@@ -1902,24 +2065,32 @@ async function sendTextMessage(text){
       error
     );
 
-    let errorText =
-      "Couldn't send message.";
+    /*
+      Remove optimistic message if failed.
+    */
 
-    if(error?.code){
+    if(
+      optimisticRow &&
+      optimisticRow.parentNode
+    ){
 
-      errorText =
-        error.code +
-        ": " +
-        (error.message || "");
-
-    }else if(error?.message){
-
-      errorText =
-        error.message;
+      optimisticRow.remove();
 
     }
 
+    const errorText =
+      error?.code
+        ? error.code +
+          ": " +
+          (error.message || "")
+        : (
+            error?.message ||
+            "Couldn't send message."
+          );
+
     showToast(errorText);
+
+    updateSendButton();
 
   }
 
@@ -1927,7 +2098,7 @@ async function sendTextMessage(text){
 
 
 /* =========================================================
-   PHOTO BUTTON
+   PHOTO
 ========================================================= */
 
 photoButton.addEventListener(
@@ -2257,16 +2428,6 @@ async function sendPhotoMessage(file){
 
   }
 
-  if(activeChatUser.uid === user.uid){
-
-    showToast(
-      "You can't message yourself."
-    );
-
-    return;
-
-  }
-
   uploadStatus.classList.add(
     "active"
   );
@@ -2306,10 +2467,6 @@ async function sendPhotoMessage(file){
       firebase.firestore.FieldValue
         .serverTimestamp();
 
-    /*
-      Parent conversation first.
-    */
-
     await conversationRef.set({
 
       participants:[
@@ -2330,10 +2487,6 @@ async function sendPhotoMessage(file){
     },{
       merge:true
     });
-
-    /*
-      Then image message.
-    */
 
     await messageRef.set({
 
@@ -2360,22 +2513,15 @@ async function sendPhotoMessage(file){
       error
     );
 
-    let errorText =
-      "Couldn't send photo.";
-
-    if(error?.code){
-
-      errorText =
-        error.code +
-        ": " +
-        (error.message || "");
-
-    }else if(error?.message){
-
-      errorText =
-        error.message;
-
-    }
+    const errorText =
+      error?.code
+        ? error.code +
+          ": " +
+          (error.message || "")
+        : (
+            error?.message ||
+            "Couldn't send photo."
+          );
 
     showToast(errorText);
 
@@ -2392,7 +2538,7 @@ async function sendPhotoMessage(file){
           "0%";
 
       },
-      300
+      250
     );
 
   }
@@ -2473,6 +2619,7 @@ function scrollMessages(){
 
 /* =========================================================
    TIME
+   12-hour format
 ========================================================= */
 
 function formatTime(timestamp){
@@ -2480,7 +2627,7 @@ function formatTime(timestamp){
   try{
 
     const date =
-      timestamp.toDate
+      timestamp?.toDate
         ? timestamp.toDate()
         : new Date(timestamp);
 
@@ -2488,7 +2635,8 @@ function formatTime(timestamp){
       [],
       {
         hour:"numeric",
-        minute:"2-digit"
+        minute:"2-digit",
+        hour12:true
       }
     );
 
