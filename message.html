@@ -1,0 +1,2083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Messages • JSP TAYSU</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  width:100%;
+  height:100%;
+  background:#fff;
+  color:#17181c;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+}
+
+body{
+  overflow:hidden;
+}
+
+button,input{
+  font:inherit;
+}
+
+button{
+  border:0;
+  background:none;
+  cursor:pointer;
+}
+
+.app{
+  width:100%;
+  height:100dvh;
+  position:relative;
+  overflow:hidden;
+  background:#fff;
+}
+
+/* =========================
+   INBOX
+========================= */
+
+.inbox{
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  background:#fff;
+}
+
+.inbox-header{
+  height:62px;
+  min-height:62px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  border-bottom:1px solid #eeeeee;
+  background:#fff;
+}
+
+.inbox-header h1{
+  font-size:20px;
+  font-weight:700;
+}
+
+.back-home{
+  position:absolute;
+  left:15px;
+  width:38px;
+  height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+}
+
+.back-home:active{
+  background:#f2f2f2;
+}
+
+.back-home svg{
+  width:23px;
+  height:23px;
+}
+
+.search-wrap{
+  padding:12px 15px 8px;
+}
+
+.search-box{
+  height:43px;
+  width:100%;
+  border-radius:12px;
+  background:#f2f3f5;
+  display:flex;
+  align-items:center;
+  padding:0 13px;
+  gap:9px;
+}
+
+.search-box svg{
+  width:19px;
+  height:19px;
+  flex:none;
+  color:#73767c;
+}
+
+.search-box input{
+  border:0;
+  outline:0;
+  width:100%;
+  background:transparent;
+  font-size:15px;
+  color:#17181c;
+}
+
+.search-box input::placeholder{
+  color:#8b8e94;
+}
+
+.content{
+  flex:1;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+.section-title{
+  padding:12px 16px 8px;
+  font-size:14px;
+  font-weight:700;
+  color:#55585e;
+}
+
+.conversation{
+  width:100%;
+  min-height:74px;
+  display:flex;
+  align-items:center;
+  padding:9px 16px;
+  gap:13px;
+}
+
+.conversation:active{
+  background:#f7f7f7;
+}
+
+.avatar{
+  width:53px;
+  height:53px;
+  min-width:53px;
+  border-radius:50%;
+  overflow:hidden;
+  background:#e8e9ec;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  font-weight:700;
+  color:#70747b;
+}
+
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.conversation-info{
+  flex:1;
+  min-width:0;
+}
+
+.conversation-name{
+  font-size:15px;
+  font-weight:650;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.last-message{
+  margin-top:4px;
+  font-size:13px;
+  color:#777a80;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.unread .conversation-name{
+  font-weight:750;
+  color:#111;
+}
+
+.unread .last-message{
+  color:#222;
+  font-weight:600;
+}
+
+.unread-dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#1877f2;
+  flex:none;
+}
+
+.empty{
+  padding:65px 25px;
+  text-align:center;
+  color:#777a80;
+}
+
+.empty-title{
+  color:#222;
+  font-size:18px;
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+.empty-text{
+  font-size:14px;
+  line-height:1.5;
+}
+
+.search-results{
+  display:none;
+}
+
+.search-results.active{
+  display:block;
+}
+
+/* =========================
+   CHAT
+========================= */
+
+.chat{
+  position:absolute;
+  inset:0;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  transform:translateX(100%);
+  transition:transform .28s ease;
+  z-index:20;
+}
+
+.chat.open{
+  transform:translateX(0);
+}
+
+.chat-header{
+  min-height:74px;
+  height:74px;
+  border-bottom:1px solid #eeeeee;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  background:#fff;
+  z-index:3;
+}
+
+.chat-back{
+  position:absolute;
+  left:11px;
+  width:42px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+}
+
+.chat-back:active{
+  background:#f2f2f2;
+}
+
+.chat-back svg{
+  width:24px;
+  height:24px;
+}
+
+.chat-user{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  max-width:180px;
+}
+
+.chat-user .avatar{
+  width:38px;
+  height:38px;
+  min-width:38px;
+  font-size:15px;
+}
+
+.chat-user-name{
+  margin-top:3px;
+  font-size:12px;
+  font-weight:650;
+  max-width:170px;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+.messages{
+  flex:1;
+  overflow-y:auto;
+  padding:18px 14px 12px;
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  background:#fff;
+  -webkit-overflow-scrolling:touch;
+}
+
+.start-chat{
+  margin:auto;
+  text-align:center;
+  color:#777a80;
+}
+
+.start-chat .avatar{
+  width:82px;
+  height:82px;
+  min-width:82px;
+  margin:0 auto 10px;
+  font-size:29px;
+}
+
+.start-chat-name{
+  color:#17181c;
+  font-size:18px;
+  font-weight:700;
+  margin-bottom:4px;
+}
+
+.start-chat-text{
+  font-size:13px;
+}
+
+.message-row{
+  width:100%;
+  display:flex;
+}
+
+.message-row.mine{
+  justify-content:flex-end;
+}
+
+.message-row.theirs{
+  justify-content:flex-start;
+}
+
+.message-bubble{
+  max-width:76%;
+  padding:10px 13px;
+  border-radius:19px;
+  font-size:15px;
+  line-height:1.35;
+  word-break:break-word;
+}
+
+.mine .message-bubble{
+  background:#1877f2;
+  color:#fff;
+  border-bottom-right-radius:6px;
+}
+
+.theirs .message-bubble{
+  background:#f0f1f3;
+  color:#17181c;
+  border-bottom-left-radius:6px;
+}
+
+.message-image{
+  max-width:240px;
+  max-height:300px;
+  border-radius:17px;
+  display:block;
+  object-fit:cover;
+  background:#eee;
+}
+
+.mine .message-image{
+  border-bottom-right-radius:6px;
+}
+
+.theirs .message-image{
+  border-bottom-left-radius:6px;
+}
+
+.message-time{
+  font-size:10px;
+  margin-top:4px;
+  opacity:.55;
+  padding:0 4px;
+}
+
+.composer{
+  min-height:66px;
+  padding:9px 11px calc(9px + env(safe-area-inset-bottom));
+  border-top:1px solid #eeeeee;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:#fff;
+}
+
+.photo-button{
+  width:42px;
+  height:42px;
+  min-width:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  color:#1877f2;
+}
+
+.photo-button:active{
+  background:#f1f5ff;
+}
+
+.photo-button svg{
+  width:23px;
+  height:23px;
+}
+
+.message-input{
+  flex:1;
+  min-width:0;
+  height:43px;
+  border:0;
+  outline:0;
+  border-radius:22px;
+  background:#f1f2f4;
+  padding:0 15px;
+  font-size:15px;
+}
+
+.send-button{
+  width:43px;
+  height:43px;
+  min-width:43px;
+  border-radius:50%;
+  background:#1877f2;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.send-button:disabled{
+  opacity:.45;
+}
+
+.send-button svg{
+  width:20px;
+  height:20px;
+}
+
+.upload-status{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:66px;
+  padding:7px 15px;
+  background:#fff;
+  border-top:1px solid #eee;
+  display:none;
+  font-size:12px;
+  color:#555;
+}
+
+.upload-status.active{
+  display:block;
+}
+
+.progress-line{
+  height:3px;
+  background:#e9e9e9;
+  margin-top:5px;
+  border-radius:5px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  width:0%;
+  height:100%;
+  background:#1877f2;
+  transition:width .1s linear;
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:85px;
+  transform:translateX(-50%) translateY(15px);
+  background:#17181c;
+  color:#fff;
+  padding:10px 16px;
+  border-radius:10px;
+  font-size:13px;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s ease;
+  z-index:100;
+  max-width:85%;
+  text-align:center;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loading{
+  padding:35px;
+  text-align:center;
+  color:#777;
+  font-size:14px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(min-width:700px){
+  .inbox,
+  .chat{
+    max-width:600px;
+    margin:auto;
+    border-left:1px solid #eee;
+    border-right:1px solid #eee;
+  }
+
+  .app{
+    background:#f7f7f8;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- =========================
+       INBOX
+  ========================== -->
+
+  <section class="inbox" id="inbox">
+
+    <header class="inbox-header">
+
+      <button class="back-home" id="homeBackBtn" aria-label="Back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+
+      <h1>Messages</h1>
+
+    </header>
+
+    <div class="search-wrap">
+
+      <div class="search-box">
+
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="M20 20l-4-4"/>
+        </svg>
+
+        <input
+          id="userSearch"
+          type="text"
+          placeholder="Search members"
+          autocomplete="off"
+        >
+
+      </div>
+
+    </div>
+
+    <div class="content" id="inboxContent">
+
+      <div id="conversationSection">
+
+        <div class="section-title">Messages</div>
+
+        <div id="conversationList">
+          <div class="loading">Loading messages...</div>
+        </div>
+
+      </div>
+
+      <div class="search-results" id="searchResults">
+
+        <div class="section-title">Members</div>
+
+        <div id="memberResults"></div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CHAT
+  ========================== -->
+
+  <section class="chat" id="chat">
+
+    <header class="chat-header">
+
+      <button class="chat-back" id="chatBackBtn" aria-label="Back">
+
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+
+      </button>
+
+      <div class="chat-user">
+
+        <div class="avatar" id="chatAvatar"></div>
+
+        <div class="chat-user-name" id="chatUserName">
+          Member
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <div class="messages" id="messages">
+
+      <div class="loading">
+        Loading conversation...
+      </div>
+
+    </div>
+
+
+    <div class="upload-status" id="uploadStatus">
+
+      Sending photo...
+      
+      <div class="progress-line">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+
+    </div>
+
+
+    <form class="composer" id="messageForm">
+
+      <button
+        type="button"
+        class="photo-button"
+        id="photoButton"
+        aria-label="Send photo"
+      >
+
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="3" y="4" width="18" height="16" rx="3"/>
+          <circle cx="8.5" cy="9" r="1.5"/>
+          <path d="M3 16l5-5 4 4 2.5-2.5L21 18"/>
+        </svg>
+
+      </button>
+
+      <input
+        type="file"
+        id="photoInput"
+        accept="image/*"
+        hidden
+      >
+
+      <input
+        class="message-input"
+        id="messageInput"
+        type="text"
+        placeholder="Message..."
+        autocomplete="off"
+        maxlength="2000"
+      >
+
+      <button
+        type="submit"
+        class="send-button"
+        id="sendButton"
+        disabled
+        aria-label="Send"
+      >
+
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 2L11 13"/>
+          <path d="M22 2l-7 20-4-9-9-4z"/>
+        </svg>
+
+      </button>
+
+    </form>
+
+  </section>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+/* =========================================================
+   FIREBASE
+========================================================= */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDpv2vqAZbCFgT_XJ4u-KB0AeZWVB2GIUs",
+  authDomain: "jsp-taysu.firebaseapp.com",
+  projectId: "jsp-taysu",
+  storageBucket: "jsp-taysu.firebasestorage.app",
+  messagingSenderId: "280992025632",
+  appId: "1:280992025632:web:48efa21208a78be9a78045"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+
+/* =========================================================
+   IMAGEKIT
+========================================================= */
+
+const IMAGEKIT_PUBLIC_KEY =
+  "public_3h6iOJBuIST7Aphxt+20NsXp4q4=";
+
+const IMAGEKIT_AUTH_URL =
+  "https://jsp-taysu.vercel.app/api/imagekit-auth";
+
+const IMAGEKIT_UPLOAD_URL =
+  "https://upload.imagekit.io/api/v1/files/upload";
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const inbox = document.getElementById("inbox");
+const chat = document.getElementById("chat");
+
+const homeBackBtn = document.getElementById("homeBackBtn");
+const chatBackBtn = document.getElementById("chatBackBtn");
+
+const userSearch = document.getElementById("userSearch");
+const conversationList = document.getElementById("conversationList");
+
+const conversationSection =
+  document.getElementById("conversationSection");
+
+const searchResults =
+  document.getElementById("searchResults");
+
+const memberResults =
+  document.getElementById("memberResults");
+
+const chatAvatar =
+  document.getElementById("chatAvatar");
+
+const chatUserName =
+  document.getElementById("chatUserName");
+
+const messages =
+  document.getElementById("messages");
+
+const messageForm =
+  document.getElementById("messageForm");
+
+const messageInput =
+  document.getElementById("messageInput");
+
+const sendButton =
+  document.getElementById("sendButton");
+
+const photoButton =
+  document.getElementById("photoButton");
+
+const photoInput =
+  document.getElementById("photoInput");
+
+const uploadStatus =
+  document.getElementById("uploadStatus");
+
+const progressBar =
+  document.getElementById("progressBar");
+
+const toast =
+  document.getElementById("toast");
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let currentUser = null;
+
+let activeChatUser = null;
+
+let messagesUnsubscribe = null;
+
+let conversationUnsubscribe = null;
+
+let searchTimer = null;
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+function showToast(text){
+
+  clearTimeout(toastTimer);
+
+  toast.textContent = text;
+  toast.classList.add("show");
+
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2500);
+}
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+auth.onAuthStateChanged(async user => {
+
+  if(!user){
+
+    window.location.href = "index.html";
+    return;
+
+  }
+
+  currentUser = user;
+
+  await loadConversations();
+
+  handleIncomingProfile();
+
+});
+
+
+/* =========================================================
+   PROFILE FROM URL
+========================================================= */
+
+function handleIncomingProfile(){
+
+  const params = new URLSearchParams(window.location.search);
+
+  const uid = params.get("uid");
+
+  if(!uid || uid === currentUser.uid){
+    return;
+  }
+
+  openChatByUid(uid);
+}
+
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+function avatarHTML(userData, sizeClass = ""){
+
+  const photo =
+    userData?.photoURL ||
+    userData?.photoUrl ||
+    userData?.profilePhoto ||
+    "";
+
+  const name =
+    userData?.displayName ||
+    userData?.name ||
+    userData?.username ||
+    "M";
+
+  const letter =
+    escapeHTML(
+      String(name).trim().charAt(0).toUpperCase() || "M"
+    );
+
+  if(photo){
+
+    return `
+      <img
+        src="${escapeAttribute(photo)}"
+        alt=""
+        loading="lazy"
+      >
+    `;
+
+  }
+
+  return letter;
+}
+
+
+/* =========================================================
+   LOAD CURRENT USER DATA
+========================================================= */
+
+async function getUserData(uid){
+
+  try{
+
+    const snap =
+      await db.collection("users").doc(uid).get();
+
+    if(snap.exists){
+
+      return {
+        uid,
+        ...snap.data()
+      };
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+  return {
+    uid,
+    displayName: "Member"
+  };
+}
+
+
+/* =========================================================
+   CONVERSATION ID
+========================================================= */
+
+function conversationId(uid1, uid2){
+
+  return [uid1, uid2].sort().join("_");
+
+}
+
+
+/* =========================================================
+   LOAD CONVERSATIONS
+========================================================= */
+
+async function loadConversations(){
+
+  if(!currentUser) return;
+
+  conversationList.innerHTML =
+    `<div class="loading">Loading messages...</div>`;
+
+  try{
+
+    /*
+      Conversations are stored as:
+
+      conversations/{conversationId}
+
+      {
+        participants: [uid1,uid2],
+        lastMessage,
+        lastMessageAt,
+        lastSenderId
+      }
+    */
+
+    conversationUnsubscribe =
+      db.collection("conversations")
+        .where("participants", "array-contains", currentUser.uid)
+        .orderBy("lastMessageAt", "desc")
+        .onSnapshot(async snapshot => {
+
+          if(snapshot.empty){
+
+            conversationList.innerHTML = `
+              <div class="empty">
+                <div class="empty-title">No messages yet</div>
+                <div class="empty-text">
+                  Search for a member and start a conversation.
+                </div>
+              </div>
+            `;
+
+            return;
+          }
+
+          const fragment =
+            document.createDocumentFragment();
+
+          for(const doc of snapshot.docs){
+
+            const data = doc.data();
+
+            const otherUid =
+              (data.participants || [])
+                .find(uid => uid !== currentUser.uid);
+
+            if(!otherUid) continue;
+
+            const userData =
+              await getUserData(otherUid);
+
+            const item =
+              document.createElement("div");
+
+            item.className = "conversation";
+
+            const unread =
+              data.lastSenderId === otherUid &&
+              data.seenByCurrentUser !== true;
+
+            if(unread){
+              item.classList.add("unread");
+            }
+
+            let preview =
+              data.lastMessage || "";
+
+            if(data.lastMessageType === "image"){
+              preview = "Photo";
+            }
+
+            item.innerHTML = `
+
+              <div class="avatar">
+                ${avatarHTML(userData)}
+              </div>
+
+              <div class="conversation-info">
+
+                <div class="conversation-name">
+                  ${escapeHTML(
+                    userData.displayName ||
+                    userData.name ||
+                    userData.username ||
+                    "Member"
+                  )}
+                </div>
+
+                <div class="last-message">
+                  ${escapeHTML(preview || "Start a conversation")}
+                </div>
+
+              </div>
+
+              ${
+                unread
+                ? `<div class="unread-dot"></div>`
+                : ""
+              }
+
+            `;
+
+            item.addEventListener("click", () => {
+
+              openChat({
+                uid: otherUid,
+                ...userData
+              });
+
+            });
+
+            fragment.appendChild(item);
+
+          }
+
+          conversationList.innerHTML = "";
+
+          conversationList.appendChild(fragment);
+
+        });
+
+  }catch(error){
+
+    console.error(error);
+
+    conversationList.innerHTML = `
+      <div class="empty">
+        <div class="empty-title">Couldn't load messages</div>
+        <div class="empty-text">
+          Please try again.
+        </div>
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   SEARCH MEMBERS
+========================================================= */
+
+userSearch.addEventListener("input", () => {
+
+  clearTimeout(searchTimer);
+
+  const value =
+    userSearch.value.trim();
+
+  if(!value){
+
+    searchResults.classList.remove("active");
+    conversationSection.style.display = "block";
+
+    memberResults.innerHTML = "";
+
+    return;
+
+  }
+
+  searchResults.classList.add("active");
+  conversationSection.style.display = "none";
+
+  searchTimer = setTimeout(() => {
+
+    searchMembers(value);
+
+  }, 300);
+
+});
+
+
+/* =========================================================
+   SEARCH MEMBERS FROM FIRESTORE
+========================================================= */
+
+async function searchMembers(query){
+
+  memberResults.innerHTML =
+    `<div class="loading">Searching...</div>`;
+
+  try{
+
+    /*
+      Firestore doesn't provide normal
+      contains-search.
+
+      So we fetch a reasonable member set
+      and filter locally.
+    */
+
+    const snapshot =
+      await db.collection("users")
+        .limit(100)
+        .get();
+
+    const q =
+      query.toLowerCase();
+
+    const users = [];
+
+    snapshot.forEach(doc => {
+
+      if(doc.id === currentUser.uid){
+        return;
+      }
+
+      const data = doc.data();
+
+      const name =
+        String(
+          data.displayName ||
+          data.name ||
+          data.username ||
+          ""
+        );
+
+      const username =
+        String(
+          data.username ||
+          ""
+        );
+
+      if(
+        name.toLowerCase().includes(q) ||
+        username.toLowerCase().includes(q)
+      ){
+
+        users.push({
+          uid: doc.id,
+          ...data
+        });
+
+      }
+
+    });
+
+    renderMemberResults(users);
+
+  }catch(error){
+
+    console.error(error);
+
+    memberResults.innerHTML = `
+      <div class="empty">
+        Couldn't search members.
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   RENDER SEARCH RESULTS
+========================================================= */
+
+function renderMemberResults(users){
+
+  if(!users.length){
+
+    memberResults.innerHTML = `
+      <div class="empty">
+        <div class="empty-title">No members found</div>
+        <div class="empty-text">
+          Try another name.
+        </div>
+      </div>
+    `;
+
+    return;
+
+  }
+
+  memberResults.innerHTML = "";
+
+  users.forEach(userData => {
+
+    const item =
+      document.createElement("div");
+
+    item.className = "conversation";
+
+    const name =
+      userData.displayName ||
+      userData.name ||
+      userData.username ||
+      "Member";
+
+    const username =
+      userData.username
+        ? "@" + userData.username
+        : "Start a conversation";
+
+    item.innerHTML = `
+
+      <div class="avatar">
+        ${avatarHTML(userData)}
+      </div>
+
+      <div class="conversation-info">
+
+        <div class="conversation-name">
+          ${escapeHTML(name)}
+        </div>
+
+        <div class="last-message">
+          ${escapeHTML(username)}
+        </div>
+
+      </div>
+
+    `;
+
+    item.addEventListener("click", () => {
+
+      openChat(userData);
+
+    });
+
+    memberResults.appendChild(item);
+
+  });
+
+}
+
+
+/* =========================================================
+   OPEN CHAT BY UID
+========================================================= */
+
+async function openChatByUid(uid){
+
+  const userData =
+    await getUserData(uid);
+
+  openChat(userData);
+
+}
+
+
+/* =========================================================
+   OPEN CHAT
+========================================================= */
+
+function openChat(userData){
+
+  if(!currentUser || !userData?.uid){
+    return;
+  }
+
+  activeChatUser = userData;
+
+  chatAvatar.innerHTML =
+    avatarHTML(userData);
+
+  chatUserName.textContent =
+    userData.displayName ||
+    userData.name ||
+    userData.username ||
+    "Member";
+
+  chat.classList.add("open");
+
+  loadMessages();
+
+}
+
+
+/* =========================================================
+   LOAD MESSAGES
+========================================================= */
+
+function loadMessages(){
+
+  if(!activeChatUser || !currentUser){
+    return;
+  }
+
+  if(messagesUnsubscribe){
+    messagesUnsubscribe();
+    messagesUnsubscribe = null;
+  }
+
+  messages.innerHTML =
+    `<div class="loading">Loading conversation...</div>`;
+
+  const cid =
+    conversationId(
+      currentUser.uid,
+      activeChatUser.uid
+    );
+
+  messagesUnsubscribe =
+    db.collection("conversations")
+      .doc(cid)
+      .collection("messages")
+      .orderBy("createdAt", "asc")
+      .onSnapshot(snapshot => {
+
+        if(snapshot.empty){
+
+          messages.innerHTML = `
+
+            <div class="start-chat">
+
+              <div class="avatar">
+                ${avatarHTML(activeChatUser)}
+              </div>
+
+              <div class="start-chat-name">
+                ${escapeHTML(
+                  activeChatUser.displayName ||
+                  activeChatUser.name ||
+                  activeChatUser.username ||
+                  "Member"
+                )}
+              </div>
+
+              <div class="start-chat-text">
+                Start a conversation
+              </div>
+
+            </div>
+
+          `;
+
+          return;
+
+        }
+
+        messages.innerHTML = "";
+
+        snapshot.forEach(doc => {
+
+          const data = doc.data();
+
+          renderMessage(data);
+
+        });
+
+        scrollMessages();
+
+      }, error => {
+
+        console.error(error);
+
+        messages.innerHTML = `
+          <div class="empty">
+            Couldn't load messages.
+          </div>
+        `;
+
+      });
+
+}
+
+
+/* =========================================================
+   RENDER MESSAGE
+========================================================= */
+
+function renderMessage(data){
+
+  const mine =
+    data.senderId === currentUser.uid;
+
+  const row =
+    document.createElement("div");
+
+  row.className =
+    "message-row " +
+    (mine ? "mine" : "theirs");
+
+  let content = "";
+
+  if(data.type === "image" && data.imageUrl){
+
+    content = `
+      <img
+        class="message-image"
+        src="${escapeAttribute(data.imageUrl)}"
+        alt="Photo"
+        loading="lazy"
+      >
+    `;
+
+  }else{
+
+    content =
+      `<div class="message-bubble">
+        ${escapeHTML(data.text || "")}
+      </div>`;
+
+  }
+
+  row.innerHTML = content;
+
+  if(data.createdAt){
+
+    const time =
+      formatTime(data.createdAt);
+
+    const timeEl =
+      document.createElement("div");
+
+    timeEl.className =
+      "message-time";
+
+    timeEl.textContent = time;
+
+    row.appendChild(timeEl);
+
+  }
+
+  messages.appendChild(row);
+
+}
+
+
+/* =========================================================
+   SEND TEXT
+========================================================= */
+
+messageInput.addEventListener("input", () => {
+
+  sendButton.disabled =
+    !messageInput.value.trim();
+
+});
+
+
+messageForm.addEventListener("submit", async event => {
+
+  event.preventDefault();
+
+  const text =
+    messageInput.value.trim();
+
+  if(!text || !activeChatUser){
+    return;
+  }
+
+  await sendTextMessage(text);
+
+});
+
+
+async function sendTextMessage(text){
+
+  sendButton.disabled = true;
+
+  try{
+
+    const cid =
+      conversationId(
+        currentUser.uid,
+        activeChatUser.uid
+      );
+
+    const conversationRef =
+      db.collection("conversations").doc(cid);
+
+    const messageRef =
+      conversationRef.collection("messages").doc();
+
+    const now =
+      firebase.firestore.FieldValue.serverTimestamp();
+
+    await messageRef.set({
+
+      senderId: currentUser.uid,
+      receiverId: activeChatUser.uid,
+
+      text: text,
+
+      type: "text",
+
+      createdAt: now
+
+    });
+
+    await conversationRef.set({
+
+      participants: [
+        currentUser.uid,
+        activeChatUser.uid
+      ],
+
+      lastMessage: text,
+
+      lastMessageType: "text",
+
+      lastSenderId: currentUser.uid,
+
+      lastMessageAt: now,
+
+      seenByCurrentUser: true
+
+    }, {
+      merge:true
+    });
+
+    messageInput.value = "";
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast("Couldn't send message.");
+
+  }
+
+  sendButton.disabled =
+    !messageInput.value.trim();
+
+}
+
+
+/* =========================================================
+   PHOTO BUTTON
+========================================================= */
+
+photoButton.addEventListener("click", () => {
+
+  photoInput.click();
+
+});
+
+
+photoInput.addEventListener("change", async () => {
+
+  const file =
+    photoInput.files?.[0];
+
+  photoInput.value = "";
+
+  if(!file){
+    return;
+  }
+
+  if(!file.type.startsWith("image/")){
+
+    showToast("Please select an image.");
+
+    return;
+
+  }
+
+  if(file.size > 25 * 1024 * 1024){
+
+    showToast("Image must be under 25 MB.");
+
+    return;
+
+  }
+
+  await sendPhotoMessage(file);
+
+});
+
+
+/* =========================================================
+   IMAGEKIT AUTH
+========================================================= */
+
+async function getImageKitAuth(){
+
+  const response =
+    await fetch(
+      IMAGEKIT_AUTH_URL,
+      {
+        method:"GET"
+      }
+    );
+
+  if(!response.ok){
+
+    throw new Error(
+      "Image upload authentication failed."
+    );
+
+  }
+
+  return response.json();
+
+}
+
+
+/* =========================================================
+   IMAGEKIT UPLOAD
+========================================================= */
+
+function uploadToImageKit(file, onProgress){
+
+  return new Promise(async (resolve, reject) => {
+
+    try{
+
+      const authData =
+        await getImageKitAuth();
+
+      const safeName =
+        file.name
+          .replace(/[^a-zA-Z0-9._-]/g, "_");
+
+      const formData =
+        new FormData();
+
+      formData.append(
+        "file",
+        file
+      );
+
+      formData.append(
+        "fileName",
+        Date.now() + "_" + safeName
+      );
+
+      formData.append(
+        "publicKey",
+        IMAGEKIT_PUBLIC_KEY
+      );
+
+      formData.append(
+        "signature",
+        authData.signature
+      );
+
+      formData.append(
+        "expire",
+        String(authData.expire)
+      );
+
+      formData.append(
+        "token",
+        authData.token
+      );
+
+      formData.append(
+        "useUniqueFileName",
+        "true"
+      );
+
+      formData.append(
+        "folder",
+        "messages/" + currentUser.uid
+      );
+
+      const xhr =
+        new XMLHttpRequest();
+
+      xhr.open(
+        "POST",
+        IMAGEKIT_UPLOAD_URL
+      );
+
+      xhr.upload.onprogress =
+        event => {
+
+          if(event.lengthComputable){
+
+            const percent =
+              Math.round(
+                event.loaded /
+                event.total *
+                100
+              );
+
+            onProgress(percent);
+
+          }
+
+        };
+
+      xhr.onload = () => {
+
+        if(
+          xhr.status >= 200 &&
+          xhr.status < 300
+        ){
+
+          try{
+
+            const result =
+              JSON.parse(xhr.responseText);
+
+            if(result.url){
+
+              resolve(result.url);
+
+            }else{
+
+              reject(
+                new Error(
+                  "ImageKit did not return an image URL."
+                )
+              );
+
+            }
+
+          }catch(error){
+
+            reject(error);
+
+          }
+
+        }else{
+
+          reject(
+            new Error(
+              "Image upload failed."
+            )
+          );
+
+        }
+
+      };
+
+      xhr.onerror = () => {
+
+        reject(
+          new Error(
+            "Network error while uploading image."
+          )
+        );
+
+      };
+
+      xhr.send(formData);
+
+    }catch(error){
+
+      reject(error);
+
+    }
+
+  });
+
+}
+
+
+/* =========================================================
+   SEND PHOTO MESSAGE
+========================================================= */
+
+async function sendPhotoMessage(file){
+
+  if(!activeChatUser){
+    return;
+  }
+
+  uploadStatus.classList.add("active");
+
+  progressBar.style.width = "0%";
+
+  try{
+
+    const imageUrl =
+      await uploadToImageKit(
+        file,
+        percent => {
+
+          progressBar.style.width =
+            percent + "%";
+
+        }
+      );
+
+    const cid =
+      conversationId(
+        currentUser.uid,
+        activeChatUser.uid
+      );
+
+    const conversationRef =
+      db.collection("conversations").doc(cid);
+
+    const messageRef =
+      conversationRef.collection("messages").doc();
+
+    const now =
+      firebase.firestore.FieldValue.serverTimestamp();
+
+    await messageRef.set({
+
+      senderId: currentUser.uid,
+
+      receiverId:
+        activeChatUser.uid,
+
+      type:"image",
+
+      imageUrl:imageUrl,
+
+      createdAt:now
+
+    });
+
+    await conversationRef.set({
+
+      participants:[
+        currentUser.uid,
+        activeChatUser.uid
+      ],
+
+      lastMessage:"Photo",
+
+      lastMessageType:"image",
+
+      lastSenderId:
+        currentUser.uid,
+
+      lastMessageAt:now,
+
+      seenByCurrentUser:true
+
+    },{
+      merge:true
+    });
+
+    showToast("Photo sent.");
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      error.message ||
+      "Couldn't send photo."
+    );
+
+  }finally{
+
+    setTimeout(() => {
+
+      uploadStatus.classList.remove("active");
+
+      progressBar.style.width = "0%";
+
+    }, 300);
+
+  }
+
+}
+
+
+/* =========================================================
+   BACK TO INBOX
+========================================================= */
+
+chatBackBtn.addEventListener("click", () => {
+
+  closeChat();
+
+});
+
+
+function closeChat(){
+
+  chat.classList.remove("open");
+
+  activeChatUser = null;
+
+  if(messagesUnsubscribe){
+
+    messagesUnsubscribe();
+
+    messagesUnsubscribe = null;
+
+  }
+
+}
+
+
+/* =========================================================
+   HOME BACK BUTTON
+========================================================= */
+
+homeBackBtn.addEventListener("click", () => {
+
+  if(document.referrer){
+
+    history.back();
+
+  }else{
+
+    window.location.href = "community.html";
+
+  }
+
+});
+
+
+/* =========================================================
+   SCROLL
+========================================================= */
+
+function scrollMessages(){
+
+  requestAnimationFrame(() => {
+
+    messages.scrollTop =
+      messages.scrollHeight;
+
+  });
+
+}
+
+
+/* =========================================================
+   TIME
+========================================================= */
+
+function formatTime(timestamp){
+
+  try{
+
+    const date =
+      timestamp.toDate
+        ? timestamp.toDate()
+        : new Date(timestamp);
+
+    return date.toLocaleTimeString(
+      [],
+      {
+        hour:"numeric",
+        minute:"2-digit"
+      }
+    );
+
+  }catch(error){
+
+    return "";
+
+  }
+
+}
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttribute(value){
+
+  return escapeHTML(value)
+    .replace(/`/g,"&#096;");
+
+}
+
+
+/* =========================================================
+   CLEANUP
+========================================================= */
+
+window.addEventListener("beforeunload", () => {
+
+  if(messagesUnsubscribe){
+    messagesUnsubscribe();
+  }
+
+  if(conversationUnsubscribe){
+    conversationUnsubscribe();
+  }
+
+});
+
+</script>
+
+</body>
+</html>
