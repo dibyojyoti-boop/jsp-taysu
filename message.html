@@ -336,50 +336,38 @@ button{
   font-weight:650;
 }
 
+/* =========================
+   TYPING
+========================= */
+
 .typing-indicator{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:-22px;
-  height:20px;
   display:none;
-  justify-content:center;
-  align-items:center;
-  pointer-events:none;
-  z-index:4;
 }
 
-.typing-indicator.show{
-  display:flex;
-}
-
-.typing-label{
-  color:#8d9098;
-  font-size:11px;
+.typing-inline{
   display:flex;
   align-items:center;
-  gap:3px;
+  gap:4px;
+  width:max-content;
+  margin-top:2px;
+  margin-left:4px;
+  height:13px;
+  color:#777b84;
 }
 
-.typing-dots{
-  display:flex;
-  gap:2px;
-  margin-left:3px;
-}
-
-.typing-dots span{
+.typing-inline span{
   width:3px;
   height:3px;
   border-radius:50%;
-  background:#8d9098;
+  background:#858991;
   animation:typingDot 1s infinite ease-in-out;
 }
 
-.typing-dots span:nth-child(2){
+.typing-inline span:nth-child(2){
   animation-delay:.15s;
 }
 
-.typing-dots span:nth-child(3){
+.typing-inline span:nth-child(3){
   animation-delay:.3s;
 }
 
@@ -403,7 +391,7 @@ button{
   padding:18px 13px 13px;
   display:flex;
   flex-direction:column;
-  gap:5px;
+  gap:6px;
   background:#08090c;
   -webkit-overflow-scrolling:touch;
 }
@@ -434,7 +422,9 @@ button{
   font-size:13px;
 }
 
-/* Message row */
+/* =========================
+   MESSAGE ROW
+========================= */
 
 .message-row{
   width:100%;
@@ -465,13 +455,26 @@ button{
   }
 }
 
+/*
+  IMPORTANT:
+  message-content is now shrink-wrapped.
+  This prevents the blue/grey bubble from
+  stretching wider than the actual message.
+*/
+
 .message-content{
-  display:block;
-  min-width:0;
+  flex:0 1 auto;
+  width:fit-content;
   max-width:78%;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
 }
 
-/* TIGHT TEXT BUBBLE */
+.mine .message-content{
+  align-items:flex-end;
+}
 
 .message-bubble{
   display:table;
@@ -480,7 +483,7 @@ button{
   padding:6px 9px;
   border-radius:15px;
   font-size:15px;
-  line-height:1.32;
+  line-height:1.34;
   white-space:pre-wrap;
   overflow-wrap:anywhere;
   word-break:normal;
@@ -499,9 +502,27 @@ button{
   border-bottom-left-radius:5px;
 }
 
-/* MEDIA */
+/* Media */
 
-.message-image,
+.message-image{
+  width:auto;
+  max-width:245px;
+  max-height:320px;
+  border-radius:17px;
+  display:block;
+  object-fit:cover;
+  background:#17191e;
+  cursor:pointer;
+}
+
+.mine .message-image{
+  border-bottom-right-radius:5px;
+}
+
+.theirs .message-image{
+  border-bottom-left-radius:5px;
+}
+
 .message-video{
   width:auto;
   max-width:245px;
@@ -513,48 +534,12 @@ button{
   cursor:pointer;
 }
 
-.message-video{
-  width:245px;
-}
-
-.mine .message-image,
 .mine .message-video{
   border-bottom-right-radius:5px;
 }
 
-.theirs .message-image,
 .theirs .message-video{
   border-bottom-left-radius:5px;
-}
-
-.media-wrap{
-  position:relative;
-  width:max-content;
-  max-width:100%;
-  border-radius:17px;
-  overflow:hidden;
-  background:#17191e;
-}
-
-.media-wrap .video-play-icon{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  width:46px;
-  height:46px;
-  border-radius:50%;
-  background:rgba(0,0,0,.58);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  pointer-events:none;
-}
-
-.video-play-icon svg{
-  width:21px;
-  height:21px;
-  margin-left:2px;
 }
 
 .message-time{
@@ -575,7 +560,9 @@ button{
   color:#777b84;
 }
 
-/* Composer */
+/* =========================
+   COMPOSER
+========================= */
 
 .composer{
   min-height:67px;
@@ -700,7 +687,7 @@ button{
   opacity:0;
   pointer-events:none;
   transition:.18s ease;
-  z-index:500;
+  z-index:100;
   max-width:90%;
   text-align:center;
   overflow-wrap:anywhere;
@@ -773,234 +760,69 @@ button{
 }
 
 /* =========================
-   MEDIA CHOOSER
+   MEDIA PREVIEW
 ========================= */
 
-.media-sheet-backdrop{
+.media-preview-backdrop{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.58);
+  background:rgba(0,0,0,.88);
   opacity:0;
   pointer-events:none;
   transition:opacity .18s ease;
   z-index:300;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
 }
 
-.media-sheet-backdrop.show{
+.media-preview-backdrop.show{
   opacity:1;
   pointer-events:auto;
 }
 
-.media-sheet{
-  position:fixed;
-  left:50%;
-  bottom:10px;
-  width:calc(100% - 20px);
-  max-width:500px;
-  transform:translate(-50%,120%);
-  background:#191b20;
-  border:1px solid #292c33;
-  border-radius:17px;
-  overflow:hidden;
-  transition:transform .22s cubic-bezier(.2,.8,.2,1);
-  z-index:301;
-}
-
-.media-sheet-backdrop.show .media-sheet{
-  transform:translate(-50%,0);
-}
-
-.media-option{
+.media-preview{
   width:100%;
-  height:56px;
-  display:flex;
-  align-items:center;
-  gap:13px;
-  padding:0 18px;
-  border-bottom:1px solid #292c33;
-  font-size:15px;
-  font-weight:600;
-}
-
-.media-option:last-child{
-  border-bottom:0;
-}
-
-.media-option:active{
-  background:#22252b;
-}
-
-.media-option svg{
-  width:21px;
-  height:21px;
-  color:#3d94ff;
-}
-
-/* =========================
-   MEDIA PREVIEW
-========================= */
-
-.preview-backdrop{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.92);
+  max-width:560px;
+  max-height:90dvh;
   display:flex;
   flex-direction:column;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .18s ease;
-  z-index:400;
-}
-
-.preview-backdrop.show{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.preview-header{
-  height:58px;
-  min-height:58px;
-  display:flex;
-  align-items:center;
-  justify-content:flex-end;
-  padding:0 14px;
-}
-
-.preview-close{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  display:flex;
   align-items:center;
   justify-content:center;
-  background:#1b1d22;
-}
-
-.preview-close svg{
-  width:22px;
-  height:22px;
-}
-
-.preview-body{
-  flex:1;
-  min-height:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:10px 18px;
-  overflow:hidden;
 }
 
 .preview-media{
   max-width:100%;
-  max-height:78dvh;
-  object-fit:contain;
+  max-height:75dvh;
   border-radius:12px;
+  object-fit:contain;
+  background:#08090c;
 }
 
-.preview-video{
+.preview-actions{
   width:100%;
-  max-width:520px;
-  max-height:78dvh;
-  object-fit:contain;
-  border-radius:12px;
-  background:#000;
-}
-
-.preview-footer{
-  min-height:82px;
-  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
   display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
+  gap:9px;
+  margin-top:14px;
 }
 
-.preview-cancel,
-.preview-send{
-  height:46px;
-  border-radius:23px;
-  padding:0 24px;
-  font-size:15px;
-  font-weight:700;
-}
-
-.preview-cancel{
-  background:#22252b;
-  color:#f2f2f4;
-}
-
-.preview-send{
-  background:#1677e8;
+.preview-action{
+  flex:1;
+  height:45px;
+  border-radius:12px;
+  background:#202228;
   color:#fff;
+  font-size:14px;
+  font-weight:650;
 }
 
-.preview-cancel:active,
-.preview-send:active{
-  transform:scale(.97);
+.preview-action.primary{
+  background:#1677e8;
 }
 
-/* =========================
-   VIEWER
-========================= */
-
-.viewer-backdrop{
-  position:fixed;
-  inset:0;
-  background:#000;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .18s ease;
-  z-index:450;
-}
-
-.viewer-backdrop.show{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.viewer-close{
-  position:absolute;
-  top:12px;
-  right:12px;
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  background:rgba(30,31,36,.78);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:3;
-}
-
-.viewer-close svg{
-  width:22px;
-  height:22px;
-}
-
-.viewer-content{
-  width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:60px 12px 30px;
-}
-
-.viewer-image{
-  max-width:100%;
-  max-height:90dvh;
-  object-fit:contain;
-  border-radius:10px;
-}
-
-.viewer-video{
-  width:100%;
-  max-width:650px;
-  max-height:90dvh;
-  object-fit:contain;
-  background:#000;
-  border-radius:10px;
+.preview-action:active{
+  opacity:.75;
 }
 
 /* =========================
@@ -1115,18 +937,7 @@ Member
 
 </button>
 
-<div class="typing-indicator" id="typingIndicator">
-
-<div class="typing-label">
-typing
-<div class="typing-dots">
-<span></span>
-<span></span>
-<span></span>
-</div>
-</div>
-
-</div>
+<div class="typing-indicator" id="typingIndicator"></div>
 
 </header>
 
@@ -1168,14 +979,7 @@ aria-label="Send photo or video"
 <input
 type="file"
 id="photoInput"
-accept="image/*"
-hidden
->
-
-<input
-type="file"
-id="videoInput"
-accept="video/*"
+accept="image/*,video/*"
 hidden
 >
 
@@ -1235,81 +1039,28 @@ Cancel
 </div>
 
 
-<!-- Media chooser -->
+<!-- Media preview -->
 
-<div class="media-sheet-backdrop" id="mediaSheetBackdrop">
+<div class="media-preview-backdrop" id="mediaPreviewBackdrop">
 
-<div class="media-sheet">
+<div class="media-preview">
 
-<button class="media-option" id="choosePhotoButton">
+<div id="previewMediaContainer"></div>
 
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-<rect x="3" y="4" width="18" height="16" rx="3"/>
-<circle cx="8.5" cy="9" r="1.5"/>
-<path d="M3 16l5-5 4 4 2.5-2.5L21 18"/>
-</svg>
-
-<span>Photo</span>
-
-</button>
-
-<button class="media-option" id="chooseVideoButton">
-
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-<rect x="3" y="5" width="13" height="14" rx="2"/>
-<path d="M16 10l5-3v10l-5-3z"/>
-</svg>
-
-<span>Video</span>
-
-</button>
-
-<button class="media-option" id="cancelMediaButton">
-
-<span>Cancel</span>
-
-</button>
-
-</div>
-
-</div>
-
-
-<!-- Selected media preview -->
-
-<div class="preview-backdrop" id="previewBackdrop">
-
-<div class="preview-header">
+<div class="preview-actions">
 
 <button
-class="preview-close"
-id="previewCloseButton"
-aria-label="Close preview"
->
-
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M6 6l12 12"/>
-<path d="M18 6L6 18"/>
-</svg>
-
-</button>
-
-</div>
-
-<div class="preview-body" id="previewBody"></div>
-
-<div class="preview-footer">
-
-<button
-class="preview-cancel"
+class="preview-action"
 id="previewCancelButton"
+type="button"
 >
 Cancel
 </button>
 
 <button
-class="preview-send"
+class="preview-action primary"
 id="previewSendButton"
+type="button"
 >
 Send
 </button>
@@ -1317,26 +1068,6 @@ Send
 </div>
 
 </div>
-
-
-<!-- Sent/received media viewer -->
-
-<div class="viewer-backdrop" id="viewerBackdrop">
-
-<button
-class="viewer-close"
-id="viewerCloseButton"
-aria-label="Close"
->
-
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M6 6l12 12"/>
-<path d="M18 6L6 18"/>
-</svg>
-
-</button>
-
-<div class="viewer-content" id="viewerContent"></div>
 
 </div>
 
@@ -1439,9 +1170,6 @@ const photoButton =
 const photoInput =
   document.getElementById("photoInput");
 
-const videoInput =
-  document.getElementById("videoInput");
-
 const uploadStatus =
   document.getElementById("uploadStatus");
 
@@ -1460,41 +1188,17 @@ const unsendButton =
 const cancelSheetButton =
   document.getElementById("cancelSheetButton");
 
-const mediaSheetBackdrop =
-  document.getElementById("mediaSheetBackdrop");
+const mediaPreviewBackdrop =
+  document.getElementById("mediaPreviewBackdrop");
 
-const choosePhotoButton =
-  document.getElementById("choosePhotoButton");
-
-const chooseVideoButton =
-  document.getElementById("chooseVideoButton");
-
-const cancelMediaButton =
-  document.getElementById("cancelMediaButton");
-
-const previewBackdrop =
-  document.getElementById("previewBackdrop");
-
-const previewBody =
-  document.getElementById("previewBody");
-
-const previewCloseButton =
-  document.getElementById("previewCloseButton");
+const previewMediaContainer =
+  document.getElementById("previewMediaContainer");
 
 const previewCancelButton =
   document.getElementById("previewCancelButton");
 
 const previewSendButton =
   document.getElementById("previewSendButton");
-
-const viewerBackdrop =
-  document.getElementById("viewerBackdrop");
-
-const viewerContent =
-  document.getElementById("viewerContent");
-
-const viewerCloseButton =
-  document.getElementById("viewerCloseButton");
 
 
 /* =========================================================
@@ -1514,9 +1218,11 @@ let typingTimer = null;
 
 let selectedMessageId = null;
 
-let selectedMediaFile = null;
-let selectedMediaType = null;
-let selectedMediaObjectURL = null;
+let opponentTyping = false;
+
+let pendingMediaFile = null;
+
+let lastInboxRenderSignature = "";
 
 
 /* =========================================================
@@ -1713,6 +1419,10 @@ function handleIncomingProfile(){
 
 /* =========================================================
    LOAD INBOX
+   IMPORTANT:
+   typingBy changes are ignored here.
+   This prevents the inbox from visually
+   refreshing every time someone types.
 ========================================================= */
 
 async function loadConversations(){
@@ -1744,26 +1454,6 @@ async function loadConversations(){
       .onSnapshot(
         async snapshot => {
 
-          if(snapshot.empty){
-
-            conversationList.innerHTML = `
-              <div class="empty">
-
-                <div class="empty-title">
-                  No messages yet
-                </div>
-
-                <div class="empty-text">
-                  Search for a member and start a conversation.
-                </div>
-
-              </div>
-            `;
-
-            return;
-
-          }
-
           const conversations = [];
 
           for(
@@ -1791,6 +1481,78 @@ async function loadConversations(){
 
           }
 
+          /*
+            Build a signature ONLY from inbox-visible
+            fields. typingBy is deliberately excluded.
+          */
+
+          const signature =
+            conversations
+              .map(item => {
+
+                const data =
+                  item.data || {};
+
+                const unread =
+                  Number(
+                    data?.unreadCounts?.[user.uid] || 0
+                  );
+
+                const time =
+                  data.lastMessageAt?.toMillis
+                    ? data.lastMessageAt.toMillis()
+                    : 0;
+
+                return [
+                  item.doc.id,
+                  data.lastMessage || "",
+                  data.lastMessageType || "",
+                  data.lastSenderId || "",
+                  unread,
+                  time
+                ].join("|");
+
+              })
+              .sort()
+              .join("||");
+
+          /*
+            If ONLY typingBy changed,
+            don't rebuild the inbox.
+          */
+
+          if(
+            signature ===
+            lastInboxRenderSignature
+          ){
+
+            return;
+
+          }
+
+          lastInboxRenderSignature =
+            signature;
+
+          if(!conversations.length){
+
+            conversationList.innerHTML = `
+              <div class="empty">
+
+                <div class="empty-title">
+                  No messages yet
+                </div>
+
+                <div class="empty-text">
+                  Search for a member and start a conversation.
+                </div>
+
+              </div>
+            `;
+
+            return;
+
+          }
+
           conversations.sort(
             (a,b) => {
 
@@ -1809,7 +1571,8 @@ async function loadConversations(){
             }
           );
 
-          conversationList.innerHTML = "";
+          const fragment =
+            document.createDocumentFragment();
 
           for(
             const item of conversations
@@ -1890,11 +1653,17 @@ async function loadConversations(){
               }
             );
 
-            conversationList.appendChild(
+            fragment.appendChild(
               itemElement
             );
 
           }
+
+          conversationList.innerHTML = "";
+
+          conversationList.appendChild(
+            fragment
+          );
 
         },
         error => {
@@ -2345,6 +2114,9 @@ function openChat(userData){
   activeChatUser =
     userData;
 
+  opponentTyping =
+    false;
+
   chatAvatar.innerHTML =
     avatarHTML(userData);
 
@@ -2394,6 +2166,8 @@ chatUserButton.addEventListener(
 
 /* =========================================================
    CONVERSATION LISTENERS
+   Typing only affects the open chat.
+   It does NOT rebuild the inbox.
 ========================================================= */
 
 function startConversationListeners(){
@@ -2431,9 +2205,10 @@ function startConversationListeners(){
 
           if(!snap.exists){
 
-            typingIndicator.classList.remove(
-              "show"
-            );
+            opponentTyping =
+              false;
+
+            renderTypingUnderLastMessage();
 
             return;
 
@@ -2445,24 +2220,17 @@ function startConversationListeners(){
           const typingBy =
             data.typingBy || {};
 
-          const otherTyping =
+          opponentTyping =
             typingBy[
               activeChatUser.uid
             ] === true;
 
-          if(otherTyping){
+          /*
+            Only modify the typing indicator
+            inside the open chat.
+          */
 
-            typingIndicator.classList.add(
-              "show"
-            );
-
-          }else{
-
-            typingIndicator.classList.remove(
-              "show"
-            );
-
-          }
+          renderTypingUnderLastMessage();
 
         },
         error => {
@@ -2474,6 +2242,64 @@ function startConversationListeners(){
 
         }
       );
+
+}
+
+
+/* =========================================================
+   RENDER TYPING UNDER LAST OPPONENT MESSAGE
+========================================================= */
+
+function renderTypingUnderLastMessage(){
+
+  document
+    .querySelectorAll(".typing-inline")
+    .forEach(el => el.remove());
+
+  if(!opponentTyping){
+    return;
+  }
+
+  const rows =
+    Array.from(
+      messages.querySelectorAll(
+        ".message-row.theirs"
+      )
+    );
+
+  if(!rows.length){
+
+    return;
+
+  }
+
+  const lastRow =
+    rows[rows.length - 1];
+
+  const content =
+    lastRow.querySelector(
+      ".message-content"
+    );
+
+  if(!content){
+    return;
+  }
+
+  const typing =
+    document.createElement("div");
+
+  typing.className =
+    "typing-inline";
+
+  typing.innerHTML = `
+    <span></span>
+    <span></span>
+    <span></span>
+  `;
+
+  content.appendChild(
+    typing
+  );
 
 }
 
@@ -2549,6 +2375,12 @@ function setTyping(isTyping){
   const field =
     "typingBy." +
     user.uid;
+
+  /*
+    This updates ONLY the conversation's typingBy field.
+    loadConversations() ignores this change,
+    so the inbox doesn't refresh.
+  */
 
   db.collection("conversations")
     .doc(cid)
@@ -2704,6 +2536,13 @@ function loadMessages(){
             }
           );
 
+          /*
+            Re-attach typing indicator after
+            the message list has rendered.
+          */
+
+          renderTypingUnderLastMessage();
+
           scrollMessages();
 
           markConversationSeen();
@@ -2779,37 +2618,26 @@ function renderMessage(
     data.imageUrl
   ){
 
+    content.innerHTML = `
+      <img
+        class="message-image"
+        src="${escapeAttribute(data.imageUrl)}"
+        alt="Photo"
+        loading="lazy"
+      >
+    `;
+
     const image =
-      document.createElement("img");
-
-    image.className =
-      "message-image";
-
-    image.src =
-      data.imageUrl;
-
-    image.alt =
-      "Photo";
-
-    image.loading =
-      "lazy";
+      content.querySelector(
+        ".message-image"
+      );
 
     image.addEventListener(
       "click",
-      event => {
-
-        event.stopPropagation();
-
-        openMediaViewer(
-          "image",
-          data.imageUrl
-        );
-
-      }
-    );
-
-    content.appendChild(
-      image
+      () => openMediaViewer(
+        "image",
+        data.imageUrl
+      )
     );
 
   }else if(
@@ -2817,58 +2645,26 @@ function renderMessage(
     data.videoUrl
   ){
 
-    const wrap =
-      document.createElement("div");
-
-    wrap.className =
-      "media-wrap";
-
-    const video =
-      document.createElement("video");
-
-    video.className =
-      "message-video";
-
-    video.src =
-      data.videoUrl;
-
-    video.muted =
-      true;
-
-    video.playsInline =
-      true;
-
-    video.preload =
-      "metadata";
-
-    const playIcon =
-      document.createElement("div");
-
-    playIcon.className =
-      "video-play-icon";
-
-    playIcon.innerHTML = `
-      <svg
-        viewBox="0 0 24 24"
-        fill="currentColor"
-      >
-        <path d="M8 5v14l11-7z"/>
-      </svg>
+    content.innerHTML = `
+      <video
+        class="message-video"
+        src="${escapeAttribute(data.videoUrl)}"
+        muted
+        playsinline
+        preload="metadata"
+      ></video>
     `;
 
-    wrap.appendChild(
-      video
-    );
+    const video =
+      content.querySelector(
+        ".message-video"
+      );
 
-    wrap.appendChild(
-      playIcon
-    );
-
-    wrap.addEventListener(
+    video.addEventListener(
       "click",
       event => {
 
-        event.stopPropagation();
+        event.preventDefault();
 
         openMediaViewer(
           "video",
@@ -2876,10 +2672,6 @@ function renderMessage(
         );
 
       }
-    );
-
-    content.appendChild(
-      wrap
     );
 
   }else{
@@ -2923,6 +2715,117 @@ function renderMessage(
   }
 
 }
+
+
+/* =========================================================
+   MEDIA VIEWER
+========================================================= */
+
+function openMediaViewer(
+  type,
+  url
+){
+
+  if(!url){
+    return;
+  }
+
+  previewMediaContainer.innerHTML = "";
+
+  if(type === "image"){
+
+    const image =
+      document.createElement("img");
+
+    image.className =
+      "preview-media";
+
+    image.src =
+      url;
+
+    image.alt =
+      "Photo";
+
+    previewMediaContainer.appendChild(
+      image
+    );
+
+  }else if(type === "video"){
+
+    const video =
+      document.createElement("video");
+
+    video.className =
+      "preview-media";
+
+    video.src =
+      url;
+
+    video.controls =
+      true;
+
+    video.playsInline =
+      true;
+
+    previewMediaContainer.appendChild(
+      video
+    );
+
+  }
+
+  previewCancelButton.style.display =
+    "block";
+
+  previewSendButton.style.display =
+    "none";
+
+  mediaPreviewBackdrop.classList.add(
+    "show"
+  );
+
+}
+
+
+function closeMediaPreview(){
+
+  previewMediaContainer.innerHTML = "";
+
+  mediaPreviewBackdrop.classList.remove(
+    "show"
+  );
+
+  pendingMediaFile =
+    null;
+
+  previewCancelButton.style.display =
+    "block";
+
+  previewSendButton.style.display =
+    "block";
+
+}
+
+
+previewCancelButton.addEventListener(
+  "click",
+  closeMediaPreview
+);
+
+mediaPreviewBackdrop.addEventListener(
+  "click",
+  event => {
+
+    if(
+      event.target ===
+      mediaPreviewBackdrop
+    ){
+
+      closeMediaPreview();
+
+    }
+
+  }
+);
 
 
 /* =========================================================
@@ -3168,26 +3071,45 @@ async function unsendMessage(
       const latestData =
         latest.docs[0].data();
 
-      let lastMessage = "";
+      let preview =
+        "";
 
-      if(latestData.type === "image"){
-        lastMessage = "Photo";
-      }else if(latestData.type === "video"){
-        lastMessage = "Video";
+      if(
+        latestData.type ===
+        "image"
+      ){
+
+        preview =
+          "Photo";
+
+      }else if(
+        latestData.type ===
+        "video"
+      ){
+
+        preview =
+          "Video";
+
       }else{
-        lastMessage =
-          latestData.text || "";
+
+        preview =
+          latestData.text ||
+          "";
+
       }
 
       await conversationRef.update({
 
-        lastMessage,
+        lastMessage:
+          preview,
 
         lastMessageType:
-          latestData.type || "text",
+          latestData.type ||
+          "text",
 
         lastSenderId:
-          latestData.senderId || "",
+          latestData.senderId ||
+          "",
 
         lastMessageAt:
           latestData.createdAt ||
@@ -3293,6 +3215,8 @@ async function sendTextMessage(
 
   updateSendButton();
 
+  setTyping(false);
+
   const cid =
     conversationId(
       user.uid,
@@ -3376,7 +3300,7 @@ async function sendTextMessage(
 
 
 /* =========================================================
-   MEDIA CHOOSER
+   MEDIA SELECT
 ========================================================= */
 
 photoButton.addEventListener(
@@ -3396,73 +3320,11 @@ photoButton.addEventListener(
 
     }
 
-    mediaSheetBackdrop.classList.add(
-      "show"
-    );
-
-  }
-);
-
-
-function closeMediaSheet(){
-
-  mediaSheetBackdrop.classList.remove(
-    "show"
-  );
-
-}
-
-
-cancelMediaButton.addEventListener(
-  "click",
-  closeMediaSheet
-);
-
-
-mediaSheetBackdrop.addEventListener(
-  "click",
-  event => {
-
-    if(
-      event.target ===
-      mediaSheetBackdrop
-    ){
-
-      closeMediaSheet();
-
-    }
-
-  }
-);
-
-
-choosePhotoButton.addEventListener(
-  "click",
-  () => {
-
-    closeMediaSheet();
-
     photoInput.click();
 
   }
 );
 
-
-chooseVideoButton.addEventListener(
-  "click",
-  () => {
-
-    closeMediaSheet();
-
-    videoInput.click();
-
-  }
-);
-
-
-/* =========================================================
-   PHOTO SELECT
-========================================================= */
 
 photoInput.addEventListener(
   "change",
@@ -3477,10 +3339,13 @@ photoInput.addEventListener(
       return;
     }
 
-    if(!file.type.startsWith("image/")){
+    if(
+      !file.type.startsWith("image/") &&
+      !file.type.startsWith("video/")
+    ){
 
       showToast(
-        "Please select an image."
+        "Please select a photo or video."
       );
 
       return;
@@ -3488,6 +3353,7 @@ photoInput.addEventListener(
     }
 
     if(
+      file.type.startsWith("image/") &&
       file.size >
       25 * 1024 * 1024
     ){
@@ -3500,43 +3366,8 @@ photoInput.addEventListener(
 
     }
 
-    openSelectedMediaPreview(
-      file,
-      "image"
-    );
-
-  }
-);
-
-
-/* =========================================================
-   VIDEO SELECT
-========================================================= */
-
-videoInput.addEventListener(
-  "change",
-  () => {
-
-    const file =
-      videoInput.files?.[0];
-
-    videoInput.value = "";
-
-    if(!file){
-      return;
-    }
-
-    if(!file.type.startsWith("video/")){
-
-      showToast(
-        "Please select a video."
-      );
-
-      return;
-
-    }
-
     if(
+      file.type.startsWith("video/") &&
       file.size >
       100 * 1024 * 1024
     ){
@@ -3550,8 +3381,7 @@ videoInput.addEventListener(
     }
 
     openSelectedMediaPreview(
-      file,
-      "video"
+      file
     );
 
   }
@@ -3563,145 +3393,87 @@ videoInput.addEventListener(
 ========================================================= */
 
 function openSelectedMediaPreview(
-  file,
-  type
+  file
 ){
 
-  clearSelectedMediaPreview();
-
-  selectedMediaFile =
+  pendingMediaFile =
     file;
 
-  selectedMediaType =
-    type;
+  previewMediaContainer.innerHTML = "";
 
-  selectedMediaObjectURL =
-    URL.createObjectURL(file);
+  if(file.type.startsWith("image/")){
 
-  if(type === "image"){
+    const image =
+      document.createElement("img");
 
-    previewBody.innerHTML = `
-      <img
-        class="preview-media"
-        src="${escapeAttribute(
-          selectedMediaObjectURL
-        )}"
-        alt="Photo preview"
-      >
-    `;
+    image.className =
+      "preview-media";
+
+    image.src =
+      URL.createObjectURL(file);
+
+    image.alt =
+      "Selected photo";
+
+    previewMediaContainer.appendChild(
+      image
+    );
 
   }else{
 
-    previewBody.innerHTML = `
-      <video
-        class="preview-video"
-        src="${escapeAttribute(
-          selectedMediaObjectURL
-        )}"
-        controls
-        playsinline
-        preload="metadata"
-      ></video>
-    `;
+    const video =
+      document.createElement("video");
 
-  }
+    video.className =
+      "preview-media";
 
-  previewBackdrop.classList.add(
-    "show"
-  );
+    video.src =
+      URL.createObjectURL(file);
 
-}
+    video.controls =
+      true;
 
+    video.playsInline =
+      true;
 
-function clearSelectedMediaPreview(){
-
-  if(selectedMediaObjectURL){
-
-    URL.revokeObjectURL(
-      selectedMediaObjectURL
+    previewMediaContainer.appendChild(
+      video
     );
 
   }
 
-  selectedMediaObjectURL =
-    null;
+  previewCancelButton.style.display =
+    "block";
 
-  selectedMediaFile =
-    null;
+  previewSendButton.style.display =
+    "block";
 
-  selectedMediaType =
-    null;
-
-  previewBody.innerHTML = "";
-
-}
-
-
-function closeSelectedMediaPreview(){
-
-  previewBackdrop.classList.remove(
+  mediaPreviewBackdrop.classList.add(
     "show"
   );
 
-  clearSelectedMediaPreview();
-
 }
 
-
-previewCloseButton.addEventListener(
-  "click",
-  closeSelectedMediaPreview
-);
-
-
-previewCancelButton.addEventListener(
-  "click",
-  closeSelectedMediaPreview
-);
-
-
-/* =========================================================
-   SEND SELECTED MEDIA
-========================================================= */
 
 previewSendButton.addEventListener(
   "click",
   async () => {
 
-    if(
-      !selectedMediaFile ||
-      !selectedMediaType
-    ){
-
+    if(!pendingMediaFile){
       return;
-
     }
 
     const file =
-      selectedMediaFile;
+      pendingMediaFile;
 
-    const type =
-      selectedMediaType;
+    pendingMediaFile =
+      null;
 
-    previewBackdrop.classList.remove(
-      "show"
+    closeMediaPreview();
+
+    await sendMediaMessage(
+      file
     );
-
-    clearSelectedMediaPreview();
-
-    if(type === "image"){
-
-      await sendPhotoMessage(
-        file
-      );
-
-    }else{
-
-      await sendVideoMessage(
-        file
-      );
-
-    }
 
   }
 );
@@ -3884,11 +3656,6 @@ function uploadToImageKit(
 
           }else{
 
-            console.error(
-              "IMAGEKIT RESPONSE:",
-              xhr.responseText
-            );
-
             reject(
               new Error(
                 "Media upload failed."
@@ -3926,10 +3693,10 @@ function uploadToImageKit(
 
 
 /* =========================================================
-   SEND PHOTO
+   SEND MEDIA
 ========================================================= */
 
-async function sendPhotoMessage(
+async function sendMediaMessage(
   file
 ){
 
@@ -3945,19 +3712,28 @@ async function sendPhotoMessage(
 
   }
 
+  const isVideo =
+    file.type.startsWith(
+      "video/"
+    );
+
   uploadStatus.classList.add(
     "active"
   );
 
-  uploadStatus.childNodes[0].textContent =
-    "Sending photo...";
+  uploadStatus.firstChild.textContent =
+    isVideo
+      ? "Sending video..."
+      : "Sending photo...";
 
   progressBar.style.width =
     "0%";
 
+  setTyping(false);
+
   try{
 
-    const imageUrl =
+    const mediaUrl =
       await uploadToImageKit(
         file,
         percent => {
@@ -3968,339 +3744,126 @@ async function sendPhotoMessage(
         }
       );
 
-    await createMediaMessage(
-      "image",
-      imageUrl,
-      "Photo"
-    );
+    const cid =
+      conversationId(
+        user.uid,
+        activeChatUser.uid
+      );
+
+    const conversationRef =
+      db.collection("conversations")
+        .doc(cid);
+
+    const messageRef =
+      conversationRef
+        .collection("messages")
+        .doc();
+
+    const timestamp =
+      firebase.firestore.FieldValue
+        .serverTimestamp();
+
+    const receiverUid =
+      activeChatUser.uid;
+
+    await conversationRef.set({
+
+      participants:[
+        user.uid,
+        receiverUid
+      ],
+
+      lastMessage:
+        isVideo
+          ? "Video"
+          : "Photo",
+
+      lastMessageType:
+        isVideo
+          ? "video"
+          : "image",
+
+      lastSenderId:user.uid,
+
+      lastMessageAt:timestamp,
+
+      seenByCurrentUser:true,
+
+      unreadCounts:{
+        [user.uid]:0,
+        [receiverUid]:
+          firebase.firestore.FieldValue.increment(1)
+      }
+
+    },{
+      merge:true
+    });
+
+    if(isVideo){
+
+      await messageRef.set({
+
+        senderId:user.uid,
+
+        receiverId:receiverUid,
+
+        type:"video",
+
+        videoUrl:mediaUrl,
+
+        createdAt:timestamp
+
+      });
+
+    }else{
+
+      await messageRef.set({
+
+        senderId:user.uid,
+
+        receiverId:receiverUid,
+
+        type:"image",
+
+        imageUrl:mediaUrl,
+
+        createdAt:timestamp
+
+      });
+
+    }
 
   }catch(error){
 
     console.error(
-      "SEND PHOTO ERROR:",
+      "SEND MEDIA ERROR:",
       error
     );
 
     showToast(
       error.message ||
-      "Couldn't send photo."
+      "Couldn't send media."
     );
 
   }finally{
 
-    finishUploadStatus();
+    setTimeout(
+      () => {
+
+        uploadStatus.classList.remove(
+          "active"
+        );
+
+        progressBar.style.width =
+          "0%";
+
+      },
+      250
+    );
 
   }
 
 }
-
-
-/* =========================================================
-   SEND VIDEO
-========================================================= */
-
-async function sendVideoMessage(
-  file
-){
-
-  const user =
-    getCurrentUser();
-
-  if(
-    !user ||
-    !activeChatUser
-  ){
-
-    return;
-
-  }
-
-  uploadStatus.classList.add(
-    "active"
-  );
-
-  uploadStatus.childNodes[0].textContent =
-    "Sending video...";
-
-  progressBar.style.width =
-    "0%";
-
-  try{
-
-    const videoUrl =
-      await uploadToImageKit(
-        file,
-        percent => {
-
-          progressBar.style.width =
-            percent + "%";
-
-        }
-      );
-
-    await createMediaMessage(
-      "video",
-      videoUrl,
-      "Video"
-    );
-
-  }catch(error){
-
-    console.error(
-      "SEND VIDEO ERROR:",
-      error
-    );
-
-    showToast(
-      error.message ||
-      "Couldn't send video."
-    );
-
-  }finally{
-
-    finishUploadStatus();
-
-  }
-
-}
-
-
-/* =========================================================
-   CREATE MEDIA MESSAGE
-========================================================= */
-
-async function createMediaMessage(
-  type,
-  mediaUrl,
-  inboxLabel
-){
-
-  const user =
-    getCurrentUser();
-
-  if(
-    !user ||
-    !activeChatUser?.uid
-  ){
-
-    return;
-
-  }
-
-  const cid =
-    conversationId(
-      user.uid,
-      activeChatUser.uid
-    );
-
-  const conversationRef =
-    db.collection("conversations")
-      .doc(cid);
-
-  const messageRef =
-    conversationRef
-      .collection("messages")
-      .doc();
-
-  const timestamp =
-    firebase.firestore.FieldValue
-      .serverTimestamp();
-
-  const receiverUid =
-    activeChatUser.uid;
-
-  const messageData = {
-
-    senderId:user.uid,
-
-    receiverId:receiverUid,
-
-    type:type,
-
-    createdAt:timestamp
-
-  };
-
-  if(type === "image"){
-
-    messageData.imageUrl =
-      mediaUrl;
-
-  }else if(type === "video"){
-
-    messageData.videoUrl =
-      mediaUrl;
-
-  }
-
-  await conversationRef.set({
-
-    participants:[
-      user.uid,
-      receiverUid
-    ],
-
-    lastMessage:
-      inboxLabel,
-
-    lastMessageType:
-      type,
-
-    lastSenderId:
-      user.uid,
-
-    lastMessageAt:
-      timestamp,
-
-    seenByCurrentUser:true,
-
-    unreadCounts:{
-      [user.uid]:0,
-      [receiverUid]:
-        firebase.firestore.FieldValue.increment(1)
-    }
-
-  },{
-    merge:true
-  });
-
-  await messageRef.set(
-    messageData
-  );
-
-}
-
-
-/* =========================================================
-   UPLOAD STATUS
-========================================================= */
-
-function finishUploadStatus(){
-
-  setTimeout(
-    () => {
-
-      uploadStatus.classList.remove(
-        "active"
-      );
-
-      progressBar.style.width =
-        "0%";
-
-    },
-    250
-  );
-
-}
-
-
-/* =========================================================
-   MEDIA VIEWER
-========================================================= */
-
-function openMediaViewer(
-  type,
-  url
-){
-
-  viewerContent.innerHTML = "";
-
-  if(type === "image"){
-
-    const image =
-      document.createElement("img");
-
-    image.className =
-      "viewer-image";
-
-    image.src =
-      url;
-
-    image.alt =
-      "Photo";
-
-    viewerContent.appendChild(
-      image
-    );
-
-  }else if(type === "video"){
-
-    const video =
-      document.createElement("video");
-
-    video.className =
-      "viewer-video";
-
-    video.src =
-      url;
-
-    video.controls =
-      true;
-
-    video.playsInline =
-      true;
-
-    video.autoplay =
-      true;
-
-    viewerContent.appendChild(
-      video
-    );
-
-  }
-
-  viewerBackdrop.classList.add(
-    "show"
-  );
-
-}
-
-
-function closeMediaViewer(){
-
-  const video =
-    viewerContent.querySelector(
-      "video"
-    );
-
-  if(video){
-
-    video.pause();
-    video.removeAttribute("src");
-    video.load();
-
-  }
-
-  viewerContent.innerHTML = "";
-
-  viewerBackdrop.classList.remove(
-    "show"
-  );
-
-}
-
-
-viewerCloseButton.addEventListener(
-  "click",
-  closeMediaViewer
-);
-
-
-viewerBackdrop.addEventListener(
-  "click",
-  event => {
-
-    if(
-      event.target ===
-      viewerBackdrop
-    ){
-
-      closeMediaViewer();
-
-    }
-
-  }
-);
 
 
 /* =========================================================
@@ -4325,11 +3888,10 @@ function closeChat(){
     "open"
   );
 
-  typingIndicator.classList.remove(
-    "show"
-  );
-
   activeChatUser = null;
+
+  opponentTyping =
+    false;
 
   sendButton.disabled =
     true;
@@ -4458,8 +4020,6 @@ window.addEventListener(
     clearTimeout(
       typingTimer
     );
-
-    clearSelectedMediaPreview();
 
     if(messagesUnsubscribe){
       messagesUnsubscribe();
