@@ -17,8 +17,7 @@
   -webkit-tap-highlight-color:transparent;
 }
 
-html,
-body{
+html,body{
   width:100%;
   height:100%;
   background:#08090c;
@@ -30,8 +29,7 @@ body{
   overflow:hidden;
 }
 
-button,
-input{
+button,input{
   font:inherit;
 }
 
@@ -45,8 +43,8 @@ button{
 .app{
   width:100%;
   height:100dvh;
-  overflow:hidden;
   position:relative;
+  overflow:hidden;
   background:#08090c;
 }
 
@@ -70,13 +68,11 @@ button{
   justify-content:center;
   position:relative;
   border-bottom:1px solid #202228;
-  background:#08090c;
 }
 
 .inbox-header h1{
   font-size:20px;
   font-weight:700;
-  letter-spacing:-.2px;
 }
 
 .back-home{
@@ -106,7 +102,6 @@ button{
 
 .search-wrap{
   padding:12px 15px 8px;
-  background:#08090c;
 }
 
 .search-box{
@@ -141,7 +136,7 @@ button{
   color:#858991;
 }
 
-/* Content */
+/* Inbox list */
 
 .content{
   flex:1;
@@ -216,21 +211,21 @@ button{
 }
 
 .unread .conversation-name{
-  font-weight:750;
   color:#fff;
+  font-weight:750;
 }
 
 .unread .last-message{
-  color:#d8dae0;
-  font-weight:550;
+  color:#e4e5e8;
+  font-weight:600;
 }
 
 .unread-dot{
   width:9px;
   height:9px;
+  min-width:9px;
   border-radius:50%;
   background:#2387ff;
-  flex:none;
 }
 
 .empty{
@@ -258,6 +253,13 @@ button{
 
 .search-results.active{
   display:block;
+}
+
+.loading{
+  padding:35px;
+  text-align:center;
+  color:#777b84;
+  font-size:14px;
 }
 
 /* =========================
@@ -307,7 +309,13 @@ button{
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  max-width:180px;
+  cursor:pointer;
+  padding:3px 12px;
+  border-radius:12px;
+}
+
+.chat-user:active{
+  background:#111318;
 }
 
 .chat-user .avatar{
@@ -319,13 +327,71 @@ button{
 
 .chat-user-name{
   margin-top:3px;
-  max-width:170px;
+  max-width:180px;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
   color:#f5f5f7;
   font-size:12px;
   font-weight:650;
+}
+
+.typing-indicator{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-22px;
+  height:20px;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  pointer-events:none;
+  z-index:4;
+}
+
+.typing-indicator.show{
+  display:flex;
+}
+
+.typing-label{
+  color:#8d9098;
+  font-size:11px;
+  display:flex;
+  align-items:center;
+  gap:3px;
+}
+
+.typing-dots{
+  display:flex;
+  gap:2px;
+  margin-left:3px;
+}
+
+.typing-dots span{
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:#8d9098;
+  animation:typingDot 1s infinite ease-in-out;
+}
+
+.typing-dots span:nth-child(2){
+  animation-delay:.15s;
+}
+
+.typing-dots span:nth-child(3){
+  animation-delay:.3s;
+}
+
+@keyframes typingDot{
+  0%,60%,100%{
+    transform:translateY(0);
+    opacity:.35;
+  }
+  30%{
+    transform:translateY(-3px);
+    opacity:1;
+  }
 }
 
 /* Messages */
@@ -368,12 +434,24 @@ button{
   font-size:13px;
 }
 
+/* Message row */
+
 .message-row{
   width:100%;
   display:flex;
   align-items:flex-end;
-  gap:2px;
+  gap:3px;
   animation:messageIn .12s ease-out;
+  user-select:none;
+  -webkit-user-select:none;
+}
+
+.message-row.mine{
+  justify-content:flex-end;
+}
+
+.message-row.theirs{
+  justify-content:flex-start;
 }
 
 @keyframes messageIn{
@@ -387,14 +465,6 @@ button{
   }
 }
 
-.message-row.mine{
-  justify-content:flex-end;
-}
-
-.message-row.theirs{
-  justify-content:flex-start;
-}
-
 .message-content{
   display:block;
   min-width:0;
@@ -402,13 +472,13 @@ button{
 }
 
 .message-bubble{
-  display:block;
-  width:max-content;
+  display:inline-block;
+  width:auto;
   max-width:100%;
-  padding:10px 13px;
-  border-radius:19px;
+  padding:8px 11px;
+  border-radius:17px;
   font-size:15px;
-  line-height:1.4;
+  line-height:1.38;
   white-space:pre-wrap;
   overflow-wrap:anywhere;
   word-break:normal;
@@ -417,14 +487,14 @@ button{
 .mine .message-bubble{
   background:#1677e8;
   color:#fff;
-  border-bottom-right-radius:6px;
+  border-bottom-right-radius:5px;
 }
 
 .theirs .message-bubble{
   background:#202228;
   color:#f2f2f4;
   border:1px solid #292c33;
-  border-bottom-left-radius:6px;
+  border-bottom-left-radius:5px;
 }
 
 .message-image{
@@ -438,11 +508,11 @@ button{
 }
 
 .mine .message-image{
-  border-bottom-right-radius:6px;
+  border-bottom-right-radius:5px;
 }
 
 .theirs .message-image{
-  border-bottom-left-radius:6px;
+  border-bottom-left-radius:5px;
 }
 
 .message-time{
@@ -451,6 +521,16 @@ button{
   color:#6f727a;
   margin:0 4px 2px;
   white-space:nowrap;
+}
+
+/* Sending */
+
+.message-sending{
+  opacity:.72;
+}
+
+.message-sending .message-time{
+  color:#777b84;
 }
 
 /* Composer */
@@ -589,14 +669,77 @@ button{
   transform:translateX(-50%) translateY(0);
 }
 
-.loading{
-  padding:35px;
-  text-align:center;
-  color:#777b84;
-  font-size:14px;
+/* =========================
+   ACTION SHEET
+========================= */
+
+.sheet-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .18s ease;
+  z-index:200;
+}
+
+.sheet-backdrop.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.action-sheet{
+  position:fixed;
+  left:50%;
+  bottom:10px;
+  width:calc(100% - 20px);
+  max-width:500px;
+  transform:translate(-50%,120%);
+  background:#191b20;
+  border:1px solid #292c33;
+  border-radius:17px;
+  overflow:hidden;
+  transition:transform .22s cubic-bezier(.2,.8,.2,1);
+  z-index:201;
+}
+
+.sheet-backdrop.show .action-sheet{
+  transform:translate(-50%,0);
+}
+
+.sheet-button{
+  width:100%;
+  height:52px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:15px;
+  font-weight:600;
+  border-bottom:1px solid #292c33;
+}
+
+.sheet-button:last-child{
+  border-bottom:0;
+}
+
+.sheet-button:active{
+  background:#22252b;
+}
+
+.sheet-button.danger{
+  color:#ff5d68;
+}
+
+/* =========================
+   PROFILE LOADING
+========================= */
+
+.profile-open-loading{
+  opacity:.7;
 }
 
 @media(min-width:700px){
+
   .inbox,
   .chat{
     max-width:600px;
@@ -652,7 +795,7 @@ autocomplete="off"
 
 </div>
 
-<div class="content" id="inboxContent">
+<div class="content">
 
 <div id="conversationSection">
 
@@ -689,12 +832,25 @@ autocomplete="off"
 
 </button>
 
-<div class="chat-user">
+<button class="chat-user" id="chatUserButton">
 
 <div class="avatar" id="chatAvatar"></div>
 
 <div class="chat-user-name" id="chatUserName">
 Member
+</div>
+
+</button>
+
+<div class="typing-indicator" id="typingIndicator">
+
+<div class="typing-label">
+typing
+<div class="typing-dots">
+<span></span>
+<span></span>
+<span></span>
+</div>
 </div>
 
 </div>
@@ -762,7 +918,7 @@ aria-label="Send"
 
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 <path d="M22 2L11 13"/>
-<path d="M22 2l-7 20-4-9-9-4z"/>
+<path d="M22 2l-7 20-4-11-9-4z"/>
 </svg>
 
 </button>
@@ -772,6 +928,32 @@ aria-label="Send"
 </section>
 
 </div>
+
+
+<!-- Unsend sheet -->
+
+<div class="sheet-backdrop" id="sheetBackdrop">
+
+<div class="action-sheet">
+
+<button
+class="sheet-button danger"
+id="unsendButton"
+>
+Unsend
+</button>
+
+<button
+class="sheet-button"
+id="cancelSheetButton"
+>
+Cancel
+</button>
+
+</div>
+
+</div>
+
 
 <div class="toast" id="toast"></div>
 
@@ -826,6 +1008,9 @@ const homeBackBtn =
 const chatBackBtn =
   document.getElementById("chatBackBtn");
 
+const chatUserButton =
+  document.getElementById("chatUserButton");
+
 const userSearch =
   document.getElementById("userSearch");
 
@@ -846,6 +1031,9 @@ const chatAvatar =
 
 const chatUserName =
   document.getElementById("chatUserName");
+
+const typingIndicator =
+  document.getElementById("typingIndicator");
 
 const messages =
   document.getElementById("messages");
@@ -874,6 +1062,15 @@ const progressBar =
 const toast =
   document.getElementById("toast");
 
+const sheetBackdrop =
+  document.getElementById("sheetBackdrop");
+
+const unsendButton =
+  document.getElementById("unsendButton");
+
+const cancelSheetButton =
+  document.getElementById("cancelSheetButton");
+
 
 /* =========================================================
    STATE
@@ -884,11 +1081,53 @@ let activeChatUser = null;
 
 let messagesUnsubscribe = null;
 let conversationUnsubscribe = null;
+let activeConversationUnsubscribe = null;
 
 let searchTimer = null;
 let toastTimer = null;
 
-let optimisticMessageIds = new Set();
+let typingTimer = null;
+
+let selectedMessageId = null;
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+auth.onAuthStateChanged(async user => {
+
+  if(!user){
+
+    currentUser = null;
+
+    window.location.href =
+      "index.html";
+
+    return;
+
+  }
+
+  currentUser = user;
+
+  await loadConversations();
+
+  handleIncomingProfile();
+
+});
+
+
+/* =========================================================
+   CURRENT USER
+========================================================= */
+
+function getCurrentUser(){
+
+  return auth.currentUser ||
+         currentUser ||
+         null;
+
+}
 
 
 /* =========================================================
@@ -906,84 +1145,10 @@ function showToast(text){
 
   toastTimer =
     setTimeout(() => {
+
       toast.classList.remove("show");
+
     },3000);
-
-}
-
-
-/* =========================================================
-   AUTH
-========================================================= */
-
-auth.onAuthStateChanged(async user => {
-
-  if(!user){
-
-    currentUser = null;
-
-    showToast(
-      "Please sign in again."
-    );
-
-    setTimeout(() => {
-      window.location.href = "index.html";
-    },800);
-
-    return;
-  }
-
-  currentUser = user;
-
-  console.log(
-    "Authenticated:",
-    currentUser.uid
-  );
-
-  await loadConversations();
-
-  handleIncomingProfile();
-
-});
-
-
-/* =========================================================
-   SAFE CURRENT USER
-========================================================= */
-
-function getCurrentUser(){
-
-  return auth.currentUser || currentUser || null;
-
-}
-
-
-/* =========================================================
-   URL PROFILE
-========================================================= */
-
-function handleIncomingProfile(){
-
-  const user =
-    getCurrentUser();
-
-  if(!user){
-    return;
-  }
-
-  const params =
-    new URLSearchParams(
-      window.location.search
-    );
-
-  const uid =
-    params.get("uid");
-
-  if(!uid || uid === user.uid){
-    return;
-  }
-
-  openChatByUid(uid);
 
 }
 
@@ -1032,7 +1197,7 @@ function avatarHTML(userData){
 
 
 /* =========================================================
-   GET USER
+   USER DATA
 ========================================================= */
 
 async function getUserData(uid){
@@ -1084,8 +1249,43 @@ function conversationId(uid1,uid2){
 
 
 /* =========================================================
-   LOAD CONVERSATIONS
-   No orderBy = no composite index required.
+   INCOMING PROFILE
+========================================================= */
+
+function handleIncomingProfile(){
+
+  const user =
+    getCurrentUser();
+
+  if(!user){
+    return;
+  }
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+  const uid =
+    params.get("uid");
+
+  if(
+    !uid ||
+    uid === user.uid
+  ){
+
+    return;
+
+  }
+
+  openChatByUid(uid);
+
+}
+
+
+/* =========================================================
+   LOAD INBOX
+   No composite orderBy.
 ========================================================= */
 
 async function loadConversations(){
@@ -1107,227 +1307,348 @@ async function loadConversations(){
   conversationList.innerHTML =
     `<div class="loading">Loading messages...</div>`;
 
-  try{
+  conversationUnsubscribe =
+    db.collection("conversations")
+      .where(
+        "participants",
+        "array-contains",
+        user.uid
+      )
+      .onSnapshot(
+        async snapshot => {
 
-    conversationUnsubscribe =
-      db.collection("conversations")
-        .where(
-          "participants",
-          "array-contains",
-          user.uid
-        )
-        .onSnapshot(
-          async snapshot => {
-
-            if(snapshot.empty){
-
-              conversationList.innerHTML = `
-                <div class="empty">
-
-                  <div class="empty-title">
-                    No messages yet
-                  </div>
-
-                  <div class="empty-text">
-                    Search for a member and start a conversation.
-                  </div>
-
-                </div>
-              `;
-
-              return;
-
-            }
-
-            const conversations = [];
-
-            for(const doc of snapshot.docs){
-
-              const data =
-                doc.data();
-
-              const otherUid =
-                (data.participants || [])
-                  .find(
-                    uid => uid !== user.uid
-                  );
-
-              if(!otherUid){
-                continue;
-              }
-
-              conversations.push({
-                doc,
-                data,
-                otherUid
-              });
-
-            }
-
-            /* Client-side sorting */
-            conversations.sort(
-              (a,b) => {
-
-                const aTime =
-                  a.data.lastMessageAt?.toMillis
-                    ? a.data.lastMessageAt.toMillis()
-                    : 0;
-
-                const bTime =
-                  b.data.lastMessageAt?.toMillis
-                    ? b.data.lastMessageAt.toMillis()
-                    : 0;
-
-                return bTime - aTime;
-
-              }
-            );
-
-            const fragment =
-              document.createDocumentFragment();
-
-            for(const itemData of conversations){
-
-              const data =
-                itemData.data;
-
-              const otherUid =
-                itemData.otherUid;
-
-              const userData =
-                await getUserData(otherUid);
-
-              const item =
-                document.createElement("div");
-
-              item.className =
-                "conversation";
-
-              const unread =
-                data.lastSenderId === otherUid &&
-                data.seenByCurrentUser !== true;
-
-              if(unread){
-                item.classList.add("unread");
-              }
-
-              let preview =
-                data.lastMessage || "";
-
-              if(data.lastMessageType === "image"){
-                preview = "Photo";
-              }
-
-              const name =
-                userData.displayName ||
-                userData.name ||
-                userData.username ||
-                "Member";
-
-              item.innerHTML = `
-
-                <div class="avatar">
-                  ${avatarHTML(userData)}
-                </div>
-
-                <div class="conversation-info">
-
-                  <div class="conversation-name">
-                    ${escapeHTML(name)}
-                  </div>
-
-                  <div class="last-message">
-                    ${escapeHTML(
-                      preview ||
-                      "Start a conversation"
-                    )}
-                  </div>
-
-                </div>
-
-                ${
-                  unread
-                  ? `<div class="unread-dot"></div>`
-                  : ""
-                }
-
-              `;
-
-              item.addEventListener(
-                "click",
-                () => {
-
-                  openChat({
-                    uid:otherUid,
-                    ...userData
-                  });
-
-                }
-              );
-
-              fragment.appendChild(item);
-
-            }
-
-            conversationList.innerHTML = "";
-
-            conversationList.appendChild(
-              fragment
-            );
-
-          },
-          error => {
-
-            console.error(
-              "CONVERSATION LIST ERROR:",
-              error
-            );
+          if(snapshot.empty){
 
             conversationList.innerHTML = `
               <div class="empty">
 
                 <div class="empty-title">
-                  Couldn't load messages
+                  No messages yet
                 </div>
 
                 <div class="empty-text">
-                  ${escapeHTML(
-                    error.message ||
-                    "Please try again."
-                  )}
+                  Search for a member and start a conversation.
                 </div>
 
               </div>
             `;
 
+            return;
+
           }
-        );
+
+          const conversations = [];
+
+          for(
+            const doc of snapshot.docs
+          ){
+
+            const data =
+              doc.data();
+
+            const otherUid =
+              (data.participants || [])
+                .find(
+                  uid => uid !== user.uid
+                );
+
+            if(!otherUid){
+              continue;
+            }
+
+            conversations.push({
+              doc,
+              data,
+              otherUid
+            });
+
+          }
+
+          conversations.sort(
+            (a,b) => {
+
+              const aTime =
+                a.data.lastMessageAt?.toMillis
+                  ? a.data.lastMessageAt.toMillis()
+                  : 0;
+
+              const bTime =
+                b.data.lastMessageAt?.toMillis
+                  ? b.data.lastMessageAt.toMillis()
+                  : 0;
+
+              return bTime - aTime;
+
+            }
+          );
+
+          conversationList.innerHTML = "";
+
+          for(
+            const item of conversations
+          ){
+
+            const userData =
+              await getUserData(
+                item.otherUid
+              );
+
+            const unreadCount =
+              Number(
+                item.data?.unreadCounts?.[user.uid] || 0
+              );
+
+            const name =
+              userData.displayName ||
+              userData.name ||
+              userData.username ||
+              "Member";
+
+            const itemElement =
+              document.createElement("div");
+
+            itemElement.className =
+              "conversation";
+
+            if(unreadCount > 0){
+
+              itemElement.classList.add(
+                "unread"
+              );
+
+            }
+
+            const preview =
+              getInboxPreview(
+                item.data,
+                user.uid,
+                unreadCount
+              );
+
+            itemElement.innerHTML = `
+
+              <div class="avatar">
+                ${avatarHTML(userData)}
+              </div>
+
+              <div class="conversation-info">
+
+                <div class="conversation-name">
+                  ${escapeHTML(name)}
+                </div>
+
+                <div class="last-message">
+                  ${escapeHTML(preview)}
+                </div>
+
+              </div>
+
+              ${
+                unreadCount > 0
+                ? `<div class="unread-dot"></div>`
+                : ""
+              }
+
+            `;
+
+            itemElement.addEventListener(
+              "click",
+              () => {
+
+                openChat({
+                  uid:item.otherUid,
+                  ...userData
+                });
+
+              }
+            );
+
+            conversationList.appendChild(
+              itemElement
+            );
+
+          }
+
+        },
+        error => {
+
+          console.error(
+            "INBOX ERROR:",
+            error
+          );
+
+          conversationList.innerHTML = `
+            <div class="empty">
+
+              <div class="empty-title">
+                Couldn't load messages
+              </div>
+
+              <div class="empty-text">
+                ${escapeHTML(
+                  error.message ||
+                  "Please try again."
+                )}
+              </div>
+
+            </div>
+          `;
+
+        }
+      );
+
+}
+
+
+/* =========================================================
+   INBOX PREVIEW
+========================================================= */
+
+function getInboxPreview(
+  data,
+  uid,
+  unreadCount
+){
+
+  if(unreadCount > 1){
+
+    return unreadCount +
+      " new messages";
+
+  }
+
+  const type =
+    data.lastMessageType;
+
+  const message =
+    data.lastMessage || "";
+
+  const when =
+    formatRelativeTime(
+      data.lastMessageAt
+    );
+
+  let label = "";
+
+  if(type === "image"){
+
+    label =
+      data.lastSenderId === uid
+        ? "Photo sent"
+        : "Photo";
+
+  }else{
+
+    label =
+      data.lastSenderId === uid
+        ? "Message sent"
+        : message || "Message";
+
+  }
+
+  if(!when){
+
+    return label;
+
+  }
+
+  return label +
+    " • " +
+    when;
+
+}
+
+
+/* =========================================================
+   RELATIVE TIME
+========================================================= */
+
+function formatRelativeTime(timestamp){
+
+  if(!timestamp){
+    return "";
+  }
+
+  let date;
+
+  try{
+
+    date =
+      timestamp?.toDate
+        ? timestamp.toDate()
+        : new Date(timestamp);
 
   }catch(error){
 
-    console.error(
-      "LOAD CONVERSATIONS ERROR:",
-      error
-    );
-
-    conversationList.innerHTML = `
-      <div class="empty">
-
-        <div class="empty-title">
-          Couldn't load messages
-        </div>
-
-        <div class="empty-text">
-          ${escapeHTML(
-            error.message ||
-            "Please try again."
-          )}
-        </div>
-
-      </div>
-    `;
+    return "";
 
   }
+
+  if(
+    Number.isNaN(
+      date.getTime()
+    )
+  ){
+
+    return "";
+
+  }
+
+  const seconds =
+    Math.max(
+      0,
+      Math.floor(
+        (Date.now() - date.getTime()) / 1000
+      )
+    );
+
+  if(seconds < 10){
+    return "just now";
+  }
+
+  if(seconds < 60){
+    return seconds + " sec ago";
+  }
+
+  const minutes =
+    Math.floor(seconds / 60);
+
+  if(minutes < 60){
+
+    return minutes +
+      " min ago";
+
+  }
+
+  const hours =
+    Math.floor(minutes / 60);
+
+  if(hours < 24){
+
+    return hours +
+      " hr ago";
+
+  }
+
+  const days =
+    Math.floor(hours / 24);
+
+  if(days < 7){
+
+    return days +
+      " day" +
+      (days === 1 ? "" : "s") +
+      " ago";
+
+  }
+
+  return date.toLocaleDateString(
+    [],
+    {
+      day:"numeric",
+      month:"short"
+    }
+  );
 
 }
 
@@ -1387,13 +1708,7 @@ async function searchMembers(query){
     getCurrentUser();
 
   if(!user){
-
-    showToast(
-      "Please sign in again."
-    );
-
     return;
-
   }
 
   memberResults.innerHTML =
@@ -1453,20 +1768,18 @@ async function searchMembers(query){
   }catch(error){
 
     console.error(
-      "SEARCH MEMBERS ERROR:",
+      "SEARCH ERROR:",
       error
     );
 
     memberResults.innerHTML = `
       <div class="empty">
-
         <div class="empty-text">
           ${escapeHTML(
             error.message ||
             "Couldn't search members."
           )}
         </div>
-
       </div>
     `;
 
@@ -1563,18 +1876,13 @@ async function openChatByUid(uid){
   const user =
     getCurrentUser();
 
-  if(!user){
-
-    showToast(
-      "Please sign in again."
-    );
+  if(
+    !user ||
+    uid === user.uid
+  ){
 
     return;
 
-  }
-
-  if(uid === user.uid){
-    return;
   }
 
   const userData =
@@ -1596,10 +1904,6 @@ function openChat(userData){
     userData.uid === user.uid
   ){
 
-    showToast(
-      "Unable to open this chat."
-    );
-
     return;
 
   }
@@ -1618,13 +1922,274 @@ function openChat(userData){
 
   chat.classList.add("open");
 
+  startConversationListeners();
+
   loadMessages();
+
+  markConversationSeen();
+
+  setTimeout(
+    () => messageInput.focus(),
+    260
+  );
 
 }
 
 
 /* =========================================================
-   LOAD CHAT MESSAGES
+   PROFILE OPEN
+========================================================= */
+
+chatUserButton.addEventListener(
+  "click",
+  () => {
+
+    if(!activeChatUser?.uid){
+      return;
+    }
+
+    window.location.href =
+      "profile.html?uid=" +
+      encodeURIComponent(
+        activeChatUser.uid
+      );
+
+  }
+);
+
+
+/* =========================================================
+   CONVERSATION LISTENERS
+   - typing
+   - unread count
+========================================================= */
+
+function startConversationListeners(){
+
+  const user =
+    getCurrentUser();
+
+  if(
+    !user ||
+    !activeChatUser
+  ){
+
+    return;
+
+  }
+
+  if(activeConversationUnsubscribe){
+
+    activeConversationUnsubscribe();
+    activeConversationUnsubscribe = null;
+
+  }
+
+  const cid =
+    conversationId(
+      user.uid,
+      activeChatUser.uid
+    );
+
+  activeConversationUnsubscribe =
+    db.collection("conversations")
+      .doc(cid)
+      .onSnapshot(
+        snap => {
+
+          if(!snap.exists){
+
+            typingIndicator.classList.remove(
+              "show"
+            );
+
+            return;
+
+          }
+
+          const data =
+            snap.data() || {};
+
+          const typingBy =
+            data.typingBy || {};
+
+          const otherTyping =
+            typingBy[
+              activeChatUser.uid
+            ] === true;
+
+          if(otherTyping){
+
+            typingIndicator.classList.add(
+              "show"
+            );
+
+          }else{
+
+            typingIndicator.classList.remove(
+              "show"
+            );
+
+          }
+
+        },
+        error => {
+
+          console.error(
+            "CONVERSATION LISTENER ERROR:",
+            error
+          );
+
+        }
+      );
+
+}
+
+
+/* =========================================================
+   TYPING
+========================================================= */
+
+messageInput.addEventListener(
+  "input",
+  () => {
+
+    updateSendButton();
+
+    const user =
+      getCurrentUser();
+
+    if(
+      !user ||
+      !activeChatUser
+    ){
+
+      return;
+
+    }
+
+    setTyping(true);
+
+    clearTimeout(typingTimer);
+
+    typingTimer =
+      setTimeout(
+        () => setTyping(false),
+        1200
+      );
+
+  }
+);
+
+
+messageInput.addEventListener(
+  "blur",
+  () => {
+
+    clearTimeout(typingTimer);
+
+    setTyping(false);
+
+  }
+);
+
+
+function setTyping(isTyping){
+
+  const user =
+    getCurrentUser();
+
+  if(
+    !user ||
+    !activeChatUser
+  ){
+
+    return;
+
+  }
+
+  const cid =
+    conversationId(
+      user.uid,
+      activeChatUser.uid
+    );
+
+  const field =
+    "typingBy." +
+    user.uid;
+
+  db.collection("conversations")
+    .doc(cid)
+    .update({
+      [field]:isTyping
+    })
+    .catch(
+      error => {
+
+        /*
+          If the conversation doesn't exist
+          yet, typing state can simply be ignored.
+        */
+
+        console.debug(
+          "Typing state:",
+          error.message
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   MARK SEEN
+========================================================= */
+
+function markConversationSeen(){
+
+  const user =
+    getCurrentUser();
+
+  if(
+    !user ||
+    !activeChatUser
+  ){
+
+    return;
+
+  }
+
+  const cid =
+    conversationId(
+      user.uid,
+      activeChatUser.uid
+    );
+
+  const ref =
+    db.collection("conversations")
+      .doc(cid);
+
+  ref.update({
+
+    ["unreadCounts." + user.uid]:0
+
+  }).catch(
+    error => {
+
+      console.debug(
+        "MARK SEEN:",
+        error.message
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   LOAD MESSAGES
 ========================================================= */
 
 function loadMessages(){
@@ -1633,8 +2198,8 @@ function loadMessages(){
     getCurrentUser();
 
   if(
-    !activeChatUser ||
-    !user
+    !user ||
+    !activeChatUser
   ){
 
     return;
@@ -1668,6 +2233,8 @@ function loadMessages(){
       .onSnapshot(
         snapshot => {
 
+          messages.innerHTML = "";
+
           if(snapshot.empty){
 
             messages.innerHTML = `
@@ -1699,32 +2266,26 @@ function loadMessages(){
 
           }
 
-          messages.innerHTML = "";
+          snapshot.forEach(
+            doc => {
 
-          snapshot.forEach(doc => {
+              renderMessage(
+                doc.id,
+                doc.data()
+              );
 
-            /*
-              Remove optimistic duplicate once
-              the real Firestore document appears.
-            */
-
-            optimisticMessageIds.delete(
-              doc.id
-            );
-
-            renderMessage(
-              doc.data()
-            );
-
-          });
+            }
+          );
 
           scrollMessages();
+
+          markConversationSeen();
 
         },
         error => {
 
           console.error(
-            "LOAD CHAT ERROR:",
+            "MESSAGES ERROR:",
             error
           );
 
@@ -1755,7 +2316,10 @@ function loadMessages(){
    RENDER MESSAGE
 ========================================================= */
 
-function renderMessage(data){
+function renderMessage(
+  messageId,
+  data
+){
 
   const user =
     getCurrentUser();
@@ -1773,6 +2337,9 @@ function renderMessage(data){
   row.className =
     "message-row " +
     (mine ? "mine" : "theirs");
+
+  row.dataset.messageId =
+    messageId;
 
   const content =
     document.createElement("div");
@@ -1815,7 +2382,9 @@ function renderMessage(data){
       "message-time";
 
     time.textContent =
-      formatTime(data.createdAt);
+      formatTime(
+        data.createdAt
+      );
 
     row.appendChild(time);
 
@@ -1823,69 +2392,319 @@ function renderMessage(data){
 
   messages.appendChild(row);
 
+  if(mine){
+
+    attachLongPress(
+      row,
+      messageId
+    );
+
+  }
+
 }
 
 
 /* =========================================================
-   OPTIMISTIC TEXT MESSAGE
+   LONG PRESS
 ========================================================= */
 
-function renderOptimisticText(
-  text,
-  user
+function attachLongPress(
+  element,
+  messageId
 ){
 
-  const row =
-    document.createElement("div");
+  let timer = null;
+  let triggered = false;
 
-  row.className =
-    "message-row mine";
+  const start = event => {
 
-  row.dataset.optimistic = "true";
+    triggered = false;
 
-  const content =
-    document.createElement("div");
+    timer =
+      setTimeout(
+        () => {
 
-  content.className =
-    "message-content";
+          triggered = true;
 
-  content.innerHTML = `
-    <div class="message-bubble">
-      ${escapeHTML(text)}
-    </div>
-  `;
+          openActionSheet(
+            messageId
+          );
 
-  row.appendChild(content);
+        },
+        550
+      );
 
-  const time =
-    document.createElement("div");
+  };
 
-  time.className =
-    "message-time";
+  const cancel = () => {
 
-  time.textContent =
-    "Sending";
+    if(timer){
 
-  row.appendChild(time);
+      clearTimeout(timer);
+      timer = null;
 
-  messages.appendChild(row);
+    }
 
-  scrollMessages();
+  };
 
-  return row;
+  element.addEventListener(
+    "touchstart",
+    start,
+    {
+      passive:true
+    }
+  );
+
+  element.addEventListener(
+    "touchend",
+    cancel
+  );
+
+  element.addEventListener(
+    "touchcancel",
+    cancel
+  );
+
+  element.addEventListener(
+    "touchmove",
+    cancel
+  );
+
+  element.addEventListener(
+    "mousedown",
+    start
+  );
+
+  element.addEventListener(
+    "mouseup",
+    cancel
+  );
+
+  element.addEventListener(
+    "mouseleave",
+    cancel
+  );
 
 }
 
 
 /* =========================================================
-   INPUT
+   ACTION SHEET
 ========================================================= */
 
-messageInput.addEventListener(
-  "input",
-  updateSendButton
+function openActionSheet(
+  messageId
+){
+
+  selectedMessageId =
+    messageId;
+
+  sheetBackdrop.classList.add(
+    "show"
+  );
+
+}
+
+
+function closeActionSheet(){
+
+  selectedMessageId =
+    null;
+
+  sheetBackdrop.classList.remove(
+    "show"
+  );
+
+}
+
+
+cancelSheetButton.addEventListener(
+  "click",
+  closeActionSheet
 );
 
+sheetBackdrop.addEventListener(
+  "click",
+  event => {
+
+    if(
+      event.target ===
+      sheetBackdrop
+    ){
+
+      closeActionSheet();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   UNSEND
+========================================================= */
+
+unsendButton.addEventListener(
+  "click",
+  async () => {
+
+    const messageId =
+      selectedMessageId;
+
+    closeActionSheet();
+
+    if(!messageId){
+      return;
+    }
+
+    await unsendMessage(
+      messageId
+    );
+
+  }
+);
+
+
+async function unsendMessage(
+  messageId
+){
+
+  const user =
+    getCurrentUser();
+
+  if(
+    !user ||
+    !activeChatUser
+  ){
+
+    return;
+
+  }
+
+  const cid =
+    conversationId(
+      user.uid,
+      activeChatUser.uid
+    );
+
+  const messageRef =
+    db.collection("conversations")
+      .doc(cid)
+      .collection("messages")
+      .doc(messageId);
+
+  try{
+
+    const messageSnap =
+      await messageRef.get();
+
+    if(!messageSnap.exists){
+      return;
+    }
+
+    const messageData =
+      messageSnap.data();
+
+    if(
+      messageData.senderId !==
+      user.uid
+    ){
+
+      showToast(
+        "You can only unsend your own messages."
+      );
+
+      return;
+
+    }
+
+    await messageRef.delete();
+
+    /*
+      Rebuild inbox preview from the
+      newest remaining message.
+    */
+
+    const latest =
+      await db.collection("conversations")
+        .doc(cid)
+        .collection("messages")
+        .orderBy(
+          "createdAt",
+          "desc"
+        )
+        .limit(1)
+        .get();
+
+    const conversationRef =
+      db.collection("conversations")
+        .doc(cid);
+
+    if(latest.empty){
+
+      await conversationRef.update({
+
+        lastMessage:"",
+        lastMessageType:"",
+        lastSenderId:"",
+        lastMessageAt:
+          firebase.firestore.FieldValue.delete()
+
+      });
+
+    }else{
+
+      const latestData =
+        latest.docs[0].data();
+
+      await conversationRef.update({
+
+        lastMessage:
+          latestData.type === "image"
+            ? "Photo"
+            : (
+                latestData.text ||
+                ""
+              ),
+
+        lastMessageType:
+          latestData.type || "text",
+
+        lastSenderId:
+          latestData.senderId || "",
+
+        lastMessageAt:
+          latestData.createdAt ||
+          firebase.firestore.FieldValue.serverTimestamp()
+
+      });
+
+    }
+
+    showToast(
+      "Message unsent."
+    );
+
+  }catch(error){
+
+    console.error(
+      "UNSEND ERROR:",
+      error
+    );
+
+    showToast(
+      error.message ||
+      "Couldn't unsend message."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   SEND BUTTON
+========================================================= */
 
 function updateSendButton(){
 
@@ -1901,7 +2720,7 @@ function updateSendButton(){
 
 
 /* =========================================================
-   SEND FORM
+   SEND TEXT
 ========================================================= */
 
 messageForm.addEventListener(
@@ -1917,99 +2736,81 @@ messageForm.addEventListener(
       return;
     }
 
-    await sendTextMessage(text);
+    await sendTextMessage(
+      text
+    );
 
   }
 );
 
 
-/* =========================================================
-   SEND TEXT MESSAGE
-========================================================= */
-
-async function sendTextMessage(text){
+async function sendTextMessage(
+  text
+){
 
   const user =
     getCurrentUser();
 
-  if(!user){
+  if(
+    !user ||
+    !activeChatUser?.uid
+  ){
 
     showToast(
-      "Your login session expired. Please sign in again."
+      "Please open a chat first."
     );
 
     return;
 
   }
 
-  if(!activeChatUser?.uid){
-
-    showToast(
-      "Chat user not found."
-    );
-
-    return;
-
-  }
-
-  if(activeChatUser.uid === user.uid){
-
-    showToast(
-      "You can't message yourself."
-    );
+  if(
+    activeChatUser.uid ===
+    user.uid
+  ){
 
     return;
 
   }
-
-  /*
-    Save the input before clearing it.
-  */
 
   messageInput.value = "";
 
   updateSendButton();
 
-  /*
-    Show immediately.
-  */
-
-  const optimisticRow =
-    renderOptimisticText(
-      text,
-      user
+  const cid =
+    conversationId(
+      user.uid,
+      activeChatUser.uid
     );
 
+  const conversationRef =
+    db.collection("conversations")
+      .doc(cid);
+
+  const messageRef =
+    conversationRef
+      .collection("messages")
+      .doc();
+
+  const timestamp =
+    firebase.firestore.FieldValue
+      .serverTimestamp();
+
+  const receiverUid =
+    activeChatUser.uid;
+
+  /*
+    Create/update conversation immediately.
+    unread count is maintained per user.
+  */
+
   try{
-
-    const cid =
-      conversationId(
-        user.uid,
-        activeChatUser.uid
-      );
-
-    const conversationRef =
-      db.collection("conversations")
-        .doc(cid);
-
-    const messageRef =
-      conversationRef
-        .collection("messages")
-        .doc();
-
-    const now =
-      firebase.firestore.FieldValue
-        .serverTimestamp();
-
-    /*
-      Parent conversation first.
-    */
 
     await conversationRef.set({
 
       participants:[
         user.uid,
-        activeChatUser.uid
+        receiverUid
       ],
 
       lastMessage:text,
@@ -2018,79 +2819,45 @@ async function sendTextMessage(text){
 
       lastSenderId:user.uid,
 
-      lastMessageAt:now,
+      lastMessageAt:timestamp,
 
-      seenByCurrentUser:true
+      seenByCurrentUser:true,
+
+      unreadCounts:{
+        [user.uid]:0,
+        [receiverUid]:
+          firebase.firestore.FieldValue.increment(1)
+      }
 
     },{
       merge:true
     });
 
-    /*
-      Then actual message.
-    */
-
     await messageRef.set({
 
       senderId:user.uid,
 
-      receiverId:activeChatUser.uid,
+      receiverId:receiverUid,
 
       text:text,
 
       type:"text",
 
-      createdAt:now
+      createdAt:timestamp
 
     });
-
-    /*
-      Firestore listener will now render
-      the real message. Remove optimistic row.
-    */
-
-    if(
-      optimisticRow &&
-      optimisticRow.parentNode
-    ){
-
-      optimisticRow.remove();
-
-    }
 
   }catch(error){
 
     console.error(
-      "SEND MESSAGE ERROR:",
+      "SEND TEXT ERROR:",
       error
     );
 
-    /*
-      Remove optimistic message if failed.
-    */
-
-    if(
-      optimisticRow &&
-      optimisticRow.parentNode
-    ){
-
-      optimisticRow.remove();
-
-    }
-
-    const errorText =
-      error?.code
-        ? error.code +
-          ": " +
-          (error.message || "")
-        : (
-            error?.message ||
-            "Couldn't send message."
-          );
-
-    showToast(errorText);
-
-    updateSendButton();
+    showToast(
+      error.message ||
+      "Couldn't send message."
+    );
 
   }
 
@@ -2105,17 +2872,10 @@ photoButton.addEventListener(
   "click",
   () => {
 
-    if(!getCurrentUser()){
-
-      showToast(
-        "Please sign in again."
-      );
-
-      return;
-
-    }
-
-    if(!activeChatUser){
+    if(
+      !getCurrentUser() ||
+      !activeChatUser
+    ){
 
       showToast(
         "Open a chat first."
@@ -2130,10 +2890,6 @@ photoButton.addEventListener(
   }
 );
 
-
-/* =========================================================
-   PHOTO INPUT
-========================================================= */
 
 photoInput.addEventListener(
   "change",
@@ -2171,7 +2927,9 @@ photoInput.addEventListener(
 
     }
 
-    await sendPhotoMessage(file);
+    await sendPhotoMessage(
+      file
+    );
 
   }
 );
@@ -2185,10 +2943,7 @@ async function getImageKitAuth(){
 
   const response =
     await fetch(
-      IMAGEKIT_AUTH_URL,
-      {
-        method:"GET"
-      }
+      IMAGEKIT_AUTH_URL
     );
 
   if(!response.ok){
@@ -2214,7 +2969,10 @@ function uploadToImageKit(
 ){
 
   return new Promise(
-    async (resolve,reject) => {
+    async (
+      resolve,
+      reject
+    ) => {
 
       try{
 
@@ -2299,7 +3057,9 @@ function uploadToImageKit(
         xhr.upload.onprogress =
           event => {
 
-            if(event.lengthComputable){
+            if(
+              event.lengthComputable
+            ){
 
               const percent =
                 Math.round(
@@ -2330,7 +3090,9 @@ function uploadToImageKit(
 
               if(result.url){
 
-                resolve(result.url);
+                resolve(
+                  result.url
+                );
 
               }else{
 
@@ -2350,25 +3112,10 @@ function uploadToImageKit(
 
           }else{
 
-            let message =
-              "Image upload failed.";
-
-            try{
-
-              const result =
-                JSON.parse(
-                  xhr.responseText
-                );
-
-              message =
-                result.message ||
-                result.error ||
-                message;
-
-            }catch(error){}
-
             reject(
-              new Error(message)
+              new Error(
+                "Image upload failed."
+              )
             );
 
           }
@@ -2385,7 +3132,9 @@ function uploadToImageKit(
 
         };
 
-        xhr.send(formData);
+        xhr.send(
+          formData
+        );
 
       }catch(error){
 
@@ -2400,29 +3149,20 @@ function uploadToImageKit(
 
 
 /* =========================================================
-   SEND PHOTO MESSAGE
+   SEND PHOTO
 ========================================================= */
 
-async function sendPhotoMessage(file){
+async function sendPhotoMessage(
+  file
+){
 
   const user =
     getCurrentUser();
 
-  if(!user){
-
-    showToast(
-      "Your login session expired. Please sign in again."
-    );
-
-    return;
-
-  }
-
-  if(!activeChatUser?.uid){
-
-    showToast(
-      "Chat user not found."
-    );
+  if(
+    !user ||
+    !activeChatUser
+  ){
 
     return;
 
@@ -2463,15 +3203,18 @@ async function sendPhotoMessage(file){
         .collection("messages")
         .doc();
 
-    const now =
+    const timestamp =
       firebase.firestore.FieldValue
         .serverTimestamp();
+
+    const receiverUid =
+      activeChatUser.uid;
 
     await conversationRef.set({
 
       participants:[
         user.uid,
-        activeChatUser.uid
+        receiverUid
       ],
 
       lastMessage:"Photo",
@@ -2480,9 +3223,15 @@ async function sendPhotoMessage(file){
 
       lastSenderId:user.uid,
 
-      lastMessageAt:now,
+      lastMessageAt:timestamp,
 
-      seenByCurrentUser:true
+      seenByCurrentUser:true,
+
+      unreadCounts:{
+        [user.uid]:0,
+        [receiverUid]:
+          firebase.firestore.FieldValue.increment(1)
+      }
 
     },{
       merge:true
@@ -2492,19 +3241,15 @@ async function sendPhotoMessage(file){
 
       senderId:user.uid,
 
-      receiverId:activeChatUser.uid,
+      receiverId:receiverUid,
 
       type:"image",
 
       imageUrl:imageUrl,
 
-      createdAt:now
+      createdAt:timestamp
 
     });
-
-    showToast(
-      "Photo sent."
-    );
 
   }catch(error){
 
@@ -2513,17 +3258,10 @@ async function sendPhotoMessage(file){
       error
     );
 
-    const errorText =
-      error?.code
-        ? error.code +
-          ": " +
-          (error.message || "")
-        : (
-            error?.message ||
-            "Couldn't send photo."
-          );
-
-    showToast(errorText);
+    showToast(
+      error.message ||
+      "Couldn't send photo."
+    );
 
   }finally{
 
@@ -2558,18 +3296,36 @@ chatBackBtn.addEventListener(
 
 function closeChat(){
 
+  clearTimeout(
+    typingTimer
+  );
+
+  setTyping(false);
+
   chat.classList.remove(
     "open"
   );
 
+  typingIndicator.classList.remove(
+    "show"
+  );
+
   activeChatUser = null;
 
-  sendButton.disabled = true;
+  sendButton.disabled =
+    true;
 
   if(messagesUnsubscribe){
 
     messagesUnsubscribe();
     messagesUnsubscribe = null;
+
+  }
+
+  if(activeConversationUnsubscribe){
+
+    activeConversationUnsubscribe();
+    activeConversationUnsubscribe = null;
 
   }
 
@@ -2618,8 +3374,7 @@ function scrollMessages(){
 
 
 /* =========================================================
-   TIME
-   12-hour format
+   MESSAGE TIME
 ========================================================= */
 
 function formatTime(timestamp){
@@ -2681,12 +3436,20 @@ window.addEventListener(
   "beforeunload",
   () => {
 
+    clearTimeout(
+      typingTimer
+    );
+
     if(messagesUnsubscribe){
       messagesUnsubscribe();
     }
 
     if(conversationUnsubscribe){
       conversationUnsubscribe();
+    }
+
+    if(activeConversationUnsubscribe){
+      activeConversationUnsubscribe();
     }
 
   }
