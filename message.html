@@ -98,8 +98,6 @@ button{
   stroke:currentColor;
 }
 
-/* Search */
-
 .search-wrap{
   padding:12px 15px 8px;
 }
@@ -135,8 +133,6 @@ button{
 .search-box input::placeholder{
   color:#858991;
 }
-
-/* Inbox list */
 
 .content{
   flex:1;
@@ -337,63 +333,20 @@ button{
 }
 
 /* =========================
-   TYPING
+   MESSAGES
 ========================= */
-
-.typing-indicator{
-  display:none;
-}
-
-.typing-inline{
-  display:flex;
-  align-items:center;
-  gap:4px;
-  width:max-content;
-  margin-top:2px;
-  margin-left:4px;
-  height:13px;
-  color:#777b84;
-}
-
-.typing-inline span{
-  width:3px;
-  height:3px;
-  border-radius:50%;
-  background:#858991;
-  animation:typingDot 1s infinite ease-in-out;
-}
-
-.typing-inline span:nth-child(2){
-  animation-delay:.15s;
-}
-
-.typing-inline span:nth-child(3){
-  animation-delay:.3s;
-}
-
-@keyframes typingDot{
-  0%,60%,100%{
-    transform:translateY(0);
-    opacity:.35;
-  }
-  30%{
-    transform:translateY(-3px);
-    opacity:1;
-  }
-}
-
-/* Messages */
 
 .messages{
   flex:1;
   min-height:0;
   overflow-y:auto;
-  padding:18px 13px 13px;
+  padding:18px 10px 13px;
   display:flex;
   flex-direction:column;
-  gap:6px;
+  gap:5px;
   background:#08090c;
   -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
 }
 
 .start-chat{
@@ -430,10 +383,12 @@ button{
   width:100%;
   display:flex;
   align-items:flex-end;
-  gap:3px;
+  gap:5px;
+  position:relative;
   animation:messageIn .12s ease-out;
   user-select:none;
   -webkit-user-select:none;
+  touch-action:pan-y;
 }
 
 .message-row.mine{
@@ -456,37 +411,66 @@ button{
 }
 
 /*
-  IMPORTANT:
-  message-content is now shrink-wrapped.
-  This prevents the blue/grey bubble from
-  stretching wider than the actual message.
+  TRUE SHRINK-WRAP:
+  The message-content never becomes a full-width box.
 */
 
 .message-content{
   flex:0 1 auto;
-  width:fit-content;
-  max-width:78%;
+  width:max-content;
+  max-width:min(78%,420px);
   min-width:0;
   display:flex;
   flex-direction:column;
   align-items:flex-start;
+  position:relative;
 }
 
 .mine .message-content{
   align-items:flex-end;
 }
 
+/* Opponent DP beside message */
+
+.message-avatar{
+  width:28px;
+  height:28px;
+  min-width:28px;
+  border-radius:50%;
+  overflow:hidden;
+  background:#20232a;
+  color:#a9adb6;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:700;
+  margin-bottom:2px;
+}
+
+.message-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/*
+  Bubble itself is also shrink-wrapped.
+  No forced width.
+*/
+
 .message-bubble{
-  display:table;
-  width:auto;
+  display:block;
+  width:max-content;
   max-width:100%;
-  padding:6px 9px;
-  border-radius:15px;
+  padding:7px 10px;
+  border-radius:16px;
   font-size:15px;
   line-height:1.34;
   white-space:pre-wrap;
   overflow-wrap:anywhere;
-  word-break:normal;
+  word-break:break-word;
 }
 
 .mine .message-bubble{
@@ -502,27 +486,41 @@ button{
   border-bottom-left-radius:5px;
 }
 
+/* Reply quote inside message */
+
+.reply-quote{
+  width:100%;
+  max-width:100%;
+  margin-bottom:4px;
+  padding:6px 9px;
+  border-radius:10px;
+  background:rgba(255,255,255,.09);
+  border-left:3px solid #2387ff;
+  overflow:hidden;
+}
+
+.mine .reply-quote{
+  background:rgba(255,255,255,.13);
+}
+
+.reply-label{
+  font-size:10px;
+  font-weight:700;
+  color:#8ebfff;
+  margin-bottom:2px;
+}
+
+.reply-text{
+  font-size:11px;
+  color:#bfc3ca;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
 /* Media */
 
-.message-image{
-  width:auto;
-  max-width:245px;
-  max-height:320px;
-  border-radius:17px;
-  display:block;
-  object-fit:cover;
-  background:#17191e;
-  cursor:pointer;
-}
-
-.mine .message-image{
-  border-bottom-right-radius:5px;
-}
-
-.theirs .message-image{
-  border-bottom-left-radius:5px;
-}
-
+.message-image,
 .message-video{
   width:auto;
   max-width:245px;
@@ -534,23 +532,51 @@ button{
   cursor:pointer;
 }
 
+.mine .message-image,
 .mine .message-video{
   border-bottom-right-radius:5px;
 }
 
+.theirs .message-image,
 .theirs .message-video{
   border-bottom-left-radius:5px;
+}
+
+.video-wrap{
+  position:relative;
+  width:max-content;
+  max-width:100%;
+  cursor:pointer;
+}
+
+.video-play{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:rgba(0,0,0,.62);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+}
+
+.video-play svg{
+  width:20px;
+  height:20px;
+  margin-left:2px;
 }
 
 .message-time{
   flex:none;
   font-size:9px;
   color:#6f727a;
-  margin:0 4px 2px;
+  margin:0 3px 2px;
   white-space:nowrap;
 }
-
-/* Sending */
 
 .message-sending{
   opacity:.72;
@@ -558,6 +584,149 @@ button{
 
 .message-sending .message-time{
   color:#777b84;
+}
+
+/* =========================
+   SWIPE REPLY
+========================= */
+
+.reply-icon{
+  position:absolute;
+  left:2px;
+  top:50%;
+  width:29px;
+  height:29px;
+  margin-top:-15px;
+  border-radius:50%;
+  background:#202228;
+  color:#8ebfff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transform:scale(.7);
+  pointer-events:none;
+  transition:opacity .12s ease,transform .12s ease;
+}
+
+.reply-icon.show{
+  opacity:1;
+  transform:scale(1);
+}
+
+.reply-icon svg{
+  width:16px;
+  height:16px;
+}
+
+/* =========================
+   TYPING
+========================= */
+
+.typing-inline{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  width:max-content;
+  min-width:32px;
+  height:23px;
+  margin-top:3px;
+  padding:0 9px;
+  border-radius:13px;
+  background:#202228;
+  border:1px solid #292c33;
+}
+
+.typing-inline span{
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:#858991;
+  animation:typingDot 1s infinite ease-in-out;
+}
+
+.typing-inline span:nth-child(2){
+  animation-delay:.15s;
+}
+
+.typing-inline span:nth-child(3){
+  animation-delay:.3s;
+}
+
+@keyframes typingDot{
+  0%,60%,100%{
+    transform:translateY(0);
+    opacity:.35;
+  }
+  30%{
+    transform:translateY(-3px);
+    opacity:1;
+  }
+}
+
+/* =========================
+   REPLY COMPOSER PREVIEW
+========================= */
+
+.reply-preview{
+  display:none;
+  min-height:48px;
+  padding:7px 11px;
+  background:#111318;
+  border-top:1px solid #202228;
+  align-items:center;
+  gap:9px;
+}
+
+.reply-preview.show{
+  display:flex;
+}
+
+.reply-preview-line{
+  width:3px;
+  height:31px;
+  border-radius:3px;
+  background:#2387ff;
+  flex:none;
+}
+
+.reply-preview-info{
+  min-width:0;
+  flex:1;
+}
+
+.reply-preview-title{
+  font-size:11px;
+  color:#8ebfff;
+  font-weight:700;
+  margin-bottom:2px;
+}
+
+.reply-preview-text{
+  font-size:12px;
+  color:#bfc3ca;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.reply-preview-close{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  color:#9b9fa8;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.reply-preview-close:active{
+  background:#202228;
+}
+
+.reply-preview-close svg{
+  width:18px;
+  height:18px;
 }
 
 /* =========================
@@ -637,7 +806,9 @@ button{
   height:20px;
 }
 
-/* Upload */
+/* =========================
+   UPLOAD
+========================= */
 
 .upload-status{
   position:absolute;
@@ -672,7 +843,9 @@ button{
   transition:width .08s linear;
 }
 
-/* Toast */
+/* =========================
+   TOAST
+========================= */
 
 .toast{
   position:fixed;
@@ -825,14 +998,6 @@ button{
   opacity:.75;
 }
 
-/* =========================
-   PROFILE LOADING
-========================= */
-
-.profile-open-loading{
-  opacity:.7;
-}
-
 @media(min-width:700px){
 
   .inbox,
@@ -937,8 +1102,6 @@ Member
 
 </button>
 
-<div class="typing-indicator" id="typingIndicator"></div>
-
 </header>
 
 <div class="messages" id="messages">
@@ -956,6 +1119,38 @@ Sending media...
 <div class="progress-line">
 <div class="progress-bar" id="progressBar"></div>
 </div>
+
+</div>
+
+<div class="reply-preview" id="replyPreview">
+
+<div class="reply-preview-line"></div>
+
+<div class="reply-preview-info">
+
+<div class="reply-preview-title">
+Replying to message
+</div>
+
+<div class="reply-preview-text" id="replyPreviewText">
+Message
+</div>
+
+</div>
+
+<button
+type="button"
+class="reply-preview-close"
+id="replyPreviewClose"
+aria-label="Cancel reply"
+>
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M6 6l12 12"/>
+<path d="M18 6L6 18"/>
+</svg>
+
+</button>
 
 </div>
 
@@ -1014,7 +1209,7 @@ aria-label="Send"
 </div>
 
 
-<!-- Unsend sheet -->
+<!-- Unsend -->
 
 <div class="sheet-backdrop" id="sheetBackdrop">
 
@@ -1149,9 +1344,6 @@ const chatAvatar =
 const chatUserName =
   document.getElementById("chatUserName");
 
-const typingIndicator =
-  document.getElementById("typingIndicator");
-
 const messages =
   document.getElementById("messages");
 
@@ -1200,6 +1392,15 @@ const previewCancelButton =
 const previewSendButton =
   document.getElementById("previewSendButton");
 
+const replyPreview =
+  document.getElementById("replyPreview");
+
+const replyPreviewText =
+  document.getElementById("replyPreviewText");
+
+const replyPreviewClose =
+  document.getElementById("replyPreviewClose");
+
 
 /* =========================================================
    STATE
@@ -1223,6 +1424,49 @@ let opponentTyping = false;
 let pendingMediaFile = null;
 
 let lastInboxRenderSignature = "";
+
+let replyTarget = null;
+
+let chatOpen = false;
+
+
+/* =========================================================
+   HISTORY / ANDROID BACK
+========================================================= */
+
+history.replaceState(
+  {
+    page:"inbox"
+  },
+  "",
+  window.location.href
+);
+
+window.addEventListener(
+  "popstate",
+  event => {
+
+    if(chatOpen){
+
+      closeChat(false);
+
+      history.replaceState(
+        {
+          page:"inbox"
+        },
+        "",
+        window.location.href
+      );
+
+      return;
+
+    }
+
+    window.location.href =
+      "community.html";
+
+  }
+);
 
 
 /* =========================================================
@@ -1419,10 +1663,7 @@ function handleIncomingProfile(){
 
 /* =========================================================
    LOAD INBOX
-   IMPORTANT:
-   typingBy changes are ignored here.
-   This prevents the inbox from visually
-   refreshing every time someone types.
+   typingBy IS NOT PART OF SIGNATURE
 ========================================================= */
 
 async function loadConversations(){
@@ -1482,8 +1723,10 @@ async function loadConversations(){
           }
 
           /*
-            Build a signature ONLY from inbox-visible
-            fields. typingBy is deliberately excluded.
+            IMPORTANT:
+            typingBy is deliberately excluded.
+            Therefore typing changes cannot cause
+            an inbox redraw.
           */
 
           const signature =
@@ -1515,11 +1758,6 @@ async function loadConversations(){
               })
               .sort()
               .join("||");
-
-          /*
-            If ONLY typingBy changed,
-            don't rebuild the inbox.
-          */
 
           if(
             signature ===
@@ -1977,12 +2215,14 @@ async function searchMembers(query){
 
     memberResults.innerHTML = `
       <div class="empty">
+
         <div class="empty-text">
           ${escapeHTML(
             error.message ||
             "Couldn't search members."
           )}
         </div>
+
       </div>
     `;
 
@@ -2117,6 +2357,8 @@ function openChat(userData){
   opponentTyping =
     false;
 
+  clearReply();
+
   chatAvatar.innerHTML =
     avatarHTML(userData);
 
@@ -2125,6 +2367,23 @@ function openChat(userData){
     userData.name ||
     userData.username ||
     "Member";
+
+  chatOpen = true;
+
+  /*
+    Push a chat history state.
+    Android Back now returns to inbox instead
+    of immediately leaving message.html.
+  */
+
+  history.pushState(
+    {
+      page:"chat",
+      uid:userData.uid
+    },
+    "",
+    window.location.href
+  );
 
   chat.classList.add("open");
 
@@ -2143,7 +2402,7 @@ function openChat(userData){
 
 
 /* =========================================================
-   PROFILE OPEN
+   PROFILE
 ========================================================= */
 
 chatUserButton.addEventListener(
@@ -2165,9 +2424,7 @@ chatUserButton.addEventListener(
 
 
 /* =========================================================
-   CONVERSATION LISTENERS
-   Typing only affects the open chat.
-   It does NOT rebuild the inbox.
+   OPEN CHAT LISTENER
 ========================================================= */
 
 function startConversationListeners(){
@@ -2225,11 +2482,6 @@ function startConversationListeners(){
               activeChatUser.uid
             ] === true;
 
-          /*
-            Only modify the typing indicator
-            inside the open chat.
-          */
-
           renderTypingUnderLastMessage();
 
         },
@@ -2247,7 +2499,7 @@ function startConversationListeners(){
 
 
 /* =========================================================
-   RENDER TYPING UNDER LAST OPPONENT MESSAGE
+   TYPING UNDER OPPONENT MESSAGE
 ========================================================= */
 
 function renderTypingUnderLastMessage(){
@@ -2267,7 +2519,50 @@ function renderTypingUnderLastMessage(){
       )
     );
 
+  /*
+    If opponent has no message yet,
+    show typing bubble at bottom left.
+  */
+
   if(!rows.length){
+
+    const typingRow =
+      document.createElement("div");
+
+    typingRow.className =
+      "message-row theirs";
+
+    const avatar =
+      document.createElement("div");
+
+    avatar.className =
+      "message-avatar";
+
+    avatar.innerHTML =
+      avatarHTML(activeChatUser);
+
+    const content =
+      document.createElement("div");
+
+    content.className =
+      "message-content";
+
+    content.innerHTML = `
+      <div class="typing-inline">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    `;
+
+    typingRow.appendChild(avatar);
+    typingRow.appendChild(content);
+
+    messages.appendChild(
+      typingRow
+    );
+
+    scrollMessages();
 
     return;
 
@@ -2300,6 +2595,8 @@ function renderTypingUnderLastMessage(){
   content.appendChild(
     typing
   );
+
+  scrollMessages();
 
 }
 
@@ -2375,12 +2672,6 @@ function setTyping(isTyping){
   const field =
     "typingBy." +
     user.uid;
-
-  /*
-    This updates ONLY the conversation's typingBy field.
-    loadConversations() ignores this change,
-    so the inbox doesn't refresh.
-  */
 
   db.collection("conversations")
     .doc(cid)
@@ -2521,6 +2812,8 @@ function loadMessages(){
 
             `;
 
+            renderTypingUnderLastMessage();
+
             return;
 
           }
@@ -2535,11 +2828,6 @@ function loadMessages(){
 
             }
           );
-
-          /*
-            Re-attach typing indicator after
-            the message list has rendered.
-          */
 
           renderTypingUnderLastMessage();
 
@@ -2607,45 +2895,165 @@ function renderMessage(
   row.dataset.messageId =
     messageId;
 
+  /*
+    Reply icon sits outside the bubble and appears
+    during right swipe.
+  */
+
+  const replyIcon =
+    document.createElement("div");
+
+  replyIcon.className =
+    "reply-icon";
+
+  replyIcon.innerHTML = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M9 17l-5-5 5-5"/>
+      <path d="M4 12h10a6 6 0 0 1 6 6"/>
+    </svg>
+  `;
+
+  row.appendChild(
+    replyIcon
+  );
+
+  /*
+    Opponent DP on the left side.
+  */
+
+  if(!mine){
+
+    const avatar =
+      document.createElement("div");
+
+    avatar.className =
+      "message-avatar";
+
+    avatar.innerHTML =
+      avatarHTML(activeChatUser);
+
+    row.appendChild(
+      avatar
+    );
+
+  }
+
   const content =
     document.createElement("div");
 
   content.className =
     "message-content";
 
+  /*
+    Reply quote
+  */
+
+  if(data.replyTo){
+
+    const reply =
+      document.createElement("div");
+
+    reply.className =
+      "reply-quote";
+
+    let repliedText =
+      data.replyTo.text ||
+      "";
+
+    if(
+      data.replyTo.type === "image"
+    ){
+
+      repliedText =
+        "Photo";
+
+    }else if(
+      data.replyTo.type === "video"
+    ){
+
+      repliedText =
+        "Video";
+
+    }
+
+    reply.innerHTML = `
+
+      <div class="reply-label">
+        ${mine ? "You replied" : "Reply"}
+      </div>
+
+      <div class="reply-text">
+        ${escapeHTML(repliedText)}
+      </div>
+
+    `;
+
+    content.appendChild(
+      reply
+    );
+
+  }
+
+
+  /*
+    Image
+  */
+
   if(
     data.type === "image" &&
     data.imageUrl
   ){
 
-    content.innerHTML = `
-      <img
-        class="message-image"
-        src="${escapeAttribute(data.imageUrl)}"
-        alt="Photo"
-        loading="lazy"
-      >
-    `;
-
     const image =
-      content.querySelector(
-        ".message-image"
-      );
+      document.createElement("img");
+
+    image.className =
+      "message-image";
+
+    image.src =
+      data.imageUrl;
+
+    image.alt =
+      "Photo";
+
+    image.loading =
+      "lazy";
 
     image.addEventListener(
       "click",
-      () => openMediaViewer(
-        "image",
-        data.imageUrl
-      )
+      () => {
+
+        openMediaViewer(
+          "image",
+          data.imageUrl
+        );
+
+      }
     );
 
-  }else if(
+    content.appendChild(
+      image
+    );
+
+  }
+
+  /*
+    Video
+  */
+
+  else if(
     data.type === "video" &&
     data.videoUrl
   ){
 
-    content.innerHTML = `
+    const videoWrap =
+      document.createElement("div");
+
+    videoWrap.className =
+      "video-wrap";
+
+    videoWrap.innerHTML = `
+
       <video
         class="message-video"
         src="${escapeAttribute(data.videoUrl)}"
@@ -2653,18 +3061,20 @@ function renderMessage(
         playsinline
         preload="metadata"
       ></video>
+
+      <div class="video-play">
+
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+
+      </div>
+
     `;
 
-    const video =
-      content.querySelector(
-        ".message-video"
-      );
-
-    video.addEventListener(
+    videoWrap.addEventListener(
       "click",
-      event => {
-
-        event.preventDefault();
+      () => {
 
         openMediaViewer(
           "video",
@@ -2674,17 +3084,41 @@ function renderMessage(
       }
     );
 
-  }else{
-
-    content.innerHTML = `
-      <div class="message-bubble">
-        ${escapeHTML(data.text || "")}
-      </div>
-    `;
+    content.appendChild(
+      videoWrap
+    );
 
   }
 
-  row.appendChild(content);
+  /*
+    Text
+  */
+
+  else{
+
+    const bubble =
+      document.createElement("div");
+
+    bubble.className =
+      "message-bubble";
+
+    bubble.textContent =
+      data.text || "";
+
+    content.appendChild(
+      bubble
+    );
+
+  }
+
+  row.appendChild(
+    content
+  );
+
+
+  /*
+    Time
+  */
 
   if(data.createdAt){
 
@@ -2699,11 +3133,21 @@ function renderMessage(
         data.createdAt
       );
 
-    row.appendChild(time);
+    row.appendChild(
+      time
+    );
 
   }
 
-  messages.appendChild(row);
+
+  messages.appendChild(
+    row
+  );
+
+
+  /*
+    Long press only on own messages.
+  */
 
   if(mine){
 
@@ -2714,7 +3158,311 @@ function renderMessage(
 
   }
 
+
+  /*
+    Right-swipe reply on every message.
+  */
+
+  attachSwipeReply(
+    row,
+    messageId,
+    data
+  );
+
 }
+
+
+/* =========================================================
+   SWIPE TO REPLY
+========================================================= */
+
+function attachSwipeReply(
+  row,
+  messageId,
+  data
+){
+
+  let startX = 0;
+  let startY = 0;
+  let currentX = 0;
+  let swiping = false;
+
+  const threshold =
+    58;
+
+  row.addEventListener(
+    "touchstart",
+    event => {
+
+      if(
+        !event.touches ||
+        !event.touches[0]
+      ){
+
+        return;
+
+      }
+
+      startX =
+        event.touches[0].clientX;
+
+      startY =
+        event.touches[0].clientY;
+
+      currentX =
+        startX;
+
+      swiping =
+        false;
+
+      row.style.transition =
+        "none";
+
+    },
+    {
+      passive:true
+    }
+  );
+
+
+  row.addEventListener(
+    "touchmove",
+    event => {
+
+      if(
+        !event.touches ||
+        !event.touches[0]
+      ){
+
+        return;
+
+      }
+
+      currentX =
+        event.touches[0].clientX;
+
+      const currentY =
+        event.touches[0].clientY;
+
+      const dx =
+        currentX - startX;
+
+      const dy =
+        currentY - startY;
+
+      /*
+        Only activate when the gesture is
+        clearly horizontal and moves right.
+      */
+
+      if(
+        Math.abs(dy) >
+        Math.abs(dx)
+      ){
+
+        return;
+
+      }
+
+      if(dx <= 0){
+
+        return;
+
+      }
+
+      swiping =
+        true;
+
+      const distance =
+        Math.min(
+          dx,
+          82
+        );
+
+      row.style.transform =
+        "translateX(" +
+        distance +
+        "px)";
+
+      const icon =
+        row.querySelector(
+          ".reply-icon"
+        );
+
+      if(icon){
+
+        if(distance >= threshold){
+
+          icon.classList.add(
+            "show"
+          );
+
+        }else{
+
+          icon.classList.remove(
+            "show"
+          );
+
+        }
+
+      }
+
+    },
+    {
+      passive:true
+    }
+  );
+
+
+  row.addEventListener(
+    "touchend",
+    () => {
+
+      const dx =
+        currentX - startX;
+
+      const icon =
+        row.querySelector(
+          ".reply-icon"
+        );
+
+      row.style.transition =
+        "transform .16s ease";
+
+      row.style.transform =
+        "translateX(0)";
+
+      if(icon){
+
+        icon.classList.remove(
+          "show"
+        );
+
+      }
+
+      if(
+        swiping &&
+        dx >= threshold
+      ){
+
+        beginReply(
+          messageId,
+          data
+        );
+
+      }
+
+      swiping =
+        false;
+
+    }
+  );
+
+
+  row.addEventListener(
+    "touchcancel",
+    () => {
+
+      row.style.transition =
+        "transform .16s ease";
+
+      row.style.transform =
+        "translateX(0)";
+
+      const icon =
+        row.querySelector(
+          ".reply-icon"
+        );
+
+      if(icon){
+
+        icon.classList.remove(
+          "show"
+        );
+
+      }
+
+      swiping =
+        false;
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   REPLY
+========================================================= */
+
+function beginReply(
+  messageId,
+  data
+){
+
+  let text =
+    data.text ||
+    "";
+
+  if(data.type === "image"){
+
+    text =
+      "Photo";
+
+  }else if(data.type === "video"){
+
+    text =
+      "Video";
+
+  }
+
+  replyTarget = {
+
+    messageId,
+
+    text,
+
+    type:
+      data.type ||
+      "text",
+
+    senderId:
+      data.senderId ||
+      ""
+
+  };
+
+  replyPreviewText.textContent =
+    text || "Message";
+
+  replyPreview.classList.add(
+    "show"
+  );
+
+  messageInput.focus();
+
+}
+
+
+function clearReply(){
+
+  replyTarget =
+    null;
+
+  replyPreview.classList.remove(
+    "show"
+  );
+
+  replyPreviewText.textContent =
+    "Message";
+
+}
+
+
+replyPreviewClose.addEventListener(
+  "click",
+  clearReply
+);
 
 
 /* =========================================================
@@ -3211,7 +3959,26 @@ async function sendTextMessage(
 
   }
 
+  const replyData =
+    replyTarget
+      ? {
+          messageId:
+            replyTarget.messageId,
+
+          text:
+            replyTarget.text,
+
+          type:
+            replyTarget.type,
+
+          senderId:
+            replyTarget.senderId
+        }
+      : null;
+
   messageInput.value = "";
+
+  clearReply();
 
   updateSendButton();
 
@@ -3268,7 +4035,7 @@ async function sendTextMessage(
       merge:true
     });
 
-    await messageRef.set({
+    const messageData = {
 
       senderId:user.uid,
 
@@ -3280,7 +4047,18 @@ async function sendTextMessage(
 
       createdAt:timestamp
 
-    });
+    };
+
+    if(replyData){
+
+      messageData.replyTo =
+        replyData;
+
+    }
+
+    await messageRef.set(
+      messageData
+    );
 
   }catch(error){
 
@@ -3717,6 +4495,25 @@ async function sendMediaMessage(
       "video/"
     );
 
+  const replyData =
+    replyTarget
+      ? {
+          messageId:
+            replyTarget.messageId,
+
+          text:
+            replyTarget.text,
+
+          type:
+            replyTarget.type,
+
+          senderId:
+            replyTarget.senderId
+        }
+      : null;
+
+  clearReply();
+
   uploadStatus.classList.add(
     "active"
   );
@@ -3799,39 +4596,43 @@ async function sendMediaMessage(
       merge:true
     });
 
+    const messageData = {
+
+      senderId:user.uid,
+
+      receiverId:receiverUid,
+
+      type:
+        isVideo
+          ? "video"
+          : "image",
+
+      createdAt:timestamp
+
+    };
+
     if(isVideo){
 
-      await messageRef.set({
-
-        senderId:user.uid,
-
-        receiverId:receiverUid,
-
-        type:"video",
-
-        videoUrl:mediaUrl,
-
-        createdAt:timestamp
-
-      });
+      messageData.videoUrl =
+        mediaUrl;
 
     }else{
 
-      await messageRef.set({
-
-        senderId:user.uid,
-
-        receiverId:receiverUid,
-
-        type:"image",
-
-        imageUrl:mediaUrl,
-
-        createdAt:timestamp
-
-      });
+      messageData.imageUrl =
+        mediaUrl;
 
     }
+
+    if(replyData){
+
+      messageData.replyTo =
+        replyData;
+
+    }
+
+    await messageRef.set(
+      messageData
+    );
 
   }catch(error){
 
@@ -3872,11 +4673,25 @@ async function sendMediaMessage(
 
 chatBackBtn.addEventListener(
   "click",
-  closeChat
+  () => {
+
+    if(chatOpen){
+
+      history.back();
+
+    }else{
+
+      closeChat(false);
+
+    }
+
+  }
 );
 
 
-function closeChat(){
+function closeChat(
+  navigateBack = false
+){
 
   clearTimeout(
     typingTimer
@@ -3888,10 +4703,16 @@ function closeChat(){
     "open"
   );
 
-  activeChatUser = null;
+  chatOpen =
+    false;
+
+  activeChatUser =
+    null;
 
   opponentTyping =
     false;
+
+  clearReply();
 
   sendButton.disabled =
     true;
@@ -3910,6 +4731,12 @@ function closeChat(){
 
   }
 
+  if(navigateBack){
+
+    history.back();
+
+  }
+
 }
 
 
@@ -3921,16 +4748,8 @@ homeBackBtn.addEventListener(
   "click",
   () => {
 
-    if(document.referrer){
-
-      history.back();
-
-    }else{
-
-      window.location.href =
-        "community.html";
-
-    }
+    window.location.href =
+      "community.html";
 
   }
 );
