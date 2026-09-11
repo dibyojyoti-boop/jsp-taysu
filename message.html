@@ -1165,11 +1165,6 @@ async function loadConversations(){
 
             console.error(error);
 
-            /*
-              If Firestore needs an index for the
-              ordering query, show a useful fallback.
-            */
-
             conversationList.innerHTML = `
               <div class="empty">
 
@@ -1676,21 +1671,12 @@ async function sendTextMessage(text){
       firebase.firestore.FieldValue
         .serverTimestamp();
 
-    await messageRef.set({
-
-      senderId:
-        currentUser.uid,
-
-      receiverId:
-        activeChatUser.uid,
-
-      text:text,
-
-      type:"text",
-
-      createdAt:now
-
-    });
+    /*
+      IMPORTANT:
+      The conversation document must exist BEFORE
+      the message is created because Firestore rules
+      use get() on the parent conversation.
+    */
 
     await conversationRef.set({
 
@@ -1714,13 +1700,39 @@ async function sendTextMessage(text){
       merge:true
     });
 
+    /*
+      Now create the actual message.
+    */
+
+    await messageRef.set({
+
+      senderId:
+        currentUser.uid,
+
+      receiverId:
+        activeChatUser.uid,
+
+      text:text,
+
+      type:"text",
+
+      createdAt:now
+
+    });
+
     messageInput.value = "";
+
+    showToast("Message sent.");
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "SEND MESSAGE ERROR:",
+      error
+    );
 
     showToast(
+      error.message ||
       "Couldn't send message."
     );
 
@@ -2023,21 +2035,10 @@ async function sendPhotoMessage(file){
       firebase.firestore.FieldValue
         .serverTimestamp();
 
-    await messageRef.set({
-
-      senderId:
-        currentUser.uid,
-
-      receiverId:
-        activeChatUser.uid,
-
-      type:"image",
-
-      imageUrl:imageUrl,
-
-      createdAt:now
-
-    });
+    /*
+      IMPORTANT:
+      Create/update parent conversation FIRST.
+    */
 
     await conversationRef.set({
 
@@ -2061,11 +2062,34 @@ async function sendPhotoMessage(file){
       merge:true
     });
 
+    /*
+      Then create the image message.
+    */
+
+    await messageRef.set({
+
+      senderId:
+        currentUser.uid,
+
+      receiverId:
+        activeChatUser.uid,
+
+      type:"image",
+
+      imageUrl:imageUrl,
+
+      createdAt:now
+
+    });
+
     showToast("Photo sent.");
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "SEND PHOTO ERROR:",
+      error
+    );
 
     showToast(
       error.message ||
