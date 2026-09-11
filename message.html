@@ -403,7 +403,7 @@ button{
   padding:18px 13px 13px;
   display:flex;
   flex-direction:column;
-  gap:6px;
+  gap:5px;
   background:#08090c;
   -webkit-overflow-scrolling:touch;
 }
@@ -471,14 +471,16 @@ button{
   max-width:78%;
 }
 
+/* TIGHT TEXT BUBBLE */
+
 .message-bubble{
-  display:inline-block;
+  display:table;
   width:auto;
   max-width:100%;
-  padding:8px 11px;
-  border-radius:17px;
+  padding:6px 9px;
+  border-radius:15px;
   font-size:15px;
-  line-height:1.38;
+  line-height:1.32;
   white-space:pre-wrap;
   overflow-wrap:anywhere;
   word-break:normal;
@@ -497,7 +499,10 @@ button{
   border-bottom-left-radius:5px;
 }
 
-.message-image{
+/* MEDIA */
+
+.message-image,
+.message-video{
   width:auto;
   max-width:245px;
   max-height:320px;
@@ -505,14 +510,51 @@ button{
   display:block;
   object-fit:cover;
   background:#17191e;
+  cursor:pointer;
 }
 
-.mine .message-image{
+.message-video{
+  width:245px;
+}
+
+.mine .message-image,
+.mine .message-video{
   border-bottom-right-radius:5px;
 }
 
-.theirs .message-image{
+.theirs .message-image,
+.theirs .message-video{
   border-bottom-left-radius:5px;
+}
+
+.media-wrap{
+  position:relative;
+  width:max-content;
+  max-width:100%;
+  border-radius:17px;
+  overflow:hidden;
+  background:#17191e;
+}
+
+.media-wrap .video-play-icon{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  background:rgba(0,0,0,.58);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+}
+
+.video-play-icon svg{
+  width:21px;
+  height:21px;
+  margin-left:2px;
 }
 
 .message-time{
@@ -658,7 +700,7 @@ button{
   opacity:0;
   pointer-events:none;
   transition:.18s ease;
-  z-index:100;
+  z-index:500;
   max-width:90%;
   text-align:center;
   overflow-wrap:anywhere;
@@ -728,6 +770,237 @@ button{
 
 .sheet-button.danger{
   color:#ff5d68;
+}
+
+/* =========================
+   MEDIA CHOOSER
+========================= */
+
+.media-sheet-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.58);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .18s ease;
+  z-index:300;
+}
+
+.media-sheet-backdrop.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.media-sheet{
+  position:fixed;
+  left:50%;
+  bottom:10px;
+  width:calc(100% - 20px);
+  max-width:500px;
+  transform:translate(-50%,120%);
+  background:#191b20;
+  border:1px solid #292c33;
+  border-radius:17px;
+  overflow:hidden;
+  transition:transform .22s cubic-bezier(.2,.8,.2,1);
+  z-index:301;
+}
+
+.media-sheet-backdrop.show .media-sheet{
+  transform:translate(-50%,0);
+}
+
+.media-option{
+  width:100%;
+  height:56px;
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:0 18px;
+  border-bottom:1px solid #292c33;
+  font-size:15px;
+  font-weight:600;
+}
+
+.media-option:last-child{
+  border-bottom:0;
+}
+
+.media-option:active{
+  background:#22252b;
+}
+
+.media-option svg{
+  width:21px;
+  height:21px;
+  color:#3d94ff;
+}
+
+/* =========================
+   MEDIA PREVIEW
+========================= */
+
+.preview-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.92);
+  display:flex;
+  flex-direction:column;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .18s ease;
+  z-index:400;
+}
+
+.preview-backdrop.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.preview-header{
+  height:58px;
+  min-height:58px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  padding:0 14px;
+}
+
+.preview-close{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#1b1d22;
+}
+
+.preview-close svg{
+  width:22px;
+  height:22px;
+}
+
+.preview-body{
+  flex:1;
+  min-height:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 18px;
+  overflow:hidden;
+}
+
+.preview-media{
+  max-width:100%;
+  max-height:78dvh;
+  object-fit:contain;
+  border-radius:12px;
+}
+
+.preview-video{
+  width:100%;
+  max-width:520px;
+  max-height:78dvh;
+  object-fit:contain;
+  border-radius:12px;
+  background:#000;
+}
+
+.preview-footer{
+  min-height:82px;
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+
+.preview-cancel,
+.preview-send{
+  height:46px;
+  border-radius:23px;
+  padding:0 24px;
+  font-size:15px;
+  font-weight:700;
+}
+
+.preview-cancel{
+  background:#22252b;
+  color:#f2f2f4;
+}
+
+.preview-send{
+  background:#1677e8;
+  color:#fff;
+}
+
+.preview-cancel:active,
+.preview-send:active{
+  transform:scale(.97);
+}
+
+/* =========================
+   VIEWER
+========================= */
+
+.viewer-backdrop{
+  position:fixed;
+  inset:0;
+  background:#000;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .18s ease;
+  z-index:450;
+}
+
+.viewer-backdrop.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.viewer-close{
+  position:absolute;
+  top:12px;
+  right:12px;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:rgba(30,31,36,.78);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:3;
+}
+
+.viewer-close svg{
+  width:22px;
+  height:22px;
+}
+
+.viewer-content{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:60px 12px 30px;
+}
+
+.viewer-image{
+  max-width:100%;
+  max-height:90dvh;
+  object-fit:contain;
+  border-radius:10px;
+}
+
+.viewer-video{
+  width:100%;
+  max-width:650px;
+  max-height:90dvh;
+  object-fit:contain;
+  background:#000;
+  border-radius:10px;
 }
 
 /* =========================
@@ -867,7 +1140,7 @@ Loading conversation...
 
 <div class="upload-status" id="uploadStatus">
 
-Sending photo...
+Sending media...
 
 <div class="progress-line">
 <div class="progress-bar" id="progressBar"></div>
@@ -881,7 +1154,7 @@ Sending photo...
 type="button"
 class="photo-button"
 id="photoButton"
-aria-label="Send photo"
+aria-label="Send photo or video"
 >
 
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -896,6 +1169,13 @@ aria-label="Send photo"
 type="file"
 id="photoInput"
 accept="image/*"
+hidden
+>
+
+<input
+type="file"
+id="videoInput"
+accept="video/*"
 hidden
 >
 
@@ -951,6 +1231,112 @@ Cancel
 </button>
 
 </div>
+
+</div>
+
+
+<!-- Media chooser -->
+
+<div class="media-sheet-backdrop" id="mediaSheetBackdrop">
+
+<div class="media-sheet">
+
+<button class="media-option" id="choosePhotoButton">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+<rect x="3" y="4" width="18" height="16" rx="3"/>
+<circle cx="8.5" cy="9" r="1.5"/>
+<path d="M3 16l5-5 4 4 2.5-2.5L21 18"/>
+</svg>
+
+<span>Photo</span>
+
+</button>
+
+<button class="media-option" id="chooseVideoButton">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+<rect x="3" y="5" width="13" height="14" rx="2"/>
+<path d="M16 10l5-3v10l-5-3z"/>
+</svg>
+
+<span>Video</span>
+
+</button>
+
+<button class="media-option" id="cancelMediaButton">
+
+<span>Cancel</span>
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- Selected media preview -->
+
+<div class="preview-backdrop" id="previewBackdrop">
+
+<div class="preview-header">
+
+<button
+class="preview-close"
+id="previewCloseButton"
+aria-label="Close preview"
+>
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M6 6l12 12"/>
+<path d="M18 6L6 18"/>
+</svg>
+
+</button>
+
+</div>
+
+<div class="preview-body" id="previewBody"></div>
+
+<div class="preview-footer">
+
+<button
+class="preview-cancel"
+id="previewCancelButton"
+>
+Cancel
+</button>
+
+<button
+class="preview-send"
+id="previewSendButton"
+>
+Send
+</button>
+
+</div>
+
+</div>
+
+
+<!-- Sent/received media viewer -->
+
+<div class="viewer-backdrop" id="viewerBackdrop">
+
+<button
+class="viewer-close"
+id="viewerCloseButton"
+aria-label="Close"
+>
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M6 6l12 12"/>
+<path d="M18 6L6 18"/>
+</svg>
+
+</button>
+
+<div class="viewer-content" id="viewerContent"></div>
 
 </div>
 
@@ -1053,6 +1439,9 @@ const photoButton =
 const photoInput =
   document.getElementById("photoInput");
 
+const videoInput =
+  document.getElementById("videoInput");
+
 const uploadStatus =
   document.getElementById("uploadStatus");
 
@@ -1071,6 +1460,42 @@ const unsendButton =
 const cancelSheetButton =
   document.getElementById("cancelSheetButton");
 
+const mediaSheetBackdrop =
+  document.getElementById("mediaSheetBackdrop");
+
+const choosePhotoButton =
+  document.getElementById("choosePhotoButton");
+
+const chooseVideoButton =
+  document.getElementById("chooseVideoButton");
+
+const cancelMediaButton =
+  document.getElementById("cancelMediaButton");
+
+const previewBackdrop =
+  document.getElementById("previewBackdrop");
+
+const previewBody =
+  document.getElementById("previewBody");
+
+const previewCloseButton =
+  document.getElementById("previewCloseButton");
+
+const previewCancelButton =
+  document.getElementById("previewCancelButton");
+
+const previewSendButton =
+  document.getElementById("previewSendButton");
+
+const viewerBackdrop =
+  document.getElementById("viewerBackdrop");
+
+const viewerContent =
+  document.getElementById("viewerContent");
+
+const viewerCloseButton =
+  document.getElementById("viewerCloseButton");
+
 
 /* =========================================================
    STATE
@@ -1085,10 +1510,13 @@ let activeConversationUnsubscribe = null;
 
 let searchTimer = null;
 let toastTimer = null;
-
 let typingTimer = null;
 
 let selectedMessageId = null;
+
+let selectedMediaFile = null;
+let selectedMediaType = null;
+let selectedMediaObjectURL = null;
 
 
 /* =========================================================
@@ -1285,7 +1713,6 @@ function handleIncomingProfile(){
 
 /* =========================================================
    LOAD INBOX
-   No composite orderBy.
 ========================================================= */
 
 async function loadConversations(){
@@ -1536,6 +1963,13 @@ function getInboxPreview(
       data.lastSenderId === uid
         ? "Photo sent"
         : "Photo";
+
+  }else if(type === "video"){
+
+    label =
+      data.lastSenderId === uid
+        ? "Video sent"
+        : "Video";
 
   }else{
 
@@ -1960,8 +2394,6 @@ chatUserButton.addEventListener(
 
 /* =========================================================
    CONVERSATION LISTENERS
-   - typing
-   - unread count
 ========================================================= */
 
 function startConversationListeners(){
@@ -2125,11 +2557,6 @@ function setTyping(isTyping){
     })
     .catch(
       error => {
-
-        /*
-          If the conversation doesn't exist
-          yet, typing state can simply be ignored.
-        */
 
         console.debug(
           "Typing state:",
@@ -2352,14 +2779,108 @@ function renderMessage(
     data.imageUrl
   ){
 
-    content.innerHTML = `
-      <img
-        class="message-image"
-        src="${escapeAttribute(data.imageUrl)}"
-        alt="Photo"
-        loading="lazy"
+    const image =
+      document.createElement("img");
+
+    image.className =
+      "message-image";
+
+    image.src =
+      data.imageUrl;
+
+    image.alt =
+      "Photo";
+
+    image.loading =
+      "lazy";
+
+    image.addEventListener(
+      "click",
+      event => {
+
+        event.stopPropagation();
+
+        openMediaViewer(
+          "image",
+          data.imageUrl
+        );
+
+      }
+    );
+
+    content.appendChild(
+      image
+    );
+
+  }else if(
+    data.type === "video" &&
+    data.videoUrl
+  ){
+
+    const wrap =
+      document.createElement("div");
+
+    wrap.className =
+      "media-wrap";
+
+    const video =
+      document.createElement("video");
+
+    video.className =
+      "message-video";
+
+    video.src =
+      data.videoUrl;
+
+    video.muted =
+      true;
+
+    video.playsInline =
+      true;
+
+    video.preload =
+      "metadata";
+
+    const playIcon =
+      document.createElement("div");
+
+    playIcon.className =
+      "video-play-icon";
+
+    playIcon.innerHTML = `
+      <svg
+        viewBox="0 0 24 24"
+        fill="currentColor"
       >
+        <path d="M8 5v14l11-7z"/>
+      </svg>
     `;
+
+    wrap.appendChild(
+      video
+    );
+
+    wrap.appendChild(
+      playIcon
+    );
+
+    wrap.addEventListener(
+      "click",
+      event => {
+
+        event.stopPropagation();
+
+        openMediaViewer(
+          "video",
+          data.videoUrl
+        );
+
+      }
+    );
+
+    content.appendChild(
+      wrap
+    );
 
   }else{
 
@@ -2414,17 +2935,12 @@ function attachLongPress(
 ){
 
   let timer = null;
-  let triggered = false;
 
-  const start = event => {
-
-    triggered = false;
+  const start = () => {
 
     timer =
       setTimeout(
         () => {
-
-          triggered = true;
 
           openActionSheet(
             messageId
@@ -2620,11 +3136,6 @@ async function unsendMessage(
 
     await messageRef.delete();
 
-    /*
-      Rebuild inbox preview from the
-      newest remaining message.
-    */
-
     const latest =
       await db.collection("conversations")
         .doc(cid)
@@ -2657,15 +3168,20 @@ async function unsendMessage(
       const latestData =
         latest.docs[0].data();
 
+      let lastMessage = "";
+
+      if(latestData.type === "image"){
+        lastMessage = "Photo";
+      }else if(latestData.type === "video"){
+        lastMessage = "Video";
+      }else{
+        lastMessage =
+          latestData.text || "";
+      }
+
       await conversationRef.update({
 
-        lastMessage:
-          latestData.type === "image"
-            ? "Photo"
-            : (
-                latestData.text ||
-                ""
-              ),
+        lastMessage,
 
         lastMessageType:
           latestData.type || "text",
@@ -2799,11 +3315,6 @@ async function sendTextMessage(
   const receiverUid =
     activeChatUser.uid;
 
-  /*
-    Create/update conversation immediately.
-    unread count is maintained per user.
-  */
-
   try{
 
     await conversationRef.set({
@@ -2865,7 +3376,7 @@ async function sendTextMessage(
 
 
 /* =========================================================
-   PHOTO
+   MEDIA CHOOSER
 ========================================================= */
 
 photoButton.addEventListener(
@@ -2885,15 +3396,77 @@ photoButton.addEventListener(
 
     }
 
+    mediaSheetBackdrop.classList.add(
+      "show"
+    );
+
+  }
+);
+
+
+function closeMediaSheet(){
+
+  mediaSheetBackdrop.classList.remove(
+    "show"
+  );
+
+}
+
+
+cancelMediaButton.addEventListener(
+  "click",
+  closeMediaSheet
+);
+
+
+mediaSheetBackdrop.addEventListener(
+  "click",
+  event => {
+
+    if(
+      event.target ===
+      mediaSheetBackdrop
+    ){
+
+      closeMediaSheet();
+
+    }
+
+  }
+);
+
+
+choosePhotoButton.addEventListener(
+  "click",
+  () => {
+
+    closeMediaSheet();
+
     photoInput.click();
 
   }
 );
 
 
+chooseVideoButton.addEventListener(
+  "click",
+  () => {
+
+    closeMediaSheet();
+
+    videoInput.click();
+
+  }
+);
+
+
+/* =========================================================
+   PHOTO SELECT
+========================================================= */
+
 photoInput.addEventListener(
   "change",
-  async () => {
+  () => {
 
     const file =
       photoInput.files?.[0];
@@ -2927,9 +3500,208 @@ photoInput.addEventListener(
 
     }
 
-    await sendPhotoMessage(
-      file
+    openSelectedMediaPreview(
+      file,
+      "image"
     );
+
+  }
+);
+
+
+/* =========================================================
+   VIDEO SELECT
+========================================================= */
+
+videoInput.addEventListener(
+  "change",
+  () => {
+
+    const file =
+      videoInput.files?.[0];
+
+    videoInput.value = "";
+
+    if(!file){
+      return;
+    }
+
+    if(!file.type.startsWith("video/")){
+
+      showToast(
+        "Please select a video."
+      );
+
+      return;
+
+    }
+
+    if(
+      file.size >
+      100 * 1024 * 1024
+    ){
+
+      showToast(
+        "Video must be under 100 MB."
+      );
+
+      return;
+
+    }
+
+    openSelectedMediaPreview(
+      file,
+      "video"
+    );
+
+  }
+);
+
+
+/* =========================================================
+   SELECTED MEDIA PREVIEW
+========================================================= */
+
+function openSelectedMediaPreview(
+  file,
+  type
+){
+
+  clearSelectedMediaPreview();
+
+  selectedMediaFile =
+    file;
+
+  selectedMediaType =
+    type;
+
+  selectedMediaObjectURL =
+    URL.createObjectURL(file);
+
+  if(type === "image"){
+
+    previewBody.innerHTML = `
+      <img
+        class="preview-media"
+        src="${escapeAttribute(
+          selectedMediaObjectURL
+        )}"
+        alt="Photo preview"
+      >
+    `;
+
+  }else{
+
+    previewBody.innerHTML = `
+      <video
+        class="preview-video"
+        src="${escapeAttribute(
+          selectedMediaObjectURL
+        )}"
+        controls
+        playsinline
+        preload="metadata"
+      ></video>
+    `;
+
+  }
+
+  previewBackdrop.classList.add(
+    "show"
+  );
+
+}
+
+
+function clearSelectedMediaPreview(){
+
+  if(selectedMediaObjectURL){
+
+    URL.revokeObjectURL(
+      selectedMediaObjectURL
+    );
+
+  }
+
+  selectedMediaObjectURL =
+    null;
+
+  selectedMediaFile =
+    null;
+
+  selectedMediaType =
+    null;
+
+  previewBody.innerHTML = "";
+
+}
+
+
+function closeSelectedMediaPreview(){
+
+  previewBackdrop.classList.remove(
+    "show"
+  );
+
+  clearSelectedMediaPreview();
+
+}
+
+
+previewCloseButton.addEventListener(
+  "click",
+  closeSelectedMediaPreview
+);
+
+
+previewCancelButton.addEventListener(
+  "click",
+  closeSelectedMediaPreview
+);
+
+
+/* =========================================================
+   SEND SELECTED MEDIA
+========================================================= */
+
+previewSendButton.addEventListener(
+  "click",
+  async () => {
+
+    if(
+      !selectedMediaFile ||
+      !selectedMediaType
+    ){
+
+      return;
+
+    }
+
+    const file =
+      selectedMediaFile;
+
+    const type =
+      selectedMediaType;
+
+    previewBackdrop.classList.remove(
+      "show"
+    );
+
+    clearSelectedMediaPreview();
+
+    if(type === "image"){
+
+      await sendPhotoMessage(
+        file
+      );
+
+    }else{
+
+      await sendVideoMessage(
+        file
+      );
+
+    }
 
   }
 );
@@ -3098,7 +3870,7 @@ function uploadToImageKit(
 
                 reject(
                   new Error(
-                    "Image URL missing."
+                    "Media URL missing."
                   )
                 );
 
@@ -3112,9 +3884,14 @@ function uploadToImageKit(
 
           }else{
 
+            console.error(
+              "IMAGEKIT RESPONSE:",
+              xhr.responseText
+            );
+
             reject(
               new Error(
-                "Image upload failed."
+                "Media upload failed."
               )
             );
 
@@ -3172,6 +3949,9 @@ async function sendPhotoMessage(
     "active"
   );
 
+  uploadStatus.childNodes[0].textContent =
+    "Sending photo...";
+
   progressBar.style.width =
     "0%";
 
@@ -3188,68 +3968,11 @@ async function sendPhotoMessage(
         }
       );
 
-    const cid =
-      conversationId(
-        user.uid,
-        activeChatUser.uid
-      );
-
-    const conversationRef =
-      db.collection("conversations")
-        .doc(cid);
-
-    const messageRef =
-      conversationRef
-        .collection("messages")
-        .doc();
-
-    const timestamp =
-      firebase.firestore.FieldValue
-        .serverTimestamp();
-
-    const receiverUid =
-      activeChatUser.uid;
-
-    await conversationRef.set({
-
-      participants:[
-        user.uid,
-        receiverUid
-      ],
-
-      lastMessage:"Photo",
-
-      lastMessageType:"image",
-
-      lastSenderId:user.uid,
-
-      lastMessageAt:timestamp,
-
-      seenByCurrentUser:true,
-
-      unreadCounts:{
-        [user.uid]:0,
-        [receiverUid]:
-          firebase.firestore.FieldValue.increment(1)
-      }
-
-    },{
-      merge:true
-    });
-
-    await messageRef.set({
-
-      senderId:user.uid,
-
-      receiverId:receiverUid,
-
-      type:"image",
-
-      imageUrl:imageUrl,
-
-      createdAt:timestamp
-
-    });
+    await createMediaMessage(
+      "image",
+      imageUrl,
+      "Photo"
+    );
 
   }catch(error){
 
@@ -3265,23 +3988,319 @@ async function sendPhotoMessage(
 
   }finally{
 
-    setTimeout(
-      () => {
-
-        uploadStatus.classList.remove(
-          "active"
-        );
-
-        progressBar.style.width =
-          "0%";
-
-      },
-      250
-    );
+    finishUploadStatus();
 
   }
 
 }
+
+
+/* =========================================================
+   SEND VIDEO
+========================================================= */
+
+async function sendVideoMessage(
+  file
+){
+
+  const user =
+    getCurrentUser();
+
+  if(
+    !user ||
+    !activeChatUser
+  ){
+
+    return;
+
+  }
+
+  uploadStatus.classList.add(
+    "active"
+  );
+
+  uploadStatus.childNodes[0].textContent =
+    "Sending video...";
+
+  progressBar.style.width =
+    "0%";
+
+  try{
+
+    const videoUrl =
+      await uploadToImageKit(
+        file,
+        percent => {
+
+          progressBar.style.width =
+            percent + "%";
+
+        }
+      );
+
+    await createMediaMessage(
+      "video",
+      videoUrl,
+      "Video"
+    );
+
+  }catch(error){
+
+    console.error(
+      "SEND VIDEO ERROR:",
+      error
+    );
+
+    showToast(
+      error.message ||
+      "Couldn't send video."
+    );
+
+  }finally{
+
+    finishUploadStatus();
+
+  }
+
+}
+
+
+/* =========================================================
+   CREATE MEDIA MESSAGE
+========================================================= */
+
+async function createMediaMessage(
+  type,
+  mediaUrl,
+  inboxLabel
+){
+
+  const user =
+    getCurrentUser();
+
+  if(
+    !user ||
+    !activeChatUser?.uid
+  ){
+
+    return;
+
+  }
+
+  const cid =
+    conversationId(
+      user.uid,
+      activeChatUser.uid
+    );
+
+  const conversationRef =
+    db.collection("conversations")
+      .doc(cid);
+
+  const messageRef =
+    conversationRef
+      .collection("messages")
+      .doc();
+
+  const timestamp =
+    firebase.firestore.FieldValue
+      .serverTimestamp();
+
+  const receiverUid =
+    activeChatUser.uid;
+
+  const messageData = {
+
+    senderId:user.uid,
+
+    receiverId:receiverUid,
+
+    type:type,
+
+    createdAt:timestamp
+
+  };
+
+  if(type === "image"){
+
+    messageData.imageUrl =
+      mediaUrl;
+
+  }else if(type === "video"){
+
+    messageData.videoUrl =
+      mediaUrl;
+
+  }
+
+  await conversationRef.set({
+
+    participants:[
+      user.uid,
+      receiverUid
+    ],
+
+    lastMessage:
+      inboxLabel,
+
+    lastMessageType:
+      type,
+
+    lastSenderId:
+      user.uid,
+
+    lastMessageAt:
+      timestamp,
+
+    seenByCurrentUser:true,
+
+    unreadCounts:{
+      [user.uid]:0,
+      [receiverUid]:
+        firebase.firestore.FieldValue.increment(1)
+    }
+
+  },{
+    merge:true
+  });
+
+  await messageRef.set(
+    messageData
+  );
+
+}
+
+
+/* =========================================================
+   UPLOAD STATUS
+========================================================= */
+
+function finishUploadStatus(){
+
+  setTimeout(
+    () => {
+
+      uploadStatus.classList.remove(
+        "active"
+      );
+
+      progressBar.style.width =
+        "0%";
+
+    },
+    250
+  );
+
+}
+
+
+/* =========================================================
+   MEDIA VIEWER
+========================================================= */
+
+function openMediaViewer(
+  type,
+  url
+){
+
+  viewerContent.innerHTML = "";
+
+  if(type === "image"){
+
+    const image =
+      document.createElement("img");
+
+    image.className =
+      "viewer-image";
+
+    image.src =
+      url;
+
+    image.alt =
+      "Photo";
+
+    viewerContent.appendChild(
+      image
+    );
+
+  }else if(type === "video"){
+
+    const video =
+      document.createElement("video");
+
+    video.className =
+      "viewer-video";
+
+    video.src =
+      url;
+
+    video.controls =
+      true;
+
+    video.playsInline =
+      true;
+
+    video.autoplay =
+      true;
+
+    viewerContent.appendChild(
+      video
+    );
+
+  }
+
+  viewerBackdrop.classList.add(
+    "show"
+  );
+
+}
+
+
+function closeMediaViewer(){
+
+  const video =
+    viewerContent.querySelector(
+      "video"
+    );
+
+  if(video){
+
+    video.pause();
+    video.removeAttribute("src");
+    video.load();
+
+  }
+
+  viewerContent.innerHTML = "";
+
+  viewerBackdrop.classList.remove(
+    "show"
+  );
+
+}
+
+
+viewerCloseButton.addEventListener(
+  "click",
+  closeMediaViewer
+);
+
+
+viewerBackdrop.addEventListener(
+  "click",
+  event => {
+
+    if(
+      event.target ===
+      viewerBackdrop
+    ){
+
+      closeMediaViewer();
+
+    }
+
+  }
+);
 
 
 /* =========================================================
@@ -3439,6 +4458,8 @@ window.addEventListener(
     clearTimeout(
       typingTimer
     );
+
+    clearSelectedMediaPreview();
 
     if(messagesUnsubscribe){
       messagesUnsubscribe();
