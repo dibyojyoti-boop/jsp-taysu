@@ -16,6 +16,11 @@ color:#f5f5f5;
 padding-bottom:78px
 }
 
+body.viewer-open,
+body.comment-sheet-open{
+overflow:hidden
+}
+
 .topbar{
 position:sticky;
 top:0;
@@ -144,6 +149,34 @@ font-size:13px;
 margin-top:4px
 }
 
+.create-tabs{
+display:flex;
+gap:6px;
+margin-bottom:10px;
+padding:4px;
+background:#111419;
+border:1px solid #292d33;
+border-radius:14px
+}
+
+.create-tab{
+flex:1;
+border:0;
+background:transparent;
+color:#777f89;
+padding:9px 8px;
+border-radius:10px;
+font-size:12px;
+font-weight:800;
+cursor:pointer;
+transition:.18s
+}
+
+.create-tab.active{
+background:#1d2127;
+color:#fff
+}
+
 .create-card{
 background:#111419;
 border:1px solid #292d33;
@@ -188,6 +221,25 @@ font-weight:800
 font-size:11px;
 color:#777f89;
 margin:13px 0 2px
+}
+
+.create-title-input,
+.create-hashtags-input{
+width:100%;
+border:1px solid #292d33;
+outline:none;
+border-radius:12px;
+padding:11px 12px;
+background:#181b20;
+color:#f4f4f4;
+font-family:inherit;
+font-size:14px;
+margin-bottom:7px
+}
+
+.create-title-input::placeholder,
+.create-hashtags-input::placeholder{
+color:#6f7680
 }
 
 #postText{
@@ -273,12 +325,13 @@ height:15px
 
 .post-btn{
 border:0;
-background:#f1f1f1;
-color:#0b0d10;
+background:#1683ff;
+color:#fff;
 padding:9px 17px;
 border-radius:12px;
 font-weight:800;
-cursor:pointer
+cursor:pointer;
+min-width:70px
 }
 
 .post-btn:disabled{
@@ -295,6 +348,55 @@ color:#777f89;
 font-size:10px;
 margin-top:8px;
 line-height:1.4
+}
+
+.upload-progress{
+display:none;
+margin-top:10px
+}
+
+.upload-progress.show{
+display:block
+}
+
+.upload-progress-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:11px;
+color:#858c95;
+margin-bottom:5px
+}
+
+.upload-progress-percent{
+color:#dfe2e6;
+font-weight:800
+}
+
+.upload-progress-track{
+height:5px;
+border-radius:999px;
+background:#25292f;
+overflow:hidden
+}
+
+.upload-progress-bar{
+height:100%;
+width:0%;
+border-radius:999px;
+background:#1683ff;
+transition:width .12s linear
+}
+
+#createPhotoPanel,
+#createReelPanel{
+display:none
+}
+
+#createPostPanel.active,
+#createPhotoPanel.active,
+#createReelPanel.active{
+display:block
 }
 
 #posts{
@@ -388,6 +490,14 @@ font-size:11px;
 margin-top:1px
 }
 
+.post-title{
+font-size:17px;
+font-weight:800;
+line-height:1.3;
+margin:3px 0 5px;
+letter-spacing:-.25px
+}
+
 /* ORIGINAL POST TEXT FORMATTING KEPT */
 .post-text{
 color:#eceef1;
@@ -398,6 +508,19 @@ overflow-wrap:anywhere;
 word-break:normal;
 margin:0;
 padding:0
+}
+
+.post-hashtags{
+display:flex;
+flex-wrap:wrap;
+gap:5px;
+margin:7px 0 4px
+}
+
+.post-hashtag{
+color:#6eaeff;
+font-size:12px;
+font-weight:700
 }
 
 .post-media{
@@ -416,6 +539,20 @@ border-radius:14px;
 background:#08090b;
 margin:4px 0 5px;
 max-height:520px
+}
+
+.post-type-label{
+display:inline-flex;
+font-size:9px;
+font-weight:800;
+letter-spacing:.5px;
+text-transform:uppercase;
+color:#858c95;
+background:#181b20;
+border:1px solid #292d33;
+padding:4px 7px;
+border-radius:7px;
+margin-bottom:4px
 }
 
 .actions{
@@ -459,7 +596,7 @@ color:#ff5d6c
 font-weight:600
 }
 
-/* Compact comment area */
+/* Compact comment area fallback */
 .comments-area{
 display:none;
 margin-top:7px;
@@ -632,8 +769,120 @@ font-size:16px
 font-size:13px
 }
 
+/* EXPLORE */
+
 .explore-title{
 padding:7px 3px 15px
+}
+
+.explore-top{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px
+}
+
+.explore-search-button{
+width:40px;
+height:40px;
+border:0;
+border-radius:11px;
+background:#171a1f;
+color:#d7bd8c;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer
+}
+
+.explore-search-button svg{
+width:20px;
+height:20px
+}
+
+.discover-heading{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin:12px 2px 9px
+}
+
+.discover-heading h2{
+font-size:18px;
+letter-spacing:-.3px
+}
+
+.discover-heading span{
+font-size:11px;
+color:#777f89
+}
+
+.discover-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:3px;
+margin:0 -10px
+}
+
+.discover-tile{
+position:relative;
+aspect-ratio:1/1;
+background:#15181d;
+overflow:hidden;
+cursor:pointer
+}
+
+.discover-tile img,
+.discover-tile video{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block
+}
+
+.discover-tile-text{
+height:100%;
+padding:15px;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:left;
+font-size:13px;
+line-height:1.35;
+color:#e2e5e9;
+background:#15181d
+}
+
+.discover-overlay{
+position:absolute;
+left:7px;
+right:7px;
+bottom:6px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:5px
+}
+
+.discover-author{
+font-size:10px;
+font-weight:800;
+background:rgba(0,0,0,.65);
+backdrop-filter:blur(7px);
+padding:4px 6px;
+border-radius:7px;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis
+}
+
+.discover-reel{
+font-size:9px;
+font-weight:800;
+background:rgba(0,0,0,.65);
+backdrop-filter:blur(7px);
+padding:4px 6px;
+border-radius:7px
 }
 
 .search-box{
@@ -731,6 +980,70 @@ background:#292d33;
 color:#aaa
 }
 
+/* REELS */
+
+.reels-title{
+padding:7px 3px 12px
+}
+
+.reels-title h1{
+font-size:27px;
+letter-spacing:-1px
+}
+
+.reels-title p{
+color:#858c95;
+font-size:13px;
+margin-top:4px
+}
+
+.reels-list{
+display:flex;
+flex-direction:column;
+gap:8px
+}
+
+.reel-card{
+background:#111419;
+border:1px solid #292d33;
+border-radius:18px;
+padding:10px
+}
+
+.reel-card video{
+width:100%;
+max-height:650px;
+aspect-ratio:9/16;
+object-fit:cover;
+border-radius:14px;
+background:#08090b;
+display:block
+}
+
+.reel-card-info{
+padding:8px 3px 2px
+}
+
+.reel-card-title{
+font-size:15px;
+font-weight:800
+}
+
+.reel-card-caption{
+font-size:13px;
+color:#c7cbd0;
+margin-top:4px;
+white-space:pre-line
+}
+
+.reel-card-meta{
+font-size:10px;
+color:#777f89;
+margin-top:5px
+}
+
+/* ALERTS */
+
 .alert-title{
 padding:7px 3px 15px
 }
@@ -812,6 +1125,405 @@ margin-bottom:5px
 .alert-empty p{
 font-size:13px
 }
+
+/* VIEWER */
+
+.viewer{
+display:none;
+position:fixed;
+inset:0;
+z-index:1000;
+background:#000;
+overflow:hidden
+}
+
+.viewer.show{
+display:block
+}
+
+.viewer-top{
+position:absolute;
+top:0;
+left:0;
+right:0;
+z-index:20;
+height:58px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 14px;
+background:linear-gradient(rgba(0,0,0,.72),transparent)
+}
+
+.viewer-close{
+width:38px;
+height:38px;
+border:0;
+border-radius:50%;
+background:rgba(0,0,0,.42);
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer
+}
+
+.viewer-close svg{
+width:21px;
+height:21px
+}
+
+.viewer-title{
+font-size:14px;
+font-weight:800
+}
+
+.viewer-scroll{
+height:100%;
+overflow-y:auto;
+scroll-snap-type:y mandatory;
+overscroll-behavior:contain
+}
+
+.viewer-item{
+height:100vh;
+position:relative;
+scroll-snap-align:start;
+scroll-snap-stop:always;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#050505
+}
+
+.viewer-media{
+width:100%;
+height:100%;
+object-fit:contain
+}
+
+.viewer-video{
+width:100%;
+height:100%;
+object-fit:contain;
+background:#000
+}
+
+.viewer-text-post{
+width:min(76%,600px);
+max-height:70vh;
+overflow:auto;
+padding:24px;
+border-radius:20px;
+background:#111419;
+border:1px solid #292d33
+}
+
+.viewer-post-title{
+font-size:22px;
+font-weight:800;
+margin-bottom:10px
+}
+
+.viewer-post-text{
+font-size:17px;
+line-height:1.5;
+white-space:pre-line;
+overflow-wrap:anywhere
+}
+
+.viewer-post-author{
+position:absolute;
+left:16px;
+bottom:24px;
+z-index:10;
+font-size:13px;
+font-weight:800;
+background:rgba(0,0,0,.58);
+backdrop-filter:blur(8px);
+padding:8px 10px;
+border-radius:10px
+}
+
+.viewer-actions{
+position:absolute;
+right:12px;
+bottom:82px;
+z-index:15;
+display:flex;
+flex-direction:column;
+gap:12px;
+align-items:center
+}
+
+.viewer-action{
+width:44px;
+height:44px;
+border:0;
+border-radius:50%;
+background:rgba(0,0,0,.55);
+color:#fff;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+cursor:pointer
+}
+
+.viewer-action svg{
+width:22px;
+height:22px
+}
+
+.viewer-action small{
+font-size:9px;
+margin-top:1px
+}
+
+.viewer-action.liked{
+color:#ff5d6c
+}
+
+/* COMMENT SHEET */
+
+.sheet-backdrop{
+display:none;
+position:fixed;
+inset:0;
+z-index:1100;
+background:rgba(0,0,0,.52)
+}
+
+.sheet-backdrop.show{
+display:block
+}
+
+.comment-sheet{
+position:fixed;
+left:0;
+right:0;
+bottom:0;
+z-index:1110;
+height:46vh;
+min-height:300px;
+max-height:470px;
+background:#111419;
+border:1px solid #292d33;
+border-bottom:0;
+border-radius:20px 20px 0 0;
+box-shadow:0 -18px 50px rgba(0,0,0,.45);
+transform:translateY(105%);
+transition:transform .25s cubic-bezier(.2,.8,.2,1);
+display:flex;
+flex-direction:column
+}
+
+.comment-sheet.show{
+transform:translateY(0)
+}
+
+.comment-sheet-handle{
+width:38px;
+height:4px;
+border-radius:999px;
+background:#3a3e44;
+margin:8px auto 4px
+}
+
+.comment-sheet-header{
+height:43px;
+flex-shrink:0;
+display:flex;
+align-items:center;
+justify-content:center;
+border-bottom:1px solid #25282d;
+position:relative
+}
+
+.comment-sheet-header h3{
+font-size:14px;
+font-weight:800
+}
+
+.comment-sheet-close{
+position:absolute;
+right:10px;
+width:32px;
+height:32px;
+border:0;
+border-radius:50%;
+background:transparent;
+color:#aaa;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer
+}
+
+.comment-sheet-close svg{
+width:18px;
+height:18px
+}
+
+.comment-sheet-list{
+flex:1;
+overflow-y:auto;
+padding:9px 12px;
+overscroll-behavior:contain
+}
+
+.sheet-comment{
+padding:8px 4px;
+border-bottom:1px solid #202329
+}
+
+.sheet-comment:last-child{
+border-bottom:0
+}
+
+.sheet-comment-head{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:8px
+}
+
+.sheet-comment-user{
+font-size:12px;
+font-weight:800
+}
+
+.sheet-comment-time{
+font-size:9px;
+color:#686f78
+}
+
+.sheet-comment-text{
+font-size:12px;
+line-height:1.4;
+color:#d0d4d9;
+margin-top:2px;
+overflow-wrap:anywhere
+}
+
+.sheet-comment-actions{
+display:flex;
+align-items:center;
+gap:10px;
+margin-top:3px
+}
+
+.sheet-comment-actions button{
+border:0;
+background:none;
+color:#7d9fbe;
+font-size:10px;
+font-weight:700;
+cursor:pointer;
+padding:2px 0
+}
+
+.sheet-replies{
+display:none;
+margin:6px 0 0 16px;
+padding-left:9px;
+border-left:1px solid #30343a
+}
+
+.sheet-replies.show{
+display:block
+}
+
+.sheet-reply{
+padding:5px 0
+}
+
+.sheet-reply-user{
+font-size:10px;
+font-weight:800
+}
+
+.sheet-reply-text{
+font-size:11px;
+color:#bfc4ca;
+margin-top:2px;
+line-height:1.35
+}
+
+.sheet-reply-form{
+display:none;
+gap:6px;
+margin-top:6px
+}
+
+.sheet-reply-form.show{
+display:flex
+}
+
+.sheet-reply-form input{
+flex:1;
+min-width:0;
+padding:7px 9px;
+border:1px solid #2a2e34;
+border-radius:9px;
+background:#15181d;
+color:#fff;
+outline:none;
+font-size:11px
+}
+
+.sheet-reply-form button{
+border:0;
+border-radius:9px;
+padding:0 10px;
+background:#f1f1f1;
+color:#0b0d10;
+font-size:10px;
+font-weight:800;
+cursor:pointer
+}
+
+.sheet-delete{
+border:0;
+background:none;
+color:#8e7272;
+font-size:9px;
+cursor:pointer
+}
+
+.comment-sheet-form{
+display:flex;
+gap:7px;
+padding:9px 12px 12px;
+border-top:1px solid #25282d;
+background:#111419;
+flex-shrink:0
+}
+
+.comment-sheet-input{
+flex:1;
+min-width:0;
+padding:10px 12px;
+border:1px solid #2a2e34;
+border-radius:12px;
+background:#15181d;
+color:#fff;
+outline:none;
+font-size:12px
+}
+
+.comment-sheet-send{
+border:0;
+padding:0 14px;
+border-radius:12px;
+background:#f1f1f1;
+color:#0b0d10;
+font-size:11px;
+font-weight:800;
+cursor:pointer
+}
+
+/* BOTTOM NAV */
 
 .bottom-nav{
 position:fixed;
@@ -923,6 +1635,31 @@ padding:9px 14px
 .bottom-nav{
 height:68px
 }
+
+.discover-grid{
+margin:0 -10px;
+gap:2px
+}
+
+.comment-sheet{
+height:44vh;
+min-height:280px
+}
+
+.viewer-actions{
+right:8px;
+bottom:78px
+}
+
+.viewer-action{
+width:42px;
+height:42px
+}
+
+.viewer-text-post{
+width:80%;
+padding:20px
+}
 }
 </style>
 </head>
@@ -1033,6 +1770,22 @@ Back
 
 </div>
 
+<div class="create-tabs">
+
+<button class="create-tab active" data-create-tab="post" type="button">
+Post
+</button>
+
+<button class="create-tab" data-create-tab="photo" type="button">
+Photos
+</button>
+
+<button class="create-tab" data-create-tab="reel" type="button">
+Reels
+</button>
+
+</div>
+
 <div class="create-card">
 
 <div class="composer-header">
@@ -1043,13 +1796,32 @@ Back
 
 <div class="composer-name" id="composerName">Member</div>
 
-<div class="composer-sub">Create a post</div>
+<div class="composer-sub" id="composerSub">Create a post</div>
 
 </div>
 
 </div>
 
-<div class="create-caption-label">Caption</div>
+
+<!-- POST PANEL -->
+
+<div id="createPostPanel" class="active">
+
+<div class="create-caption-label">
+Title
+</div>
+
+<input
+id="postTitle"
+class="create-title-input"
+type="text"
+maxlength="150"
+placeholder="Add a title..."
+>
+
+<div class="create-caption-label">
+Caption
+</div>
 
 <textarea
 id="postText"
@@ -1057,7 +1829,19 @@ maxlength="5000"
 placeholder="What's on your mind?"
 ></textarea>
 
-<div id="createMediaPreview" class="create-media-preview">
+<div class="create-caption-label">
+Hashtags
+</div>
+
+<input
+id="postHashtags"
+class="create-hashtags-input"
+type="text"
+maxlength="300"
+placeholder="#Ahom #TaiAhom #Assam"
+>
+
+<div class="create-media-preview" id="createMediaPreview">
 
 <button
 id="removeMediaButton"
@@ -1117,8 +1901,211 @@ Post
 
 </div>
 
+</div>
+
+
+<!-- PHOTO PANEL -->
+
+<div id="createPhotoPanel">
+
+<div class="create-caption-label">
+Title
+</div>
+
+<input
+id="photoTitle"
+class="create-title-input"
+type="text"
+maxlength="150"
+placeholder="Photo title..."
+>
+
+<div class="create-caption-label">
+Caption
+</div>
+
+<textarea
+id="photoCaption"
+maxlength="5000"
+placeholder="Write a caption..."
+></textarea>
+
+<div class="create-caption-label">
+Hashtags
+</div>
+
+<input
+id="photoHashtags"
+class="create-hashtags-input"
+type="text"
+maxlength="300"
+placeholder="#Ahom #Culture #Assam"
+>
+
+<div class="create-media-preview" id="photoCreatePreview">
+
+<button
+id="removePhotoButton"
+class="remove-media"
+type="button"
+>
+×
+</button>
+
+<div id="photoPreviewContent"></div>
+
+</div>
+
+<div class="create-options">
+
+<div class="media-buttons">
+
+<button
+class="media-button"
+id="choosePhotoButton"
+type="button"
+>
+Choose Photo
+</button>
+
+<input
+type="file"
+id="photoOnlyInput"
+class="hidden-file"
+accept="image/*"
+>
+
+</div>
+
+<button
+class="post-btn"
+id="photoPostButton"
+type="button"
+>
+Post
+</button>
+
+</div>
+
+</div>
+
+
+<!-- REEL PANEL -->
+
+<div id="createReelPanel">
+
+<div class="create-caption-label">
+Title
+</div>
+
+<input
+id="reelTitle"
+class="create-title-input"
+type="text"
+maxlength="150"
+placeholder="Reel title..."
+>
+
+<div class="create-caption-label">
+Caption
+</div>
+
+<textarea
+id="reelCaption"
+maxlength="5000"
+placeholder="Write a caption..."
+></textarea>
+
+<div class="create-caption-label">
+Hashtags
+</div>
+
+<input
+id="reelHashtags"
+class="create-hashtags-input"
+type="text"
+maxlength="300"
+placeholder="#Ahom #TaiAhom #Reels"
+>
+
+<div class="create-media-preview" id="reelCreatePreview">
+
+<button
+id="removeReelButton"
+class="remove-media"
+type="button"
+>
+×
+</button>
+
+<div id="reelPreviewContent"></div>
+
+</div>
+
+<div class="create-options">
+
+<div class="media-buttons">
+
+<button
+class="media-button"
+id="chooseReelButton"
+type="button"
+>
+Choose Video
+</button>
+
+<input
+type="file"
+id="reelInput"
+class="hidden-file"
+accept="video/*"
+>
+
+</div>
+
+<button
+class="post-btn"
+id="reelPostButton"
+type="button"
+>
+Post Reel
+</button>
+
+</div>
+
+</div>
+
+
 <div class="create-upload-info">
 Photos up to 25 MB and videos up to 100 MB.
+</div>
+
+<div class="upload-progress" id="uploadProgress">
+
+<div class="upload-progress-head">
+
+<span id="uploadProgressText">
+Uploading media...
+</span>
+
+<span
+id="uploadProgressPercent"
+class="upload-progress-percent"
+>
+0%
+</span>
+
+</div>
+
+<div class="upload-progress-track">
+
+<div
+id="uploadProgressBar"
+class="upload-progress-bar"
+></div>
+
+</div>
+
 </div>
 
 </div>
@@ -1132,11 +2119,36 @@ Photos up to 25 MB and videos up to 100 MB.
 
 <div class="explore-title">
 
+<div class="explore-top">
+
+<div>
+
 <h1>Explore</h1>
 
-<p>Discover members and connect with the community.</p>
+<p>Discover members and community posts.</p>
 
 </div>
+
+<button
+id="exploreSearchButton"
+class="explore-search-button"
+type="button"
+aria-label="Search members"
+>
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<circle cx="11" cy="11" r="7"></circle>
+<path d="m20 20-4-4"></path>
+</svg>
+
+</button>
+
+</div>
+
+</div>
+
+
+<div id="exploreMemberSearch" style="display:none">
 
 <div class="search-box">
 
@@ -1166,6 +2178,24 @@ type="button"
 
 <div id="searchResults"></div>
 
+</div>
+
+
+<div class="discover-heading">
+
+<h2>Discover</h2>
+
+<span id="discoverCount"></span>
+
+</div>
+
+<div
+id="discoverGrid"
+class="discover-grid"
+>
+
+</div>
+
 </section>
 
 
@@ -1173,19 +2203,36 @@ type="button"
 
 <section id="reelsSection" class="page-section">
 
-<div style="text-align:center;padding:80px 20px;color:#858c95">
+<div class="reels-title">
 
-<div style="font-size:40px;margin-bottom:12px">
-Play
+<h1>Reels</h1>
+
+<p>Short videos from the JSP TAYSU community.</p>
+
 </div>
 
-<h2 style="color:#e7e9ec;margin-bottom:5px">
-Reels
-</h2>
+<div
+id="reelsList"
+class="reels-list"
+>
 
-<p style="font-size:13px">
-Short videos will appear here.
-</p>
+<div class="empty">
+
+<div class="empty-icon">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<rect x="3" y="3" width="18" height="18" rx="4"></rect>
+<path d="M9 3l3 5M15 3l3 5M3 9h18"></path>
+<path d="m10 13 5 3-5 3z" fill="currentColor" stroke="none"></path>
+</svg>
+
+</div>
+
+<h3>Loading reels...</h3>
+
+<p>Please wait a moment.</p>
+
+</div>
 
 </div>
 
@@ -1238,6 +2285,111 @@ Your community notifications will appear here.
 </section>
 
 </main>
+
+
+<!-- DISCOVER VIEWER -->
+
+<div
+id="postViewer"
+class="viewer"
+>
+
+<div class="viewer-top">
+
+<button
+id="viewerClose"
+class="viewer-close"
+type="button"
+aria-label="Close"
+>
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="m15 6-6 6 6 6"></path>
+</svg>
+
+</button>
+
+<div class="viewer-title">
+Discover
+</div>
+
+<div style="width:38px"></div>
+
+</div>
+
+<div
+id="viewerScroll"
+class="viewer-scroll"
+></div>
+
+</div>
+
+
+<!-- COMMENT BACKDROP -->
+
+<div
+id="commentSheetBackdrop"
+class="sheet-backdrop"
+></div>
+
+
+<!-- COMMENT SHEET -->
+
+<div
+id="commentSheet"
+class="comment-sheet"
+>
+
+<div class="comment-sheet-handle"></div>
+
+<div class="comment-sheet-header">
+
+<h3 id="commentSheetTitle">
+Comments
+</h3>
+
+<button
+id="commentSheetClose"
+class="comment-sheet-close"
+type="button"
+aria-label="Close comments"
+>
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path d="m6 6 12 12"></path>
+<path d="m18 6-12 12"></path>
+</svg>
+
+</button>
+
+</div>
+
+<div
+id="commentSheetList"
+class="comment-sheet-list"
+></div>
+
+<div class="comment-sheet-form">
+
+<input
+id="commentSheetInput"
+class="comment-sheet-input"
+type="text"
+maxlength="300"
+placeholder="Add a comment..."
+>
+
+<button
+id="commentSheetSend"
+class="comment-sheet-send"
+type="button"
+>
+Send
+</button>
+
+</div>
+
+</div>
 
 
 <nav class="bottom-nav">
@@ -1403,11 +2555,23 @@ let selectedMediaFile=null;
 
 let selectedMediaType=null;
 
+let photoOnlyFile=null;
+
+let reelFile=null;
+
 let currentUsername="Member";
 
 let allPosts=[];
 
 let allMembers=[];
+
+let activeCreateTab="post";
+
+let activeViewerPosts=[];
+
+let activeViewerIndex=0;
+
+let activeCommentPost=null;
 
 
 const composerName=
@@ -1421,6 +2585,12 @@ document.getElementById("alertList");
 
 const postsContainer=
 document.getElementById("posts");
+
+const reelsList=
+document.getElementById("reelsList");
+
+const discoverGrid=
+document.getElementById("discoverGrid");
 
 
 /* AUTH */
@@ -1584,6 +2754,15 @@ if(sectionId==="exploreSection"){
 
 loadMembers();
 
+renderDiscoverGrid();
+
+}
+
+
+if(sectionId==="reelsSection"){
+
+renderReels();
+
 }
 
 
@@ -1709,6 +2888,87 @@ encodeURIComponent(uid);
 }
 
 
+/* CREATE TABS */
+
+document
+.querySelectorAll(".create-tab")
+.forEach(tab=>{
+
+tab.addEventListener(
+"click",
+()=>{
+
+switchCreateTab(
+tab.dataset.createTab
+);
+
+}
+);
+
+});
+
+
+function switchCreateTab(tab){
+
+activeCreateTab=tab;
+
+document
+.querySelectorAll(".create-tab")
+.forEach(button=>{
+
+button.classList.toggle(
+"active",
+button.dataset.createTab===tab
+);
+
+});
+
+
+document
+.getElementById("createPostPanel")
+.classList.toggle(
+"active",
+tab==="post"
+);
+
+
+document
+.getElementById("createPhotoPanel")
+.classList.toggle(
+"active",
+tab==="photo"
+);
+
+
+document
+.getElementById("createReelPanel")
+.classList.toggle(
+"active",
+tab==="reel"
+);
+
+
+const sub=
+document.getElementById("composerSub");
+
+
+if(tab==="post"){
+
+sub.textContent="Create a post";
+
+}else if(tab==="photo"){
+
+sub.textContent="Share a photo";
+
+}else{
+
+sub.textContent="Create a reel";
+
+}
+
+}
+
+
 /* FEED SEARCH */
 
 const feedSearchButton=
@@ -1764,7 +3024,42 @@ feedSearchInput.value
 );
 
 
-/* MEDIA INPUTS */
+/* COMMON FILE VALIDATION */
+
+function validateMediaFile(file,type){
+
+if(!file)
+return false;
+
+
+if(type==="image"&&file.size>MAX_IMAGE_SIZE){
+
+alert(
+"Photo is too large. Maximum size is 25 MB."
+);
+
+return false;
+
+}
+
+
+if(type==="video"&&file.size>MAX_VIDEO_SIZE){
+
+alert(
+"Video is too large. Maximum size is 100 MB."
+);
+
+return false;
+
+}
+
+
+return true;
+
+}
+
+
+/* NORMAL POST MEDIA */
 
 const photoButton=
 document.getElementById(
@@ -1823,8 +3118,6 @@ videoInput.click();
 );
 
 
-/* TOP MEDIA CHOICES */
-
 photoInput.addEventListener(
 "change",
 ()=>{
@@ -1835,11 +3128,7 @@ photoInput.files[0];
 if(!file)return;
 
 
-if(file.size>MAX_IMAGE_SIZE){
-
-alert(
-"Photo is too large. Maximum size is 25 MB."
-);
+if(!validateMediaFile(file,"image")){
 
 photoInput.value="";
 
@@ -1871,11 +3160,7 @@ videoInput.files[0];
 if(!file)return;
 
 
-if(file.size>MAX_VIDEO_SIZE){
-
-alert(
-"Video is too large. Maximum size is 100 MB."
-);
+if(!validateMediaFile(file,"video")){
 
 videoInput.value="";
 
@@ -1897,7 +3182,7 @@ file,
 );
 
 
-/* PREVIEW */
+/* NORMAL POST PREVIEW */
 
 function showMediaPreview(
 file,
@@ -1961,7 +3246,260 @@ document
 );
 
 
-/* IMAGEKIT UPLOAD */
+/* PHOTO TAB */
+
+const photoOnlyInput=
+document.getElementById(
+"photoOnlyInput"
+);
+
+
+document
+.getElementById("choosePhotoButton")
+.addEventListener(
+"click",
+()=>{
+
+if(!currentUser){
+
+alert("Please sign in first.");
+
+return;
+
+}
+
+photoOnlyInput.click();
+
+}
+);
+
+
+photoOnlyInput.addEventListener(
+"change",
+()=>{
+
+const file=
+photoOnlyInput.files[0];
+
+if(!file)return;
+
+
+if(!validateMediaFile(file,"image")){
+
+photoOnlyInput.value="";
+
+return;
+
+}
+
+
+photoOnlyFile=file;
+
+const url=
+URL.createObjectURL(file);
+
+
+document
+.getElementById("photoPreviewContent")
+.innerHTML=
+`<img src="${url}" alt="Selected photo">`;
+
+
+document
+.getElementById("photoCreatePreview")
+.style.display="block";
+
+}
+);
+
+
+document
+.getElementById("removePhotoButton")
+.addEventListener(
+"click",
+()=>{
+
+photoOnlyFile=null;
+
+photoOnlyInput.value="";
+
+document
+.getElementById("photoCreatePreview")
+.style.display="none";
+
+document
+.getElementById("photoPreviewContent")
+.innerHTML="";
+
+}
+);
+
+
+/* REEL TAB */
+
+const reelInput=
+document.getElementById(
+"reelInput"
+);
+
+
+document
+.getElementById("chooseReelButton")
+.addEventListener(
+"click",
+()=>{
+
+if(!currentUser){
+
+alert("Please sign in first.");
+
+return;
+
+}
+
+reelInput.click();
+
+}
+);
+
+
+reelInput.addEventListener(
+"change",
+()=>{
+
+const file=
+reelInput.files[0];
+
+if(!file)return;
+
+
+if(!validateMediaFile(file,"video")){
+
+reelInput.value="";
+
+return;
+
+}
+
+
+reelFile=file;
+
+const url=
+URL.createObjectURL(file);
+
+
+document
+.getElementById("reelPreviewContent")
+.innerHTML=
+`<video src="${url}" controls></video>`;
+
+
+document
+.getElementById("reelCreatePreview")
+.style.display="block";
+
+}
+);
+
+
+document
+.getElementById("removeReelButton")
+.addEventListener(
+"click",
+()=>{
+
+reelFile=null;
+
+reelInput.value="";
+
+document
+.getElementById("reelCreatePreview")
+.style.display="none";
+
+document
+.getElementById("reelPreviewContent")
+.innerHTML="";
+
+}
+);
+
+
+/* UPLOAD PROGRESS */
+
+function resetUploadProgress(){
+
+const wrapper=
+document.getElementById(
+"uploadProgress"
+);
+
+const bar=
+document.getElementById(
+"uploadProgressBar"
+);
+
+const percent=
+document.getElementById(
+"uploadProgressPercent"
+);
+
+const text=
+document.getElementById(
+"uploadProgressText"
+);
+
+
+wrapper.classList.remove("show");
+
+bar.style.width="0%";
+
+percent.textContent="0%";
+
+text.textContent="Uploading media...";
+
+}
+
+
+function updateUploadProgress(value){
+
+const wrapper=
+document.getElementById(
+"uploadProgress"
+);
+
+const bar=
+document.getElementById(
+"uploadProgressBar"
+);
+
+const percent=
+document.getElementById(
+"uploadProgressPercent"
+);
+
+
+wrapper.classList.add("show");
+
+const safeValue=
+Math.max(
+0,
+Math.min(
+100,
+Math.round(value)
+)
+);
+
+
+bar.style.width=
+safeValue+"%";
+
+percent.textContent=
+safeValue+"%";
+
+}
+
+
+/* IMAGEKIT UPLOAD WITH LIVE PROGRESS */
 
 async function uploadToImageKit(
 file
@@ -2063,7 +3601,7 @@ authData.signature
 
 formData.append(
 "expire",
-authData.expire
+String(authData.expire)
 );
 
 
@@ -2079,40 +3617,166 @@ formData.append(
 );
 
 
-const response=
-await fetch(
+updateUploadProgress(0);
+
+
+return new Promise(
+(resolve,reject)=>{
+
+const xhr=
+new XMLHttpRequest();
+
+
+xhr.open(
+"POST",
 IMAGEKIT_UPLOAD_URL,
-{
-method:"POST",
-body:formData
-}
+true
 );
 
 
-const result=
-await response.json();
+xhr.upload.onprogress=
+event=>{
+
+if(event.lengthComputable){
+
+const percent=
+(event.loaded/event.total)*100;
+
+updateUploadProgress(percent);
+
+}
+
+};
 
 
-if(!response.ok){
+xhr.onload=()=>{
 
-throw new Error(
+let result={};
+
+
+try{
+
+result=
+JSON.parse(
+xhr.responseText||"{}"
+);
+
+}catch(error){
+
+reject(
+new Error(
+"Invalid response from ImageKit."
+)
+);
+
+return;
+
+}
+
+
+if(
+xhr.status<200||
+xhr.status>=300
+){
+
+reject(
+new Error(
 result.message||
 "ImageKit upload failed."
+)
 );
+
+return;
 
 }
 
 
 if(!result.url){
 
-throw new Error(
+reject(
+new Error(
 "ImageKit did not return a file URL."
+)
+);
+
+return;
+
+}
+
+
+updateUploadProgress(100);
+
+document
+.getElementById(
+"uploadProgressText"
+)
+.textContent=
+"Upload complete";
+
+
+resolve(
+result.url
+);
+
+};
+
+
+xhr.onerror=()=>{
+
+reject(
+new Error(
+"Network error while uploading to ImageKit."
+)
+);
+
+};
+
+
+xhr.onabort=()=>{
+
+reject(
+new Error(
+"ImageKit upload was cancelled."
+)
+);
+
+};
+
+
+xhr.send(
+formData
+);
+
+}
 );
 
 }
 
 
-return result.url;
+/* HELPERS FOR POST METADATA */
+
+function cleanHashtags(value){
+
+return String(value||"")
+.trim()
+.split(/\s+/)
+.map(tag=>tag.trim())
+.filter(Boolean)
+.map(tag=>
+tag.startsWith("#")
+?tag
+:"#"+tag
+)
+.join(" ");
+
+}
+
+
+function hashtagsArray(value){
+
+return cleanHashtags(value)
+.split(/\s+/)
+.filter(Boolean);
 
 }
 
@@ -2134,6 +3798,13 @@ return;
 }
 
 
+const title=
+document
+.getElementById("postTitle")
+.value
+.trim();
+
+
 const text=
 document
 .getElementById("postText")
@@ -2141,13 +3812,22 @@ document
 .trim();
 
 
+const hashtags=
+cleanHashtags(
+document
+.getElementById("postHashtags")
+.value
+);
+
+
 if(
+!title&&
 !text&&
 !selectedMediaFile
 ){
 
 alert(
-"Write something or select a photo/video."
+"Add a title, write something, or select media."
 );
 
 return;
@@ -2163,8 +3843,7 @@ document.getElementById(
 
 button.disabled=true;
 
-button.textContent=
-"Posting...";
+resetUploadProgress();
 
 
 try{
@@ -2200,7 +3879,14 @@ await addDoc(
 collection(db,"posts"),
 {
 
+title,
+
 text,
+
+hashtags,
+
+hashtagsArray:
+hashtagsArray(hashtags),
 
 authorId:
 currentUser.uid,
@@ -2212,6 +3898,9 @@ mediaUrl,
 
 mediaType,
 
+postType:
+"post",
+
 createdAt:
 serverTimestamp()
 
@@ -2220,7 +3909,15 @@ serverTimestamp()
 
 
 document
+.getElementById("postTitle")
+.value="";
+
+document
 .getElementById("postText")
+.value="";
+
+document
+.getElementById("postHashtags")
 .value="";
 
 
@@ -2277,6 +3974,404 @@ button.disabled=false;
 button.textContent=
 "Post";
 
+setTimeout(
+resetUploadProgress,
+500
+);
+
+}
+
+}
+);
+
+
+/* PHOTO POST */
+
+document
+.getElementById("photoPostButton")
+.addEventListener(
+"click",
+async()=>{
+
+if(!currentUser){
+
+alert("Please sign in first.");
+
+return;
+
+}
+
+
+if(!photoOnlyFile){
+
+alert(
+"Please choose a photo first."
+);
+
+return;
+
+}
+
+
+const title=
+document
+.getElementById("photoTitle")
+.value
+.trim();
+
+
+const caption=
+document
+.getElementById("photoCaption")
+.value
+.trim();
+
+
+const hashtags=
+cleanHashtags(
+document
+.getElementById("photoHashtags")
+.value
+);
+
+
+if(
+!title&&
+!caption
+){
+
+alert(
+"Add a title or caption."
+);
+
+return;
+
+}
+
+
+const button=
+document.getElementById(
+"photoPostButton"
+);
+
+
+button.disabled=true;
+
+resetUploadProgress();
+
+
+try{
+
+button.textContent=
+"Uploading...";
+
+
+const mediaUrl=
+await uploadToImageKit(
+photoOnlyFile
+);
+
+
+button.textContent=
+"Saving...";
+
+
+await addDoc(
+collection(db,"posts"),
+{
+
+title,
+
+text:
+caption,
+
+hashtags,
+
+hashtagsArray:
+hashtagsArray(hashtags),
+
+authorId:
+currentUser.uid,
+
+authorName:
+currentUsername,
+
+mediaUrl,
+
+mediaType:
+"image",
+
+postType:
+"photo",
+
+createdAt:
+serverTimestamp()
+
+}
+);
+
+
+document
+.getElementById("photoTitle")
+.value="";
+
+document
+.getElementById("photoCaption")
+.value="";
+
+document
+.getElementById("photoHashtags")
+.value="";
+
+
+photoOnlyFile=null;
+
+photoOnlyInput.value="";
+
+
+document
+.getElementById("photoCreatePreview")
+.style.display="none";
+
+
+document
+.getElementById("photoPreviewContent")
+.innerHTML="";
+
+
+await loadPosts();
+
+
+showSection(
+"homeSection"
+);
+
+
+}catch(error){
+
+console.error(
+"Photo post error:",
+error
+);
+
+
+alert(
+(error.code||"Error")+
+": "+
+error.message
+);
+
+
+}finally{
+
+button.disabled=false;
+
+button.textContent=
+"Post";
+
+setTimeout(
+resetUploadProgress,
+500
+);
+
+}
+
+}
+);
+
+
+/* REEL POST */
+
+document
+.getElementById("reelPostButton")
+.addEventListener(
+"click",
+async()=>{
+
+if(!currentUser){
+
+alert("Please sign in first.");
+
+return;
+
+}
+
+
+if(!reelFile){
+
+alert(
+"Please choose a video first."
+);
+
+return;
+
+}
+
+
+const title=
+document
+.getElementById("reelTitle")
+.value
+.trim();
+
+
+const caption=
+document
+.getElementById("reelCaption")
+.value
+.trim();
+
+
+const hashtags=
+cleanHashtags(
+document
+.getElementById("reelHashtags")
+.value
+);
+
+
+if(
+!title&&
+!caption
+){
+
+alert(
+"Add a title or caption."
+);
+
+return;
+
+}
+
+
+const button=
+document.getElementById(
+"reelPostButton"
+);
+
+
+button.disabled=true;
+
+resetUploadProgress();
+
+
+try{
+
+button.textContent=
+"Uploading...";
+
+
+const mediaUrl=
+await uploadToImageKit(
+reelFile
+);
+
+
+button.textContent=
+"Saving...";
+
+
+await addDoc(
+collection(db,"posts"),
+{
+
+title,
+
+text:
+caption,
+
+hashtags,
+
+hashtagsArray:
+hashtagsArray(hashtags),
+
+authorId:
+currentUser.uid,
+
+authorName:
+currentUsername,
+
+mediaUrl,
+
+mediaType:
+"video",
+
+postType:
+"reel",
+
+createdAt:
+serverTimestamp()
+
+}
+);
+
+
+document
+.getElementById("reelTitle")
+.value="";
+
+document
+.getElementById("reelCaption")
+.value="";
+
+document
+.getElementById("reelHashtags")
+.value="";
+
+
+reelFile=null;
+
+reelInput.value="";
+
+
+document
+.getElementById("reelCreatePreview")
+.style.display="none";
+
+
+document
+.getElementById("reelPreviewContent")
+.innerHTML="";
+
+
+await loadPosts();
+
+
+renderReels();
+
+
+showSection(
+"reelsSection"
+);
+
+
+}catch(error){
+
+console.error(
+"Reel post error:",
+error
+);
+
+
+alert(
+(error.code||"Error")+
+": "+
+error.message
+);
+
+
+}finally{
+
+button.disabled=false;
+
+button.textContent=
+"Post Reel";
+
+setTimeout(
+resetUploadProgress,
+500
+);
+
 }
 
 }
@@ -2324,6 +4419,11 @@ allPosts.sort(
 renderFilteredPosts(
 feedSearchInput.value
 );
+
+
+renderDiscoverGrid();
+
+renderReels();
 
 
 }catch(error){
@@ -2391,7 +4491,15 @@ post=>
 
 !queryText||
 
+String(post.title||"")
+.toLowerCase()
+.includes(queryText)||
+
 String(post.text||"")
+.toLowerCase()
+.includes(queryText)||
+
+String(post.hashtags||"")
 .toLowerCase()
 .includes(queryText)||
 
@@ -2460,29 +4568,13 @@ postsContainer
 }
 
 
-async function renderPost(
-post,
-container
-){
-
-const postElement=
-document.createElement(
-"article"
-);
-
-
-postElement.className=
-"post";
-
-
-const username=
-post.authorName||
-"Member";
-
+async function getPostCounts(post){
 
 let likeCount=0;
 
 let alreadyLiked=false;
+
+let commentCount=0;
 
 
 try{
@@ -2523,9 +4615,6 @@ error
 }
 
 
-let commentCount=0;
-
-
 try{
 
 commentCount=
@@ -2548,6 +4637,39 @@ error
 );
 
 }
+
+
+return{
+likeCount,
+alreadyLiked,
+commentCount
+};
+
+}
+
+
+async function renderPost(
+post,
+container
+){
+
+const postElement=
+document.createElement(
+"article"
+);
+
+
+postElement.className=
+"post";
+
+
+const username=
+post.authorName||
+"Member";
+
+
+const counts=
+await getPostCounts(post);
 
 
 let mediaHTML="";
@@ -2592,6 +4714,32 @@ src="${escapeAttribute(post.mediaUrl)}"
 }
 
 
+const postTypeLabel=
+post.postType==="reel"
+?"Reel"
+:post.postType==="photo"
+?"Photo"
+:"Post";
+
+
+const hashtagsHTML=
+String(post.hashtags||"")
+.trim()
+?
+`
+<div class="post-hashtags">
+
+${hashtagsArray(post.hashtags)
+.map(tag=>
+`<span class="post-hashtag">${escapeHTML(tag)}</span>`
+)
+.join("")}
+
+</div>
+`
+:"";
+
+
 postElement.innerHTML=`
 
 <div
@@ -2630,16 +4778,32 @@ post.createdAt
 </div>
 
 
-${post.text?
-`<div class="post-text">${escapeHTML(String(post.text).replace(/[ \t]+\n/g,"\n").replace(/\n[ \t]+/g,"\n"))}</div>`
-:""}${mediaHTML}
+<div class="post-type-label">
+
+${postTypeLabel}
+
+</div>
+
+
+${
+post.title
+?
+`<div class="post-title">${escapeHTML(post.title)}</div>`
+:""
+}
+
+
+/* ORIGINAL POST TEXT RENDERING PRESERVED */
+${post.text?`<div class="post-text">${escapeHTML(String(post.text).replace(/[ \t]+\n/g,"\n").replace(/\n[ \t]+/g,"\n"))}</div>`:""}${mediaHTML}
+
+${hashtagsHTML}
 
 
 <div class="actions">
 
 <button
 class="action like-button ${
-alreadyLiked?"liked":""
+counts.alreadyLiked?"liked":""
 }"
 type="button"
 >
@@ -2647,7 +4811,7 @@ type="button"
 <svg
 viewBox="0 0 24 24"
 fill="${
-alreadyLiked
+counts.alreadyLiked
 ?"currentColor"
 :"none"
 }"
@@ -2661,11 +4825,11 @@ d="M20.8 8.7 C20.8 13.7 12 20 12 20 S3.2 13.7 3.2 8.7 C3.2 5.7 5.4 3.7 8.1 3.7 C
 </svg>
 
 <span>
-${alreadyLiked?"Unlike":"Like"}
+${counts.alreadyLiked?"Unlike":"Like"}
 </span>
 
 <b class="like-count">
-${likeCount}
+${counts.likeCount}
 </b>
 
 </button>
@@ -2693,7 +4857,7 @@ Comment
 </span>
 
 <b class="comment-count">
-${commentCount}
+${counts.commentCount}
 </b>
 
 </button>
@@ -2984,11 +5148,6 @@ postElement.querySelector(
 ".comment-send"
 );
 
-const commentCountElement=
-postElement.querySelector(
-".comment-count"
-);
-
 
 commentButton.addEventListener(
 "click",
@@ -3005,31 +5164,15 @@ return;
 }
 
 
-if(
-commentsArea.style.display===
-"block"
-){
-
-commentsArea.style.display=
-"none";
-
-}else{
-
-commentsArea.style.display=
-"block";
-
-await loadComments(
-post.id,
-commentsList
+openCommentSheet(
+post
 );
-
-}
 
 }
 );
 
 
-async function sendComment(){
+async function sendInlineComment(){
 
 if(!currentUser){
 
@@ -3083,18 +5226,18 @@ parentId:""
 commentInput.value="";
 
 
+const commentCountElement=
+postElement.querySelector(
+".comment-count"
+);
+
+
 commentCountElement.textContent=
 (
 Number(
 commentCountElement.textContent
 )||0
 )+1;
-
-
-await loadComments(
-post.id,
-commentsList
-);
 
 
 if(
@@ -3154,7 +5297,7 @@ commentSend.disabled=false;
 
 commentSend.addEventListener(
 "click",
-sendComment
+sendInlineComment
 );
 
 
@@ -3166,7 +5309,7 @@ if(event.key==="Enter"){
 
 event.preventDefault();
 
-sendComment();
+sendInlineComment();
 
 }
 
@@ -3189,6 +5332,7 @@ if(navigator.share){
 await navigator.share({
 
 title:
+post.title||
 "JSP TAYSU Community",
 
 text:
@@ -3225,12 +5369,832 @@ console.log(
 }
 
 
-async function loadComments(
-postId,
-commentsList
+/* DISCOVER GRID */
+
+function renderDiscoverGrid(){
+
+if(!discoverGrid)
+return;
+
+
+const discoverPosts=
+allPosts.filter(
+post=>
+post.mediaUrl||
+post.text||
+post.title
+);
+
+
+const countElement=
+document.getElementById(
+"discoverCount"
+);
+
+
+if(countElement){
+
+countElement.textContent=
+discoverPosts.length
+?
+discoverPosts.length+" posts"
+:"";
+
+}
+
+
+discoverGrid.innerHTML="";
+
+
+if(discoverPosts.length===0){
+
+discoverGrid.innerHTML=`
+
+<div
+style="
+grid-column:1/-1;
+padding:50px 20px;
+text-align:center;
+color:#777f89;
+"
+>
+
+No community posts yet.
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+discoverPosts.forEach(
+post=>{
+
+const tile=
+document.createElement(
+"div"
+);
+
+
+tile.className=
+"discover-tile";
+
+
+let content="";
+
+
+if(
+post.mediaUrl&&
+post.mediaType==="image"
 ){
 
-commentsList.innerHTML="";
+content=
+`
+<img
+src="${escapeAttribute(post.mediaUrl)}"
+alt="Community post"
+loading="lazy"
+>
+`;
+
+}else if(
+post.mediaUrl&&
+post.mediaType==="video"
+){
+
+content=
+`
+<video
+src="${escapeAttribute(post.mediaUrl)}"
+muted
+playsinline
+preload="metadata"
+></video>
+`;
+
+}else{
+
+content=
+`
+<div class="discover-tile-text">
+
+${escapeHTML(
+post.title||
+post.text||
+"Community post"
+).slice(0,180)}
+
+</div>
+`;
+
+}
+
+
+tile.innerHTML=
+content+
+`
+
+<div class="discover-overlay">
+
+<div class="discover-author">
+
+${escapeHTML(
+post.authorName||
+"Member"
+)}
+
+</div>
+
+${
+post.postType==="reel"
+?
+`<div class="discover-reel">REEL</div>`
+:""
+
+}
+
+</div>
+
+`;
+
+
+tile.addEventListener(
+"click",
+()=>{
+
+openViewer(
+discoverPosts,
+discoverPosts.indexOf(post)
+);
+
+}
+);
+
+
+discoverGrid.appendChild(
+tile
+);
+
+}
+);
+
+}
+
+
+/* VIEWER */
+
+const postViewer=
+document.getElementById(
+"postViewer"
+);
+
+const viewerScroll=
+document.getElementById(
+"viewerScroll"
+);
+
+
+function openViewer(
+posts,
+index
+){
+
+if(!posts.length)
+return;
+
+
+activeViewerPosts=posts;
+
+activeViewerIndex=index;
+
+
+viewerScroll.innerHTML="";
+
+
+posts.forEach(
+(post,postIndex)=>{
+
+const item=
+document.createElement(
+"div"
+);
+
+
+item.className=
+"viewer-item";
+
+
+item.dataset.postId=
+post.id;
+
+
+let media="";
+
+
+if(
+post.mediaUrl&&
+post.mediaType==="image"
+){
+
+media=
+`
+<img
+class="viewer-media"
+src="${escapeAttribute(post.mediaUrl)}"
+alt="Community post"
+>
+`;
+
+}else if(
+post.mediaUrl&&
+post.mediaType==="video"
+){
+
+media=
+`
+<video
+class="viewer-video"
+src="${escapeAttribute(post.mediaUrl)}"
+controls
+playsinline
+loop
+></video>
+`;
+
+}else{
+
+media=
+`
+<div class="viewer-text-post">
+
+${
+post.title
+?
+`<div class="viewer-post-title">${escapeHTML(post.title)}</div>`
+:""
+}
+
+<div class="viewer-post-text">
+${escapeHTML(String(post.text||"").replace(/[ \t]+\n/g,"\n").replace(/\n[ \t]+/g,"\n"))}
+</div>
+
+${
+post.hashtags
+?
+`<div class="post-hashtags">${hashtagsArray(post.hashtags).map(tag=>`<span class="post-hashtag">${escapeHTML(tag)}</span>`).join("")}</div>`
+:""
+}
+
+</div>
+`;
+
+}
+
+
+item.innerHTML=
+media+
+`
+
+<div class="viewer-post-author">
+
+${escapeHTML(
+post.authorName||
+"Member"
+)}
+
+</div>
+
+
+<div class="viewer-actions">
+
+<button
+class="viewer-action viewer-like"
+type="button"
+aria-label="Like"
+>
+
+<svg
+viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+>
+
+<path
+d="M20.8 8.7 C20.8 13.7 12 20 12 20 S3.2 13.7 3.2 8.7 C3.2 5.7 5.4 3.7 8.1 3.7 C9.8 3.7 11.3 4.6 12 5.9 C12.7 4.6 14.2 3.7 15.9 3.7 C18.6 3.7 20.8 5.7 20.8 8.7Z"
+></path>
+
+</svg>
+
+<small>Like</small>
+
+</button>
+
+
+<button
+class="viewer-action viewer-comment"
+type="button"
+aria-label="Comment"
+>
+
+<svg
+viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+>
+
+<path
+d="M20 11.5 a7.5 7.5 0 0 1-7.5 7.5 H8l-4 2 1.5-4 A7.5 7.5 0 1 1 20 11.5Z"
+></path>
+
+</svg>
+
+<small>Comment</small>
+
+</button>
+
+
+<button
+class="viewer-action viewer-share"
+type="button"
+aria-label="Share"
+>
+
+<svg
+viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+>
+
+<path d="M12 16V4"></path>
+
+<path d="m7 9 5-5 5 5"></path>
+
+<path
+d="M5 13v5 a2 2 0 0 0 2 2h10 a2 2 0 0 0 2-2v-5"
+></path>
+
+</svg>
+
+<small>Share</small>
+
+</button>
+
+</div>
+
+`;
+
+
+viewerScroll.appendChild(
+item
+);
+
+
+setupViewerActions(
+item,
+post
+);
+
+}
+);
+
+
+postViewer.classList.add("show");
+
+document.body.classList.add("viewer-open");
+
+requestAnimationFrame(
+()=>{
+
+const target=
+viewerScroll.children[index];
+
+if(target){
+
+target.scrollIntoView({
+behavior:"instant",
+block:"start"
+});
+
+}
+
+}
+);
+
+}
+
+
+document
+.getElementById("viewerClose")
+.addEventListener(
+"click",
+closeViewer
+);
+
+
+function closeViewer(){
+
+postViewer.classList.remove("show");
+
+document.body.classList.remove(
+"viewer-open"
+);
+
+viewerScroll.innerHTML="";
+
+activeViewerPosts=[];
+
+activeCommentPost=null;
+
+closeCommentSheet();
+
+}
+
+
+function setupViewerActions(
+item,
+post
+){
+
+const likeButton=
+item.querySelector(
+".viewer-like"
+);
+
+const commentButton=
+item.querySelector(
+".viewer-comment"
+);
+
+const shareButton=
+item.querySelector(
+".viewer-share"
+);
+
+
+updateViewerLikeState(
+post,
+likeButton
+);
+
+
+likeButton.addEventListener(
+"click",
+async()=>{
+
+if(!currentUser){
+
+alert(
+"Please sign in first."
+);
+
+return;
+
+}
+
+
+try{
+
+const likeRef=
+doc(
+db,
+"posts",
+post.id,
+"likes",
+currentUser.uid
+);
+
+
+const likeSnap=
+await getDoc(likeRef);
+
+
+if(likeSnap.exists()){
+
+await deleteDoc(
+likeRef
+);
+
+likeButton.classList.remove(
+"liked"
+);
+
+likeButton.querySelector(
+"small"
+).textContent="Like";
+
+}else{
+
+await setDoc(
+likeRef,
+{
+
+userId:
+currentUser.uid,
+
+createdAt:
+serverTimestamp()
+
+}
+);
+
+likeButton.classList.add(
+"liked"
+);
+
+likeButton.querySelector(
+"small"
+).textContent="Liked";
+
+
+if(
+post.authorId&&
+post.authorId!==
+currentUser.uid
+){
+
+await createNotification({
+
+recipientId:
+post.authorId,
+
+senderId:
+currentUser.uid,
+
+senderName:
+currentUsername,
+
+type:
+"like",
+
+postId:
+post.id
+
+});
+
+}
+
+}
+
+}catch(error){
+
+alert(
+(error.code||"Error")+
+": "+
+error.message
+);
+
+}
+
+}
+);
+
+
+commentButton.addEventListener(
+"click",
+()=>{
+
+if(!currentUser){
+
+alert(
+"Please sign in first."
+);
+
+return;
+
+}
+
+openCommentSheet(post);
+
+}
+);
+
+
+shareButton.addEventListener(
+"click",
+async()=>{
+
+try{
+
+if(navigator.share){
+
+await navigator.share({
+
+title:
+post.title||
+"JSP TAYSU Community",
+
+text:
+`${post.authorName||"Member"} shared a post on JSP TAYSU Community`,
+
+url:
+window.location.href
+
+});
+
+}else{
+
+await navigator.clipboard.writeText(
+window.location.href
+);
+
+alert(
+"Community link copied!"
+);
+
+}
+
+}catch(error){
+
+console.log(
+"Share cancelled."
+);
+
+}
+
+}
+);
+
+}
+
+
+async function updateViewerLikeState(
+post,
+button
+){
+
+if(!currentUser)
+return;
+
+
+try{
+
+const snap=
+await getDoc(
+doc(
+db,
+"posts",
+post.id,
+"likes",
+currentUser.uid
+)
+);
+
+
+if(snap.exists()){
+
+button.classList.add("liked");
+
+button.querySelector(
+"small"
+).textContent=
+"Liked";
+
+}
+
+}catch(error){
+
+console.error(
+"Viewer like state:",
+error
+);
+
+}
+
+}
+
+
+/* COMMENT SHEET */
+
+const commentSheet=
+document.getElementById(
+"commentSheet"
+);
+
+const commentSheetBackdrop=
+document.getElementById(
+"commentSheetBackdrop"
+);
+
+const commentSheetList=
+document.getElementById(
+"commentSheetList"
+);
+
+const commentSheetInput=
+document.getElementById(
+"commentSheetInput"
+);
+
+const commentSheetSend=
+document.getElementById(
+"commentSheetSend"
+);
+
+
+function openCommentSheet(post){
+
+if(!currentUser){
+
+alert(
+"Please sign in first."
+);
+
+return;
+
+}
+
+
+activeCommentPost=post;
+
+document
+.getElementById(
+"commentSheetTitle"
+)
+.textContent=
+"Comments";
+
+
+commentSheetBackdrop.classList.add(
+"show"
+);
+
+commentSheet.classList.add(
+"show"
+);
+
+document.body.classList.add(
+"comment-sheet-open"
+);
+
+
+loadCommentSheet(
+post.id
+);
+
+setTimeout(
+()=>commentSheetInput.focus(),
+250
+);
+
+}
+
+
+function closeCommentSheet(){
+
+commentSheet.classList.remove(
+"show"
+);
+
+commentSheetBackdrop.classList.remove(
+"show"
+);
+
+document.body.classList.remove(
+"comment-sheet-open"
+);
+
+activeCommentPost=null;
+
+commentSheetInput.value="";
+
+}
+
+
+document
+.getElementById("commentSheetClose")
+.addEventListener(
+"click",
+closeCommentSheet
+);
+
+
+commentSheetBackdrop.addEventListener(
+"click",
+closeCommentSheet
+);
+
+
+async function loadCommentSheet(
+postId
+){
+
+commentSheetList.innerHTML=`
+
+<div
+style="
+padding:25px 5px;
+text-align:center;
+color:#777f89;
+font-size:12px;
+"
+>
+Loading comments...
+</div>
+
+`;
 
 
 try{
@@ -3244,22 +6208,6 @@ postId,
 "comments"
 )
 );
-
-
-if(snapshot.empty){
-
-commentsList.innerHTML=
-`
-<div
-style="color:#777f89;font-size:12px;padding:4px 2px;"
->
-No comments yet.
-</div>
-`;
-
-return;
-
-}
 
 
 const comments=[];
@@ -3290,7 +6238,7 @@ comments.sort(
 
 const topComments=
 comments.filter(
-c=>!c.parentId
+comment=>!comment.parentId
 );
 
 
@@ -3298,21 +6246,54 @@ const repliesByParent={};
 
 
 comments
-.filter(c=>c.parentId)
-.forEach(c=>{
+.filter(
+comment=>comment.parentId
+)
+.forEach(
+reply=>{
 
 (
-repliesByParent[c.parentId]||=
+repliesByParent[reply.parentId]||=
 []
-).push(c);
+).push(reply);
 
 }
 );
 
 
-for(
-const comment of topComments
-){
+if(topComments.length===0){
+
+commentSheetList.innerHTML=`
+
+<div
+style="
+padding:30px 5px;
+text-align:center;
+color:#777f89;
+font-size:12px;
+"
+>
+No comments yet. Be the first to comment.
+</div>
+
+`;
+
+return;
+
+}
+
+
+commentSheetList.innerHTML="";
+
+
+topComments.forEach(
+comment=>{
+
+const replies=
+repliesByParent[
+comment.id
+]||[];
+
 
 const element=
 document.createElement(
@@ -3321,23 +6302,29 @@ document.createElement(
 
 
 element.className=
-"comment";
-
-
-const replies=
-repliesByParent[
-comment.id
-]||[];
+"sheet-comment";
 
 
 element.innerHTML=`
 
-<div class="comment-top">
+<div class="sheet-comment-head">
 
-<div class="comment-user">
+<div class="sheet-comment-user">
 
 ${escapeHTML(
 comment.username||"Member"
+)}
+
+</div>
+
+<div
+style="display:flex;align-items:center;gap:7px;"
+>
+
+<div class="sheet-comment-time">
+
+${formatTime(
+comment.createdAt
 )}
 
 </div>
@@ -3347,25 +6334,25 @@ currentUser&&
 comment.userId===
 currentUser.uid
 
-?`
-
+?
+`
 <button
-class="delete-comment"
+class="sheet-delete"
 type="button"
 >
 Delete
 </button>
-
 `
-
 :""
 
 }
 
 </div>
 
+</div>
 
-<div class="comment-text">
+
+<div class="sheet-comment-text">
 
 ${escapeHTML(
 comment.text||""
@@ -3374,35 +6361,30 @@ comment.text||""
 </div>
 
 
-<div>
+<div class="sheet-comment-actions">
 
 <button
-class="reply-button"
+class="sheet-reply-button"
 type="button"
 >
 Reply
 </button>
 
-
 ${
 replies.length
-
-?`
-
+?
+`
 <button
-class="view-replies"
+class="sheet-view-replies"
 type="button"
 >
-View ${replies.length}
-repl${
+View ${replies.length} repl${
 replies.length===1
 ?"y"
 :"ies"
 }
 </button>
-
 `
-
 :""
 
 }
@@ -3411,8 +6393,7 @@ replies.length===1
 
 
 <div
-class="reply-form"
-style="display:none"
+class="sheet-reply-form"
 >
 
 <input
@@ -3431,27 +6412,26 @@ Send
 
 
 <div
-class="replies"
-style="display:none"
+class="sheet-replies"
 ></div>
 
 `;
 
 
-commentsList.appendChild(
+commentSheetList.appendChild(
 element
 );
 
 
-const del=
+const deleteButton=
 element.querySelector(
-".delete-comment"
+".sheet-delete"
 );
 
 
-if(del){
+if(deleteButton){
 
-del.addEventListener(
+deleteButton.addEventListener(
 "click",
 async()=>{
 
@@ -3468,9 +6448,8 @@ comment.id
 );
 
 
-await loadComments(
-postId,
-commentsList
+await loadCommentSheet(
+postId
 );
 
 
@@ -3490,15 +6469,23 @@ error.message
 }
 
 
+const replyButton=
+element.querySelector(
+".sheet-reply-button"
+);
+
+
 const replyForm=
 element.querySelector(
-".reply-form"
+".sheet-reply-form"
 );
+
 
 const replyInput=
 replyForm.querySelector(
 "input"
 );
+
 
 const replySend=
 replyForm.querySelector(
@@ -3506,22 +6493,16 @@ replyForm.querySelector(
 );
 
 
-element
-.querySelector(".reply-button")
-.addEventListener(
+replyButton.addEventListener(
 "click",
 ()=>{
 
-replyForm.style.display=
-replyForm.style.display===
-"flex"
-?"none"
-:"flex";
-
+replyForm.classList.toggle(
+"show"
+);
 
 if(
-replyForm.style.display===
-"flex"
+replyForm.classList.contains("show")
 ){
 
 replyInput.focus();
@@ -3534,16 +6515,17 @@ replyInput.focus();
 
 const repliesBox=
 element.querySelector(
-".replies"
+".sheet-replies"
 );
+
 
 const viewReplies=
 element.querySelector(
-".view-replies"
+".sheet-view-replies"
 );
 
 
-function renderReplies(){
+function renderSheetReplies(){
 
 repliesBox.innerHTML="";
 
@@ -3551,19 +6533,19 @@ repliesBox.innerHTML="";
 replies.forEach(
 reply=>{
 
-const r=
+const replyElement=
 document.createElement(
 "div"
 );
 
 
-r.className=
-"reply";
+replyElement.className=
+"sheet-reply";
 
 
-r.innerHTML=`
+replyElement.innerHTML=`
 
-<div class="comment-user">
+<div class="sheet-reply-user">
 
 ${escapeHTML(
 reply.username||"Member"
@@ -3571,8 +6553,7 @@ reply.username||"Member"
 
 </div>
 
-
-<div class="comment-text">
+<div class="sheet-reply-text">
 
 ${escapeHTML(
 reply.text||""
@@ -3584,7 +6565,7 @@ reply.text||""
 
 
 repliesBox.appendChild(
-r
+replyElement
 );
 
 }
@@ -3599,25 +6580,17 @@ viewReplies.addEventListener(
 "click",
 ()=>{
 
-const open=
-repliesBox.style.display===
-"block";
+const isOpen=
+repliesBox.classList.contains(
+"show"
+);
 
 
-if(!open){
+if(isOpen){
 
-renderReplies();
-
-repliesBox.style.display=
-"block";
-
-viewReplies.textContent=
-"Hide replies";
-
-}else{
-
-repliesBox.style.display=
-"none";
+repliesBox.classList.remove(
+"show"
+);
 
 viewReplies.textContent=
 `View ${replies.length} repl${
@@ -3625,6 +6598,17 @@ replies.length===1
 ?"y"
 :"ies"
 }`;
+
+}else{
+
+renderSheetReplies();
+
+repliesBox.classList.add(
+"show"
+);
+
+viewReplies.textContent=
+"Hide replies";
 
 }
 
@@ -3642,8 +6626,7 @@ const text=
 replyInput.value.trim();
 
 
-if(
-!text||
+if(!text||
 !currentUser
 )return;
 
@@ -3686,9 +6669,8 @@ comment.username||"Member"
 replyInput.value="";
 
 
-await loadComments(
-postId,
-commentsList
+await loadCommentSheet(
+postId
 );
 
 
@@ -3740,7 +6722,7 @@ replySend.disabled=false;
 }
 );
 
-}
+});
 
 }catch(error){
 
@@ -3750,14 +6732,318 @@ error
 );
 
 
-commentsList.innerHTML=
-`
+commentSheetList.innerHTML=`
+
 <div
-style="color:#9c7373;font-size:12px;"
+style="
+padding:25px 5px;
+text-align:center;
+color:#9c7373;
+font-size:12px;
+"
 >
 Couldn't load comments.
 </div>
+
 `;
+
+}
+
+}
+
+
+async function sendSheetComment(){
+
+if(!currentUser){
+
+alert(
+"Please sign in first."
+);
+
+return;
+
+}
+
+
+if(!activeCommentPost)
+return;
+
+
+const text=
+commentSheetInput.value.trim();
+
+
+if(!text)
+return;
+
+
+commentSheetSend.disabled=true;
+
+
+try{
+
+await addDoc(
+collection(
+db,
+"posts",
+activeCommentPost.id,
+"comments"
+),
+{
+
+text,
+
+userId:
+currentUser.uid,
+
+username:
+currentUsername,
+
+createdAt:
+serverTimestamp(),
+
+parentId:""
+
+}
+);
+
+
+commentSheetInput.value="";
+
+
+await loadCommentSheet(
+activeCommentPost.id
+);
+
+
+if(
+activeCommentPost.authorId&&
+activeCommentPost.authorId!==
+currentUser.uid
+){
+
+await createNotification({
+
+recipientId:
+activeCommentPost.authorId,
+
+senderId:
+currentUser.uid,
+
+senderName:
+currentUsername,
+
+type:
+"comment",
+
+postId:
+activeCommentPost.id,
+
+commentText:
+text
+
+});
+
+}
+
+
+}catch(error){
+
+console.error(
+"Sheet comment error:",
+error
+);
+
+
+alert(
+(error.code||"Error")+
+": "+
+error.message
+);
+
+
+}finally{
+
+commentSheetSend.disabled=false;
+
+}
+
+}
+
+
+commentSheetSend.addEventListener(
+"click",
+sendSheetComment
+);
+
+
+commentSheetInput.addEventListener(
+"keydown",
+event=>{
+
+if(event.key==="Enter"){
+
+event.preventDefault();
+
+sendSheetComment();
+
+}
+
+}
+);
+
+
+/* REELS RENDER */
+
+async function renderReels(){
+
+if(!reelsList)
+return;
+
+
+const reels=
+allPosts.filter(
+post=>
+post.postType==="reel"&&
+post.mediaUrl
+);
+
+
+reelsList.innerHTML="";
+
+
+if(reels.length===0){
+
+reelsList.innerHTML=`
+
+<div class="empty">
+
+<div class="empty-icon">
+
+<svg
+viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+>
+
+<rect
+x="3"
+y="3"
+width="18"
+height="18"
+rx="4"
+></rect>
+
+<path
+d="M9 3l3 5M15 3l3 5M3 9h18"
+></path>
+
+<path
+d="m10 13 5 3-5 3z"
+fill="currentColor"
+stroke="none"
+></path>
+
+</svg>
+
+</div>
+
+<h3>No reels yet</h3>
+
+<p>Reels posted by members will appear here.</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+for(
+const post of reels
+){
+
+const card=
+document.createElement(
+"article"
+);
+
+
+card.className=
+"reel-card";
+
+
+card.innerHTML=`
+
+<video
+src="${escapeAttribute(post.mediaUrl)}"
+controls
+playsinline
+preload="metadata"
+></video>
+
+
+<div class="reel-card-info">
+
+<div class="reel-card-title">
+
+${escapeHTML(
+post.title||
+"Untitled reel"
+)}
+
+</div>
+
+
+<div class="reel-card-caption">
+
+${escapeHTML(
+post.text||""
+)}
+
+</div>
+
+
+${
+post.hashtags
+?
+`
+<div class="post-hashtags">
+
+${hashtagsArray(post.hashtags)
+.map(tag=>
+`<span class="post-hashtag">${escapeHTML(tag)}</span>`
+)
+.join("")}
+
+</div>
+`
+:""
+
+}
+
+
+<div class="reel-card-meta">
+
+${escapeHTML(
+post.authorName||
+"Member"
+)}
+ ·
+${formatTime(post.createdAt)}
+
+</div>
+
+</div>
+
+`;
+
+
+reelsList.appendChild(
+card
+);
 
 }
 
@@ -3830,6 +7116,32 @@ document.getElementById(
 const searchResults=
 document.getElementById(
 "searchResults"
+);
+
+
+document
+.getElementById("exploreSearchButton")
+.addEventListener(
+"click",
+()=>{
+
+const box=
+document.getElementById(
+"exploreMemberSearch"
+);
+
+box.style.display=
+box.style.display==="none"
+?"block"
+:"none";
+
+if(box.style.display==="block"){
+
+userSearchInput.focus();
+
+}
+
+}
 );
 
 
