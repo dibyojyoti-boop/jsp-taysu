@@ -70,7 +70,7 @@ body{
 .profile-top{
   display:flex;
   align-items:center;
-  gap:18px;
+  gap:20px;
 }
 
 .avatar{
@@ -83,8 +83,8 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:36px;
-  font-weight:600;
+  font-size:34px;
+  font-weight:650;
   overflow:hidden;
 }
 
@@ -135,12 +135,6 @@ body{
   line-height:1.4;
   white-space:pre-wrap;
   overflow-wrap:anywhere;
-}
-
-.org{
-  margin-top:6px;
-  color:#858995;
-  font-size:12px;
 }
 
 /* ================= BUTTONS ================= */
@@ -364,21 +358,21 @@ body{
 .profile-photo-field{
   display:flex;
   align-items:center;
-  gap:13px;
+  gap:14px;
   margin-bottom:18px;
 }
 
 .edit-photo-preview{
-  width:58px;
-  height:58px;
-  min-width:58px;
+  width:62px;
+  height:62px;
+  min-width:62px;
   border-radius:50%;
   background:#006b57;
   overflow:hidden;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:22px;
+  font-size:23px;
   font-weight:700;
 }
 
@@ -392,17 +386,60 @@ body{
   flex:1;
 }
 
-.photo-picker label{
-  display:block;
+.photo-picker-title{
   color:#999da8;
   font-size:12px;
-  margin-bottom:7px;
+  margin-bottom:8px;
 }
 
-.photo-picker input{
+.edit-dp-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:36px;
+  padding:0 15px;
+  border-radius:9px;
+  background:#242833;
+  border:1px solid #383d49;
+  color:#fff;
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.edit-dp-button:active{
+  transform:scale(.98);
+}
+
+.dp-file-input{
+  display:none;
+}
+
+.dp-progress-wrap{
+  display:none;
+  margin-top:10px;
+}
+
+.dp-progress-track{
   width:100%;
-  color:#c9cbd1;
-  font-size:12px;
+  height:5px;
+  background:#2a2e38;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.dp-progress-bar{
+  width:0%;
+  height:100%;
+  background:#f1f1f3;
+  border-radius:10px;
+  transition:width .12s linear;
+}
+
+.dp-progress-text{
+  margin-top:5px;
+  color:#a8acb6;
+  font-size:11px;
 }
 
 .save{
@@ -567,7 +604,7 @@ body{
   display:flex;
   align-items:center;
   padding:0 16px;
-  z-index:5;
+  z-index:20;
   background:linear-gradient(
     rgba(0,0,0,.78),
     rgba(0,0,0,0)
@@ -617,6 +654,7 @@ body{
   height:100%;
   overflow-y:auto;
   scroll-snap-type:y mandatory;
+  overscroll-behavior-y:contain;
 }
 
 .viewer-item{
@@ -628,6 +666,7 @@ body{
   align-items:center;
   justify-content:center;
   background:#000;
+  overflow:hidden;
 }
 
 .viewer-item img,
@@ -640,47 +679,79 @@ body{
 .viewer-caption{
   position:absolute;
   left:16px;
-  right:78px;
-  bottom:28px;
+  right:88px;
+  bottom:92px;
   color:#fff;
-  font-size:14px;
-  line-height:1.45;
-  text-shadow:0 2px 7px #000;
+  font-size:17px;
+  font-weight:500;
+  line-height:1.5;
+  text-shadow:0 2px 9px rgba(0,0,0,.95);
   white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  max-height:28vh;
+  overflow:auto;
+  z-index:8;
 }
+
+/* ================= VIEWER ACTIONS ================= */
 
 .viewer-actions{
   position:absolute;
   right:13px;
-  bottom:85px;
-  z-index:10;
+  top:42%;
+  transform:translateY(-50%);
+  z-index:30;
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:18px;
+  gap:22px;
 }
 
 .viewer-action{
+  width:54px;
+  min-height:54px;
   border:0;
   background:none;
   color:#fff;
-  font-size:28px;
   cursor:pointer;
-  text-shadow:0 2px 7px #000;
+  text-shadow:0 2px 8px #000;
   display:flex;
   flex-direction:column;
   align-items:center;
+  justify-content:center;
+  padding:0;
 }
 
-.viewer-action span{
+.viewer-action-icon{
+  width:38px;
+  height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:34px;
+  line-height:1;
+  font-weight:400;
+}
+
+.viewer-action-count{
   display:block;
   font-size:11px;
-  margin-top:3px;
-  font-weight:600;
+  margin-top:4px;
+  font-weight:650;
+  line-height:1;
 }
 
 .viewer-action.liked{
   color:#ff5368;
+}
+
+.viewer-action.share-action .viewer-action-icon{
+  font-size:35px;
+  font-weight:500;
+}
+
+.viewer-action.comment-action .viewer-action-icon{
+  font-size:34px;
 }
 
 /* ================= COMMENTS ================= */
@@ -819,6 +890,7 @@ body{
   font-size:10px;
   padding:4px 0;
   cursor:pointer;
+  display:block;
 }
 
 .reply-list{
@@ -863,7 +935,47 @@ body{
   cursor:pointer;
 }
 
+@media(max-width:420px){
+
+  .profile-top{
+    gap:16px;
+  }
+
+  .avatar{
+    width:84px;
+    height:84px;
+    min-width:84px;
+  }
+
+  .stat strong{
+    font-size:17px;
+  }
+
+  .viewer-caption{
+    font-size:16px;
+    right:82px;
+    bottom:88px;
+  }
+
+  .viewer-actions{
+    right:9px;
+    top:40%;
+    gap:20px;
+  }
+
+  .viewer-action{
+    width:52px;
+    min-height:52px;
+  }
+
+  .viewer-action-icon{
+    font-size:32px;
+  }
+
+}
+
 @media(min-width:700px){
+
   body{
     max-width:650px;
     margin:auto;
@@ -879,6 +991,7 @@ body{
   .comment-sheet.open{
     transform:translate(-50%,0);
   }
+
 }
 </style>
 </head>
@@ -958,10 +1071,6 @@ body{
       Building and preserving our heritage.
     </div>
 
-    <div class="org">
-      JSP TAYSU • Tai Ahom Youth & Students Union
-    </div>
-
   </section>
 
   <div class="buttons" id="profileButtons"></div>
@@ -1026,14 +1135,46 @@ body{
 
       <div class="photo-picker">
 
-        <label>
+        <div class="photo-picker-title">
           Profile photo
+        </div>
+
+        <label
+          class="edit-dp-button"
+          for="editPhotoInput">
+
+          Edit DP
+
         </label>
 
         <input
+          class="dp-file-input"
           type="file"
           id="editPhotoInput"
           accept="image/*">
+
+        <div
+          class="dp-progress-wrap"
+          id="dpProgressWrap">
+
+          <div class="dp-progress-track">
+
+            <div
+              class="dp-progress-bar"
+              id="dpProgressBar">
+            </div>
+
+          </div>
+
+          <div
+            class="dp-progress-text"
+            id="dpProgressText">
+
+            0%
+
+          </div>
+
+        </div>
 
       </div>
 
@@ -1318,6 +1459,15 @@ const editPhotoInput =
 
 const editPhotoPreview =
   document.getElementById("editPhotoPreview");
+
+const dpProgressWrap =
+  document.getElementById("dpProgressWrap");
+
+const dpProgressBar =
+  document.getElementById("dpProgressBar");
+
+const dpProgressText =
+  document.getElementById("dpProgressText");
 
 const sheetOverlay =
   document.getElementById("sheetOverlay");
@@ -1873,143 +2023,254 @@ function renderMediaTile(
 
 /* ================= IMAGEKIT UPLOAD ================= */
 
-async function uploadProfilePhoto(
-  file
+function uploadProfilePhoto(
+  file,
+  onProgress
 ){
 
-  if(!file){
-    return null;
-  }
+  return new Promise(
+    async (resolve,reject) => {
 
-  if(
-    !file.type.startsWith("image/")
-  ){
+      try{
 
-    throw new Error(
-      "Please select an image file."
-    );
+        if(!file){
 
-  }
+          resolve(null);
+          return;
 
-  const maxSize =
-    25 * 1024 * 1024;
+        }
 
-  if(file.size > maxSize){
+        if(
+          !file.type.startsWith("image/")
+        ){
 
-    throw new Error(
-      "Profile photo must be 25MB or smaller."
-    );
+          reject(
+            new Error(
+              "Please select an image file."
+            )
+          );
 
-  }
+          return;
 
-  const authResponse =
-    await fetch(
-      IMAGEKIT_AUTH_URL,
-      {
-        method:"GET"
+        }
+
+        const maxSize =
+          25 * 1024 * 1024;
+
+        if(file.size > maxSize){
+
+          reject(
+            new Error(
+              "Profile photo must be 25MB or smaller."
+            )
+          );
+
+          return;
+
+        }
+
+        const authResponse =
+          await fetch(
+            IMAGEKIT_AUTH_URL,
+            {
+              method:"GET"
+            }
+          );
+
+        if(!authResponse.ok){
+
+          const text =
+            await authResponse.text();
+
+          reject(
+            new Error(
+              "ImageKit authentication failed: " +
+              text
+            )
+          );
+
+          return;
+
+        }
+
+        const authData =
+          await authResponse.json();
+
+        const safeName =
+          file.name.replace(
+            /[^a-zA-Z0-9._-]/g,
+            "_"
+          );
+
+        const formData =
+          new FormData();
+
+        formData.append(
+          "file",
+          file
+        );
+
+        formData.append(
+          "fileName",
+          Date.now() +
+          "_" +
+          safeName
+        );
+
+        formData.append(
+          "publicKey",
+          IMAGEKIT_PUBLIC_KEY
+        );
+
+        formData.append(
+          "signature",
+          authData.signature
+        );
+
+        formData.append(
+          "expire",
+          String(authData.expire)
+        );
+
+        formData.append(
+          "token",
+          authData.token
+        );
+
+        formData.append(
+          "useUniqueFileName",
+          "true"
+        );
+
+        formData.append(
+          "folder",
+          "profile/" +
+          currentUser.uid
+        );
+
+        const xhr =
+          new XMLHttpRequest();
+
+        xhr.open(
+          "POST",
+          IMAGEKIT_UPLOAD_URL
+        );
+
+        xhr.upload.onprogress =
+          event => {
+
+            if(
+              event.lengthComputable
+            ){
+
+              const percent =
+                Math.round(
+                  (
+                    event.loaded /
+                    event.total
+                  ) * 100
+                );
+
+              if(onProgress){
+
+                onProgress(
+                  percent
+                );
+
+              }
+
+            }
+
+          };
+
+        xhr.onload =
+          () => {
+
+            if(
+              xhr.status < 200 ||
+              xhr.status >= 300
+            ){
+
+              reject(
+                new Error(
+                  "ImageKit upload failed: " +
+                  xhr.responseText
+                )
+              );
+
+              return;
+
+            }
+
+            try{
+
+              const result =
+                JSON.parse(
+                  xhr.responseText
+                );
+
+              if(!result.url){
+
+                reject(
+                  new Error(
+                    "ImageKit did not return a photo URL."
+                  )
+                );
+
+                return;
+
+              }
+
+              resolve(
+                result.url
+              );
+
+            }catch(error){
+
+              reject(
+                new Error(
+                  "Invalid ImageKit response."
+                )
+              );
+
+            }
+
+          };
+
+        xhr.onerror =
+          () => {
+
+            reject(
+              new Error(
+                "Network error while uploading photo."
+              )
+            );
+
+          };
+
+        xhr.onabort =
+          () => {
+
+            reject(
+              new Error(
+                "Photo upload was cancelled."
+              )
+            );
+
+          };
+
+        xhr.send(
+          formData
+        );
+
+      }catch(error){
+
+        reject(error);
+
       }
-    );
 
-  if(!authResponse.ok){
-
-    const text =
-      await authResponse.text();
-
-    throw new Error(
-      "ImageKit authentication failed: " +
-      text
-    );
-
-  }
-
-  const authData =
-    await authResponse.json();
-
-  const safeName =
-    file.name.replace(
-      /[^a-zA-Z0-9._-]/g,
-      "_"
-    );
-
-  const formData =
-    new FormData();
-
-  formData.append(
-    "file",
-    file
+    }
   );
-
-  formData.append(
-    "fileName",
-    Date.now() +
-    "_" +
-    safeName
-  );
-
-  formData.append(
-    "publicKey",
-    IMAGEKIT_PUBLIC_KEY
-  );
-
-  formData.append(
-    "signature",
-    authData.signature
-  );
-
-  formData.append(
-    "expire",
-    String(authData.expire)
-  );
-
-  formData.append(
-    "token",
-    authData.token
-  );
-
-  formData.append(
-    "useUniqueFileName",
-    "true"
-  );
-
-  formData.append(
-    "folder",
-    "profile/" +
-    currentUser.uid
-  );
-
-  const response =
-    await fetch(
-      IMAGEKIT_UPLOAD_URL,
-      {
-        method:"POST",
-        body:formData
-      }
-    );
-
-  if(!response.ok){
-
-    const text =
-      await response.text();
-
-    throw new Error(
-      "ImageKit upload failed: " +
-      text
-    );
-
-  }
-
-  const result =
-    await response.json();
-
-  if(!result.url){
-
-    throw new Error(
-      "ImageKit did not return a photo URL."
-    );
-
-  }
-
-  return result.url;
 
 }
 
@@ -2235,15 +2496,46 @@ function openViewer(
 
       }
 
+      /*
+       * TITLE IS INTENTIONALLY NOT SHOWN.
+       * Only caption/text/hashtags are displayed.
+       */
+
+      const captionParts = [];
+
+      if(
+        post.caption &&
+        String(post.caption).trim()
+      ){
+
+        captionParts.push(
+          String(post.caption).trim()
+        );
+
+      }else if(
+        post.text &&
+        String(post.text).trim()
+      ){
+
+        captionParts.push(
+          String(post.text).trim()
+        );
+
+      }
+
+      if(
+        post.hashtags &&
+        String(post.hashtags).trim()
+      ){
+
+        captionParts.push(
+          String(post.hashtags).trim()
+        );
+
+      }
+
       const caption =
-        [
-          post.title || "",
-          post.caption || "",
-          post.text || "",
-          post.hashtags || ""
-        ]
-        .filter(Boolean)
-        .join(
+        captionParts.join(
           "\n"
         );
 
@@ -2294,9 +2586,8 @@ function openViewer(
 
       if(target){
 
-        target.scrollIntoView({
-          block:"start"
-        });
+        viewerScroll.scrollTop =
+          target.offsetTop;
 
       }
 
@@ -2370,44 +2661,101 @@ async function updateViewerActions(){
       }"
       id="viewerLikeButton">
 
-      <span class="viewer-like-icon">
+      <span
+        class="viewer-action-icon viewer-like-icon">
+
         ${
           state.liked
             ? "♥"
             : "♡"
         }
+
       </span>
 
-      <span id="viewerLikeCount">
+      <span
+        class="viewer-action-count"
+        id="viewerLikeCount">
+
         ${state.count}
+
       </span>
 
     </button>
 
     <button
-      class="viewer-action"
+      class="viewer-action comment-action"
       id="viewerCommentButton">
 
-      <span>
-        ♡
+      <span
+        class="viewer-action-icon">
+
+        <svg
+          width="34"
+          height="34"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true">
+
+          <path
+            d="M20 11.5a8 8 0 0 1-8 8
+               7.9 7.9 0 0 1-3.5-.8
+               L4 20l1.3-3.7
+               A8 8 0 1 1 20 11.5Z">
+          </path>
+
+        </svg>
+
       </span>
 
-      <span id="viewerCommentCount">
+      <span
+        class="viewer-action-count"
+        id="viewerCommentCount">
+
         0
+
       </span>
 
     </button>
 
     <button
-      class="viewer-action"
+      class="viewer-action share-action"
       id="viewerShareButton">
 
-      <span>
-        ↗
+      <span
+        class="viewer-action-icon">
+
+        <svg
+          width="34"
+          height="34"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true">
+
+          <path
+            d="M22 2 11 13">
+          </path>
+
+          <path
+            d="m22 2-7 20-4-9-9-4Z">
+          </path>
+
+        </svg>
+
       </span>
 
-      <span>
+      <span
+        class="viewer-action-count">
+
         Share
+
       </span>
 
     </button>
@@ -2489,6 +2837,8 @@ async function updateViewerActions(){
 
 /* ================= VIEWER SCROLL ================= */
 
+let viewerScrollTimer = null;
+
 viewerScroll.addEventListener(
   "scroll",
   () => {
@@ -2501,25 +2851,37 @@ viewerScroll.addEventListener(
 
     }
 
-    const index =
-      Math.round(
-        viewerScroll.scrollTop /
-        viewerScroll.clientHeight
+    clearTimeout(
+      viewerScrollTimer
+    );
+
+    viewerScrollTimer =
+      setTimeout(
+        () => {
+
+          const index =
+            Math.round(
+              viewerScroll.scrollTop /
+              viewerScroll.clientHeight
+            );
+
+          if(
+            index >= 0 &&
+            index < profilePosts.length
+          ){
+
+            activeViewerPost =
+              profilePosts[index];
+
+            updateViewerAuthor();
+
+            updateViewerActions();
+
+          }
+
+        },
+        80
       );
-
-    if(
-      index >= 0 &&
-      index < profilePosts.length
-    ){
-
-      activeViewerPost =
-        profilePosts[index];
-
-      updateViewerAuthor();
-
-      updateViewerActions();
-
-    }
 
   }
 );
@@ -2586,6 +2948,12 @@ async function openComments(
 
   activeReplyId =
     null;
+
+  sheetCommentInput.value =
+    "";
+
+  sheetCommentInput.placeholder =
+    "Add a comment...";
 
   commentBackdrop.style.display =
     "block";
@@ -2880,9 +3248,12 @@ function createCommentRow(
         comment.id;
 
       sheetCommentInput.value =
-        "@" +
+        "";
+
+      sheetCommentInput.placeholder =
+        "Reply to @" +
         username +
-        " ";
+        "...";
 
       sheetCommentInput.focus();
 
@@ -2971,6 +3342,9 @@ async function sendSheetComment(){
     sheetCommentInput.value =
       "";
 
+    sheetCommentInput.placeholder =
+      "Add a comment...";
+
     activeReplyId =
       null;
 
@@ -3031,6 +3405,12 @@ function closeComments(){
   activeReplyId =
     null;
 
+  sheetCommentInput.value =
+    "";
+
+  sheetCommentInput.placeholder =
+    "Add a comment...";
+
 }
 
 /* ================= SHARE POST ================= */
@@ -3042,7 +3422,6 @@ async function sharePost(
   const shareData = {
 
     title:
-      post.title ||
       "JSP TAYSU post",
 
     text:
@@ -3051,8 +3430,7 @@ async function sharePost(
       "Check out this post on JSP TAYSU.",
 
     url:
-      window.location.origin +
-      window.location.pathname
+      window.location.href
 
   };
 
@@ -3577,6 +3955,15 @@ function openEdit(){
   editPhotoInput.value =
     "";
 
+  dpProgressWrap.style.display =
+    "none";
+
+  dpProgressBar.style.width =
+    "0%";
+
+  dpProgressText.textContent =
+    "0%";
+
   updateEditPhotoPreview();
 
   editOverlay.style.display =
@@ -3617,6 +4004,8 @@ function updateEditPhotoPreview(){
 
 }
 
+/* ================= PHOTO SELECT ================= */
+
 editPhotoInput.addEventListener(
   "change",
   () => {
@@ -3627,6 +4016,9 @@ editPhotoInput.addEventListener(
     if(!file){
 
       updateEditPhotoPreview();
+
+      dpProgressWrap.style.display =
+        "none";
 
       return;
 
@@ -3676,6 +4068,9 @@ function closeEdit(){
   editOverlay.style.display =
     "none";
 
+  dpProgressWrap.style.display =
+    "none";
+
 }
 
 /* ================= SAVE PROFILE ================= */
@@ -3722,10 +4117,39 @@ async function saveProfile(){
 
     if(photoFile){
 
+      dpProgressWrap.style.display =
+        "block";
+
+      dpProgressBar.style.width =
+        "0%";
+
+      dpProgressText.textContent =
+        "0%";
+
       photoURL =
         await uploadProfilePhoto(
-          photoFile
+          photoFile,
+          percent => {
+
+            dpProgressBar.style.width =
+              percent + "%";
+
+            dpProgressText.textContent =
+              percent + "%";
+
+            saveStatus.textContent =
+              "Uploading photo " +
+              percent +
+              "%...";
+
+          }
         );
+
+      dpProgressBar.style.width =
+        "100%";
+
+      dpProgressText.textContent =
+        "100%";
 
       saveStatus.textContent =
         "Saving profile...";
