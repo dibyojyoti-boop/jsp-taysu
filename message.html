@@ -1586,60 +1586,29 @@ window.addEventListener(
    AUTH
 ========================================================= */
 
-let authStateReady = false;
-
 auth.setPersistence(
   firebase.auth.Auth.Persistence.LOCAL
-).then(() => {
-
-  auth.onAuthStateChanged(async user => {
-
-    authStateReady = true;
-
-    if(!user){
-
-      currentUser = null;
-
-      window.location.href =
-        "index.html";
-
-      return;
-
-    }
-
-    currentUser = user;
-
-    await loadConversations();
-
-    handleIncomingProfile();
-
-    updateSendButton();
-
-  });
-
-}).catch(error => {
+).catch(error => {
 
   console.error(
     "AUTH PERSISTENCE ERROR:",
     error
   );
 
-  auth.onAuthStateChanged(async user => {
+});
 
-    authStateReady = true;
 
-    if(!user){
+auth.onAuthStateChanged(async user => {
 
-      currentUser = null;
+  console.log(
+    "AUTH STATE:",
+    user ? user.uid : "NO USER"
+  );
 
-      window.location.href =
-        "index.html";
+  if(user){
 
-      return;
-
-    }
-
-    currentUser = user;
+    currentUser =
+      user;
 
     await loadConversations();
 
@@ -1647,10 +1616,36 @@ auth.setPersistence(
 
     updateSendButton();
 
-  });
+    return;
+
+  }
+
+  /*
+    Firebase can briefly report null while
+    restoring the saved login session.
+
+    DO NOT redirect immediately.
+  */
+
+  setTimeout(() => {
+
+    if(
+      !auth.currentUser &&
+      !currentUser
+    ){
+
+      console.log(
+        "Confirmed signed out."
+      );
+
+      window.location.href =
+        "index.html";
+
+    }
+
+  },1500);
 
 });
-
 
 /* =========================================================
    CURRENT USER
