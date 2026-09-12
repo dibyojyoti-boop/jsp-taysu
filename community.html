@@ -5353,40 +5353,114 @@ async function setupFollowButton(
 
 function startViewerObservers(){
 
-  const scroll=
+  const scroll =
     document.getElementById(
       "viewerScroll"
     );
+
+  if(!scroll) return;
+
 
   if(viewerItemObserver){
     viewerItemObserver.disconnect();
   }
 
 
-  viewerItemObserver=
+  let activeVideo = null;
+
+
+  viewerItemObserver =
     new IntersectionObserver(
       entries=>{
 
         entries.forEach(entry=>{
 
-          const item=
+          const item =
             entry.target;
 
-          const video=
+          const video =
             item.querySelector(
               ".viewer-video"
             );
 
-          if(!video)return;
+          if(!video) return;
 
 
-          if(entry.isIntersecting){
+          if(
+            entry.isIntersecting &&
+            entry.intersectionRatio >= 0.65
+          ){
 
-            video.play().catch(()=>{});
+            if(
+              activeVideo &&
+              activeVideo !== video
+            ){
+
+              activeVideo.pause();
+
+            }
+
+
+            activeVideo =
+              video;
+
+
+            /*
+              Only the currently visible
+              reel gets aggressive loading.
+            */
+
+            video.preload = "auto";
+
+
+            const playVideo = ()=>{
+
+              if(
+                activeVideo !== video
+              ){
+                return;
+              }
+
+              video
+                .play()
+                .catch(()=>{});
+
+            };
+
+
+            if(
+              video.readyState >= 3
+            ){
+
+              playVideo();
+
+            }else{
+
+              video.addEventListener(
+                "canplay",
+                playVideo,
+                {
+                  once:true
+                }
+              );
+
+              video.load();
+
+            }
 
           }else{
 
             video.pause();
+
+
+            if(
+              activeVideo === video
+            ){
+
+              activeVideo =
+                null;
+
+            }
 
           }
 
@@ -5394,47 +5468,26 @@ function startViewerObservers(){
 
       },
       {
-        threshold:.65
+        threshold:[
+          0,
+          0.65,
+          0.85,
+          1
+        ]
       }
     );
 
 
   scroll
-    .querySelectorAll(".viewer-item")
+    .querySelectorAll(
+      ".viewer-item"
+    )
     .forEach(item=>{
-      viewerItemObserver.observe(item);
-    });
 
-}
+      viewerItemObserver.observe(
+        item
+      );
 
-
-document
-  .getElementById("viewerClose")
-  .addEventListener(
-    "click",
-    closeMediaViewer
-  );
-
-
-function closeMediaViewer(){
-
-  const viewer=
-    document.getElementById(
-      "mediaViewer"
-    );
-
-  viewer.classList.remove("show");
-
-  document.body.style.overflow="";
-
-  if(viewerItemObserver){
-    viewerItemObserver.disconnect();
-  }
-
-  document
-    .querySelectorAll(".viewer-video")
-    .forEach(video=>{
-      video.pause();
     });
 
 }
