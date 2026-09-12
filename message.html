@@ -2998,7 +2998,21 @@ function renderMessage(
   /*
     Image
   */
+if(
+  data.type === "sharedPost" &&
+  data.sharedPostId
+){
 
+  renderSharedPostMessage(
+    data,
+    content
+  );
+
+}
+else if(
+  data.type === "image" &&
+  data.imageUrl
+){
   if(
     data.type === "image" &&
     data.imageUrl
