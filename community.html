@@ -684,6 +684,228 @@ button{cursor:pointer}
   align-items:center;
   justify-content:center;
 }
+  /* ---------- SHARE SHEET ---------- */
+
+#shareBackdrop{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:.2s ease;
+}
+
+#shareBackdrop.show{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+
+.share-sheet{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  transform:translate(-50%,110%);
+  width:min(100%,520px);
+  max-height:82vh;
+  background:#111318;
+  border:1px solid rgba(255,255,255,.08);
+  border-bottom:0;
+  border-radius:22px 22px 0 0;
+  padding:16px 16px 22px;
+  z-index:700;
+  transition:transform .25s ease;
+  box-shadow:0 -10px 40px rgba(0,0,0,.45);
+  overflow-y:auto;
+}
+
+.share-sheet.show{
+  transform:translate(-50%,0);
+}
+
+.share-sheet-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:14px;
+}
+
+.share-sheet-header strong{
+  font-size:16px;
+  font-weight:800;
+}
+
+.share-sheet-header button{
+  width:32px;
+  height:32px;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.07);
+  color:#fff;
+  font-size:22px;
+  line-height:1;
+  cursor:pointer;
+}
+
+.share-search-wrap{
+  height:42px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:0 12px;
+  background:#1b1e24;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:12px;
+}
+
+.share-search-wrap svg{
+  width:18px;
+  height:18px;
+  color:#9da3ad;
+  flex:none;
+}
+
+.share-search-wrap input{
+  width:100%;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:#fff;
+  font-size:13px;
+}
+
+.share-search-wrap input::placeholder{
+  color:#777d87;
+}
+
+.share-members{
+  display:grid;
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+  gap:14px 10px;
+  margin-top:18px;
+  min-height:80px;
+}
+
+.share-member{
+  border:0;
+  background:none;
+  color:#fff;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+}
+
+.share-member-avatar{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  overflow:hidden;
+  background:#242831;
+  border:2px solid transparent;
+  display:grid;
+  place-items:center;
+  font-size:15px;
+  font-weight:800;
+}
+
+.share-member-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.share-member-name{
+  width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  text-align:center;
+  font-size:10px;
+  color:#dfe2e7;
+}
+
+.share-member.selected
+.share-member-avatar{
+  border-color:#2997ff;
+}
+
+.share-empty{
+  grid-column:1/-1;
+  text-align:center;
+  color:#858b95;
+  font-size:12px;
+  padding:20px 0;
+}
+
+.share-send-btn{
+  width:100%;
+  height:43px;
+  margin-top:20px;
+  border:0;
+  border-radius:12px;
+  background:#2997ff;
+  color:#fff;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.share-send-btn:disabled{
+  opacity:.4;
+  cursor:not-allowed;
+}
+
+.share-divider{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:21px 0 14px;
+  color:#777d87;
+  font-size:10px;
+}
+
+.share-divider::before,
+.share-divider::after{
+  content:"";
+  height:1px;
+  flex:1;
+  background:rgba(255,255,255,.08);
+}
+
+.share-external{
+  display:grid;
+  grid-template-columns:
+    repeat(3,1fr);
+  gap:9px;
+}
+
+.share-external button{
+  min-height:42px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:11px;
+  background:#1b1e24;
+  color:#f1f2f4;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.share-external button:active,
+.share-send-btn:active{
+  transform:scale(.98);
+}
+
+@media(max-width:380px){
+
+  .share-members{
+    grid-template-columns:
+      repeat(3,minmax(0,1fr));
+  }
+
+}
 /* ---------- TOP CREATE & ALERTS ---------- */
 .top-create,
 .top-alerts{
@@ -1466,7 +1688,91 @@ button{cursor:pointer}
 
 </div>
 
+<!-- SHARE SHEET -->
 
+<div class="sheet-backdrop" id="shareBackdrop"></div>
+
+<div class="share-sheet" id="shareSheet">
+
+  <div class="share-sheet-header">
+    <strong>Share</strong>
+
+    <button
+      type="button"
+      id="shareSheetClose"
+      aria-label="Close">
+      ×
+    </button>
+  </div>
+
+  <div class="share-search-wrap">
+
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor">
+
+      <circle cx="11" cy="11" r="7"></circle>
+      <path d="m20 20-4-4"></path>
+
+    </svg>
+
+    <input
+      type="search"
+      id="shareMemberSearch"
+      placeholder="Search members..."
+      autocomplete="off">
+
+  </div>
+
+  <div
+    class="share-members"
+    id="shareMembers">
+  </div>
+
+  <button
+    type="button"
+    class="share-send-btn"
+    id="shareSendBtn"
+    disabled>
+
+    Send
+
+  </button>
+
+  <div class="share-divider">
+    <span>Share via</span>
+  </div>
+
+  <div class="share-external">
+
+    <button
+      type="button"
+      id="shareWhatsApp">
+
+      WhatsApp
+
+    </button>
+
+    <button
+      type="button"
+      id="shareFacebook">
+
+      Facebook
+
+    </button>
+
+    <button
+      type="button"
+      id="shareCopyLink">
+
+      Copy link
+
+    </button>
+
+  </div>
+
+</div>
 <!-- COVER EDITOR -->
 <div class="cover-modal" id="coverModal">
 
@@ -1972,7 +2278,379 @@ function getMedia(post){
 
 
 function getPostCaption(post){
+let selectedShareMember = null;
 
+function closeShareSheet(){
+
+  const sheet =
+    document.getElementById("shareSheet");
+
+  const backdrop =
+    document.getElementById("shareBackdrop");
+
+  if(sheet){
+    sheet.classList.remove("show");
+  }
+
+  if(backdrop){
+    backdrop.classList.remove("show");
+  }
+
+  document.body.style.overflow = "";
+
+  selectedShareMember = null;
+
+  const sendButton =
+    document.getElementById("shareSendBtn");
+
+  if(sendButton){
+    sendButton.disabled = true;
+  }
+
+}
+
+function renderShareMembers(searchText=""){
+
+  const container =
+    document.getElementById("shareMembers");
+
+  if(!container) return;
+
+  const search =
+    String(searchText)
+      .trim()
+      .toLowerCase();
+
+  const members =
+    (allMembers || [])
+      .filter(member=>{
+        if(!member?.uid) return false;
+        if(currentUser &&
+           member.uid===currentUser.uid){
+          return false;
+        }
+
+        const name =
+          member.displayName||
+          member.name||
+          member.username||
+          "Member";
+
+        return !search ||
+          name.toLowerCase()
+            .includes(search);
+      });
+
+  if(!members.length){
+
+    container.innerHTML=`
+      <div class="share-empty">
+        No members found.
+      </div>
+    `;
+
+    return;
+  }
+
+  container.innerHTML="";
+
+  members.forEach(member=>{
+
+    const name =
+      member.displayName||
+      member.name||
+      member.username||
+      "Member";
+
+    const photo =
+      member.photoURL||
+      member.photoUrl||
+      member.profilePhotoURL||
+      member.profilePhoto||
+      "";
+
+    const button =
+      document.createElement("button");
+
+    button.type="button";
+    button.className="share-member";
+
+    if(
+      selectedShareMember?.uid===
+      member.uid
+    ){
+      button.classList.add("selected");
+    }
+
+    const avatar =
+      photo
+        ? `<img
+            src="${escapeAttribute(photo)}"
+            alt="">`
+        : escapeHTML(
+            name.charAt(0).toUpperCase()
+          );
+
+    button.innerHTML=`
+
+      <div class="share-member-avatar">
+        ${avatar}
+      </div>
+
+      <div class="share-member-name">
+        ${escapeHTML(name)}
+      </div>
+
+    `;
+
+    button.addEventListener(
+      "click",
+      ()=>{
+
+        selectedShareMember =
+          member;
+
+        renderShareMembers(
+          document.getElementById(
+            "shareMemberSearch"
+          )?.value || ""
+        );
+
+        const sendButton =
+          document.getElementById(
+            "shareSendBtn"
+          );
+
+        if(sendButton){
+          sendButton.disabled=false;
+        }
+
+      }
+    );
+
+    container.appendChild(button);
+
+  });
+
+}
+  document
+  .getElementById("shareMemberSearch")
+  ?.addEventListener("input", event => {
+
+    renderShareMembers(
+      event.target.value
+    );
+
+  });
+  document
+  .getElementById("shareSheetClose")
+  ?.addEventListener(
+    "click",
+    closeShareSheet
+  );
+
+document
+  .getElementById("shareBackdrop")
+  ?.addEventListener(
+    "click",
+    closeShareSheet
+  );
+  document
+  .getElementById("shareSendBtn")
+  ?.addEventListener(
+    "click",
+    async () => {
+
+      if(
+        !selectedShareMember ||
+        !window.currentSharePost ||
+        !currentUser
+      ){
+        return;
+      }
+
+      const button =
+        document.getElementById(
+          "shareSendBtn"
+        );
+
+      button.disabled = true;
+      button.textContent = "Sending...";
+
+      try{
+
+        const post =
+          window.currentSharePost;
+
+        const member =
+          selectedShareMember;
+
+        const media =
+          getMedia(post);
+
+        const receiverUid =
+          member.uid;
+
+        const cid =
+          [currentUser.uid,receiverUid]
+            .sort()
+            .join("_");
+
+        const messageRef =
+          collection(
+            db,
+            "conversations",
+            cid,
+            "messages"
+          );
+
+        const sharedPost = {
+
+          id: post.id,
+
+          type:
+            media.type==="video"
+              ? "video"
+              : "image",
+
+          url:
+            media.url || "",
+
+          coverUrl:
+            post.coverUrl||
+            post.coverURL||
+            "",
+
+          authorId:
+            post.authorId || "",
+
+          authorName:
+            post.authorName||
+            post.username||
+            "Member",
+
+          authorPhotoURL:
+            post.authorPhotoURL||
+            post.photoURL||
+            "",
+
+          caption:
+            getPostCaption(post)
+
+        };
+
+        await setDoc(
+          doc(
+            db,
+            "conversations",
+            cid
+          ),
+          {
+
+            participants:
+              arrayUnion(
+                currentUser.uid,
+                receiverUid
+              ),
+
+            lastMessage:
+              sharedPost.type==="video"
+                ? "Reel"
+                : "Post",
+
+            lastMessageType:
+              "sharedPost",
+
+            lastSharedPostType:
+              sharedPost.type,
+
+            lastSenderId:
+              currentUser.uid,
+
+            lastMessageAt:
+              serverTimestamp(),
+
+            seenByCurrentUser:
+              true,
+
+            [`unreadCounts.${currentUser.uid}`]:
+              0,
+
+            [`unreadCounts.${receiverUid}`]:
+              increment(1)
+
+          },
+          {merge:true}
+        );
+
+        await addDoc(
+          messageRef,
+          {
+
+            senderId:
+              currentUser.uid,
+
+            receiverId:
+              receiverUid,
+
+            type:
+              "sharedPost",
+
+            createdAt:
+              serverTimestamp(),
+
+            sharedPostId:
+              sharedPost.id,
+
+            sharedPostType:
+              sharedPost.type,
+
+            sharedPostUrl:
+              sharedPost.url,
+
+            sharedPostCoverUrl:
+              sharedPost.coverUrl,
+
+            sharedPostAuthorId:
+              sharedPost.authorId,
+
+            sharedPostAuthorName:
+              sharedPost.authorName,
+
+            sharedPostAuthorPhotoURL:
+              sharedPost.authorPhotoURL,
+
+            sharedPostCaption:
+              sharedPost.caption
+
+          }
+        );
+
+        button.textContent = "Sent ✓";
+
+        setTimeout(()=>{
+          closeShareSheet();
+          button.textContent = "Send";
+        },700);
+
+      }catch(error){
+
+        console.error(
+          "Share post error:",
+          error
+        );
+
+        alert(
+          "Couldn't send this post."
+        );
+
+        button.disabled = false;
+        button.textContent = "Send";
+
+      }
+
+    }
+  );
   return [
     post.caption||"",
     post.text||"",
@@ -5320,55 +5998,30 @@ async function sendSheetComment(){
 
 async function sharePost(post){
 
-  const username=
-    post.authorName||
-    post.username||
-    "Member";
-
-  const shareData={
-
-    title:
-      "JSP TAYSU Community",
-
-    text:
-      username+
-      " shared a post on JSP TAYSU Community.",
-
-    url:
-      window.location.href
-
-  };
-
-
-  try{
-
-    if(navigator.share){
-
-      await navigator.share(
-        shareData
-      );
-
-    }else if(
-      navigator.clipboard
-    ){
-
-      await navigator.clipboard.writeText(
-        window.location.href
-      );
-
-      alert(
-        "Community link copied."
-      );
-
-    }
-
-  }catch(error){
-
-    console.log(
-      "Share cancelled."
-    );
-
+  if(!currentUser){
+    alert("Please sign in first.");
+    return;
   }
+
+  window.currentSharePost = post;
+
+  const shareSheet =
+    document.getElementById("shareSheet");
+
+  const shareBackdrop =
+    document.getElementById("shareBackdrop");
+
+  if(!shareSheet || !shareBackdrop){
+    console.error("Share sheet elements not found.");
+    return;
+  }
+
+  shareSheet.classList.add("show");
+  shareBackdrop.classList.add("show");
+
+  document.body.style.overflow = "hidden";
+
+  renderShareMembers("");
 
 }
 
