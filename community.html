@@ -2278,7 +2278,20 @@ if(sharedPostId){
 
 
 /* ================= MEDIA HELPERS ================= */
+function getOptimizedVideoURL(url){
+  if(!url) return "";
 
+  // ImageKit video optimization:
+  // 720px max width + quality 50 + automatic format
+  const separator =
+    url.includes("?") ? "&" : "?";
+
+  return (
+    url +
+    separator +
+    "tr=w-720,q-50,f-auto"
+  );
+}
 function getMedia(post){
 
   const url=
