@@ -2076,7 +2076,29 @@ function getInboxPreview(
     );
 
   let label = "";
+if(type === "sharedPost"){
 
+  const sharedType =
+    data.lastSharedPostType || "image";
+
+  if(sharedType === "video"){
+
+    label =
+      data.lastSenderId === uid
+        ? "Reel sent"
+        : "Reel";
+
+  }else{
+
+    label =
+      data.lastSenderId === uid
+        ? "Post sent"
+        : "Post";
+
+  }
+
+}
+else if(type === "image"){
   if(type === "image"){
 
     label =
