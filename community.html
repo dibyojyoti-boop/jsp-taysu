@@ -2223,7 +2223,39 @@ async function loadPosts(){
 
     renderFilteredPosts(feedSearchInput.value);
     renderExploreGrid();
+const urlParams =
+  new URLSearchParams(
+    window.location.search
+  );
 
+const sharedPostId =
+  urlParams.get("post");
+
+if(sharedPostId){
+
+  const sharedPost =
+    allPosts.find(
+      post => post.id === sharedPostId
+    );
+
+  if(sharedPost){
+
+    setTimeout(()=>{
+
+      openMediaViewer(
+        sharedPost.id,
+        allPosts.filter(post=>{
+          return Boolean(
+            getMedia(post).url
+          );
+        })
+      );
+
+    },300);
+
+  }
+
+}
     if(currentUser){
       loadRecents();
     }
