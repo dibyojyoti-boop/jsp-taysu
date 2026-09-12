@@ -936,7 +936,7 @@ button{cursor:pointer}
   position:absolute;
   left:16px;
   right:92px;
-  bottom:52px;
+  bottom:58px;
   z-index:5;
 }
 .viewer-profile{
@@ -978,11 +978,17 @@ button{cursor:pointer}
   white-space:pre-line;
   max-width:520px;
 }
+  .viewer-upload-time{
+  margin-top:5px;
+  color:rgba(255,255,255,.62);
+  font-size:10px;
+  line-height:1.3;
+}
 .viewer-actions{
   position:absolute;
   right:13px;
   top:50%;
-  transform:translateY(-32%);
+  transform:translateY(-30%);
   z-index:8;
   display:flex;
   flex-direction:column;
@@ -1000,8 +1006,8 @@ button{cursor:pointer}
   text-shadow:0 2px 8px rgba(0,0,0,.8);
 }
 .viewer-action svg{
-  width:32px;
-  height:32px;
+  width:34px;
+  height:34px;
   stroke-width:2;
 }
 .viewer-action span{
@@ -3930,11 +3936,8 @@ function renderViewerItem(
   const item=
     document.createElement("article");
 
-  item.className=
-    "viewer-item";
-
-  item.dataset.postId=
-    post.id;
+  item.className="viewer-item";
+  item.dataset.postId=post.id;
 
 
   const avatarHTML=
@@ -3968,7 +3971,6 @@ function renderViewerItem(
     mediaHTML=`
       <video
         class="viewer-media viewer-video"
-        
         loop
         playsinline
         preload="metadata"
@@ -4053,6 +4055,28 @@ function renderViewerItem(
 
       </button>
 
+
+      <!-- REPORT UI ONLY -->
+
+      <button
+        class="viewer-action viewer-report"
+        type="button">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor">
+
+          <path d="M12 3 21 20H3L12 3Z"></path>
+          <path d="M12 9v5"></path>
+          <path d="M12 17h.01"></path>
+
+        </svg>
+
+        <span>Report</span>
+
+      </button>
+
     </div>
 
 
@@ -4090,6 +4114,11 @@ function renderViewerItem(
            </div>`
         : ""
       }
+
+
+      <div class="viewer-upload-time">
+        ${formatTime(post.createdAt)}
+      </div>
 
     </div>
 
@@ -4175,6 +4204,7 @@ function renderViewerItem(
     );
 
 }
+
 
 
 /* ================= VIEWER STATS ================= */
