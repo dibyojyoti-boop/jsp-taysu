@@ -4650,57 +4650,50 @@ function openMediaViewer(
   postId,
   posts
 ){
-document
-  .querySelectorAll(".feed-video")
-  .forEach(video=>{
-    video.pause();
-    video.currentTime=0;
-  });
-  viewerPosts=
+
+  document
+    .querySelectorAll(".feed-video")
+    .forEach(video=>{
+      video.pause();
+      video.currentTime=0;
+    });
+
+  viewerPosts =
     posts.filter(post=>{
       return Boolean(
         getMedia(post).url
       );
     });
 
-
-  const scroll=
+  const scroll =
     document.getElementById(
       "viewerScroll"
     );
 
-  scroll.innerHTML="";
+  scroll.innerHTML = "";
 
+  viewerPosts.forEach(post=>{
+    renderViewerItem(
+      post,
+      scroll
+    );
+  });
 
-  viewerPosts.forEach(
-    post=>{
-      renderViewerItem(
-        post,
-        scroll
-      );
-    }
-  );
-
-
-  const index=
+  const index =
     viewerPosts.findIndex(
       post=>post.id===postId
     );
 
-
   document
-    .getElementById(
-      "mediaViewer"
-    )
+    .getElementById("mediaViewer")
     .classList.add("show");
 
-
-  document.body.style.overflow="hidden";
-
+  document.body.style.overflow =
+    "hidden";
 
   requestAnimationFrame(()=>{
 
-    const item=
+    const item =
       scroll.children[
         Math.max(0,index)
       ];
@@ -4725,20 +4718,20 @@ function renderViewerItem(
   container
 ){
 
-  const media=
+  const media =
     getMedia(post);
 
-  const username=
+  const username =
     post.authorName||
     post.username||
     "Member";
 
-  const photo=
+  const photo =
     post.authorPhotoURL||
     post.photoURL||
     "";
 
-  const caption=
+  const caption =
     [
       post.caption||"",
       post.text||"",
@@ -4747,48 +4740,58 @@ function renderViewerItem(
     .filter(Boolean)
     .join("\n");
 
-
-  const item=
+  const item =
     document.createElement("article");
 
-  item.className="viewer-item";
-  item.dataset.postId=post.id;
+  item.className =
+    "viewer-item";
 
+  item.dataset.postId =
+    post.id;
 
-  const avatarHTML=
+  const avatarHTML =
     photo
-      ? `<img src="${escapeAttribute(photo)}" alt="">`
+      ? `<img
+          src="${escapeAttribute(photo)}"
+          alt="">`
       : escapeHTML(
-          username.charAt(0).toUpperCase()
+          username
+            .charAt(0)
+            .toUpperCase()
         );
 
-
-  const poster=
+  const poster =
     post.coverUrl||
     post.coverURL||
     "";
 
-
-  let mediaHTML="";
-
+  let mediaHTML = "";
 
   if(media.type==="image"){
 
-    mediaHTML=`
+    mediaHTML = `
       <img
         class="viewer-media"
         src="${escapeAttribute(media.url)}"
-        alt="">
+        alt=""
+        loading="lazy">
     `;
 
   }else{
 
-    mediaHTML=`
+    /*
+      IMPORTANT:
+      Don't preload reels.
+      The observer will load/play
+      only the visible reel.
+    */
+
+    mediaHTML = `
       <video
         class="viewer-media viewer-video"
         loop
         playsinline
-        preload="metadata"
+        preload="none"
         ${poster
           ? `poster="${escapeAttribute(poster)}"`
           : ""}>
@@ -4801,8 +4804,7 @@ function renderViewerItem(
 
   }
 
-
-  item.innerHTML=`
+  item.innerHTML = `
 
     ${mediaHTML}
 
@@ -4871,8 +4873,6 @@ function renderViewerItem(
       </button>
 
 
-      <!-- REPORT UI ONLY -->
-
       <button
         class="viewer-action viewer-report"
         type="button">
@@ -4924,10 +4924,10 @@ function renderViewerItem(
 
       ${
         caption
-        ? `<div class="viewer-caption">
-             ${escapeHTML(caption)}
-           </div>`
-        : ""
+          ? `<div class="viewer-caption">
+               ${escapeHTML(caption)}
+             </div>`
+          : ""
       }
 
 
@@ -4939,7 +4939,6 @@ function renderViewerItem(
 
   `;
 
-
   container.appendChild(item);
 
 
@@ -4949,7 +4948,7 @@ function renderViewerItem(
   );
 
 
-  const profileArea=
+  const profileArea =
     item.querySelector(
       ".viewer-profile"
     );
@@ -4967,15 +4966,20 @@ function renderViewerItem(
       }
 
       if(post.authorId){
+
         closeMediaViewer();
-        openProfile(post.authorId);
+
+        openProfile(
+          post.authorId
+        );
+
       }
 
     }
   );
 
 
-  const followButton=
+  const followButton =
     item.querySelector(
       ".viewer-follow"
     );
@@ -5019,8 +5023,6 @@ function renderViewerItem(
     );
 
 }
-
-
 
 /* ================= VIEWER STATS ================= */
 
