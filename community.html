@@ -2356,21 +2356,27 @@ function renderShareMembers(searchText=""){
   const members =
     (allMembers || [])
       .filter(member=>{
-        if(!member?.uid) return false;
-        if(currentUser &&
-           member.uid===currentUser.uid){
+
+        if(!member?.id) return false;
+
+        if(
+          currentUser &&
+          member.id===currentUser.uid
+        ){
           return false;
         }
 
         const name =
+          member.username||
           member.displayName||
           member.name||
-          member.username||
           "Member";
 
         return !search ||
-          name.toLowerCase()
+          name
+            .toLowerCase()
             .includes(search);
+
       });
 
   if(!members.length){
@@ -2382,6 +2388,7 @@ function renderShareMembers(searchText=""){
     `;
 
     return;
+
   }
 
   container.innerHTML="";
@@ -2389,15 +2396,13 @@ function renderShareMembers(searchText=""){
   members.forEach(member=>{
 
     const name =
+      member.username||
       member.displayName||
       member.name||
-      member.username||
       "Member";
 
     const photo =
       member.photoURL||
-      member.photoUrl||
-      member.profilePhotoURL||
       member.profilePhoto||
       "";
 
@@ -2408,10 +2413,14 @@ function renderShareMembers(searchText=""){
     button.className="share-member";
 
     if(
-      selectedShareMember?.uid===
-      member.uid
+      selectedShareMember?.id===
+      member.id
     ){
-      button.classList.add("selected");
+
+      button.classList.add(
+        "selected"
+      );
+
     }
 
     const avatar =
@@ -2420,7 +2429,9 @@ function renderShareMembers(searchText=""){
             src="${escapeAttribute(photo)}"
             alt="">`
         : escapeHTML(
-            name.charAt(0).toUpperCase()
+            name
+              .charAt(0)
+              .toUpperCase()
           );
 
     button.innerHTML=`
@@ -2454,7 +2465,9 @@ function renderShareMembers(searchText=""){
           );
 
         if(sendButton){
+
           sendButton.disabled=false;
+
         }
 
       }
