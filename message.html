@@ -3356,7 +3356,7 @@ function renderSharedPostMessage(data, content){
       mediaHTML = `
         <img
           class="shared-post-media"
-          src="${escapeHtml(cover)}"
+          src="${escapeHTML(cover)}"
           alt="">
       `;
 
@@ -3365,7 +3365,7 @@ function renderSharedPostMessage(data, content){
       mediaHTML = `
         <video
           class="shared-post-media"
-          src="${escapeHtml(url)}"
+          src="${escapeHTML(url)}"
           muted
           playsinline
           preload="metadata">
@@ -3379,7 +3379,7 @@ function renderSharedPostMessage(data, content){
     mediaHTML = `
       <img
         class="shared-post-media"
-        src="${escapeHtml(url)}"
+        src="${escapeHTML(url)}"
         alt="">
     `;
 
@@ -3389,10 +3389,10 @@ function renderSharedPostMessage(data, content){
     authorPhoto
       ? `
         <img
-          src="${escapeHtml(authorPhoto)}"
+          src="${escapeHTML(authorPhoto)}"
           alt="">
       `
-      : escapeHtml(
+      : escapeHTML(
           authorName
             .charAt(0)
             .toUpperCase()
@@ -3411,7 +3411,7 @@ function renderSharedPostMessage(data, content){
       </div>
 
       <span>
-        ${escapeHtml(authorName)}
+        ${escapeHTML(authorName)}
       </span>
 
     </div>
@@ -3441,7 +3441,7 @@ function renderSharedPostMessage(data, content){
       data.sharedPostCaption
         ? `
           <div class="shared-post-caption">
-            ${escapeHtml(
+            ${escapeHTML(
               data.sharedPostCaption
             )}
           </div>
