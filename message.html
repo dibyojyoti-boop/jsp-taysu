@@ -3133,130 +3133,188 @@ function renderMessage(
   MESSAGE CONTENT
 */
 
-if(
-  data.type === "sharedPost" &&
-  data.sharedPostId
+function renderMessage(
+  messageId,
+  data
 ){
 
-  renderSharedPostMessage(
-    data,
-    content
-  );
+  const user =
+    getCurrentUser();
 
-}
-else if(
-  data.type === "image" &&
-  data.imageUrl
-){
+  if(!user){
+    return;
+  }
 
-  const image =
-    document.createElement("img");
+  const mine =
+    data.senderId === user.uid;
 
-  image.className =
-    "message-image";
-
-  image.src =
-    data.imageUrl;
-
-  image.alt =
-    "Photo";
-
-  image.loading =
-    "lazy";
-
-  image.addEventListener(
-    "click",
-    () => {
-
-      openMediaViewer(
-        "image",
-        data.imageUrl
-      );
-
-    }
-  );
-
-  content.appendChild(
-    image
-  );
-
-}
-else if(
-  data.type === "video" &&
-  data.videoUrl
-){
-
-  const videoWrap =
+  const row =
     document.createElement("div");
 
-  videoWrap.className =
-    "video-wrap";
+  row.className =
+    "message-row " +
+    (mine ? "mine" : "theirs");
 
-  videoWrap.innerHTML = `
-
-    <video
-      class="message-video"
-      src="${escapeAttribute(data.videoUrl)}"
-      muted
-      playsinline
-      preload="metadata"
-    ></video>
-
-    <div class="video-play">
-
-      <svg
-        viewBox="0 0 24 24"
-        fill="currentColor">
-
-        <path d="M8 5v14l11-7z"/>
-
-      </svg>
-
-    </div>
-
-  `;
-
-  videoWrap.addEventListener(
-    "click",
-    () => {
-
-      openMediaViewer(
-        "video",
-        data.videoUrl
-      );
-
-    }
-  );
-
-  content.appendChild(
-    videoWrap
-  );
-
-}
-else{
-
-  const bubble =
-    document.createElement("div");
-
-  bubble.className =
-    "message-bubble";
-
-  bubble.textContent =
-    data.text || "";
-
-  content.appendChild(
-    bubble
-  );
-
-}
-
-row.appendChild(
-  content
-);
+  row.dataset.messageId =
+    messageId;
 
   /*
-    Video
+    Reply icon
   */
+
+  const replyIcon =
+    document.createElement("div");
+
+  replyIcon.className =
+    "reply-icon";
+
+  replyIcon.innerHTML = `
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2">
+
+      <path d="M9 17l-5-5 5-5"/>
+      <path d="M4 12h10a6 6 0 0 1 6 6"/>
+
+    </svg>
+  `;
+
+  row.appendChild(
+    replyIcon
+  );
+
+  /*
+    Opponent DP
+  */
+
+  if(!mine){
+
+    const avatar =
+      document.createElement("div");
+
+    avatar.className =
+      "message-avatar";
+
+    avatar.innerHTML =
+      avatarHTML(activeChatUser);
+
+    row.appendChild(
+      avatar
+    );
+
+  }
+
+  const content =
+    document.createElement("div");
+
+  content.className =
+    "message-content";
+
+  /*
+    Reply quote
+  */
+
+  if(data.replyTo){
+
+    const reply =
+      document.createElement("div");
+
+    reply.className =
+      "reply-quote";
+
+    let repliedText =
+      data.replyTo.text || "";
+
+    if(
+      data.replyTo.type === "image"
+    ){
+
+      repliedText =
+        "Photo";
+
+    }
+    else if(
+      data.replyTo.type === "video"
+    ){
+
+      repliedText =
+        "Video";
+
+    }
+
+    reply.innerHTML = `
+
+      <div class="reply-label">
+        ${mine ? "You replied" : "Reply"}
+      </div>
+
+      <div class="reply-text">
+        ${escapeHTML(repliedText)}
+      </div>
+
+    `;
+
+    content.appendChild(
+      reply
+    );
+
+  }
+
+  /*
+    MESSAGE CONTENT
+  */
+
+  if(
+    data.type === "sharedPost" &&
+    data.sharedPostId
+  ){
+
+    renderSharedPostMessage(
+      data,
+      content
+    );
+
+  }
+
+  else if(
+    data.type === "image" &&
+    data.imageUrl
+  ){
+
+    const image =
+      document.createElement("img");
+
+    image.className =
+      "message-image";
+
+    image.src =
+      data.imageUrl;
+
+    image.alt =
+      "Photo";
+
+    image.loading =
+      "lazy";
+
+    image.addEventListener(
+      "click",
+      () => {
+
+        openMediaViewer(
+          "image",
+          data.imageUrl
+        );
+
+      }
+    );
+
+    content.appendChild(
+      image
+    );
+
+  }
 
   else if(
     data.type === "video" &&
@@ -3276,13 +3334,17 @@ row.appendChild(
         src="${escapeAttribute(data.videoUrl)}"
         muted
         playsinline
-        preload="metadata"
-      ></video>
+        preload="metadata">
+      </video>
 
       <div class="video-play">
 
-        <svg viewBox="0 0 24 24" fill="currentColor">
+        <svg
+          viewBox="0 0 24 24"
+          fill="currentColor">
+
           <path d="M8 5v14l11-7z"/>
+
         </svg>
 
       </div>
@@ -3307,10 +3369,6 @@ row.appendChild(
 
   }
 
-  /*
-    Text
-  */
-
   else{
 
     const bubble =
@@ -3328,10 +3386,13 @@ row.appendChild(
 
   }
 
+  /*
+    Add content
+  */
+
   row.appendChild(
     content
   );
-
 
   /*
     Time
@@ -3356,14 +3417,16 @@ row.appendChild(
 
   }
 
+  /*
+    Add message
+  */
 
   messages.appendChild(
     row
   );
 
-
   /*
-    Long press only on own messages.
+    Long press only on own messages
   */
 
   if(mine){
@@ -3375,9 +3438,8 @@ row.appendChild(
 
   }
 
-
   /*
-    Right-swipe reply on every message.
+    Swipe reply
   */
 
   attachSwipeReply(
@@ -3387,6 +3449,9 @@ row.appendChild(
   );
 
 }
+
+
+    
 function renderSharedPostMessage(data, content){
 
   const type =
