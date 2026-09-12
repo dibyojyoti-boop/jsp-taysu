@@ -1582,9 +1582,9 @@ window.addEventListener(
 );
 
 
-// ===============================
-// AUTH
-// ===============================
+/* =========================================================
+   AUTH
+========================================================= */
 
 let authStateReady = false;
 
@@ -1628,6 +1628,23 @@ auth.onAuthStateChanged(async user => {
         error
       );
 
+      conversationList.innerHTML = `
+        <div class="empty">
+
+          <div class="empty-title">
+            Couldn't load messages
+          </div>
+
+          <div class="empty-text">
+            ${escapeHTML(
+              error.message ||
+              "Please refresh the page."
+            )}
+          </div>
+
+        </div>
+      `;
+
     }
 
     return;
@@ -1635,16 +1652,39 @@ auth.onAuthStateChanged(async user => {
   }
 
 
-  // IMPORTANT:
-  // Do NOT redirect to index.html here.
-  // Firebase may temporarily return null
-  // while restoring the saved session.
+  /*
+    Firebase can take a moment to restore
+    the saved LOCAL authentication session.
+    Do not redirect immediately.
+  */
 
-  currentUser = null;
+  setTimeout(() => {
 
-  console.log(
-    "NO USER — NOT REDIRECTING"
-  );
+    const restoredUser =
+      auth.currentUser;
+
+    if(restoredUser){
+
+      currentUser =
+        restoredUser;
+
+      loadConversations();
+
+      handleIncomingProfile();
+
+      updateSendButton();
+
+      return;
+
+    }
+
+    currentUser = null;
+
+    console.log(
+      "NO AUTH SESSION FOUND"
+    );
+
+  },1500);
 
 });
 /* =========================================================
