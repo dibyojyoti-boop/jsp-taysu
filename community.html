@@ -4660,7 +4660,41 @@ function hideProgress(){
 
 
 /* ================= MEDIA VIEWER ================= */
+let mediaViewerOpen = false;
 
+function closeMediaViewer(){
+  const viewer = document.getElementById("mediaViewer");
+
+  if(!viewer) return;
+
+  viewer.classList.remove("show");
+  document.body.style.overflow = "";
+
+  document
+    .querySelectorAll(".viewer-video")
+    .forEach(video=>{
+      video.pause();
+      video.currentTime = 0;
+    });
+
+  mediaViewerOpen = false;
+}
+
+
+// Phone/browser Back button
+window.addEventListener("popstate", ()=>{
+  if(mediaViewerOpen){
+    closeMediaViewer();
+  }
+});
+
+
+// Viewer X button
+document
+  .getElementById("viewerClose")
+  .addEventListener("click", ()=>{
+    closeMediaViewer();
+  });
 function openMediaViewer(
   postId,
   posts
@@ -4702,7 +4736,12 @@ function openMediaViewer(
   document
     .getElementById("mediaViewer")
     .classList.add("show");
-
+mediaViewerOpen = true;
+history.pushState(
+  { mediaViewer: true },
+  "",
+  window.location.href
+);
   document.body.style.overflow =
     "hidden";
 
