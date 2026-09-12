@@ -6061,11 +6061,13 @@ async function sharePost(post){
   }
 
   shareSheet.classList.add("show");
-  shareBackdrop.classList.add("show");
+shareBackdrop.classList.add("show");
 
-  document.body.style.overflow = "hidden";
+document.body.style.overflow = "hidden";
 
-  renderShareMembers("");
+await loadMembers();
+
+await renderShareMembers("");
 
 }
 
