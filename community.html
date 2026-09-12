@@ -4812,7 +4812,9 @@ function renderViewerItem(
           : ""}>
 
         <source
-          src="${escapeAttribute(media.url)}">
+  src="${escapeAttribute(
+    getOptimizedVideoURL(media.url)
+  )}">
 
       </video>
     `;
