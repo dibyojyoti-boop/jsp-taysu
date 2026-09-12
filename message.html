@@ -3130,8 +3130,9 @@ function renderMessage(
 
 
   /*
-    Image
-  */
+  MESSAGE CONTENT
+*/
+
 if(
   data.type === "sharedPost" &&
   data.sharedPostId
@@ -3147,43 +3148,111 @@ else if(
   data.type === "image" &&
   data.imageUrl
 ){
-  if(
-    data.type === "image" &&
-    data.imageUrl
-  ){
 
-    const image =
-      document.createElement("img");
+  const image =
+    document.createElement("img");
 
-    image.className =
-      "message-image";
+  image.className =
+    "message-image";
 
-    image.src =
-      data.imageUrl;
+  image.src =
+    data.imageUrl;
 
-    image.alt =
-      "Photo";
+  image.alt =
+    "Photo";
 
-    image.loading =
-      "lazy";
+  image.loading =
+    "lazy";
 
-    image.addEventListener(
-      "click",
-      () => {
+  image.addEventListener(
+    "click",
+    () => {
 
-        openMediaViewer(
-          "image",
-          data.imageUrl
-        );
+      openMediaViewer(
+        "image",
+        data.imageUrl
+      );
 
-      }
-    );
+    }
+  );
 
-    content.appendChild(
-      image
-    );
+  content.appendChild(
+    image
+  );
 
-  }
+}
+else if(
+  data.type === "video" &&
+  data.videoUrl
+){
+
+  const videoWrap =
+    document.createElement("div");
+
+  videoWrap.className =
+    "video-wrap";
+
+  videoWrap.innerHTML = `
+
+    <video
+      class="message-video"
+      src="${escapeAttribute(data.videoUrl)}"
+      muted
+      playsinline
+      preload="metadata"
+    ></video>
+
+    <div class="video-play">
+
+      <svg
+        viewBox="0 0 24 24"
+        fill="currentColor">
+
+        <path d="M8 5v14l11-7z"/>
+
+      </svg>
+
+    </div>
+
+  `;
+
+  videoWrap.addEventListener(
+    "click",
+    () => {
+
+      openMediaViewer(
+        "video",
+        data.videoUrl
+      );
+
+    }
+  );
+
+  content.appendChild(
+    videoWrap
+  );
+
+}
+else{
+
+  const bubble =
+    document.createElement("div");
+
+  bubble.className =
+    "message-bubble";
+
+  bubble.textContent =
+    data.text || "";
+
+  content.appendChild(
+    bubble
+  );
+
+}
+
+row.appendChild(
+  content
+);
 
   /*
     Video
