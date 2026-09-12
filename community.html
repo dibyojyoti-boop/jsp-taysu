@@ -2677,22 +2677,23 @@ document
           button.textContent = "Send";
         },700);
 
-      }catch(error){
-
-        console.error(
-          "Share post error:",
-          error
-        );
-
-        alert(
-          "Couldn't send this post."
-        );
-
-        button.disabled = false;
-        button.textContent = "Send";
-
       }
+catch(error){
 
+  console.error(
+    "Share post error:",
+    error
+  );
+
+  alert(
+    "Share error:\n" +
+    (error?.message || error)
+  );
+
+  button.disabled = false;
+  button.textContent = "Send";
+
+}
     }
   );
   return [
