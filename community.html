@@ -684,7 +684,55 @@ button{cursor:pointer}
   align-items:center;
   justify-content:center;
 }
+/* ---------- TOP CREATE & ALERTS ---------- */
+.top-create,
+.top-alerts{
+  flex:0 0 40px;
+  width:40px;
+  height:40px;
+  max-width:none;
+  padding:0;
+  border:0;
+  background:none;
+  color:#f1f2f4;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+  position:relative;
+  cursor:pointer;
+}
 
+.top-create span,
+.top-alerts span{
+  display:none;
+}
+
+.top-create .create-plus{
+  width:31px;
+  height:31px;
+}
+
+.top-create .create-plus svg{
+  width:17px;
+  height:17px;
+}
+
+.top-alerts svg{
+  width:22px;
+  height:22px;
+  stroke-width:1.8;
+}
+
+.top-create:hover,
+.top-alerts:hover{
+  background:rgba(255,255,255,.06);
+}
+
+.topbar-inner .logo{
+  flex:1;
+  text-align:center;
+}
 /* ---------- COMMENTS SHEET ---------- */
 .sheet-backdrop{
   position:fixed;
@@ -1062,23 +1110,27 @@ button{cursor:pointer}
 <header class="topbar">
   <div class="topbar-inner">
 
-    <!-- CREATE -->
-    <button class="icon-btn" id="createTopButton" aria-label="Create">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path d="M12 5v14"></path>
-        <path d="M5 12h14"></path>
-      </svg>
+    <button class="nav-item top-create" id="createNav" type="button">
+      <div class="create-plus">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 5v14"></path>
+          <path d="M5 12h14"></path>
+        </svg>
+      </div>
     </button>
 
-    <!-- CENTER BRAND -->
     <div class="logo">JSP TAYSU</div>
 
-    <!-- ALERTS -->
-    <button class="icon-btn" id="alertsTopButton" aria-label="Notifications">
+    <button class="nav-item top-alerts"
+      data-section="alertsSection"
+      type="button"
+      aria-label="Alerts">
+
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
         <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
         <path d="M10 21h4"></path>
       </svg>
+
     </button>
 
   </div>
@@ -1302,17 +1354,7 @@ button{cursor:pointer}
     <span>Explore</span>
   </button>
 
-  <button class="nav-item"
-    id="createNav"
-    type="button">
-    <div class="create-plus">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path d="M12 5v14"></path>
-        <path d="M5 12h14"></path>
-      </svg>
-    </div>
-    <span>Create</span>
-  </button>
+
 
   <button class="nav-item"
     id="messagesNavButton"
@@ -1327,17 +1369,7 @@ button{cursor:pointer}
     <span class="message-badge" id="messageBadge"></span>
   </button>
 
-  <button class="nav-item"
-    data-section="alertsSection"
-    type="button">
 
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-      <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
-      <path d="M10 21h4"></path>
-    </svg>
-
-    <span>Alerts</span>
-  </button>
 
   <button class="nav-item"
     id="profileNavButton"
