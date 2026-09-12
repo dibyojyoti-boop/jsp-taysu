@@ -1582,9 +1582,11 @@ window.addEventListener(
 );
 
 
-/* =========================================================
-   AUTH
-========================================================= */
+// ===============================
+// AUTH
+// ===============================
+
+let authStateReady = false;
 
 auth.setPersistence(
   firebase.auth.Auth.Persistence.LOCAL
@@ -1605,48 +1607,46 @@ auth.onAuthStateChanged(async user => {
     user ? user.uid : "NO USER"
   );
 
+  authStateReady = true;
+
   if(user){
 
-    currentUser =
-      user;
+    currentUser = user;
 
-    await loadConversations();
+    try{
 
-    handleIncomingProfile();
+      await loadConversations();
 
-    updateSendButton();
+      handleIncomingProfile();
+
+      updateSendButton();
+
+    }catch(error){
+
+      console.error(
+        "AUTH LOAD ERROR:",
+        error
+      );
+
+    }
 
     return;
 
   }
 
-  /*
-    Firebase can briefly report null while
-    restoring the saved login session.
 
-    DO NOT redirect immediately.
-  */
+  // IMPORTANT:
+  // Do NOT redirect to index.html here.
+  // Firebase may temporarily return null
+  // while restoring the saved session.
 
-  setTimeout(() => {
+  currentUser = null;
 
-    if(
-      !auth.currentUser &&
-      !currentUser
-    ){
-
-      console.log(
-        "Confirmed signed out."
-      );
-
-      window.location.href =
-        "index.html";
-
-    }
-
-  },1500);
+  console.log(
+    "NO USER — NOT REDIRECTING"
+  );
 
 });
-
 /* =========================================================
    CURRENT USER
 ========================================================= */
