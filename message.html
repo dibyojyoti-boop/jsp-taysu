@@ -1586,24 +1586,68 @@ window.addEventListener(
    AUTH
 ========================================================= */
 
-auth.onAuthStateChanged(async user => {
+let authStateReady = false;
 
-  if(!user){
+auth.setPersistence(
+  firebase.auth.Auth.Persistence.LOCAL
+).then(() => {
 
-    currentUser = null;
+  auth.onAuthStateChanged(async user => {
 
-    window.location.href =
-      "index.html";
+    authStateReady = true;
 
-    return;
+    if(!user){
 
-  }
+      currentUser = null;
 
-  currentUser = user;
+      window.location.href =
+        "index.html";
 
-  await loadConversations();
+      return;
 
-  handleIncomingProfile();
+    }
+
+    currentUser = user;
+
+    await loadConversations();
+
+    handleIncomingProfile();
+
+    updateSendButton();
+
+  });
+
+}).catch(error => {
+
+  console.error(
+    "AUTH PERSISTENCE ERROR:",
+    error
+  );
+
+  auth.onAuthStateChanged(async user => {
+
+    authStateReady = true;
+
+    if(!user){
+
+      currentUser = null;
+
+      window.location.href =
+        "index.html";
+
+      return;
+
+    }
+
+    currentUser = user;
+
+    await loadConversations();
+
+    handleIncomingProfile();
+
+    updateSendButton();
+
+  });
 
 });
 
