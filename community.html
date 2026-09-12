@@ -2446,36 +2446,60 @@ async function renderPost(post,container){
 
 function startFeedVideoObserver(){
 
-  const videos=
+  const videos =
     document.querySelectorAll(".feed-video");
 
-  if(!videos.length)return;
+  if(!videos.length) return;
 
-  const observer=
-    new IntersectionObserver(entries=>{
+  let activeVideo = null;
 
-      entries.forEach(entry=>{
+  const observer =
+    new IntersectionObserver(entries => {
 
-        const video=entry.target;
+      entries.forEach(entry => {
 
-        if(entry.isIntersecting){
+        const video = entry.target;
+
+        if(entry.isIntersecting && entry.intersectionRatio >= 0.6){
+
+          // Stop previous video immediately
+          if(activeVideo && activeVideo !== video){
+
+            activeVideo.pause();
+            activeVideo.currentTime = 0;
+
+          }
+
+          activeVideo = video;
 
           video.play().catch(()=>{});
 
-        }else{
+        }
+
+        else if(!entry.isIntersecting){
 
           video.pause();
-video.currentTime=0;
+          video.currentTime = 0;
+
+          if(activeVideo === video){
+            activeVideo = null;
+          }
+
         }
 
       });
 
     },{
-      threshold:.65
+      threshold:[0,0.6,1]
     });
 
-  videos.forEach(video=>{
+  videos.forEach(video => {
+
     observer.observe(video);
+
+    // Make sure videos are ready to play
+    video.preload = "auto";
+
   });
 
 }
