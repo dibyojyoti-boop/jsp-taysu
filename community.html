@@ -1982,7 +1982,50 @@ function getPostCaption(post){
   .join("\n");
 
 }
+/* ================= REELS NAV ================= */
 
+document
+  .getElementById("reelsNav")
+  ?.addEventListener("click",()=>{
+
+    const reels=
+      allPosts.filter(post=>{
+
+        const media=
+          getMedia(post);
+
+        return (
+          media.type==="video" &&
+          Boolean(media.url)
+        );
+
+      });
+
+    if(!reels.length){
+      alert("No reels available yet.");
+      return;
+    }
+
+    // Shuffle reels randomly
+    for(let i=reels.length-1;i>0;i--){
+
+      const j=
+        Math.floor(
+          Math.random()*(i+1)
+        );
+
+      [reels[i],reels[j]]=
+      [reels[j],reels[i]];
+
+    }
+
+    // Open the SAME existing media viewer
+    openMediaViewer(
+      reels[0].id,
+      reels
+    );
+
+  });
 
 /* ================= FEED ================= */
 
