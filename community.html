@@ -2591,11 +2591,10 @@ document
           ),
           {
 
-            participants:
-              arrayUnion(
-                currentUser.uid,
-                receiverUid
-              ),
+            participants: [
+  currentUser.uid,
+  receiverUid
+],
 
             lastMessage:
               sharedPost.type==="video"
