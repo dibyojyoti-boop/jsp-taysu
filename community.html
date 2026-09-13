@@ -2302,7 +2302,77 @@ function updateMessageBadge(count){
     count>99 ? "99+" : String(count);
 
 }
+function startAlertBadgeListener(){
 
+  if(!currentUser)return;
+
+  const q=
+    query(
+      collection(
+        db,
+        "notifications"
+      ),
+      where(
+        "recipientId",
+        "==",
+        currentUser.uid
+      )
+    );
+
+  onSnapshot(
+    q,
+    snapshot=>{
+
+      let total=0;
+
+      snapshot.forEach(
+        notification=>{
+
+          const data=
+            notification.data();
+
+          if(
+            data.read!==true
+          ){
+            total++;
+          }
+
+        }
+      );
+
+      updateAlertBadge(total);
+
+    },
+    error=>{
+      console.error(
+        "Alert badge error:",
+        error
+      );
+    }
+  );
+}
+
+
+function updateAlertBadge(count){
+
+  if(count<=0){
+
+    alertBadge.style.display=
+      "none";
+
+    alertBadge.textContent="";
+
+    return;
+  }
+
+  alertBadge.style.display=
+    "flex";
+
+  alertBadge.textContent=
+    count>99
+      ? "99+"
+      : String(count);
+}
 
 /* ================= FEED SEARCH ================= */
 
