@@ -6359,9 +6359,7 @@ async function createNotification(
 
 
 async function loadNotifications(){
-
   if(!currentUser)return;
-
 
   try{
 
@@ -6379,13 +6377,10 @@ async function loadNotifications(){
         limit(100)
       );
 
-
     const snapshot=
       await getDocs(q);
 
-
     const notifications=[];
-
 
     snapshot.forEach(
       notificationDoc=>{
@@ -6396,212 +6391,598 @@ async function loadNotifications(){
       }
     );
 
-
     notifications.sort(
       (a,b)=>
         (b.createdAt?.seconds||0)-
         (a.createdAt?.seconds||0)
     );
 
-
     alertList.innerHTML="";
-
 
     if(!notifications.length){
 
       alertList.innerHTML=`
-        <div class="empty">
+        <div class="notification-empty">
           <h3>No new alerts</h3>
           <p>Your community notifications will appear here.</p>
         </div>
       `;
 
       return;
-
     }
 
 
-    notifications.forEach(
-      notification=>{
+    for(
+      const notification of notifications
+    ){
 
-        const element=
-          document.createElement("div");
+      const element=
+        document.createElement("div");
 
-        element.className=
-          "notification"+
-          (
-            notification.read===true
-              ? ""
-              : " unread"
+      element.className=
+        "notification"+
+        (
+          notification.read===true
+            ? ""
+            : " unread"
+        );
+
+
+      /* ================= SENDER PROFILE ================= */
+
+      let senderName=
+        notification.senderName||
+        "Member";
+
+      let senderPhoto="";
+
+      if(notification.senderId){
+
+        try{
+
+          const senderSnap=
+            await getDoc(
+              doc(
+                db,
+                "users",
+                notification.senderId
+              )
+            );
+
+          if(senderSnap.exists()){
+
+            const senderData=
+              senderSnap.data();
+
+            senderPhoto=
+              senderData.photoURL||
+              senderData.profilePhoto||
+              "";
+
+            senderName=
+              senderData.username||
+              senderData.displayName||
+              senderName;
+
+          }
+
+        }catch(error){
+
+          console.log(
+            "Sender profile error:",
+            error
           );
 
+        }
 
-        let message="";
-        let icon="";
+      }
 
 
-        if(
-          notification.type==="like"
-        ){
+      const safeSenderName=
+        escapeHTML(senderName);
 
-          message=
-            `<b>${escapeHTML(
-              notification.senderName||
-              "Member"
-            )}</b> liked your post.`;
 
-          icon=`
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor">
-              <path d="M20.8 8.7C20.8 13.7 12 20 12 20S3.2 13.7 3.2 8.7C3.2 5.7 5.4 3.7 8.1 3.7c1.7 0 3.2.9 3.9 2.2.7-1.3 2.2-2.2 3.9-2.2 2.7 0 4.9 2 4.9 5Z"></path>
-            </svg>
-          `;
+      let avatarHTML="";
 
-        }else if(
-          notification.type==="comment"
-        ){
+      if(senderPhoto){
 
-          message=
-            `<b>${escapeHTML(
-              notification.senderName||
-              "Member"
-            )}</b> commented on your post.`;
+        avatarHTML=`
+          <img
+            src="${escapeAttribute(senderPhoto)}"
+            alt="">
+        `;
 
-          icon=`
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor">
-              <path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 2 1.5-4A7.5 7.5 0 1 1 20 11.5Z"></path>
-            </svg>
-          `;
+      }else{
 
-        }else if(
-          notification.type==="follow"
-        ){
+        avatarHTML=
+          escapeHTML(
+            senderName
+              .charAt(0)
+              .toUpperCase()
+          );
 
-          message=
-            `<b>${escapeHTML(
-              notification.senderName||
-              "Member"
-            )}</b> started following you.`;
+      }
 
-          icon=`
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor">
-              <circle cx="12" cy="8" r="4"></circle>
-              <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"></path>
-            </svg>
+
+      /* ================= MESSAGE ================= */
+
+      let message="";
+
+      if(
+        notification.type==="like"
+      ){
+
+        message=`
+          <b>${safeSenderName}</b>
+          liked your post.
+        `;
+
+      }else if(
+        notification.type==="comment"
+      ){
+
+        if(notification.commentText){
+
+          const comment=
+            escapeHTML(
+              String(
+                notification.commentText
+              ).slice(0,90)
+            );
+
+          message=`
+            <b>${safeSenderName}</b>
+            commented:
+            <span>"${comment}"</span>
           `;
 
         }else{
 
-          message=
-            `<b>${escapeHTML(
-              notification.senderName||
-              "Member"
-            )}</b> sent you a notification.`;
-
-          icon=`
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor">
-              <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
-              <path d="M10 21h4"></path>
-            </svg>
+          message=`
+            <b>${safeSenderName}</b>
+            commented on your post.
           `;
 
         }
 
+      }else if(
+        notification.type==="follow"
+      ){
 
-        element.innerHTML=`
-
-          <div class="notification-icon">
-            ${icon}
-          </div>
-
-          <div style="
-            flex:1;
-            min-width:0">
-
-            <div class="notification-text">
-              ${message}
-            </div>
-
-            <div class="notification-time">
-              ${formatTime(
-                notification.createdAt
-              )}
-            </div>
-
-          </div>
-
+        message=`
+          <b>${safeSenderName}</b>
+          started following you.
         `;
 
+      }else{
 
-        element.addEventListener(
+        message=`
+          <b>${safeSenderName}</b>
+          sent you a notification.
+        `;
+
+      }
+
+
+      /* ================= RELATED POST ================= */
+
+      let thumbnailHTML="";
+
+      if(notification.postId){
+
+        let post=null;
+
+        try{
+
+          /*
+           * First use already-loaded posts.
+           */
+          post=
+            allPosts.find(
+              item=>
+                item.id===
+                notification.postId
+            );
+
+
+          /*
+           * If not found, fetch directly
+           * from Firestore.
+           */
+          if(!post){
+
+            const postSnap=
+              await getDoc(
+                doc(
+                  db,
+                  "posts",
+                  notification.postId
+                )
+              );
+
+            if(postSnap.exists()){
+
+              post={
+                id:postSnap.id,
+                ...postSnap.data()
+              };
+
+            }
+
+          }
+
+        }catch(error){
+
+          console.log(
+            "Notification post error:",
+            error
+          );
+
+        }
+
+
+        if(post){
+
+          const media=
+            getMedia(post);
+
+          const isReel=
+            post.postType==="reel"||
+            media.type==="video";
+
+
+          if(
+            isReel
+          ){
+
+            const poster=
+              post.coverUrl||
+              post.coverURL||
+              "";
+
+
+            if(poster){
+
+              thumbnailHTML=`
+                <div class="notification-thumb">
+
+                  <img
+                    src="${escapeAttribute(poster)}"
+                    alt="">
+
+                  <div
+                    class="notification-thumb-reel">
+
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor">
+
+                      <path
+                        d="m9 6 10 6-10 6V6Z">
+                      </path>
+
+                    </svg>
+
+                  </div>
+
+                </div>
+              `;
+
+            }else if(media.url){
+
+              thumbnailHTML=`
+                <div class="notification-thumb">
+
+                  <video
+                    muted
+                    playsinline
+                    preload="metadata">
+
+                    <source
+                      src="${escapeAttribute(
+                        media.url
+                      )}">
+
+                  </video>
+
+                  <div
+                    class="notification-thumb-reel">
+
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor">
+
+                      <path
+                        d="m9 6 10 6-10 6V6Z">
+                      </path>
+
+                    </svg>
+
+                  </div>
+
+                </div>
+              `;
+
+            }
+
+          }else if(
+            media.url
+          ){
+
+            thumbnailHTML=`
+              <div class="notification-thumb">
+
+                <img
+                  src="${escapeAttribute(
+                    media.url
+                  )}"
+                  alt="">
+
+              </div>
+            `;
+
+          }
+
+        }
+
+      }
+
+
+      /* ================= FOLLOW ACTION ================= */
+
+      let actionHTML="";
+
+      if(
+        notification.type==="follow"&&
+        notification.senderId
+      ){
+
+        let following=false;
+
+        try{
+
+          const followId=
+            currentUser.uid+
+            "_"+
+            notification.senderId;
+
+          const followSnap=
+            await getDoc(
+              doc(
+                db,
+                "follows",
+                followId
+              )
+            );
+
+          following=
+            followSnap.exists();
+
+        }catch(error){
+
+          console.log(
+            "Follow status error:",
+            error
+          );
+
+        }
+
+
+        actionHTML=`
+          <button
+            class="notification-action"
+            type="button"
+            data-follow-user="${escapeAttribute(
+              notification.senderId
+            )}">
+
+            ${
+              following
+                ? "Following"
+                : "Follow"
+            }
+
+          </button>
+        `;
+
+      }
+
+
+      /* ================= FINAL HTML ================= */
+
+      element.innerHTML=`
+
+        <div class="notification-avatar">
+          ${avatarHTML}
+        </div>
+
+
+        <div class="notification-content">
+
+          <div class="notification-text">
+            ${message}
+          </div>
+
+          <div class="notification-time">
+            ${formatTime(
+              notification.createdAt
+            )}
+          </div>
+
+        </div>
+
+
+        ${
+          thumbnailHTML||
+          actionHTML
+        }
+
+      `;
+
+
+      /* ================= FOLLOW BUTTON ================= */
+
+      const followAction=
+        element.querySelector(
+          ".notification-action"
+        );
+
+
+      if(followAction){
+
+        followAction.addEventListener(
           "click",
-          async()=>{
+          async event=>{
+
+            event.stopPropagation();
+
+            if(!currentUser)return;
+
+            const senderId=
+              followAction.dataset.followUser;
+
+            if(!senderId)return;
+
+            followAction.disabled=true;
 
             try{
 
+              const followId=
+                currentUser.uid+
+                "_"+
+                senderId;
+
+              const followRef=
+                doc(
+                  db,
+                  "follows",
+                  followId
+                );
+
+              const followSnap=
+                await getDoc(
+                  followRef
+                );
+
+
               if(
-                notification.read!==true
+                followSnap.exists()
               ){
 
+                await deleteDoc(
+                  followRef
+                );
+
+                followAction.textContent=
+                  "Follow";
+
+              }else{
+
                 await setDoc(
-                  doc(
-                    db,
-                    "notifications",
-                    notification.id
-                  ),
+                  followRef,
                   {
-                    read:true
-                  },
-                  {
-                    merge:true
+                    followerId:
+                      currentUser.uid,
+
+                    followingId:
+                      senderId,
+
+                    createdAt:
+                      serverTimestamp()
                   }
                 );
 
-                element.classList.remove(
-                  "unread"
-                );
-
-              }
-
-
-              if(
-                notification.postId
-              ){
-
-                showSection(
-                  "homeSection"
-                );
+                followAction.textContent=
+                  "Following";
 
               }
 
             }catch(error){
 
-              console.error(error);
+              console.error(
+                "Notification follow error:",
+                error
+              );
+
+            }finally{
+
+              followAction.disabled=false;
 
             }
 
           }
         );
 
-
-        alertList.appendChild(
-          element
-        );
-
       }
-    );
 
+
+      /* ================= NOTIFICATION CLICK ================= */
+
+      element.addEventListener(
+        "click",
+        async()=>{
+
+          try{
+
+            if(
+              notification.read!==true
+            ){
+
+              await setDoc(
+                doc(
+                  db,
+                  "notifications",
+                  notification.id
+                ),
+                {
+                  read:true
+                },
+                {
+                  merge:true
+                }
+              );
+
+              element.classList.remove(
+                "unread"
+              );
+
+            }
+
+
+            /*
+             * Open Home when notification
+             * belongs to a post/reel.
+             */
+            if(
+              notification.postId
+            ){
+
+              showSection(
+                "homeSection"
+              );
+
+            }
+
+          }catch(error){
+
+            console.error(
+              "Notification click error:",
+              error
+            );
+
+          }
+
+        }
+      );
+
+
+      alertList.appendChild(
+        element
+      );
+
+    }
 
   }catch(error){
 
@@ -6611,16 +6992,28 @@ async function loadNotifications(){
     );
 
     alertList.innerHTML=`
-      <div class="empty">
-        <h3>Couldn't load alerts</h3>
-        <p>Please try again later.</p>
+
+      <div class="notification-empty">
+
+        <h3>
+          Couldn't load alerts
+        </h3>
+
+        <p>
+          Please try again later.
+        </p>
+
       </div>
+
     `;
 
   }
-
 }
 
+
+        
+          
+                
 
 /* ================= HELPERS ================= */
 
