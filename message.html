@@ -2962,7 +2962,63 @@ function markConversationSeen(){
   );
 
 }
+async function markMessagesSeen(snapshot){
 
+  const user = getCurrentUser();
+
+  if(
+    !user ||
+    !activeChatUser ||
+    !snapshot
+  ){
+    return;
+  }
+
+  const unseenMessages = snapshot.docs.filter(doc => {
+
+    const data = doc.data() || {};
+
+    return (
+      data.receiverId === user.uid &&
+      data.senderId === activeChatUser.uid &&
+      data.seen !== true
+    );
+
+  });
+
+  if(!unseenMessages.length){
+    return;
+  }
+
+  try{
+
+    const batch = db.batch();
+
+    unseenMessages.forEach(doc => {
+
+      batch.update(
+        doc.ref,
+        {
+          seen:true,
+          seenAt:
+            firebase.firestore.FieldValue
+              .serverTimestamp()
+        }
+      );
+
+    });
+
+    await batch.commit();
+
+  }catch(error){
+
+    console.debug(
+      "MARK MESSAGES SEEN:",
+      error.message
+    );
+
+  }
+}
 
 /* =========================================================
    LOAD MESSAGES
