@@ -2303,12 +2303,15 @@ function startAlertBadgeListener(){
 
   if(!currentUser)return;
 
+  const notificationsRef=
+    collection(
+      db,
+      "notifications"
+    );
+
   const q=
     query(
-      collection(
-        db,
-        "notifications"
-      ),
+      notificationsRef,
       where(
         "recipientId",
         "==",
@@ -2320,31 +2323,31 @@ function startAlertBadgeListener(){
     q,
     snapshot=>{
 
-      let total=0;
+      let unreadCount=0;
 
-      snapshot.forEach(
-        notification=>{
+      snapshot.forEach(notification=>{
 
-          const data=
-            notification.data();
+        const data=
+          notification.data();
 
-          if(
-            data.read!==true
-          ){
-            total++;
-          }
-
+        if(data.read!==true){
+          unreadCount++;
         }
-      );
 
-      updateAlertBadge(total);
+      });
+
+      updateAlertBadge(unreadCount);
 
     },
     error=>{
+
       console.error(
-        "Alert badge error:",
+        "Alert badge listener error:",
         error
       );
+
+      updateAlertBadge(0);
+
     }
   );
 }
