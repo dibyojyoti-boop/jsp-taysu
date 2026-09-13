@@ -9,10 +9,10 @@
   "background_color": "#f7f3ea",
   "theme_color": "#d9a441",
   "icons": [
-  {
-    "src": "jasingpha-icon.png",
-    "sizes": "512x512",
-    "type": "image/png"
-  }
-]
+    {
+      "src": "jasingpha-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
