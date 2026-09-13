@@ -6484,35 +6484,29 @@ async function loadNotifications(){
     (a.createdAt?.seconds||0)
 );
 
-const unreadCount =
+const unreadNotifications =
   notifications.filter(
     notification => notification.read !== true
-  ).length;
+  );
 
-updateAlertBadge(unreadCount);
-
-if(unreadCount > 0){
-  notifications
-    .filter(
-      notification => notification.read !== true
-    )
-    .forEach(
-      async notification => {
-        await setDoc(
-          doc(
-            db,
-            "notifications",
-            notification.id
-          ),
-          {
-            read:true
-          },
-          {
-            merge:true
-          }
-        );
-      }
-    );
+if(unreadNotifications.length > 0){
+  unreadNotifications.forEach(
+    async notification => {
+      await setDoc(
+        doc(
+          db,
+          "notifications",
+          notification.id
+        ),
+        {
+          read:true
+        },
+        {
+          merge:true
+        }
+      );
+    }
+  );
 }
 
 alertList.innerHTML="";
