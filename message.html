@@ -5029,18 +5029,22 @@ async function sendMediaMessage(
 
     const messageData = {
 
-      senderId:user.uid,
+  senderId:user.uid,
 
-      receiverId:receiverUid,
+  receiverId:receiverUid,
 
-      type:
-        isVideo
-          ? "video"
-          : "image",
+  type:
+    isVideo
+      ? "video"
+      : "image",
 
-      createdAt:timestamp
+  createdAt:timestamp,
 
-    };
+  seen:false,
+
+  seenAt:null
+
+};
 
     if(isVideo){
 
