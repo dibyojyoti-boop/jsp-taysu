@@ -1534,7 +1534,9 @@ const replyPreviewClose =
 
 let currentUser = null;
 let activeChatUser = null;
-
+let messageElements = new Map();
+let messagesFirstLoad = true;
+let previousMessageIds = new Set();
 let messagesUnsubscribe = null;
 let conversationUnsubscribe = null;
 let activeConversationUnsubscribe = null;
