@@ -4464,17 +4464,21 @@ async function sendTextMessage(
 
     const messageData = {
 
-      senderId:user.uid,
+  senderId:user.uid,
 
-      receiverId:receiverUid,
+  receiverId:receiverUid,
 
-      text:text,
+  text:text,
 
-      type:"text",
+  type:"text",
 
-      createdAt:timestamp
+  createdAt:timestamp,
 
-    };
+  seen:false,
+
+  seenAt:null
+
+};
 
     if(replyData){
 
