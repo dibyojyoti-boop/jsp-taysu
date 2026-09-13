@@ -2106,14 +2106,14 @@ onAuthStateChanged(auth,async user=>{
   }
 
   currentUsername=username;
-  currentPhotoURL=photoURL;
+currentPhotoURL=photoURL;
 
-  profileName.textContent=username;
+profileName.textContent=username;
 
-  await loadPosts();
-  
-  startMessageBadgeListener();
+startMessageBadgeListener();
 startAlertBadgeListener();
+
+await loadPosts();
   
 });
 
