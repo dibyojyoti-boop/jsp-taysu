@@ -1,0 +1,11 @@
+{
+  "name": "Jasingpha",
+  "short_name": "Jasingpha",
+  "description": "Tai Ahom Social Community",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f3ea",
+  "theme_color": "#d9a441"
+}
