@@ -3035,129 +3035,168 @@ async function markMessagesSeen(snapshot){
    LOAD MESSAGES
 ========================================================= */
 
-function loadMessages(){
+async function loadMessages(){
 
-  const user =
-    getCurrentUser();
-
-  if(
-    !user ||
-    !activeChatUser
-  ){
+  if(!activeChatUser){
 
     return;
 
   }
 
-  if(messagesUnsubscribe){
+  if(messageUnsubscribe){
 
-    messagesUnsubscribe();
-    messagesUnsubscribe = null;
+    messageUnsubscribe();
 
   }
 
-  messages.innerHTML =
-    `<div class="loading">Loading conversation...</div>`;
+  const user =
+    getCurrentUser();
 
-  const cid =
-    conversationId(
+  if(!user){
+
+    return;
+
+  }
+
+  const conversationId =
+    getConversationId(
       user.uid,
       activeChatUser.uid
     );
 
-  messagesUnsubscribe =
+  const messagesRef =
     db.collection("conversations")
-      .doc(cid)
+      .doc(conversationId)
       .collection("messages")
-      .orderBy(
-        "createdAt",
-        "asc"
-      )
-      .onSnapshot(
-        snapshot => {
+      .orderBy("createdAt", "asc");
 
-          messages.innerHTML = "";
+  messageUnsubscribe =
+    messagesRef.onSnapshot(
+      snapshot => {
 
-          if(snapshot.empty){
+        const wasAtBottom =
+          messages.scrollHeight -
+          messages.scrollTop -
+          messages.clientHeight < 80;
 
-            messages.innerHTML = `
+        const currentIds =
+          new Set();
 
-              <div class="start-chat">
+        snapshot.forEach(doc => {
 
-                <div class="avatar">
-                  ${avatarHTML(activeChatUser)}
-                </div>
+          currentIds.add(doc.id);
 
-                <div class="start-chat-name">
-                  ${escapeHTML(
-                    activeChatUser.displayName ||
-                    activeChatUser.name ||
-                    activeChatUser.username ||
-                    "Member"
-                  )}
-                </div>
+          const data =
+            doc.data() || {};
 
-                <div class="start-chat-text">
-                  Start a conversation
-                </div>
+          const existing =
+            messageElements.get(doc.id);
 
-              </div>
+          if(existing){
 
-            `;
+            /*
+             * Message already exists.
+             * Only update its data/status.
+             */
+            updateExistingMessage(
+              existing,
+              data
+            );
 
-            renderTypingUnderLastMessage();
+          }else{
 
-            return;
+            /*
+             * Completely new message.
+             * Create DOM only once.
+             */
+            const row =
+              renderMessage(
+                doc.id,
+                data
+              );
+
+            if(row){
+
+              messageElements.set(
+                doc.id,
+                row
+              );
+
+            }
 
           }
 
-          snapshot.forEach(
-  doc => {
+        });
 
-    renderMessage(
-      doc.id,
-      doc.data()
-    );
+        /*
+         * Remove messages that no longer
+         * exist in Firestore.
+         */
+        messageElements.forEach(
+          (element, id) => {
 
-  }
-);
+            if(!currentIds.has(id)){
 
-renderTypingUnderLastMessage();
+              element.remove();
 
-scrollMessages();
+              messageElements.delete(id);
 
-markConversationSeen();
+            }
 
-markMessagesSeen(
-  snapshot
-);
-        },
-        error => {
+          }
+        );
 
-          console.error(
-            "MESSAGES ERROR:",
-            error
-          );
+        /*
+         * Keep the typing indicator updated
+         * without rebuilding the messages.
+         */
+        renderTypingUnderLastMessage();
 
-          messages.innerHTML = `
-            <div class="empty">
+        /*
+         * First load -> bottom.
+         *
+         * New message while already at bottom
+         * -> bottom.
+         *
+         * User manually scrolled upward
+         * -> DON'T move.
+         */
+        if(messagesFirstLoad){
 
-              <div class="empty-title">
-                Couldn't load messages
-              </div>
+          messagesFirstLoad = false;
 
-              <div class="empty-text">
-                ${escapeHTML(
-                  error.message ||
-                  "Please try again."
-                )}
-              </div>
+          requestAnimationFrame(() => {
 
-            </div>
-          `;
+            messages.scrollTop =
+              messages.scrollHeight;
+
+          });
+
+        }else if(wasAtBottom){
+
+          requestAnimationFrame(() => {
+
+            messages.scrollTop =
+              messages.scrollHeight;
+
+          });
 
         }
-      );
+
+        markConversationSeen();
+
+        markMessagesSeen(snapshot);
+
+      },
+      error => {
+
+        console.debug(
+          "LOAD MESSAGES:",
+          error.message
+        );
+
+      }
+    );
 
 }
 
@@ -3511,9 +3550,46 @@ if(data.createdAt){
     messageId,
     data
   );
+return row;
+}
+function updateExistingMessage(
+  row,
+  data
+){
+
+  if(!row){
+
+    return;
+
+  }
+
+  /*
+   * Update seen status for our messages.
+   */
+  const status =
+    row.querySelector(
+      ".message-status"
+    );
+
+  if(status){
+
+    if(data.seen === true){
+
+      status.classList.add(
+        "seen"
+      );
+
+    }else{
+
+      status.classList.remove(
+        "seen"
+      );
+
+    }
+
+  }
 
 }
-
 
     
 function renderSharedPostMessage(data, content){
