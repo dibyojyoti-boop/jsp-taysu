@@ -1,6 +1,7 @@
 {
   "name": "Jasingpha",
   "short_name": "Jasingpha",
+  "id": "./",
   "description": "Tai Ahom Social Community",
   "start_url": "./",
   "scope": "./",
