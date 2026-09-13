@@ -3112,10 +3112,9 @@ function loadMessages(){
           );
 
           renderTypingUnderLastMessage();
-
-          scrollMessages();
-
-          markConversationSeen();
+scrollMessages();
+markConversationSeen();
+markMessagesSeen(snapshot);
 
         },
         error => {
