@@ -2320,6 +2320,36 @@ function startAlertBadgeListener(){
       )
     );
 
+  // Initial count immediately
+  getDocs(q)
+    .then(snapshot=>{
+
+      let unreadCount=0;
+
+      snapshot.forEach(notification=>{
+
+        const data=
+          notification.data();
+
+        if(data.read!==true){
+          unreadCount++;
+        }
+
+      });
+
+      updateAlertBadge(unreadCount);
+
+    })
+    .catch(error=>{
+
+      console.error(
+        "Initial alert badge error:",
+        error
+      );
+
+    });
+
+  // Keep count updated in real time
   onSnapshot(
     q,
     snapshot=>{
@@ -2346,8 +2376,6 @@ function startAlertBadgeListener(){
         "Alert badge listener error:",
         error
       );
-
-      updateAlertBadge(0);
 
     }
   );
