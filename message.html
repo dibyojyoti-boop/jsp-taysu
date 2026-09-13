@@ -2614,7 +2614,8 @@ function openChat(userData){
   );
 
   chat.classList.add("open");
-
+messagesFirstLoad = true;
+messageElements.clear();
   startConversationListeners();
 
   loadMessages();
