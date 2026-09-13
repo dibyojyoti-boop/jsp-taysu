@@ -5341,17 +5341,25 @@ homeBackBtn.addEventListener(
    SCROLL
 ========================================================= */
 
+let messagesFirstLoad = true;
+let messagesAtBottom = true;
+
+function isMessagesNearBottom(){
+  return (
+    messages.scrollHeight -
+    messages.scrollTop -
+    messages.clientHeight
+  ) < 80;
+}
+
+messages.addEventListener("scroll", () => {
+  messagesAtBottom = isMessagesNearBottom();
+});
+
 function scrollMessages(){
-
-  requestAnimationFrame(
-    () => {
-
-      messages.scrollTop =
-        messages.scrollHeight;
-
-    }
-  );
-
+  requestAnimationFrame(() => {
+    messages.scrollTop = messages.scrollHeight;
+  });
 }
 
 
