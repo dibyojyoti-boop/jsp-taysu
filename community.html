@@ -6483,7 +6483,12 @@ async function loadNotifications(){
         (b.createdAt?.seconds||0)-
         (a.createdAt?.seconds||0)
     );
+const unreadCount =
+  notifications.filter(
+    notification => notification.read !== true
+  ).length;
 
+updateAlertBadge(unreadCount);
     alertList.innerHTML="";
 
     if(!notifications.length){
