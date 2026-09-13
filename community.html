@@ -6479,18 +6479,43 @@ async function loadNotifications(){
     );
 
     notifications.sort(
-      (a,b)=>
-        (b.createdAt?.seconds||0)-
-        (a.createdAt?.seconds||0)
-    );
+  (a,b)=>
+    (b.createdAt?.seconds||0)-
+    (a.createdAt?.seconds||0)
+);
+
 const unreadCount =
   notifications.filter(
     notification => notification.read !== true
   ).length;
 
 updateAlertBadge(unreadCount);
-    alertList.innerHTML="";
 
+if(unreadCount > 0){
+  notifications
+    .filter(
+      notification => notification.read !== true
+    )
+    .forEach(
+      async notification => {
+        await setDoc(
+          doc(
+            db,
+            "notifications",
+            notification.id
+          ),
+          {
+            read:true
+          },
+          {
+            merge:true
+          }
+        );
+      }
+    );
+}
+
+alertList.innerHTML="";
     if(!notifications.length){
 
       alertList.innerHTML=`
