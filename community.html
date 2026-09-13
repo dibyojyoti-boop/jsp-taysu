@@ -777,13 +777,15 @@ button{cursor:pointer}
   place-items:center;
 }
 .create-plus svg{width:17px;height:17px}
-.message-badge{
+.message-badge,
+.alert-badge{
   position:absolute;
   top:5px;
   left:calc(50% + 7px);
   min-width:16px;
   height:16px;
   padding:0 4px;
+  box-sizing:border-box;
   border-radius:10px;
   background:#ff334b;
   border:2px solid #0b0d10;
@@ -793,6 +795,17 @@ button{cursor:pointer}
   display:none;
   align-items:center;
   justify-content:center;
+  line-height:1;
+  z-index:5;
+}
+
+.top-alerts{
+  position:relative;
+}
+
+.alert-badge{
+  top:3px;
+  left:calc(50% + 7px);
 }
   /* ---------- SHARE SHEET ---------- */
 
@@ -1467,16 +1480,18 @@ button{cursor:pointer}
     <div class="logo">JSP TAYSU</div>
 
     <button class="nav-item top-alerts"
-      data-section="alertsSection"
-      type="button"
-      aria-label="Alerts">
+  data-section="alertsSection"
+  type="button"
+  aria-label="Alerts">
 
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
-        <path d="M10 21h4"></path>
-      </svg>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+    <path d="M10 21h4"></path>
+  </svg>
 
-    </button>
+  <span class="alert-badge" id="alertBadge"></span>
+
+</button>
 
   </div>
 </header>
@@ -2047,7 +2062,8 @@ const alertList=
 const messageBadge=
   document.getElementById("messageBadge");
 
-
+const alertBadge=
+  document.getElementById("alertBadge");
 /* ================= AUTH ================= */
 
 onAuthStateChanged(auth,async user=>{
