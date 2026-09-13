@@ -3359,28 +3359,57 @@ function renderMessage(
     content
   );
 
+ /*
+  Time + Seen status
+*/
+
+if(data.createdAt){
+
+  const time =
+    document.createElement("div");
+
+  time.className =
+    "message-time";
+
+  time.textContent =
+    formatTime(
+      data.createdAt
+    );
+
+  row.appendChild(
+    time
+  );
+
   /*
-    Time
+    Double-check status for our messages
   */
 
-  if(data.createdAt){
+  if(mine){
 
-    const time =
+    const status =
       document.createElement("div");
 
-    time.className =
-      "message-time";
+    status.className =
+      "message-status";
 
-    time.textContent =
-      formatTime(
-        data.createdAt
+    status.textContent =
+      "✓✓";
+
+    if(data.seen === true){
+
+      status.classList.add(
+        "seen"
       );
 
+    }
+
     row.appendChild(
-      time
+      status
     );
 
   }
+
+} 
 
   /*
     Add message
