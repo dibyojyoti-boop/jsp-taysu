@@ -6497,6 +6497,7 @@ async function createNotification(
       return;
     }
 
+    /* ================= FIRESTORE ALERT ================= */
 
     await addDoc(
       collection(
@@ -6530,9 +6531,105 @@ async function createNotification(
           serverTimestamp(),
 
         read:false
-
       }
     );
+
+
+    /* ================= PUSH NOTIFICATION ================= */
+
+    try{
+
+      const recipientRef =
+        doc(
+          db,
+          "users",
+          data.recipientId
+        );
+
+      const recipientSnap =
+        await getDoc(
+          recipientRef
+        );
+
+      if(
+        recipientSnap.exists()
+      ){
+
+        const recipientData =
+          recipientSnap.data();
+
+        const fcmToken =
+          recipientData.fcmToken;
+
+        if(fcmToken){
+
+          let pushBody =
+            "sent you a notification.";
+
+          if(data.type==="like"){
+            pushBody =
+              "liked your post.";
+          }
+
+          else if(data.type==="comment"){
+
+            pushBody =
+              data.commentText
+                ? `commented: "${String(data.commentText).slice(0,90)}"`
+                : "commented on your post.";
+
+          }
+
+          else if(data.type==="follow"){
+            pushBody =
+              "started following you.";
+          }
+
+          await fetch(
+            "https://jsp-taysu.vercel.app/api/send-push",
+            {
+              method:"POST",
+
+              headers:{
+                "Content-Type":
+                  "application/json"
+              },
+
+              body:JSON.stringify({
+
+                token:fcmToken,
+
+                title:
+                  data.senderName||
+                  "Member",
+
+                body:pushBody,
+
+                icon:
+                  "https://dibyojyoti-boop.github.io/jsp-taysu/favicon.ico",
+
+                url:
+                  "https://dibyojyoti-boop.github.io/jsp-taysu/community.html",
+
+                tag:
+                  "jsp-taysu-notification"
+
+              })
+            }
+          );
+
+        }
+
+      }
+
+    }catch(pushError){
+
+      console.error(
+        "Push notification error:",
+        pushError
+      );
+
+    }
 
   }catch(error){
 
