@@ -2181,11 +2181,11 @@ function renderMediaTile(
     tile.innerHTML = `
 
       <video
-        src="${escapeAttribute(optimizedUrl)}"
-        muted
-        playsinline
-        preload="none">
-      </video>
+  src="${escapeAttribute(optimizedUrl)}"
+  muted
+  playsinline
+  preload="metadata">
+</video>
 
       <div class="reel-badge">
         Reel
