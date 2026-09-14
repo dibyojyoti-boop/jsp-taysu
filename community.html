@@ -2234,11 +2234,9 @@ document
 
   });
 
-
 function startMessageBadgeListener(){
 
   if(!currentUser || !messageBadge){
-    console.debug("Message badge: user or badge element missing.");
     return;
   }
 
@@ -2260,14 +2258,8 @@ function startMessageBadgeListener(){
       const data = conversation.data() || {};
       const unreadCounts = data.unreadCounts || {};
 
-      const unread =
-        Number(unreadCounts[currentUser.uid] || 0);
-
-      console.debug(
-        "Message badge:",
-        conversation.id,
-        "unread =",
-        unread
+      const unread = Number(
+        unreadCounts[currentUser.uid] || 0
       );
 
       if(unread > 0){
@@ -2276,15 +2268,13 @@ function startMessageBadgeListener(){
 
     });
 
-    // Only show a red dot — NO unread number
-    alert(
-  "MESSAGE BADGE TEST\n\n" +
-  "Logged-in UID: " + currentUser.uid + "\n\n" +
-  "Unread found: " + (hasUnread ? "YES 🔴" : "NO")
-);
     if(hasUnread){
 
       messageBadge.style.display = "flex";
+      messageBadge.style.width = "12px";
+      messageBadge.style.minWidth = "12px";
+      messageBadge.style.height = "12px";
+      messageBadge.style.padding = "0";
       messageBadge.textContent = "";
 
     }else{
@@ -2301,11 +2291,9 @@ function startMessageBadgeListener(){
       error
     );
 
-    // Keep the badge state instead of forcing it to disappear
-    // when Firestore temporarily reports an error.
-
   });
 }
+
 function updateMessageBadge(count){
 
   if(count<=0){
