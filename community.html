@@ -2238,21 +2238,26 @@ document
 function startMessageBadgeListener(){
 
   if(!currentUser){
+    console.log("Message badge: currentUser missing");
+    return;
+  }
+
+  if(!messageBadge){
+    console.log("Message badge: element missing");
     return;
   }
 
   const conversationsRef =
-    collection(db,"conversations");
+    collection(db, "conversations");
 
-  const q =
-    query(
-      conversationsRef,
-      where(
-        "participants",
-        "array-contains",
-        currentUser.uid
-      )
-    );
+  const q = query(
+    conversationsRef,
+    where(
+      "participants",
+      "array-contains",
+      currentUser.uid
+    )
+  );
 
   onSnapshot(
     q,
@@ -2270,12 +2275,18 @@ function startMessageBadgeListener(){
 
         const unread =
           Number(
-            unreadCounts[currentUser.uid]
-          ) || 0;
+            unreadCounts[currentUser.uid] || 0
+          );
 
-        totalUnread += unread;
-
+        if(unread > 0){
+          totalUnread += unread;
+        }
       });
+
+      console.log(
+        "Message unread count:",
+        totalUnread
+      );
 
       updateMessageBadge(totalUnread);
 
@@ -2288,7 +2299,6 @@ function startMessageBadgeListener(){
       );
 
       updateMessageBadge(0);
-
     }
   );
 }
