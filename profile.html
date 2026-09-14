@@ -584,174 +584,217 @@ body{
   font-size:13px;
 }
 
-/* ================= MEDIA VIEWER ================= */
+/* ================= NORMAL POST VIEW ================= */
 
-.viewer{
+.post-viewer{
   display:none;
   position:fixed;
   inset:0;
-  background:#000;
+  background:#0b0d12;
   z-index:600;
-  flex-direction:column;
+  overflow-y:auto;
 }
 
-.viewer-head{
-  position:absolute;
+.post-viewer-head{
+  height:60px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 14px 0 16px;
+  position:sticky;
   top:0;
-  left:0;
-  right:0;
-  height:66px;
-  display:flex;
-  align-items:center;
-  padding:0 16px;
+  background:rgba(11,13,18,.96);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid #252832;
   z-index:20;
-  background:linear-gradient(
-    rgba(0,0,0,.78),
-    rgba(0,0,0,0)
-  );
 }
 
-.viewer-close{
-  font-size:31px;
-  color:#fff;
-  cursor:pointer;
-  line-height:1;
-}
-
-.viewer-author{
+.post-viewer-left{
   display:flex;
   align-items:center;
-  gap:9px;
-  margin-left:13px;
+  min-width:0;
 }
 
-.viewer-author-avatar{
-  width:35px;
-  height:35px;
+.post-viewer-close{
+  font-size:30px;
+  line-height:1;
+  cursor:pointer;
+  margin-right:12px;
+}
+
+.post-viewer-title{
+  font-size:16px;
+  font-weight:700;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  max-width:210px;
+}
+
+.post-viewer-more{
+  width:42px;
+  height:42px;
+  border:0;
+  background:none;
+  color:#fff;
+  font-size:22px;
+  letter-spacing:2px;
+  cursor:pointer;
+  display:none;
+}
+
+.post-viewer-content{
+  width:100%;
+  max-width:650px;
+  margin:auto;
+  padding-bottom:35px;
+}
+
+.post-author{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:13px 15px;
+}
+
+.post-author-avatar{
+  width:38px;
+  height:38px;
+  min-width:38px;
   border-radius:50%;
   background:#006b57;
   overflow:hidden;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:12px;
+  font-size:13px;
   font-weight:700;
 }
 
-.viewer-author-avatar img{
+.post-author-avatar img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
 
-.viewer-author-name{
-  color:#fff;
+.post-author-info{
+  min-width:0;
+}
+
+.post-author-name{
   font-size:14px;
-  font-weight:700;
+  font-weight:750;
 }
 
-.viewer-scroll{
-  height:100%;
-  overflow-y:auto;
-  scroll-snap-type:y mandatory;
-  overscroll-behavior-y:contain;
+.post-time{
+  color:#777c88;
+  font-size:10px;
+  margin-top:2px;
 }
 
-.viewer-item{
-  height:100vh;
-  min-height:100vh;
-  position:relative;
-  scroll-snap-align:start;
+.post-media{
+  width:100%;
+  background:#000;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:#000;
-  overflow:hidden;
+  min-height:260px;
 }
 
-.viewer-item img,
-.viewer-item video{
+.post-media img,
+.post-media video{
   width:100%;
-  height:100%;
+  max-height:72vh;
+  display:block;
   object-fit:contain;
 }
 
-.viewer-caption{
-  position:absolute;
-  left:16px;
-  right:88px;
-  bottom:92px;
-  color:#fff;
-  font-size:17px;
-  font-weight:500;
+.post-caption{
+  padding:13px 15px 5px;
+  color:#e4e5e8;
+  font-size:14px;
   line-height:1.5;
-  text-shadow:0 2px 9px rgba(0,0,0,.95);
   white-space:pre-wrap;
   overflow-wrap:anywhere;
-  max-height:28vh;
-  overflow:auto;
-  z-index:8;
 }
 
-/* ================= VIEWER ACTIONS ================= */
-
-.viewer-actions{
-  position:absolute;
-  right:13px;
-  top:42%;
-  transform:translateY(-50%);
-  z-index:30;
+.post-actions{
   display:flex;
-  flex-direction:column;
   align-items:center;
-  gap:22px;
+  gap:18px;
+  padding:10px 15px 4px;
 }
 
-.viewer-action{
-  width:54px;
-  min-height:54px;
+.post-action{
+  display:flex;
+  align-items:center;
+  gap:5px;
   border:0;
   background:none;
   color:#fff;
   cursor:pointer;
-  text-shadow:0 2px 8px #000;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:0;
+  font-size:13px;
+  padding:4px 0;
 }
 
-.viewer-action-icon{
-  width:38px;
-  height:38px;
+.post-action-icon{
+  width:28px;
+  height:28px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:34px;
-  line-height:1;
-  font-weight:400;
-}
-
-.viewer-action-count{
-  display:block;
-  font-size:11px;
-  margin-top:4px;
-  font-weight:650;
+  font-size:25px;
   line-height:1;
 }
 
-.viewer-action.liked{
+.post-action.liked{
   color:#ff5368;
 }
 
-.viewer-action.share-action .viewer-action-icon{
-  font-size:35px;
-  font-weight:500;
+.post-counts{
+  padding:3px 15px 0;
+  color:#9296a1;
+  font-size:12px;
+  font-weight:600;
 }
 
-.viewer-action.comment-action .viewer-action-icon{
-  font-size:34px;
+.post-counts span{
+  margin-right:13px;
+}
+
+.post-divider{
+  height:1px;
+  background:#252832;
+  margin-top:12px;
+}
+
+.viewer-post-menu{
+  display:none;
+  position:fixed;
+  top:66px;
+  right:13px;
+  width:150px;
+  background:#1b1e26;
+  border:1px solid #303541;
+  border-radius:12px;
+  overflow:hidden;
+  z-index:800;
+  box-shadow:0 12px 35px rgba(0,0,0,.55);
+}
+
+.viewer-post-menu button{
+  width:100%;
+  padding:13px;
+  border:0;
+  background:none;
+  color:#fff;
+  text-align:left;
+  font-size:14px;
+  cursor:pointer;
+}
+
+.viewer-post-menu .delete-post{
+  color:#ff5368;
 }
 
 /* ================= COMMENTS ================= */
@@ -951,25 +994,12 @@ body{
     font-size:17px;
   }
 
-  .viewer-caption{
-    font-size:16px;
-    right:82px;
-    bottom:88px;
+  .post-viewer-title{
+    max-width:180px;
   }
 
-  .viewer-actions{
-    right:9px;
-    top:40%;
-    gap:20px;
-  }
-
-  .viewer-action{
-    width:52px;
-    min-height:52px;
-  }
-
-  .viewer-action-icon{
-    font-size:32px;
+  .post-actions{
+    gap:15px;
   }
 
 }
@@ -992,15 +1022,17 @@ body{
     transform:translate(-50%,0);
   }
 
+  .post-viewer{
+    left:50%;
+    width:650px;
+    transform:translateX(-50%);
+  }
+
 }
 </style>
 </head>
 
 <body>
-
-<div class="loading" id="loading">
-  <div class="loader"></div>
-</div>
 
 <header class="topbar">
 
@@ -1039,22 +1071,14 @@ body{
         <span>posts</span>
       </div>
 
-      <div
-        class="stat"
-        onclick="openUserList('followers')">
-
+      <div class="stat" onclick="openUserList('followers')">
         <strong id="followersCount">0</strong>
         <span>followers</span>
-
       </div>
 
-      <div
-        class="stat"
-        onclick="openUserList('following')">
-
+      <div class="stat" onclick="openUserList('following')">
         <strong id="followingCount">0</strong>
         <span>following</span>
-
       </div>
 
     </div>
@@ -1085,17 +1109,11 @@ body{
 
   <div class="empty">
 
-    <div class="empty-icon">
-      ◌
-    </div>
+    <div class="empty-icon">◌</div>
 
-    <h3>
-      Loading posts...
-    </h3>
+    <h3>Loading posts...</h3>
 
-    <p>
-      Please wait a moment.
-    </p>
+    <p>Please wait a moment.</p>
 
   </div>
 
@@ -1109,28 +1127,16 @@ body{
 
     <div class="modal-title">
 
-      <h2>
-        Edit profile
-      </h2>
+      <h2>Edit profile</h2>
 
-      <div
-        class="close"
-        onclick="closeEdit()">
-
-        ×
-
-      </div>
+      <div class="close" onclick="closeEdit()">×</div>
 
     </div>
 
     <div class="profile-photo-field">
 
-      <div
-        class="edit-photo-preview"
-        id="editPhotoPreview">
-
+      <div class="edit-photo-preview" id="editPhotoPreview">
         M
-
       </div>
 
       <div class="photo-picker">
@@ -1139,12 +1145,8 @@ body{
           Profile photo
         </div>
 
-        <label
-          class="edit-dp-button"
-          for="editPhotoInput">
-
+        <label class="edit-dp-button" for="editPhotoInput">
           Edit DP
-
         </label>
 
         <input
@@ -1153,9 +1155,7 @@ body{
           id="editPhotoInput"
           accept="image/*">
 
-        <div
-          class="dp-progress-wrap"
-          id="dpProgressWrap">
+        <div class="dp-progress-wrap" id="dpProgressWrap">
 
           <div class="dp-progress-track">
 
@@ -1166,12 +1166,8 @@ body{
 
           </div>
 
-          <div
-            class="dp-progress-text"
-            id="dpProgressText">
-
+          <div class="dp-progress-text" id="dpProgressText">
             0%
-
           </div>
 
         </div>
@@ -1182,9 +1178,7 @@ body{
 
     <div class="field">
 
-      <label>
-        Username
-      </label>
+      <label>Username</label>
 
       <input
         type="text"
@@ -1196,9 +1190,7 @@ body{
 
     <div class="field">
 
-      <label>
-        Bio
-      </label>
+      <label>Bio</label>
 
       <textarea
         id="editBio"
@@ -1207,18 +1199,11 @@ body{
 
     </div>
 
-    <button
-      class="save"
-      onclick="saveProfile()">
-
+    <button class="save" onclick="saveProfile()">
       Save changes
-
     </button>
 
-    <div
-      class="status"
-      id="saveStatus">
-    </div>
+    <div class="status" id="saveStatus"></div>
 
   </div>
 
@@ -1226,31 +1211,19 @@ body{
 
 <!-- ================= FOLLOWERS / FOLLOWING ================= -->
 
-<div
-  class="sheet-overlay"
-  id="sheetOverlay">
+<div class="sheet-overlay" id="sheetOverlay">
 
   <div class="sheet">
 
     <div class="sheet-head">
 
-      <h3 id="sheetTitle">
-        Followers
-      </h3>
+      <h3 id="sheetTitle">Followers</h3>
 
-      <div
-        class="sheet-close"
-        onclick="closeUserList()">
-
-        ×
-
-      </div>
+      <div class="sheet-close" onclick="closeUserList()">×</div>
 
     </div>
 
-    <div
-      class="user-list"
-      id="userList">
+    <div class="user-list" id="userList">
 
       <div class="sheet-empty">
         Loading...
@@ -1262,50 +1235,190 @@ body{
 
 </div>
 
-<!-- ================= MEDIA VIEWER ================= -->
+<!-- ================= NORMAL POST VIEW ================= -->
 
-<div
-  class="viewer"
-  id="viewer">
+<div class="post-viewer" id="postViewer">
 
-  <div class="viewer-head">
+  <div class="post-viewer-head">
+
+    <div class="post-viewer-left">
+
+      <div
+        class="post-viewer-close"
+        onclick="closePostViewer()">
+        ×
+      </div>
+
+      <div
+        class="post-viewer-title"
+        id="postViewerTitle">
+        Post
+      </div>
+
+    </div>
+
+    <button
+      class="post-viewer-more"
+      id="postViewerMore"
+      onclick="toggleViewerPostMenu()">
+      •••
+    </button>
+
+  </div>
+
+  <div class="post-viewer-content">
+
+    <div class="post-author">
+
+      <div
+        class="post-author-avatar"
+        id="postAuthorAvatar">
+      </div>
+
+      <div class="post-author-info">
+
+        <div
+          class="post-author-name"
+          id="postAuthorName">
+          Member
+        </div>
+
+        <div
+          class="post-time"
+          id="postTime">
+          Just now
+        </div>
+
+      </div>
+
+    </div>
 
     <div
-      class="viewer-close"
-      onclick="closeViewer()">
+      class="post-media"
+      id="postMedia">
+    </div>
 
-      ×
+    <div
+      class="post-caption"
+      id="postCaption">
+    </div>
+
+    <div class="post-actions">
+
+      <button
+        class="post-action"
+        id="postLikeButton">
+
+        <span
+          class="post-action-icon"
+          id="postLikeIcon">
+          ♡
+        </span>
+
+        <span id="postLikeActionCount">
+          0
+        </span>
+
+      </button>
+
+      <button
+        class="post-action"
+        id="postCommentButton">
+
+        <span class="post-action-icon">
+
+          <svg
+            width="27"
+            height="27"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round">
+
+            <path
+              d="M20 11.5a8 8 0 0 1-8 8
+                 7.9 7.9 0 0 1-3.5-.8
+                 L4 20l1.3-3.7
+                 A8 8 0 1 1 20 11.5Z">
+            </path>
+
+          </svg>
+
+        </span>
+
+        <span id="postCommentActionCount">
+          0
+        </span>
+
+      </button>
+
+      <button
+        class="post-action"
+        id="postShareButton">
+
+        <span class="post-action-icon">
+
+          <svg
+            width="27"
+            height="27"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round">
+
+            <path d="M22 2 11 13"></path>
+
+            <path d="m22 2-7 20-4-9-9-4Z"></path>
+
+          </svg>
+
+        </span>
+
+        <span id="postShareActionCount">
+          0
+        </span>
+
+      </button>
 
     </div>
 
-    <div class="viewer-author">
+    <div class="post-counts">
 
-      <div
-        class="viewer-author-avatar"
-        id="viewerAuthorAvatar">
-      </div>
+      <span>
+        <b id="postLikeCount">0</b> likes
+      </span>
 
-      <div
-        class="viewer-author-name"
-        id="viewerAuthorName">
+      <span>
+        <b id="postCommentCount">0</b> comments
+      </span>
 
-        Member
-
-      </div>
+      <span>
+        <b id="postShareCount">0</b> shares
+      </span>
 
     </div>
 
+    <div class="post-divider"></div>
+
   </div>
 
-  <div
-    class="viewer-scroll"
-    id="viewerScroll">
-  </div>
+</div>
 
-  <div
-    class="viewer-actions"
-    id="viewerActions">
-  </div>
+<!-- ================= OWN POST MENU ================= -->
+
+<div
+  class="viewer-post-menu"
+  id="viewerPostMenu">
+
+  <button
+    class="delete-post"
+    onclick="deleteActivePost()">
+    Delete post
+  </button>
 
 </div>
 
@@ -1330,9 +1443,7 @@ body{
     <div
       class="comment-sheet-close"
       onclick="closeComments()">
-
       ×
-
     </div>
 
   </div>
@@ -1354,9 +1465,7 @@ body{
       class="sheet-comment-send"
       id="sheetCommentSend"
       onclick="sendSheetComment()">
-
       Send
-
     </button>
 
   </div>
@@ -1408,9 +1517,6 @@ const IMAGEKIT_UPLOAD_URL =
   "https://upload.imagekit.io/api/v1/files/upload";
 
 /* ================= ELEMENTS ================= */
-
-const loading =
-  document.getElementById("loading");
 
 const avatar =
   document.getElementById("avatar");
@@ -1478,20 +1584,62 @@ const sheetTitle =
 const userList =
   document.getElementById("userList");
 
-const viewer =
-  document.getElementById("viewer");
+const postViewer =
+  document.getElementById("postViewer");
 
-const viewerScroll =
-  document.getElementById("viewerScroll");
+const postViewerTitle =
+  document.getElementById("postViewerTitle");
 
-const viewerAuthorAvatar =
-  document.getElementById("viewerAuthorAvatar");
+const postViewerMore =
+  document.getElementById("postViewerMore");
 
-const viewerAuthorName =
-  document.getElementById("viewerAuthorName");
+const postAuthorAvatar =
+  document.getElementById("postAuthorAvatar");
 
-const viewerActions =
-  document.getElementById("viewerActions");
+const postAuthorName =
+  document.getElementById("postAuthorName");
+
+const postTime =
+  document.getElementById("postTime");
+
+const postMedia =
+  document.getElementById("postMedia");
+
+const postCaption =
+  document.getElementById("postCaption");
+
+const postLikeButton =
+  document.getElementById("postLikeButton");
+
+const postLikeIcon =
+  document.getElementById("postLikeIcon");
+
+const postLikeActionCount =
+  document.getElementById("postLikeActionCount");
+
+const postCommentActionCount =
+  document.getElementById("postCommentActionCount");
+
+const postShareActionCount =
+  document.getElementById("postShareActionCount");
+
+const postLikeCount =
+  document.getElementById("postLikeCount");
+
+const postCommentCount =
+  document.getElementById("postCommentCount");
+
+const postShareCount =
+  document.getElementById("postShareCount");
+
+const postCommentButton =
+  document.getElementById("postCommentButton");
+
+const postShareButton =
+  document.getElementById("postShareButton");
+
+const viewerPostMenu =
+  document.getElementById("viewerPostMenu");
 
 const commentBackdrop =
   document.getElementById("commentBackdrop");
@@ -1516,7 +1664,7 @@ let profileUserId = null;
 
 let profilePosts = [];
 
-let activeViewerPost = null;
+let activePost = null;
 let activeCommentPostId = null;
 let activeReplyId = null;
 
@@ -1569,9 +1717,6 @@ auth.onAuthStateChanged(
       showProfileError();
 
     }
-
-    loading.style.display =
-      "none";
 
   }
 );
@@ -1724,12 +1869,6 @@ async function refreshRelationshipData(){
       error
     );
 
-    followersCount.textContent =
-      "0";
-
-    followingCount.textContent =
-      "0";
-
   }
 
 }
@@ -1778,7 +1917,7 @@ function displayProfile(
 
 }
 
-/* ================= LOAD MEDIA POSTS ================= */
+/* ================= LOAD POSTS ================= */
 
 async function loadPosts(){
 
@@ -1786,17 +1925,11 @@ async function loadPosts(){
 
     <div class="empty">
 
-      <div class="empty-icon">
-        ◌
-      </div>
+      <div class="empty-icon">◌</div>
 
-      <h3>
-        Loading posts...
-      </h3>
+      <h3>Loading posts...</h3>
 
-      <p>
-        Please wait a moment.
-      </p>
+      <p>Please wait a moment.</p>
 
     </div>
 
@@ -1883,17 +2016,11 @@ async function loadPosts(){
 
         <div class="empty">
 
-          <div class="empty-icon">
-            ✦
-          </div>
+          <div class="empty-icon">✦</div>
 
-          <h3>
-            No posts yet
-          </h3>
+          <h3>No posts yet</h3>
 
-          <p>
-            Photos and reels will appear here.
-          </p>
+          <p>Photos and reels will appear here.</p>
 
         </div>
 
@@ -1925,17 +2052,11 @@ async function loadPosts(){
 
       <div class="empty">
 
-        <div class="empty-icon">
-          !
-        </div>
+        <div class="empty-icon">!</div>
 
-        <h3>
-          Couldn't load posts
-        </h3>
+        <h3>Couldn't load posts</h3>
 
-        <p>
-          Please refresh the page.
-        </p>
+        <p>Please refresh the page.</p>
 
       </div>
 
@@ -2012,264 +2133,13 @@ function renderMediaTile(
     "click",
     () => {
 
-      openViewer(index);
+      openPostViewer(post);
 
     }
   );
 
-  postsContainer.appendChild(tile);
-
-}
-
-/* ================= IMAGEKIT UPLOAD ================= */
-
-function uploadProfilePhoto(
-  file,
-  onProgress
-){
-
-  return new Promise(
-    async (resolve,reject) => {
-
-      try{
-
-        if(!file){
-
-          resolve(null);
-          return;
-
-        }
-
-        if(
-          !file.type.startsWith("image/")
-        ){
-
-          reject(
-            new Error(
-              "Please select an image file."
-            )
-          );
-
-          return;
-
-        }
-
-        const maxSize =
-          25 * 1024 * 1024;
-
-        if(file.size > maxSize){
-
-          reject(
-            new Error(
-              "Profile photo must be 25MB or smaller."
-            )
-          );
-
-          return;
-
-        }
-
-        const authResponse =
-          await fetch(
-            IMAGEKIT_AUTH_URL,
-            {
-              method:"GET"
-            }
-          );
-
-        if(!authResponse.ok){
-
-          const text =
-            await authResponse.text();
-
-          reject(
-            new Error(
-              "ImageKit authentication failed: " +
-              text
-            )
-          );
-
-          return;
-
-        }
-
-        const authData =
-          await authResponse.json();
-
-        const safeName =
-          file.name.replace(
-            /[^a-zA-Z0-9._-]/g,
-            "_"
-          );
-
-        const formData =
-          new FormData();
-
-        formData.append(
-          "file",
-          file
-        );
-
-        formData.append(
-          "fileName",
-          Date.now() +
-          "_" +
-          safeName
-        );
-
-        formData.append(
-          "publicKey",
-          IMAGEKIT_PUBLIC_KEY
-        );
-
-        formData.append(
-          "signature",
-          authData.signature
-        );
-
-        formData.append(
-          "expire",
-          String(authData.expire)
-        );
-
-        formData.append(
-          "token",
-          authData.token
-        );
-
-        formData.append(
-          "useUniqueFileName",
-          "true"
-        );
-
-        formData.append(
-          "folder",
-          "profile/" +
-          currentUser.uid
-        );
-
-        const xhr =
-          new XMLHttpRequest();
-
-        xhr.open(
-          "POST",
-          IMAGEKIT_UPLOAD_URL
-        );
-
-        xhr.upload.onprogress =
-          event => {
-
-            if(
-              event.lengthComputable
-            ){
-
-              const percent =
-                Math.round(
-                  (
-                    event.loaded /
-                    event.total
-                  ) * 100
-                );
-
-              if(onProgress){
-
-                onProgress(
-                  percent
-                );
-
-              }
-
-            }
-
-          };
-
-        xhr.onload =
-          () => {
-
-            if(
-              xhr.status < 200 ||
-              xhr.status >= 300
-            ){
-
-              reject(
-                new Error(
-                  "ImageKit upload failed: " +
-                  xhr.responseText
-                )
-              );
-
-              return;
-
-            }
-
-            try{
-
-              const result =
-                JSON.parse(
-                  xhr.responseText
-                );
-
-              if(!result.url){
-
-                reject(
-                  new Error(
-                    "ImageKit did not return a photo URL."
-                  )
-                );
-
-                return;
-
-              }
-
-              resolve(
-                result.url
-              );
-
-            }catch(error){
-
-              reject(
-                new Error(
-                  "Invalid ImageKit response."
-                )
-              );
-
-            }
-
-          };
-
-        xhr.onerror =
-          () => {
-
-            reject(
-              new Error(
-                "Network error while uploading photo."
-              )
-            );
-
-          };
-
-        xhr.onabort =
-          () => {
-
-            reject(
-              new Error(
-                "Photo upload was cancelled."
-              )
-            );
-
-          };
-
-        xhr.send(
-          formData
-        );
-
-      }catch(error){
-
-        reject(error);
-
-      }
-
-    }
+  postsContainer.appendChild(
+    tile
   );
 
 }
@@ -2324,596 +2194,18 @@ async function getLikeState(
     );
 
     return {
-
       count:0,
       liked:false
-
     };
 
   }
 
 }
 
-/* ================= TOGGLE LIKE ================= */
-
-async function togglePostLike(
-  postId,
-  button,
-  icon,
-  countElement
-){
-
-  if(!currentUser){
-    return;
-  }
-
-  button.disabled =
-    true;
-
-  const likeRef =
-    db
-      .collection("posts")
-      .doc(postId)
-      .collection("likes")
-      .doc(currentUser.uid);
-
-  try{
-
-    const snap =
-      await likeRef.get();
-
-    if(snap.exists){
-
-      await likeRef.delete();
-
-      icon.textContent =
-        "♡";
-
-      button.classList.remove(
-        "liked"
-      );
-
-      countElement.textContent =
-        Math.max(
-          0,
-          Number(
-            countElement.textContent
-          ) - 1
-        );
-
-    }else{
-
-      await likeRef.set({
-
-        userId:
-          currentUser.uid,
-
-        createdAt:
-          firebase.firestore
-            .FieldValue
-            .serverTimestamp()
-
-      });
-
-      icon.textContent =
-        "♥";
-
-      button.classList.add(
-        "liked"
-      );
-
-      countElement.textContent =
-        Number(
-          countElement.textContent
-        ) + 1;
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "LIKE ERROR:",
-      error
-    );
-
-  }
-
-  button.disabled =
-    false;
-
-}
-
-/* ================= OPEN VIEWER ================= */
-
-function openViewer(
-  index
-){
-
-  if(
-    !profilePosts.length
-  ){
-
-    return;
-
-  }
-
-  viewerScroll.innerHTML =
-    "";
-
-  profilePosts.forEach(
-    post => {
-
-      const item =
-        document.createElement(
-          "div"
-        );
-
-      item.className =
-        "viewer-item";
-
-      const mediaUrl =
-        post.mediaUrl ||
-        post.mediaURL ||
-        post.imageUrl ||
-        post.videoUrl ||
-        "";
-
-      const mediaType =
-        String(
-          post.mediaType ||
-          post.type ||
-          post.postType ||
-          ""
-        ).toLowerCase();
-
-      const isReel =
-        mediaType === "reel" ||
-        mediaType === "video" ||
-        post.postType === "reel";
-
-      if(isReel){
-
-        item.innerHTML = `
-
-          <video
-            src="${escapeAttribute(mediaUrl)}"
-            controls
-            playsinline
-            preload="metadata">
-          </video>
-
-        `;
-
-      }else{
-
-        item.innerHTML = `
-
-          <img
-            src="${escapeAttribute(mediaUrl)}"
-            alt="">
-
-        `;
-
-      }
-
-      /*
-       * TITLE IS INTENTIONALLY NOT SHOWN.
-       * Only caption/text/hashtags are displayed.
-       */
-
-      const captionParts = [];
-
-      if(
-        post.caption &&
-        String(post.caption).trim()
-      ){
-
-        captionParts.push(
-          String(post.caption).trim()
-        );
-
-      }else if(
-        post.text &&
-        String(post.text).trim()
-      ){
-
-        captionParts.push(
-          String(post.text).trim()
-        );
-
-      }
-
-      if(
-        post.hashtags &&
-        String(post.hashtags).trim()
-      ){
-
-        captionParts.push(
-          String(post.hashtags).trim()
-        );
-
-      }
-
-      const caption =
-        captionParts.join(
-          "\n"
-        );
-
-      if(caption){
-
-        const captionDiv =
-          document.createElement(
-            "div"
-          );
-
-        captionDiv.className =
-          "viewer-caption";
-
-        captionDiv.textContent =
-          caption;
-
-        item.appendChild(
-          captionDiv
-        );
-
-      }
-
-      viewerScroll.appendChild(
-        item
-      );
-
-    }
-  );
-
-  activeViewerPost =
-    profilePosts[index];
-
-  updateViewerAuthor();
-
-  viewer.style.display =
-    "flex";
-
-  document.body.style.overflow =
-    "hidden";
-
-  requestAnimationFrame(
-    () => {
-
-      const target =
-        viewerScroll.children[
-          index
-        ];
-
-      if(target){
-
-        viewerScroll.scrollTop =
-          target.offsetTop;
-
-      }
-
-      updateViewerActions();
-
-    }
-  );
-
-}
-
-/* ================= VIEWER AUTHOR ================= */
-
-function updateViewerAuthor(){
-
-  const username =
-    activeViewerPost?.authorName ||
-    profileUserData?.username ||
-    "Member";
-
-  const photo =
-    profileUserData?.photoURL ||
-    profileUserData?.photoUrl ||
-    "";
-
-  viewerAuthorName.textContent =
-    username;
-
-  if(photo){
-
-    viewerAuthorAvatar.innerHTML =
-      `<img
-        src="${escapeAttribute(photo)}"
-        alt="">`;
-
-  }else{
-
-    viewerAuthorAvatar.textContent =
-      username
-        .charAt(0)
-        .toUpperCase();
-
-  }
-
-}
-
-/* ================= VIEWER ACTIONS ================= */
-
-async function updateViewerActions(){
-
-  if(!activeViewerPost){
-
-    viewerActions.innerHTML =
-      "";
-
-    return;
-
-  }
-
-  const state =
-    await getLikeState(
-      activeViewerPost.id
-    );
-
-  viewerActions.innerHTML = `
-
-    <button
-      class="viewer-action ${
-        state.liked
-          ? "liked"
-          : ""
-      }"
-      id="viewerLikeButton">
-
-      <span
-        class="viewer-action-icon viewer-like-icon">
-
-        ${
-          state.liked
-            ? "♥"
-            : "♡"
-        }
-
-      </span>
-
-      <span
-        class="viewer-action-count"
-        id="viewerLikeCount">
-
-        ${state.count}
-
-      </span>
-
-    </button>
-
-    <button
-      class="viewer-action comment-action"
-      id="viewerCommentButton">
-
-      <span
-        class="viewer-action-icon">
-
-        <svg
-          width="34"
-          height="34"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true">
-
-          <path
-            d="M20 11.5a8 8 0 0 1-8 8
-               7.9 7.9 0 0 1-3.5-.8
-               L4 20l1.3-3.7
-               A8 8 0 1 1 20 11.5Z">
-          </path>
-
-        </svg>
-
-      </span>
-
-      <span
-        class="viewer-action-count"
-        id="viewerCommentCount">
-
-        0
-
-      </span>
-
-    </button>
-
-    <button
-      class="viewer-action share-action"
-      id="viewerShareButton">
-
-      <span
-        class="viewer-action-icon">
-
-        <svg
-          width="34"
-          height="34"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true">
-
-          <path
-            d="M22 2 11 13">
-          </path>
-
-          <path
-            d="m22 2-7 20-4-9-9-4Z">
-          </path>
-
-        </svg>
-
-      </span>
-
-      <span
-        class="viewer-action-count">
-
-        Share
-
-      </span>
-
-    </button>
-
-  `;
-
-  const likeButton =
-    document.getElementById(
-      "viewerLikeButton"
-    );
-
-  const likeIcon =
-    likeButton.querySelector(
-      ".viewer-like-icon"
-    );
-
-  const likeCount =
-    document.getElementById(
-      "viewerLikeCount"
-    );
-
-  likeButton.addEventListener(
-    "click",
-    async () => {
-
-      await togglePostLike(
-        activeViewerPost.id,
-        likeButton,
-        likeIcon,
-        likeCount
-      );
-
-    }
-  );
-
-  const commentButton =
-    document.getElementById(
-      "viewerCommentButton"
-    );
-
-  const commentCount =
-    document.getElementById(
-      "viewerCommentCount"
-    );
-
-  loadViewerCommentCount(
-    activeViewerPost.id,
-    commentCount
-  );
-
-  commentButton.addEventListener(
-    "click",
-    () => {
-
-      openComments(
-        activeViewerPost.id
-      );
-
-    }
-  );
-
-  const shareButton =
-    document.getElementById(
-      "viewerShareButton"
-    );
-
-  shareButton.addEventListener(
-    "click",
-    () => {
-
-      sharePost(
-        activeViewerPost
-      );
-
-    }
-  );
-
-}
-
-/* ================= VIEWER SCROLL ================= */
-
-let viewerScrollTimer = null;
-
-viewerScroll.addEventListener(
-  "scroll",
-  () => {
-
-    if(
-      !profilePosts.length
-    ){
-
-      return;
-
-    }
-
-    clearTimeout(
-      viewerScrollTimer
-    );
-
-    viewerScrollTimer =
-      setTimeout(
-        () => {
-
-          const index =
-            Math.round(
-              viewerScroll.scrollTop /
-              viewerScroll.clientHeight
-            );
-
-          if(
-            index >= 0 &&
-            index < profilePosts.length
-          ){
-
-            activeViewerPost =
-              profilePosts[index];
-
-            updateViewerAuthor();
-
-            updateViewerActions();
-
-          }
-
-        },
-        80
-      );
-
-  }
-);
-
-/* ================= CLOSE VIEWER ================= */
-
-function closeViewer(){
-
-  viewer.style.display =
-    "none";
-
-  viewerScroll.innerHTML =
-    "";
-
-  viewerActions.innerHTML =
-    "";
-
-  activeViewerPost =
-    null;
-
-  document.body.style.overflow =
-    "";
-
-  closeComments();
-
-}
-
 /* ================= COMMENT COUNT ================= */
 
-async function loadViewerCommentCount(
-  postId,
-  element
+async function getCommentCount(
+  postId
 ){
 
   try{
@@ -2925,19 +2217,745 @@ async function loadViewerCommentCount(
         .collection("comments")
         .get();
 
-    element.textContent =
-      snapshot.size;
+    return snapshot.size;
 
   }catch(error){
 
-    element.textContent =
-      "0";
+    console.error(
+      "COMMENT COUNT ERROR:",
+      error
+    );
+
+    return 0;
 
   }
 
 }
 
-/* ================= OPEN COMMENTS ================= */
+/* ================= SHARE COUNT ================= */
+
+async function getShareCount(
+  postId
+){
+
+  try{
+
+    const snapshot =
+      await db
+        .collection("posts")
+        .doc(postId)
+        .collection("shares")
+        .get();
+
+    return snapshot.size;
+
+  }catch(error){
+
+    console.error(
+      "SHARE COUNT ERROR:",
+      error
+    );
+
+    return 0;
+
+  }
+
+}
+
+/* ================= OPEN NORMAL POST ================= */
+
+async function openPostViewer(
+  post
+){
+
+  if(!post){
+    return;
+  }
+
+  activePost =
+    post;
+
+  closeViewerPostMenu();
+
+  postViewerTitle.textContent =
+    "Post";
+
+  const username =
+    post.authorName ||
+    profileUserData?.username ||
+    "Member";
+
+  const photo =
+    post.authorPhoto ||
+    profileUserData?.photoURL ||
+    profileUserData?.photoUrl ||
+    "";
+
+  postAuthorName.textContent =
+    username;
+
+  postTime.textContent =
+    formatPostTime(
+      post.createdAt
+    );
+
+  if(photo){
+
+    postAuthorAvatar.innerHTML =
+      `<img
+        src="${escapeAttribute(photo)}"
+        alt="">`;
+
+  }else{
+
+    postAuthorAvatar.textContent =
+      username
+        .charAt(0)
+        .toUpperCase();
+
+  }
+
+  const mediaUrl =
+    post.mediaUrl ||
+    post.mediaURL ||
+    post.imageUrl ||
+    post.videoUrl ||
+    "";
+
+  const mediaType =
+    String(
+      post.mediaType ||
+      post.type ||
+      post.postType ||
+      ""
+    ).toLowerCase();
+
+  const isReel =
+    mediaType === "reel" ||
+    mediaType === "video" ||
+    post.postType === "reel";
+
+  if(isReel){
+
+    postMedia.innerHTML = `
+
+      <video
+        src="${escapeAttribute(mediaUrl)}"
+        controls
+        playsinline
+        preload="metadata">
+      </video>
+
+    `;
+
+  }else{
+
+    postMedia.innerHTML = `
+
+      <img
+        src="${escapeAttribute(mediaUrl)}"
+        alt="">
+
+    `;
+
+  }
+
+  const captionParts = [];
+
+  if(
+    post.caption &&
+    String(post.caption).trim()
+  ){
+
+    captionParts.push(
+      String(post.caption).trim()
+    );
+
+  }else if(
+    post.text &&
+    String(post.text).trim()
+  ){
+
+    captionParts.push(
+      String(post.text).trim()
+    );
+
+  }
+
+  if(
+    post.hashtags &&
+    String(post.hashtags).trim()
+  ){
+
+    captionParts.push(
+      String(post.hashtags).trim()
+    );
+
+  }
+
+  postCaption.textContent =
+    captionParts.join("\n");
+
+  postCaption.style.display =
+    captionParts.length
+      ? "block"
+      : "none";
+
+  postViewerMore.style.display =
+    post.authorId === currentUser?.uid
+      ? "block"
+      : "none";
+
+  postLikeButton.classList.remove(
+    "liked"
+  );
+
+  postLikeIcon.textContent =
+    "♡";
+
+  postLikeActionCount.textContent =
+    "0";
+
+  postCommentActionCount.textContent =
+    "0";
+
+  postShareActionCount.textContent =
+    "0";
+
+  postLikeCount.textContent =
+    "0";
+
+  postCommentCount.textContent =
+    "0";
+
+  postShareCount.textContent =
+    "0";
+
+  postViewer.style.display =
+    "block";
+
+  document.body.style.overflow =
+    "hidden";
+
+  const [
+    likeState,
+    commentCount,
+    shareCount
+  ] =
+    await Promise.all([
+      getLikeState(post.id),
+      getCommentCount(post.id),
+      getShareCount(post.id)
+    ]);
+
+  if(activePost?.id !== post.id){
+    return;
+  }
+
+  updatePostLikeUI(
+    likeState
+  );
+
+  updatePostCommentUI(
+    commentCount
+  );
+
+  updatePostShareUI(
+    shareCount
+  );
+
+}
+
+/* ================= LIKE UI ================= */
+
+function updatePostLikeUI(
+  state
+){
+
+  postLikeIcon.textContent =
+    state.liked
+      ? "♥"
+      : "♡";
+
+  postLikeButton.classList.toggle(
+    "liked",
+    state.liked
+  );
+
+  postLikeActionCount.textContent =
+    state.count;
+
+  postLikeCount.textContent =
+    state.count;
+
+}
+
+/* ================= COMMENT UI ================= */
+
+function updatePostCommentUI(
+  count
+){
+
+  postCommentActionCount.textContent =
+    count;
+
+  postCommentCount.textContent =
+    count;
+
+}
+
+/* ================= SHARE UI ================= */
+
+function updatePostShareUI(
+  count
+){
+
+  postShareActionCount.textContent =
+    count;
+
+  postShareCount.textContent =
+    count;
+
+}
+
+/* ================= TOGGLE LIKE ================= */
+
+postLikeButton.addEventListener(
+  "click",
+  async () => {
+
+    if(
+      !currentUser ||
+      !activePost
+    ){
+
+      return;
+
+    }
+
+    postLikeButton.disabled =
+      true;
+
+    const likeRef =
+      db
+        .collection("posts")
+        .doc(activePost.id)
+        .collection("likes")
+        .doc(currentUser.uid);
+
+    try{
+
+      const snap =
+        await likeRef.get();
+
+      let count =
+        Number(
+          postLikeCount.textContent
+        ) || 0;
+
+      if(snap.exists){
+
+        await likeRef.delete();
+
+        count =
+          Math.max(
+            0,
+            count - 1
+          );
+
+        updatePostLikeUI({
+
+          count:
+            count,
+
+          liked:
+            false
+
+        });
+
+      }else{
+
+        await likeRef.set({
+
+          userId:
+            currentUser.uid,
+
+          createdAt:
+            firebase.firestore
+              .FieldValue
+              .serverTimestamp()
+
+        });
+
+        count++;
+
+        updatePostLikeUI({
+
+          count:
+            count,
+
+          liked:
+            true
+
+        });
+
+      }
+
+    }catch(error){
+
+      console.error(
+        "LIKE ERROR:",
+        error
+      );
+
+    }
+
+    postLikeButton.disabled =
+      false;
+
+  }
+);
+
+/* ================= COMMENTS BUTTON ================= */
+
+postCommentButton.addEventListener(
+  "click",
+  () => {
+
+    if(activePost){
+
+      openComments(
+        activePost.id
+      );
+
+    }
+
+  }
+);
+
+/* ================= SHARE BUTTON ================= */
+
+postShareButton.addEventListener(
+  "click",
+  async () => {
+
+    if(!activePost){
+      return;
+    }
+
+    await sharePost(
+      activePost
+    );
+
+  }
+);
+
+/* ================= SHARE POST ================= */
+
+async function sharePost(
+  post
+){
+
+  const shareData = {
+
+    title:
+      "JSP TAYSU post",
+
+    text:
+      post.caption ||
+      post.text ||
+      "Check out this post on JSP TAYSU.",
+
+    url:
+      window.location.href
+
+  };
+
+  let shared =
+    false;
+
+  try{
+
+    if(navigator.share){
+
+      await navigator.share(
+        shareData
+      );
+
+      shared =
+        true;
+
+    }else{
+
+      await navigator.clipboard.writeText(
+        window.location.href
+      );
+
+      alert(
+        "Post link copied!"
+      );
+
+      shared =
+        true;
+
+    }
+
+  }catch(error){
+
+    console.log(
+      "Share cancelled."
+    );
+
+    return;
+
+  }
+
+  if(shared){
+
+    try{
+
+      await db
+        .collection("posts")
+        .doc(post.id)
+        .collection("shares")
+        .doc(currentUser.uid + "_" + Date.now())
+        .set({
+
+          userId:
+            currentUser.uid,
+
+          createdAt:
+            firebase.firestore
+              .FieldValue
+              .serverTimestamp()
+
+        });
+
+      const newCount =
+        await getShareCount(
+          post.id
+        );
+
+      if(activePost?.id === post.id){
+
+        updatePostShareUI(
+          newCount
+        );
+
+      }
+
+    }catch(error){
+
+      console.error(
+        "SHARE COUNT ERROR:",
+        error
+      );
+
+    }
+
+  }
+
+}
+
+/* ================= VIEWER MENU ================= */
+
+function toggleViewerPostMenu(){
+
+  if(
+    !activePost ||
+    activePost.authorId !==
+      currentUser?.uid
+  ){
+
+    return;
+
+  }
+
+  viewerPostMenu.style.display =
+    viewerPostMenu.style.display === "block"
+      ? "none"
+      : "block";
+
+}
+
+function closeViewerPostMenu(){
+
+  viewerPostMenu.style.display =
+    "none";
+
+}
+
+document.addEventListener(
+  "click",
+  event => {
+
+    if(
+      !event.target.closest(
+        "#postViewerMore"
+      ) &&
+      !event.target.closest(
+        "#viewerPostMenu"
+      )
+    ){
+
+      closeViewerPostMenu();
+
+    }
+
+  }
+);
+
+/* ================= DELETE POST ================= */
+
+async function deleteActivePost(){
+
+  if(
+    !currentUser ||
+    !activePost ||
+    activePost.authorId !==
+      currentUser.uid
+  ){
+
+    return;
+
+  }
+
+  closeViewerPostMenu();
+
+  const confirmed =
+    confirm(
+      "Delete this post?\n\nThis cannot be undone."
+    );
+
+  if(!confirmed){
+    return;
+  }
+
+  try{
+
+    const postId =
+      activePost.id;
+
+    const subcollections = [
+      "likes",
+      "comments",
+      "shares"
+    ];
+
+    for(
+      const collectionName
+      of subcollections
+    ){
+
+      const snapshot =
+        await db
+          .collection("posts")
+          .doc(postId)
+          .collection(collectionName)
+          .get();
+
+      if(!snapshot.empty){
+
+        let batch =
+          db.batch();
+
+        let count =
+          0;
+
+        for(
+          const doc
+          of snapshot.docs
+        ){
+
+          batch.delete(
+            doc.ref
+          );
+
+          count++;
+
+          if(count === 450){
+
+            await batch.commit();
+
+            batch =
+              db.batch();
+
+            count =
+              0;
+
+          }
+
+        }
+
+        if(count > 0){
+
+          await batch.commit();
+
+        }
+
+      }
+
+    }
+
+    await db
+      .collection("posts")
+      .doc(postId)
+      .delete();
+
+    activePost =
+      null;
+
+    postViewer.style.display =
+      "none";
+
+    document.body.style.overflow =
+      "";
+
+    await loadPosts();
+
+    alert(
+      "Post deleted successfully."
+    );
+
+  }catch(error){
+
+    console.error(
+      "DELETE POST ERROR:",
+      error
+    );
+
+    alert(
+      "Could not delete post.\n\n" +
+      error.message
+    );
+
+  }
+
+}
+
+/* ================= CLOSE POST VIEWER ================= */
+
+function closePostViewer(){
+
+  closeViewerPostMenu();
+
+  closeComments();
+
+  postMedia.innerHTML =
+    "";
+
+  activePost =
+    null;
+
+  postViewer.style.display =
+    "none";
+
+  document.body.style.overflow =
+    "";
+
+}
+
+/* ================= COMMENTS ================= */
 
 async function openComments(
   postId
@@ -2976,7 +2994,7 @@ async function openComments(
 
 }
 
-/* ================= LOAD SHEET COMMENTS ================= */
+/* ================= LOAD COMMENTS ================= */
 
 async function loadSheetComments(
   postId
@@ -3044,6 +3062,10 @@ async function loadSheetComments(
 
       `;
 
+      updatePostCommentUI(
+        0
+      );
+
       return;
 
     }
@@ -3053,8 +3075,7 @@ async function loadSheetComments(
 
         const row =
           createCommentRow(
-            comment,
-            false
+            comment
           );
 
         const childReplies =
@@ -3143,6 +3164,10 @@ async function loadSheetComments(
       }
     );
 
+    updatePostCommentUI(
+      comments.length
+    );
+
   }catch(error){
 
     console.error(
@@ -3165,8 +3190,7 @@ async function loadSheetComments(
 /* ================= COMMENT ROW ================= */
 
 function createCommentRow(
-  comment,
-  isReply
+  comment
 ){
 
   const username =
@@ -3226,9 +3250,7 @@ function createCommentRow(
       <button
         class="comment-reply"
         type="button">
-
         Reply
-
       </button>
 
     </div>
@@ -3281,9 +3303,7 @@ async function sendSheetComment(){
     sheetCommentInput.value.trim();
 
   if(!text){
-
     return;
-
   }
 
   sheetCommentSend.disabled =
@@ -3352,20 +3372,6 @@ async function sendSheetComment(){
       activeCommentPostId
     );
 
-    const countElement =
-      document.getElementById(
-        "viewerCommentCount"
-      );
-
-    if(countElement){
-
-      await loadViewerCommentCount(
-        activeCommentPostId,
-        countElement
-      );
-
-    }
-
   }catch(error){
 
     console.error(
@@ -3413,57 +3419,6 @@ function closeComments(){
 
 }
 
-/* ================= SHARE POST ================= */
-
-async function sharePost(
-  post
-){
-
-  const shareData = {
-
-    title:
-      "JSP TAYSU post",
-
-    text:
-      post.caption ||
-      post.text ||
-      "Check out this post on JSP TAYSU.",
-
-    url:
-      window.location.href
-
-  };
-
-  try{
-
-    if(navigator.share){
-
-      await navigator.share(
-        shareData
-      );
-
-    }else{
-
-      await navigator.clipboard.writeText(
-        window.location.href
-      );
-
-      alert(
-        "Post link copied!"
-      );
-
-    }
-
-  }catch(error){
-
-    console.log(
-      "Share cancelled."
-    );
-
-  }
-
-}
-
 /* ================= FOLLOWING ================= */
 
 async function isFollowing(){
@@ -3496,11 +3451,6 @@ async function isFollowing(){
 
   }catch(error){
 
-    console.error(
-      "FOLLOW STATUS ERROR:",
-      error
-    );
-
     return false;
 
   }
@@ -3525,17 +3475,13 @@ async function renderProfileButtons(){
       <button
         class="btn edit"
         onclick="openEdit()">
-
         Edit profile
-
       </button>
 
       <button
         class="btn following"
         onclick="shareProfile()">
-
         Share profile
-
       </button>
 
     `;
@@ -3599,9 +3545,7 @@ async function toggleFollow(){
     );
 
   if(!button){
-
     return;
-
   }
 
   button.disabled =
@@ -3651,11 +3595,6 @@ async function toggleFollow(){
 
   }catch(error){
 
-    console.error(
-      "FOLLOW ERROR:",
-      error
-    );
-
     alert(
       "Could not update follow status.\n\n" +
       error.message
@@ -3675,9 +3614,7 @@ async function openUserList(
 ){
 
   if(!profileUserId){
-
     return;
-
   }
 
   sheetOverlay.style.display =
@@ -3772,8 +3709,6 @@ async function openUserList(
 
     }
 
-    const users = [];
-
     const snapshots =
       await Promise.all(
         ids.map(
@@ -3784,6 +3719,8 @@ async function openUserList(
               .get()
         )
       );
+
+    const users = [];
 
     snapshots.forEach(
       (snap,index) => {
@@ -3816,18 +3753,6 @@ async function openUserList(
 
       }
     );
-
-    if(users.length === 0){
-
-      userList.innerHTML = `
-
-        <div class="sheet-empty">
-          No users found.
-        </div>
-
-      `;
-
-    }
 
   }catch(error){
 
@@ -4061,6 +3986,233 @@ editPhotoInput.addEventListener(
   }
 );
 
+/* ================= IMAGEKIT UPLOAD ================= */
+
+function uploadProfilePhoto(
+  file,
+  onProgress
+){
+
+  return new Promise(
+    async (resolve,reject) => {
+
+      try{
+
+        if(!file){
+
+          resolve(null);
+          return;
+
+        }
+
+        if(
+          !file.type.startsWith("image/")
+        ){
+
+          reject(
+            new Error(
+              "Please select an image file."
+            )
+          );
+
+          return;
+
+        }
+
+        if(
+          file.size >
+          25 * 1024 * 1024
+        ){
+
+          reject(
+            new Error(
+              "Profile photo must be 25MB or smaller."
+            )
+          );
+
+          return;
+
+        }
+
+        const authResponse =
+          await fetch(
+            IMAGEKIT_AUTH_URL
+          );
+
+        if(!authResponse.ok){
+
+          reject(
+            new Error(
+              "ImageKit authentication failed."
+            )
+          );
+
+          return;
+
+        }
+
+        const authData =
+          await authResponse.json();
+
+        const safeName =
+          file.name.replace(
+            /[^a-zA-Z0-9._-]/g,
+            "_"
+          );
+
+        const formData =
+          new FormData();
+
+        formData.append(
+          "file",
+          file
+        );
+
+        formData.append(
+          "fileName",
+          Date.now() +
+          "_" +
+          safeName
+        );
+
+        formData.append(
+          "publicKey",
+          IMAGEKIT_PUBLIC_KEY
+        );
+
+        formData.append(
+          "signature",
+          authData.signature
+        );
+
+        formData.append(
+          "expire",
+          String(authData.expire)
+        );
+
+        formData.append(
+          "token",
+          authData.token
+        );
+
+        formData.append(
+          "useUniqueFileName",
+          "true"
+        );
+
+        formData.append(
+          "folder",
+          "profile/" +
+          currentUser.uid
+        );
+
+        const xhr =
+          new XMLHttpRequest();
+
+        xhr.open(
+          "POST",
+          IMAGEKIT_UPLOAD_URL
+        );
+
+        xhr.upload.onprogress =
+          event => {
+
+            if(event.lengthComputable){
+
+              const percent =
+                Math.round(
+                  event.loaded /
+                  event.total *
+                  100
+                );
+
+              if(onProgress){
+                onProgress(percent);
+              }
+
+            }
+
+          };
+
+        xhr.onload =
+          () => {
+
+            if(
+              xhr.status < 200 ||
+              xhr.status >= 300
+            ){
+
+              reject(
+                new Error(
+                  "ImageKit upload failed."
+                )
+              );
+
+              return;
+
+            }
+
+            try{
+
+              const result =
+                JSON.parse(
+                  xhr.responseText
+                );
+
+              if(!result.url){
+
+                reject(
+                  new Error(
+                    "ImageKit did not return a photo URL."
+                  )
+                );
+
+                return;
+
+              }
+
+              resolve(
+                result.url
+              );
+
+            }catch(error){
+
+              reject(
+                new Error(
+                  "Invalid ImageKit response."
+                )
+              );
+
+            }
+
+          };
+
+        xhr.onerror =
+          () => {
+
+            reject(
+              new Error(
+                "Network error while uploading photo."
+              )
+            );
+
+          };
+
+        xhr.send(
+          formData
+        );
+
+      }catch(error){
+
+        reject(error);
+
+      }
+
+    }
+  );
+
+}
+
 /* ================= CLOSE EDIT ================= */
 
 function closeEdit(){
@@ -4078,9 +4230,7 @@ function closeEdit(){
 async function saveProfile(){
 
   if(!currentUser){
-
     return;
-
   }
 
   const username =
@@ -4120,12 +4270,6 @@ async function saveProfile(){
       dpProgressWrap.style.display =
         "block";
 
-      dpProgressBar.style.width =
-        "0%";
-
-      dpProgressText.textContent =
-        "0%";
-
       photoURL =
         await uploadProfilePhoto(
           photoFile,
@@ -4137,22 +4281,8 @@ async function saveProfile(){
             dpProgressText.textContent =
               percent + "%";
 
-            saveStatus.textContent =
-              "Uploading photo " +
-              percent +
-              "%...";
-
           }
         );
-
-      dpProgressBar.style.width =
-        "100%";
-
-      dpProgressText.textContent =
-        "100%";
-
-      saveStatus.textContent =
-        "Saving profile...";
 
     }
 
@@ -4419,17 +4549,11 @@ function showProfileNotFound(){
 
     <div class="empty">
 
-      <div class="empty-icon">
-        ◌
-      </div>
+      <div class="empty-icon">◌</div>
 
-      <h3>
-        Profile unavailable
-      </h3>
+      <h3>Profile unavailable</h3>
 
-      <p>
-        This account may have been removed.
-      </p>
+      <p>This account may have been removed.</p>
 
     </div>
 
@@ -4445,17 +4569,11 @@ function showProfileError(){
 
     <div class="empty">
 
-      <div class="empty-icon">
-        !
-      </div>
+      <div class="empty-icon">!</div>
 
-      <h3>
-        Couldn't load profile
-      </h3>
+      <h3>Couldn't load profile</h3>
 
-      <p>
-        Please refresh the page.
-      </p>
+      <p>Please refresh the page.</p>
 
     </div>
 
@@ -4470,9 +4588,7 @@ function formatPostTime(
 ){
 
   if(!timestamp){
-
     return "Just now";
-
   }
 
   const date =
@@ -4492,9 +4608,7 @@ function formatPostTime(
     );
 
   if(seconds < 60){
-
     return "Just now";
-
   }
 
   const minutes =
@@ -4503,9 +4617,7 @@ function formatPostTime(
     );
 
   if(minutes < 60){
-
     return minutes + "m";
-
   }
 
   const hours =
@@ -4514,9 +4626,7 @@ function formatPostTime(
     );
 
   if(hours < 24){
-
     return hours + "h";
-
   }
 
   const days =
@@ -4525,9 +4635,7 @@ function formatPostTime(
     );
 
   if(days < 7){
-
     return days + "d";
-
   }
 
   return date.toLocaleDateString(
