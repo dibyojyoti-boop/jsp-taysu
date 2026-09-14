@@ -4756,24 +4756,13 @@ function closeUserList(){
 /* ================= SIGN OUT ================= */
 
 async function signOut(){
-
   try{
-
-    await auth.signOut();
-
-    window.location.href =
-      "index.html";
-
+    await signOut(auth);
+    window.location.href = "index.html";
   }catch(error){
-
-    console.error(error);
-
-    alert(
-      "Sign out failed."
-    );
-
+    console.error("Sign out error:", error);
+    alert("Sign out failed. Please try again.");
   }
-
 }
 
 /* ================= BACK ================= */
