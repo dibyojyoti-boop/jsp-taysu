@@ -4757,7 +4757,7 @@ function closeUserList(){
 
 async function signOut(){
   try{
-    await signOut(auth);
+    await firebaseSignOut(auth);
     window.location.href = "index.html";
   }catch(error){
     console.error("Sign out error:", error);
