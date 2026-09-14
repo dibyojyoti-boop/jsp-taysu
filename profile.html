@@ -1066,7 +1066,7 @@ body{
 
 <div class="menu" id="topMenu">
 
-  <button class="signout" onclick="signOut()">
+  <button class="signout" onclick="signOut">
     Sign out
   </button>
 
@@ -1699,12 +1699,6 @@ function getProfileUid(){
 
 /* ================= VIDEO OPTIMIZATION ================= */
 
-/*
-  ImageKit URLs can automatically use
-  suitable format + quality + width.
-
-  Non-ImageKit URLs are returned unchanged.
-*/
 function getOptimizedVideoUrl(
   url,
   width = 720
@@ -2176,28 +2170,61 @@ function renderMediaTile(
   tile.className =
     "media-tile";
 
-  if(isReel){
+  tile.dataset.postId =
+    post.id;
 
-    const optimizedUrl =
-      getOptimizedVideoUrl(
-        mediaUrl,
-        480
-      );
+  if(isReel){
 
     tile.innerHTML = `
 
       <video
-  src="${escapeAttribute(optimizedUrl)}"
-  muted
-  playsinline
-  preload="metadata">
-</video>
+        src="${escapeAttribute(mediaUrl)}"
+        muted
+        playsinline
+        preload="metadata">
+      </video>
 
       <div class="reel-badge">
         Reel
       </div>
 
     `;
+
+    const previewVideo =
+      tile.querySelector("video");
+
+    previewVideo.addEventListener(
+      "loadedmetadata",
+      () => {
+
+        try{
+
+          if(
+            previewVideo.duration &&
+            previewVideo.duration > 0
+          ){
+
+            previewVideo.currentTime =
+              0;
+
+          }
+
+        }catch(error){}
+
+      }
+    );
+
+    previewVideo.addEventListener(
+      "error",
+      () => {
+
+        console.error(
+          "REEL THUMBNAIL LOAD ERROR:",
+          mediaUrl
+        );
+
+      }
+    );
 
   }else{
 
@@ -2358,6 +2385,29 @@ async function openPostViewer(
   activePost =
     post;
 
+  /*
+    Add a browser history entry when
+    the post viewer opens.
+
+    This makes Android/browser Back
+    return to the profile instead of
+    leaving profile.html.
+  */
+  if(
+    !window.history.state ||
+    window.history.state.viewer !== true
+  ){
+
+    window.history.pushState(
+      {
+        viewer:true
+      },
+      "",
+      window.location.href
+    );
+
+  }
+
   closeViewerPostMenu();
 
   postViewerTitle.textContent =
@@ -2420,23 +2470,65 @@ async function openPostViewer(
 
   if(isReel){
 
-    const optimizedUrl =
-      getOptimizedVideoUrl(
-        mediaUrl,
-        720
-      );
-
+    /*
+      Use the original stored media URL here.
+      This avoids a bad ImageKit transformation
+      causing a black video.
+    */
     postMedia.innerHTML = `
 
       <video
-  id="activePostVideo"
-  src="${escapeAttribute(optimizedUrl)}"
-  autoplay
-  playsinline
-  preload="auto">
-</video>
+        id="activePostVideo"
+        src="${escapeAttribute(mediaUrl)}"
+        autoplay
+        playsinline
+        preload="auto">
+      </video>
 
     `;
+
+    const activeVideo =
+      document.getElementById(
+        "activePostVideo"
+      );
+
+    if(activeVideo){
+
+      activeVideo.muted =
+        false;
+
+      activeVideo.volume =
+        1;
+
+      /*
+        Try immediately while the
+        profile-tile tap is still the
+        user's active interaction.
+      */
+      activeVideo.play().catch(
+        error => {
+
+          console.log(
+            "Video autoplay:",
+            error
+          );
+
+        }
+      );
+
+      activeVideo.addEventListener(
+        "error",
+        () => {
+
+          console.error(
+            "REEL VIDEO LOAD ERROR:",
+            mediaUrl
+          );
+
+        }
+      );
+
+    }
 
   }else{
 
@@ -2527,6 +2619,34 @@ async function openPostViewer(
 
   document.body.style.overflow =
     "hidden";
+
+  /*
+    Try play again immediately after
+    the viewer becomes visible.
+  */
+  if(isReel){
+
+    const activeVideo =
+      document.getElementById(
+        "activePostVideo"
+      );
+
+    if(activeVideo){
+
+      activeVideo.play().catch(
+        error => {
+
+          console.log(
+            "Video play attempt:",
+            error
+          );
+
+        }
+      );
+
+    }
+
+  }
 
   const [
     likeState,
@@ -2930,18 +3050,6 @@ async function deleteActivePost(){
 
   try{
 
-    /*
-      Delete ONLY the main post document.
-
-      We intentionally do NOT delete
-      likes/comments/shares first because
-      doing that can trigger permissions
-      on individual child documents.
-
-      Once the parent post is deleted,
-      the post disappears from the profile/feed.
-    */
-
     await db
       .collection("posts")
       .doc(postId)
@@ -2960,6 +3068,18 @@ async function deleteActivePost(){
 
     document.body.style.overflow =
       "";
+
+    /*
+      Remove the viewer history state
+      without sending the user away.
+    */
+    if(
+      window.history.state?.viewer === true
+    ){
+
+      history.back();
+
+    }
 
     profilePosts =
       profilePosts.filter(
@@ -3014,19 +3134,15 @@ async function deleteActivePost(){
       error
     );
 
-    /*
-      No popup here.
-      Error is logged so the console
-      can be checked if Firebase blocks it.
-    */
-
   }
 
 }
 
 /* ================= CLOSE POST VIEWER ================= */
 
-function closePostViewer(){
+function closePostViewer(
+  fromHistory = false
+){
 
   closeViewerPostMenu();
 
@@ -3057,7 +3173,42 @@ function closePostViewer(){
   document.body.style.overflow =
     "";
 
+  /*
+    If the viewer was closed using the
+    on-screen X, remove the temporary
+    history entry.
+
+    If Android/browser Back triggered
+    this function, don't call history.back()
+    again.
+  */
+  if(
+    !fromHistory &&
+    window.history.state?.viewer === true
+  ){
+
+    history.back();
+
+  }
+
 }
+
+/* ================= HANDLE BROWSER / ANDROID BACK ================= */
+
+window.addEventListener(
+  "popstate",
+  () => {
+
+    if(
+      postViewer.style.display === "block"
+    ){
+
+      closePostViewer(true);
+
+    }
+
+  }
+);
 
 /* ================= COMMENTS ================= */
 
@@ -3568,11 +3719,6 @@ async function renderProfileButtons(){
   profileButtons.innerHTML =
     "";
 
-  /*
-    OWN PROFILE
-    Edit + Share
-  */
-
   if(
     !currentUser ||
     profileUserId ===
@@ -3598,11 +3744,6 @@ async function renderProfileButtons(){
     return;
 
   }
-
-  /*
-    OTHER MEMBER PROFILE
-    Follow + Message
-  */
 
   const following =
     await isFollowing();
@@ -4639,6 +4780,24 @@ async function signOut(){
 
 function goBack(){
 
+  /*
+    If a post viewer is open,
+    always close it first.
+  */
+  if(
+    postViewer.style.display === "block"
+  ){
+
+    closePostViewer();
+
+    return;
+
+  }
+
+  /*
+    Profile page should go back to the
+    page that opened the profile.
+  */
   if(
     document.referrer &&
     document.referrer.includes(
