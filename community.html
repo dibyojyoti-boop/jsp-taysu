@@ -2277,6 +2277,11 @@ function startMessageBadgeListener(){
     });
 
     // Only show a red dot — NO unread number
+    alert(
+  "MESSAGE BADGE TEST\n\n" +
+  "Logged-in UID: " + currentUser.uid + "\n\n" +
+  "Unread found: " + (hasUnread ? "YES 🔴" : "NO")
+);
     if(hasUnread){
 
       messageBadge.style.display = "flex";
