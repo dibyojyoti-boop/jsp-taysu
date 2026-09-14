@@ -717,6 +717,12 @@ body{
 
 .post-media video{
   background:#000;
+  width:100%;
+  max-height:72vh;
+  display:block;
+  object-fit:contain;
+  outline:none;
+  border:0;
 }
 
 .post-caption{
@@ -2423,12 +2429,12 @@ async function openPostViewer(
     postMedia.innerHTML = `
 
       <video
-        src="${escapeAttribute(optimizedUrl)}"
-        controls
-        playsinline
-        preload="metadata"
-        controlsList="nodownload">
-      </video>
+  id="activePostVideo"
+  src="${escapeAttribute(optimizedUrl)}"
+  autoplay
+  playsinline
+  preload="auto">
+</video>
 
     `;
 
