@@ -1993,7 +1993,52 @@ const firebaseConfig={
 const app=initializeApp(firebaseConfig);
 const auth=getAuth(app);
 const db=getFirestore(app);
+/* ================= PUSH NOTIFICATIONS ================= */
 
+const VAPID_KEY = "BIhmXoziwH_Yk2qo6ucCiVEA8h8mgZ25Cur5TncDP1-bjwzx1EqKauN3dBhuUWYkO2k2yNwtwcYVYELe3mM4kRo";
+
+let messaging = null;
+let pushToken = null;
+
+async function setupPushNotifications(){
+
+  try{
+
+    if(!("Notification" in window)) return;
+
+    const supported = await isSupported();
+    if(!supported) return;
+
+    messaging = getMessaging(app);
+
+    const registration =
+      await navigator.serviceWorker.register(
+        "/jsp-taysu/firebase-messaging-sw.js"
+      );
+
+    const permission =
+      await Notification.requestPermission();
+
+    if(permission !== "granted") return;
+
+    pushToken = await getToken(messaging,{
+      vapidKey: VAPID_KEY,
+      serviceWorkerRegistration: registration
+    });
+
+    if(pushToken){
+      console.log("FCM token ready");
+    }
+
+    onMessage(messaging,(payload)=>{
+      console.log("Foreground push:",payload);
+    });
+
+  }catch(error){
+    console.error("Push notification setup failed:",error);
+  }
+
+}
 
 /* ================= IMAGEKIT ================= */
 
