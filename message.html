@@ -3367,36 +3367,7 @@ if(data.createdAt){
     time
   );
 
-  /*
-    Double-check status for our messages
-  */
-
-  if(mine){
-
-    const status =
-      document.createElement("div");
-
-    status.className =
-      "message-status";
-
-    status.textContent =
-      "✓✓";
-
-    if(data.seen === true){
-
-      status.classList.add(
-        "seen"
-      );
-
-    }
-
-    row.appendChild(
-      status
-    );
-
-  }
-
-} 
+  
 
   /*
     Add message
