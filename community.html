@@ -2237,21 +2237,12 @@ document
 
 function startMessageBadgeListener(){
 
-  if(!currentUser){
-    console.log("Message badge: currentUser missing");
+  if(!currentUser || !messageBadge){
     return;
   }
-
-  if(!messageBadge){
-    console.log("Message badge: element missing");
-    return;
-  }
-
-  const conversationsRef =
-    collection(db, "conversations");
 
   const q = query(
-    conversationsRef,
+    collection(db, "conversations"),
     where(
       "participants",
       "array-contains",
@@ -2259,50 +2250,43 @@ function startMessageBadgeListener(){
     )
   );
 
-  onSnapshot(
-    q,
-    snapshot => {
+  onSnapshot(q, snapshot => {
 
-      let totalUnread = 0;
+    let hasUnread = false;
 
-      snapshot.forEach(conversation => {
+    snapshot.forEach(conversation => {
 
-        const data =
-          conversation.data() || {};
+      const data = conversation.data() || {};
+      const unreadCounts = data.unreadCounts || {};
 
-        const unreadCounts =
-          data.unreadCounts || {};
+      const unread =
+        Number(unreadCounts[currentUser.uid] || 0);
 
-        const unread =
-          Number(
-            unreadCounts[currentUser.uid] || 0
-          );
+      if(unread > 0){
+        hasUnread = true;
+      }
 
-        if(unread > 0){
-          totalUnread += unread;
-        }
-      });
+    });
 
-      console.log(
-        "Message unread count:",
-        totalUnread
-      );
-
-      updateMessageBadge(totalUnread);
-
-    },
-    error => {
-
-      console.error(
-        "Message badge listener error:",
-        error
-      );
-
-      updateMessageBadge(0);
+    if(hasUnread){
+      messageBadge.style.display = "flex";
+      messageBadge.textContent = "";
+    }else{
+      messageBadge.style.display = "none";
+      messageBadge.textContent = "";
     }
-  );
-}
 
+  }, error => {
+
+    console.error(
+      "Message badge listener error:",
+      error
+    );
+
+    messageBadge.style.display = "none";
+    messageBadge.textContent = "";
+  });
+}
 function updateMessageBadge(count){
 
   if(count<=0){
