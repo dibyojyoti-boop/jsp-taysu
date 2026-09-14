@@ -2026,9 +2026,19 @@ async function setupPushNotifications(){
       serviceWorkerRegistration: registration
     });
 
-    if(pushToken){
-      console.log("FCM token ready");
-    }
+    if(pushToken && currentUser){
+
+  await setDoc(
+    doc(db,"users",currentUser.uid),
+    {
+      fcmToken: pushToken,
+      fcmTokenUpdatedAt: serverTimestamp()
+    },
+    { merge:true }
+  );
+
+  console.log("FCM token saved for:",currentUser.uid);
+}
 
     onMessage(messaging,(payload)=>{
       console.log("Foreground push:",payload);
