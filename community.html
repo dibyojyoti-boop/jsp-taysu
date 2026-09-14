@@ -2128,7 +2128,9 @@ const alertBadge=
 onAuthStateChanged(auth,async user=>{
 
   currentUser=user;
-
+if(user){
+  setupPushNotifications();
+}
   if(!user){
 
     profileName.textContent="Please sign in";
