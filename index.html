@@ -667,15 +667,22 @@ onAuthStateChanged(
 
     if(!user){
 
-      googleLogin.style.display =
-        "inline-block";
+  document.body.style.visibility = "visible";
 
-      membershipForm.style.display =
-        "none";
+  googleLogin.style.display =
+    "inline-block";
 
-      return;
+  membershipForm.style.display =
+    "none";
 
-    }
+  return;
+
+}
+
+window.location.href =
+  "community.html";
+
+return;
 
 window.location.href = "community.html";
 return;
