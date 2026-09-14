@@ -172,6 +172,12 @@ body{
   border:1px solid #30343e;
 }
 
+.message-btn{
+  background:#1b1e26;
+  color:#fff;
+  border:1px solid #30343e;
+}
+
 /* ================= POSTS HEADER ================= */
 
 .post-header{
@@ -707,6 +713,10 @@ body{
   max-height:72vh;
   display:block;
   object-fit:contain;
+}
+
+.post-media video{
+  background:#000;
 }
 
 .post-caption{
@@ -1681,6 +1691,67 @@ function getProfileUid(){
 
 }
 
+/* ================= VIDEO OPTIMIZATION ================= */
+
+/*
+  ImageKit URLs can automatically use
+  suitable format + quality + width.
+
+  Non-ImageKit URLs are returned unchanged.
+*/
+function getOptimizedVideoUrl(
+  url,
+  width = 720
+){
+
+  if(!url){
+    return "";
+  }
+
+  try{
+
+    const parsed =
+      new URL(url);
+
+    const host =
+      parsed.hostname.toLowerCase();
+
+    if(
+      !host.includes("imagekit.io")
+    ){
+
+      return url;
+
+    }
+
+    const transformation =
+      `tr:w-${width},q-auto,f-auto`;
+
+    if(
+      parsed.pathname.includes(
+        "/tr:"
+      )
+    ){
+
+      return url;
+
+    }
+
+    parsed.pathname =
+      "/tr:" +
+      transformation +
+      parsed.pathname;
+
+    return parsed.toString();
+
+  }catch(error){
+
+    return url;
+
+  }
+
+}
+
 /* ================= AUTH ================= */
 
 auth.onAuthStateChanged(
@@ -2101,13 +2172,19 @@ function renderMediaTile(
 
   if(isReel){
 
+    const optimizedUrl =
+      getOptimizedVideoUrl(
+        mediaUrl,
+        480
+      );
+
     tile.innerHTML = `
 
       <video
-        src="${escapeAttribute(mediaUrl)}"
+        src="${escapeAttribute(optimizedUrl)}"
         muted
         playsinline
-        preload="metadata">
+        preload="none">
       </video>
 
       <div class="reel-badge">
@@ -2337,13 +2414,20 @@ async function openPostViewer(
 
   if(isReel){
 
+    const optimizedUrl =
+      getOptimizedVideoUrl(
+        mediaUrl,
+        720
+      );
+
     postMedia.innerHTML = `
 
       <video
-        src="${escapeAttribute(mediaUrl)}"
+        src="${escapeAttribute(optimizedUrl)}"
         controls
         playsinline
-        preload="metadata">
+        preload="metadata"
+        controlsList="nodownload">
       </video>
 
     `;
@@ -2354,7 +2438,8 @@ async function openPostViewer(
 
       <img
         src="${escapeAttribute(mediaUrl)}"
-        alt="">
+        alt=""
+        loading="eager">
 
     `;
 
@@ -2656,6 +2741,19 @@ async function sharePost(
   post
 ){
 
+  const shareUrl =
+    window.location.origin +
+    window.location.pathname +
+    "?uid=" +
+    encodeURIComponent(
+      post.authorId ||
+      profileUserId
+    ) +
+    "&post=" +
+    encodeURIComponent(
+      post.id
+    );
+
   const shareData = {
 
     title:
@@ -2667,7 +2765,7 @@ async function sharePost(
       "Check out this post on JSP TAYSU.",
 
     url:
-      window.location.href
+      shareUrl
 
   };
 
@@ -2688,7 +2786,7 @@ async function sharePost(
     }else{
 
       await navigator.clipboard.writeText(
-        window.location.href
+        shareUrl
       );
 
       alert(
@@ -2718,8 +2816,7 @@ async function sharePost(
         .collection("posts")
         .doc(post.id)
         .collection("shares")
-        .doc(currentUser.uid + "_" + Date.now())
-        .set({
+        .add({
 
           userId:
             currentUser.uid,
@@ -2822,80 +2919,22 @@ async function deleteActivePost(){
 
   closeViewerPostMenu();
 
-  const confirmed =
-    confirm(
-      "Delete this post?\n\nThis cannot be undone."
-    );
-
-  if(!confirmed){
-    return;
-  }
+  const postId =
+    activePost.id;
 
   try{
 
-    const postId =
-      activePost.id;
+    /*
+      Delete ONLY the main post document.
 
-    const subcollections = [
-      "likes",
-      "comments",
-      "shares"
-    ];
+      We intentionally do NOT delete
+      likes/comments/shares first because
+      doing that can trigger permissions
+      on individual child documents.
 
-    for(
-      const collectionName
-      of subcollections
-    ){
-
-      const snapshot =
-        await db
-          .collection("posts")
-          .doc(postId)
-          .collection(collectionName)
-          .get();
-
-      if(!snapshot.empty){
-
-        let batch =
-          db.batch();
-
-        let count =
-          0;
-
-        for(
-          const doc
-          of snapshot.docs
-        ){
-
-          batch.delete(
-            doc.ref
-          );
-
-          count++;
-
-          if(count === 450){
-
-            await batch.commit();
-
-            batch =
-              db.batch();
-
-            count =
-              0;
-
-          }
-
-        }
-
-        if(count > 0){
-
-          await batch.commit();
-
-        }
-
-      }
-
-    }
+      Once the parent post is deleted,
+      the post disappears from the profile/feed.
+    */
 
     await db
       .collection("posts")
@@ -2905,17 +2944,62 @@ async function deleteActivePost(){
     activePost =
       null;
 
+    closeComments();
+
+    postMedia.innerHTML =
+      "";
+
     postViewer.style.display =
       "none";
 
     document.body.style.overflow =
       "";
 
-    await loadPosts();
+    profilePosts =
+      profilePosts.filter(
+        post =>
+          post.id !== postId
+      );
 
-    alert(
-      "Post deleted successfully."
-    );
+    postCount.textContent =
+      profilePosts.length;
+
+    const tile =
+      Array.from(
+        postsContainer.children
+      ).find(
+        tile =>
+          tile.dataset.postId ===
+          postId
+      );
+
+    if(tile){
+      tile.remove();
+    }else{
+
+      await loadPosts();
+
+    }
+
+    if(
+      profilePosts.length === 0
+    ){
+
+      postsContainer.innerHTML = `
+
+        <div class="empty">
+
+          <div class="empty-icon">✦</div>
+
+          <h3>No posts yet</h3>
+
+          <p>Photos and reels will appear here.</p>
+
+        </div>
+
+      `;
+
+    }
 
   }catch(error){
 
@@ -2924,10 +3008,11 @@ async function deleteActivePost(){
       error
     );
 
-    alert(
-      "Could not delete post.\n\n" +
-      error.message
-    );
+    /*
+      No popup here.
+      Error is logged so the console
+      can be checked if Firebase blocks it.
+    */
 
   }
 
@@ -2940,6 +3025,19 @@ function closePostViewer(){
   closeViewerPostMenu();
 
   closeComments();
+
+  const video =
+    postMedia.querySelector(
+      "video"
+    );
+
+  if(video){
+
+    try{
+      video.pause();
+    }catch(error){}
+
+  }
 
   postMedia.innerHTML =
     "";
@@ -3464,6 +3562,11 @@ async function renderProfileButtons(){
   profileButtons.innerHTML =
     "";
 
+  /*
+    OWN PROFILE
+    Edit + Share
+  */
+
   if(
     !currentUser ||
     profileUserId ===
@@ -3490,6 +3593,11 @@ async function renderProfileButtons(){
 
   }
 
+  /*
+    OTHER MEMBER PROFILE
+    Follow + Message
+  */
+
   const following =
     await isFollowing();
 
@@ -3513,14 +3621,37 @@ async function renderProfileButtons(){
     </button>
 
     <button
-      class="btn following"
-      onclick="shareProfile()">
+      class="btn message-btn"
+      onclick="openMessage()">
 
-      Share profile
+      Message
 
     </button>
 
   `;
+
+}
+
+/* ================= OPEN MESSAGE ================= */
+
+function openMessage(){
+
+  if(
+    !currentUser ||
+    !profileUserId ||
+    profileUserId ===
+      currentUser.uid
+  ){
+
+    return;
+
+  }
+
+  window.location.href =
+    "message.html?uid=" +
+    encodeURIComponent(
+      profileUserId
+    );
 
 }
 
