@@ -6585,38 +6585,56 @@ async function createNotification(
               "started following you.";
           }
 
-          await fetch(
-            "https://jsp-taysu.vercel.app/api/send-push",
-            {
-              method:"POST",
+          const pushResponse = await fetch(
+  "https://jsp-taysu.vercel.app/api/send-push",
+  {
+    method:"POST",
 
-              headers:{
-                "Content-Type":
-                  "application/json"
-              },
+    headers:{
+      "Content-Type":"application/json"
+    },
 
-              body:JSON.stringify({
+    body:JSON.stringify({
 
-                token:fcmToken,
+      token:fcmToken,
 
-                title:
-                  data.senderName||
-                  "Member",
+      title:
+        data.senderName ||
+        "Member",
 
-                body:pushBody,
+      body:pushBody,
 
-                icon:
-                  "https://dibyojyoti-boop.github.io/jsp-taysu/favicon.ico",
+      icon:
+        "https://dibyojyoti-boop.github.io/jsp-taysu/favicon.ico",
 
-                url:
-                  "https://dibyojyoti-boop.github.io/jsp-taysu/community.html",
+      url:
+        "https://dibyojyoti-boop.github.io/jsp-taysu/community.html",
 
-                tag:
-                  "jsp-taysu-notification"
+      tag:
+        "jsp-taysu-notification"
 
-              })
-            }
-          );
+    })
+  }
+);
+
+const pushResult =
+  await pushResponse.json();
+
+if(!pushResponse.ok){
+
+  console.error(
+    "Push failed:",
+    pushResult
+  );
+
+}else{
+
+  console.log(
+    "Push sent successfully:",
+    pushResult
+  );
+
+}
 
         }
 
