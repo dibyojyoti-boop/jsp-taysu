@@ -45,15 +45,13 @@ export default async function handler(req, res) {
     const message = {
   token,
 
-  notification: {
-  title: title || "JSP TAYSU",
-  body: body || "",
-  image: icon || ""
-},
+  
 
   data: {
     title: title || "JSP TAYSU",
     body: body || "",
+    senderName: title || "Member",
+senderPhotoURL: icon || "",
     icon: icon || "https://dibyojyoti-boop.github.io/jsp-taysu/favicon.ico",
     url: url || "https://dibyojyoti-boop.github.io/jsp-taysu/community.html",
     tag: tag || "jsp-taysu-notification"
