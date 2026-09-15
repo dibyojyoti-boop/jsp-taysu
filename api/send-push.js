@@ -59,10 +59,13 @@ export default async function handler(req, res) {
   },
 
   webpush: {
-    fcmOptions: {
-      link: url || "https://dibyojyoti-boop.github.io/jsp-taysu/community.html"
-    }
+  headers: {
+    Urgency: "high"
+  },
+  fcmOptions: {
+    link: url || "https://dibyojyoti-boop.github.io/jsp-taysu/community.html"
   }
+}
 };
 
     const response = await admin.messaging().send(message);
