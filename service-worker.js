@@ -1,4 +1,4 @@
-const CACHE_NAME = "jasingpha-v1";
+const CACHE_NAME = "taysu-v1";
 
 self.addEventListener("install", event => {
   self.skipWaiting();
