@@ -23,8 +23,7 @@ jobs:
         run: |
           mkdir twa-project
           cd twa-project
-          bubblewrap init --manifest https://dibyojyoti-boop.github.io/jsp-taysu/manifest.json
-
+          yes n | bubblewrap init --manifest https://dibyojyoti-boop.github.io/jsp-taysu/manifest.json
       - name: Build TWA
         working-directory: twa-project
         run: bubblewrap build
