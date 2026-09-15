@@ -5162,8 +5162,8 @@ function scrollMessages(){
     () => {
 
       messages.scrollTop =
-        messages.scrollHeight;
-
+  messages.scrollHeight -
+  messages.clientHeight;
     }
   );
 
