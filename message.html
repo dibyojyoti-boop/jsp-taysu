@@ -4563,7 +4563,19 @@ async function sendTextMessage(
     await messageRef.set(
       messageData
     );
-
+await createMessageNotification({
+  recipientId: receiverUid,
+  senderId: user.uid,
+  senderName:
+    user.displayName ||
+    activeChatUser?.name ||
+    "Member",
+  senderPhotoURL:
+    user.photoURL ||
+    "",
+  type: "message",
+  messageText: text
+});
   }catch(error){
 
     console.error(
