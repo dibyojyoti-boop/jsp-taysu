@@ -16,9 +16,10 @@ messaging.onBackgroundMessage((payload) => {
   const data = payload.data || {};
   
   const title = data.title || "JSP TAYSU";
+  const senderPhoto = data.senderPhotoURL || data.icon || "/jsp-taysu/favicon.ico";
   const options = {
     body: data.body || "",
-    icon: data.icon || "/jsp-taysu/favicon.ico",
+    icon: senderPhoto,
     data: {
       url: data.url || "/jsp-taysu/community.html"
     },
