@@ -1,14 +1,14 @@
 {
-  "name": "Jasingpha",
-  "short_name": "Jasingpha",
+  "name": "TAYSU",
+  "short_name": "TAYSU",
   "id": "./",
-  "description": "Tai Ahom Social Community",
+  "description": "Tai Ahom Youth & Students Union",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f7f3ea",
-  "theme_color": "#d9a441",
+  "background_color": "#0b0b0b",
+  "theme_color": "#151515",
   "icons": [
     {
       "src": "jasingpha-icon.png",
