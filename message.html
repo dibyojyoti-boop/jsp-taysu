@@ -1412,7 +1412,118 @@ if(!firebase.apps.length){
 
 const auth = firebase.auth();
 const db = firebase.firestore();
+async function createMessageNotification(data){
+  try{
 
+    if(
+      !data?.recipientId ||
+      !data?.senderId
+    ){
+      return;
+    }
+
+    await db
+      .collection("notifications")
+      .add({
+        recipientId:
+          data.recipientId,
+
+        senderId:
+          data.senderId,
+
+        senderName:
+          data.senderName ||
+          "Member",
+
+        senderPhotoURL:
+          data.senderPhotoURL ||
+          "",
+
+        type:
+          "message",
+
+        messageText:
+          data.messageText ||
+          "",
+
+        createdAt:
+          firebase.firestore.FieldValue
+            .serverTimestamp(),
+
+        read:false
+      });
+
+    const recipientSnap =
+      await db
+        .collection("users")
+        .doc(data.recipientId)
+        .get();
+
+    if(!recipientSnap.exists){
+      return;
+    }
+
+    const recipientData =
+      recipientSnap.data() || {};
+
+    const fcmToken =
+      recipientData.fcmToken;
+
+    if(!fcmToken){
+      return;
+    }
+
+    const pushResponse =
+      await fetch(
+        "https://jsp-taysu.vercel.app/api/send-push",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:JSON.stringify({
+            token:fcmToken,
+
+            title:
+              data.senderName ||
+              "Member",
+
+            body:
+              data.messageText ||
+              "sent you a message.",
+
+            icon:
+              data.senderPhotoURL ||
+              "https://dibyojyoti-boop.github.io/jsp-taysu/favicon.ico",
+
+            url:
+              "https://dibyojyoti-boop.github.io/jsp-taysu/message.html",
+
+            tag:
+              "jsp-taysu-message"
+          })
+        }
+      );
+
+    if(!pushResponse.ok){
+      console.error(
+        "Message push failed:",
+        await pushResponse.text()
+      );
+    }
+
+  }catch(error){
+
+    console.error(
+      "Message notification error:",
+      error
+    );
+
+  }
+}
 
 /* =========================================================
    IMAGEKIT
