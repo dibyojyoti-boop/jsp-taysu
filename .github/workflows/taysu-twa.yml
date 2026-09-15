@@ -1,0 +1,42 @@
+name: Build TAYSU TWA
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Bubblewrap
+        run: npm install -g @bubblewrap/cli
+
+      - name: Generate TWA project
+        run: |
+          mkdir twa-project
+          cd twa-project
+          bubblewrap init --manifest https://dibyojyoti-boop.github.io/jsp-taysu/manifest.json
+
+      - name: Build TWA
+        working-directory: twa-project
+        run: bubblewrap build
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: TAYSU-TWA-APK
+          path: twa-project/app-release-signed.apk
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: TAYSU-TWA-AAB
+          path: twa-project/app-release-bundle.aab
