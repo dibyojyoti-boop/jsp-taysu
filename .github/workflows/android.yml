@@ -7,10 +7,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: android-app
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,14 +16,21 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install dependencies
+      - name: Install Android app dependencies
+        working-directory: android-app
         run: npm install
 
+      - name: Install Capacitor CLI
+        working-directory: android-app
+        run: npm install --save-dev @capacitor/cli@7.4.3
+
       - name: Create Android project
-        run: ./node_modules/.bin/cap add android
+        working-directory: android-app
+        run: npx --yes cap add android
 
       - name: Sync Capacitor
-        run: ./node_modules/.bin/cap sync android
+        working-directory: android-app
+        run: npx --yes cap sync android
 
       - name: Build APK
         working-directory: android-app/android
