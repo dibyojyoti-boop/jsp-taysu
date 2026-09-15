@@ -6851,59 +6851,66 @@ alertList.innerHTML="";
       let message="";
 
       if(
-        notification.type==="like"
-      ){
+  notification.type==="like"
+){
+  message=`
+    <b>${safeSenderName}</b>
+    liked your post.
+  `;
+}
+else if(
+  notification.type==="comment"
+){
+  if(notification.commentText){
+    const comment=
+      escapeHTML(
+        String(
+          notification.commentText
+        ).slice(0,90)
+      );
 
-        message=`
-          <b>${safeSenderName}</b>
-          liked your post.
-        `;
+    message=`
+      <b>${safeSenderName}</b>
+      commented:
+      <span>"${comment}"</span>
+    `;
+  }else{
+    message=`
+      <b>${safeSenderName}</b>
+      commented on your post.
+    `;
+  }
+}
+else if(
+  notification.type==="follow"
+){
+  message=`
+    <b>${safeSenderName}</b>
+    started following you.
+  `;
+}
+else if(
+  notification.type==="message"
+){
+  const messageText=
+    escapeHTML(
+      String(
+        notification.messageText ||
+        ""
+      ).slice(0,90)
+    );
 
-      }else if(
-        notification.type==="comment"
-      ){
-
-        if(notification.commentText){
-
-          const comment=
-            escapeHTML(
-              String(
-                notification.commentText
-              ).slice(0,90)
-            );
-
-          message=`
-            <b>${safeSenderName}</b>
-            commented:
-            <span>"${comment}"</span>
-          `;
-
-        }else{
-
-          message=`
-            <b>${safeSenderName}</b>
-            commented on your post.
-          `;
-
-        }
-
-      }else if(
-        notification.type==="follow"
-      ){
-
-        message=`
-          <b>${safeSenderName}</b>
-          started following you.
-        `;
-
-      }else{
-
-        message=`
-          <b>${safeSenderName}</b>
-          sent you a notification.
-        `;
-
-      }
+  message=`
+    <b>${safeSenderName}</b>
+    — ${messageText}
+  `;
+}
+else{
+  message=`
+    <b>${safeSenderName}</b>
+    sent you a notification.
+  `;
+}
 
 
       /* ================= RELATED POST ================= */
