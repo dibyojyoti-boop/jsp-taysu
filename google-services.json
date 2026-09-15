@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "280992025632",
+    "project_id": "jsp-taysu",
+    "storage_bucket": "jsp-taysu.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280992025632:android:bf4e32267a173c41a78045",
+        "android_client_info": {
+          "package_name": "com.jsptaysu.taysu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "280992025632-qrsogrit854h51nbq4453f3h64h8ja5c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGMtx8Q4Bf5pa3qthT_XO8kkFMZ5E5Ql4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "280992025632-qrsogrit854h51nbq4453f3h64h8ja5c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
