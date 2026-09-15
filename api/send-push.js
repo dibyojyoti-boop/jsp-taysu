@@ -46,9 +46,10 @@ export default async function handler(req, res) {
   token,
 
   notification: {
-    title: title || "JSP TAYSU",
-    body: body || ""
-  },
+  title: title || "JSP TAYSU",
+  body: body || "",
+  image: icon || ""
+},
 
   data: {
     title: title || "JSP TAYSU",
