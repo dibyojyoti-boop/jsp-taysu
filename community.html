@@ -6586,7 +6586,12 @@ senderPhotoURL:
             pushBody =
               "started following you.";
           }
-
+else if(data.type==="message"){
+  pushBody =
+    data.messageText
+      ? String(data.messageText).slice(0,90)
+      : "sent you a message.";
+}
           const pushResponse = await fetch(
   "https://jsp-taysu.vercel.app/api/send-push",
   {
