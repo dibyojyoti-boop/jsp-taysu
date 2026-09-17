@@ -2145,14 +2145,10 @@ if(user){
   let username=user.displayName||"Member";
   let photoURL=user.photoURL||"";
 
-  const profilePromise =
-    getDoc(doc(db,"users",user.uid));
-
-  const postsPromise = loadPosts();
-
   try{
 
-    const snap = await profilePromise;
+    const snap=
+      await getDoc(doc(db,"users",user.uid));
 
     if(snap.exists()){
 
@@ -2181,7 +2177,7 @@ profileName.textContent=username;
 startMessageBadgeListener();
 startAlertBadgeListener();
 
-await postsPromise;
+await loadPosts();
   
 });
 
@@ -3112,16 +3108,9 @@ async function renderFilteredPosts(searchText){
 
   }
 
-  const renderedPosts =
-    await Promise.all(
-      filtered.map(post =>
-        renderPost(post,postsContainer)
-      )
-    );
-
-  renderedPosts.forEach(element=>{
-    if(element) postsContainer.appendChild(element);
-  });
+  for(const post of filtered){
+    await renderPost(post,postsContainer);
+  }
 
   startFeedVideoObserver();
 
@@ -3377,7 +3366,7 @@ async function renderPost(post,container){
   `;
 
 
-  return postElement;
+  container.appendChild(postElement);
 
 
   /* PROFILE */
@@ -6787,12 +6776,9 @@ alertList.innerHTML="";
         notification.senderName||
         "Member";
 
-      let senderPhoto=
-        notification.senderPhotoURL||
-        notification.senderPhoto||
-        "";
+      let senderPhoto="";
 
-      if(notification.senderId && !senderPhoto){
+      if(notification.senderId){
 
         try{
 
