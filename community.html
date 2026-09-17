@@ -1424,6 +1424,52 @@ button{cursor:pointer}
 }
 
 /* ---------- EMPTY ---------- */
+  .taysu-categories{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  padding:14px 4px 18px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+
+.taysu-categories::-webkit-scrollbar{
+  display:none;
+}
+
+.taysu-category{
+  flex:0 0 auto;
+  width:72px;
+  text-align:center;
+  cursor:pointer;
+}
+
+.taysu-category-icon{
+  width:58px;
+  height:58px;
+  margin:0 auto 7px;
+  border:1px solid #555;
+  border-radius:50%;
+  background:#111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.taysu-category-icon svg{
+  width:27px;
+  height:27px;
+  stroke:#fff;
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.taysu-category-name{
+  font-size:11px;
+  line-height:14px;
+  color:#ddd;
+}
 .empty{
   text-align:center;
   padding:48px 20px;
