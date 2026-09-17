@@ -835,7 +835,58 @@ button{cursor:pointer}
   font-size:11px;
   line-height:1.5;
 }
+/* ---------- NOTIFICATION SKELETON ---------- */
 
+.notification-skeleton{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+
+.notification-skeleton-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:13px 10px;
+}
+
+.ns-avatar,
+.ns-line{
+  background:linear-gradient(
+    90deg,
+    #1b1f24 25%,
+    #292e35 50%,
+    #1b1f24 75%
+  );
+  background-size:200% 100%;
+  animation:skeletonMove 1.35s ease-in-out infinite;
+}
+
+.ns-avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  flex-shrink:0;
+}
+
+.ns-lines{
+  flex:1;
+}
+
+.ns-line{
+  height:9px;
+  border-radius:6px;
+}
+
+.ns-line-main{
+  width:75%;
+  margin-bottom:8px;
+}
+
+.ns-line-small{
+  width:42%;
+  height:7px;
+}
 /* ---------- BOTTOM NAV ---------- */
 .bottom-nav{
   position:fixed;
@@ -1820,7 +1871,45 @@ button{cursor:pointer}
     </div>
   </div>
 
-  <div id="alertList" class="alert-list"></div>
+  <div id="alertList" class="alert-list">
+
+  <div class="notification-skeleton">
+
+    <div class="notification-skeleton-item">
+      <div class="ns-avatar"></div>
+      <div class="ns-lines">
+        <div class="ns-line ns-line-main"></div>
+        <div class="ns-line ns-line-small"></div>
+      </div>
+    </div>
+
+    <div class="notification-skeleton-item">
+      <div class="ns-avatar"></div>
+      <div class="ns-lines">
+        <div class="ns-line ns-line-main"></div>
+        <div class="ns-line ns-line-small"></div>
+      </div>
+    </div>
+
+    <div class="notification-skeleton-item">
+      <div class="ns-avatar"></div>
+      <div class="ns-lines">
+        <div class="ns-line ns-line-main"></div>
+        <div class="ns-line ns-line-small"></div>
+      </div>
+    </div>
+
+    <div class="notification-skeleton-item">
+      <div class="ns-avatar"></div>
+      <div class="ns-lines">
+        <div class="ns-line ns-line-main"></div>
+        <div class="ns-line ns-line-small"></div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
 
 </section>
 
