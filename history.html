@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0b0b0b">
+
+<title>History • JSP TAYSU</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:#0b0b0b;
+  color:#eee;
+  line-height:1.75;
+}
+
+.page{
+  max-width:850px;
+  margin:auto;
+  padding:18px 18px 60px;
+}
+
+/* ---------- TOP BAR ---------- */
+
+.topbar{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:28px;
+}
+
+.back-btn{
+  width:42px;
+  height:42px;
+  border:1px solid #333;
+  border-radius:50%;
+  background:#111;
+  color:#fff;
+  font-size:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+
+.top-title{
+  font-size:15px;
+  font-weight:600;
+  color:#ddd;
+}
+
+/* ---------- HERO ---------- */
+
+.hero{
+  text-align:center;
+  margin-bottom:38px;
+}
+
+.hero-image{
+  width:190px;
+  height:190px;
+  object-fit:cover;
+  border-radius:50%;
+  display:block;
+  margin:0 auto 22px;
+  border:2px solid #4b3920;
+  box-shadow:0 8px 35px rgba(0,0,0,.55);
+}
+
+.hero-label{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:3px;
+  color:#a99a7b;
+  margin-bottom:8px;
+}
+
+.hero h1{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:30px;
+  line-height:1.25;
+  color:#f5f5f5;
+  margin-bottom:12px;
+}
+
+.hero-line{
+  width:55px;
+  height:1px;
+  background:#77613a;
+  margin:18px auto;
+}
+
+.hero-subtitle{
+  font-size:14px;
+  color:#aaa;
+  max-width:620px;
+  margin:auto;
+}
+
+/* ---------- BOOK CONTENT ---------- */
+
+.chapter{
+  margin-bottom:42px;
+}
+
+.chapter h2{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:23px;
+  color:#eee;
+  margin-bottom:15px;
+  line-height:1.35;
+}
+
+.chapter h2::after{
+  content:"";
+  display:block;
+  width:38px;
+  height:1px;
+  background:#6f5935;
+  margin-top:9px;
+}
+
+.chapter p{
+  font-size:15px;
+  color:#c9c9c9;
+  margin-bottom:16px;
+}
+
+.chapter strong{
+  color:#eee;
+  font-weight:600;
+}
+
+/* ---------- QUOTE ---------- */
+
+.history-quote{
+  margin:34px 0 42px;
+  padding:22px 20px;
+  border-left:2px solid #725d38;
+  background:#101010;
+  border-radius:0 10px 10px 0;
+}
+
+.history-quote p{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:19px;
+  font-style:italic;
+  color:#e7e2d8;
+  line-height:1.6;
+  margin:0;
+}
+
+/* ---------- FOOTER ---------- */
+
+.footer{
+  text-align:center;
+  padding-top:18px;
+  border-top:1px solid #222;
+  color:#777;
+  font-size:12px;
+}
+
+.footer-title{
+  font-family:Georgia,"Times New Roman",serif;
+  color:#aaa;
+  font-size:14px;
+  margin-bottom:5px;
+}
+
+/* ---------- MOBILE ---------- */
+
+@media(max-width:600px){
+
+  .page{
+    padding:15px 16px 50px;
+  }
+
+  .hero-image{
+    width:155px;
+    height:155px;
+  }
+
+  .hero h1{
+    font-size:26px;
+  }
+
+  .chapter h2{
+    font-size:21px;
+  }
+
+  .chapter p{
+    font-size:14.5px;
+    line-height:1.75;
+  }
+
+  .history-quote p{
+    font-size:17px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+  <!-- ---------- TOP BAR ---------- -->
+
+  <div class="topbar">
+    <button class="back-btn" onclick="history.back()">‹</button>
+    <div class="top-title">JSP TAYSU • History</div>
+  </div>
+
+
+  <!-- ---------- HERO ---------- -->
+
+  <div class="hero">
+
+    <img
+      src="sukaphaa.jpg"
+      alt="Chao-lung Sukaphaa"
+      class="hero-image"
+    >
+
+    <div class="hero-label">History of the Ahoms</div>
+
+    <h1>The Journey of Chaolung Sukaphaa</h1>
+
+    <div class="hero-line"></div>
+
+    <p class="hero-subtitle">
+      From a Tai prince's journey across the hills to the beginning of a kingdom that endured for nearly six centuries.
+    </p>
+
+  </div>
+
+
+  <!-- ---------- CHAPTER 1 ---------- -->
+
+  <section class="chapter">
+
+    <h2>The Journey of Chaolung Sukaphaa</h2>
+
+    <p>
+      In the early 13th century, <strong>Mong Mao</strong> was a small Tai kingdom in the region of present-day Yunnan and Myanmar. From this land began a journey that would eventually shape the history of Assam.
+    </p>
+
+    <p>
+      In <strong>1228</strong>, the Tai prince <strong>Chao-lung Sukaphaa</strong> began his journey with around <strong>9,000 followers</strong>, mostly men. Crossing the hills, they entered the Brahmaputra valley and began searching for a place where they could build a new home and establish a kingdom.
+    </p>
+
+    <p>
+      But Sukaphaa's journey was not simply a story of conquest. When he encountered the <strong>Morans and Borahis</strong>, he chose friendship and cooperation rather than attacking them. Over time, many of his followers married into these communities, creating connections between the newcomers and the people who already lived in the valley.
+    </p>
+
+    <p>
+      After years of moving from place to place, Sukaphaa finally established his capital at <strong>Charaideu in 1253</strong>. From there began the difficult task of building a state.
+    </p>
+
+  </section>
+
+
+  <!-- ---------- CHAPTER 2 ---------- -->
+
+  <section class="chapter">
+
+    <h2>Six Centuries of the Ahom Kingdom</h2>
+
+    <p>
+      What began as the journey of a Tai prince and his followers grew into a kingdom that endured for approximately <strong>600 years</strong>.
+    </p>
+
+    <p>
+      The Ahom kingdom gradually consolidated its power and expanded its territory. Under <strong>King Suhungmung</strong>, the kingdom's first major expansion came through the partial annexation of the <strong>Sutiya kingdom in 1524</strong>.
+    </p>
+
+    <p>
+      The Ahom state continued to expand and came into contact with different peoples and kingdoms of the region. In <strong>1536</strong>, the Dimasa Kacharis, known to the Ahoms as <em>Timisa</em>, were displaced from their capital at Dimapur. By the middle of the 16th century, the Ahoms controlled much of present-day eastern Assam.
+    </p>
+
+    <p>
+      The late 17th century brought another important phase of expansion. The <strong>Battle of Itakhuli in 1682</strong> marked the end of the Ahom-Mughal conflicts, after which much of <strong>Koch Hajo</strong> came under Ahom control.
+    </p>
+
+    <p>
+      Through centuries of state-building, warfare, diplomacy and interaction with different communities, the Ahom kingdom became a major political power in the region. They are widely described as important architects in the formation of what became modern Assam.
+    </p>
+
+  </section>
+
+
+  <!-- ---------- CHAPTER 3 ---------- -->
+
+  <section class="chapter">
+
+    <h2>A Changing Kingdom</h2>
+
+    <p>
+      Over the centuries, the Ahom kingdom and its society underwent significant changes. Ahom rulers and sections of the population became increasingly influenced by Indian traditions.
+    </p>
+
+    <p>
+      <strong>King Suhungmung adopted the Hindu name “Swarga Narayan,”</strong> and later Ahom kings were known as <em>Swargadeo</em> in Assamese and were coronated through the <em>Singarigharutha</em> ceremony.
+    </p>
+
+    <p>
+      At the same time, the Ahom language and identity gradually changed, with <strong>Assamese becoming increasingly prominent</strong> in place of the traditional Tai-Ahom language.
+    </p>
+
+    <p>
+      These changes became part of the long and complex history of the Ahom people.
+    </p>
+
+  </section>
+
+
+  <!-- ---------- CHAPTER 4 ---------- -->
+
+  <section class="chapter">
+
+    <h2>The Decline of Ahom Rule</h2>
+
+    <p>
+      By the latter half of the <strong>18th century</strong>, Ahom power began to decline. The kingdom faced internal upheaval, including the <strong>Moamoria rebellion</strong>, during which the capital was temporarily taken.
+    </p>
+
+    <p>
+      In the early 19th century, Burmese forces invaded the Ahom kingdom, uprooted its capital and installed a puppet Ahom king.
+    </p>
+
+    <p>
+      The Burmese were subsequently defeated by the British in the <strong>First Anglo-Burmese War</strong>. The <strong>Treaty of Yandaboo in 1826</strong> paved the way for the end of Ahom political rule.
+    </p>
+
+    <p>
+      After this, Assam came under British India, and the Ahom kingdom ceased to exist as an independent ruling power.
+    </p>
+
+  </section>
+
+
+  <!-- ---------- CHAPTER 5 ---------- -->
+
+  <section class="chapter">
+
+    <h2>A Heritage That Remains</h2>
+
+    <p>
+      The end of Ahom rule did not mean the end of the Ahom people.
+    </p>
+
+    <p>
+      Across the centuries, their history, traditions and identity continued to remain part of Assam's story. In more recent times, efforts have also been made to <strong>revive the Tai-Ahom language and cultural traditions</strong>.
+    </p>
+
+    <p>
+      From the journey of Sukaphaa in <strong>1228</strong>, to the establishment of Charaideu in <strong>1253</strong>, through nearly six centuries of Ahom rule, and beyond the fall of the kingdom—the story of the Ahoms remains a story of <strong>journey, state-building, adaptation and heritage</strong>.
+    </p>
+
+  </section>
+
+
+  <!-- ---------- CLOSING ---------- -->
+
+  <div class="history-quote">
+    <p>
+      “The kingdom ended, but the memory of its people continues.”
+    </p>
+  </div>
+
+
+  <!-- ---------- FOOTER ---------- -->
+
+  <div class="footer">
+    <div class="footer-title">JSP TAYSU</div>
+    Tai Ahom Youth &amp; Students Union
+  </div>
+
+</div>
+
+</body>
+</html>
