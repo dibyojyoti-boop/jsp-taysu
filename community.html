@@ -1458,6 +1458,64 @@ button{cursor:pointer}
   .viewer-action svg{width:25px;height:25px}
   .bottom-nav{height:68px}
 }
+
+
+/* ===== FEED POLISH v1 ===== */
+.post{
+  position:relative;
+  transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+.post:active{transform:scale(.995)}
+.post-header{position:relative}
+.post-header:after{
+  content:"";
+  position:absolute;
+  left:13px;right:13px;bottom:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.055),transparent);
+}
+.post-media,.post-video{
+  transition:filter .18s ease, transform .18s ease;
+}
+.post-media:active,.post-video:active{filter:brightness(.82)}
+.post-actions{position:relative}
+.action{transition:background .16s ease,color .16s ease,transform .12s ease}
+.action:active{transform:scale(.9)}
+.action.liked svg{animation:feedLikePop .24s ease}
+@keyframes feedLikePop{
+  0%{transform:scale(1)}
+  55%{transform:scale(1.3)}
+  100%{transform:scale(1)}
+}
+.feed-heart-burst{
+  position:absolute;
+  left:50%;top:50%;
+  transform:translate(-50%,-50%) scale(.45);
+  color:#fff;
+  font-size:82px;
+  line-height:1;
+  pointer-events:none;
+  z-index:5;
+  opacity:0;
+  text-shadow:0 4px 22px rgba(0,0,0,.5);
+}
+.feed-heart-burst.show{animation:feedHeartBurst .7s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes feedHeartBurst{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.35)}
+  18%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}
+  42%{opacity:1;transform:translate(-50%,-50%) scale(.94)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1.28)}
+}
+.post-media-wrap{position:relative;overflow:hidden;background:#08090b}
+.post-media-wrap .post-media,.post-media-wrap .post-video{margin:0}
+.post-caption{word-break:break-word}
+@media(max-width:500px){
+  .post{margin-bottom:11px}
+  .post-header{padding-top:12px;padding-bottom:9px}
+  .post-actions{padding-top:9px;padding-bottom:10px}
+  .action{min-height:34px;padding:7px 8px}
+}
+
 </style>
 </head>
 
@@ -3117,6 +3175,71 @@ async function renderFilteredPosts(searchText){
 }
 
 
+
+
+/* ===== FEED POLISH: MEDIA DOUBLE-TAP ===== */
+function setupFeedDoubleTap(postElement,mediaElement){
+  if(!mediaElement)return;
+
+  const oldParent=mediaElement.parentElement;
+  if(!oldParent)return;
+
+  if(!oldParent.classList.contains("post-media-wrap")){
+    const wrap=document.createElement("div");
+    wrap.className="post-media-wrap";
+    oldParent.insertBefore(wrap,mediaElement);
+    wrap.appendChild(mediaElement);
+  }
+
+  const wrap=mediaElement.parentElement;
+  let heartTimer=null;
+
+  function showHeart(){
+    let heart=wrap.querySelector(".feed-heart-burst");
+    if(!heart){
+      heart=document.createElement("div");
+      heart.className="feed-heart-burst";
+      heart.textContent="♥";
+      wrap.appendChild(heart);
+    }
+    heart.classList.remove("show");
+    void heart.offsetWidth;
+    heart.classList.add("show");
+    clearTimeout(heartTimer);
+    heartTimer=setTimeout(()=>heart.classList.remove("show"),720);
+  }
+
+  let lastTap=0;
+
+  mediaElement.addEventListener("touchend",event=>{
+    const now=Date.now();
+    if(now-lastTap<320){
+      event.preventDefault();
+      event.stopPropagation();
+      lastTap=0;
+      if(!currentUser)return;
+      showHeart();
+      const likeButton=postElement.querySelector(".like-button");
+      if(likeButton && !likeButton.classList.contains("liked")){
+        likeButton.click();
+      }
+    }else{
+      lastTap=now;
+    }
+  },{passive:false});
+
+  mediaElement.addEventListener("dblclick",event=>{
+    event.preventDefault();
+    event.stopPropagation();
+    if(!currentUser)return;
+    showHeart();
+    const likeButton=postElement.querySelector(".like-button");
+    if(likeButton && !likeButton.classList.contains("liked")){
+      likeButton.click();
+    }
+  });
+}
+
 /* ================= RENDER POST ================= */
 
 async function renderPost(post,container){
@@ -3368,6 +3491,12 @@ async function renderPost(post,container){
 
   container.appendChild(postElement);
 
+  /* FEED DOUBLE-TAP */
+  postElement
+    .querySelectorAll("[data-open-post]")
+    .forEach(mediaElement=>{
+      setupFeedDoubleTap(postElement,mediaElement);
+    });
 
   /* PROFILE */
 
