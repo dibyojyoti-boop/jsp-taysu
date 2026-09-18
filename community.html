@@ -2587,67 +2587,80 @@ async function loadPosts(){
 
   try{
 
-    const snapshot=
-      await getDocs(collection(db,"posts"));
+    const postsQuery = query(
+      collection(db, "posts"),
+      orderBy("createdAt", "desc"),
+      limit(20)
+    );
 
-    allPosts=[];
+    const snapshot =
+      await getDocs(postsQuery);
 
-    snapshot.forEach(postDoc=>{
+    allPosts = [];
+
+    snapshot.forEach(postDoc => {
+
       allPosts.push({
-        id:postDoc.id,
+        id: postDoc.id,
         ...postDoc.data()
       });
+
     });
 
-    allPosts.sort((a,b)=>
-      (b.createdAt?.seconds||0)-
-      (a.createdAt?.seconds||0)
+    renderFilteredPosts(
+      feedSearchInput.value
     );
 
-    renderFilteredPosts(feedSearchInput.value);
     renderExploreGrid();
-const urlParams =
-  new URLSearchParams(
-    window.location.search
-  );
 
-const sharedPostId =
-  urlParams.get("post");
-
-if(sharedPostId){
-
-  const sharedPost =
-    allPosts.find(
-      post => post.id === sharedPostId
-    );
-
-  if(sharedPost){
-
-    setTimeout(()=>{
-
-      openMediaViewer(
-        sharedPost.id,
-        allPosts.filter(post=>{
-          return Boolean(
-            getMedia(post).url
-          );
-        })
+    const urlParams =
+      new URLSearchParams(
+        window.location.search
       );
 
-    },300);
+    const sharedPostId =
+      urlParams.get("post");
 
-  }
+    if(sharedPostId){
 
-}
+      const sharedPost =
+        allPosts.find(
+          post => post.id === sharedPostId
+        );
+
+      if(sharedPost){
+
+        setTimeout(() => {
+
+          openMediaViewer(
+            sharedPost.id,
+            allPosts.filter(post => {
+
+              return Boolean(
+                getMedia(post).url
+              );
+
+            })
+          );
+
+        }, 300);
+
+      }
+
+    }
+
     if(currentUser){
       loadRecents();
     }
 
   }catch(error){
 
-    console.error("Load posts error:",error);
+    console.error(
+      "Load posts error:",
+      error
+    );
 
-    postsContainer.innerHTML=`
+    postsContainer.innerHTML = `
       <div class="empty">
         <h3>Couldn't load posts</h3>
         <p>Please refresh the page.</p>
@@ -2657,7 +2670,6 @@ if(sharedPostId){
   }
 
 }
-
 
 /* ================= MEDIA HELPERS ================= */
 function getOptimizedVideoURL(url){
