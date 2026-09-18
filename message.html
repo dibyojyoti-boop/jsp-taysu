@@ -539,6 +539,12 @@ button{
   background:#17191e;
   cursor:pointer;
 }
+  .message-audio{
+  width:220px;
+  max-width:100%;
+  height:42px;
+  display:block;
+}
 .shared-post-card{
   position:relative;
   width:200px;
@@ -3476,7 +3482,30 @@ function renderMessage(
     );
 
   }
+  else if(
+    data.type === "audio" &&
+    data.audioUrl
+  ){
 
+    const audio =
+      document.createElement("audio");
+
+    audio.className =
+      "message-audio";
+
+    audio.controls = true;
+
+    audio.preload =
+      "metadata";
+
+    audio.src =
+      data.audioUrl;
+
+    content.appendChild(
+      audio
+    );
+
+  }
   else{
 
     const bubble =
