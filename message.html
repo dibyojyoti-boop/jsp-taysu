@@ -4626,7 +4626,99 @@ await createMessageNotification({
 
 }
 
+/* =========================================================
+   VOICE RECORDING
+========================================================= */
 
+let mediaRecorder = null;
+let audioChunks = [];
+let isRecording = false;
+
+voiceButton.addEventListener("click", async () => {
+
+  if(!getCurrentUser() || !activeChatUser){
+    showToast("Open a chat first.");
+    return;
+  }
+
+  if(!isRecording){
+
+    try{
+
+      const stream =
+        await navigator.mediaDevices.getUserMedia({
+          audio:true
+        });
+
+      audioChunks = [];
+
+      mediaRecorder =
+        new MediaRecorder(stream);
+
+      mediaRecorder.ondataavailable = event => {
+
+        if(event.data.size > 0){
+          audioChunks.push(event.data);
+        }
+
+      };
+
+      mediaRecorder.onstop = async () => {
+
+        stream.getTracks().forEach(
+          track => track.stop()
+        );
+
+        const audioBlob =
+          new Blob(
+            audioChunks,
+            {type:"audio/webm"}
+          );
+
+        audioChunks = [];
+
+        await sendVoiceMessage(
+          audioBlob
+        );
+
+      };
+
+      mediaRecorder.start();
+
+      isRecording = true;
+
+      voiceButton.classList.add(
+        "recording"
+      );
+
+      showToast("Recording... Tap mic to send.");
+
+    }catch(error){
+
+      console.error(
+        "VOICE RECORD ERROR:",
+        error
+      );
+
+      showToast(
+        "Microphone permission is required."
+      );
+
+    }
+
+  }else{
+
+    mediaRecorder.stop();
+
+    isRecording = false;
+
+    voiceButton.classList.remove(
+      "recording"
+    );
+
+  }
+
+});
 /* =========================================================
    MEDIA SELECT
 ========================================================= */
