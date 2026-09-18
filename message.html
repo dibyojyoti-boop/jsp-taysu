@@ -1993,8 +1993,12 @@ async function loadConversations(){
 
   }
 
+  if(!conversationList.children.length){
+
   conversationList.innerHTML =
     `<div class="loading">Loading messages...</div>`;
+
+}
 
   conversationUnsubscribe =
     db.collection("conversations")
