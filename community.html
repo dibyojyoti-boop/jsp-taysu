@@ -2680,38 +2680,37 @@ feedSearchInput.addEventListener("input",()=>{
 
 async function loadPosts(){
 
+  // 🔄 Show skeleton immediately
+  postsContainer.innerHTML = createPostSkeletons(10);
+
   try{
 
-    const postsQuery = query(
-      collection(db, "posts"),
-      orderBy("createdAt", "desc"),
-      limit(20)
-    );
-
     const snapshot =
-      await getDocs(postsQuery);
+      await getDocs(collection(db,"posts"));
 
     allPosts = [];
 
-    snapshot.forEach(postDoc => {
-
+    snapshot.forEach(postDoc=>{
       allPosts.push({
-        id: postDoc.id,
+        id:postDoc.id,
         ...postDoc.data()
       });
-
     });
 
-    renderFilteredPosts(
-      feedSearchInput.value
+    allPosts.sort((a,b)=>
+      (b.createdAt?.seconds||0)-
+      (a.createdAt?.seconds||0)
     );
+
+    // Skeleton will be removed by this
+    // when actual posts start rendering
+    await renderFilteredPosts(feedSearchInput.value);
 
     renderExploreGrid();
 
+    // ⬇️ Iske baad tera existing shared-post code
     const urlParams =
-      new URLSearchParams(
-        window.location.search
-      );
+      new URLSearchParams(window.location.search);
 
     const sharedPostId =
       urlParams.get("post");
@@ -2719,29 +2718,22 @@ async function loadPosts(){
     if(sharedPostId){
 
       const sharedPost =
-        allPosts.find(
-          post => post.id === sharedPostId
+        allPosts.find(post =>
+          post.id === sharedPostId
         );
 
       if(sharedPost){
 
-        setTimeout(() => {
-
+        setTimeout(()=>{
           openMediaViewer(
             sharedPost.id,
-            allPosts.filter(post => {
-
-              return Boolean(
-                getMedia(post).url
-              );
-
+            allPosts.filter(post=>{
+              return Boolean(getMedia(post).url);
             })
           );
-
-        }, 300);
+        },300);
 
       }
-
     }
 
     if(currentUser){
@@ -2750,20 +2742,16 @@ async function loadPosts(){
 
   }catch(error){
 
-    console.error(
-      "Load posts error:",
-      error
-    );
+    console.error("Error loading posts:",error);
 
     postsContainer.innerHTML = `
       <div class="empty">
-        <h3>Couldn't load posts</h3>
-        <p>Please refresh the page.</p>
+        <h3>Unable to load posts</h3>
+        <p>Please try again.</p>
       </div>
     `;
 
   }
-
 }
 
 /* ================= MEDIA HELPERS ================= */
