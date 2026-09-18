@@ -104,44 +104,7 @@ body{
   overflow:hidden;
 }
 
-/* Real centre fold */
 
-.book::before{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:0;
-  bottom:0;
-  width:18px;
-  transform:translateX(-50%);
-  background:
-    linear-gradient(
-      90deg,
-      rgba(55,35,16,.02),
-      rgba(70,45,20,.22),
-      rgba(35,22,10,.34),
-      rgba(70,45,20,.20),
-      rgba(255,245,220,.06)
-    );
-  z-index:10;
-  pointer-events:none;
-}
-
-/* Soft paper lighting */
-
-.book::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(
-      ellipse at center,
-      transparent 45%,
-      rgba(65,42,20,.10) 100%
-    );
-  pointer-events:none;
-  z-index:9;
-}
 
 /* =========================
    PAGE
@@ -174,41 +137,6 @@ body{
   pointer-events:auto;
 }
 
-/* =========================
-   PAGE TRANSITION
-========================= */
-
-.page.next-in{
-  animation:pageNext .55s ease forwards;
-}
-
-.page.prev-in{
-  animation:pagePrev .55s ease forwards;
-}
-
-@keyframes pageNext{
-  0%{
-    opacity:0;
-    transform:translateX(90px) rotateY(-8deg);
-  }
-
-  100%{
-    opacity:1;
-    transform:translateX(0) rotateY(0);
-  }
-}
-
-@keyframes pagePrev{
-  0%{
-    opacity:0;
-    transform:translateX(-90px) rotateY(8deg);
-  }
-
-  100%{
-    opacity:1;
-    transform:translateX(0) rotateY(0);
-  }
-}
 
 /* =========================
    CONTENT
