@@ -5118,7 +5118,84 @@ function uploadToImageKit(
 /* =========================================================
    SEND MEDIA
 ========================================================= */
+async function sendVoiceMessage(audioBlob){
 
+  const user = getCurrentUser();
+
+  if(!user || !activeChatUser) return;
+
+  try{
+
+    showToast("Sending voice message...");
+
+    const audioUrl =
+      await uploadToImageKit(
+        new File(
+          [audioBlob],
+          `voice_${Date.now()}.webm`,
+          { type:"audio/webm" }
+        )
+      );
+
+    const conversationId =
+      getConversationId(
+        user.uid,
+        activeChatUser.uid
+      );
+
+    const conversationRef =
+      db.collection("conversations")
+        .doc(conversationId);
+
+    const messageRef =
+      conversationRef
+        .collection("messages")
+        .doc();
+
+    const batch = db.batch();
+
+    batch.set(messageRef,{
+      senderId:user.uid,
+      receiverId:activeChatUser.uid,
+      type:"audio",
+      audioUrl:audioUrl,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    batch.set(
+      conversationRef,
+      {
+        lastMessage:"Voice message",
+        lastMessageType:"audio",
+        lastMessageAt:
+          firebase.firestore.FieldValue.serverTimestamp(),
+        unreadCount:
+          firebase.firestore.FieldValue.increment(1)
+      },
+      {merge:true}
+    );
+
+    await batch.commit();
+
+    await createMessageNotification(
+      activeChatUser.uid,
+      "Voice message"
+    );
+
+    showToast("Voice message sent.");
+
+  }catch(error){
+
+    console.error(
+      "VOICE SEND ERROR:",
+      error
+    );
+
+    showToast(
+      "Failed to send voice message."
+    );
+  }
+}
 async function sendMediaMessage(
   file
 ){
