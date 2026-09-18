@@ -84,26 +84,31 @@ body{
   min-height:calc(100vh - 125px);
 
   background:
-    linear-gradient(
-      90deg,
-      #d7bd8e 0%,
-      #f2dfb7 3%,
-      #f5e4c0 47%,
-      #d1b887 49.3%,
-      #9d8159 50%,
-      #d1b887 50.7%,
-      #f5e4c0 53%,
-      #f2dfb7 97%,
-      #d7bd8e 100%
-    );
-
+  radial-gradient(circle at top left, rgba(90,55,25,.20), transparent 28%),
+  radial-gradient(circle at top right, rgba(90,55,25,.20), transparent 28%),
+  radial-gradient(circle at bottom left, rgba(90,55,25,.22), transparent 30%),
+  radial-gradient(circle at bottom right, rgba(90,55,25,.22), transparent 30%),
+  #f5e4c0;
   box-shadow:
     0 32px 60px rgba(0,0,0,.7),
     0 8px 18px rgba(0,0,0,.35);
 
   overflow:hidden;
 }
-
+.book::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:9;
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 55%,
+      rgba(55,35,16,.06) 72%,
+      rgba(35,22,10,.22) 100%
+    );
+}
 
 
 /* =========================
