@@ -1993,13 +1993,12 @@ async function loadConversations(){
 
   }
 
-  if(!conversationList.children.length){
+  if(!inboxHasLoaded){
 
   conversationList.innerHTML =
     `<div class="loading">Loading messages...</div>`;
 
 }
-
   conversationUnsubscribe =
     db.collection("conversations")
       .where(
