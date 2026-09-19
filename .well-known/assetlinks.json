@@ -1,14 +1,8 @@
-[
-  {
-    "relation": [
-      "delegate_permission/common.handle_all_urls"
-    ],
-    "target": {
-      "namespace": "android_app",
-      "package_name": "com.jsptaysu.taysu",
-      "sha256_cert_fingerprints": [
-        "91:4B:18:17:E9:0B:E2:4F:55:80:E6:07:0C:06:05:39:C0:98:5F:6C:BE:3F:61:03:CA:37:23:AA:37:F7:6C:20"
-      ]
-    }
-  }
-]
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.dibyojyoti_boop.twa",
+        "sha256_cert_fingerprints": ["B7:0A:5B:94:BB:F6:16:4A:41:78:1F:16:1C:45:46:A2:CA:AF:6C:AF:CB:48:3D:DD:A3:E8:E2:09:99:CC:46:39"]
+      }
+    }]
